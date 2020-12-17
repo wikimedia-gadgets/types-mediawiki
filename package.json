@@ -1,0 +1,16 @@
+{
+  "name": "types-mediawiki",
+  "version": "0.1.0",
+  "description": "TypeScript definitions for MediaWiki JS interface",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wikimedia-gadgets/types-mediawiki.git"
+  },
+  "author": "Siddharth VP",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/wikimedia-gadgets/types-mediawiki/issues"
+  },
+  "homepage": "https://github.com/wikimedia-gadgets/types-mediawiki#readme"
+}
