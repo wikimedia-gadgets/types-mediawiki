@@ -1,14 +1,32 @@
 /**
  * Type definitions for mediawiki modules
+ *
+ * @author Siddharth VP (2020)
  */
 
 type title = string | mw.Title
 type namespaceId = number
 
+interface ApiOptions {
+	parameters?: Record<string, string>
+	ajax?: JQuery.AjaxSettings
+	useUS?: boolean
+}
+
+interface ForeignApiOptions extends ApiOptions {
+	anonymous: boolean
+}
+
+interface Hook {
+	add(...handler: ((...args: any[]) => any)[]): Hook
+	fire(data: any): Hook
+	remove(handler: ((...args: any[]) => any)): Hook
+}
+
 declare namespace mw {
 
 	class Api {
-		constructor(options?: any)
+		constructor(options?: ApiOptions)
 		abort(): void
 		get(parameters: any, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<any>
 		post(parameters: any, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<any>
@@ -18,7 +36,7 @@ declare namespace mw {
 		// index.js
 		ajax(parameters: any, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<any>
 		postWithToken(tokenType: string, params: any, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<any>
-		getToken( type: string, additionalParams?: any | string ): JQuery.Promise<string>
+		getToken(type: string, additionalParams?: any | string): JQuery.Promise<string>
 		badToken(type: string): void
 		getErrorMessage(data: any): JQuery
 
@@ -55,20 +73,134 @@ declare namespace mw {
 		}>
 
 		// parse.js
-		parse(content: string | Title, additionalParams?: any): JQuery.Promise<any>
+		parse(content: string | mw.Title, additionalParams?: any): JQuery.Promise<any>
 
 		// messages.js
 		getMessages(messages: string[], options?: any): JQuery.Promise<any>
 		loadMessages(messages: string[], options?: any): JQuery.Promise<any>
 		loadMessagesIfMissing(messages: string[], options?: any): JQuery.Promise<any>
 
-
-		// TODO
 		// category.js
-		// login.js
-		// rollback.js
-		// upload.js
+		isCategory(title: title): JQuery.Promise<boolean>
+		getCategoriesByPrefix(prefix: string): JQuery.Promise<string[]>
+		getCategories(title: title): JQuery.Promise<boolean | mw.Title[]>
 
+		// rollback.js
+		rollback(page: title, user: string, params?: any): JQuery.Promise<any>
+
+		// upload.js
+		chunkedUpload(file: File, data: any, chunkSize?: number, chunkRetries?: number): JQuery.Promise<any>
+		chunkedUploadToStash(file, data?, chunkSize?, chunkRetries?): JQuery.Promise<any>
+		upload(file: File | Blob | HTMLInputElement, data: any): JQuery.Promise<any>
+		uploadFromStash(filekey: string, data: any): JQuery.Promise<any>
+		uploadToStash(file: File | HTMLInputElement, data?: any): JQuery.Promise<any>
+
+		// login.js
+		login(username: string, password: string): JQuery.Promise<any>
+
+	}
+
+	const config: mw.Map
+
+	class ForeignApi extends Api {
+		constructor(url: string | mw.Uri, options: ForeignApiOptions)
+		getOrigin(): string | void
+	}
+
+	function hook(event: string): Hook
+
+	namespace html {
+		function escape(s: string): string
+		function element(name: string, attrs?: any, contents?: string): string
+	}
+
+	namespace language {
+		function bcp47(languageTag: string): string
+		function convertGrammar(word: string, form: string): string
+		function convertNumber(num: number, integer?: boolean): number | string
+		function convertPlural(count: number, forms: string[], explicitPluralForms?: any): string
+		function flipTransform(...Transformation: any[]): any
+		function gender(gender: string, forms: string[]): string
+		function getData(langCode: string, dataKey: string): any
+		function getDigitTransformTable(): any
+		function getFallbackLanguageChain(): string[]
+		function getFallbackLanguages(): string[]
+		function getSeparatorTransformTable(): any
+		function listToText(list: string[]): string
+		function setData(langCode: string, dataKey: string, value?): void
+	}
+
+	namespace loader {
+		function addStyleTag(text: string, nextNode?: Node): HTMLElement
+		function getModuleNames(): string[]
+		function getScript(url: string): JQuery.Promise<any>
+		function getState(module: string): string | null;
+		function load(modules: string | string[], type?: string): void;
+		function register(modules: string | string[], version?: string | number, dependencies?: string[],
+						  group?: string, source?: string, skip?: string): void
+		function state(states: any): void
+		function using(dependencies: string[] | string, ready?: (() => any), error?: (() => any)):
+			JQuery.Promise<any>;
+	}
+
+	class log {
+		static deprecate(obj: any, key: string, val: any, msg?: string, logName?: string): void
+		static error(...msg: any[]): void
+		static warn(...msg: string[]): void
+	}
+
+	class Map {
+		get(selection: string | string[], fallback?: any): any
+		set(selection: string | Record<string, any>, value?: any): boolean
+		exists(selection: string): boolean
+	}
+
+	function message(key: string, ...parameters: string[]): mw.Message
+
+	class Message {
+		constructor(map: mw.Map, key: string, parameters?: string[])
+		escaped(): string
+		exists(): boolean
+		params(parameters: string[]): mw.Message
+		parse(): string
+		parseDom(): JQuery
+		parser(): string
+		plain(): string
+		text(): string
+		toString(): string
+	}
+
+	function msg(key: string, ...parameters: string[]): string;
+
+	function notify(message: string | JQuery | HTMLElement | HTMLElement[],
+					options?: { tag?: string, type?: string, title?: string }): {
+		pause: (() => void)
+		resume: (() => void)
+		close: (() => void)
+	};
+
+	namespace notification {
+		function pause()
+		function resume()
+		function notify()
+		let defaults: {
+			autoHide: boolean
+			autoHideSeconds: 'short' | 'long'
+			tag: string | null
+			title: string | null
+			type: 'info' | 'warn' | 'error' | 'success'
+			visibleTimeout: boolean
+			id: string
+		}
+		let autoHideLimit: number
+	}
+
+	namespace storage {
+		function get(key: string): string | null | boolean
+		function getObject(key: string): any
+		function remove(key: string): boolean
+		function set(key: string, value: string): boolean
+		function setObject(key: string, value: any): boolean
 	}
 
 	class Title {
@@ -110,6 +242,47 @@ declare namespace mw {
 		toText(): string
 	}
 
+	class Uri {
+		fragment: string | undefined
+		host: string
+		password: string | undefined
+		path: string
+		port: string | undefined
+		protocol: string
+		query: any
+		user: string | undefined
+		constructor(uri: string | mw.Uri | any, options?: {
+			strictMode?: boolean
+			overrideKeys?: boolean
+			arrayParams?: boolean
+		})
+		clone(): mw.Uri
+		extend(parameters: any): mw.Uri
+		getAuthority(): string
+		getHostPort(): string
+		getQueryString(): string
+		getRelativePath(): string
+		getUserInfo(): string
+		toString(): string
+		static decode(s: string): string
+		static encode(s: string): string
+	}
+
+	namespace user {
+		const options: mw.Map
+		const tokens: mw.Map
+		function generateRandomSessionId(): string
+		function getPageviewToken(): string
+		function getId(): number
+		function getName(): string | null
+		function getRegistration(): boolean | null | Date
+		function isAnon(): boolean
+		function sessionId(): string
+		function id(): string
+		function getGroups(callback?: Function): JQuery.Promise<string[]>
+		function getRights(callback?: Function): JQuery.Promise<string[]>
+	}
+
 	namespace util {
 		const $content: JQuery;
 		function rawurlencode(str: string): string;
@@ -138,83 +311,7 @@ declare namespace mw {
 		function escapeRegExp(str: string): string;
 	}
 
-	namespace Map {
-		function get(selection: string | string[], fallback?: any): any
-		function set(selection: string | Record<string, any>, value?: any): boolean
-		function exists(selection: string): boolean
-	}
-
-	namespace user {
-		const options: typeof mw.Map
-		const tokens: typeof mw.Map
-		function generateRandomSessionId(): string
-		function getPageviewToken(): string
-		function getId(): number
-		function getName(): string | null
-		function getRegistration(): boolean | null | Date
-		function isAnon(): boolean
-		function sessionId(): string
-		function id(): string
-		function getGroups(callback?: Function): JQuery.Promise<string[]>
-		function getRights(callback?: Function): JQuery.Promise<string[]>
-	}
-
-	const config: typeof mw.Map
-
-	// Not everything is included
-	namespace loader {
-		/**
-		 * Execute a function after one or more modules are ready.
-		 *
-		 * @param dependencies
-		 * @param {Function} ready Callback to execute when all dependencies are
-		 * ready.
-		 * @param {Function} error Callback to execute if one or more dependencies
-		 * failed.
-		 */
-		function using(dependencies: string[] | string, ready?: Function, error?: Function): JQuery.Promise<any>;
-
-		/**
-		 * Load an external script or one or more modules.
-		 *
-		 * @param {string|Array} modules Either the name of a module, array of modules,
-		 *  or a URL of an external script or style
-		 * @param {string} [type='text/javascript'] MIME type to use if calling with a URL of an
-		 *  external script or style; acceptable values are "text/css" and
-		 *  "text/javascript"; if no type is provided, text/javascript is assumed.
-		 * @throws {Error} If type is invalid
-		 */
-		function load(modules: string | string[], type?: string): () => void;
-		/**
-		 * Get the loading state of the module.
-		 * On of 'registered', 'loaded', 'loading', 'ready', 'error', or 'missing'.
-		 *
-		 * @param module
-		 */
-		function getState(module: string): string | null;
-	}
-
-	/**
-	 * Loads the specified i18n message string.
-	 * Shortcut for `mw.message( key, parameters... ).text()`.
-	 *
-	 * @param messageName i18n message name
-	 */
-	function msg(messageName: string | null): string;
-
-	/**
-	 * Notification
-	 * @param {HTMLElement|HTMLElement[]|jQuery|string} message
-	 * @param {Object} [options] See mw.notification#defaults for the defaults.
-	 * @return {jQuery.Promise}
-	 */
-	function notify(message: string | JQuery | HTMLElement | HTMLElement[],
-					options?: { tag?: string, type?: string, title?: string }): JQuery.Promise<any>;
-
-	// Incomplete
-	namespace language {
-		function listToText(list: string[]): string
-	}
-
+	// types for mw.widgets are out of scope!
+	const widgets: any
 }
 

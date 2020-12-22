@@ -7,8 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/wikimedia-gadgets/types-mediawiki.git"
   },
-  "author": "Siddharth VP",
-  "license": "",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/wikimedia-gadgets/types-mediawiki/issues"
   },

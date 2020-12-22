@@ -11,6 +11,6 @@ The intention is to cover all functions in the `mw` global object, as well as th
 
 TODO:
 - [ ] Add doc comments for everything
-- [ ] Finish mw.Api
+- [x] Finish mw.Api
 - [ ] Add jQuery plugins (use [@types/jquery](https://www.npmjs.com/package/@types/jquery) as a dependency)
 - [ ] Publish on NPM.
