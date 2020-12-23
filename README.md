@@ -1,3 +1,5 @@
+[![NPM version](https://img.shields.io/npm/v/types-mediawiki.svg)](https://www.npmjs.com/package/types-mediawiki)
+![Linter](https://github.com/wikimedia-gadgets/types-mediawiki/workflows/Lint/badge.svg)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 # types-mediawiki
