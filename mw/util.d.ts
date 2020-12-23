@@ -9,7 +9,7 @@ declare global {
 
 			function escapeIdForLink(str: string): string;
 
-			function debounce(delay: number, callback: Function): (...args: any[]) => void;
+			function debounce(delay: number, callback: ((...args: any[]) => any)): (...args: any[]) => void;
 
 			function wikiUrlencode(str: string): string;
 

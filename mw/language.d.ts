@@ -1,4 +1,3 @@
-
 declare global {
 	namespace mw {
 		namespace language {
@@ -26,7 +25,7 @@ declare global {
 
 			function listToText(list: string[]): string
 
-			function setData(langCode: string, dataKey: string, value?): void
+			function setData(langCode: string, dataKey: string, value?: any): void
 		}
 	}
 }

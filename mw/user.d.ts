@@ -20,9 +20,9 @@ declare global {
 
 			function id(): string
 
-			function getGroups(callback?: Function): JQuery.Promise<string[]>
+			function getGroups(callback?: ((groups: string[]) => any)): JQuery.Promise<string[]>
 
-			function getRights(callback?: Function): JQuery.Promise<string[]>
+			function getRights(callback?: ((rights: string[]) => any)): JQuery.Promise<string[]>
 		}
 	}
 }

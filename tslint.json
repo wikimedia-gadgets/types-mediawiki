@@ -1,0 +1,9 @@
+{
+	"extends": "dtslint/dtslint.json",
+	"rules": {
+		"semicolon": false,
+		"indent": [true, "tabs"],
+		"no-unnecessary-qualifier": false,
+		"unified-signatures": false
+	}
+}

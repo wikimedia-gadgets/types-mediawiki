@@ -1,6 +1,4 @@
-
 declare global {
-
 	interface JQuery {
 		// one overload for each command
 		textSelection(command: 'getContents'): string
@@ -32,7 +30,6 @@ declare global {
 			force?: boolean
 		}): JQuery
 	}
-
 }
 
 export {}

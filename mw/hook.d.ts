@@ -1,6 +1,5 @@
-
 interface Hook {
-	add(...handler: ((...args: any[]) => any)[]): Hook
+	add(...handler: Array<((...args: any[]) => any)>): Hook
 	fire(data: any): Hook
 	remove(handler: ((...args: any[]) => any)): Hook
 }

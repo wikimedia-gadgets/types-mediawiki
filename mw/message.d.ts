@@ -24,7 +24,7 @@ declare global {
 			toString(): string
 		}
 
-		function msg(key: string, ...parameters: string[]): string;		
+		function msg(key: string, ...parameters: string[]): string;
 	}
 }
 

@@ -1,4 +1,4 @@
-import { title } from './index';
+type title = string | mw.Title
 
 declare global {
 	namespace mw {
@@ -72,3 +72,5 @@ declare global {
 		}
 	}
 }
+
+export {}

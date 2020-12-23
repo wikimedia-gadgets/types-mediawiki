@@ -8,11 +8,15 @@ declare global {
 		};
 
 		namespace notification {
-			function pause()
+			function pause(): void
 
-			function resume()
+			function resume(): void
 
-			function notify()
+			function notify(message: string, options?: typeof notification.defaults): {
+				pause: (() => void)
+				resume: (() => void)
+				close: (() => void)
+			};
 
 			let defaults: {
 				autoHide: boolean

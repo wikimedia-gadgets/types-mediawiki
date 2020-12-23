@@ -10,7 +10,16 @@ declare global {
 			query: any;
 			user: string | undefined;
 
-			constructor(uri: string | mw.Uri | any, options?: {
+			constructor(uri?: string | mw.Uri | {
+				fragment?: string;
+				host: string;
+				password?: string;
+				path: string;
+				port?: string;
+				protocol: string;
+				query?: any;
+				user?: string;
+			}, options?: {
 				strictMode?: boolean
 				overrideKeys?: boolean
 				arrayParams?: boolean

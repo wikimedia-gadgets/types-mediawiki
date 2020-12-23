@@ -11,8 +11,9 @@ declare global {
 
 			function load(modules: string | string[], type?: string): void;
 
-			function register(modules: string | string[], version?: string | number, dependencies?: string[],
-							  group?: string, source?: string, skip?: string): void
+			function register(modules: string | string[], version?: string | number,
+				dependencies?: string[], group?: string, source?: string,
+				skip?: string): void
 
 			function state(states: any): void
 

@@ -1,4 +1,4 @@
-import { title } from './index';
+type title = string | mw.Title
 
 interface ApiOptions {
 	parameters?: Record<string, string>
@@ -27,7 +27,7 @@ declare global {
 
 			postWithToken(tokenType: string, params: any, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<any>
 
-			getToken(type: string, additionalParams?: any | string): JQuery.Promise<string>
+			getToken(type: string, additionalParams?: any): JQuery.Promise<string>
 
 			badToken(type: string): void
 
@@ -43,7 +43,7 @@ declare global {
 			edit(title: title, transform: (data: {
 				timestamp: string,
 				content: string
-			}) => any | string): JQuery.Promise<any>
+			}) => any): JQuery.Promise<any>
 
 			newSection(title: title, header: string, message: string, additionalParams?: any): JQuery.Promise<any>
 
@@ -65,11 +65,11 @@ declare global {
 
 			// watch.js
 			watch(pages: title | title[]): JQuery.Promise<{
-				watch: { title: string, watched: boolean } | { title: string, watched: boolean }[]
+				watch: { title: string, watched: boolean } | Array<{ title: string, watched: boolean }>
 			}>
 
 			unwatch(pages: title | title[]): JQuery.Promise<{
-				watch: { title: string, watched: boolean } | { title: string, watched: boolean }[]
+				watch: { title: string, watched: boolean } | Array<{ title: string, watched: boolean }>
 			}>
 
 			// parse.js
@@ -95,7 +95,7 @@ declare global {
 			// upload.js
 			chunkedUpload(file: File, data: any, chunkSize?: number, chunkRetries?: number): JQuery.Promise<any>
 
-			chunkedUploadToStash(file, data?, chunkSize?, chunkRetries?): JQuery.Promise<any>
+			chunkedUploadToStash(file: File, data?: any, chunkSize?: number, chunkRetries?: number): JQuery.Promise<any>
 
 			upload(file: File | Blob | HTMLInputElement, data: any): JQuery.Promise<any>
 
@@ -105,9 +105,7 @@ declare global {
 
 			// login.js
 			login(username: string, password: string): JQuery.Promise<any>
-
 		}
-
 		class ForeignApi extends mw.Api {
 			constructor(url: string | mw.Uri, options: ForeignApiOptions)
 
@@ -115,3 +113,5 @@ declare global {
 		}
 	}
 }
+
+export {}

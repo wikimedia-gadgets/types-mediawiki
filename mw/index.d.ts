@@ -10,12 +10,9 @@ import './storage';
 import './notification';
 import './message';
 
-type title = string | mw.Title
-
 declare global {
 	namespace mw {
 		const config: mw.Map;
-
 
 		namespace html {
 			function escape(s: string): string
@@ -23,12 +20,12 @@ declare global {
 			function element(name: string, attrs?: any, contents?: string): string
 		}
 
-		class log {
-			static deprecate(obj: any, key: string, val: any, msg?: string, logName?: string): void
+		namespace log {
+			function deprecate(obj: any, key: string, val: any, msg?: string, logName?: string): void
 
-			static error(...msg: any[]): void
+			function error(...msg: any[]): void
 
-			static warn(...msg: string[]): void
+			function warn(...msg: string[]): void
 		}
 
 		class Map {
@@ -43,3 +40,5 @@ declare global {
 		const widgets: any;
 	}
 }
+
+export {}
