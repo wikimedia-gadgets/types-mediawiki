@@ -4,7 +4,7 @@
   "description": "TypeScript definitions for MediaWiki JS interface",
   "types": "index.d.ts",
   "scripts": {
-    "dtslint": "npx dtslint --localTs node_modules/typescript/lib ."
+    "lint": "npx dtslint --localTs node_modules/typescript/lib ."
   },
   "repository": {
     "type": "git",
