@@ -16,7 +16,9 @@
   },
   "homepage": "https://github.com/wikimedia-gadgets/types-mediawiki#readme",
   "dependencies": {
-    "@types/jquery": "^3.5.5",
+    "@types/jquery": "^3.5.5"
+  },
+  "devDependencies": {
     "dtslint": "^4.0.6",
     "typescript": "^4.1.3"
   }
