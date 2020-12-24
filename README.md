@@ -17,7 +17,7 @@ To use types from this package, run
 npm i types-mediawiki
 ```
 
-Edit your project's `tsconfig.json` file so that it includes
+Edit your project's `tsconfig.json` file so that `compilerOptions` includes
 
 ```
 "types": [
@@ -27,6 +27,8 @@ Edit your project's `tsconfig.json` file so that it includes
 
 You should be all set! `mw` will be available in the global scope. There is no need to put any import statements in the TypeScript source files. This package includes [@types/jquery](https://www.npmjs.com/package/@types/jquery) as a dependency, so you don't need to install that separately.
 
+**If you find any errors or have suggestions for more specific typings, please open a PR or file an issue.**
+
 ### API parameters
 
 This package also provides typings for API parameters for MediaWiki core APIs and the ones added by a number of extensions (the ones enabled on English Wikipedia). These aren't exported to the global scope, however. For usage, you need to import them. For example:
@@ -35,9 +37,7 @@ This package also provides typings for API parameters for MediaWiki core APIs an
 import type {ApiEditPageParams, ApiParseParams} from "types-mediawiki/api_params";
 ```
 
-Since it is just a type import, it doesn't generate any JavaScript. Hence, such imports can also be used in non-modular applications. 
-
-**If you find any errors or have suggestions for more specific typings, please open a PR or file an issue.**
+Since it is just a type import, it doesn't generate any JavaScript. Hence, such imports can also be used in non-modular applications.
 
 ----
 
