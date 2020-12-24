@@ -1,8 +1,14 @@
 {
 	"extends": "dtslint/dtslint.json",
+	"linterOptions": {
+		"exclude": [
+			"api_params/index.d.ts"
+		]
+	},
 	"rules": {
 		"semicolon": false,
 		"indent": [true, "tabs"],
+		"no-padding": false,
 		"no-unnecessary-qualifier": false,
 		"unified-signatures": false
 	}
