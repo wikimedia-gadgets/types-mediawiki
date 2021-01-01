@@ -1,1 +1,3 @@
+import 'jquery';
+
 import './textSelection';
