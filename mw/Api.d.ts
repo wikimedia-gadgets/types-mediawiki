@@ -17,14 +17,14 @@ type ApiResponse = Record<string, any> // it will always be a JSON object, the r
  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-property-defaultOptions
  */
 interface ApiOptions {
-    /** Default query parameters for API requests **/
+	/** Default query parameters for API requests **/
 	parameters?: Record<string, string>
-    /** Default options for jQuery#ajax **/
+	/** Default options for jQuery#ajax **/
 	ajax?: JQuery.AjaxSettings
-    /**
-     * Whether to use U+001F when joining multi-valued parameters (since 1.28).
-     * Default is true if ajax.url is not set, false otherwise for compatibility.
-     **/
+	/**
+	 * Whether to use U+001F when joining multi-valued parameters (since 1.28).
+	 * Default is true if ajax.url is not set, false otherwise for compatibility.
+	 **/
 	useUS?: boolean
 }
 interface ForeignApiOptions extends ApiOptions {
@@ -33,24 +33,24 @@ interface ForeignApiOptions extends ApiOptions {
 
 declare global {
 	namespace mw {
-        /**
-         * Constructor to create an object to interact with the API of a particular
-         * MediaWiki server. mw.Api objects represent the API of a particular MediaWiki server.
-         *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api
-         */
+		/**
+		 * Constructor to create an object to interact with the API of a particular
+		 * MediaWiki server. mw.Api objects represent the API of a particular MediaWiki server.
+		 *
+		 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api
+		 */
 		class Api {
-		    /**
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-constructor
-             */
+			/**
+			 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-constructor
+			 */
 			constructor(options?: ApiOptions)
 
 			abort(): void
 
-            /**
-             * Perform API get request
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-get
-             */
+			/**
+			 * Perform API get request
+			 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-get
+			 */
 			get(parameters: ApiParams, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<ApiResponse>
 
 			post(parameters: ApiParams, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<ApiResponse>
@@ -70,15 +70,15 @@ declare global {
 			getErrorMessage(data: ApiResponse): JQuery
 
 			// edit.js
-            /**
-             * Post to API with csrf token. If we have no token, get one and try to post. If
-             * we have a cached token try using that, and if it fails, blank out the cached
-             * token and start over.
-             *
-             * @param params API parameters
-             * @param ajaxOptions
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.edit-method-postWithEditToken
-             */
+			/**
+			 * Post to API with csrf token. If we have no token, get one and try to post. If
+			 * we have a cached token try using that, and if it fails, blank out the cached
+			 * token and start over.
+			 *
+			 * @param params API parameters
+			 * @param ajaxOptions
+			 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.edit-method-postWithEditToken
+			 */
 			postWithEditToken(params: ApiParams, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<ApiResponse>
 
 			getEditToken(): JQuery.Promise<string>
@@ -136,15 +136,15 @@ declare global {
 			getCategories(title: title): JQuery.Promise<boolean | mw.Title[]>
 
 			// rollback.js
-            /**
-             * Convenience method for `action=rollback`.
-             *
-             * @param {string|mw.Title} page
-             * @param {string} user
-             * @param {Object} [params] Additional parameters
-             *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.rollback-method-rollback
-             */
+			/**
+			 * Convenience method for `action=rollback`.
+			 *
+			 * @param {string|mw.Title} page
+			 * @param {string} user
+			 * @param {Object} [params] Additional parameters
+			 *
+			 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.rollback-method-rollback
+			 */
 			rollback(page: title, user: string, params?: ApiRollbackParams): JQuery.Promise<any>
 
 			// upload.js

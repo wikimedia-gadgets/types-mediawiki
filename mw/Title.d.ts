@@ -3,24 +3,24 @@ type title = string | mw.Title
 declare global {
 	namespace mw {
 
-        /**
-         * Parse titles into an object structure. Note that when using the constructor directly,
-         * passing invalid titles will result in an exception. Use newFromText to use the logic
-         * directly and get null for invalid titles which is easier to work with.
-         *
-         * Note that in the constructor and newFromText method, namespace is the default namespace
-         * only, and can be overridden by a namespace prefix in title. If you do not want this
-         * behavior, use makeTitle.
-         *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title
-         */
+		/**
+		 * Parse titles into an object structure. Note that when using the constructor directly,
+		 * passing invalid titles will result in an exception. Use newFromText to use the logic
+		 * directly and get null for invalid titles which is easier to work with.
+		 *
+		 * Note that in the constructor and newFromText method, namespace is the default namespace
+		 * only, and can be overridden by a namespace prefix in title. If you do not want this
+		 * behavior, use makeTitle.
+		 *
+		 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title
+		 */
 		class Title {
-            /**
-             * @param title Title of the page. If no second argument given, this will be searched for a namespace
-             * @param namespace If given, will used as default namespace for the given title. Defaults to `NS_MAIN`.
-             * @throws Error When the title is invalid.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-constructor
-             */
+			/**
+			 * @param title Title of the page. If no second argument given, this will be searched for a namespace
+			 * @param namespace If given, will used as default namespace for the given title. Defaults to `NS_MAIN`.
+			 * @throws Error When the title is invalid.
+			 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-constructor
+			 */
 			constructor(title: string, namespace?: number)
 
 			static newFromText(title: string, namespace?: number): mw.Title | null
