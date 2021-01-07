@@ -1,5 +1,8 @@
 declare global {
 	namespace mw {
+        /**
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user
+         */
 		namespace user {
 			const options: mw.Map;
 			const tokens: mw.Map;
@@ -10,6 +13,11 @@ declare global {
 
 			function getId(): number
 
+            /**
+             * Get the current user's name
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getName
+             */
 			function getName(): string | null
 
 			function getRegistration(): boolean | null | Date
@@ -20,6 +28,11 @@ declare global {
 
 			function id(): string
 
+            /**
+             * Get the current user's groups
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getGroups
+             */
 			function getGroups(callback?: ((groups: string[]) => any)): JQuery.Promise<string[]>
 
 			function getRights(callback?: ((rights: string[]) => any)): JQuery.Promise<string[]>
