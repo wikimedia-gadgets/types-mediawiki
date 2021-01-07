@@ -7,9 +7,10 @@
 	},
 	"rules": {
 		"semicolon": false,
-		"indent": [true, "tabs"],
+		"indent": [true, "spaces"],
 		"no-padding": false,
 		"no-unnecessary-qualifier": false,
-		"unified-signatures": false
+		"unified-signatures": false,
+        "no-redundant-jsdoc": false
 	}
 }
