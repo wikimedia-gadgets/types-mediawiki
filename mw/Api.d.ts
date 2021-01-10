@@ -4,7 +4,7 @@ import {
     ApiQueryAllMessagesParams,
     ApiRollbackParams,
     ApiUploadParams,
-} from "../api_params";
+} from "./api_params";
 
 type title = string | mw.Title;
 type ApiParams = Record<
