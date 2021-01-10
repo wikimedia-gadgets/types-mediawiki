@@ -1,2 +1,2 @@
-import './mw';
-import './jquery';
+import "./mw";
+import "./jquery";

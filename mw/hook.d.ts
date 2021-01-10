@@ -48,7 +48,7 @@ interface Hook {
      * @param {...Function} handler Function to bind.
      * @chainable
      */
-    add(...handler: Array<((...args: any[]) => any)>): Hook
+    add(...handler: Array<(...args: any[]) => any>): Hook;
 
     /**
      * Run a hook.
@@ -56,7 +56,7 @@ interface Hook {
      * @param {*} data
      * @chainable
      */
-    fire(data: any): Hook
+    fire(data: any): Hook;
 
     /**
      * Unregister a hook handler
@@ -64,12 +64,11 @@ interface Hook {
      * @param {...Function} handler Function to unbind.
      * @chainable
      */
-    remove(handler: ((...args: any[]) => any)): Hook
+    remove(handler: (...args: any[]) => any): Hook;
 }
 
 declare global {
     namespace mw {
-
         /**
          * Create an instance of mw.hook.
          *
@@ -77,8 +76,8 @@ declare global {
          * @member mw
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook
          */
-        function hook(event: string): Hook
+        function hook(event: string): Hook;
     }
 }
 
-export {}
+export {};
