@@ -23,7 +23,7 @@ interface ApiOptions {
     /**
      * Default query parameters for API requests
      */
-    parameters?: Record<string, string>;
+    parameters?: Record<string, any>;
     /**
      * Default options for jQuery#ajax
      */
