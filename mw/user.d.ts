@@ -7,37 +7,41 @@ declare global {
             const options: mw.Map;
             const tokens: mw.Map;
 
-            function generateRandomSessionId(): string
+            function generateRandomSessionId(): string;
 
-            function getPageviewToken(): string
+            function getPageviewToken(): string;
 
-            function getId(): number
+            function getId(): number;
 
             /**
              * Get the current user's name
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getName
              */
-            function getName(): string | null
+            function getName(): string | null;
 
-            function getRegistration(): boolean | null | Date
+            function getRegistration(): boolean | null | Date;
 
-            function isAnon(): boolean
+            function isAnon(): boolean;
 
-            function sessionId(): string
+            function sessionId(): string;
 
-            function id(): string
+            function id(): string;
 
             /**
              * Get the current user's groups
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getGroups
              */
-            function getGroups(callback?: ((groups: string[]) => any)): JQuery.Promise<string[]>
+            function getGroups(
+                callback?: (groups: string[]) => any
+            ): JQuery.Promise<string[]>;
 
-            function getRights(callback?: ((rights: string[]) => any)): JQuery.Promise<string[]>
+            function getRights(
+                callback?: (rights: string[]) => any
+            ): JQuery.Promise<string[]>;
         }
     }
 }
 
-export {}
+export {};

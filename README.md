@@ -3,6 +3,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 # types-mediawiki
+
 TypeScript definitions for MediaWiki JS interface.
 
 This package covers the functions in the `mw` global object, as well a few jQuery plugins used in MediaWiki core. This is a work in progress.
@@ -11,7 +12,7 @@ This package covers the functions in the `mw` global object, as well a few jQuer
 
 ## Usage
 
-To use types from this package, run 
+To use types from this package, run
 
 ```bash
 npm i types-mediawiki
@@ -34,13 +35,17 @@ You should be all set! `mw` will be available in the global scope. There is no n
 This package also provides typings for API request parameters for the [MediaWiki Action API](https://www.mediawiki.org/wiki/API:Main_page). API endpoints defined in MediaWiki core and by a number of extensions (the ones enabled on English Wikipedia) are covered. These aren't exported to the global scope, however. For usage, you need to import them. For example:
 
 ```ts
-import type {ApiEditPageParams, ApiParseParams} from "types-mediawiki/api_params";
+import type {
+    ApiEditPageParams,
+    ApiParseParams,
+} from "types-mediawiki/api_params";
 ```
 
 Since it is just a type import, it doesn't generate any JavaScript. Hence, such imports can also be used in non-modular applications.
 
-----
+---
 
 TODO:
-- Add doc comments for everything. Presently they are not included at all.
-- Add types for more jQuery plugins.
+
+-   Add doc comments for everything. Presently they are not included at all.
+-   Add types for more jQuery plugins.

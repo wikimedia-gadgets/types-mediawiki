@@ -1,25 +1,38 @@
 {
-  "name": "types-mediawiki",
-  "version": "0.6.0",
-  "description": "TypeScript definitions for MediaWiki JS interface",
-  "types": "index.d.ts",
-  "scripts": {
-    "lint": "npx dtslint --localTs node_modules/typescript/lib ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wikimedia-gadgets/types-mediawiki.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/wikimedia-gadgets/types-mediawiki/issues"
-  },
-  "homepage": "https://github.com/wikimedia-gadgets/types-mediawiki#readme",
-  "dependencies": {
-    "@types/jquery": "^3.5.5"
-  },
-  "devDependencies": {
-    "dtslint": "^4.0.6",
-    "typescript": "^4.1.3"
-  }
+    "name": "types-mediawiki",
+    "version": "0.6.0",
+    "description": "TypeScript definitions for MediaWiki JS interface",
+    "types": "index.d.ts",
+    "scripts": {
+        "lint": "dtslint --localTs node_modules/typescript/lib . && prettier --write ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wikimedia-gadgets/types-mediawiki.git"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/wikimedia-gadgets/types-mediawiki/issues"
+    },
+    "homepage": "https://github.com/wikimedia-gadgets/types-mediawiki#readme",
+    "dependencies": {
+        "@types/jquery": "^3.5.5"
+    },
+    "devDependencies": {
+        "dtslint": "^4.0.6",
+        "husky": "^4.3.7",
+        "lint-staged": "^10.5.3",
+        "prettier": "^2.2.1",
+        "tslint-config-prettier": "^1.18.0",
+        "typescript": "^4.1.3"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.ts(x)?": "dtslint --localTs node_modules/typescript/lib .",
+        "*.{ts(x)?,md}": "prettier --write ."
+    }
 }

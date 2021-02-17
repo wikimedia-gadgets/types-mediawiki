@@ -1,14 +1,14 @@
-import './Api';
-import './language';
-import './util';
-import './user';
-import './loader';
-import './Title';
-import './Uri';
-import './hook';
-import './storage';
-import './notification';
-import './message';
+import "./Api";
+import "./language";
+import "./util";
+import "./user";
+import "./loader";
+import "./Title";
+import "./Uri";
+import "./hook";
+import "./storage";
+import "./notification";
+import "./message";
 
 declare global {
     /**
@@ -18,7 +18,6 @@ declare global {
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw
      */
     namespace mw {
-
         /**
          * Map of configuration values.
          *
@@ -32,17 +31,27 @@ declare global {
         const config: mw.Map;
 
         namespace html {
-            function escape(s: string): string
+            function escape(s: string): string;
 
-            function element(name: string, attrs?: any, contents?: string): string
+            function element(
+                name: string,
+                attrs?: any,
+                contents?: string
+            ): string;
         }
 
         namespace log {
-            function deprecate(obj: any, key: string, val: any, msg?: string, logName?: string): void
+            function deprecate(
+                obj: any,
+                key: string,
+                val: any,
+                msg?: string,
+                logName?: string
+            ): void;
 
-            function error(...msg: any[]): void
+            function error(...msg: any[]): void;
 
-            function warn(...msg: string[]): void
+            function warn(...msg: string[]): void;
         }
 
         /**
@@ -64,7 +73,7 @@ declare global {
              * an object of key/values. If no selection is passed, a new object with all key/values is returned.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-get
              */
-            get(selection: string | string[], fallback?: any): any
+            get(selection: string | string[], fallback?: any): any;
 
             /**
              * Get the value of one or more keys.
@@ -75,7 +84,7 @@ declare global {
              * @returns True on success, false on failure
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-set
              */
-            set(selection: string | Record<string, any>, value?: any): boolean
+            set(selection: string | Record<string, any>, value?: any): boolean;
 
             /**
              * Check if a given key exists in the map.
@@ -83,7 +92,7 @@ declare global {
              * @returns True if the key exists
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-exists
              */
-            exists(selection: string): boolean
+            exists(selection: string): boolean;
         }
 
         // types for mw.widgets are out of scope!
@@ -91,4 +100,4 @@ declare global {
     }
 }
 
-export {}
+export {};

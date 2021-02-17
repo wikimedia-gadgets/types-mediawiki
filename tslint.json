@@ -1,16 +1,12 @@
 {
-	"extends": "dtslint/dtslint.json",
-	"linterOptions": {
-		"exclude": [
-			"api_params/index.d.ts"
-		]
-	},
-	"rules": {
-		"semicolon": false,
-		"indent": [true, "spaces"],
-		"no-padding": false,
-		"no-unnecessary-qualifier": false,
-		"unified-signatures": false,
+    "extends": ["dtslint/dtslint.json", "tslint-config-prettier"],
+    "linterOptions": {
+        "exclude": ["mw/api_params/index.d.ts"]
+    },
+    "rules": {
+        "no-padding": false,
+        "no-unnecessary-qualifier": false,
+        "unified-signatures": false,
         "no-redundant-jsdoc": false
-	}
+    }
 }

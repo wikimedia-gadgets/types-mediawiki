@@ -14,7 +14,10 @@ declare global {
 
             function escapeIdForLink(str: string): string;
 
-            function debounce(delay: number, callback: ((...args: any[]) => any)): (...args: any[]) => void;
+            function debounce(
+                delay: number,
+                callback: (...args: any[]) => any
+            ): (...args: any[]) => void;
 
             /**
              * Encode page titles for use in a URL
@@ -29,7 +32,10 @@ declare global {
              */
             function wikiUrlencode(str: string): string;
 
-            function getUrl(pageName: string, params?: { [param: string]: string }): string;
+            function getUrl(
+                pageName: string,
+                params?: { [param: string]: string }
+            ): string;
 
             function wikiScript(str: string): string;
 
@@ -49,14 +55,27 @@ declare global {
 
             function showPortlet(portletId: string): void;
 
-            function addPortletLink(portletId: string, href: string, text: string, id?: string,
-                                    tooltip?: string, accesskey?: string, nextnode?: string): HTMLLIElement;
+            function addPortletLink(
+                portletId: string,
+                href: string,
+                text: string,
+                id?: string,
+                tooltip?: string,
+                accesskey?: string,
+                nextnode?: string
+            ): HTMLLIElement;
 
             function validateEmail(mailtxt: string): boolean;
 
-            function isIPv4Address(address: string, allowBlock?: boolean): boolean;
+            function isIPv4Address(
+                address: string,
+                allowBlock?: boolean
+            ): boolean;
 
-            function isIPv6Address(address: string, allowBlock?: boolean): boolean;
+            function isIPv6Address(
+                address: string,
+                allowBlock?: boolean
+            ): boolean;
 
             /**
              * Check whether a string is an IP address
@@ -64,9 +83,14 @@ declare global {
              * @since 1.25
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-isIPAddress
              */
-            function isIPAddress(address: string, allowBlock?: boolean): boolean;
+            function isIPAddress(
+                address: string,
+                allowBlock?: boolean
+            ): boolean;
 
-            function parseImageUrl(url: string): {
+            function parseImageUrl(
+                url: string
+            ): {
                 name: string;
                 width: number | null;
                 resizeUrl: (w: any) => string;
@@ -77,4 +101,4 @@ declare global {
     }
 }
 
-export {}
+export {};

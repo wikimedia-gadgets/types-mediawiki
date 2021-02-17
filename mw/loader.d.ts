@@ -1,26 +1,34 @@
 declare global {
     namespace mw {
         namespace loader {
-            function addStyleTag(text: string, nextNode?: Node): HTMLElement
+            function addStyleTag(text: string, nextNode?: Node): HTMLElement;
 
-            function getModuleNames(): string[]
+            function getModuleNames(): string[];
 
-            function getScript(url: string): JQuery.Promise<any>
+            function getScript(url: string): JQuery.Promise<any>;
 
             function getState(module: string): string | null;
 
             function load(modules: string | string[], type?: string): void;
 
-            function register(modules: string | string[], version?: string | number,
-                              dependencies?: string[], group?: string, source?: string,
-                              skip?: string): void
+            function register(
+                modules: string | string[],
+                version?: string | number,
+                dependencies?: string[],
+                group?: string,
+                source?: string,
+                skip?: string
+            ): void;
 
-            function state(states: any): void
+            function state(states: any): void;
 
-            function using(dependencies: string[] | string, ready?: (() => any), error?: (() => any)):
-                JQuery.Promise<any>;
+            function using(
+                dependencies: string[] | string,
+                ready?: () => any,
+                error?: () => any
+            ): JQuery.Promise<any>;
         }
     }
 }
 
-export {}
+export {};

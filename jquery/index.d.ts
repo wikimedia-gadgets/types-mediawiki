@@ -1,4 +1,4 @@
-import 'jquery';
+import "jquery";
 
-import './textSelection';
-import './collapsibleTabs';
+import "./textSelection";
+import "./collapsibleTabs";
