@@ -1,7 +1,7 @@
 {
     "extends": ["dtslint/dtslint.json", "tslint-config-prettier"],
     "linterOptions": {
-        "exclude": ["mw/api_params/index.d.ts"]
+        "exclude": ["api_params/index.d.ts"]
     },
     "rules": {
         "no-padding": false,
