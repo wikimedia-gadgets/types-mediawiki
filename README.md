@@ -18,11 +18,11 @@ To use types from this package, run
 npm i types-mediawiki
 ```
 
-Edit your project's `tsconfig.json` file so that `compilerOptions` includes
+Edit your project's `tsconfig.json` file so that it includes
 
 ```
-"types": [
-  "./node_modules/types-mediawiki",
+"include": [
+  "./node_modules/types-mediawiki"
 ]
 ```
 
