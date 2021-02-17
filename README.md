@@ -35,10 +35,7 @@ You should be all set! `mw` will be available in the global scope. There is no n
 This package also provides typings for API request parameters for the [MediaWiki Action API](https://www.mediawiki.org/wiki/API:Main_page). API endpoints defined in MediaWiki core and by a number of extensions (the ones enabled on English Wikipedia) are covered. These aren't exported to the global scope, however. For usage, you need to import them. For example:
 
 ```ts
-import type {
-    ApiEditPageParams,
-    ApiParseParams,
-} from "types-mediawiki/api_params";
+import type { ApiEditPageParams, ApiParseParams } from "types-mediawiki/api_params";
 ```
 
 Since it is just a type import, it doesn't generate any JavaScript. Hence, such imports can also be used in non-modular applications.

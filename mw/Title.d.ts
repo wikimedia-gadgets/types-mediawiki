@@ -22,21 +22,11 @@ declare global {
              */
             constructor(title: string, namespace?: number);
 
-            static newFromText(
-                title: string,
-                namespace?: number
-            ): mw.Title | null;
+            static newFromText(title: string, namespace?: number): mw.Title | null;
 
-            static makeTitle(
-                title: string,
-                namespace?: number
-            ): mw.Title | null;
+            static makeTitle(title: string, namespace?: number): mw.Title | null;
 
-            static newFromUserInput(
-                title: string,
-                namespace?: number,
-                options?: any
-            ): mw.Title;
+            static newFromUserInput(title: string, namespace?: number, options?: any): mw.Title;
 
             static newFromFileName(uncleanName: string): mw.Title;
 

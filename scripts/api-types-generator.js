@@ -57,16 +57,10 @@ function getInterfaceName(module) {
 const actionsTypes = data.paraminfo.modules
     .map((module) => {
         return (
-            `export interface ${getInterfaceName(
-                module
-            )}Params extends ApiParams {\n` +
+            `export interface ${getInterfaceName(module)}Params extends ApiParams {\n` +
             module.parameters
                 .map((param) => {
-                    const { name, type } = processParamInfo(
-                        param.type,
-                        param.name,
-                        param.multi
-                    );
+                    const { name, type } = processParamInfo(param.type, param.name, param.multi);
                     return `${name}?: ${type}`;
                 })
                 .join("\n")
@@ -79,16 +73,10 @@ const actionsTypes = data.paraminfo.modules
 const queryTypes = queryApiData.paraminfo.modules
     .map((module) => {
         return (
-            `export interface ${getInterfaceName(
-                module
-            )}Params extends ApiQueryParams {\n` +
+            `export interface ${getInterfaceName(module)}Params extends ApiQueryParams {\n` +
             module.parameters
                 .map((param) => {
-                    const { name, type } = processParamInfo(
-                        param.type,
-                        param.name,
-                        param.multi
-                    );
+                    const { name, type } = processParamInfo(param.type, param.name, param.multi);
                     return `${module.prefix}${name}?: ${type}`;
                 })
                 .join("\n")

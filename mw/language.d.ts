@@ -5,10 +5,7 @@ declare global {
 
             function convertGrammar(word: string, form: string): string;
 
-            function convertNumber(
-                num: number,
-                integer?: boolean
-            ): number | string;
+            function convertNumber(num: number, integer?: boolean): number | string;
 
             function convertPlural(
                 count: number,
@@ -32,11 +29,7 @@ declare global {
 
             function listToText(list: string[]): string;
 
-            function setData(
-                langCode: string,
-                dataKey: string,
-                value?: any
-            ): void;
+            function setData(langCode: string, dataKey: string, value?: any): void;
         }
     }
 }

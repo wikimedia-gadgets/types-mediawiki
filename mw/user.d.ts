@@ -33,13 +33,9 @@ declare global {
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getGroups
              */
-            function getGroups(
-                callback?: (groups: string[]) => any
-            ): JQuery.Promise<string[]>;
+            function getGroups(callback?: (groups: string[]) => any): JQuery.Promise<string[]>;
 
-            function getRights(
-                callback?: (rights: string[]) => any
-            ): JQuery.Promise<string[]>;
+            function getRights(callback?: (rights: string[]) => any): JQuery.Promise<string[]>;
         }
     }
 }

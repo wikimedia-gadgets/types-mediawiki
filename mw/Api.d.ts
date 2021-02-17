@@ -7,10 +7,7 @@ import {
 } from "../api_params";
 
 type title = string | mw.Title;
-type ApiParams = Record<
-    string,
-    string | string[] | boolean | number | number[]
->;
+type ApiParams = Record<string, string | string[] | boolean | number | number[]>;
 type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
 
 /**
@@ -83,10 +80,7 @@ declare global {
                 ajaxOptions?: JQuery.AjaxSettings
             ): JQuery.Promise<ApiResponse>;
 
-            getToken(
-                type: string,
-                additionalParams?: ApiParams
-            ): JQuery.Promise<string>;
+            getToken(type: string, additionalParams?: ApiParams): JQuery.Promise<string>;
 
             badToken(type: string): void;
 
@@ -144,14 +138,9 @@ declare global {
             }>;
 
             // options.js
-            saveOption(
-                name: string,
-                value: string
-            ): JQuery.Promise<ApiResponse>;
+            saveOption(name: string, value: string): JQuery.Promise<ApiResponse>;
 
-            saveOptions(options: {
-                [optionName: string]: string;
-            }): JQuery.Promise<ApiResponse>;
+            saveOptions(options: { [optionName: string]: string }): JQuery.Promise<ApiResponse>;
 
             // watch.js
             watch(
@@ -209,11 +198,7 @@ declare global {
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.rollback-method-rollback
              */
-            rollback(
-                page: title,
-                user: string,
-                params?: ApiRollbackParams
-            ): JQuery.Promise<any>;
+            rollback(page: title, user: string, params?: ApiRollbackParams): JQuery.Promise<any>;
 
             // upload.js
             chunkedUpload(
@@ -235,10 +220,7 @@ declare global {
                 data: ApiUploadParams
             ): JQuery.Promise<ApiResponse>;
 
-            uploadFromStash(
-                filekey: string,
-                data: ApiUploadParams
-            ): JQuery.Promise<ApiResponse>;
+            uploadFromStash(filekey: string, data: ApiUploadParams): JQuery.Promise<ApiResponse>;
 
             uploadToStash(
                 file: File | HTMLInputElement,
@@ -246,10 +228,7 @@ declare global {
             ): JQuery.Promise<ApiResponse>;
 
             // login.js
-            login(
-                username: string,
-                password: string
-            ): JQuery.Promise<ApiResponse>;
+            login(username: string, password: string): JQuery.Promise<ApiResponse>;
         }
 
         class ForeignApi extends mw.Api {
