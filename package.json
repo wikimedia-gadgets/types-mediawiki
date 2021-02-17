@@ -32,7 +32,6 @@
         }
     },
     "lint-staged": {
-        "*.ts(x)?": "dtslint --localTs node_modules/typescript/lib .",
-        "*.{ts(x)?,md}": "prettier --write ."
+        "*.ts(x)?": "npm run lint"
     }
 }
