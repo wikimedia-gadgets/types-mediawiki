@@ -10,6 +10,7 @@
         "type": "git",
         "url": "git+https://github.com/wikimedia-gadgets/types-mediawiki.git"
     },
+    "files": ["mw", "jquery", "api_params", "index.d.ts"],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/wikimedia-gadgets/types-mediawiki/issues"
