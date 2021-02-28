@@ -5,6 +5,22 @@ declare global {
 
             function getModuleNames(): string[];
 
+            const moduleRegistry: Record<
+                string,
+                {
+                    dependencies: string[];
+                    group: any;
+                    module: {
+                        exports: any;
+                    };
+                    packageExports: any;
+                    skip: string | null;
+                    source: string;
+                    state: "registered" | "ready";
+                    version: string;
+                }
+            >;
+
             function getScript(url: string): JQuery.Promise<any>;
 
             function getState(module: string): string | null;
