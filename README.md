@@ -43,6 +43,7 @@ Since it is just a type import, it doesn't generate any JavaScript. Hence, such 
 ---
 
 TODO:
+
 -   Add doc comments for everything. Presently they are rarely there.
 -   Add types for more jQuery plugins.
-- Add mw.cookie
+-   Add mw.cookie
