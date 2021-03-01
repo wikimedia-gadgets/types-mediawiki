@@ -21,7 +21,7 @@ declare global {
          */
         function notify(
             message: string | JQuery | HTMLElement | HTMLElement[],
-            options?: { tag?: string; type?: string; title?: string }
+            options?: Partial<typeof notification.defaults>
         ): {
             pause: () => void;
             resume: () => void;
@@ -34,8 +34,8 @@ declare global {
             function resume(): void;
 
             function notify(
-                message: string,
-                options?: typeof notification.defaults
+                message: string | JQuery | HTMLElement | HTMLElement[],
+                options?: Partial<typeof notification.defaults>
             ): {
                 pause: () => void;
                 resume: () => void;
