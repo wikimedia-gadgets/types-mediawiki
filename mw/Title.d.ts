@@ -22,6 +22,9 @@ declare global {
              */
             constructor(title: string, namespace?: number);
 
+            title: string;
+            namespace: number;
+
             static newFromText(title: string, namespace?: number): mw.Title | null;
 
             static makeTitle(title: string, namespace?: number): mw.Title | null;
