@@ -82,6 +82,7 @@ declare global {
             wgDiffOldId: number;
             wgDiffNewId: number;
             wgWikibaseItemId: string;
+            [key: string]: any; // more config keys can be added by plugins
         }>;
 
         namespace html {
