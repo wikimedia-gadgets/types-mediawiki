@@ -84,12 +84,6 @@ declare global {
             wgWikibaseItemId: string;
         }>;
 
-        namespace html {
-            function escape(s: string): string;
-
-            function element(name: string, attrs?: any, contents?: string): string;
-        }
-
         namespace log {
             function deprecate(
                 obj: any,
