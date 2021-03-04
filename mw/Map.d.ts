@@ -26,6 +26,10 @@ declare global {
                 selection: S,
                 fallback?: F
             ): Pick<V, S extends Array<infer SS> ? SS : never | F>;
+            get<S extends Array<keyof V>>(
+                selection: S
+            ): Pick<V, S extends Array<infer SS> ? SS : never>;
+            get<S extends keyof V>(selection: S): V[S];
             get<S extends keyof V, F>(selection: S, fallback?: F): V[S] | F;
 
             /**
