@@ -21,7 +21,7 @@ declare global {
              * @param key
              * @param parameters
              */
-            constructor(map: mw.Map, key: string, parameters?: string[]);
+            constructor(map: mw.Map<Record<string, string>>, key: string, parameters?: string[]);
 
             /**
              * Change the format to 'escaped' and convert message to string
