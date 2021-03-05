@@ -41,8 +41,8 @@ declare global {
             wgEnableAPI: boolean;
             wgEnableWriteAPI: boolean;
             wgExtensionAssetsPath: string;
-            wgFormattedNamespaces: Record<string, string>;
-            wgNamespaceIds: Record<string, string>;
+            wgFormattedNamespaces: Record<number, string>;
+            wgNamespaceIds: Record<string, number>;
             wgScript: string;
             wgScriptPath: string;
             wgServer: string;
