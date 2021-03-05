@@ -1,15 +1,17 @@
 import "./Api";
+import "./hook";
+import "./html";
 import "./language";
-import "./util";
-import "./user";
 import "./loader";
+import "./log";
 import "./Map";
+import "./message";
+import "./notification";
+import "./storage";
 import "./Title";
 import "./Uri";
-import "./hook";
-import "./storage";
-import "./notification";
-import "./message";
+import "./user";
+import "./util";
 
 declare global {
     /**
@@ -84,26 +86,6 @@ declare global {
             wgWikibaseItemId: string;
             [key: string]: unknown; // more config keys can be added by extensions
         }>;
-
-        namespace html {
-            function escape(s: string): string;
-
-            function element(name: string, attrs?: any, contents?: string): string;
-        }
-
-        namespace log {
-            function deprecate(
-                obj: any,
-                key: string,
-                val: any,
-                msg?: string,
-                logName?: string
-            ): void;
-
-            function error(...msg: any[]): void;
-
-            function warn(...msg: string[]): void;
-        }
 
         // types for mw.widgets are out of scope!
         const widgets: any;
