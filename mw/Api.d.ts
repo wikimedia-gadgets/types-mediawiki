@@ -17,7 +17,7 @@ type ApiResponse = Record<string, any>; // it will always be a JSON object, the 
  *
  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-property-defaultOptions
  */
-interface ApiOptions {
+export interface ApiOptions {
     /**
      * Default query parameters for API requests
      */
@@ -31,10 +31,6 @@ interface ApiOptions {
      * Default is true if ajax.url is not set, false otherwise for compatibility.
      */
     useUS?: boolean;
-}
-
-interface ForeignApiOptions extends ApiOptions {
-    anonymous?: boolean;
 }
 
 declare global {
@@ -63,7 +59,7 @@ declare global {
              * } ).done( function ( data ) {
              *     console.log( data );
              * } );
-             *```
+             * ```
              * Since MW 1.26, boolean values for a parameter can be specified directly. If the value is false or undefined, the parameter will be omitted from the request, as required by the API.
              *
              * @param {ApiOptions} options
@@ -610,12 +606,6 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.login-method-login
              */
             login(username: string, password: string): JQuery.Promise<ApiResponse>;
-        }
-
-        class ForeignApi extends mw.Api {
-            constructor(url: string | mw.Uri, options?: ForeignApiOptions);
-
-            getOrigin(): string | void;
         }
     }
 }
