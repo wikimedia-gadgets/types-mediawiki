@@ -550,6 +550,7 @@ declare global {
              * @param {number?} chunkSize Size (in bytes) per chunk (default: 5MB)
              * @param {number?} chunkRetries Amount of times to retry a failed chunk (default: 1)
              * @returns {JQuery.Promise<(data?: ApiUploadParams) => JQuery.Promise<ApiResponse>>} Call this function to finish the upload
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.upload-method-chunkedUploadToStash
              */
             chunkedUploadToStash(
                 file: File,
@@ -558,6 +559,16 @@ declare global {
                 chunkRetries?: number
             ): JQuery.Promise<(data?: ApiUploadParams) => JQuery.Promise<ApiResponse>>;
 
+            /**
+             * Upload a file to MediaWiki.
+             *
+             * The file will be uploaded using AJAX and FormData.
+             *
+             * @param {HTMLInputElement | File | Blob} file HTML `input type=file` element with a file already inside of it, or a File object.
+             * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
+             * @return {JQuery.Promise<ApiResponse>}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.upload-method-upload
+             */
             upload(
                 file: File | Blob | HTMLInputElement,
                 data: ApiUploadParams
