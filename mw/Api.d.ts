@@ -608,7 +608,7 @@ declare global {
             uploadToStash(
                 file: File | HTMLInputElement,
                 data?: ApiUploadParams
-            ): JQuery.Promise<ApiResponse>;
+            ): JQuery.Promise<(data?: ApiUploadParams) => JQuery.Promise<ApiResponse>>;
 
             /**
              * @param {string} username
