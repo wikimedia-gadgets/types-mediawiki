@@ -521,7 +521,7 @@ declare global {
                 page: TitleLike,
                 user: string,
                 params?: ApiRollbackParams
-            ): JQuery.Promise<any>;
+            ): JQuery.Promise<ApiResponse>;
 
             /**
              * Upload a file in several chunks.
