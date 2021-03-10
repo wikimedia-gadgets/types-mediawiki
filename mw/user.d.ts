@@ -5,7 +5,12 @@ declare global {
          */
         namespace user {
             const options: mw.Map;
-            const tokens: mw.Map;
+
+            const tokens: mw.Map<{
+                csrfToken: string;
+                patrolToken: string;
+                watchToken: string;
+            }>;
 
             function generateRandomSessionId(): string;
 
