@@ -1,4 +1,5 @@
 import "./Api";
+import "./cookie";
 import "./ForeignApi";
 import "./hook";
 import "./html";
