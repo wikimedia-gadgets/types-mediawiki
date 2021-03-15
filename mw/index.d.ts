@@ -82,7 +82,7 @@ declare global {
             wgIsMainPage: boolean;
             wgUserVariant: string;
             wgPostEdit: string;
-            wgDiffOldId: number;
+            wgDiffOldId: number | false;
             wgDiffNewId: number;
             wgWikibaseItemId: string;
             [key: string]: unknown; // more config keys can be added by extensions
