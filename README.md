@@ -33,15 +33,18 @@ You should be all set! `mw` will be available in the global scope. There is no n
 ### mw.config
 
 Types for mw.config are included:
+
 ```ts
-let NS = mw.config.get('wgNamespaceNumber'); // NS gets type number
-let pageName = mw.config.get('wgPageName'); // pageName gets type string
+let NS = mw.config.get("wgNamespaceNumber"); // NS gets type number
+let pageName = mw.config.get("wgPageName"); // pageName gets type string
 ```
 
 mw.config entries added by MediaWiki extensions can also be used but their type is not known, so they need to be explicitly cast:
+
 ```ts
-let namespaces = mw.config.get('pageTriageNamespaces') as number[];
+let namespaces = mw.config.get("pageTriageNamespaces") as number[];
 ```
+
 (`mw.config.get('pageTriageNamespaces')` gets the type `unknown` without a cast.)
 
 ### MediaWiki API parameters
@@ -60,4 +63,3 @@ TODO:
 
 -   Add doc comments for everything. Presently they are rarely there.
 -   Add types for more jQuery plugins.
--   Add mw.cookie
