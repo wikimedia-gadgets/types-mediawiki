@@ -16,7 +16,7 @@
         "api_params",
         "index.d.ts"
     ],
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "bugs": {
         "url": "https://github.com/wikimedia-gadgets/types-mediawiki/issues"
     },
