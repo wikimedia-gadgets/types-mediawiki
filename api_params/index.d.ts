@@ -4,17 +4,17 @@ type namespace = number;
 type limit = number | "max";
 type password = string;
 type upload = File; // XXX
+type OneOrMore<T> = T | T[];
 
 export interface ApiParams {
     action?: string;
     format?: "json" | "jsonfm" | "xml" | "xmlfm" | "php" | "none";
-    formatversion?: "1" | "2" | "latest";
-    maxlag?: number;
+	maxlag?: number;
     smaxage?: number;
     maxage?: number;
     assert?: "user" | "bot" | "anon";
     assertuser?: string;
-    requestId?: string;
+    requestid?: string;
     servedby?: boolean;
     curtimestamp?: boolean;
     responselanginfo?: boolean;
@@ -24,6 +24,12 @@ export interface ApiParams {
     errorlang?: string;
     errorsuselocal?: boolean;
     centralauthtoken?: string;
+
+    // format=json
+	callback?: string;
+	utf8?: boolean;
+	ascii?: boolean;
+	formatversion?: "1" | "2" | "latest";
 }
 
 // AUTOMATICALLY GENERATED FROM HERE:
@@ -173,7 +179,7 @@ export interface ApiComparePagesParams extends ApiParams {
     fromtitle?: string;
     fromid?: number;
     fromrev?: number;
-    fromslots?: "main"[];
+    fromslots?: OneOrMore<"main">;
     frompst?: boolean;
     fromtext?: string;
     fromcontentformat?:
@@ -205,7 +211,7 @@ export interface ApiComparePagesParams extends ApiParams {
     toid?: number;
     torev?: number;
     torelative?: "cur" | "next" | "prev";
-    toslots?: "main"[];
+    toslots?: OneOrMore<"main">;
     topst?: boolean;
     totext?: string;
     tocontentformat?:
@@ -233,7 +239,7 @@ export interface ApiComparePagesParams extends ApiParams {
         | "unknown"
         | "wikitext";
     tosection?: string;
-    prop?: (
+    prop?: OneOrMore<
         | "comment"
         | "diff"
         | "diffsize"
@@ -244,8 +250,8 @@ export interface ApiComparePagesParams extends ApiParams {
         | "timestamp"
         | "title"
         | "user"
-    )[];
-    slots?: "main"[];
+    >;
+    slots?: OneOrMore<"main">;
 }
 
 export interface ApiAMCreateAccountParams extends ApiParams {
@@ -255,6 +261,12 @@ export interface ApiAMCreateAccountParams extends ApiParams {
     preservestate?: boolean;
     returnurl?: string;
     continue?: boolean;
+    token?: string;
+}
+
+export interface ApiCreateLocalAccountParams extends ApiParams {
+    username?: string;
+    reason?: string;
     token?: string;
 }
 
@@ -375,7 +387,7 @@ export interface ApiEchoMarkReadParams extends ApiParams {
     list?: string | string[];
     unreadlist?: string | string[];
     all?: boolean;
-    sections?: ("alert" | "message")[];
+    sections?: OneOrMore<"alert" | "message">;
     token?: string;
 }
 
@@ -472,7 +484,7 @@ export interface ApiExpandTemplatesParams extends ApiParams {
     title?: string;
     text?: string;
     revid?: number;
-    prop?: (
+    prop?: OneOrMore<
         | "categories"
         | "encodedjsconfigvars"
         | "jsconfigvars"
@@ -482,7 +494,7 @@ export interface ApiExpandTemplatesParams extends ApiParams {
         | "ttl"
         | "volatile"
         | "wikitext"
-    )[];
+    >;
     includecomments?: boolean;
     generatexml?: boolean;
     templatesandboxprefix?: string | string[];
@@ -563,7 +575,7 @@ export interface ApiFeedWatchlistParams extends ApiParams {
     allrev?: boolean;
     wlowner?: string;
     wltoken?: string;
-    wlshow?: (
+    wlshow?: OneOrMore<
         | "!anon"
         | "!autopatrolled"
         | "!bot"
@@ -576,8 +588,8 @@ export interface ApiFeedWatchlistParams extends ApiParams {
         | "minor"
         | "patrolled"
         | "unread"
-    )[];
-    wltype?: ("categorize" | "edit" | "external" | "log" | "new")[];
+    >;
+    wltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
     wlexcludeuser?: string;
 }
 
@@ -604,7 +616,7 @@ export interface ApiGlobalBlockParams extends ApiParams {
 
 export interface GlobalPreferencesApiGlobalPreferenceOverridesParams extends ApiParams {
     reset?: boolean;
-    resetkinds?: (
+    resetkinds?: OneOrMore<
         | "all"
         | "registered"
         | "registered-checkmatrix"
@@ -612,7 +624,7 @@ export interface GlobalPreferencesApiGlobalPreferenceOverridesParams extends Api
         | "special"
         | "unused"
         | "userjs"
-    )[];
+    >;
     change?: string | string[];
     optionname?: string;
     optionvalue?: string;
@@ -621,7 +633,7 @@ export interface GlobalPreferencesApiGlobalPreferenceOverridesParams extends Api
 
 export interface GlobalPreferencesApiGlobalPreferencesParams extends ApiParams {
     reset?: boolean;
-    resetkinds?: (
+    resetkinds?: OneOrMore<
         | "all"
         | "registered"
         | "registered-checkmatrix"
@@ -629,7 +641,7 @@ export interface GlobalPreferencesApiGlobalPreferencesParams extends ApiParams {
         | "special"
         | "unused"
         | "userjs"
-    )[];
+    >;
     change?: string | string[];
     optionname?: string;
     optionvalue?: string;
@@ -639,7 +651,7 @@ export interface GlobalPreferencesApiGlobalPreferencesParams extends ApiParams {
 export interface ApiGlobalUserRightsParams extends ApiParams {
     user?: string;
     userid?: number;
-    add?: (
+    add?: OneOrMore<
         | "abusefilter-helper"
         | "abusefilter-maintainer"
         | "apihighlimits-requestor"
@@ -662,8 +674,8 @@ export interface ApiGlobalUserRightsParams extends ApiParams {
         | "sysadmin"
         | "wmf-ops-monitoring"
         | "wmf-researcher"
-    )[];
-    remove?: (
+    >;
+    remove?: OneOrMore<
         | "abusefilter-helper"
         | "abusefilter-maintainer"
         | "apihighlimits-requestor"
@@ -686,7 +698,7 @@ export interface ApiGlobalUserRightsParams extends ApiParams {
         | "sysadmin"
         | "wmf-ops-monitoring"
         | "wmf-researcher"
-    )[];
+    >;
     reason?: string;
     token?: string;
     tags?: string | string[];
@@ -816,7 +828,7 @@ export interface MobileFrontendApiMobileViewParams extends ApiParams {
     page?: string;
     redirect?: "no" | "yes";
     sections?: string;
-    prop?: (
+    prop?: OneOrMore<
         | "contentmodel"
         | "description"
         | "displaytitle"
@@ -835,8 +847,10 @@ export interface MobileFrontendApiMobileViewParams extends ApiParams {
         | "sections"
         | "text"
         | "thumb"
-    )[];
-    sectionprop?: ("anchor" | "fromtitle" | "index" | "level" | "line" | "number" | "toclevel")[];
+    >;
+    sectionprop?: OneOrMore<
+        "anchor" | "fromtitle" | "index" | "level" | "line" | "number" | "toclevel"
+    >;
     pageprops?: string;
     variant?: string;
     noheadings?: boolean;
@@ -887,7 +901,7 @@ export interface ApiOpenSearchParams extends ApiParams {
 
 export interface ApiOptionsParams extends ApiParams {
     reset?: boolean;
-    resetkinds?: (
+    resetkinds?: OneOrMore<
         | "all"
         | "registered"
         | "registered-checkmatrix"
@@ -895,7 +909,7 @@ export interface ApiOptionsParams extends ApiParams {
         | "special"
         | "unused"
         | "userjs"
-    )[];
+    >;
     change?: string | string[];
     optionname?: string;
     optionvalue?: string;
@@ -999,7 +1013,7 @@ export interface PageTriageApiPageTriageTaggingParams extends ApiParams {
 export interface ApiParamInfoParams extends ApiParams {
     modules?: string | string[];
     helpformat?: "html" | "none" | "raw" | "wikitext";
-    querymodules?: (
+    querymodules?: OneOrMore<
         | "abusefilters"
         | "abuselog"
         | "allcategories"
@@ -1123,10 +1137,12 @@ export interface ApiParamInfoParams extends ApiParams {
         | "wblistentityusage"
         | "wikibase"
         | "wikisets"
-    )[];
+    >;
     mainmodule?: string;
     pagesetmodule?: string;
-    formatmodules?: ("json" | "jsonfm" | "none" | "php" | "phpfm" | "rawfm" | "xml" | "xmlfm")[];
+    formatmodules?: OneOrMore<
+        "json" | "jsonfm" | "none" | "php" | "phpfm" | "rawfm" | "xml" | "xmlfm"
+    >;
 }
 
 export interface ApiParseParams extends ApiParams {
@@ -1138,7 +1154,7 @@ export interface ApiParseParams extends ApiParams {
     pageid?: number;
     redirects?: boolean;
     oldid?: number;
-    prop?: (
+    prop?: OneOrMore<
         | "categories"
         | "categorieshtml"
         | "displaytitle"
@@ -1156,6 +1172,7 @@ export interface ApiParseParams extends ApiParams {
         | "modules"
         | "parsetree"
         | "parsewarnings"
+        | "parsewarningshtml"
         | "properties"
         | "revid"
         | "sections"
@@ -1164,7 +1181,7 @@ export interface ApiParseParams extends ApiParams {
         | "text"
         | "wikitext"
         | "headitems"
-    )[];
+    >;
     wrapoutputclass?: string;
     pst?: boolean;
     onlypst?: boolean;
@@ -1323,7 +1340,7 @@ export interface ApiPurgeParams extends ApiParams {
 }
 
 export interface ApiQueryParams extends ApiParams {
-    prop?: (
+    prop?: OneOrMore<
         | "categories"
         | "categoryinfo"
         | "cirrusbuilddoc"
@@ -1361,8 +1378,8 @@ export interface ApiQueryParams extends ApiParams {
         | "wbentityusage"
         | "description"
         | "mapdata"
-    )[];
-    list?: (
+    >;
+    list?: OneOrMore<
         | "abusefilters"
         | "abuselog"
         | "allcategories"
@@ -1428,8 +1445,8 @@ export interface ApiQueryParams extends ApiParams {
         | "deletedrevs"
         | "mmsites"
         | "readinglistentries"
-    )[];
-    meta?: (
+    >;
+    meta?: OneOrMore<
         | "allmessages"
         | "authmanagerinfo"
         | "babel"
@@ -1451,7 +1468,7 @@ export interface ApiQueryParams extends ApiParams {
         | "cxdeletedtranslations"
         | "oath"
         | "readinglists"
-    )[];
+    >;
     indexpageids?: boolean;
     export?: boolean;
     exportnowrap?: boolean;
@@ -1556,8 +1573,8 @@ export interface ApiRevisionDeleteParams extends ApiParams {
     type?: "archive" | "filearchive" | "logging" | "oldimage" | "revision";
     target?: string;
     ids?: string | string[];
-    hide?: ("comment" | "content" | "user")[];
-    show?: ("comment" | "content" | "user")[];
+    hide?: OneOrMore<"comment" | "content" | "user">;
+    show?: OneOrMore<"comment" | "content" | "user">;
     suppress?: "no" | "nochange" | "yes";
     reason?: string;
     tags?: string | string[];
@@ -1801,6 +1818,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "grc"
         | "gsw"
         | "gu"
+        | "guc"
         | "gv"
         | "ha"
         | "hak"
@@ -1843,6 +1861,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "kbd"
         | "kbd-cyrl"
         | "kbp"
+        | "kcg"
         | "kg"
         | "khw"
         | "ki"
@@ -1999,6 +2018,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "sh"
         | "shi"
         | "shn"
+        | "shy"
         | "shy-latn"
         | "si"
         | "sk"
@@ -2102,10 +2122,10 @@ export interface ApiShortenUrlParams extends ApiParams {
 }
 
 export interface SiteMatrixApiSiteMatrixParams extends ApiParams {
-    type?: ("language" | "special")[];
-    state?: ("all" | "closed" | "fishbowl" | "nonglobal" | "private")[];
-    langprop?: ("code" | "dir" | "localname" | "name" | "site")[];
-    siteprop?: ("code" | "dbname" | "lang" | "sitename" | "url")[];
+    type?: OneOrMore<"language" | "special">;
+    state?: OneOrMore<"all" | "closed" | "fishbowl" | "nonglobal" | "private">;
+    langprop?: OneOrMore<"code" | "dir" | "localname" | "name" | "site">;
+    siteprop?: OneOrMore<"code" | "dbname" | "lang" | "sitename" | "url">;
     limit?: limit;
     continue?: string;
 }
@@ -2176,7 +2196,7 @@ export interface ApiTagParams extends ApiParams {
     rcid?: number | number[];
     revid?: number | number[];
     logid?: number | number[];
-    add?: (
+    add?: OneOrMore<
         | "AWB"
         | "Image up for deletion on Commons"
         | "Manual revert"
@@ -2190,11 +2210,11 @@ export interface ApiTagParams extends ApiParams {
         | "editProtectedHelper"
         | "huggle"
         | "large non-free file"
-        | "predatory"
+        | "possible birth or death date change"
         | "self-published-blog"
         | "self-published source"
         | "twinkle"
-    )[];
+    >;
     remove?: string | string[];
     reason?: string;
     tags?: string | string[];
@@ -2279,7 +2299,7 @@ export interface ApiQueryTitleBlacklistParams extends ApiParams {
 }
 
 export interface ApiTokensParams extends ApiParams {
-    type?: (
+    type?: OneOrMore<
         | "block"
         | "createaccount"
         | "csrf"
@@ -2298,7 +2318,7 @@ export interface ApiTokensParams extends ApiParams {
         | "unblock"
         | "userrights"
         | "watch"
-    )[];
+    >;
 }
 
 export interface ApiTranscodeResetParams extends ApiParams {
@@ -2366,7 +2386,7 @@ export interface ApiUploadParams extends ApiParams {
 export interface ApiUserrightsParams extends ApiParams {
     user?: string;
     userid?: number;
-    add?: (
+    add?: OneOrMore<
         | "abusefilter"
         | "abusefilter-helper"
         | "accountcreator"
@@ -2394,9 +2414,9 @@ export interface ApiUserrightsParams extends ApiParams {
         | "sysop"
         | "templateeditor"
         | "transwiki"
-    )[];
+    >;
     expiry?: string | string[];
-    remove?: (
+    remove?: OneOrMore<
         | "abusefilter"
         | "abusefilter-helper"
         | "accountcreator"
@@ -2424,7 +2444,7 @@ export interface ApiUserrightsParams extends ApiParams {
         | "sysop"
         | "templateeditor"
         | "transwiki"
-    )[];
+    >;
     reason?: string;
     token?: string;
     tags?: string | string[];
@@ -2539,7 +2559,7 @@ export interface WebAuthnApiWebAuthnParams extends ApiParams {
     data?: string;
 }
 
-export interface ApiWikiLoveParams extends ApiParams {
+export interface WikiLoveApiWikiLoveParams extends ApiParams {
     title?: string;
     text?: string;
     message?: string;
@@ -2565,9 +2585,9 @@ export interface AbuseFilterApiQueryAbuseFiltersParams extends ApiQueryParams {
     abfstartid?: number;
     abfendid?: number;
     abfdir?: "newer" | "older";
-    abfshow?: ("!deleted" | "!enabled" | "!private" | "deleted" | "enabled" | "private")[];
+    abfshow?: OneOrMore<"!deleted" | "!enabled" | "!private" | "deleted" | "enabled" | "private">;
     abflimit?: limit;
-    abfprop?: (
+    abfprop?: OneOrMore<
         | "actions"
         | "comments"
         | "description"
@@ -2578,7 +2598,7 @@ export interface AbuseFilterApiQueryAbuseFiltersParams extends ApiQueryParams {
         | "pattern"
         | "private"
         | "status"
-    )[];
+    >;
 }
 
 export interface AbuseFilterApiQueryAbuseLogParams extends ApiQueryParams {
@@ -2590,7 +2610,7 @@ export interface AbuseFilterApiQueryAbuseLogParams extends ApiQueryParams {
     afltitle?: string;
     aflfilter?: string | string[];
     afllimit?: limit;
-    aflprop?: (
+    aflprop?: OneOrMore<
         | "action"
         | "details"
         | "filter"
@@ -2601,7 +2621,7 @@ export interface AbuseFilterApiQueryAbuseLogParams extends ApiQueryParams {
         | "timestamp"
         | "title"
         | "user"
-    )[];
+    >;
 }
 
 export interface ApiQueryAllCategoriesParams extends ApiQueryParams {
@@ -2613,11 +2633,11 @@ export interface ApiQueryAllCategoriesParams extends ApiQueryParams {
     acmin?: number;
     acmax?: number;
     aclimit?: limit;
-    acprop?: ("hidden" | "size")[];
+    acprop?: OneOrMore<"hidden" | "size">;
 }
 
 export interface ApiQueryAllDeletedRevisionsParams extends ApiQueryParams {
-    adrprop?: (
+    adrprop?: OneOrMore<
         | "comment"
         | "content"
         | "contentmodel"
@@ -2634,8 +2654,8 @@ export interface ApiQueryAllDeletedRevisionsParams extends ApiQueryParams {
         | "user"
         | "userid"
         | "parsetree"
-    )[];
-    adrslots?: "main"[];
+    >;
+    adrslots?: OneOrMore<"main">;
     adrlimit?: limit;
     adrexpandtemplates?: boolean;
     adrgeneratexml?: boolean;
@@ -2675,7 +2695,7 @@ export interface ApiQueryAllLinksParams extends ApiQueryParams {
     afto?: string;
     afprefix?: string;
     afunique?: boolean;
-    afprop?: ("ids" | "title")[];
+    afprop?: OneOrMore<"ids" | "title">;
     aflimit?: limit;
     afdir?: "ascending" | "descending";
 }
@@ -2688,7 +2708,7 @@ export interface ApiQueryAllImagesParams extends ApiQueryParams {
     aicontinue?: string;
     aistart?: timestamp;
     aiend?: timestamp;
-    aiprop?: (
+    aiprop?: OneOrMore<
         | "badfile"
         | "bitdepth"
         | "canonicaltitle"
@@ -2706,7 +2726,7 @@ export interface ApiQueryAllImagesParams extends ApiQueryParams {
         | "url"
         | "user"
         | "userid"
-    )[];
+    >;
     aiprefix?: string;
     aiminsize?: number;
     aimaxsize?: number;
@@ -2724,7 +2744,7 @@ export interface ApiQueryAllLinksParams extends ApiQueryParams {
     alto?: string;
     alprefix?: string;
     alunique?: boolean;
-    alprop?: ("ids" | "title")[];
+    alprop?: OneOrMore<"ids" | "title">;
     alnamespace?: namespace;
     allimit?: limit;
     aldir?: "ascending" | "descending";
@@ -2732,7 +2752,7 @@ export interface ApiQueryAllLinksParams extends ApiQueryParams {
 
 export interface ApiQueryAllMessagesParams extends ApiQueryParams {
     ammessages?: string | string[];
-    amprop?: "default"[];
+    amprop?: OneOrMore<"default">;
     amenableparser?: boolean;
     amnocontent?: boolean;
     amincludelocal?: boolean;
@@ -2755,8 +2775,8 @@ export interface ApiQueryAllPagesParams extends ApiQueryParams {
     apfilterredir?: "all" | "nonredirects" | "redirects";
     apminsize?: number;
     apmaxsize?: number;
-    apprtype?: ("edit" | "move" | "upload")[];
-    apprlevel?: ("" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor")[];
+    apprtype?: OneOrMore<"edit" | "move" | "upload">;
+    apprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
     apprfiltercascade?: "all" | "cascading" | "noncascading";
     aplimit?: limit;
     apdir?: "ascending" | "descending";
@@ -2770,14 +2790,14 @@ export interface ApiQueryAllLinksParams extends ApiQueryParams {
     arto?: string;
     arprefix?: string;
     arunique?: boolean;
-    arprop?: ("fragment" | "ids" | "interwiki" | "title")[];
+    arprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
     arnamespace?: namespace;
     arlimit?: limit;
     ardir?: "ascending" | "descending";
 }
 
 export interface ApiQueryAllRevisionsParams extends ApiQueryParams {
-    arvprop?: (
+    arvprop?: OneOrMore<
         | "comment"
         | "content"
         | "contentmodel"
@@ -2795,8 +2815,8 @@ export interface ApiQueryAllRevisionsParams extends ApiQueryParams {
         | "user"
         | "userid"
         | "parsetree"
-    )[];
-    arvslots?: "main"[];
+    >;
+    arvslots?: OneOrMore<"main">;
     arvlimit?: limit;
     arvexpandtemplates?: boolean;
     arvgeneratexml?: boolean;
@@ -2832,7 +2852,7 @@ export interface ApiQueryAllLinksParams extends ApiQueryParams {
     atto?: string;
     atprefix?: string;
     atunique?: boolean;
-    atprop?: ("ids" | "title")[];
+    atprop?: OneOrMore<"ids" | "title">;
     atnamespace?: namespace;
     atlimit?: limit;
     atdir?: "ascending" | "descending";
@@ -2843,7 +2863,7 @@ export interface ApiQueryAllUsersParams extends ApiQueryParams {
     auto?: string;
     auprefix?: string;
     audir?: "ascending" | "descending";
-    augroup?: (
+    augroup?: OneOrMore<
         | "abusefilter"
         | "abusefilter-helper"
         | "accountcreator"
@@ -2871,8 +2891,8 @@ export interface ApiQueryAllUsersParams extends ApiQueryParams {
         | "sysop"
         | "templateeditor"
         | "transwiki"
-    )[];
-    auexcludegroup?: (
+    >;
+    auexcludegroup?: OneOrMore<
         | "abusefilter"
         | "abusefilter-helper"
         | "accountcreator"
@@ -2900,8 +2920,8 @@ export interface ApiQueryAllUsersParams extends ApiQueryParams {
         | "sysop"
         | "templateeditor"
         | "transwiki"
-    )[];
-    aurights?: (
+    >;
+    aurights?: OneOrMore<
         | "abusefilter-hidden-log"
         | "abusefilter-hide-log"
         | "abusefilter-log"
@@ -3071,8 +3091,8 @@ export interface ApiQueryAllUsersParams extends ApiQueryParams {
         | "viewsuppressed"
         | "vipsscaler-test"
         | "writeapi"
-    )[];
-    auprop?: (
+    >;
+    auprop?: OneOrMore<
         | "blockinfo"
         | "centralids"
         | "editcount"
@@ -3080,7 +3100,7 @@ export interface ApiQueryAllUsersParams extends ApiQueryParams {
         | "implicitgroups"
         | "registration"
         | "rights"
-    )[];
+    >;
     aulimit?: limit;
     auwitheditsonly?: boolean;
     auactiveusers?: boolean;
@@ -3130,7 +3150,7 @@ export interface ApiQueryBlocksParams extends ApiQueryParams {
     bkusers?: string | string[];
     bkip?: string;
     bklimit?: limit;
-    bkprop?: (
+    bkprop?: OneOrMore<
         | "by"
         | "byid"
         | "expiry"
@@ -3142,14 +3162,16 @@ export interface ApiQueryBlocksParams extends ApiQueryParams {
         | "timestamp"
         | "user"
         | "userid"
-    )[];
-    bkshow?: ("!account" | "!ip" | "!range" | "!temp" | "account" | "ip" | "range" | "temp")[];
+    >;
+    bkshow?: OneOrMore<
+        "!account" | "!ip" | "!range" | "!temp" | "account" | "ip" | "range" | "temp"
+    >;
     bkcontinue?: string;
 }
 
 export interface ApiQueryCategoriesParams extends ApiQueryParams {
-    clprop?: ("hidden" | "sortkey" | "timestamp")[];
-    clshow?: ("!hidden" | "hidden")[];
+    clprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
+    clshow?: OneOrMore<"!hidden" | "hidden">;
     cllimit?: limit;
     clcontinue?: string;
     clcategories?: string | string[];
@@ -3163,9 +3185,9 @@ export interface ApiQueryCategoryInfoParams extends ApiQueryParams {
 export interface ApiQueryCategoryMembersParams extends ApiQueryParams {
     cmtitle?: string;
     cmpageid?: number;
-    cmprop?: ("ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type")[];
+    cmprop?: OneOrMore<"ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type">;
     cmnamespace?: namespace | namespace[];
-    cmtype?: ("file" | "page" | "subcat")[];
+    cmtype?: OneOrMore<"file" | "page" | "subcat">;
     cmcontinue?: string;
     cmlimit?: limit;
     cmsort?: "sortkey" | "timestamp";
@@ -3193,7 +3215,7 @@ export interface ApiCentralNoticeLogsParams extends ApiQueryParams {
     end?: timestamp;
 }
 
-export interface ApiQueryCheckUserParams extends ApiQueryParams {
+export interface MediaWikiCheckUserApiQueryCheckUserParams extends ApiQueryParams {
     curequest?: "edits" | "ipusers" | "userips";
     cutarget?: string;
     cureason?: string;
@@ -3203,7 +3225,7 @@ export interface ApiQueryCheckUserParams extends ApiQueryParams {
     cutoken?: string;
 }
 
-export interface ApiQueryCheckUserLogParams extends ApiQueryParams {
+export interface MediaWikiCheckUserApiQueryCheckUserLogParams extends ApiQueryParams {
     culuser?: string;
     cultarget?: string;
     cullimit?: limit;
@@ -3234,7 +3256,7 @@ export interface ApiQueryContentTranslationParams extends ApiQueryParams {
 export interface ApiQueryContentTranslationCorporaParams extends ApiQueryParams {
     translationid?: number;
     striphtml?: boolean;
-    types?: ("mt" | "source" | "user")[];
+    types?: OneOrMore<"mt" | "source" | "user">;
 }
 
 export interface ApiQueryContentTranslationLanguageTrendParams extends ApiQueryParams {
@@ -3255,7 +3277,7 @@ export interface ApiQueryContentTranslationSuggestionsParams extends ApiQueryPar
 }
 
 export interface ApiQueryContributorsParams extends ApiQueryParams {
-    pcgroup?: (
+    pcgroup?: OneOrMore<
         | "abusefilter"
         | "abusefilter-helper"
         | "accountcreator"
@@ -3283,8 +3305,8 @@ export interface ApiQueryContributorsParams extends ApiQueryParams {
         | "sysop"
         | "templateeditor"
         | "transwiki"
-    )[];
-    pcexcludegroup?: (
+    >;
+    pcexcludegroup?: OneOrMore<
         | "abusefilter"
         | "abusefilter-helper"
         | "accountcreator"
@@ -3312,8 +3334,8 @@ export interface ApiQueryContributorsParams extends ApiQueryParams {
         | "sysop"
         | "templateeditor"
         | "transwiki"
-    )[];
-    pcrights?: (
+    >;
+    pcrights?: OneOrMore<
         | "abusefilter-hidden-log"
         | "abusefilter-hide-log"
         | "abusefilter-log"
@@ -3483,8 +3505,8 @@ export interface ApiQueryContributorsParams extends ApiQueryParams {
         | "viewsuppressed"
         | "vipsscaler-test"
         | "writeapi"
-    )[];
-    pcexcluderights?: (
+    >;
+    pcexcluderights?: OneOrMore<
         | "abusefilter-hidden-log"
         | "abusefilter-hide-log"
         | "abusefilter-log"
@@ -3654,7 +3676,7 @@ export interface ApiQueryContributorsParams extends ApiQueryParams {
         | "viewsuppressed"
         | "vipsscaler-test"
         | "writeapi"
-    )[];
+    >;
     pclimit?: limit;
     pccontinue?: string;
 }
@@ -3662,7 +3684,7 @@ export interface ApiQueryContributorsParams extends ApiQueryParams {
 export interface GeoDataApiQueryCoordinatesParams extends ApiQueryParams {
     colimit?: limit;
     cocontinue?: string;
-    coprop?: ("country" | "dim" | "globe" | "name" | "region" | "type")[];
+    coprop?: OneOrMore<"country" | "dim" | "globe" | "name" | "region" | "type">;
     coprimary?: "all" | "primary" | "secondary";
     codistancefrompoint?: string;
     codistancefrompage?: string;
@@ -3685,7 +3707,7 @@ export interface ApiQueryTranslatorStatsParams extends ApiQueryParams {
 }
 
 export interface ApiQueryDeletedRevisionsParams extends ApiQueryParams {
-    drvprop?: (
+    drvprop?: OneOrMore<
         | "comment"
         | "content"
         | "contentmodel"
@@ -3702,8 +3724,8 @@ export interface ApiQueryDeletedRevisionsParams extends ApiQueryParams {
         | "user"
         | "userid"
         | "parsetree"
-    )[];
-    drvslots?: "main"[];
+    >;
+    drvslots?: OneOrMore<"main">;
     drvlimit?: limit;
     drvexpandtemplates?: boolean;
     drvgeneratexml?: boolean;
@@ -3744,7 +3766,7 @@ export interface ApiQueryDeletedrevsParams extends ApiQueryParams {
     drtag?: string;
     druser?: string;
     drexcludeuser?: string;
-    drprop?: (
+    drprop?: OneOrMore<
         | "comment"
         | "content"
         | "len"
@@ -3757,7 +3779,7 @@ export interface ApiQueryDeletedrevsParams extends ApiQueryParams {
         | "token"
         | "user"
         | "userid"
-    )[];
+    >;
     drlimit?: limit;
     drcontinue?: string;
 }
@@ -3831,7 +3853,7 @@ export interface TextExtractsApiQueryExtractsParams extends ApiQueryParams {
 }
 
 export interface ApiQueryExtLinksUsageParams extends ApiQueryParams {
-    euprop?: ("ids" | "title" | "url")[];
+    euprop?: OneOrMore<"ids" | "title" | "url">;
     eucontinue?: string;
     euprotocol?:
         | ""
@@ -3882,7 +3904,7 @@ export interface ApiQueryFilearchiveParams extends ApiQueryParams {
     fadir?: "ascending" | "descending";
     fasha1?: string;
     fasha1base36?: string;
-    faprop?: (
+    faprop?: OneOrMore<
         | "archivename"
         | "bitdepth"
         | "description"
@@ -3895,13 +3917,13 @@ export interface ApiQueryFilearchiveParams extends ApiQueryParams {
         | "size"
         | "timestamp"
         | "user"
-    )[];
+    >;
     falimit?: limit;
     facontinue?: string;
 }
 
 export interface ApiQueryFileRepoInfoParams extends ApiQueryParams {
-    friprop?: (
+    friprop?: OneOrMore<
         | "canUpload"
         | "descBaseUrl"
         | "descriptionCacheExpiry"
@@ -3915,13 +3937,13 @@ export interface ApiQueryFileRepoInfoParams extends ApiQueryParams {
         | "scriptDirUrl"
         | "thumbUrl"
         | "url"
-    )[];
+    >;
 }
 
 export interface ApiQueryBacklinkspropParams extends ApiQueryParams {
-    fuprop?: ("pageid" | "redirect" | "title")[];
+    fuprop?: OneOrMore<"pageid" | "redirect" | "title">;
     funamespace?: namespace | namespace[];
-    fushow?: ("!redirect" | "redirect")[];
+    fushow?: OneOrMore<"!redirect" | "redirect">;
     fulimit?: limit;
     fucontinue?: string;
 }
@@ -3929,12 +3951,12 @@ export interface ApiQueryBacklinkspropParams extends ApiQueryParams {
 export interface ApiQueryFlaggedParams extends ApiQueryParams {}
 
 export interface ApiQueryGadgetCategoriesParams extends ApiQueryParams {
-    gcprop?: ("members" | "name" | "title")[];
+    gcprop?: OneOrMore<"members" | "name" | "title">;
     gcnames?: string | string[];
 }
 
 export interface ApiQueryGadgetsParams extends ApiQueryParams {
-    gaprop?: ("desc" | "id" | "metadata")[];
+    gaprop?: OneOrMore<"desc" | "id" | "metadata">;
     gacategories?: string | string[];
     gaids?: string | string[];
     gaallowedonly?: boolean;
@@ -3950,7 +3972,7 @@ export interface GeoDataApiQueryGeoSearchElasticParams extends ApiQueryParams {
     gslimit?: limit;
     gsglobe?: "earth";
     gsnamespace?: namespace | namespace[];
-    gsprop?: ("country" | "dim" | "globe" | "name" | "region" | "type")[];
+    gsprop?: OneOrMore<"country" | "dim" | "globe" | "name" | "region" | "type">;
     gsprimary?: "all" | "primary" | "secondary";
     gsdebug?: boolean;
 }
@@ -3966,7 +3988,7 @@ export interface ApiQueryGlobalAllUsersParams extends ApiQueryParams {
     aguto?: string;
     aguprefix?: string;
     agudir?: "ascending" | "descending";
-    agugroup?: (
+    agugroup?: OneOrMore<
         | "abusefilter-helper"
         | "abusefilter-maintainer"
         | "apihighlimits-requestor"
@@ -3989,8 +4011,8 @@ export interface ApiQueryGlobalAllUsersParams extends ApiQueryParams {
         | "sysadmin"
         | "wmf-ops-monitoring"
         | "wmf-researcher"
-    )[];
-    aguexcludegroup?: (
+    >;
+    aguexcludegroup?: OneOrMore<
         | "abusefilter-helper"
         | "abusefilter-maintainer"
         | "apihighlimits-requestor"
@@ -4013,8 +4035,8 @@ export interface ApiQueryGlobalAllUsersParams extends ApiQueryParams {
         | "sysadmin"
         | "wmf-ops-monitoring"
         | "wmf-researcher"
-    )[];
-    aguprop?: ("existslocally" | "groups" | "lockinfo")[];
+    >;
+    aguprop?: OneOrMore<"existslocally" | "groups" | "lockinfo">;
     agulimit?: limit;
 }
 
@@ -4026,15 +4048,15 @@ export interface ApiQueryGlobalBlocksParams extends ApiQueryParams {
     bgaddresses?: string | string[];
     bgip?: string;
     bglimit?: limit;
-    bgprop?: ("address" | "by" | "expiry" | "id" | "range" | "reason" | "timestamp")[];
+    bgprop?: OneOrMore<"address" | "by" | "expiry" | "id" | "range" | "reason" | "timestamp">;
 }
 
 export interface ApiQueryGlobalGroupsParams extends ApiQueryParams {
-    ggpprop?: "rights"[];
+    ggpprop?: OneOrMore<"rights">;
 }
 
 export interface GlobalPreferencesApiQueryGlobalPreferencesParams extends ApiQueryParams {
-    gprprop?: ("localoverrides" | "preferences")[];
+    gprprop?: OneOrMore<"localoverrides" | "preferences">;
 }
 
 export interface ApiQueryGlobalRenameStatusParams extends ApiQueryParams {
@@ -4042,7 +4064,7 @@ export interface ApiQueryGlobalRenameStatusParams extends ApiQueryParams {
 }
 
 export interface ApiQueryGlobalUsageParams extends ApiQueryParams {
-    guprop?: ("namespace" | "pageid" | "url")[];
+    guprop?: OneOrMore<"namespace" | "pageid" | "url">;
     gulimit?: limit;
     gunamespace?: namespace | namespace[];
     gusite?: string | string[];
@@ -4053,11 +4075,11 @@ export interface ApiQueryGlobalUsageParams extends ApiQueryParams {
 export interface ApiQueryGlobalUserInfoParams extends ApiQueryParams {
     guiuser?: string;
     guiid?: number;
-    guiprop?: ("editcount" | "groups" | "merged" | "rights" | "unattached")[];
+    guiprop?: OneOrMore<"editcount" | "groups" | "merged" | "rights" | "unattached">;
 }
 
 export interface ApiQueryImageInfoParams extends ApiQueryParams {
-    iiprop?: (
+    iiprop?: OneOrMore<
         | "archivename"
         | "badfile"
         | "bitdepth"
@@ -4078,7 +4100,7 @@ export interface ApiQueryImageInfoParams extends ApiQueryParams {
         | "url"
         | "user"
         | "userid"
-    )[];
+    >;
     iilimit?: limit;
     iistart?: timestamp;
     iiend?: timestamp;
@@ -4113,7 +4135,7 @@ export interface ApiQueryBacklinksParams extends ApiQueryParams {
 }
 
 export interface ApiQueryInfoParams extends ApiQueryParams {
-    inprop?: (
+    inprop?: OneOrMore<
         | "displaytitle"
         | "linkclasses"
         | "notificationtimestamp"
@@ -4127,21 +4149,13 @@ export interface ApiQueryInfoParams extends ApiQueryParams {
         | "watched"
         | "watchers"
         | "readable"
-    )[];
+    >;
     inlinkcontext?: string;
     intestactions?: string | string[];
     intestactionsdetail?: "boolean" | "full" | "quick";
-    intoken?: (
-        | "block"
-        | "delete"
-        | "edit"
-        | "email"
-        | "import"
-        | "move"
-        | "protect"
-        | "unblock"
-        | "watch"
-    )[];
+    intoken?: OneOrMore<
+        "block" | "delete" | "edit" | "email" | "import" | "move" | "protect" | "unblock" | "watch"
+    >;
     incontinue?: string;
 }
 
@@ -4150,12 +4164,12 @@ export interface ApiQueryIWBacklinksParams extends ApiQueryParams {
     iwbltitle?: string;
     iwblcontinue?: string;
     iwbllimit?: limit;
-    iwblprop?: ("iwprefix" | "iwtitle")[];
+    iwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
     iwbldir?: "ascending" | "descending";
 }
 
 export interface ApiQueryIWLinksParams extends ApiQueryParams {
-    iwprop?: "url"[];
+    iwprop?: OneOrMore<"url">;
     iwprefix?: string;
     iwtitle?: string;
     iwdir?: "ascending" | "descending";
@@ -4169,12 +4183,12 @@ export interface ApiQueryLangBacklinksParams extends ApiQueryParams {
     lbltitle?: string;
     lblcontinue?: string;
     lbllimit?: limit;
-    lblprop?: ("lllang" | "lltitle")[];
+    lblprop?: OneOrMore<"lllang" | "lltitle">;
     lbldir?: "ascending" | "descending";
 }
 
 export interface ApiQueryLangLinksParams extends ApiQueryParams {
-    llprop?: ("autonym" | "langname" | "url")[];
+    llprop?: OneOrMore<"autonym" | "langname" | "url">;
     lllang?: string;
     lltitle?: string;
     lldir?: "ascending" | "descending";
@@ -4187,7 +4201,7 @@ export interface ApiQueryLangLinksParams extends ApiQueryParams {
 export interface ApiQueryLangLinksCountParams extends ApiQueryParams {}
 
 export interface ApiQueryLanguageinfoParams extends ApiQueryParams {
-    liprop?: ("autonym" | "bcp47" | "code" | "dir" | "fallbacks" | "name" | "variants")[];
+    liprop?: OneOrMore<"autonym" | "bcp47" | "code" | "dir" | "fallbacks" | "name" | "variants">;
     licode?: string | string[];
     licontinue?: string;
 }
@@ -4201,15 +4215,15 @@ export interface ApiQueryLinksParams extends ApiQueryParams {
 }
 
 export interface ApiQueryBacklinkspropParams extends ApiQueryParams {
-    lhprop?: ("pageid" | "redirect" | "title")[];
+    lhprop?: OneOrMore<"pageid" | "redirect" | "title">;
     lhnamespace?: namespace | namespace[];
-    lhshow?: ("!redirect" | "redirect")[];
+    lhshow?: OneOrMore<"!redirect" | "redirect">;
     lhlimit?: limit;
     lhcontinue?: string;
 }
 
 export interface MediaWikiLinterApiQueryLintErrorsParams extends ApiQueryParams {
-    lntcategories?: (
+    lntcategories?: OneOrMore<
         | "bogus-image-options"
         | "deletable-table-tag"
         | "fostered"
@@ -4228,7 +4242,7 @@ export interface MediaWikiLinterApiQueryLintErrorsParams extends ApiQueryParams 
         | "tidy-whitespace-bug"
         | "unclosed-quotes-in-heading"
         | "wikilink-in-extlink"
-    )[];
+    >;
     lntlimit?: limit;
     lntnamespace?: namespace | namespace[];
     lntpageid?: number | number[];
@@ -4239,7 +4253,7 @@ export interface MediaWikiLinterApiQueryLintErrorsParams extends ApiQueryParams 
 export interface MediaWikiLinterApiQueryLinterStatsParams extends ApiQueryParams {}
 
 export interface ApiQueryLogEventsParams extends ApiQueryParams {
-    leprop?: (
+    leprop?: OneOrMore<
         | "comment"
         | "details"
         | "ids"
@@ -4250,7 +4264,7 @@ export interface ApiQueryLogEventsParams extends ApiQueryParams {
         | "type"
         | "user"
         | "userid"
-    )[];
+    >;
     letype?:
         | ""
         | "abusefilter"
@@ -4435,16 +4449,16 @@ export interface PageViewInfoApiQueryMostViewedParams extends ApiQueryParams {
 }
 
 export interface ApiQueryMyStashedFilesParams extends ApiQueryParams {
-    msfprop?: ("size" | "type")[];
+    msfprop?: OneOrMore<"size" | "type">;
     msflimit?: limit;
     msfcontinue?: string;
 }
 
 export interface ApiEchoNotificationsParams extends ApiQueryParams {
     notwikis?: string | string[];
-    notfilter?: ("!read" | "read")[];
-    notprop?: ("count" | "list" | "seenTime")[];
-    notsections?: ("alert" | "message")[];
+    notfilter?: OneOrMore<"!read" | "read">;
+    notprop?: OneOrMore<"count" | "list" | "seenTime">;
+    notsections?: OneOrMore<"alert" | "message">;
     notgroupbysection?: boolean;
     notformat?: "flyout" | "html" | "model" | "special";
     notlimit?: limit;
@@ -4485,7 +4499,7 @@ export interface PageAssessmentsApiQueryPageAssessmentsParams extends ApiQueryPa
 }
 
 export interface PageImagesApiQueryPageImagesParams extends ApiQueryParams {
-    piprop?: ("name" | "original" | "thumbnail")[];
+    piprop?: OneOrMore<"name" | "original" | "thumbnail">;
     pithumbsize?: number;
     pilimit?: limit;
     pilicense?: "any" | "free";
@@ -4505,7 +4519,7 @@ export interface ApiQueryPagePropsParams extends ApiQueryParams {
 
 export interface ApiQueryPagesWithPropParams extends ApiQueryParams {
     pwppropname?: string;
-    pwpprop?: ("ids" | "title" | "value")[];
+    pwpprop?: OneOrMore<"ids" | "title" | "value">;
     pwpcontinue?: string;
     pwplimit?: limit;
     pwpdir?: "ascending" | "descending";
@@ -4513,7 +4527,7 @@ export interface ApiQueryPagesWithPropParams extends ApiQueryParams {
 
 export interface WikibaseClientApiPageTermsParams extends ApiQueryParams {
     wbptcontinue?: number;
-    wbptterms?: ("alias" | "description" | "label")[];
+    wbptterms?: OneOrMore<"alias" | "description" | "label">;
 }
 
 export interface PageViewInfoApiQueryPageViewsParams extends ApiQueryParams {
@@ -4543,12 +4557,14 @@ export interface PageAssessmentsApiQueryProjectsParams extends ApiQueryParams {
 
 export interface ApiQueryProtectedTitlesParams extends ApiQueryParams {
     ptnamespace?: namespace | namespace[];
-    ptlevel?: ("autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor")[];
+    ptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
     ptlimit?: limit;
     ptdir?: "newer" | "older";
     ptstart?: timestamp;
     ptend?: timestamp;
-    ptprop?: ("comment" | "expiry" | "level" | "parsedcomment" | "timestamp" | "user" | "userid")[];
+    ptprop?: OneOrMore<
+        "comment" | "expiry" | "level" | "parsedcomment" | "timestamp" | "user" | "userid"
+    >;
     ptcontinue?: string;
 }
 
@@ -4631,7 +4647,7 @@ export interface ApiQueryRecentChangesParams extends ApiQueryParams {
     rcuser?: string;
     rcexcludeuser?: string;
     rctag?: string;
-    rcprop?: (
+    rcprop?: OneOrMore<
         | "comment"
         | "flags"
         | "ids"
@@ -4647,9 +4663,9 @@ export interface ApiQueryRecentChangesParams extends ApiQueryParams {
         | "title"
         | "user"
         | "userid"
-    )[];
-    rctoken?: "patrol"[];
-    rcshow?: (
+    >;
+    rctoken?: OneOrMore<"patrol">;
+    rcshow?: OneOrMore<
         | "!anon"
         | "!autopatrolled"
         | "!bot"
@@ -4665,9 +4681,9 @@ export interface ApiQueryRecentChangesParams extends ApiQueryParams {
         | "patrolled"
         | "redirect"
         | "unpatrolled"
-    )[];
+    >;
     rclimit?: limit;
-    rctype?: ("categorize" | "edit" | "external" | "log" | "new")[];
+    rctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
     rctoponly?: boolean;
     rctitle?: string;
     rccontinue?: string;
@@ -4676,15 +4692,15 @@ export interface ApiQueryRecentChangesParams extends ApiQueryParams {
 }
 
 export interface ApiQueryBacklinkspropParams extends ApiQueryParams {
-    rdprop?: ("fragment" | "pageid" | "title")[];
+    rdprop?: OneOrMore<"fragment" | "pageid" | "title">;
     rdnamespace?: namespace | namespace[];
-    rdshow?: ("!fragment" | "fragment")[];
+    rdshow?: OneOrMore<"!fragment" | "fragment">;
     rdlimit?: limit;
     rdcontinue?: string;
 }
 
 export interface ApiQueryRevisionsParams extends ApiQueryParams {
-    rvprop?: (
+    rvprop?: OneOrMore<
         | "comment"
         | "content"
         | "contentmodel"
@@ -4703,8 +4719,8 @@ export interface ApiQueryRevisionsParams extends ApiQueryParams {
         | "user"
         | "userid"
         | "parsetree"
-    )[];
-    rvslots?: "main"[];
+    >;
+    rvslots?: OneOrMore<"main">;
     rvlimit?: limit;
     rvexpandtemplates?: boolean;
     rvgeneratexml?: boolean;
@@ -4732,7 +4748,7 @@ export interface ApiQueryRevisionsParams extends ApiQueryParams {
     rvuser?: string;
     rvexcludeuser?: string;
     rvtag?: string;
-    rvtoken?: "rollback"[];
+    rvtoken?: OneOrMore<"rollback">;
     rvcontinue?: string;
 }
 
@@ -4752,8 +4768,8 @@ export interface ApiQuerySearchParams extends ApiQueryParams {
         | "wsum_inclinks"
         | "wsum_inclinks_pv";
     srwhat?: "nearmatch" | "text" | "title";
-    srinfo?: ("rewrittenquery" | "suggestion" | "totalhits")[];
-    srprop?: (
+    srinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
+    srprop?: OneOrMore<
         | "categorysnippet"
         | "extensiondata"
         | "isfilematch"
@@ -4768,7 +4784,7 @@ export interface ApiQuerySearchParams extends ApiQueryParams {
         | "wordcount"
         | "hasrelated"
         | "score"
-    )[];
+    >;
     srinterwiki?: boolean;
     srenablerewrites?: boolean;
     srsort?:
@@ -4785,7 +4801,7 @@ export interface ApiQuerySearchParams extends ApiQueryParams {
 }
 
 export interface ApiQuerySiteinfoParams extends ApiQueryParams {
-    siprop?: (
+    siprop?: OneOrMore<
         | "dbrepllag"
         | "defaultoptions"
         | "extensions"
@@ -4810,7 +4826,7 @@ export interface ApiQuerySiteinfoParams extends ApiQueryParams {
         | "uploaddialog"
         | "usergroups"
         | "variables"
-    )[];
+    >;
     sifilteriw?: "!local" | "local";
     sishowalldb?: boolean;
     sinumberingroup?: boolean;
@@ -4825,7 +4841,7 @@ export interface PageViewInfoApiQuerySiteViewsParams extends ApiQueryParams {
 export interface ApiQueryStashImageInfoParams extends ApiQueryParams {
     siifilekey?: string | string[];
     siisessionkey?: string | string[];
-    siiprop?: (
+    siiprop?: OneOrMore<
         | "badfile"
         | "bitdepth"
         | "canonicaltitle"
@@ -4839,7 +4855,7 @@ export interface ApiQueryStashImageInfoParams extends ApiQueryParams {
         | "thumbmime"
         | "timestamp"
         | "url"
-    )[];
+    >;
     siiurlwidth?: number;
     siiurlheight?: number;
     siiurlparam?: string;
@@ -4848,7 +4864,9 @@ export interface ApiQueryStashImageInfoParams extends ApiQueryParams {
 export interface ApiQueryTagsParams extends ApiQueryParams {
     tgcontinue?: string;
     tglimit?: limit;
-    tgprop?: ("active" | "defined" | "description" | "displayname" | "hitcount" | "source")[];
+    tgprop?: OneOrMore<
+        "active" | "defined" | "description" | "displayname" | "hitcount" | "source"
+    >;
 }
 
 export interface ApiQueryLinksParams extends ApiQueryParams {
@@ -4860,7 +4878,7 @@ export interface ApiQueryLinksParams extends ApiQueryParams {
 }
 
 export interface ApiQueryTokensParams extends ApiQueryParams {
-    type?: (
+    type?: OneOrMore<
         | "createaccount"
         | "csrf"
         | "deleteglobalaccount"
@@ -4870,13 +4888,13 @@ export interface ApiQueryTokensParams extends ApiQueryParams {
         | "setglobalaccountstatus"
         | "userrights"
         | "watch"
-    )[];
+    >;
 }
 
 export interface ApiQueryBacklinkspropParams extends ApiQueryParams {
-    tiprop?: ("pageid" | "redirect" | "title")[];
+    tiprop?: OneOrMore<"pageid" | "redirect" | "title">;
     tinamespace?: namespace | namespace[];
-    tishow?: ("!redirect" | "redirect")[];
+    tishow?: OneOrMore<"!redirect" | "redirect">;
     tilimit?: limit;
     ticontinue?: string;
 }
@@ -4899,7 +4917,7 @@ export interface ApiQueryUserContribsParams extends ApiQueryParams {
     ucuserprefix?: string;
     ucdir?: "newer" | "older";
     ucnamespace?: namespace | namespace[];
-    ucprop?: (
+    ucprop?: OneOrMore<
         | "comment"
         | "flags"
         | "ids"
@@ -4911,8 +4929,8 @@ export interface ApiQueryUserContribsParams extends ApiQueryParams {
         | "tags"
         | "timestamp"
         | "title"
-    )[];
-    ucshow?: (
+    >;
+    ucshow?: OneOrMore<
         | "!autopatrolled"
         | "!minor"
         | "!new"
@@ -4925,13 +4943,13 @@ export interface ApiQueryUserContribsParams extends ApiQueryParams {
         | "oresreview"
         | "patrolled"
         | "top"
-    )[];
+    >;
     uctag?: string;
     uctoponly?: boolean;
 }
 
 export interface ApiQueryUserInfoParams extends ApiQueryParams {
-    uiprop?: (
+    uiprop?: OneOrMore<
         | "acceptlang"
         | "blockinfo"
         | "centralids"
@@ -4951,12 +4969,12 @@ export interface ApiQueryUserInfoParams extends ApiQueryParams {
         | "theoreticalratelimits"
         | "unreadcount"
         | "preferencestoken"
-    )[];
+    >;
     uiattachedwiki?: string;
 }
 
 export interface ApiQueryUsersParams extends ApiQueryParams {
-    usprop?: (
+    usprop?: OneOrMore<
         | "blockinfo"
         | "cancreate"
         | "centralids"
@@ -4968,15 +4986,15 @@ export interface ApiQueryUsersParams extends ApiQueryParams {
         | "implicitgroups"
         | "registration"
         | "rights"
-    )[];
+    >;
     usattachedwiki?: string;
     ususers?: string | string[];
     ususerids?: number | number[];
-    ustoken?: "userrights"[];
+    ustoken?: OneOrMore<"userrights">;
 }
 
 export interface ApiQueryVideoInfoParams extends ApiQueryParams {
-    viprop?: (
+    viprop?: OneOrMore<
         | "archivename"
         | "badfile"
         | "bitdepth"
@@ -4999,7 +5017,7 @@ export interface ApiQueryVideoInfoParams extends ApiQueryParams {
         | "url"
         | "user"
         | "userid"
-    )[];
+    >;
     vilimit?: limit;
     vistart?: timestamp;
     viend?: timestamp;
@@ -5024,7 +5042,7 @@ export interface ApiQueryWatchlistParams extends ApiQueryParams {
     wlexcludeuser?: string;
     wldir?: "newer" | "older";
     wllimit?: limit;
-    wlprop?: (
+    wlprop?: OneOrMore<
         | "comment"
         | "expiry"
         | "flags"
@@ -5040,8 +5058,8 @@ export interface ApiQueryWatchlistParams extends ApiQueryParams {
         | "title"
         | "user"
         | "userid"
-    )[];
-    wlshow?: (
+    >;
+    wlshow?: OneOrMore<
         | "!anon"
         | "!autopatrolled"
         | "!bot"
@@ -5056,8 +5074,8 @@ export interface ApiQueryWatchlistParams extends ApiQueryParams {
         | "oresreview"
         | "patrolled"
         | "unread"
-    )[];
-    wltype?: ("categorize" | "edit" | "external" | "log" | "new")[];
+    >;
+    wltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
     wlowner?: string;
     wltoken?: string;
     wlcontinue?: string;
@@ -5067,8 +5085,8 @@ export interface ApiQueryWatchlistRawParams extends ApiQueryParams {
     wrcontinue?: string;
     wrnamespace?: namespace | namespace[];
     wrlimit?: limit;
-    wrprop?: "changed"[];
-    wrshow?: ("!changed" | "changed")[];
+    wrprop?: OneOrMore<"changed">;
+    wrshow?: OneOrMore<"!changed" | "changed">;
     wrowner?: string;
     wrtoken?: string;
     wrdir?: "ascending" | "descending";
@@ -5077,28 +5095,28 @@ export interface ApiQueryWatchlistRawParams extends ApiQueryParams {
 }
 
 export interface WikibaseClientApiPropsEntityUsageParams extends ApiQueryParams {
-    wbeuprop?: "url"[];
-    wbeuaspect?: ("C" | "D" | "L" | "O" | "S" | "T" | "X")[];
+    wbeuprop?: OneOrMore<"url">;
+    wbeuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
     wbeuentities?: string | string[];
     wbeulimit?: limit;
     wbeucontinue?: string;
 }
 
 export interface WikibaseClientApiListEntityUsageParams extends ApiQueryParams {
-    wbeuprop?: "url"[];
-    wbeuaspect?: ("C" | "D" | "L" | "O" | "S" | "T" | "X")[];
+    wbeuprop?: OneOrMore<"url">;
+    wbeuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
     wbeuentities?: string | string[];
     wbeulimit?: limit;
     wbeucontinue?: string;
 }
 
 export interface WikibaseClientApiClientInfoParams extends ApiQueryParams {
-    wbprop?: ("siteid" | "url")[];
+    wbprop?: OneOrMore<"siteid" | "url">;
 }
 
 export interface ApiQueryWikiSetsParams extends ApiQueryParams {
     wsfrom?: string;
-    wsprop?: ("type" | "wikisincluded" | "wikisnotincluded")[];
+    wsprop?: OneOrMore<"type" | "wikisincluded" | "wikisnotincluded">;
     wslimit?: limit;
     wsorderbyname?: boolean;
 }

@@ -19,11 +19,12 @@ function processParamInfo(type, name, multi) {
     if (Array.isArray(type)) {
         type = type.map((e) => `'${e}'`).join(" | ");
         if (multi) {
-            type = `(${type})[]`;
+        	// can be single item or array of items
+            type = `OneOrMore<${type}>`;
         }
     } else {
         // API uses type=text for long string fields
-        if (type === "text" || type === "title" || type === "user") {
+        if (type === "text" || type === "title" || type === "user" || type === "raw") {
             type = "string";
         } else if (type === "integer") {
             type = "number";
