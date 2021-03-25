@@ -56,7 +56,7 @@ interface Hook {
      * @param {*} data
      * @chainable
      */
-    fire(data: any): Hook;
+    fire(data?: any): Hook;
 
     /**
      * Unregister a hook handler
