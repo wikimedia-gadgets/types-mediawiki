@@ -10,6 +10,7 @@ import "./Map";
 import "./message";
 import "./notification";
 import "./storage";
+import "./template";
 import "./Title";
 import "./Uri";
 import "./user";
