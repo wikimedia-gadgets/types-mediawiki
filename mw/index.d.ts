@@ -92,6 +92,19 @@ declare global {
 
         // types for mw.widgets are out of scope!
         const widgets: any;
+
+        /**
+         * Format a string. Replace $1, $2 ... $N with positional arguments.
+         *
+         * Used by Message#parser().
+         *
+         * @since 1.25
+         * @param {string} formatString Format string
+         * @param {...Mixed} parameters Values for $N replacements
+         * @return {string} Formatted string
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-format
+         */
+        function format(formatString: string, ...parameters: unknown[]): string;
     }
 }
 
