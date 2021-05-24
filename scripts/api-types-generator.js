@@ -19,7 +19,7 @@ function processParamInfo(type, name, multi) {
     if (Array.isArray(type)) {
         type = type.map((e) => `'${e}'`).join(" | ");
         if (multi) {
-        	// can be single item or array of items
+            // can be single item or array of items
             type = `OneOrMore<${type}>`;
         }
     } else {
