@@ -9,7 +9,7 @@ type OneOrMore<T> = T | T[];
 export interface ApiParams {
     action?: string;
     format?: "json" | "jsonfm" | "xml" | "xmlfm" | "php" | "none";
-	maxlag?: number;
+    maxlag?: number;
     smaxage?: number;
     maxage?: number;
     assert?: "user" | "bot" | "anon";
@@ -26,10 +26,10 @@ export interface ApiParams {
     centralauthtoken?: string;
 
     // format=json
-	callback?: string;
-	utf8?: boolean;
-	ascii?: boolean;
-	formatversion?: "1" | "2" | "latest";
+    callback?: string;
+    utf8?: boolean;
+    ascii?: boolean;
+    formatversion?: "1" | "2" | "latest";
 }
 
 // AUTOMATICALLY GENERATED FROM HERE:
