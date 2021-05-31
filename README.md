@@ -59,6 +59,7 @@ Since it is just a type import, it doesn't generate any JavaScript. Hence, such 
 ---
 
 TODO:
+
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 -   Add doc comments for mw.Title, mw.Uri, mw.storage, mw.language and mw.loader.
