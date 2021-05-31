@@ -4,6 +4,7 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user
          */
         namespace user {
+        	// TODO: add types for items in the options map
             const options: mw.Map;
 
             const tokens: mw.Map<{
