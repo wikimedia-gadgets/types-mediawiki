@@ -67,10 +67,10 @@ declare global {
              */
             constructor(options?: ApiOptions);
 
-			/**
-			 * @private
-			 */
-			defaults: ApiOptions;
+            /**
+             * @private
+             */
+            defaults: ApiOptions;
 
             /**
              * Abort all unfinished requests issued by this Api object.

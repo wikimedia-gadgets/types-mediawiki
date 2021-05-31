@@ -1,10 +1,11 @@
 {
     "name": "types-mediawiki",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "TypeScript definitions for MediaWiki JS interface",
     "types": "index.d.ts",
     "scripts": {
-        "lint": "dtslint --localTs node_modules/typescript/lib . && prettier --write ."
+        "lint": "dtslint --localTs node_modules/typescript/lib .",
+        "format": "prettier --write ."
     },
     "repository": {
         "type": "git",
@@ -38,6 +39,6 @@
         }
     },
     "lint-staged": {
-        "*.ts(x)?": "npm run lint"
+        "*.ts(x)?": "prettier --write"
     }
 }

@@ -1,6 +1,5 @@
 [![NPM version](https://img.shields.io/npm/v/types-mediawiki.svg)](https://www.npmjs.com/package/types-mediawiki)
 ![Linter](https://github.com/wikimedia-gadgets/types-mediawiki/workflows/Lint/badge.svg)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 # types-mediawiki
 
@@ -60,6 +59,8 @@ Since it is just a type import, it doesn't generate any JavaScript. Hence, such 
 ---
 
 TODO:
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
--   Add doc comments for everything. Presently they are rarely there.
+-   Add doc comments for mw.Title, mw.Uri, mw.storage, mw.language and mw.loader.
 -   Add types for more jQuery plugins.
+-   Add types for mw.experiments
