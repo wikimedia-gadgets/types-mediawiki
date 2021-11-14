@@ -10,7 +10,7 @@ interface Experiment {
     /** 
      * An object consisting of the experiment's buckets ("control" and at least one bucket) and their probabilities (a number < 1, eg 0.25)
      */
-    buckets: object
+    buckets: Record<string, number>;
 }
 
 declare global {
