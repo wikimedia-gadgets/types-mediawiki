@@ -64,4 +64,3 @@ TODO:
 
 -   Add doc comments for mw.Title, mw.Uri, mw.storage, mw.language and mw.loader.
 -   Add types for more jQuery plugins.
--   Add types for mw.experiments
