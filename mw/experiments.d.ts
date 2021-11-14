@@ -1,3 +1,18 @@
+interface Experiment {
+    /** 
+     * The name of the experiment
+     */
+    name: string;
+    /** 
+     * Whether the experiment is enabled
+     */
+    enabled: boolean;
+    /** 
+     * An object consisting of the experiment's buckets ("control" and at least one bucket) and their probabilities (a number < 1, eg 0.25)
+     */
+    buckets: object
+}
+
 declare global {
     namespace mw {
         namespace experiment {
@@ -10,17 +25,6 @@ declare global {
             function getBucket(experiment: Experiment, token: string): string;
         }
     }
-}
-
-interface Experiment {
-    /** 
-     * @param {string} name The name of the experiment
-     * @param {boolean} enabled Whether the experiment is enabled 
-     * @param {object} bucket An object consisting of the experiment's buckets ("control" and at least one bucket) and their probabilities (a number < 1, eg 0.25) 
-    */
-    name: string;
-    enabled: boolean;
-    buckets: object
 }
 
 export {};
