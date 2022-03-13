@@ -27,6 +27,7 @@ declare global {
             wgScript: string;
             wgScriptPath: string;
             wgServer: string;
+            wgServerName: string;
             wgSiteName: string;
             wgVariantArticlePath: string | false;
             wgVersion: string;
