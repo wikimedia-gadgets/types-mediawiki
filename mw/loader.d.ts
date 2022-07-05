@@ -40,7 +40,7 @@ declare global {
 
             function using(
                 dependencies: string[] | string,
-                ready?: () => any,
+                ready?: (require: (module: string) => any) => any,
                 error?: () => any
             ): JQuery.Promise<any>;
         }
