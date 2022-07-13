@@ -135,10 +135,7 @@ declare global {
              * @returns {JQuery.Promise<RestResponse>} API response data and the jqXHR object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-ajax
              */
-            ajax(
-                path: string,
-                ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<RestResponse>;
+            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<RestResponse>;
         }
     }
 }
