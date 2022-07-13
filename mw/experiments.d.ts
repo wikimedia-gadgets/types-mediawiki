@@ -1,13 +1,13 @@
 interface Experiment {
-    /** 
+    /**
      * The name of the experiment
      */
     name: string;
-    /** 
+    /**
      * Whether the experiment is enabled
      */
     enabled: boolean;
-    /** 
+    /**
      * An object consisting of the experiment's buckets ("control" and at least one bucket) and their probabilities (a number < 1, eg 0.25)
      */
     buckets: Record<string, number>;

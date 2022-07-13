@@ -2,7 +2,7 @@ declare global {
     namespace mw {
         function message(key: string, ...parameters: string[]): mw.Message;
 
-        const messages: mw.Map<{[key: string]: string}>;
+        const messages: mw.Map<{ [key: string]: string }>;
 
         /**
          * Object constructor for messages.
