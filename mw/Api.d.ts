@@ -377,7 +377,7 @@ declare global {
              * Asynchronously save the value of a single user option using the API. See `saveOptions()`.
              *
              * @param {string} name
-             * @param {string?} value
+             * @param {string|null} value
              * @returns {JQuery.Promise<ApiResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.options-method-saveOption
              */
