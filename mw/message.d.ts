@@ -23,7 +23,7 @@ declare global {
              * @param key
              * @param parameters
              */
-            constructor(map: mw.Map<Record<string, string>>, key: string, parameters?: string[]);
+            constructor(map: mw.Map<Record<string, string>>, key: string, parameters?: any[]);
 
             /**
              * Change the format to 'escaped' and convert message to string
@@ -43,7 +43,7 @@ declare global {
              * Add (does not replace) parameters for $N placeholder values.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-params
              */
-            params(parameters: string[]): mw.Message;
+            params(parameters: any[]): mw.Message;
 
             /**
              * Change format to 'parse' and convert message to string
