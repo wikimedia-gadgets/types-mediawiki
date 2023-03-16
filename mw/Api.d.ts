@@ -377,11 +377,11 @@ declare global {
              * Asynchronously save the value of a single user option using the API. See `saveOptions()`.
              *
              * @param {string} name
-             * @param {string?} value
+             * @param {string|null} value
              * @returns {JQuery.Promise<ApiResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.options-method-saveOption
              */
-            saveOption(name: string, value: string): JQuery.Promise<ApiResponse>;
+            saveOption(name: string, value: string | null): JQuery.Promise<ApiResponse>;
 
             /**
              * Asynchronously save the values of user options using the API.
@@ -398,7 +398,7 @@ declare global {
              * @returns {JQuery.Promise<ApiResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.options-method-saveOptions
              */
-            saveOptions(options: Record<string, string>): JQuery.Promise<ApiResponse>;
+            saveOptions(options: Record<string, string | null>): JQuery.Promise<ApiResponse>;
 
             /**
              * Convenience method for `action=watch`.
