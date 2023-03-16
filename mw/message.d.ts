@@ -1,6 +1,6 @@
 declare global {
     namespace mw {
-        function message(key: string, ...parameters: string[]): mw.Message;
+        function message(key: string, ...parameters: any[]): mw.Message;
 
         const messages: mw.Map<{ [key: string]: string }>;
 
@@ -101,7 +101,7 @@ declare global {
             toString(): string;
         }
 
-        function msg(key: string, ...parameters: string[]): string;
+        function msg(key: string, ...parameters: any[]): string;
     }
 }
 
