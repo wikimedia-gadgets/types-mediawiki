@@ -7,7 +7,7 @@ declare global {
 
             function remove(key: string): boolean;
 
-            function set(key: string, value: string): boolean;
+            function set(key: string, value: string, expiry?: number): boolean;
 
             function setObject(key: string, value: any): boolean;
         }
