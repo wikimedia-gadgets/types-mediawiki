@@ -9,7 +9,7 @@ declare global {
 
             function set(key: string, value: string, expiry?: number): boolean;
 
-            function setObject(key: string, value: any): boolean;
+            function setObject(key: string, value: any, expiry?: number): boolean;
         }
     }
 }
