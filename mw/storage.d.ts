@@ -10,6 +10,20 @@ declare global {
             function set(key: string, value: string, expiry?: number): boolean;
 
             function setObject(key: string, value: any, expiry?: number): boolean;
+
+            namespace session {
+                function get(key: string): string | null | boolean;
+
+                function getObject(key: string): any;
+
+                function remove(key: string): boolean;
+
+                function set(key: string, value: string, expiry?: number): boolean;
+
+                function setExpires(key: string, expiry?: number): void;
+
+                function setObject(key: string, value: any, expiry?: number): boolean;
+            }
         }
     }
 }
