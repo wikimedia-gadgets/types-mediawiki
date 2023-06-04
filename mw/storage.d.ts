@@ -9,6 +9,8 @@ declare global {
 
             function set(key: string, value: string, expiry?: number): boolean;
 
+            function setExpires(key: string, expiry?: number): void;
+
             function setObject(key: string, value: any, expiry?: number): boolean;
 
             namespace session {
