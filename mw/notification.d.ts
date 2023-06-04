@@ -22,11 +22,7 @@ declare global {
         function notify(
             message: string | JQuery | HTMLElement | HTMLElement[],
             options?: Partial<typeof notification.defaults>
-        ): {
-            pause: () => void;
-            resume: () => void;
-            close: () => void;
-        };
+        ): ReturnType<typeof mw.loader.using>;
 
         namespace notification {
             function pause(): void;
