@@ -1,3 +1,19 @@
+interface Notification {
+    start: () => void;
+    pause: () => void;
+    resume: () => void;
+    close: () => void;
+    $notification: JQuery;
+    autoHideSeconds: number;
+    isOpen: boolean;
+    isPaused: boolean;
+    options: Partial<typeof mw.notification.defaults>;
+    timeout: {
+        set: typeof setTimeout;
+        clear: typeof clearTimeout;
+    };
+}
+
 declare global {
     namespace mw {
         /**
@@ -22,11 +38,7 @@ declare global {
         function notify(
             message: string | JQuery | HTMLElement | HTMLElement[],
             options?: Partial<typeof notification.defaults>
-        ): {
-            pause: () => void;
-            resume: () => void;
-            close: () => void;
-        };
+        ): JQuery.Promise<Notification>;
 
         namespace notification {
             function pause(): void;
@@ -36,11 +48,14 @@ declare global {
             function notify(
                 message: string | JQuery | HTMLElement | HTMLElement[],
                 options?: Partial<typeof notification.defaults>
-            ): {
-                pause: () => void;
-                resume: () => void;
-                close: () => void;
+            ): Notification;
+
+            const autoHideSeconds: {
+                short: number;
+                long: number;
             };
+
+            const autoHideLimit: number;
 
             /**
              * The defaults for notify options parameter.
@@ -61,7 +76,7 @@ declare global {
              * @param id HTML ID to set on the notification element.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-property-defaults
              */
-            let defaults: {
+            const defaults: {
                 autoHide: boolean;
                 autoHideSeconds: "short" | "long";
                 tag: string | null;
@@ -69,8 +84,8 @@ declare global {
                 type: "info" | "warn" | "error" | "success";
                 visibleTimeout: boolean;
                 id: string;
+                classes: string | string[];
             };
-            let autoHideLimit: number;
         }
     }
 }
