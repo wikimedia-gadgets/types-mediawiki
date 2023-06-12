@@ -1,7 +1,7 @@
 declare global {
     namespace mw {
         namespace loader {
-            function addStyleTag(text: string, nextNode?: Node): HTMLElement;
+            function addStyleTag(text: string, nextNode?: Node): HTMLStyleElement;
 
             function getModuleNames(): string[];
 
