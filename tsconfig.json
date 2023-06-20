@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es5", "dom"],
+        "lib": ["es5", "es2015", "dom"], // The `Set<string>` used in mw.loader requires es2015 or later
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

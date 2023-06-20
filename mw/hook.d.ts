@@ -15,10 +15,8 @@
  *
  * Example usage:
  *
- * ```
- * mw.hook( 'wikipage.content' ).add( fn ).remove( fn );
- * mw.hook( 'wikipage.content' ).fire( $content );
- * ```
+ *     mw.hook( 'wikipage.content' ).add( fn ).remove( fn );
+ *     mw.hook( 'wikipage.content' ).fire( $content );
  *
  * Handlers can be added and fired for arbitrary event names at any time. The same
  * event can be fired multiple times. The last run of an event is memorized
@@ -31,14 +29,13 @@
  * You can pass around the `add` and/or `fire` method to another piece of code
  * without it having to know the event name (or `mw.hook` for that matter).
  *
- * ```
- * var h = mw.hook( 'bar.ready' );
- * new mw.Foo( .. ).fetch( { callback: h.fire } );
- * ```
+ *     var h = mw.hook( 'bar.ready' );
+ *     new mw.Foo( .. ).fetch( { callback: h.fire } );
  *
  * Note: Events are documented with an underscore instead of a dot in the event
  * name due to jsduck not supporting dots in that position.
  *
+ * @class mw.hook
  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook
  */
 interface Hook {
@@ -47,24 +44,28 @@ interface Hook {
      *
      * @param {...Function} handler Function to bind.
      * @chainable
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook-method-add
      */
     add(...handler: Array<(...args: any[]) => any>): Hook;
-
-    /**
-     * Run a hook.
-     *
-     * @param {*} data
-     * @chainable
-     */
-    fire(data?: any): Hook;
 
     /**
      * Unregister a hook handler
      *
      * @param {...Function} handler Function to unbind.
      * @chainable
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook-method-fire
      */
-    remove(handler: (...args: any[]) => any): Hook;
+    remove(...handler: Array<(...args: any[]) => any>): Hook;
+
+    /**
+     * Call hook handlers with data.
+     *
+     * @param {any} data
+     * @return {Hook}
+     * @chainable
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook-method-remove
+     */
+    fire(data?: any): Hook;
 }
 
 declare global {

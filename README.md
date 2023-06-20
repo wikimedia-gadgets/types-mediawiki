@@ -57,10 +57,12 @@ import type { ApiEditPageParams, ApiParseParams } from "types-mediawiki/api_para
 Since it is just a type import, it doesn't generate any JavaScript. Hence, such imports can also be used in non-modular applications.
 
 ## Types for OOjs & OOUI
+
 TypeScript definitions of OOjs and OOUI is available on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) and npm as [`@types/oojs`](https://www.npmjs.com/package/@types/oojs) and [`@types/oojs-ui`](https://www.npmjs.com/package/@types/oojs-ui) packages.
 
 ## TODO
+
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
--   Add doc comments for `mw.Title`, `mw.Uri`, `mw.storage`, `mw.language` and `mw.loader`.
+-   Add doc comments for `mw.ForeignUpload`, `mw.ForeignStructuredUpload`, `mw.GallerySlideshow`, `mw.special.ApiSandbox`, `mw.Upload` and `mw.jqueryMsg` private methods.
 -   Add types for more jQuery plugins.

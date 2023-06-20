@@ -1,11 +1,3 @@
-import {
-    ApiEditPageParams,
-    ApiParseParams,
-    ApiQueryAllMessagesParams,
-    ApiRollbackParams,
-    ApiUploadParams,
-} from "../api_params";
-
 export interface RestOptions {
     ajax: JQuery.AjaxSettings;
 }
@@ -19,96 +11,48 @@ declare global {
          */
         class Rest {
             /**
-             * Constructor to create an object to interact with the REST API of a particular
-             * MediaWiki server. mw.Rest objects represent the REST API of a particular
-             * MediaWiki server.
+             * Constructor to create an object to interact with the REST API of a particular MediaWiki server.
+             * mw.Rest objects represent the REST API of a particular MediaWiki server.
              *
-             * ```js
-             * var api = new mw.Rest();
-             * api.get( '/v1/page/Main_Page/html' )
-             * .done( function ( data ) {
-             *     console.log( data );
-             * } );
+             *     var api = new mw.Rest();
+             *     api.get( '/v1/page/Main_Page/html' )
+             *     .done( function ( data ) {
+             *         console.log( data );
+             *     } );
              *
-             * api.post( '/v1/page/Main_Page', {
-             *      token: 'anon_token',
-             *      source: 'Lörem Ipsüm',
-             *      comment: 'tästing',
-             *      title: 'My_Page'
-             * }, {
-             *     'authorization': 'token'
-             * } )
-             * .done( function ( data ) {
-             *     console.log( data );
-             * } );
-             * ```
+             *     api.post( '/v1/page/Main_Page', {
+             *          token: 'anon_token',
+             *          source: 'Lörem Ipsüm',
+             *          comment: 'tästing',
+             *          title: 'My_Page'
+             *     }, {
+             *         'authorization': 'token'
+             *     } )
+             *     .done( function ( data ) {
+             *         console.log( data );
+             *     } );
              *
+             * @constructor
              * @param {RestOptions} options
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-constructor
              */
             constructor(options?: RestOptions);
 
             /**
-             * @private
-             */
-            defaultOptions: RestOptions;
-
-            /**
              * Abort all unfinished requests issued by this Api object.
              *
-             * @returns {void}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-abort
+             * @method
              */
             abort(): void;
 
             /**
-             * Perform REST API get request.
+             * Perform the API call.
              *
+             * @method
              * @param {string} path
-             * @param {Object.<string, any>} query
-             * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-get
+             * @param {JQuery.AjaxSettings} [ajaxOptions]
+             * @return {JQuery.Promise<RestResponse>} API response data and the jqXHR object
              */
-            get(
-                path: string,
-                query: Record<string, any>,
-                headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
-
-            /**
-             * Perform REST API post request.
-             *
-             * Note: only sending application/json is currently supported.
-             *
-             * @param {string} path
-             * @param {Object.<string, any>} body
-             * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-post
-             */
-            post(
-                path: string,
-                body: Record<string, any>,
-                headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
-
-            /**
-             * Perform REST API PUT request.
-             *
-             * Note: only sending application/json is currently supported.
-             *
-             * @param {string} path
-             * @param {Object.<string, any>} body
-             * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-put
-             */
-            put(
-                path: string,
-                body: Record<string, any>,
-                headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
+            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<RestResponse>;
 
             /**
              * Perform REST API DELETE request.
@@ -116,26 +60,81 @@ declare global {
              * Note: only sending application/json is currently supported.
              *
              * @param {string} path
-             * @param {Object.<string, any>} body
-             * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-delete
+             * @param {Object} body
+             * @param {Object} [headers]
+             * @return {JQuery.Promise<RestResponse>}
              */
             delete(
                 path: string,
                 body: Record<string, any>,
-                headers?: Record<string, any>
+                headers?: JQuery.AjaxSettings["headers"]
             ): JQuery.Promise<RestResponse>;
 
             /**
-             * Perform the API call.
+             * Perform REST API get request
              *
+             * @method
              * @param {string} path
-             * @param {JQuery.AjaxSettings?} ajaxOptions
-             * @returns {JQuery.Promise<RestResponse>} API response data and the jqXHR object
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-ajax
+             * @param {Object} query
+             * @param {Object} [headers]
+             * @return {JQuery.Promise<RestResponse>} API response data and the jqXHR object
              */
-            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<RestResponse>;
+            get(
+                path: string,
+                query: Record<string, any>,
+                headers?: JQuery.AjaxSettings["headers"]
+            ): JQuery.Promise<RestResponse>;
+
+            /**
+             * Perform REST API post request.
+             *
+             * Note: only sending application/json is currently supported.
+             *
+             * @method
+             * @param {string} path
+             * @param {Object} body
+             * @param {Object} [headers]
+             * @return {JQuery.Promise<RestResponse>}
+             */
+            post(
+                path: string,
+                body: Record<string, any>,
+                headers?: JQuery.AjaxSettings["headers"]
+            ): JQuery.Promise<RestResponse>;
+
+            /**
+             * Perform REST API PUT request.
+             *
+             * Note: only sending application/json is currently supported.
+             *
+             * @method
+             * @param {string} path
+             * @param {Object} body
+             * @param {Object} [headers]
+             * @return {JQuery.Promise<RestResponse>}
+             */
+            put(
+                path: string,
+                body: Record<string, any>,
+                headers?: JQuery.AjaxSettings["headers"]
+            ): JQuery.Promise<RestResponse>;
+
+            /**
+             * Lower cases the key names in the provided object.
+             *
+             * @private
+             * @param {Object} headers
+             * @return {Object}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-objectKeysToLowerCase
+             */
+            objectKeysToLowerCase(headers: Record<string, any>): Record<string, any>;
+
+            /**
+             * @private
+             */
+            defaults: RestOptions;
+
+            requests: JQuery.jqXHR[];
         }
     }
 }
