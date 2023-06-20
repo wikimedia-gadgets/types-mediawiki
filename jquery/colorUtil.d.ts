@@ -11,10 +11,10 @@ interface ColorUtil {
      * Based on highlightFade by Blair Mitchelmore
      * <http://jquery.offput.ca/highlightFade/>
      *
-     * @param {Array|string} color
-     * @return {Array}
+     * @param {number[]|string} color
+     * @return {number[]}
      */
-    getRGB(color: string | number[]): number[];
+    getRGB(color: number[] | string): number[];
 
     /**
      * Named color map
@@ -72,11 +72,14 @@ interface ColorUtil {
      *     $.colorUtil.getColorBrightness( 'rgb(200,50,50)', -0.2 );
      *     // > "rgb(118,29,29)"
      *
-     * @param {Mixed} currentColor Current value in css
+     * @param {number[]|string} currentColor Current value in css
      * @param {number} mod Wanted brightness modification between -1 and 1
      * @return {string} Like `'rgb(r,g,b)'`
      */
-    getColorBrightness(currentColor: any, mod: number): `rgb(${number},${number},${number})`;
+    getColorBrightness(
+        currentColor: number[] | string,
+        mod: number
+    ): `rgb(${number},${number},${number})`;
 }
 
 export {};

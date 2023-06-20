@@ -1,32 +1,118 @@
 import "./Api";
+import "./cldr";
 import "./config";
 import "./cookie";
+import "./Debug";
+import "./errorLogger";
 import "./ForeignApi";
 import "./ForeignRest";
+import "./global";
 import "./hook";
 import "./html";
+import "./inspect";
+import "./jqueryMsg";
 import "./language";
 import "./loader";
 import "./log";
 import "./Map";
 import "./message";
 import "./notification";
+import "./RegExp";
 import "./Rest";
 import "./storage";
+import "./String";
 import "./template";
 import "./Title";
 import "./Uri";
 import "./user";
 import "./util";
+import "./visibleTimeout";
 
 declare global {
     /**
      * Base library for MediaWiki.
      *
      * Exposed globally as `mw`, with `mediaWiki` as alias.
+     *
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw
      */
     namespace mw {
+        /**
+         * Empty object for third-party libraries, for cases where you don't
+         * want to add a new global, or the global is bad and needs containment
+         * or wrapping.
+         *
+         * @property {Object}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-libs
+         */
+        const libs: Record<string, any>;
+
+        /**
+         * OOUI widgets specific to MediaWiki
+         *
+         * types for mw.widgets are out of scope!
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.base.html#mw-property-libs
+         */
+        const widgets: any;
+
+        /**
+         * Prevent the closing of a window with a confirm message (the onbeforeunload event seems to
+         * work in most browsers.)
+         *
+         * This supersedes any previous onbeforeunload handler. If there was a handler before, it is
+         * restored when you execute the returned release() function.
+         *
+         *     var allowCloseWindow = mw.confirmCloseWindow();
+         *     // ... do stuff that can't be interrupted ...
+         *     allowCloseWindow.release();
+         *
+         * The second function returned is a trigger function to trigger the check and an alert
+         * window manually, e.g.:
+         *
+         *     var allowCloseWindow = mw.confirmCloseWindow();
+         *     // ... do stuff that can't be interrupted ...
+         *     if ( allowCloseWindow.trigger() ) {
+         *         // don't do anything (e.g. destroy the input field)
+         *     } else {
+         *         // do whatever you wanted to do
+         *     }
+         *
+         * @method confirmCloseWindow
+         * @member mw
+         * @param {Object} [options]
+         * @param {string} [options.namespace] Optional jQuery event namespace, to allow loosely coupled
+         *  external code to release your trigger. For example, the VisualEditor extension can use this
+         *  remove the trigger registered by mediawiki.action.edit, without strong runtime coupling.
+         * @param {Function} [options.test]
+         * @param {boolean} [options.test.return=true] Whether to show the dialog to the user.
+         * @return {Object} An object of functions to work with this module
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-confirmCloseWindow
+         */
+        function confirmCloseWindow(options?: {
+            namespace?: string;
+            test?: (...args: any[]) => boolean;
+        }): {
+            /**
+             * Remove the event listener and don't show an alert anymore, if the user wants to leave
+             * the page.
+             *
+             * @ignore
+             */
+            release(): void;
+            /**
+             * Trigger the module's function manually.
+             *
+             * Check, if options.test() returns true and show an alert to the user if he/she want
+             * to leave this page. Returns false, if options.test() returns false or the user
+             * cancelled the alert window (~don't leave the page), true otherwise.
+             *
+             * @ignore
+             * @return {boolean}
+             */
+            trigger(): boolean;
+        };
+
         /**
          * Format a string. Replace $1, $2 ... $N with positional arguments.
          *
@@ -34,11 +120,36 @@ declare global {
          *
          * @since 1.25
          * @param {string} formatString Format string
-         * @param {...Mixed} parameters Values for $N replacements
+         * @param {...any} parameters Values for $N replacements
          * @return {string} Formatted string
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-format
          */
-        function format(formatString: string, ...parameters: unknown[]): string;
+        function format(formatString: string, ...parameters: string[]): string;
+
+        /**
+         * Replace `$*` with a list of parameters for `uselang=qqx` support.
+         *
+         * @since 1.33
+         * @private
+         * @param {string} formatString Format string
+         * @param {Array} parameters Values for $N replacements
+         * @return {string} Transformed format string
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-internalDoTransformFormatForQqx
+         */
+        function internalDoTransformFormatForQqx(
+            formatString: string,
+            parameters: string[]
+        ): string;
+
+        /**
+         * Encode page titles in a way that matches `wfUrlencode` in PHP.
+         *
+         * @private
+         * @param {string} str
+         * @return {string}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-internalWikiUrlencode
+         */
+        function internalWikiUrlencode(str: string): string;
 
         /**
          * Get the current time, measured in milliseconds since January 1, 1970 (UTC).
@@ -48,6 +159,7 @@ declare global {
          * On all other browsers, it will fall back to using `Date`.
          *
          * @return {number} Current time
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-now
          */
         function now(): number;
 
@@ -76,12 +188,12 @@ declare global {
          *
          * @member mw
          * @param {Function} callback
-         * @param {Object} [options]
-         * @param {number} [options.timeout] If set, the callback will be scheduled for
-         *  immediate execution after this amount of time (in milliseconds) if it didn't run
-         *  by that time.
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-requestIdleCallback
          */
-        function requestIdleCallback(callback: (...args: any[]) => any): void;
+        function requestIdleCallbackInternal(
+            callback: (arg: { didTimeout: boolean; timeRemaining: () => number }) => any
+        ): void;
+        const requestIdleCallback: typeof requestIdleCallbackInternal;
 
         /**
          * Track an analytic event.
@@ -98,8 +210,9 @@ declare global {
          *
          * @param {string} topic Topic name
          * @param {Object|number|string} [data] Data describing the event.
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-track
          */
-        function track(topic: string, data?: object | number | string): void;
+        function track(topic: string, data?: Record<string, any> | number | string): void;
 
         /**
          * Track an early error event via mw.track and send it to the window console.
@@ -107,36 +220,55 @@ declare global {
          * @private
          * @param {string} topic Topic name
          * @param {Object} data Data describing the event, encoded as an object; see mw#logError
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackError
          */
         function trackError(topic: string, data: object): void;
 
         /**
          * Register a handler for subset of analytic events, specified by topic.
          *
-         * Handlers will be called once for each tracked event, including any events that fired before the
-         * handler was registered; 'this' is set to a plain object with a topic' property naming the event, and a
-         * 'data' property which is an object of event-specific data. The event topic and event data are
-         * also passed to the callback as the first and second arguments, respectively.
+         * Handlers will be called once for each tracked event, including for any buffered events that
+         * fired before the handler was subscribed. The callback is passed a `topic` string, and optional
+         * `data` event object. The `this` value for the callback is a plain object with `topic` and
+         * `data` properties set to those same values.
+         *
+         * Example to monitor all topics for debugging:
+         *
+         *     mw.trackSubscribe( '', console.log );
+         *
+         * Example to subscribe to any of `foo.*`, e.g. both `foo.bar` and `foo.quux`:
+         *
+         *     mw.trackSubscribe( 'foo.', console.log );
          *
          * @param {string} topic Handle events whose name starts with this string prefix
          * @param {Function} callback Handler to call for each matching tracked event
          * @param {string} callback.topic
          * @param {Object} [callback.data]
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackSubscribe
          */
         function trackSubscribe(
             topic: string,
-            callback: (topic: string, data: object) => any
+            callback: (topic: string, data?: object) => any
         ): void;
 
         /**
          * Stop handling events for a particular handler
          *
          * @param {Function} callback
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackUnsubscribe
          */
         function trackUnsubscribe(callback: (topic: string, data: object) => any): void;
 
-        // types for mw.widgets are out of scope!
-        const widgets: any;
+        /**
+         * List of all analytic events emitted so far.
+         *
+         * Exposed only for use by mediawiki.base.
+         *
+         * @private
+         * @property {Array}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-trackQueue
+         */
+        const trackQueue: Array<{ topic: string; data?: Record<string, any> | number | string }>;
     }
 }
 
