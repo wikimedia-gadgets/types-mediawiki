@@ -41,14 +41,14 @@
  *
  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook
  */
-interface Hook {
+interface Hook<T extends any[] = any[]> {
     /**
      * Register a hook handler
      *
      * @param {...Function} handler Function to bind.
      * @chainable
      */
-    add(...handler: Array<(...args: any[]) => any>): Hook;
+    add(...handler: ((...args: T) => any)[]): this;
 
     /**
      * Run a hook.
@@ -56,7 +56,7 @@ interface Hook {
      * @param {*} data
      * @chainable
      */
-    fire(data?: any): Hook;
+    fire(...data: T): this;
 
     /**
      * Unregister a hook handler
@@ -64,7 +64,7 @@ interface Hook {
      * @param {...Function} handler Function to unbind.
      * @chainable
      */
-    remove(handler: (...args: any[]) => any): Hook;
+    remove(handler: (...args: T) => any): this;
 }
 
 declare global {
