@@ -48,7 +48,7 @@ interface Hook<T extends any[] = any[]> {
      * @param {...Function} handler Function to bind.
      * @chainable
      */
-    add(...handler: ((...data: T) => any)[]): this;
+    add(...handler: Array<(...data: T) => any>): this;
 
     /**
      * Run a hook.
@@ -64,7 +64,7 @@ interface Hook<T extends any[] = any[]> {
      * @param {...Function} handler Function to unbind.
      * @chainable
      */
-    remove(...handler: ((...data: T) => any)[]): this;
+    remove(...handler: Array<(...data: T) => any>): this;
 }
 
 declare global {
