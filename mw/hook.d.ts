@@ -48,7 +48,7 @@ interface Hook<T extends any[] = any[]> {
      * @param {...Function} handler Function to bind.
      * @chainable
      */
-    add(...handler: ((...args: T) => any)[]): this;
+    add(...handler: ((...data: T) => any)[]): this;
 
     /**
      * Run a hook.
@@ -64,7 +64,7 @@ interface Hook<T extends any[] = any[]> {
      * @param {...Function} handler Function to unbind.
      * @chainable
      */
-    remove(handler: (...args: T) => any): this;
+    remove(...handler: ((...data: T) => any)[]): this;
 }
 
 declare global {
@@ -76,7 +76,7 @@ declare global {
          * @member mw
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook
          */
-        function hook(event: string): Hook;
+        function hook<T extends any[] = any[]>(event: string): Hook<T>;
     }
 }
 
