@@ -76,7 +76,7 @@ declare global {
          * @member mw
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook
          */
-        function hook(event: string): Hook;
+        function hook<T extends any[] = any[]>(event: string): Hook<T>;
     }
 }
 
