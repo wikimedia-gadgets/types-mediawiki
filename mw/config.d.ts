@@ -64,6 +64,7 @@ declare global {
             wgDiffOldId: number | false;
             wgDiffNewId: number;
             wgWikibaseItemId: string;
+            wgUrlProtocols: string;
             [key: string]: unknown; // more config keys can be added by extensions
         }>;
     }
