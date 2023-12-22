@@ -12,6 +12,7 @@ import "./log";
 import "./Map";
 import "./message";
 import "./notification";
+import "./RegExp";
 import "./Rest";
 import "./storage";
 import "./template";
