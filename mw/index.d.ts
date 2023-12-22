@@ -3,6 +3,7 @@ import "./config";
 import "./cookie";
 import "./ForeignApi";
 import "./ForeignRest";
+import "./global";
 import "./hook";
 import "./html";
 import "./language";
