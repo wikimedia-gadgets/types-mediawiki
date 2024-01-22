@@ -25,9 +25,27 @@ for (const table of tables) {
         if (!cells.length) continue;
         const name = cells[0].innerText.trim();
         const type = processType(cells[1].innerText);
-        types[name] = type;
+        const description = cells[2].innerText;
+        types[name] = [type, description];
     }
 }
 
-const entries = Object.entries(types).map(([k, v]) => `${" ".repeat(12)}${k}: ${v};`);
-console.log(`{\n${entries.join("\n")}${" ".repeat(8)}\n}`);
+function formatEntry(name, type, description) {
+    return [
+        "/**",
+        ...description.split("\n").map((e) => ` * ${e.trim()}`),
+        " *",
+        ` * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#${k}`,
+        " */",
+        `${name}: ${type};`,
+    ];
+}
+
+function formatCode(lines, level = 0) {
+    return `{\n${lines.map((e) => `${" ".repeat(4 * (level + 1))}${e}`).join("\n")}${" ".repeat(
+        4 * level
+    )}\n}`;
+}
+
+const lines = Object.entries(types).flatMap(([n, [t, d]]) => formatEntry(n, t, d));
+console.log(formatCode(lines, 2));
