@@ -4,12 +4,10 @@ declare global {
          * Base language object with methods related to language support, attempting to mirror some of the
          * functionality of the Language class in MediaWiki:
          *
-         *   - storing and retrieving language data
-         *   - transforming message syntax (`{{PLURAL:}}`, `{{GRAMMAR:}}`, `{{GENDER:}}`)
-         *   - formatting numbers
+         * - storing and retrieving language data
+         * - transforming message syntax (`{{PLURAL:}}`, `{{GRAMMAR:}}`, `{{GENDER:}}`)
+         * - formatting numbers
          *
-         * @class
-         * @singleton
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language
          */
         namespace language {
@@ -20,27 +18,31 @@ declare global {
              *
              * To set data:
              *
-             *     // Override, extend or create the language data object of 'nl'
-             *     mw.language.setData( 'nl', 'myKey', 'My value' );
+             * ```js
+             * // Override, extend or create the language data object of 'nl'
+             * mw.language.setData( 'nl', 'myKey', 'My value' );
              *
-             *     // Set multiple key/values pairs at once
-             *     mw.language.setData( 'nl', { foo: 'X', bar: 'Y' } );
+             * // Set multiple key/values pairs at once
+             * mw.language.setData( 'nl', { foo: 'X', bar: 'Y' } );
+             * ```
              *
              * To get GrammarForms data for language 'nl':
              *
-             *     var grammarForms = mw.language.getData( 'nl', 'grammarForms' );
+             * ```js
+             * var grammarForms = mw.language.getData( 'nl', 'grammarForms' );
+             * ```
              *
              * Possible data keys:
              *
-             *  - `digitTransformTable`
-             *  - `separatorTransformTable`
-             *  - `minimumGroupingDigits`
-             *  - `grammarForms`
-             *  - `pluralRules`
-             *  - `digitGroupingPattern`
-             *  - `fallbackLanguages`
-             *  - `bcp47Map`
-             *  - `languageNames`
+             * - `digitTransformTable`
+             * - `separatorTransformTable`
+             * - `minimumGroupingDigits`
+             * - `grammarForms`
+             * - `pluralRules`
+             * - `digitGroupingPattern`
+             * - `fallbackLanguages`
+             * - `bcp47Map`
+             * - `languageNames`
              *
              * @property {Object}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-property-data
@@ -90,7 +92,7 @@ declare global {
             function convertGrammar(word: string, form: string): string;
 
             /**
-             * Converts a number using #getDigitTransformTable.
+             * Converts a number using {@link getDigitTransformTable}.
              *
              * @param {number} num Value to be converted
              * @param {boolean} [integer=false] Whether to convert the return value to an integer
@@ -117,13 +119,11 @@ declare global {
             /**
              * Helper function to flip transformation tables.
              *
-             * @param {...Object} Transformation tables
+             * @param {...Object} tables Transformation tables
              * @return {Object}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-flipTransform
              */
-            function flipTransform(
-                ...Transformation: Array<Record<string, any>>
-            ): Record<string, any>;
+            function flipTransform(...tables: Array<Record<string, any>>): Record<string, any>;
 
             /**
              * Provides an alternative text depending on specified gender.
@@ -238,7 +238,9 @@ declare global {
              *
              * Example: Fill the string to length 10 with '+' characters on the right.
              *
-             *     pad( 'blah', 10, '+', true ); // => 'blah++++++'
+             * ```js
+             * pad( 'blah', 10, '+', true ); // => 'blah++++++'
+             * ```
              *
              * @private
              * @param {string} text The string to pad

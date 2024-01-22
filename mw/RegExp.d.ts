@@ -1,7 +1,6 @@
 declare global {
     namespace mw {
         /**
-         * @class mw.RegExp
          * @see https://doc.wikimedia.org/mediawiki-core/REL1_29/js/source/mediawiki.RegExp.html
          */
         namespace RegExp {

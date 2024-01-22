@@ -1,14 +1,30 @@
 declare global {
     namespace mw {
+        /**
+         * Collection of methods to help log messages to the console.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.log
+         */
         namespace log {
             /**
-             * Create a property on a host object that, when accessed, will produce a deprecation warning in the console.
-             * @param {*} obj Host object of deprecated property
+             * Create a property on a host object that, when accessed, will log
+             * a deprecation warning to the console.
+             *
+             * Usage:
+             *
+             * ```js
+             * mw.log.deprecate( window, 'myGlobalFn', myGlobalFn );
+             *
+             * mw.log.deprecate( Thing, 'old', old, 'Use Other.thing instead', 'Thing.old'  );
+             * ```
+             *
+             * @param {Object} obj Host object of deprecated property
              * @param {string} key Name of property to create in `obj`
-             * @param {*} val The value this property should return when accessed
-             * @param {string?} msg Optional text to include in the deprecation message
-             * @param {string?} logName Name for the feature for logging and tracking purposes. Except for properties of the window object, tracking is only enabled if logName is set
-             * @returns {void}
+             * @param {Mixed} val The value this property should return when accessed
+             * @param {string} [msg] Optional extra text to add to the deprecation warning
+             * @param {string} [logName] Name of the feature for deprecation tracker.
+             *  Tracking is disabled by default, except for global variables on `window`.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-deprecate
              */
             function deprecate(
                 obj: any,
@@ -21,20 +37,20 @@ declare global {
             /**
              * Write a message to the browser console's error channel.
              *
-             * Most browsers also print a stacktrace when calling this method if the argument is an Error object.
+             * Most browsers also print a stacktrace when calling this method if the
+             * argument is an Error object.
              *
-             * This method is a no-op in browsers that don't implement the Console API.
-             * @param {Array<*>} msg Messages to output to console
-             * @returns {void}
+             * @since 1.26
+             * @param {...Mixed} msg Messages to output to console
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-error
              */
             function error(...msg: any[]): void;
 
             /**
              * Write a message to the browser console's warning channel.
              *
-             * This method is a no-op in browsers that don't implement the Console API.
-             * @param msg Messages to output to console
-             * @returns {void}
+             * @param {...string} msg Messages to output to console
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.log-method-warn
              */
             function warn(...msg: any[]): void;
         }

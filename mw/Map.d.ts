@@ -6,6 +6,7 @@ declare global {
          *
          * **NOTE**: This is a private utility class for internal use by the framework.
          * Don't rely on its existence.
+         *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map
          */
         class Map<V extends Record<string, any> = any> {
@@ -15,6 +16,7 @@ declare global {
              * Get the value of one or more keys.
              *
              * If called with no arguments, all values are returned.
+             *
              * @param selection Key or array of keys to retrieve values for.
              * @param fallback Value for keys that don't exist.
              * @returns If selection was a string, returns the value. If selection was an array, returns
@@ -41,6 +43,7 @@ declare global {
 
             /**
              * Check if a given key exists in the map.
+             *
              * @param selection Key to check
              * @returns True if the key exists
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-exists

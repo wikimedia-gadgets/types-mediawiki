@@ -67,10 +67,12 @@ interface ColorUtil {
      *
      * Usage:
      *
-     *     $.colorUtil.getColorBrightness( 'red', +0.1 );
-     *     // > "rgb(255,50,50)"
-     *     $.colorUtil.getColorBrightness( 'rgb(200,50,50)', -0.2 );
-     *     // > "rgb(118,29,29)"
+     * ```js
+     * $.colorUtil.getColorBrightness( 'red', +0.1 );
+     * // > "rgb(255,50,50)"
+     * $.colorUtil.getColorBrightness( 'rgb(200,50,50)', -0.2 );
+     * // > "rgb(118,29,29)"
+     * ```
      *
      * @param {Mixed} currentColor Current value in css
      * @param {number} mod Wanted brightness modification between -1 and 1

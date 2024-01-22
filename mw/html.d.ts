@@ -1,6 +1,18 @@
 declare global {
     namespace mw {
         /**
+         * HTML construction helper functions
+         *
+         * ```js
+         * var Html, output;
+         *
+         * Html = mw.html;
+         * output = Html.element( 'div', {}, new Html.Raw(
+         *     Html.element( 'img', { src: '<' } )
+         * ) );
+         * mw.log( output ); // <div><img src="&lt;"/></div>
+         * ```
+         *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.html
          */
         namespace html {
@@ -28,8 +40,10 @@ declare global {
              *
              * Converts special characters to HTML entities.
              *
-             *     mw.html.escape( '< > \' & "' );
-             *     // Returns &lt; &gt; &#039; &amp; &quot;
+             * ```js
+             * mw.html.escape( '< > \' & "' );
+             * // Returns &lt; &gt; &#039; &amp; &quot;
+             * ```
              *
              * @param {string} s The string to escape
              * @return {string} HTML
@@ -38,10 +52,8 @@ declare global {
             function escape(s: string): string;
 
             /**
-             * Wrapper object for raw HTML passed to mw.html.element().
+             * Wrapper object for raw HTML passed to {@link mw.html.element()}.
              *
-             * @class mw.html.Raw
-             * @constructor
              * @param {string} value
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.html.Raw-method-constructor
              */

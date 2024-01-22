@@ -1,14 +1,12 @@
 export interface User {
     /**
-     * @property {Map}
-     * @see: https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-options
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-options
      */
     // TODO: add types for items in the options map
     options: mw.Map;
 
     /**
-     * @property {mw.Map}
-     * @see: https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-tokens
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-tokens
      */
     tokens: mw.Map<{
         csrfToken: string;
@@ -36,7 +34,7 @@ export interface User {
      * See https://en.wikipedia.org/wiki/Birthday_attack#Mathematics
      * n(p;H) = n(0.01,2^80)= sqrt (2 * 2^80 * ln(1/(1-0.01)))
      *
-     * @return {string} 80 bit integer in hex format, padded
+     * @return {string} 80 bit integer (20 characters) in hex format, padded
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-generateRandomSessionId
      */
     generateRandomSessionId(): string;
@@ -53,7 +51,7 @@ export interface User {
     /**
      * Get the current user's database id
      *
-     * Not to be confused with #id.
+     * Not to be confused with {@link id}.
      *
      * @return {number} Current user's id, or 0 if user is anonymous
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getId
@@ -99,7 +97,7 @@ export interface User {
     /**
      * Get the current user's name or the session ID
      *
-     * Not to be confused with #getId.
+     * Not to be confused with {@link getId}.
      *
      * @return {string} User name or random session ID
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-id
@@ -139,7 +137,7 @@ export interface User {
      *
      * **Note:** Server-side code must never interpret or modify this value.
      *
-     * @return {string} Random session ID
+     * @return {string} Random session ID (20 hex characters)
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-sessionId
      */
     sessionId(): string;

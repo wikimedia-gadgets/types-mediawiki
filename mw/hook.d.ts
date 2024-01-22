@@ -17,7 +17,7 @@ import { User } from "./user";
  *
  * Example usage:
  *
- * ```
+ * ```js
  * mw.hook( 'wikipage.content' ).add( fn ).remove( fn );
  * mw.hook( 'wikipage.content' ).fire( $content );
  * ```
@@ -33,7 +33,7 @@ import { User } from "./user";
  * You can pass around the `add` and/or `fire` method to another piece of code
  * without it having to know the event name (or `mw.hook` for that matter).
  *
- * ```
+ * ```js
  * var h = mw.hook( 'bar.ready' );
  * new mw.Foo( .. ).fetch( { callback: h.fire } );
  * ```
@@ -49,6 +49,7 @@ interface Hook<T extends any[] = any[]> {
      *
      * @param {...Function} handler Function to bind.
      * @chainable
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook-method-add
      */
     add(...handler: Array<(...data: T) => any>): this;
 
@@ -57,6 +58,7 @@ interface Hook<T extends any[] = any[]> {
      *
      * @param {*} data
      * @chainable
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook-method-fire
      */
     fire(...data: T): this;
 
@@ -65,6 +67,7 @@ interface Hook<T extends any[] = any[]> {
      *
      * @param {...Function} handler Function to unbind.
      * @chainable
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook-method-remove
      */
     remove(...handler: Array<(...data: T) => any>): this;
 }
@@ -140,7 +143,7 @@ declare global {
          *
          * Code that fires the postEdit hook should first set `wgRevisionId` and `wgCurRevisionId` to the revision associated with the edit that triggered the postEdit hook, then fire the postEdit hook, e.g.:
          *
-         * ```
+         * ```js
          * mw.config.set( {
          *    wgCurRevisionId: data.newrevid,
          *    wgRevisionId: data.newrevid
@@ -300,7 +303,8 @@ declare global {
          * Create an instance of mw.hook, fired when the page watch status has changed.
          *
          * Example usage:
-         * ```
+         *
+         * ```js
          * mw.hook( 'wikipage.watchlistChange' ).add( ( isWatched, expiry, expirySelected ) => {
          *     // Do things
          * } );
@@ -315,9 +319,9 @@ declare global {
         /**
          * Create an instance of mw.hook.
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-hook
          */
-        function hook<T extends any[] = any[]>(name: string): Hook<T>;
+        function hook<T extends any[] = any[]>(event: string): Hook<T>;
     }
 }
 

@@ -2,7 +2,6 @@
  * A wrapper for the HTML5 Storage interface (`localStorage` or `sessionStorage`)
  * that is safe to call in all browsers.
  *
- * @class mw.SafeStorage
  * @private
  * @param {Object|undefined} store The Storage instance to wrap around
  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage
@@ -102,6 +101,33 @@ interface SafeStorage {
 }
 
 interface MwStorage extends SafeStorage {
+    /**
+     * A safe interface to HTML5 `sessionStorage`.
+     *
+     * This normalises differences across browsers and silences any and all
+     * exceptions that may occur.
+     *
+     * **Note**: Data persisted via `sessionStorage` will persist for the lifetime
+     * of the browser *tab*, not the browser *window*.
+     * For longer-lasting persistence across tabs, refer to {@link mw.storage} or {@link mw.cookie} instead.
+     *
+     * Example:
+     *
+     * ```js
+     * mw.storage.session.set( key, value );
+     * mw.storage.session.get( key );
+     * ```
+     *
+     * Example:
+     *
+     * ```js
+     * var session = require( 'mediawiki.storage' ).session;
+     * session.set( key, value );
+     * session.get( key );
+     * ```
+     *
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.storage.session
+     */
     session: SafeStorage;
 }
 
@@ -133,19 +159,20 @@ declare global {
          *
          * Example:
          *
-         *     mw.storage.set( key, value, expiry );
-         *     mw.storage.set( key, value ); // stored indefinitely
-         *     mw.storage.get( key );
+         * ```js
+         * mw.storage.set( key, value, expiry );
+         * mw.storage.set( key, value ); // stored indefinitely
+         * mw.storage.get( key );
+         * ```
          *
          * Example:
          *
-         *     var local = require( 'mediawiki.storage' ).local;
-         *     local.set( key, value, expiry );
-         *     local.get( key );
+         * ```js
+         * var local = require( 'mediawiki.storage' ).local;
+         * local.set( key, value, expiry );
+         * local.get( key );
+         * ```
          *
-         * @class
-         * @singleton
-         * @extends mw.SafeStorage
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.storage
          */
         const storage: MwStorage;

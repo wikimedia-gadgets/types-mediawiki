@@ -29,10 +29,13 @@ declare global {
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw
      */
     namespace mw {
+        // types for mw.widgets are out of scope!
+        const widgets: any;
+
         /**
          * Format a string. Replace $1, $2 ... $N with positional arguments.
          *
-         * Used by Message#parser().
+         * Used by {@link Message.parser()}.
          *
          * @since 1.25
          * @param {string} formatString Format string
@@ -94,9 +97,9 @@ declare global {
          * arranged from most general to most specific. Each path component should have a clear and
          * well-defined purpose.
          *
-         * Data handlers are registered via `mw.trackSubscribe`, and receive the full set of
-         * events that match their subscription, including those that fired before the handler was
-         * bound.
+         * Data handlers are registered via {@link mw.trackSubscribe}, and receive the full set of
+         * events that match their subscription, including buffered events that fired before the handler
+         * was subscribed.
          *
          * @param {string} topic Topic name
          * @param {Object|number|string} [data] Data describing the event.
@@ -108,17 +111,29 @@ declare global {
          *
          * @private
          * @param {string} topic Topic name
-         * @param {Object} data Data describing the event, encoded as an object; see mw#logError
+         * @param {Object} data Data describing the event, encoded as an object; see {@link errorLogger.logError}
          */
         function trackError(topic: string, data: object): void;
 
         /**
          * Register a handler for subset of analytic events, specified by topic.
          *
-         * Handlers will be called once for each tracked event, including any events that fired before the
-         * handler was registered; 'this' is set to a plain object with a topic' property naming the event, and a
-         * 'data' property which is an object of event-specific data. The event topic and event data are
-         * also passed to the callback as the first and second arguments, respectively.
+         * Handlers will be called once for each tracked event, including for any buffered events that
+         * fired before the handler was subscribed. The callback is passed a `topic` string, and optional
+         * `data` event object. The `this` value for the callback is a plain object with `topic` and
+         * `data` properties set to those same values.
+         *
+         * Example to monitor all topics for debugging:
+         *
+         * ```js
+         * mw.trackSubscribe( '', console.log );
+         * ```
+         *
+         * Example to subscribe to any of `foo.*`, e.g. both `foo.bar` and `foo.quux`:
+         *
+         * ```js
+         * mw.trackSubscribe( 'foo.', console.log );
+         * ```
          *
          * @param {string} topic Handle events whose name starts with this string prefix
          * @param {Function} callback Handler to call for each matching tracked event
@@ -136,9 +151,6 @@ declare global {
          * @param {Function} callback
          */
         function trackUnsubscribe(callback: (topic: string, data: object) => any): void;
-
-        // types for mw.widgets are out of scope!
-        const widgets: any;
     }
 }
 

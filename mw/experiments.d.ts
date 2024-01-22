@@ -25,7 +25,7 @@ declare global {
              * The name of the experiment and the token are hashed. The hash is converted
              * to a number which is then used to get a bucket.
              *
-             * @example
+             * ```js
              * // The experiment has three buckets: control, A, and B. The user has a 50% chance of
              * // being assigned to the control bucket, and a 25% chance of being assigned to either
              * // the A or B bucket. If the experiment were disabled, then the user would always be
@@ -39,6 +39,7 @@ declare global {
              *     B: 0.25
              *   }
              * }
+             * ```
              *
              * @param {Object} experiment
              * @param {string} experiment.name The name of the experiment

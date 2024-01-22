@@ -21,6 +21,61 @@ declare global {
          */
         function UriRelative(documentLocation: string | ((...args: any[]) => string)): Uri;
 
+        /**
+         * Library for simple URI parsing and manipulation.
+         *
+         * Intended to be minimal, but featureful; do not expect full RFC 3986 compliance. The use cases we
+         * have in mind are constructing 'next page' or 'previous page' URLs, detecting whether we need to
+         * use cross-domain proxies for an API, constructing simple URL-based API calls, etc. Parsing here
+         * is regex-based, so may not work on all URIs, but is good enough for most.
+         *
+         * You can modify the properties directly, then use the {@link toString} method to extract the full URI
+         * string again. Example:
+         *
+         * ```js
+         * var uri = new mw.Uri( 'http://example.com/mysite/mypage.php?quux=2' );
+         *
+         * if ( uri.host == 'example.com' ) {
+         *     uri.host = 'foo.example.com';
+         *     uri.extend( { bar: 1 } );
+         *
+         *     $( 'a#id1' ).attr( 'href', uri );
+         *     // anchor with id 'id1' now links to http://foo.example.com/mysite/mypage.php?bar=1&quux=2
+         *
+         *     $( 'a#id2' ).attr( 'href', uri.clone().extend( { bar: 3, pif: 'paf' } ) );
+         *     // anchor with id 'id2' now links to http://foo.example.com/mysite/mypage.php?bar=3&quux=2&pif=paf
+         * }
+         * ```
+         *
+         * Given a URI like
+         * `http://usr:pwd@www.example.com:81/dir/dir.2/index.htm?q1=0&&test1&test2=&test3=value+%28escaped%29&r=1&r=2#top`
+         * the returned object will have the following properties:
+         *
+         * ```js
+         * protocol  'http'
+         * user      'usr'
+         * password  'pwd'
+         * host      'www.example.com'
+         * port      '81'
+         * path      '/dir/dir.2/index.htm'
+         * query     {
+         *               q1: '0',
+         *               test1: null,
+         *               test2: '',
+         *               test3: 'value (escaped)'
+         *               r: ['1', '2']
+         *           }
+         * fragment  'top'
+         * ```
+         *
+         * (N.b., 'password' is technically not allowed for HTTP URIs, but it is possible with other kinds
+         * of URIs.)
+         *
+         * Parsing based on parseUri 1.2.2 (c) Steven Levithan <http://stevenlevithan.com>, MIT License.
+         * <http://stevenlevithan.com/demo/parseuri/js/>
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri
+         */
         class Uri {
             /**
              * @property {string|undefined} fragment For example `top`
@@ -71,7 +126,6 @@ declare global {
              * so the server-side strips these before delivering to the client.
              *
              * @private
-             * @static
              * @property {Object} parser
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-static-property-parser
              */
@@ -84,7 +138,6 @@ declare global {
              * The order here matches the order of captured matches in the `parser` property regexes.
              *
              * @private
-             * @static
              * @property {string[]} properties
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-static-property-properties
              */
@@ -103,8 +156,6 @@ declare global {
              * Construct a new URI object. Throws error if arguments are illegal/impossible, or
              * otherwise don't parse.
              *
-             * @class mw.Uri
-             * @constructor
              * @param {Object|string} [uri] URI string, or an Object with appropriate properties (especially
              *  another URI object to clone). Object must have non-blank `protocol`, `host`, and `path`
              *  properties. If omitted (or set to `undefined`, `null` or empty string), then an object
@@ -231,10 +282,9 @@ declare global {
             /**
              * Decode a url encoded value.
              *
-             * Reversed #encode. Standard decodeURIComponent, with addition of replacing
+             * Reversed {@link encode}. Standard decodeURIComponent, with addition of replacing
              * `+` with a space.
              *
-             * @static
              * @param {string} s String to decode
              * @return {string} Decoded string
              * @throws {Error} when the string contains an unknown % sequence
@@ -249,7 +299,6 @@ declare global {
              * compliant with RFC 3986. Similar to rawurlencode from PHP and our JS library
              * mw.util.rawurlencode, except this also replaces spaces with `+`.
              *
-             * @static
              * @param {string} s String to encode
              * @return {string} Encoded string for URI
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-static-method-encode

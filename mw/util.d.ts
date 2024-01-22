@@ -3,8 +3,6 @@ declare global {
         /**
          * Utility library provided by the `mediawiki.util` module.
          *
-         * @class mw.util
-         * @singleton
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util
          */
         namespace util {
@@ -21,7 +19,7 @@ declare global {
              *
              * If you need just the wikipage content (not any of the
              * extra elements output by the skin), use `$( '#mw-content-text' )`
-             * instead. Or listen to mw.hook#wikipage_content which will
+             * instead. Or listen to {@link mw.hook mw.hook("wikipage.content")} which will
              * allow your code to re-run when the page changes (e.g. live preview
              * or re-render after ajax save).
              *
@@ -34,16 +32,18 @@ declare global {
              * Append a new style block to the head and return the CSSStyleSheet object.
              *
              * To access the `<style>` element, reference `sheet.ownerNode`, or call
-             * the mw.loader#addStyleTag method directly.
+             * the {@link mw.loader.addStyleTag} method directly.
              *
              * This function returns the CSSStyleSheet object for convience with features
              * that are managed at that level, such as toggling of styles:
              *
-             *     var sheet = util.addCSS( '.foobar { display: none; }' );
-             *     $( '#myButton' ).click( function () {
-             *         // Toggle the sheet on and off
-             *         sheet.disabled = !sheet.disabled;
-             *     } );
+             * ```js
+             * var sheet = util.addCSS( '.foobar { display: none; }' );
+             * $( '#myButton' ).click( function () {
+             *     // Toggle the sheet on and off
+             *     sheet.disabled = !sheet.disabled;
+             * } );
+             * ```
              *
              * See also [MDN: CSSStyleSheet](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet).
              *
@@ -64,7 +64,10 @@ declare global {
              * - p-namespaces (For namespaces on legacy skins)
              *
              * Additional menus can be discovered through the following code:
-             * ```$('.mw-portlet').toArray().map((el) => el.id);```
+             *
+             * ```js
+             * $('.mw-portlet').toArray().map((el) => el.id);
+             * ```
              *
              * Menu availability varies by skin, wiki, and current page.
              *
@@ -75,27 +78,31 @@ declare global {
              * add the link before an existing item, pass the DOM node or a CSS selector
              * for that item, e.g. `'#foobar'` or `document.getElementById( 'foobar' )`.
              *
-             *     mw.util.addPortletLink(
-             *         'p-tb', 'https://www.mediawiki.org/',
-             *         'mediawiki.org', 't-mworg', 'Go to mediawiki.org', 'm', '#t-print'
-             *     );
+             * ```js
+             * mw.util.addPortletLink(
+             *     'p-tb', 'https://www.mediawiki.org/',
+             *     'mediawiki.org', 't-mworg', 'Go to mediawiki.org', 'm', '#t-print'
+             * );
              *
-             *     var node = mw.util.addPortletLink(
-             *         'p-tb',
-             *         new mw.Title( 'Special:Example' ).getUrl(),
-             *         'Example'
-             *     );
-             *     $( node ).on( 'click', function ( e ) {
-             *         console.log( 'Example' );
-             *         e.preventDefault();
-             *     } );
+             * var node = mw.util.addPortletLink(
+             *     'p-tb',
+             *     mw.util.getUrl( 'Special:Example' ),
+             *     'Example'
+             * );
+             * $( node ).on( 'click', function ( e ) {
+             *     console.log( 'Example' );
+             *     e.preventDefault();
+             * } );
+             * ```
              *
              * Remember that to call this inside a user script, you may have to ensure the
              * `mediawiki.util` is loaded first:
              *
-             *     $.when( mw.loader.using( [ 'mediawiki.util' ] ), $.ready ).then( function () {
-             *          mw.util.addPortletLink( 'p-tb', 'https://www.mediawiki.org/', 'mediawiki.org' );
-             *     } );
+             * ```js
+             * $.when( mw.loader.using( [ 'mediawiki.util' ] ), $.ready ).then( function () {
+             *      mw.util.addPortletLink( 'p-tb', 'https://www.mediawiki.org/', 'mediawiki.org' );
+             * } );
+             * ```
              *
              * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
              * @param {string} href Link URL
@@ -207,9 +214,11 @@ declare global {
             /**
              * Get the value for a given URL query parameter.
              *
-             *     mw.util.getParamValue( 'foo', '/?foo=x' ); // "x"
-             *     mw.util.getParamValue( 'foo', '/?foo=' ); // ""
-             *     mw.util.getParamValue( 'foo', '/' ); // null
+             * ```js
+             * mw.util.getParamValue( 'foo', '/?foo=x' ); // "x"
+             * mw.util.getParamValue( 'foo', '/?foo=' ); // ""
+             * mw.util.getParamValue( 'foo', '/' ); // null
+             * ```
              *
              * @param {string} param The parameter name.
              * @param {string} [url=location.href] URL to search through, defaulting to the current browsing location.
@@ -275,13 +284,15 @@ declare global {
              *
              * Based on \Wikimedia\IPUtils::isIPv4 in PHP.
              *
-             *     // Valid
-             *     mw.util.isIPv4Address( '80.100.20.101' );
-             *     mw.util.isIPv4Address( '192.168.1.101' );
+             * ```js
+             * // Valid
+             * mw.util.isIPv4Address( '80.100.20.101' );
+             * mw.util.isIPv4Address( '192.168.1.101' );
              *
-             *     // Invalid
-             *     mw.util.isIPv4Address( '192.0.2.0/24' );
-             *     mw.util.isIPv4Address( 'hello' );
+             * // Invalid
+             * mw.util.isIPv4Address( '192.0.2.0/24' );
+             * mw.util.isIPv4Address( 'hello' );
+             * ```
              *
              * @param {string} address
              * @param {boolean} [allowBlock=false]
@@ -295,13 +306,15 @@ declare global {
              *
              * Based on \Wikimedia\IPUtils::isIPv6 in PHP.
              *
-             *     // Valid
-             *     mw.util.isIPv6Address( '2001:db8:a:0:0:0:0:0' );
-             *     mw.util.isIPv6Address( '2001:db8:a::' );
+             * ```js
+             * // Valid
+             * mw.util.isIPv6Address( '2001:db8:a:0:0:0:0:0' );
+             * mw.util.isIPv6Address( '2001:db8:a::' );
              *
-             *     // Invalid
-             *     mw.util.isIPv6Address( '2001:db8:a::/32' );
-             *     mw.util.isIPv6Address( 'hello' );
+             * // Invalid
+             * mw.util.isIPv6Address( '2001:db8:a::/32' );
+             * mw.util.isIPv6Address( 'hello' );
+             * ```
              *
              * @param {string} address
              * @param {boolean} [allowBlock=false]
@@ -320,9 +333,9 @@ declare global {
             function isPortletVisible(portletId: string): boolean;
 
             /**
-             * This functionality has been adapted from MediaWiki\User\TempUser\Pattern::isMatch()
+             * Does given username match $wgAutoCreateTempUser?
              *
-             * Checks if the pattern matches the given username
+             * This functionality has been adapted from MediaWiki\User\TempUser\Pattern::isMatch()
              *
              * @param {string} username
              * @return {boolean}
@@ -377,10 +390,11 @@ declare global {
             function percentDecodeFragment(text: string): string | null;
 
             /**
-             * This functionality has been adapted from \Wikimedia\IPUtils::prettifyIP()
-             *
              * Prettify an IP for display to end users.
+             *
              * This will make it more compact and lower-case.
+             *
+             * This functionality has been adapted from \Wikimedia\IPUtils::prettifyIP()
              *
              * @param {string} ip IP address in quad or octet form (CIDR or not).
              * @return {string|null}
@@ -398,12 +412,13 @@ declare global {
             function rawurlencode(str: string): string;
 
             /**
-             * This functionality has been adapted from \Wikimedia\IPUtils::sanitizeIP()
-             *
              * Convert an IP into a verbose, uppercase, normalized form.
+             *
              * Both IPv4 and IPv6 addresses are trimmed. Additionally,
              * IPv6 addresses in octet notation are expanded to 8 words;
              * IPv4 addresses have leading zeros, in each octet, removed.
+             *
+             * This functionality has been adapted from \Wikimedia\IPUtils::sanitizeIP()
              *
              * @param {string} ip IP address in quad or octet form (CIDR or not).
              * @return {string|null}
@@ -442,7 +457,9 @@ declare global {
              *
              * This validation is based on the HTML5 specification.
              *
-             *     mw.util.validateEmail( "me@example.org" ) === true;
+             * ```js
+             * mw.util.validateEmail( "me@example.org" ) === true;
+             * ```
              *
              * @param {string} email E-mail address
              * @return {boolean|null} True if valid, false if invalid, null if `email` was empty.
@@ -451,7 +468,7 @@ declare global {
             function validateEmail(email: string): boolean | null;
 
             /**
-             * Get URL to a MediaWiki server entry point.
+             * Get URL to a MediaWiki entry point.
              *
              * Similar to `wfScript()` in PHP.
              *

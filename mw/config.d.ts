@@ -3,14 +3,15 @@ declare global {
         /**
          * Map of configuration values.
          *
-         * Check out [the complete list of configuration values](https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#mw.config)
+         * Check out {@link https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#mw.config the complete list of configuration values}
          * on mediawiki.org.
          *
          * If `$wgLegacyJavaScriptGlobals` is true, this Map will add its values to the
          * global `window` object.
+         *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-config
          */
-        const config: mw.Map<{
+        const config: Map<{
             debug: boolean;
             skin: string;
             stylepath: string;
