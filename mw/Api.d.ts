@@ -5,6 +5,7 @@ import {
     ApiRollbackParams,
     ApiUploadParams,
 } from "../api_params";
+import { UserInfo } from "./user";
 
 type TitleLike = string | mw.Title;
 type TitleLikeArray = string[] | mw.Title[]; // TitleLike[] would be a mixed array
@@ -355,13 +356,10 @@ declare global {
             /**
              * Get the current user's groups and rights.
              *
-             * @returns {JQuery.Promise<{ groups: string[], rights: string[] }>}
+             * @returns {JQuery.Promise<UserInfo>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.user-method-getUserInfo
              */
-            getUserInfo(): JQuery.Promise<{
-                groups: string[];
-                rights: string[];
-            }>;
+            getUserInfo(): JQuery.Promise<UserInfo>;
 
             /**
              * Extend an API parameter object with an assertion that the user won't change.

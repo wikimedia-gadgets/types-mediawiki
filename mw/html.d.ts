@@ -31,7 +31,7 @@ declare global {
              */
             function element(
                 name: string,
-                attrs?: Record<string, string>,
+                attrs?: Record<string, string | number | boolean>,
                 contents?: string | Raw | null
             ): string;
 

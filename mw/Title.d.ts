@@ -1,3 +1,5 @@
+import { QueryParams } from "./Uri";
+
 type title = string | mw.Title;
 
 declare global {
@@ -260,7 +262,7 @@ declare global {
              * @return {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getUrl
              */
-            getUrl(params?: any): string;
+            getUrl(params?: QueryParams): string;
 
             /**
              * Check if the title is in a talk namespace
@@ -337,7 +339,7 @@ declare global {
              * @return {Title|null} A valid Title object or null if the title is invalid
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-static-method-newFromFileName
              */
-            static newFromFileName(uncleanName: string): Title;
+            static newFromFileName(uncleanName: string): Title | null;
 
             /**
              * Get the file title from an image element
@@ -385,7 +387,7 @@ declare global {
                 title: string,
                 defaultNamespace?: number,
                 options?: { forUploading: boolean }
-            ): Title;
+            ): Title | null;
 
             /**
              * Normalize a file extension to the common form, making it lowercase and checking some synonyms,

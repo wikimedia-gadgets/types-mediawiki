@@ -13,7 +13,7 @@ declare global {
      * @param {Function} fn
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/global-method-addOnloadHook
      */
-    function addOnloadHook(fn: (...args: any[]) => any): void;
+    function addOnloadHook(fn: () => void): void;
 
     /**
      * Import a local JS content page, for use by user scripts and site-wide scripts.
@@ -48,7 +48,7 @@ declare global {
      * @return {HTMLLinkElement} Link tag
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/global-method-importStylesheet
      */
-    function importStylesheet(title: string): HTMLLinkElement | null;
+    function importStylesheet(title: string): HTMLLinkElement;
 
     /**
      * @since 1.12.2
@@ -58,7 +58,7 @@ declare global {
      * @return {HTMLLinkElement} Link tag
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/global-method-importStylesheetURI
      */
-    function importStylesheetURI(url: string, media: string): HTMLLinkElement | null;
+    function importStylesheetURI(url: string, media: string): HTMLLinkElement;
 }
 
 export {};

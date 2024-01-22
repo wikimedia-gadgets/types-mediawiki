@@ -1,3 +1,71 @@
+interface Module {
+    exports: any;
+}
+
+type ModuleKey = `${string}@${string}`;
+type ModuleState =
+    | "error"
+    | "executing"
+    | "loaded"
+    | "loading"
+    | "missing"
+    | "ready"
+    | "registered";
+type ModuleMessages = Record<string, string>;
+type ModuleStyle = Record<string, any>;
+type ModuleTemplates = Record<string, any>;
+
+interface ModuleDeclarator {
+    (): [
+        module: string,
+        script?: ModuleScript | null,
+        style?: ModuleStyle | null,
+        messages?: ModuleMessages | null,
+        templates?: ModuleTemplates | null,
+        deprecationWarning?: string | null
+    ];
+}
+
+interface ModuleRequire {
+    /**
+     * Get the exported value of a module.
+     *
+     * @param moduleName Module name
+     * @return Exported value
+     */
+    (moduleName: string): any;
+}
+
+type ModuleScript =
+    | string[]
+    | (($: JQuery, jQuery: JQuery, require: ModuleRequire, module: Module) => void)
+    | {
+          files: { [key: string]: any };
+          main: string;
+      }
+    | string;
+
+interface ModuleRegistryEntry {
+    declarator?: ModuleDeclarator | null;
+    dependencies: string[];
+    deprecationWarning?: string | null;
+    group: number | null;
+    messages?: ModuleMessages | null;
+    module: Module;
+    packageExports: any;
+    skip: string | null;
+    source: string;
+    state: "error" | "loaded" | "missing" | "registered" | "ready";
+    version: string;
+}
+
+interface ResourceLoaderStoreStats {
+    expired: number;
+    failed: number;
+    hits: number;
+    misses: number;
+}
+
 declare global {
     namespace mw {
         /**
@@ -75,7 +143,47 @@ declare global {
              *  in the registry.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-getState
              */
-            function getState(module: string): string | null;
+            function getState(module: string): ModuleState | null;
+
+            /**
+             * Implement a module given a function which returns the components of the module
+             *
+             * @param {Function} declarator
+             *
+             * The declarator should return an array with the following keys:
+             *
+             * - 0. {string} module Name of module and current module version. Formatted
+             *   as '`[name]@[version]`". This version should match the requested version
+             *   (from #batchRequest and #registry). This avoids race conditions (T117587).
+             *
+             * - 1. {Function|Array|string|Object} [script] Module code. This can be a function,
+             *   a list of URLs to load via `<script src>`, a string for `globalEval()`, or an
+             *   object like {"files": {"foo.js":function, "bar.js": function, ...}, "main": "foo.js"}.
+             *   If an object is provided, the main file will be executed immediately, and the other
+             *   files will only be executed if loaded via require(). If a function or string is
+             *   provided, it will be executed/evaluated immediately. If an array is provided, all
+             *   URLs in the array will be loaded immediately, and executed as soon as they arrive.
+             *
+             * - 2. {Object} [style] Should follow one of the following patterns:
+             *
+             *   ```js
+             *   { "css": [css, ..] }
+             *   { "url": { (media): [url, ..] } }
+             *   ```
+             *
+             *   The reason css strings are not concatenated anymore is T33676. We now check
+             *   whether it's safe to extend the stylesheet.
+             *
+             * - 3. {Object} [messages] List of key/value pairs to be added to {@link mw.messages}.
+             * - 4. {Object} [templates] List of key/value pairs to be added to {@link mw.templates}.
+             * - 5. {String|null} [deprecationWarning] Deprecation warning if any
+             *
+             * The declarator must not use any scope variables, since it will be serialized with
+             * {@link Function.prototype.toString()} and later restored and executed in the global scope.
+             *
+             * The elements are all optional except the name.
+             */
+            function impl(declarator: ModuleDeclarator): void;
 
             /**
              * Implement a module given the components of the module.
@@ -112,9 +220,10 @@ declare global {
             function implement(
                 module: string,
                 script?: any,
-                style?: Record<string, any>,
-                messages?: Record<string, string>,
-                templates?: Record<string, any>
+                style?: ModuleStyle,
+                messages?: ModuleMessages,
+                templates?: ModuleTemplates,
+                deprecationWarning?: string | null
             ): void;
 
             /**
@@ -137,7 +246,7 @@ declare global {
              * @throws {Error} If type is invalid
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-load
              */
-            function load(modules: string | string[], type?: string): void;
+            function load(modules: string | string[], type?: "text/css" | "text/javascript"): void;
 
             /**
              * Register a module, letting the system know about it and its properties.
@@ -159,12 +268,24 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-register
              */
             function register(
-                modules: string | string[],
+                modules: string,
                 version?: string | number,
                 dependencies?: string[],
                 group?: string | null,
                 source?: string,
                 skip?: string | null
+            ): void;
+            function register(
+                modules: Array<
+                    [
+                        module: string,
+                        version?: string | number,
+                        dependencies?: Array<string | number>,
+                        group?: string | null,
+                        source?: string,
+                        skip?: string | null
+                    ]
+                >
             ): void;
 
             /**
@@ -173,7 +294,7 @@ declare global {
              * @param {Object} states Object of module name/state pairs
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-state
              */
-            function state(states: Record<string, any>): void;
+            function state(states: Record<string, ModuleState>): void;
 
             /**
              * Execute a function after one or more modules are ready.
@@ -219,9 +340,9 @@ declare global {
              */
             function using(
                 dependencies: string | string[],
-                ready?: (...args: any[]) => any,
-                error?: (...args: any[]) => any
-            ): JQuery.Promise<any>;
+                ready?: (require: ModuleRequire) => void,
+                error?: (error: Error, ...args: any[]) => void
+            ): JQuery.Promise<ModuleRequire>;
 
             /**
              * Exposed for testing and debugging only.
@@ -240,21 +361,7 @@ declare global {
              * @property {Object}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-property-moduleRegistry
              */
-            const moduleRegistry: Record<
-                string,
-                {
-                    dependencies: string[];
-                    group: any;
-                    module: {
-                        exports: any;
-                    };
-                    packageExports: any;
-                    skip: "string" | null;
-                    source: string;
-                    state: "error" | "loaded" | "missing" | "registered" | "ready";
-                    version: string;
-                }
-            >;
+            const moduleRegistry: Record<string, ModuleRegistryEntry>;
 
             /**
              * Utility function for execute()
@@ -285,7 +392,7 @@ declare global {
              */
             function addScriptTag(
                 src: string,
-                callback?: (...args: any[]) => any,
+                callback?: () => void,
                 modules?: string[]
             ): HTMLScriptElement;
 
@@ -302,8 +409,8 @@ declare global {
              */
             function enqueue(
                 dependencies: string[],
-                ready?: (...args: any[]) => any,
-                error?: (...args: any[]) => any
+                ready?: () => void,
+                error?: (error: Error, ...args: any[]) => void
             ): void;
 
             /**
@@ -318,11 +425,9 @@ declare global {
              *
              * @since 1.27
              * @private
-             * @param {string} moduleName Module name
-             * @return {any} Exported value
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-require
              */
-            function require(moduleName: string): any;
+            const require: ModuleRequire;
 
             /**
              * Get names of module that a module depends on, in their proper dependency order.
@@ -333,7 +438,7 @@ declare global {
              * @throws {Error} If an unregistered module or a dependency loop is encountered
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-resolve
              */
-            function resolve(modules: string[]): string[];
+            function resolve<T extends string, U extends T>(modules: U[]): T[];
 
             /**
              * Start loading of all queued module dependencies.
@@ -389,7 +494,7 @@ declare global {
                  * @return {string|boolean} Module implementation or false if unavailable
                  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-get
                  */
-                function get(module: string): string | boolean;
+                function get(module: string): string | false;
 
                 /**
                  * Initialize the store.
@@ -437,7 +542,7 @@ declare global {
                  *
                  * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.loader.html
                  */
-                const items: any;
+                const items: Record<ModuleKey, any>;
 
                 /**
                  * Names of modules to be stored during the next update.
@@ -451,7 +556,7 @@ declare global {
                  *
                  * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.loader.html
                  */
-                const stats: { hits: number; misses: number; expired: number; failed: number };
+                const stats: ResourceLoaderStoreStats;
 
                 /**
                  * Add the contents of the named module to the in-memory store.

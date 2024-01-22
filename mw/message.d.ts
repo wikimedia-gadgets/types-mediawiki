@@ -131,6 +131,17 @@ declare global {
             exists(): boolean;
 
             /**
+             * Check whether the message contains only syntax supported by jqueryMsg.
+             *
+             * This method is only available when jqueryMsg is loaded.
+             *
+             * @since 1.41
+             * @return {boolean}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-isParseable
+             */
+            isParseable(): boolean;
+
+            /**
              * Add (does not replace) parameters for `$N` placeholder values.
              *
              * @param {Array} parameters
@@ -138,7 +149,7 @@ declare global {
              * @chainable
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-params
              */
-            params(parameters: any[]): Message;
+            params(parameters: any[]): this;
 
             /**
              * Parse message as wikitext and return HTML.
@@ -176,7 +187,7 @@ declare global {
              * @return {string} Parsed message
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-parser
              */
-            parser(): string;
+            parser(format: string): string;
 
             /**
              * Return message plainly.
@@ -215,7 +226,7 @@ declare global {
              *  does not exist.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-toString
              */
-            toString(): string;
+            toString(format?: "escaped" | "parse" | "plain" | "text"): string;
         }
 
         /**

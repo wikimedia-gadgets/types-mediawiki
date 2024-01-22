@@ -1,10 +1,21 @@
-type Options =
-    | {
-          strictMode?: boolean;
-          overrideKeys?: boolean;
-          arrayParams?: boolean;
-      }
-    | boolean;
+export type QueryParams = Record<string, any>;
+
+interface UriOptions {
+    /**
+     * Trigger strict mode parsing of the url.
+     */
+    strictMode: boolean;
+    /**
+     * Whether to let duplicate query parameters override each other (`true`) or automagically convert them to an array (`false`).
+     */
+    overrideKeys: boolean;
+    /**
+     * Whether to parse array query parameters (e.g. `&foo[0]=a&foo[1]=b` or `&foo[]=a&foo[]=b`) or leave them alone.
+     * Currently this does not handle associative or multi-dimensional arrays, but that may be improved in the future.
+     * Implies `overrideKeys: true` (query parameters without `[...]` are not parsed as arrays).
+     */
+    arrayParams: boolean;
+}
 
 declare global {
     namespace mw {
@@ -19,7 +30,7 @@ declare global {
          * @return {Function} An mw.Uri class constructor
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-UriRelative
          */
-        function UriRelative(documentLocation: string | ((...args: any[]) => string)): Uri;
+        function UriRelative(documentLocation: string | (() => string)): typeof Uri;
 
         /**
          * Library for simple URI parsing and manipulation.
@@ -111,7 +122,7 @@ declare global {
              * @property {Object} query For example `{ a: '0', b: '', c: 'value' }` (always present)
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-query
              */
-            query: any;
+            query: QueryParams;
             /**
              * @property {string|undefined} user For example `usr`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-user
@@ -163,31 +174,12 @@ declare global {
              *  other values for other instances -- see mw.UriRelative for details).
              * @param {Object|boolean} [options] Object with options, or (backwards compatibility) a boolean
              *  for strictMode
-             * @param {boolean} [options.strictMode=false] Trigger strict mode parsing of the url.
-             * @param {boolean} [options.overrideKeys=false] Whether to let duplicate query parameters
-             *  override each other (`true`) or automagically convert them to an array (`false`).
-             * @param {boolean} [options.arrayParams=false] Whether to parse array query parameters (e.g.
-             *  `&foo[0]=a&foo[1]=b` or `&foo[]=a&foo[]=b`) or leave them alone. Currently this does not
-             *  handle associative or multi-dimensional arrays, but that may be improved in the future.
-             *  Implies `overrideKeys: true` (query parameters without `[...]` are not parsed as arrays).
              * @throws {Error} when the query string or fragment contains an unknown % sequence
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-constructor
              */
             constructor(
-                uri?:
-                    | string
-                    | Uri
-                    | Partial<{
-                          fragment: string;
-                          host: string;
-                          password: string;
-                          path: string;
-                          port: string;
-                          protocol: string;
-                          query: any;
-                          user: string;
-                      }>,
-                options?: Options
+                uri?: string | Uri | Partial<Record<typeof Uri.properties[number], string>>,
+                options?: Partial<UriOptions> | boolean
             );
 
             /**
@@ -206,7 +198,7 @@ declare global {
              * @return {Uri} This URI object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-extend
              */
-            extend(parameters: Record<string, any>): Uri;
+            extend(parameters: QueryParams): Uri;
 
             /**
              * Get the userInfo, host and port section of the URI.
@@ -266,7 +258,7 @@ declare global {
              * @return {string} The URI string
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-toString
              */
-            toString(): string;
+            toString(): `${string}://${string}`;
 
             /**
              * Parse a string and set our properties accordingly.
@@ -277,7 +269,7 @@ declare global {
              * @throws {Error} when the query string or fragment contains an unknown % sequence
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-parse
              */
-            parse(str: string, options: Options): void;
+            parse(str: string, options: Partial<UriOptions>): void;
 
             /**
              * Decode a url encoded value.

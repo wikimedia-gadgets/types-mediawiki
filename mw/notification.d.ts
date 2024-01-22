@@ -1,3 +1,55 @@
+interface NotificationOptions {
+    /**
+     * A boolean indicating whether the notification should automatically
+     * be hidden after shown. Or if it should persist.
+     */
+    autoHide: boolean;
+
+    /**
+     * Key to {@link mw.notification.autoHideSeconds} for number of seconds for timeout of auto-hide
+     * notifications.
+     */
+    autoHideSeconds: "long" | "short";
+
+    /**
+     * An optional string. When a notification is tagged only one message
+     * with that tag will be displayed. Trying to display a new notification
+     * with the same tag as one already being displayed will cause the other
+     * notification to be closed and this new notification to open up inside
+     * the same place as the previous notification.
+     */
+    tag: string | null;
+
+    /**
+     * An optional title for the notification. Will be displayed above the
+     * content. Usually in bold.
+     */
+    title: string | null;
+
+    /**
+     * An optional string for the type of the message used for styling:
+     * Examples: 'info', 'warn', 'error', 'success'.
+     */
+    type: "error" | "info" | "success" | "warn" | null;
+
+    /**
+     * A boolean indicating if the autoHide timeout should be based on
+     * time the page was visible to user. Or if it should use wall clock time.
+     */
+    visibleTimeout: boolean;
+
+    /**
+     * HTML ID to set on the notification element.
+     */
+    id: string | false;
+
+    /**
+     * CSS class names in the form of a single string or
+     * array of strings, to be set on the notification element.
+     */
+    classes: string | string[] | false;
+}
+
 /**
  * A Notification object for 1 message.
  *
@@ -11,7 +63,7 @@ interface Notification {
     autoHideSeconds: number;
     isOpen: boolean;
     isPaused: boolean;
-    options: Partial<typeof mw.notification.defaults>;
+    options: Partial<NotificationOptions>;
     timeout: {
         set: typeof setTimeout;
         clear: typeof clearTimeout;
@@ -61,27 +113,12 @@ declare global {
          * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
          * @param {Object} [options] The options to use for the notification.
          *  See {@link NotificationOptions defaults} for details.
-         * @param options.autoHide A boolean indicating whether the notification should automatically
-         * be hidden after shown. Or if it should persist.
-         * @param options.autoHideSeconds Key to autoHideSeconds for number of seconds for timeout of
-         * auto-hide notifications.
-         * @param options.tag An optional string. When a notification is tagged only one message with that
-         * tag will be displayed. Trying to display a new notification with the same tag as one
-         * already being displayed will cause the other notification to be closed and this new
-         * notification to open up inside the same place as the previous notification.
-         * @param options.title An optional title for the notification. Will be displayed above the
-         * content. Usually in bold.
-         * @param options.type An optional string for the type of the message used for styling:
-         * Examples: 'info', 'warn', 'error', 'success'.
-         * @param options.visibleTimeout A boolean indicating if the autoHide timeout should be based on
-         * time the page was visible to user. Or if it should use wall clock time.
-         * @param options.id HTML ID to set on the notification element.
          * @return {JQuery.Promise} Notification object
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-notify
          */
         function notify(
-            message: string | JQuery | HTMLElement | HTMLElement[],
-            options?: Partial<typeof notification.defaults>
+            message: string | Message | JQuery | HTMLElement | HTMLElement[],
+            options?: Partial<NotificationOptions>
         ): JQuery.Promise<Notification>;
 
         /**
@@ -108,33 +145,10 @@ declare global {
 
             /**
              * The defaults for notify options parameter.
-             * @param autoHide A boolean indicating whether the notification should automatically
-             * be hidden after shown. Or if it should persist.
-             * @param autoHideSeconds Key to autoHideSeconds for number of seconds for timeout of
-             * auto-hide notifications.
-             * @param tag An optional string. When a notification is tagged only one message with that
-             * tag will be displayed. Trying to display a new notification with the same tag as one
-             * already being displayed will cause the other notification to be closed and this new
-             * notification to open up inside the same place as the previous notification.
-             * @param title An optional title for the notification. Will be displayed above the
-             * content. Usually in bold.
-             * @param type An optional string for the type of the message used for styling:
-             * Examples: 'info', 'warn', 'error', 'success'.
-             * @param visibleTimeout A boolean indicating if the autoHide timeout should be based on
-             * time the page was visible to user. Or if it should use wall clock time.
-             * @param id HTML ID to set on the notification element.
+             *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-property-defaults
              */
-            const defaults: {
-                autoHide: boolean;
-                autoHideSeconds: "short" | "long";
-                tag: string | null;
-                title: string | null;
-                type: "info" | "warn" | "error" | "success";
-                visibleTimeout: boolean;
-                id: string;
-                classes: string | string[];
-            };
+            const defaults: NotificationOptions;
 
             /**
              * Pause auto-hide timers for all notifications.
@@ -158,27 +172,12 @@ declare global {
              * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
              * @param {Object} [options] The options to use for the notification.
              *  See {@link NotificationOptions defaults} for details.
-             * @param options.autoHide A boolean indicating whether the notification should automatically
-             * be hidden after shown. Or if it should persist.
-             * @param options.autoHideSeconds Key to autoHideSeconds for number of seconds for timeout of
-             * auto-hide notifications.
-             * @param options.tag An optional string. When a notification is tagged only one message with that
-             * tag will be displayed. Trying to display a new notification with the same tag as one
-             * already being displayed will cause the other notification to be closed and this new
-             * notification to open up inside the same place as the previous notification.
-             * @param options.title An optional title for the notification. Will be displayed above the
-             * content. Usually in bold.
-             * @param options.type An optional string for the type of the message used for styling:
-             * Examples: 'info', 'warn', 'error', 'success'.
-             * @param options.visibleTimeout A boolean indicating if the autoHide timeout should be based on
-             * time the page was visible to user. Or if it should use wall clock time.
-             * @param options.id HTML ID to set on the notification element.
              * @return {Notification} Notification object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-method-notify
              */
             function notify(
-                message: string | JQuery | HTMLElement | HTMLElement[],
-                options?: Partial<typeof notification.defaults>
+                message: string | Message | JQuery | HTMLElement | HTMLElement[],
+                options?: Partial<NotificationOptions>
             ): Notification;
         }
     }

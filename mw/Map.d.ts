@@ -24,10 +24,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-get
              */
             get(): V;
-            get<S extends Array<keyof V>>(
-                selection: S,
-                fallback?: any
-            ): Pick<V, S extends Array<infer SS> ? SS : never>;
+            get<S extends keyof V>(selection: S[], fallback?: any): Pick<V, S>;
             get<S extends keyof V>(selection: S, fallback?: V[S]): V[S];
 
             /**

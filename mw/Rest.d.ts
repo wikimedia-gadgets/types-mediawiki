@@ -38,12 +38,12 @@ declare global {
              * @param {RestOptions} [options]
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-constructor
              */
-            constructor(options?: RestOptions);
+            constructor(options?: Partial<RestOptions>);
 
             /**
              * @private
              */
-            defaultOptions: RestOptions;
+            defaults: RestOptions;
 
             /**
              * Abort all unfinished requests issued by this Api object.

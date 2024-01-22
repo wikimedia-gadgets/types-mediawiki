@@ -16,7 +16,7 @@ declare global {
          * @return {JQuery}
          * @chainable
          */
-        textSelection(command: "setContents"): JQuery;
+        textSelection(command: "setContents", content: string): this;
 
         /**
          * Get the currently selected text in this textarea.
@@ -34,7 +34,7 @@ declare global {
          * @return {JQuery}
          * @chainable
          */
-        textSelection(command: "replaceSelection"): JQuery;
+        textSelection(command: "replaceSelection", value: string): this;
 
         /**
          * Insert text at the beginning and end of a text selection, optionally
@@ -49,18 +49,8 @@ declare global {
          */
         textSelection(
             command: "encapsulateSelection",
-            options: {
-                pre?: string;
-                peri?: string;
-                post?: string;
-                ownline?: boolean;
-                replace?: boolean;
-                selectPeri?: boolean;
-                splitlines?: boolean;
-                selectionStart?: number;
-                selectionEnd?: number;
-            }
-        ): JQuery;
+            options?: Partial<TextSelectionEncapsulateOptions>
+        ): this;
 
         /**
          * Get the current cursor position (in UTF-16 code units) in a textarea.
@@ -95,7 +85,7 @@ declare global {
          * @return {JQuery}
          * @chainable
          */
-        textSelection(command: "setSelection", options: { start?: number; end?: number }): JQuery;
+        textSelection(command: "setSelection", options: { start: number; end?: number }): this;
 
         /**
          * Scroll a textarea to the current cursor position. You can set the cursor
@@ -108,7 +98,7 @@ declare global {
          * @return {JQuery}
          * @chainable
          */
-        textSelection(command: "scrollToCaretPosition", options: { force?: boolean }): JQuery;
+        textSelection(command: "scrollToCaretPosition", options: { force?: boolean }): this;
 
         /**
          * Register an alternative textSelection API for this element.
@@ -120,7 +110,7 @@ declare global {
          */
         textSelection(
             command: "register",
-            functions: Record<string, (...commandOptions: any[]) => any>
+            functions: Record<string, (commandOptions: unknown) => any>
         ): void;
 
         /**
@@ -129,7 +119,55 @@ declare global {
          * @param {string} command Command to execute
          */
         textSelection(command: "unregister"): void;
+
+        /**
+         * Do things to the selection in the textarea, using a command from the alternative textSelection API for this element.
+         *
+         * @param {string} command Command to execute
+         * @param {Mixed} [commandOptions] Options to pass to the command
+         * @return {Mixed} Depending on the command
+         */
+        textSelection(command: string, commandOptions?: any): void;
     }
+}
+
+interface TextSelectionEncapsulateOptions {
+    /**
+     * Text to insert before the cursor/selection.
+     */
+    pre: string;
+    /**
+     * Text to insert between pre and post and select afterwards.
+     */
+    peri: string;
+    /**
+     * Text to insert after the cursor/selection.
+     */
+    post: string;
+    /**
+     * Put the inserted text on a line of its own. Defaults to false.
+     */
+    ownline: boolean;
+    /**
+     * If there is a selection, replace it with peri instead of leaving it alone. Defaults to false.
+     */
+    replace: boolean;
+    /**
+     * Select the peri text if it was inserted (but not if there was a selection and replace==false, or if splitlines==true). Defaults to true.
+     */
+    selectPeri: boolean;
+    /**
+     * If multiple lines are selected, encapsulate each line individually. Defaults to false.
+     */
+    splitlines: boolean;
+    /**
+     * Position to start selection at.
+     */
+    selectionStart: number;
+    /**
+     * Position to end selection at. Defaults to the position to start setection at.
+     */
+    selectionEnd: number;
 }
 
 export {};

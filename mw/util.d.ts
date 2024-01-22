@@ -1,3 +1,12 @@
+type NoReturn<T extends (...args: any[]) => any> = T extends (
+    this: infer U,
+    ...args: infer V
+) => any
+    ? unknown extends U
+        ? (...args: V) => void
+        : (this: U, ...args: V) => void
+    : never;
+
 declare global {
     namespace mw {
         /**
@@ -52,6 +61,20 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-addCSS
              */
             function addCSS(text: string): CSSStyleSheet;
+
+            /**
+             * Creates a detached portlet Element in the skin with no elements.
+             *
+             * @param {string} id of the new portlet.
+             * @param {string} [label] of the new portlet.
+             * @param {string} [before] selector of the element preceding the new portlet. If not passed
+             *  the caller is responsible for appending the element to the DOM before using addPortletLink.
+             * @return {HTMLElement|null} will be null if it was not possible to create an portlet with
+             *  the required information e.g. the selector given in before parameter could not be resolved
+             *  to an existing element in the page.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-addPortlet
+             */
+            function addPortlet(id: string, label?: string, before?: string): HTMLElement | null;
 
             /**
              * Add a link to a portlet menu on the page, such as:
@@ -167,11 +190,11 @@ declare global {
                 func: T,
                 wait?: number,
                 immediate?: boolean
-            ): T;
+            ): NoReturn<T>;
             function debounce<T extends (...args: any[]) => any>(
-                delay: number,
-                callback: (...args: any[]) => any
-            ): T;
+                wait: number,
+                func: T
+            ): NoReturn<T>;
 
             /**
              * Encode a string as CSS id, for use as HTML id attribute value.
@@ -210,6 +233,24 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-escapeRegExp
              */
             function escapeRegExp(str: string): string;
+
+            /**
+             * Get the value for an array query parameter, combined according to similar rules as PHP uses.
+             * Currently this does not handle associative or multi-dimensional arrays, but that may be
+             * improved in the future.
+             *
+             * ```js
+             * mw.util.getArrayParam( 'foo', new URLSearchParams( '?foo[0]=a&foo[1]=b' ) ); // [ 'a', 'b' ]
+             * mw.util.getArrayParam( 'foo', new URLSearchParams( '?foo[]=a&foo[]=b' ) ); // [ 'a', 'b' ]
+             * mw.util.getArrayParam( 'foo', new URLSearchParams( '?foo=a' ) ); // null
+             * ```
+             *
+             * @param {string} param The parameter name.
+             * @param {URLSearchParams} [params] Parsed URL parameters to search through, defaulting to the current browsing location.
+             * @return {string[]|null} Parameter value, or null if parameter was not found.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-getArrayParam
+             */
+            function getArrayParam(param: string, params?: URLSearchParams): string[] | null;
 
             /**
              * Get the value for a given URL query parameter.
@@ -258,7 +299,12 @@ declare global {
              * @return {string} URL, relative to `wgServer`.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-getUrl
              */
-            function getUrl(pageName?: string | null, params?: { [param: string]: string }): string;
+            // params are handled by $.param, which converts any value to a string. However, instead of using toString(),
+            // object are serialized (deep ones recursively), so only simple values are allowed to prevent mistakes.
+            function getUrl(
+                pageName?: string | null,
+                params?: { [param: string]: string | number | boolean | null | undefined }
+            ): string;
 
             /**
              * Hide a portlet.
@@ -299,7 +345,14 @@ declare global {
              * @return {boolean}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-isIPv4Address
              */
-            function isIPv4Address(address: string, allowBlock?: boolean): boolean;
+            function isIPv4Address(
+                address: string,
+                allowBlock: true
+            ): address is `${number}.${number}.${number}.${number}${`/${number}` | ""}`;
+            function isIPv4Address(
+                address: string,
+                allowBlock?: false
+            ): address is `${number}.${number}.${number}.${number}`;
 
             /**
              * Whether a string is a valid IPv6 address or not.
@@ -450,7 +503,10 @@ declare global {
              * @return {Function} Throttled function
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-throttle
              */
-            function throttle<T extends (...args: any[]) => any>(func: T, wait: number): T;
+            function throttle<T extends (...args: any[]) => any>(
+                func: T,
+                wait: number
+            ): NoReturn<T>;
 
             /**
              * Validate a string as representing a valid e-mail address.

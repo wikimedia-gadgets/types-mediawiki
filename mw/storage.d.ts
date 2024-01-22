@@ -15,7 +15,7 @@ interface SafeStorage {
      *  if storage is not available.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-get
      */
-    get(key: string): string | null | boolean;
+    get(key: string): string | null | false;
 
     /**
      * Retrieve JSON object from device storage.
@@ -57,7 +57,7 @@ interface SafeStorage {
      * @return {boolean} The expiry was set (or cleared) [since 1.41]
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-setExpires
      */
-    setExpires(key: string, expiry?: number): void;
+    setExpires(key: string, expiry?: number): boolean;
 
     /**
      * Set an object value in device storage by JSON encoding
@@ -77,7 +77,7 @@ interface SafeStorage {
      * @return {JQuery.Promise} Resolves when items have been expired
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-clearExpired
      */
-    clearExpired(): JQuery.Promise<any>;
+    clearExpired(): JQuery.Promise<undefined>;
 
     /**
      * Get all keys with expiry values
@@ -87,7 +87,7 @@ interface SafeStorage {
      *  expiry values (unprefixed), or as many could be retrieved in the allocated time.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-getExpiryKeys
      */
-    getExpiryKeys(): JQuery.Promise<any>;
+    getExpiryKeys(): JQuery.Promise<string[]>;
 
     /**
      * Check if a given key has expired

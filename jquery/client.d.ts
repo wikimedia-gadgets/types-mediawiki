@@ -78,7 +78,7 @@ interface Client {
      *  Defaults to the global `navigator` object.
      * @return {Object} The client object
      */
-    profile(nav?: { userAgent: string; platform: string }): ClientProfile;
+    profile(nav?: ClientNavigator): ClientProfile;
 
     /**
      * Checks the current browser against a support map object.
@@ -122,23 +122,40 @@ interface Client {
      *  otherwise returns true if the browser is not found.
      * @return {boolean} The current browser is in the support map
      */
-    test(map: any, profile?: ClientProfile, exactMatchOnly?: boolean): boolean;
+    test(
+        map: ClientSupportMap | { ltr: ClientSupportMap; rtl: ClientSupportMap },
+        profile?: ClientProfile,
+        exactMatchOnly?: boolean
+    ): boolean;
 }
 
+export interface ClientNavigator {
+    userAgent: string;
+    platform: string;
+}
+
+type ClientProfileName =
+    | "android"
+    | "chrome"
+    | "crios"
+    | "edge"
+    | "firefox"
+    | "fxios"
+    | "konqueror"
+    | "msie"
+    | "opera"
+    | "rekong"
+    | "safari"
+    | "silk";
+
+type ClientSupportMap = Partial<Record<ClientProfileName, false | null | ClientSupportCondition[]>>;
+type ClientSupportCondition = [
+    "==" | "===" | "!=" | "!==" | "<" | "<=" | ">" | ">=",
+    string | number
+];
+
 interface ClientProfile {
-    name:
-        | "android"
-        | "chrome"
-        | "crios"
-        | "edge"
-        | "firefox"
-        | "fxios"
-        | "konqueror"
-        | "msie"
-        | "opera"
-        | "rekong"
-        | "safari"
-        | "silk";
+    name: ClientProfileName;
     layout: "edge" | "gecko" | "khtml" | "presto" | "trident" | "webkit";
     layoutVersion: number;
     platform: "ipad" | "iphone" | "linux" | "mac" | "solaris" | "win";

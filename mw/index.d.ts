@@ -26,9 +26,28 @@ declare global {
      * Base library for MediaWiki.
      *
      * Exposed globally as `mw`, with `mediaWiki` as alias.
+     *
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw
+     */
+    const mediaWiki: typeof mw;
+
+    /**
+     * Base library for MediaWiki.
+     *
+     * Exposed globally as `mw`, with `mediaWiki` as alias.
+     *
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw
      */
     namespace mw {
+        /**
+         * Empty object for third-party libraries, for cases where you don't
+         * want to add a new global, or the global is bad and needs containment
+         * or wrapping.
+         *
+         * @property {Object}
+         */
+        const libs: any;
+
         // types for mw.widgets are out of scope!
         const widgets: any;
 
@@ -142,7 +161,7 @@ declare global {
          */
         function trackSubscribe(
             topic: string,
-            callback: (topic: string, data: object) => any
+            callback: (topic: string, data: object) => void
         ): void;
 
         /**
@@ -150,7 +169,7 @@ declare global {
          *
          * @param {Function} callback
          */
-        function trackUnsubscribe(callback: (topic: string, data: object) => any): void;
+        function trackUnsubscribe(callback: (topic: string, data: object) => void): void;
     }
 }
 
