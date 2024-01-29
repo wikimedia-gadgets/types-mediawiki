@@ -6,7 +6,7 @@ interface ForeignRestOptions extends RestOptions {
      * accept cross-origin requests, or if you don't need to perform write actions or read
      * restricted information and want to avoid the overhead.
      */
-    anonymous?: boolean;
+    anonymous: boolean;
 }
 
 declare global {
@@ -41,16 +41,16 @@ declare global {
              * mw.ForeignRest = MyForeignRest;
              * ```
              *
-             * @param {string | Uri} url URL pointing to another wiki's rest.php endpoint.
+             * @param {string} url URL pointing to another wiki's `rest.php` endpoint.
              * @param {ForeignApi} foreignActionApi
-             * @param {ForeignRestOptions} [options]
+             * @param {Partial<ForeignRestOptions>} [options]
              * @since 1.36
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignApi-method-constructor
              */
             constructor(
-                url: string | Uri,
+                url: string,
                 foreignActionApi: ForeignApi,
-                options?: ForeignRestOptions
+                options?: Partial<ForeignRestOptions>
             );
         }
     }

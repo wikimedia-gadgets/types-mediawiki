@@ -344,7 +344,7 @@ declare global {
              * @returns {Title|null} The file title or null if unsuccessful
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-static-method-newFromImg
              */
-            static newFromImg(img: HTMLElement | JQuery): Title;
+            static newFromImg(img: HTMLElement | JQuery): Title | null;
 
             /**
              * Constructor for Title objects with a null return instead of an exception for invalid titles.
@@ -378,7 +378,7 @@ declare global {
             static newFromUserInput(
                 title: string,
                 defaultNamespace?: number,
-                options?: { forUploading: boolean }
+                options?: { forUploading?: boolean }
             ): Title | null;
 
             /**

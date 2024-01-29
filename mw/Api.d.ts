@@ -8,7 +8,9 @@ import {
 import { TitleLike } from "./Title";
 import { UserInfo } from "./user";
 
-type TitleLikeArray = string[] | mw.Title[]; // TitleLike[] would be a mixed array
+type TypeOrArray<T> = T extends any ? T | T[] : never; // T[] would be a mixed array
+type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
+
 type ApiParams = Record<string, string | string[] | boolean | number | number[]>;
 type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
 
@@ -22,11 +24,11 @@ export interface ApiOptions {
     /**
      * Default query parameters for API requests
      */
-    parameters?: ApiParams;
+    parameters: ApiParams;
     /**
      * Default options for {@link jQuery.ajax}
      */
-    ajax?: JQuery.AjaxSettings;
+    ajax: JQuery.AjaxSettings;
     /**
      * Whether to use U+001F when joining multi-valued parameters (since 1.28).
      * Default is true if ajax.url is not set, false otherwise for compatibility.
@@ -70,7 +72,7 @@ declare global {
              * @param {ApiOptions} [options]
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-constructor
              */
-            constructor(options?: ApiOptions);
+            constructor(options?: Partial<ApiOptions>);
 
             private defaults: ApiOptions;
 
@@ -405,34 +407,30 @@ declare global {
             /**
              * Convenience method for `action=watch`.
              *
-             * @param {TitleLike | TitleLikeArray} pages
+             * @param {TypeOrArray<TitleLike>} pages
              * @param {string} [expiry]
-             * @returns {JQuery.Promise<{ watch: { title: string, watched: boolean } | Array<{ title: string, watched: boolean }> }>}
+             * @returns {JQuery.Promise<{ watch: TypeOrArray<{ title: string, watched: boolean }> }>}
              * @since 1.35: expiry parameter can be passed when watchlist expiry is enabled
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.watch-method-watch
              */
-            watch<P extends TitleLike | TitleLikeArray>(
+            watch<P extends TypeOrArray<TitleLike>>(
                 pages: P,
                 expiry?: string
             ): JQuery.Promise<{
-                watch: P extends TitleLikeArray
-                    ? Array<{ title: string; watched: boolean }>
-                    : { title: string; watched: boolean };
+                watch: ReplaceValue<P, TitleLike, { title: string; watched: boolean }>;
             }>;
 
             /**
              * Convenience method for `action=watch&unwatch=1`.
              *
-             * @param {TitleLike | TitleLikeArray} pages
-             * @returns {JQuery.Promise<{ watch: { title: string, watched: boolean } | Array<{ title: string, watched: boolean }> }>}
+             * @param {TypeOrArray<TitleLike>} pages
+             * @returns {JQuery.Promise<{ watch: TypeOrArray<{ title: string, watched: boolean }> }>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.watch-method-unwatch
              */
-            unwatch<P extends TitleLike | TitleLikeArray>(
+            unwatch<P extends TypeOrArray<TitleLike>>(
                 pages: P
             ): JQuery.Promise<{
-                watch: P extends TitleLikeArray
-                    ? Array<{ title: string; watched: boolean }>
-                    : { title: string; watched: boolean };
+                watch: ReplaceValue<P, TitleLike, { title: string; watched: boolean }>;
             }>;
 
             /**
@@ -559,7 +557,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.upload-method-chunkedUploadToStash
              */
             chunkedUploadToStash(
-                file: File,
+                file: File | HTMLInputElement,
                 data?: ApiUploadParams,
                 chunkSize?: number,
                 chunkRetries?: number

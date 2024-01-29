@@ -1,3 +1,5 @@
+import { QueryParams } from "./Uri";
+
 type NoReturn<T extends (...args: any[]) => any> = T extends (
     this: infer U,
     ...args: infer V
@@ -296,17 +298,14 @@ declare global {
              * Get the URL to a given local wiki page name,
              *
              * @param {string|null} [pageName=wgPageName] Page name
-             * @param {Object} [params] A mapping of query parameter names to values,
+             * @param {QueryParams} [params] A mapping of query parameter names to values,
              *  e.g. `{ action: 'edit' }`
              * @returns {string} URL, relative to `wgServer`.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-getUrl
              */
             // params are handled by $.param, which converts any value to a string. However, instead of using toString(),
             // object are serialized (deep ones recursively), so only simple values are allowed to prevent mistakes.
-            function getUrl(
-                pageName?: string | null,
-                params?: { [param: string]: string | number | boolean | null | undefined }
-            ): string;
+            function getUrl(pageName?: string | null, params?: QueryParams): string;
 
             /**
              * Hide a portlet.
@@ -349,12 +348,12 @@ declare global {
              */
             function isIPv4Address(
                 address: string,
-                allowBlock: true
-            ): address is `${number}.${number}.${number}.${number}${`/${number}` | ""}`;
-            function isIPv4Address(
-                address: string,
                 allowBlock?: false
             ): address is `${number}.${number}.${number}.${number}`;
+            function isIPv4Address(
+                address: string,
+                allowBlock: boolean
+            ): address is `${number}.${number}.${number}.${number}${`/${number}` | ""}`;
 
             /**
              * Whether a string is a valid IPv6 address or not.
@@ -423,7 +422,7 @@ declare global {
             ): {
                 name: string;
                 width?: number | null;
-                resizeUrl: (w: number) => string;
+                resizeUrl(w: number): string;
             } | null;
 
             /**

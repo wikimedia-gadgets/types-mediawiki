@@ -22,7 +22,7 @@ declare global {
                 prefix: string | undefined | null,
                 defaultValue: D
             ): string | D;
-            function get(key: string, prefix?: string): string;
+            function get(key: string, prefix?: string | null): string;
 
             /**
              * Get the value of a `SameSite` = `None` cookie, using the legacy `ss0-` prefix if needed.
@@ -38,7 +38,7 @@ declare global {
                 prefix: string | undefined | null,
                 defaultValue: D
             ): string | D;
-            function getCrossSite(key: string, prefix?: string): string;
+            function getCrossSite(key: string, prefix?: string | null): string;
 
             /**
              * Set or delete a cookie.
@@ -64,16 +64,17 @@ declare global {
             // see https://stackoverflow.com/a/64932909 for <SS>
             function set<SS extends string = SameSite>(
                 key: string,
-                value: any,
+                value: string | null,
                 options?:
                     | Date
                     | number
                     | Partial<{
                           domain: string;
-                          expires: Date | number;
+                          expires: Date | number | null;
                           path: string;
                           prefix: string;
                           sameSite: Lowercase<SS> extends SameSite ? SS : SameSite;
+                          sameSiteLegacy: boolean;
                           secure: boolean;
                       }>
             ): void;

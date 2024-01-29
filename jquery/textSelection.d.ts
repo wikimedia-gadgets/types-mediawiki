@@ -134,7 +134,7 @@ declare global {
          * @returns {Mixed} Depending on the command
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
          */
-        textSelection(command: string, commandOptions?: any): void;
+        textSelection(command: string, commandOptions?: unknown): any;
     }
 }
 

@@ -19,7 +19,7 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#debug
              */
-            debug: number;
+            debug: boolean | number;
             /**
              * The internal name of the currently used skin.
              *

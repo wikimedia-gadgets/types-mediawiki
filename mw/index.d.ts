@@ -44,7 +44,7 @@ declare global {
          * want to add a new global, or the global is bad and needs containment
          * or wrapping.
          */
-        const libs: any;
+        const libs: Record<string, any>;
 
         /**
          * OOUI widgets specific to MediaWiki
@@ -176,6 +176,19 @@ declare global {
          * @param {Function} callback
          */
         function trackUnsubscribe(callback: (topic: string, data: object) => void): void;
+
+        /**
+         * List of all analytic events emitted so far.
+         *
+         * Exposed only for use by mediawiki.base.
+         *
+         * @private
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-trackQueue
+         */
+        const trackQueue: Array<{
+            topic: string;
+            data: Record<string, any> | number | string | undefined;
+        }>;
     }
 }
 

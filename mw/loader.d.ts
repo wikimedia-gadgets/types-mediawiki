@@ -217,7 +217,7 @@ declare global {
              */
             function implement(
                 module: string,
-                script?: any,
+                script?: ModuleScript,
                 style?: ModuleStyle,
                 messages?: ModuleMessages,
                 templates?: ModuleTemplates,

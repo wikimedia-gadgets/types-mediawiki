@@ -72,7 +72,7 @@ export interface User {
      * @returns {JQuery.Promise}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getGroups
      */
-    getGroups(callback: (groups: string[]) => any): JQuery.Promise<undefined>;
+    getGroups<T>(callback: (groups: string[]) => T): JQuery.Promise<T>;
     getGroups(): JQuery.Promise<string[]>;
 
     /**
@@ -119,7 +119,7 @@ export interface User {
      * @returns {JQuery.Promise}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getRights
      */
-    getRights(callback: (rights: string[]) => any): JQuery.Promise<undefined>;
+    getRights<T>(callback: (rights: string[]) => T): JQuery.Promise<T>;
     getRights(): JQuery.Promise<string[]>;
 
     /**

@@ -34,7 +34,7 @@ declare global {
              */
             get<S extends keyof V>(selection: S[], fallback?: any): Pick<V, S>;
             get<S extends keyof V>(selection: S, fallback?: V[S]): V[S];
-            get(): V;
+            get<S extends V = V>(): S;
 
             /**
              * Set the value of one or more keys.

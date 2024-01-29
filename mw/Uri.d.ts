@@ -1,4 +1,4 @@
-export type QueryParams = Record<string, any>;
+export type QueryParams = Record<string, string | number | boolean | null | undefined>;
 
 interface UriOptions {
     /**
