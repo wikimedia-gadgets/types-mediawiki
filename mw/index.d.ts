@@ -21,6 +21,24 @@ import "./Uri";
 import "./user";
 import "./util";
 
+type ObjectAnalyticEventData = Record<string, any>;
+type AnalyticEventData = ObjectAnalyticEventData | number | string | undefined;
+
+interface ErrorAnalyticEventData extends ObjectAnalyticEventData {
+    exception?: any;
+    module?: string;
+    source: string;
+}
+
+interface AnalyticEvent {
+    topic: string;
+    data: AnalyticEventData;
+}
+
+interface AnalyticEventCallback {
+    (topic: string, data: AnalyticEventData): void;
+}
+
 declare global {
     /**
      * Base library for MediaWiki.
@@ -128,7 +146,7 @@ declare global {
          * @param {Object|number|string} [data] Data describing the event.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-track
          */
-        function track(topic: string, data?: object | number | string): void;
+        function track(topic: string, data?: AnalyticEventData): void;
 
         /**
          * Track an early error event via mw.track and send it to the window console.
@@ -138,7 +156,7 @@ declare global {
          * @param {Object} data Data describing the event, encoded as an object; see {@link errorLogger.logError}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackError
          */
-        function trackError(topic: string, data: object): void;
+        function trackError(topic: string, data: ErrorAnalyticEventData): void;
 
         /**
          * Register a handler for subset of analytic events, specified by topic.
@@ -165,17 +183,14 @@ declare global {
          * @param {string} callback.topic
          * @param {Object} [callback.data]
          */
-        function trackSubscribe(
-            topic: string,
-            callback: (topic: string, data: object) => void
-        ): void;
+        function trackSubscribe(topic: string, callback: AnalyticEventCallback): void;
 
         /**
          * Stop handling events for a particular handler
          *
          * @param {Function} callback
          */
-        function trackUnsubscribe(callback: (topic: string, data: object) => void): void;
+        function trackUnsubscribe(callback: AnalyticEventCallback): void;
 
         /**
          * List of all analytic events emitted so far.
@@ -185,10 +200,7 @@ declare global {
          * @private
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-trackQueue
          */
-        const trackQueue: Array<{
-            topic: string;
-            data: Record<string, any> | number | string | undefined;
-        }>;
+        const trackQueue: AnalyticEvent[];
     }
 }
 

@@ -9,6 +9,28 @@ type NoReturn<T extends (...args: any[]) => any> = T extends (
         : (this: U, ...args: V) => void
     : never;
 
+interface ImageUrlData {
+    /**
+     * File name (same format as {@link mw.Title.getMainText()}).
+     */
+    name: string;
+
+    /**
+     * Thumbnail width, in pixels. Null when the file is not a thumbnail.
+     */
+    width: number | null;
+
+    /**
+     * @param w Width, which must be smaller than the width of the original image (or equal to it; that
+     *   only works if `MediaHandler::mustRender` returns true for the file). Null when the
+     *   file in the original URL is not a thumbnail.
+     *   On wikis with `$wgGenerateThumbnailOnParse` set to true, this will fall back to using
+     *   `Special:Redirect` which is less efficient. Otherwise, it is a direct thumbnail URL.
+     * @returns A thumbnail URL (URL-encoded) with that width.
+     */
+    resizeUrl: (w: number) => string | null;
+}
+
 declare global {
     namespace mw {
         /**
@@ -403,27 +425,11 @@ declare global {
              * the image.
              *
              * @param {string} url URL to parse (URL-encoded)
-             * @returns {Object|null} URL data, or null if the URL is not a valid MediaWiki
+             * @returns {ImageUrlData|null} URL data, or null if the URL is not a valid MediaWiki
              *   image/thumbnail URL.
-             * @returns {string} return.name File name (same format as Title.getMainText()).
-             * @returns {number} [return.width] Thumbnail width, in pixels. Null when the file is not
-             *   a thumbnail.
-             * @returns {function(number):string} [return.resizeUrl] A function that takes a width
-             *   parameter and returns a thumbnail URL (URL-encoded) with that width. The width
-             *   parameter must be smaller than the width of the original image (or equal to it; that
-             *   only works if MediaHandler::mustRender returns true for the file). Null when the
-             *   file in the original URL is not a thumbnail.
-             *   On wikis with $wgGenerateThumbnailOnParse set to true, this will fall back to using
-             *   Special:Redirect which is less efficient. Otherwise, it is a direct thumbnail URL.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-parseImageUrl
              */
-            function parseImageUrl(
-                url: string
-            ): {
-                name: string;
-                width?: number | null;
-                resizeUrl(w: number): string;
-            } | null;
+            function parseImageUrl(url: string): ImageUrlData | null;
 
             /**
              * Percent-decode a string, as found in a URL hash fragment

@@ -119,18 +119,14 @@ interface Client {
      * }
      * ```
      *
-     * @param {Object} map Browser support map
+     * @param {ClientSupportMap} map Browser support map
      * @param {ClientProfile} [profile] A client-profile object
      * @param {boolean} [exactMatchOnly=false] Only return true if the browser is matched,
      *  otherwise returns true if the browser is not found.
      * @returns {boolean} The current browser is in the support map
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.client-method-test
      */
-    test(
-        map: ClientSupportMap | { ltr: ClientSupportMap; rtl: ClientSupportMap },
-        profile?: ClientProfile,
-        exactMatchOnly?: boolean
-    ): boolean;
+    test(map: ClientSupportMap, profile?: ClientProfile, exactMatchOnly?: boolean): boolean;
 }
 
 export interface ClientNavigator {
@@ -152,11 +148,15 @@ type ClientProfileName =
     | "safari"
     | "silk";
 
-type ClientSupportMap = Partial<Record<ClientProfileName, false | null | ClientSupportCondition[]>>;
-type ClientSupportCondition = [
-    "==" | "===" | "!=" | "!==" | "<" | "<=" | ">" | ">=",
-    string | number
-];
+type ComparisonOperator = "==" | "===" | "!=" | "!==" | "<" | "<=" | ">" | ">=";
+type ClientSupportCondition = [ComparisonOperator, string | number];
+
+type UndirectedClientSupportMap = Partial<
+    Record<ClientProfileName, false | null | ClientSupportCondition[]>
+>;
+type ClientSupportMap =
+    | UndirectedClientSupportMap
+    | Record<"ltr" | "rtl", UndirectedClientSupportMap>;
 
 interface ClientProfile {
     name: ClientProfileName;

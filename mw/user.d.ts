@@ -9,6 +9,12 @@ export interface UserInfo {
     rights: string[];
 }
 
+interface UserTokens extends Record<string, string> {
+    csrfToken: string;
+    patrolToken: string;
+    watchToken: string;
+}
+
 export interface User {
     /**
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-options
@@ -19,11 +25,7 @@ export interface User {
     /**
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-tokens
      */
-    tokens: mw.Map<{
-        csrfToken: string;
-        patrolToken: string;
-        watchToken: string;
-    }>;
+    tokens: mw.Map<UserTokens>;
 
     /**
      * Acquire a temporary user username and stash it in the current session, if temp account creation

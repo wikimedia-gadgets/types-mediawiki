@@ -17,6 +17,11 @@ interface UriOptions {
     arrayParams: boolean;
 }
 
+interface UriParser {
+    strict: RegExp;
+    loose: RegExp;
+}
+
 declare global {
     namespace mw {
         /**
@@ -134,13 +139,9 @@ declare global {
              * file where they make use of named capture groups. That syntax isn't valid in JavaScript ES5,
              * so the server-side strips these before delivering to the client.
              *
-             * @property {Object} parser
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-static-property-parser
              */
-            private static parser: {
-                strict: RegExp;
-                loose: RegExp;
-            };
+            private static parser: UriParser;
 
             /**
              * The order here matches the order of captured matches in the `parser` property regexes.

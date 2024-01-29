@@ -14,6 +14,28 @@ type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
 type ApiParams = Record<string, string | string[] | boolean | number | number[]>;
 type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
 
+interface Revision {
+    content: string;
+    timestamp: string;
+}
+
+interface AssertUser {
+    assert: "anon" | "user";
+    assertUser: string;
+}
+
+interface WatchStatus {
+    title: string;
+    watched: boolean;
+}
+
+interface FinishUpload {
+    /**
+     * Call this function to finish the upload.
+     */
+    (data?: ApiUploadParams): JQuery.Promise<ApiResponse>;
+}
+
 /**
  * Default options for {@link jQuery.ajax} calls. Can be overridden by passing
  * `options` to {@link mw.Api} constructor.
@@ -319,16 +341,13 @@ declare global {
              * ```
              *
              * @param {TitleLike} title Page title
-             * @param {function({ timestamp: string, content: string }):string|ApiEditPageParams} transform Callback that prepares the edit
+             * @param {function(Revision):string|ApiEditPageParams} transform Callback that prepares the edit
              * @returns {JQuery.Promise<any>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.edit-method-edit
              */
             edit(
                 title: TitleLike,
-                transform: (data: {
-                    timestamp: string;
-                    content: string;
-                }) => string | ApiEditPageParams
+                transform: (revision: Revision) => string | ApiEditPageParams
             ): JQuery.Promise<any>;
 
             /**
@@ -367,15 +386,10 @@ declare global {
              * * `apierror-assertnameduserfailed`: when both the client-side logic and the server thinks the user is logged in but they see it logged in under a different username.
              *
              * @param {ApiParams} query Query parameters. The object will not be changed
-             * @returns {JQuery.Promise<{ assert: "anon" | "user", assertUser: string }>}
+             * @returns {JQuery.Promise<AssertUser>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.user-method-assertCurrentUser
              */
-            assertCurrentUser(
-                query: ApiParams
-            ): JQuery.Promise<{
-                assert: "anon" | "user";
-                assertUser: string;
-            }>;
+            assertCurrentUser(query: ApiParams): JQuery.Promise<AssertUser>;
 
             /**
              * Asynchronously save the value of a single user option using the API. See `saveOptions()`.
@@ -409,29 +423,25 @@ declare global {
              *
              * @param {TypeOrArray<TitleLike>} pages
              * @param {string} [expiry]
-             * @returns {JQuery.Promise<{ watch: TypeOrArray<{ title: string, watched: boolean }> }>}
+             * @returns {JQuery.Promise<{ watch: TypeOrArray<WatchStatus> }>}
              * @since 1.35: expiry parameter can be passed when watchlist expiry is enabled
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.watch-method-watch
              */
             watch<P extends TypeOrArray<TitleLike>>(
                 pages: P,
                 expiry?: string
-            ): JQuery.Promise<{
-                watch: ReplaceValue<P, TitleLike, { title: string; watched: boolean }>;
-            }>;
+            ): JQuery.Promise<{ watch: ReplaceValue<P, TitleLike, WatchStatus> }>;
 
             /**
              * Convenience method for `action=watch&unwatch=1`.
              *
              * @param {TypeOrArray<TitleLike>} pages
-             * @returns {JQuery.Promise<{ watch: TypeOrArray<{ title: string, watched: boolean }> }>}
+             * @returns {JQuery.Promise<{ watch: TypeOrArray<WatchStatus> }>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.watch-method-unwatch
              */
             unwatch<P extends TypeOrArray<TitleLike>>(
                 pages: P
-            ): JQuery.Promise<{
-                watch: ReplaceValue<P, TitleLike, { title: string; watched: boolean }>;
-            }>;
+            ): JQuery.Promise<{ watch: ReplaceValue<P, TitleLike, WatchStatus> }>;
 
             /**
              * Convenience method for `action=parse`.
@@ -553,7 +563,7 @@ declare global {
              * @param {ApiUploadParams} [data]
              * @param {number} [chunkSize] Size (in bytes) per chunk (default: 5MB)
              * @param {number} [chunkRetries] Amount of times to retry a failed chunk (default: 1)
-             * @returns {JQuery.Promise<(data?: ApiUploadParams) => JQuery.Promise<ApiResponse>>} Call this function to finish the upload
+             * @returns {JQuery.Promise<FinishUpload>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.upload-method-chunkedUploadToStash
              */
             chunkedUploadToStash(
@@ -561,7 +571,7 @@ declare global {
                 data?: ApiUploadParams,
                 chunkSize?: number,
                 chunkRetries?: number
-            ): JQuery.Promise<(data?: ApiUploadParams) => JQuery.Promise<ApiResponse>>;
+            ): JQuery.Promise<FinishUpload>;
 
             /**
              * Upload a file to MediaWiki.
@@ -606,13 +616,13 @@ declare global {
              *
              * @param {File|HTMLInputElement} file
              * @param {ApiUploadParams} [data]
-             * @returns {JQuery.Promise<(data?: ApiUploadParams) => JQuery.Promise<ApiResponse>>} Call this function to finish the upload
+             * @returns {JQuery.Promise<FinishUpload>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.upload-method-uploadToStash
              */
             uploadToStash(
                 file: File | HTMLInputElement,
                 data?: ApiUploadParams
-            ): JQuery.Promise<(data?: ApiUploadParams) => JQuery.Promise<ApiResponse>>;
+            ): JQuery.Promise<FinishUpload>;
 
             /**
              * @param {string} username
