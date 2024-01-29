@@ -44,7 +44,7 @@ declare global {
              * @param {string | Uri} url URL pointing to another wiki's rest.php endpoint.
              * @param {ForeignApi} foreignActionApi
              * @param {ForeignRestOptions} [options]
-             * @since 1.26
+             * @since 1.36
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignApi-method-constructor
              */
             constructor(

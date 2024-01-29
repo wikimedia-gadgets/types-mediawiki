@@ -113,7 +113,7 @@ declare global {
          * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
          * @param {Object} [options] The options to use for the notification.
          *  See {@link NotificationOptions defaults} for details.
-         * @return {JQuery.Promise} Notification object
+         * @returns {JQuery.Promise} Notification object
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-notify
          */
         function notify(
@@ -172,7 +172,7 @@ declare global {
              * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
              * @param {Object} [options] The options to use for the notification.
              *  See {@link NotificationOptions defaults} for details.
-             * @return {Notification} Notification object
+             * @returns {Notification} Notification object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-method-notify
              */
             function notify(

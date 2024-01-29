@@ -5,9 +5,9 @@ import {
     ApiRollbackParams,
     ApiUploadParams,
 } from "../api_params";
+import { TitleLike } from "./Title";
 import { UserInfo } from "./user";
 
-type TitleLike = string | mw.Title;
 type TitleLikeArray = string[] | mw.Title[]; // TitleLike[] would be a mixed array
 type ApiParams = Record<string, string | string[] | boolean | number | number[]>;
 type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
@@ -72,15 +72,11 @@ declare global {
              */
             constructor(options?: ApiOptions);
 
-            /**
-             * @private
-             */
-            defaults: ApiOptions;
+            private defaults: ApiOptions;
 
             /**
              * Abort all unfinished requests issued by this Api object.
              *
-             * @returns {void}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-abort
              */
             abort(): void;
@@ -114,10 +110,8 @@ declare global {
             /**
              * Massage parameters from the nice format we accept into a format suitable for the API.
              *
-             * @private
              * @param {ApiParams} parameters (modified in-place)
              * @param {boolean} useUS Whether to use U+001F when joining multi-valued parameters.
-             * @returns {void}
              */
             private preprocessParameters(parameters: ApiParams, useUS: boolean): void;
 
@@ -164,7 +158,7 @@ declare global {
              * Get a token for a certain action from the API.
              *
              * @param {string} type Token type
-             * @param {ApiParams | string} [additionalParams] Additional parameters for the API (since 1.35). When given a string, it's treated as the `assert` parameter (since 1.25)
+             * @param {ApiParams|string} [additionalParams] Additional parameters for the API (since 1.35). When given a string, it's treated as the `assert` parameter (since 1.25)
              * @returns {JQuery.Promise<string>} Received token
              * @since 1.22
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-getToken
@@ -179,7 +173,6 @@ declare global {
              * automatically.
              *
              * @param {string} type Token type
-             * @returns {void}
              * @since 1.26
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-badToken
              */
@@ -217,7 +210,7 @@ declare global {
              * } );
              * ```
              *
-             * @param {Object} data API response indicating an error
+             * @param {ApiResponse} data API response indicating an error
              * @returns {JQuery} Error messages, each wrapped in a `<div>`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-getErrorMessage
              */
@@ -324,7 +317,7 @@ declare global {
              * ```
              *
              * @param {TitleLike} title Page title
-             * @param {(data: { timestamp: string, content: string }) => string | ApiEditPageParams} transform Callback that prepares the edit
+             * @param {function({ timestamp: string, content: string }):string|ApiEditPageParams} transform Callback that prepares the edit
              * @returns {JQuery.Promise<any>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.edit-method-edit
              */
@@ -516,10 +509,10 @@ declare global {
              * Get the categories that a particular page on the wiki belongs to.
              *
              * @param {TitleLike} title
-             * @returns {JQuery.Promise<false | mw.Title[]>} List of category titles or false if title was not found
+             * @returns {JQuery.Promise<false|Title[]>} List of category titles or false if title was not found
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.category-method-getCategories
              */
-            getCategories(title: TitleLike): JQuery.Promise<false | mw.Title[]>;
+            getCategories(title: TitleLike): JQuery.Promise<false | Title[]>;
 
             /**
              * Convenience method for `action=rollback`.
@@ -558,7 +551,7 @@ declare global {
              *
              * This function will return a promise that will resolve with a function to finish the stash upload.
              *
-             * @param {File | HTMLInputElement} file
+             * @param {File|HTMLInputElement} file
              * @param {ApiUploadParams} [data]
              * @param {number} [chunkSize] Size (in bytes) per chunk (default: 5MB)
              * @param {number} [chunkRetries] Amount of times to retry a failed chunk (default: 1)
@@ -577,9 +570,9 @@ declare global {
              *
              * The file will be uploaded using AJAX and FormData.
              *
-             * @param {HTMLInputElement | File | Blob} file HTML `input type=file` element with a file already inside of it, or a File object.
+             * @param {File|Blob|HTMLInputElement} file HTML `input type=file` element with a file already inside of it, or a File object.
              * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
-             * @return {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<ApiResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.upload-method-upload
              */
             upload(
@@ -613,9 +606,8 @@ declare global {
              * } );
              * ```
              *
-             * @param {File | HTMLInputElement} file
+             * @param {File|HTMLInputElement} file
              * @param {ApiUploadParams} [data]
-             * @return {JQuery.Promise}
              * @returns {JQuery.Promise<(data?: ApiUploadParams) => JQuery.Promise<ApiResponse>>} Call this function to finish the upload
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.upload-method-uploadToStash
              */

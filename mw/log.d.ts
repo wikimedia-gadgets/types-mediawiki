@@ -29,7 +29,6 @@ declare global {
              *
              * See {@link mw.log} for other logging methods.
              *
-             * @member mw
              * @param {...string} msg Messages to output to console.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-log
              */
@@ -98,7 +97,7 @@ declare global {
              * @param {string|null} key Name of the feature for deprecation tracker,
              *  or null for a console-only deprecation.
              * @param {string} msg Deprecation warning.
-             * @return {Function}
+             * @returns {Function}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-makeDeprecated
              */
             makeDeprecated(key: string | null, msg: string): () => void;

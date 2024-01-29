@@ -14,7 +14,7 @@ declare global {
              * @deprecated
              * @since 1.26; deprecated since 1.34
              * @param {string} str String to escape
-             * @return {string} Escaped string
+             * @returns {string} Escaped string
              * @see https://doc.wikimedia.org/mediawiki-core/REL1_29/js/source/mediawiki.RegExp.html#mw-RegExp-static-method-escape
              */
             function escape(str: string): string;

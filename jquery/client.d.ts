@@ -2,6 +2,8 @@ declare global {
     interface JQueryStatic {
         /**
          * User-agent detection
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.client
          */
         client: Client;
     }
@@ -74,9 +76,10 @@ interface Client {
      * - `solaris` (untested)
      * - `win`
      *
-     * @param {Object} [nav] An object with a 'userAgent' and 'platform' property.
+     * @param {ClientNavigator} [nav] An object with a 'userAgent' and 'platform' property.
      *  Defaults to the global `navigator` object.
-     * @return {Object} The client object
+     * @returns {ClientProfile} The client object
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.client-method-profile
      */
     profile(nav?: ClientNavigator): ClientProfile;
 
@@ -117,10 +120,11 @@ interface Client {
      * ```
      *
      * @param {Object} map Browser support map
-     * @param {Object} [profile] A client-profile object
+     * @param {ClientProfile} [profile] A client-profile object
      * @param {boolean} [exactMatchOnly=false] Only return true if the browser is matched,
      *  otherwise returns true if the browser is not found.
-     * @return {boolean} The current browser is in the support map
+     * @returns {boolean} The current browser is in the support map
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.client-method-test
      */
     test(
         map: ClientSupportMap | { ltr: ClientSupportMap; rtl: ClientSupportMap },

@@ -13,6 +13,15 @@ declare global {
             private values: V;
 
             /**
+             * Check if a given key exists in the map.
+             *
+             * @param selection Key to check
+             * @returns True if the key exists
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-exists
+             */
+            exists(selection: keyof V): boolean;
+
+            /**
              * Get the value of one or more keys.
              *
              * If called with no arguments, all values are returned.
@@ -23,9 +32,9 @@ declare global {
              * an object of key/values. If no selection is passed, a new object with all key/values is returned.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-get
              */
-            get(): V;
             get<S extends keyof V>(selection: S[], fallback?: any): Pick<V, S>;
             get<S extends keyof V>(selection: S, fallback?: V[S]): V[S];
+            get(): V;
 
             /**
              * Set the value of one or more keys.
@@ -37,15 +46,6 @@ declare global {
              */
             set<S extends keyof V>(selection: S, value: V[S]): boolean;
             set(selection: Partial<V>): boolean;
-
-            /**
-             * Check if a given key exists in the map.
-             *
-             * @param selection Key to check
-             * @returns True if the key exists
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-exists
-             */
-            exists(selection: keyof V): boolean;
         }
     }
 }

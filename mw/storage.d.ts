@@ -11,7 +11,7 @@ interface SafeStorage {
      * Retrieve value from device storage.
      *
      * @param {string} key Key of item to retrieve
-     * @return {string|null|boolean} String value, null if no value exists, or false
+     * @returns {string|null|boolean} String value, null if no value exists, or false
      *  if storage is not available.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-get
      */
@@ -21,7 +21,7 @@ interface SafeStorage {
      * Retrieve JSON object from device storage.
      *
      * @param {string} key Key of item to retrieve
-     * @return {Object|null|boolean} Object, null if no value exists or value
+     * @returns {Object|null|boolean} Object, null if no value exists or value
      *  is not JSON-parseable, or false if storage is not available.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-getObject
      */
@@ -31,7 +31,7 @@ interface SafeStorage {
      * Remove a value from device storage.
      *
      * @param {string} key Key of item to remove
-     * @return {boolean} Whether the key was removed
+     * @returns {boolean} Whether the key was removed
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-remove
      */
     remove(key: string): boolean;
@@ -42,7 +42,7 @@ interface SafeStorage {
      * @param {string} key Key name to store under
      * @param {string} value Value to be stored
      * @param {number} [expiry] Number of seconds after which this item can be deleted
-     * @return {boolean} The value was set
+     * @returns {boolean} The value was set
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-set
      */
     set(key: string, value: string, expiry?: number): boolean;
@@ -54,7 +54,7 @@ interface SafeStorage {
      * @param {number} [expiry] Number of seconds after which this item can be deleted,
      *  omit to clear the expiry (either making the item never expire, or to clean up
      *  when deleting a key).
-     * @return {boolean} The expiry was set (or cleared) [since 1.41]
+     * @returns {boolean} The expiry was set (or cleared) [since 1.41]
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-setExpires
      */
     setExpires(key: string, expiry?: number): boolean;
@@ -65,7 +65,7 @@ interface SafeStorage {
      * @param {string} key Key name to store under
      * @param {Object} value Object value to be stored
      * @param {number} [expiry] Number of seconds after which this item can be deleted
-     * @return {boolean} The value was set
+     * @returns {boolean} The value was set
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-setObject
      */
     setObject(key: string, value: any, expiry?: number): boolean;
@@ -74,7 +74,7 @@ interface SafeStorage {
      * Clear any expired items from the store
      *
      * @private
-     * @return {JQuery.Promise} Resolves when items have been expired
+     * @returns {JQuery.Promise} Resolves when items have been expired
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-clearExpired
      */
     clearExpired(): JQuery.Promise<undefined>;
@@ -83,7 +83,7 @@ interface SafeStorage {
      * Get all keys with expiry values
      *
      * @private
-     * @return {JQuery.Promise} Promise resolving with all the keys which have
+     * @returns {JQuery.Promise} Promise resolving with all the keys which have
      *  expiry values (unprefixed), or as many could be retrieved in the allocated time.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-getExpiryKeys
      */
@@ -94,7 +94,7 @@ interface SafeStorage {
      *
      * @private
      * @param {string} key Key name
-     * @return {boolean} Whether key is expired
+     * @returns {boolean} Whether key is expired
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-isExpired
      */
     isExpired(key: string): boolean;

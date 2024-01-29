@@ -49,7 +49,7 @@ declare global {
              * Return the origin to use for API requests, in the required format (protocol, host and port, if any).
              *
              * @protected
-             * @return {string | undefined}
+             * @returns {string|undefined}
              */
             protected getOrigin(): string | undefined;
         }

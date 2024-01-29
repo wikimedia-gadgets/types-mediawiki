@@ -26,7 +26,7 @@ declare global {
              *  - string: Text to be escaped.
              *  - null: The element is treated as void with short closing form, e.g. `<br/>`.
              *  - this.Raw: The raw value is directly included.
-             * @return {string} HTML
+             * @returns {string} HTML
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.html-method-element
              */
             function element(
@@ -46,7 +46,7 @@ declare global {
              * ```
              *
              * @param {string} s The string to escape
-             * @return {string} HTML
+             * @returns {string} HTML
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.html-method-escape
              */
             function escape(s: string): string;

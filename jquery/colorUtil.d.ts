@@ -12,7 +12,7 @@ interface ColorUtil {
      * <http://jquery.offput.ca/highlightFade/>
      *
      * @param {Array|string} color
-     * @return {Array}
+     * @returns {Array}
      */
     getRGB(color: string | number[]): number[];
 
@@ -21,8 +21,6 @@ interface ColorUtil {
      *
      * Based on Interface by Stefan Petre
      * <http://interface.eyecon.ro/>
-     *
-     * @property {Object}
      */
     colors: Record<string, [number, number, number]>;
 
@@ -40,7 +38,7 @@ interface ColorUtil {
      * @param {number} r The red color value
      * @param {number} g The green color value
      * @param {number} b The blue color value
-     * @return {number[]} The HSL representation
+     * @returns {number[]} The HSL representation
      */
     rgbToHsl(r: number, g: number, b: number): number[];
 
@@ -58,7 +56,7 @@ interface ColorUtil {
      * @param {number} h The hue
      * @param {number} s The saturation
      * @param {number} l The lightness
-     * @return {number[]} The RGB representation
+     * @returns {number[]} The RGB representation
      */
     hslToRgb(h: number, s: number, l: number): number[];
 
@@ -76,7 +74,7 @@ interface ColorUtil {
      *
      * @param {Mixed} currentColor Current value in css
      * @param {number} mod Wanted brightness modification between -1 and 1
-     * @return {string} Like `'rgb(r,g,b)'`
+     * @returns {string} Like `'rgb(r,g,b)'`
      */
     getColorBrightness(currentColor: any, mod: number): `rgb(${number},${number},${number})`;
 }

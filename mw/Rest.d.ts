@@ -40,15 +40,11 @@ declare global {
              */
             constructor(options?: Partial<RestOptions>);
 
-            /**
-             * @private
-             */
-            defaults: RestOptions;
+            private defaults: RestOptions;
 
             /**
              * Abort all unfinished requests issued by this Api object.
              *
-             * @returns {void}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-abort
              */
             abort(): void;

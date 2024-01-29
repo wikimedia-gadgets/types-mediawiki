@@ -13,8 +13,8 @@ declare global {
              *
              * @param {string} key The key for the cookie
              * @param {string} [prefix] The prefix of the key. If undefined or null, `$wgCookiePrefix` is used
-             * @param {*} [defaultValue] A value to return if the cookie does not exist
-             * @returns {*} If the cookie exists, the value of the cookie, otherwise `defaultValue`
+             * @param {Mixed} [defaultValue] A value to return if the cookie does not exist
+             * @returns {Mixed} If the cookie exists, the value of the cookie, otherwise `defaultValue`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.cookie-method-get
              */
             function get<D>(
@@ -29,8 +29,8 @@ declare global {
              *
              * @param {string} key The key for the cookie
              * @param {string} [prefix] The prefix of the key. If undefined or null, `$wgCookiePrefix` is used
-             * @param {*} defaultValue A value to return if the cookie does not exist
-             * @returns {*} If the cookie exists, the value of the cookie, otherwise `defaultValue`
+             * @param {Mixed} [defaultValue] A value to return if the cookie does not exist
+             * @returns {Mixed} If the cookie exists, the value of the cookie, otherwise `defaultValue`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.cookie-method-getCrossSite
              */
             function getCrossSite<D>(
@@ -59,7 +59,6 @@ declare global {
              * @param {boolean} [options.secure] Whether or not to include the secure attribute (Does **not** use the wgCookieSecure configuration variable)
              * @param {string} [options.sameSite] The `SameSite` flag of the cookie (case-insensitive; default is to omit the flag, which results in `Lax` on modern browsers). Set to `None` *and* set `secure` to `true` if the cookie needs to be visible on cross-domain requests
              * @param {boolean} [options.sameSiteLegacy] If true, `SameSite` = `None` cookies will also be sent as non-`SameSite` cookies with an "ss0-" prefix, to work around old browsers interpreting the standard differently
-             * @returns {void}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.cookie-method-set
              */
             // see https://stackoverflow.com/a/64932909 for <SS>
@@ -70,12 +69,12 @@ declare global {
                     | Date
                     | number
                     | Partial<{
-                          expires: Date | number;
-                          prefix: string;
                           domain: string;
+                          expires: Date | number;
                           path: string;
-                          secure: boolean;
+                          prefix: string;
                           sameSite: Lowercase<SS> extends SameSite ? SS : SameSite;
+                          secure: boolean;
                       }>
             ): void;
         }

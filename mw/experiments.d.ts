@@ -31,13 +31,13 @@ declare global {
              * // the A or B bucket. If the experiment were disabled, then the user would always be
              * // assigned to the control bucket.
              * {
-             *   name: 'My first experiment',
-             *   enabled: true,
-             *   buckets: {
-             *     control: 0.5
-             *     A: 0.25,
-             *     B: 0.25
-             *   }
+             *     name: 'My first experiment',
+             *     enabled: true,
+             *     buckets: {
+             *         control: 0.5
+             *         A: 0.25,
+             *         B: 0.25
+             *     }
              * }
              * ```
              *
@@ -50,7 +50,7 @@ declare global {
              *  that the user will be assigned to that bucket
              * @param {string} token A token that uniquely identifies the user for the
              *  duration of the experiment
-             * @return {string|undefined} The bucket
+             * @returns {string|undefined} The bucket
              */
             function getBucket(experiment: Experiment, token: string): string | undefined;
         }

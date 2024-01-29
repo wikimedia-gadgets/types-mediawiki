@@ -55,7 +55,6 @@ declare global {
              * Information about month names in current UI language.
              *
              * @property {Object}
-             * @member mw.language
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-property-months
              */
             const months: {
@@ -92,7 +91,7 @@ declare global {
              * See LanguageCode::bcp47 for the PHP implementation.
              *
              * @param {string} languageTag Well-formed language tag
-             * @return {string}
+             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-bcp47
              */
             function bcp47(languageTag: string): string;
@@ -106,7 +105,7 @@ declare global {
              *
              * @param {string} word
              * @param {string} form
-             * @return {string}
+             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-convertGrammar
              */
             function convertGrammar(word: string, form: string): string;
@@ -116,7 +115,7 @@ declare global {
              *
              * @param {number} num Value to be converted
              * @param {boolean} [integer=false] Whether to convert the return value to an integer
-             * @return {number|string} Formatted number
+             * @returns {number|string} Formatted number
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-convertNumber
              */
             function convertNumber(num: number, integer?: boolean): number | string;
@@ -127,7 +126,7 @@ declare global {
              * @param {number} count Non-localized quantifier
              * @param {Array} forms List of plural forms
              * @param {Object} [explicitPluralForms] List of explicit plural forms
-             * @return {string} Correct form for quantifier in this language
+             * @returns {string} Correct form for quantifier in this language
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-convertPlural
              */
             function convertPlural(
@@ -140,7 +139,7 @@ declare global {
              * Helper function to flip transformation tables.
              *
              * @param {...Object} tables Transformation tables
-             * @return {Object}
+             * @returns {Object}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-flipTransform
              */
             function flipTransform<T extends Record<PropertyKey, PropertyKey>>(
@@ -157,7 +156,7 @@ declare global {
              *
              * @param {string} gender 'male', 'female', or anything else for neutral.
              * @param {Array} forms List of gender forms
-             * @return {string}
+             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-gender
              */
             function gender<T extends string>(gender: string, forms: [T?, T?, T?]): T;
@@ -170,7 +169,7 @@ declare global {
              *
              * @param {string} langCode
              * @param {string} dataKey
-             * @return {any} Value stored in the mw.Map (or `undefined` if there is no map for the
+             * @returns {Mixed} Value stored in the mw.Map (or `undefined` if there is no map for the
              *  specified langCode)
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-getData
              */
@@ -179,7 +178,7 @@ declare global {
             /**
              * Get the digit transform table for current UI language.
              *
-             * @return {Object|Array}
+             * @returns {Object|Array}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-getDigitTransformTable
              */
             function getDigitTransformTable(): string[] | Record<number | string, string>;
@@ -187,7 +186,7 @@ declare global {
             /**
              * Get the language fallback chain for current UI language, including the language itself.
              *
-             * @return {string[]} List of language keys, e.g. `['pfl', de', 'en']`
+             * @returns {string[]} List of language keys, e.g. `['pfl', de', 'en']`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-getFallbackLanguageChain
              */
             function getFallbackLanguageChain(): string[];
@@ -195,7 +194,7 @@ declare global {
             /**
              * Get the language fallback chain for current UI language (not including the language itself).
              *
-             * @return {string[]} List of language keys, e.g. `['de', 'en']`
+             * @returns {string[]} List of language keys, e.g. `['de', 'en']`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-getFallbackLanguages
              */
             function getFallbackLanguages(): string[];
@@ -203,7 +202,7 @@ declare global {
             /**
              * Get the separator transform table for current UI language.
              *
-             * @return {Object|Array}
+             * @returns {Object|Array}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-getSeparatorTransformTable
              */
             function getSeparatorTransformTable(): string[] | Record<number | string, string>;
@@ -214,7 +213,7 @@ declare global {
              * See Language::listToText in languages/Language.php
              *
              * @param {string[]} list
-             * @return {string}
+             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-listToText
              */
             function listToText(list: string[]): string;
@@ -226,7 +225,7 @@ declare global {
              *
              * @param {string} langCode
              * @param {string|Object} dataKey Key or object of key/values
-             * @param {any} [value] Value for dataKey, omit if dataKey is an object
+             * @param {Mixed} [value] Value for dataKey, omit if dataKey is an object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-setData
              */
             function setData(langCode: string, dataKey: string, value: any): void;
@@ -246,7 +245,7 @@ declare global {
              * @param {string} options.decimal The decimal separator. Defaults to: `'.'`.
              * @param {string} options.group The group separator. Defaults to: `','`.
              * @param {number|null} options.minimumGroupingDigits
-             * @return {string}
+             * @returns {string}
              */
             function commafyNumber(
                 value: number,
@@ -270,7 +269,7 @@ declare global {
              * @param {number} size The length to pad to
              * @param {string} [ch='0'] Character to pad with
              * @param {boolean} [end=false] Adds padding at the end if true, otherwise pads at start
-             * @return {string}
+             * @returns {string}
              */
             function pad(text: string, size: number, ch?: string, end?: boolean): string;
 
@@ -280,7 +279,7 @@ declare global {
              * @private
              * @param {Array} forms Number of forms given to convertPlural
              * @param {number} count Number of forms required
-             * @return {Array} Padded array of forms
+             * @returns {Array} Padded array of forms
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-preConvertPlural
              */
             function preConvertPlural(forms: string[], count: number): string[];
@@ -291,7 +290,7 @@ declare global {
              * @private
              * @param {string} str The string to replicate
              * @param {number} num Number of times to replicate the string
-             * @return {string}
+             * @returns {string}
              */
             function replicate(str: string, num: number): string;
         }

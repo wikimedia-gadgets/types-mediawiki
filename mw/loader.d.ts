@@ -31,7 +31,7 @@ interface ModuleRequire {
      * Get the exported value of a module.
      *
      * @param moduleName Module name
-     * @return Exported value
+     * @returns Exported value
      */
     (moduleName: string): any;
 }
@@ -87,7 +87,7 @@ declare global {
              * @param {string} text CSS text
              * @param {Node|null} [nextNode] The element where the style tag
              *  should be inserted before
-             * @return {HTMLStyleElement} Reference to the created style element
+             * @returns {HTMLStyleElement} Reference to the created style element
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-addStyleTag
              */
             function addStyleTag(text: string, nextNode?: Node | null): HTMLStyleElement;
@@ -95,8 +95,7 @@ declare global {
             /**
              * Get the names of all registered ResourceLoader modules.
              *
-             * @member mw.loader
-             * @return {string[]}
+             * @returns {string[]}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-getModuleNames
              */
             function getModuleNames(): string[];
@@ -119,9 +118,8 @@ declare global {
              * } );
              * ```
              *
-             * @member mw.loader
              * @param {string} url Script URL
-             * @return {JQuery.Promise} Resolved when the script is loaded
+             * @returns {JQuery.Promise} Resolved when the script is loaded
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-getScript
              */
             function getScript(url: string): JQuery.Promise<any>;
@@ -139,7 +137,7 @@ declare global {
              * - `missing`: The module was requested but is not defined according to the server.
              *
              * @param {string} module Name of module
-             * @return {string|null} The state, or null if the module (or its state) is not
+             * @returns {string|null} The state, or null if the module (or its state) is not
              *  in the registry.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-getState
              */
@@ -156,7 +154,7 @@ declare global {
              *   as '`[name]@[version]`". This version should match the requested version
              *   (from #batchRequest and #registry). This avoids race conditions (T117587).
              *
-             * - 1. {Function|Array|string|Object} [script] Module code. This can be a function,
+             * - 1. {ModuleScript} [script] Module code. This can be a function,
              *   a list of URLs to load via `<script src>`, a string for `globalEval()`, or an
              *   object like {"files": {"foo.js":function, "bar.js": function, ...}, "main": "foo.js"}.
              *   If an object is provided, the main file will be executed immediately, and the other
@@ -164,7 +162,7 @@ declare global {
              *   provided, it will be executed/evaluated immediately. If an array is provided, all
              *   URLs in the array will be loaded immediately, and executed as soon as they arrive.
              *
-             * - 2. {Object} [style] Should follow one of the following patterns:
+             * - 2. {ModuleStyle} [style] Should follow one of the following patterns:
              *
              *   ```js
              *   { "css": [css, ..] }
@@ -174,8 +172,8 @@ declare global {
              *   The reason css strings are not concatenated anymore is T33676. We now check
              *   whether it's safe to extend the stylesheet.
              *
-             * - 3. {Object} [messages] List of key/value pairs to be added to {@link mw.messages}.
-             * - 4. {Object} [templates] List of key/value pairs to be added to {@link mw.templates}.
+             * - 3. {ModuleMessages} [messages] List of key/value pairs to be added to {@link mw.messages}.
+             * - 4. {ModuleTemplates} [templates] List of key/value pairs to be added to {@link mw.templates}.
              * - 5. {String|null} [deprecationWarning] Deprecation warning if any
              *
              * The declarator must not use any scope variables, since it will be serialized with
@@ -196,14 +194,14 @@ declare global {
              * Does not support mw.loader.store caching.
              *
              * @param {string} module
-             * @param {Function|Array|string|Object} [script] Module code. This can be a function,
+             * @param {ModuleScript} [script] Module code. This can be a function,
              *  a list of URLs to load via `<script src>`, a string for `domEval()`, or an
              *  object like {"files": {"foo.js":function, "bar.js": function, ...}, "main": "foo.js"}.
              *  If an object is provided, the main file will be executed immediately, and the other
              *  files will only be executed if loaded via require(). If a function or string is
              *  provided, it will be executed/evaluated immediately. If an array is provided, all
              *  URLs in the array will be loaded immediately, and executed as soon as they arrive.
-             * @param {Object} [style] Should follow one of the following patterns:
+             * @param {ModuleStyle} [style] Should follow one of the following patterns:
              *
              * ```js
              * { "css": [css, ..] }
@@ -212,8 +210,8 @@ declare global {
              *
              * The reason css strings are not concatenated anymore is T33676. We now check
              * whether it's safe to extend the stylesheet.
-             * @param {Object} [messages] List of key/value pairs to be added to {@link mw.messages}.
-             * @param {Object} [templates] List of key/value pairs to be added to {@link mw.templates}.
+             * @param {ModuleMessages} [messages] List of key/value pairs to be added to {@link mw.messages}.
+             * @param {ModuleTemplates} [templates] List of key/value pairs to be added to {@link mw.templates}.
              * @param {string|null} [deprecationWarning] Deprecation warning if any
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-implement
              */
@@ -330,12 +328,11 @@ declare global {
              *
              * Since MediaWiki 1.28 the promise is resolved with a `require` function.
              *
-             * @member mw.loader
              * @param {string|Array} dependencies Module name or array of modules names the
              *  callback depends on to be ready before executing
              * @param {Function} [ready] Callback to execute when all dependencies are ready
              * @param {Function} [error] Callback to execute if one or more dependencies failed
-             * @return {JQuery.Promise} With a `require` function
+             * @returns {JQuery.Promise} With a `require` function
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-using
              */
             function using(
@@ -370,7 +367,7 @@ declare global {
              * @param {string} url URL
              * @param {string} [media] Media attribute
              * @param {Node|null} [nextNode]
-             * @return {HTMLLinkElement}
+             * @returns {HTMLLinkElement}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.loader.html#global-method-addLinkTag
              */
             function addLinkTag(
@@ -387,7 +384,7 @@ declare global {
              * @param {Function} [callback] Callback to run after request resolution
              * @param {string[]} [modules] List of modules being requested, for state to be marked as error
              * in case the script fails to load
-             * @return {HTMLScriptElement}
+             * @returns {HTMLScriptElement}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.loader.html#mw-loader-method-addScriptTag
              */
             function addScriptTag(
@@ -434,7 +431,7 @@ declare global {
              *
              * @private
              * @param {string[]} modules Array of string module names
-             * @return {Array} List of dependencies, including 'module'.
+             * @returns {Array} List of dependencies, including 'module'.
              * @throws {Error} If an unregistered module or a dependency loop is encountered
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-resolve
              */
@@ -491,7 +488,7 @@ declare global {
                  * Retrieve a module from the store and update cache hit stats.
                  *
                  * @param {string} module Module name
-                 * @return {string|boolean} Module implementation or false if unavailable
+                 * @returns {string|boolean} Module implementation or false if unavailable
                  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-get
                  */
                 function get(module: string): string | false;
@@ -524,7 +521,7 @@ declare global {
                 /**
                  * Construct a JSON-serializable object representing the content of the store.
                  *
-                 * @return {Object} Module store contents.
+                 * @returns {Object} Module store contents.
                  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-toJSON
                  */
                 function toJSON(): { items: string; vary: string; asOf: number };
@@ -602,7 +599,6 @@ declare global {
                  * be called if the store is enabled.
                  *
                  * @private
-                 * @method
                  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-requestUpdate
                  */
                 function requestUpdate(): void;

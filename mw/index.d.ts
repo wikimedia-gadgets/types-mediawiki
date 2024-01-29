@@ -43,12 +43,16 @@ declare global {
          * Empty object for third-party libraries, for cases where you don't
          * want to add a new global, or the global is bad and needs containment
          * or wrapping.
-         *
-         * @property {Object}
          */
         const libs: any;
 
-        // types for mw.widgets are out of scope!
+        /**
+         * OOUI widgets specific to MediaWiki
+         *
+         * types for mw.widgets are out of scope!
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.base.html#mw-property-libs
+         */
         const widgets: any;
 
         /**
@@ -59,7 +63,7 @@ declare global {
          * @since 1.25
          * @param {string} formatString Format string
          * @param {...Mixed} parameters Values for $N replacements
-         * @return {string} Formatted string
+         * @returns {string} Formatted string
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-format
          */
         function format(formatString: string, ...parameters: unknown[]): string;
@@ -71,7 +75,8 @@ declare global {
          * floating-point values with microsecond precision that are guaranteed to be monotonic.
          * On all other browsers, it will fall back to using `Date`.
          *
-         * @return {number} Current time
+         * @returns {number} Current time
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-now
          */
         function now(): number;
 
@@ -98,7 +103,6 @@ declare global {
          * - <https://developers.google.com/web/updates/2015/08/using-requestidlecallback>
          * [RAIL]: https://developers.google.com/web/fundamentals/performance/rail
          *
-         * @member mw
          * @param {Function} callback
          * @param {Object} [options]
          * @param {number} [options.timeout] If set, the callback will be scheduled for
@@ -122,6 +126,7 @@ declare global {
          *
          * @param {string} topic Topic name
          * @param {Object|number|string} [data] Data describing the event.
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-track
          */
         function track(topic: string, data?: object | number | string): void;
 
@@ -131,6 +136,7 @@ declare global {
          * @private
          * @param {string} topic Topic name
          * @param {Object} data Data describing the event, encoded as an object; see {@link errorLogger.logError}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackError
          */
         function trackError(topic: string, data: object): void;
 

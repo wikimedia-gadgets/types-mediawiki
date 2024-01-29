@@ -63,12 +63,6 @@ declare global {
              */
             wgDBname: string;
             /**
-             * The wiki identifier. Should be preferred over wgDBname.
-             *
-             * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgWikiID
-             */
-            wgWikiID: string;
-            /**
              * Root path used for extension static assets (e.g. images). Append '/' then the name of the extension to get the root path for a given extension.
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgExtensionAssetsPath
@@ -116,6 +110,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgSiteName
              */
             wgSiteName: string;
+            wgUrlProtocols: string;
             /**
              * If a wiki has language variants (such as the Chinese and the Serbian Wikipedias), set to a path beginning at the root for language variants other than wgContentLanguage. The path contains two placeholders: "$1" is to be replaced by the page title, and "$2" is to be replaced by the language code of the language variant (e.g. "zh-tw"). If the wiki does not have language variants, set to false. See also $wgVariantArticlePath.
              *
@@ -128,6 +123,12 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgVersion
              */
             wgVersion: string;
+            /**
+             * The wiki identifier. Should be preferred over wgDBname.
+             *
+             * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgWikiID
+             */
+            wgWikiID: string;
             /**
              * The action performed, e.g. "edit" for edit pages, or "view" for page views. See Manual:Parameters to index.php#Actions.
              *
@@ -351,7 +352,6 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgDiffNewId
              */
             wgDiffNewId: number;
-            wgUrlProtocols: string;
             [key: string]: unknown; // more config keys can be added by extensions
         }>;
     }
