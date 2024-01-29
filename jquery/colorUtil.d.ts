@@ -4,6 +4,8 @@ declare global {
     }
 }
 
+type Color = [number, number, number];
+
 interface ColorUtil {
     /**
      * Parse CSS color strings looking for color tuples
@@ -11,10 +13,10 @@ interface ColorUtil {
      * Based on highlightFade by Blair Mitchelmore
      * <http://jquery.offput.ca/highlightFade/>
      *
-     * @param {Array|string} color
-     * @returns {Array}
+     * @param {Color|string} color
+     * @returns {Color}
      */
-    getRGB(color: string | number[]): number[];
+    getRGB<T extends Color>(color: string | T): T;
 
     /**
      * Named color map
@@ -22,7 +24,7 @@ interface ColorUtil {
      * Based on Interface by Stefan Petre
      * <http://interface.eyecon.ro/>
      */
-    colors: Record<string, [number, number, number]>;
+    colors: Record<string, Color>;
 
     /**
      * Convert an RGB color value to HSL.
@@ -38,9 +40,9 @@ interface ColorUtil {
      * @param {number} r The red color value
      * @param {number} g The green color value
      * @param {number} b The blue color value
-     * @returns {number[]} The HSL representation
+     * @returns {Color} The HSL representation
      */
-    rgbToHsl(r: number, g: number, b: number): number[];
+    rgbToHsl(r: number, g: number, b: number): Color;
 
     /**
      * Convert an HSL color value to RGB.
@@ -56,9 +58,9 @@ interface ColorUtil {
      * @param {number} h The hue
      * @param {number} s The saturation
      * @param {number} l The lightness
-     * @returns {number[]} The RGB representation
+     * @returns {Color} The RGB representation
      */
-    hslToRgb(h: number, s: number, l: number): number[];
+    hslToRgb(h: number, s: number, l: number): Color;
 
     /**
      * Get a brighter or darker rgb() value string.
@@ -72,11 +74,14 @@ interface ColorUtil {
      * // > "rgb(118,29,29)"
      * ```
      *
-     * @param {Mixed} currentColor Current value in css
+     * @param {Color|string} currentColor Current value in css
      * @param {number} mod Wanted brightness modification between -1 and 1
      * @returns {string} Like `'rgb(r,g,b)'`
      */
-    getColorBrightness(currentColor: any, mod: number): `rgb(${number},${number},${number})`;
+    getColorBrightness(
+        currentColor: string | Color,
+        mod: number
+    ): `rgb(${number},${number},${number})`;
 }
 
 export {};
