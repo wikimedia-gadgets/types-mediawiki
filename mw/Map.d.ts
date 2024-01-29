@@ -1,3 +1,11 @@
+type KeyOrArray<T> = keyof T | Array<keyof T>;
+type GetOrDefault<V, K extends keyof V, T> = V extends Required<Pick<V, K>>
+    ? V[K]
+    : Required<V>[K] | T;
+type PickOrDefault<V, S extends keyof V | Array<keyof V>, T> = S extends Array<infer SS>
+    ? { [K in SS & keyof V]-?: GetOrDefault<V, K, T> }
+    : GetOrDefault<V, S & keyof V, null>;
+
 declare global {
     namespace mw {
         /**
@@ -32,9 +40,9 @@ declare global {
              * an object of key/values. If no selection is passed, a new object with all key/values is returned.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-get
              */
-            get<S extends keyof V>(selection: S[], fallback?: any): Pick<V, S>;
-            get<S extends keyof V>(selection: S, fallback?: V[S]): V[S];
-            get<S extends V = V>(): S;
+            get<S extends KeyOrArray<V>, T>(selection: S, fallback: T): PickOrDefault<V, S, T>;
+            get<S extends KeyOrArray<V>>(selection: S): PickOrDefault<V, S, null>;
+            get<T extends V = V>(): T;
 
             /**
              * Set the value of one or more keys.

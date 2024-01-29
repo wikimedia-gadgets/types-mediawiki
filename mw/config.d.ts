@@ -32,6 +32,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#stylepath
              */
             stylepath: string;
+            wgActionPaths: Record<string, string>;
             /**
              * Local path, starting at the root, to reference articles, containing a "$1" placeholder that may be replaced by a page title to get a valid URL to that page. Given a valid page title title, a valid URL may be constructed using wgArticlePath.replace('$1', title). See also $wgArticlePath.
              *
@@ -44,6 +45,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgCaseSensitiveNamespaces
              */
             wgCaseSensitiveNamespaces: number[];
+            wgCommentCodePointLimit: number;
             /**
              * The language code for the default content language of the wiki.
              *
@@ -68,12 +70,15 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgExtensionAssetsPath
              */
             wgExtensionAssetsPath: string;
+            wgExtraSignatureNamespaces: number[];
             /**
              * Gives a mapping from namespace IDs to localized namespace names. For each namespace, the object has one entry that has the stringified namespace number as the key and the namespace name as its value. Aliases or canonical names are not included.
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgFormattedNamespaces
              */
             wgFormattedNamespaces: Record<number, string>;
+            wgIllegalFileChars: string;
+            wgLegalTitleChars: string;
             /**
              * Gives a mapping from namespace names to namespace IDs. For each namespace name, including localized and canonical names as well as aliases, the object has one entry that has namespace name as the key and the namespace ID as its integer value. The keys are all lowercase, with spaces replaced by underscores.
              *
@@ -110,6 +115,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgSiteName
              */
             wgSiteName: string;
+            wgTranslateNumerals: boolean;
             wgUrlProtocols: string;
             /**
              * If a wiki has language variants (such as the Chinese and the Serbian Wikipedias), set to a path beginning at the root for language variants other than wgContentLanguage. The path contains two placeholders: "$1" is to be replaced by the page title, and "$2" is to be replaced by the language code of the language variant (e.g. "zh-tw"). If the wiki does not have language variants, set to false. See also $wgVariantArticlePath.
@@ -220,7 +226,7 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgRedirectedFrom
              */
-            wgRedirectedFrom: string;
+            wgRedirectedFrom?: string;
             /**
              * The full name of the page to which content actions and navigation links (e.g. a skin's tabs) apply. The AJAX watch function uses this to work correctly on special pages such as Special:MovePage and Special:WhatLinksHere.
              *
@@ -232,7 +238,7 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgRelevantUserName
              */
-            wgRelevantUserName: string;
+            wgRelevantUserName?: string;
             /**
              * Like wgIsProbablyEditable, but applied to the contextually relevant page name from wgRelevantPageName instead of strictly the current page being viewed. For example, when viewing a page "Special:MovePage/Example" this will indicate whether the subject page is editable.
              *
@@ -248,7 +254,7 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgRestrictionEdit
              */
-            wgRestrictionEdit: string[];
+            wgRestrictionEdit?: string[];
             /**
              * If the page is movable at all (and is not a special page) and moving of the page is restricted to some user groups, the array contains the minimum user group a user must be in in order to move the page. For semi-moveprotected pages, it'd contain ["autoconfirmed"]; for fully moveprotected pages ["sysop"]. If there are no explicit restrictions, the value is [] (an array with no elements).
              *
@@ -268,7 +274,7 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgSearchType
              */
-            wgSearchType: string;
+            wgSearchType: string | null;
             /**
              * The page title, without the namespace. May contain spaces – does not contain underscores. To get the title including the namespace, use wgPageName.
              *
@@ -280,19 +286,19 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgUserEditCount
              */
-            wgUserEditCount: number;
+            wgUserEditCount?: number;
             /**
              * An array containing all the (local) user groups the current user is a member of, or null for non-logged-in users. User groups are identified by the internal user group names, e.g. "sysop", "autoconfirmed", "bureaucrat", and so on. The default user group is named "*".
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgUserGroups
              */
-            wgUserGroups: string[];
+            wgUserGroups: string[] | null;
             /**
              * The numeric ID of the current user (null if not logged in).
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgUserId
              */
-            wgUserId: number;
+            wgUserId?: number;
             /**
              * The language code for the user's interface language, as set in Special→Preferences (which may be overridden by a uselang= parameter in the URL).
              *
@@ -304,19 +310,19 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgUserName
              */
-            wgUserName: string;
+            wgUserName: string | null;
             /**
              * The time and date on which the current user registered, represented as milliseconds since epoch. Null if not logged in.
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgUserRegistration
              */
-            wgUserRegistration: number;
+            wgUserRegistration?: number;
             /**
              * true if the current page is the main page of the wiki. Omitted entirely otherwise (defaulting to null in mw.config).
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgIsMainPage
              */
-            wgIsMainPage: boolean;
+            wgIsMainPage?: true;
             /**
              * If the wiki has language variants, the language code of the user's preferred variant. If the wiki does not have variants, the variable is not configured (does not exist), i.e.:
              *
@@ -327,7 +333,7 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgUserVariant
              */
-            wgUserVariant: string;
+            wgUserVariant?: string;
             /**
              * "saved" if the user just saved this page. "created" if the user just created this page. "restored" if the user just restored this page by going to the history page, clicked on a timestamp link for an old revision, clicked on edit and then saved. null otherwise. Note that:
              *
@@ -339,19 +345,19 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgPostEdit
              */
-            wgPostEdit: "created" | "restored" | "saved";
+            wgPostEdit?: "created" | "restored" | "saved";
             /**
              * Revision ID of the "old" revision when viewing a diff. Only available when viewing a revision comparison.
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgDiffOldId
              */
-            wgDiffOldId: number;
+            wgDiffOldId?: number;
             /**
              * Revision ID of the "new" revision when viewing a diff. Only available when viewing a revision comparison.
              *
              * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#wgDiffNewId
              */
-            wgDiffNewId: number;
+            wgDiffNewId?: number;
             [key: string]: unknown; // more config keys can be added by extensions
         }>;
     }
