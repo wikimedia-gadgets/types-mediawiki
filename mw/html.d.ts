@@ -20,7 +20,7 @@ declare global {
              * Create an HTML element string, with safe escaping.
              *
              * @param {string} name The tag name.
-             * @param {Object} [attrs] An object with members mapping element names to values
+             * @param {Object.<string, string|number|boolean>} [attrs] An object with members mapping element names to values
              * @param {string|Raw|null} [contents=null] The contents of the element.
              *
              *  - string: Text to be escaped.

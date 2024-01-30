@@ -61,6 +61,8 @@ declare global {
          * Empty object for third-party libraries, for cases where you don't
          * want to add a new global, or the global is bad and needs containment
          * or wrapping.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-libs
          */
         const libs: Record<string, any>;
 
@@ -80,11 +82,11 @@ declare global {
          *
          * @since 1.25
          * @param {string} formatString Format string
-         * @param {...Mixed} parameters Values for $N replacements
+         * @param {...string} parameters Values for $N replacements
          * @returns {string} Formatted string
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-format
          */
-        function format(formatString: string, ...parameters: unknown[]): string;
+        function format(formatString: string, ...parameters: string[]): string;
 
         /**
          * Get the current time, measured in milliseconds since January 1, 1970 (UTC).
@@ -126,8 +128,12 @@ declare global {
          * @param {number} [options.timeout] If set, the callback will be scheduled for
          *  immediate execution after this amount of time (in milliseconds) if it didn't run
          *  by that time.
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-requestIdleCallback
          */
-        function requestIdleCallback(callback: (...args: any[]) => any): void;
+        function requestIdleCallback(
+            callback: (...args: any[]) => any,
+            options?: { timeout?: number }
+        ): void;
 
         /**
          * Track an analytic event.
@@ -143,7 +149,7 @@ declare global {
          * was subscribed.
          *
          * @param {string} topic Topic name
-         * @param {Object|number|string} [data] Data describing the event.
+         * @param {AnalyticEventData} [data] Data describing the event.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-track
          */
         function track(topic: string, data?: AnalyticEventData): void;
@@ -153,7 +159,7 @@ declare global {
          *
          * @private
          * @param {string} topic Topic name
-         * @param {Object} data Data describing the event, encoded as an object; see {@link errorLogger.logError}
+         * @param {ErrorAnalyticEventData} data Data describing the event, encoded as an object; see {@link errorLogger.logError}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackError
          */
         function trackError(topic: string, data: ErrorAnalyticEventData): void;
@@ -179,16 +185,16 @@ declare global {
          * ```
          *
          * @param {string} topic Handle events whose name starts with this string prefix
-         * @param {Function} callback Handler to call for each matching tracked event
-         * @param {string} callback.topic
-         * @param {Object} [callback.data]
+         * @param {function(string, AnalyticEventData): void} callback Handler to call for each matching tracked event
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackSubscribe
          */
         function trackSubscribe(topic: string, callback: AnalyticEventCallback): void;
 
         /**
          * Stop handling events for a particular handler
          *
-         * @param {Function} callback
+         * @param {function(string, AnalyticEventData): void} callback
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackUnsubscribe
          */
         function trackUnsubscribe(callback: AnalyticEventCallback): void;
 

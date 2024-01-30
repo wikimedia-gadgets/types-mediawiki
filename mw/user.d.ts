@@ -36,7 +36,7 @@ export interface User {
      * will be used for their account. It may also be used in previews. However, the account is not
      * created yet, and the name is not visible to other users.
      *
-     * @returns {JQuery.Promise} Promise resolved with the username if we succeeded,
+     * @returns {JQuery.Promise<string>} Promise resolved with the username if we succeeded,
      *   or resolved with `null` if we failed
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-acquireTempUserName
      */
@@ -71,7 +71,7 @@ export interface User {
      * Get the current user's groups
      *
      * @param {Function} [callback]
-     * @returns {JQuery.Promise}
+     * @returns {JQuery.Promise<string[]>}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getGroups
      */
     getGroups<T>(callback: (groups: string[]) => T): JQuery.Promise<T>;
@@ -118,7 +118,7 @@ export interface User {
      * Get the current user's rights
      *
      * @param {Function} [callback]
-     * @returns {JQuery.Promise}
+     * @returns {JQuery.Promise<string[]>}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getRights
      */
     getRights<T>(callback: (rights: string[]) => T): JQuery.Promise<T>;
@@ -176,7 +176,7 @@ export interface User {
      * Get the current user's groups or rights
      *
      * @private
-     * @returns {JQuery.Promise}
+     * @returns {JQuery.Promise<UserInfo>}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getUserInfo
      */
     getUserInfo(): JQuery.Promise<UserInfo>;

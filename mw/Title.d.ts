@@ -27,6 +27,7 @@ declare global {
          * mw.Title.makeTitle( NS_TEMPLATE, 'Template:Foo' ).getPrefixedText();   // => 'Template:Template:Foo'
          * ```
          *
+         * @since 1.18
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title
          */
         class Title {

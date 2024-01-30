@@ -41,16 +41,17 @@ declare global {
              * }
              * ```
              *
-             * @param {Object} experiment
+             * @param {Experiment} experiment
              * @param {string} experiment.name The name of the experiment
              * @param {boolean} experiment.enabled Whether or not the experiment is
              *  enabled. If the experiment is disabled, then the user is always assigned
              *  to the control bucket
-             * @param {Object} experiment.buckets A map of bucket name to probability
+             * @param {Object.<string, number>} experiment.buckets A map of bucket name to probability
              *  that the user will be assigned to that bucket
              * @param {string} token A token that uniquely identifies the user for the
              *  duration of the experiment
              * @returns {string|undefined} The bucket
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.experiments-method-getBucket
              */
             function getBucket(experiment: Experiment, token: string): string | undefined;
         }

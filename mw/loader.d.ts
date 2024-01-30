@@ -236,7 +236,7 @@ declare global {
              * - This method is used for preloading, which must not throw. Later code that
              *   calls {@link using()} will handle the error.
              *
-             * @param {string|Array} modules Either the name of a module, array of modules,
+             * @param {string|string[]} modules Either the name of a module, array of modules,
              *  or a URL of an external script or style
              * @param {string} [type='text/javascript'] MIME type to use if calling with a URL of an
              *  external script or style; acceptable values are "text/css" and
@@ -289,7 +289,7 @@ declare global {
             /**
              * Change the state of one or more modules.
              *
-             * @param {Object} states Object of module name/state pairs
+             * @param {Object.<string, ModuleState>} states Object of module name/state pairs
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-state
              */
             function state(states: Record<string, ModuleState>): void;
@@ -328,11 +328,11 @@ declare global {
              *
              * Since MediaWiki 1.28 the promise is resolved with a `require` function.
              *
-             * @param {string|Array} dependencies Module name or array of modules names the
+             * @param {string|string[]} dependencies Module name or array of modules names the
              *  callback depends on to be ready before executing
              * @param {Function} [ready] Callback to execute when all dependencies are ready
              * @param {Function} [error] Callback to execute if one or more dependencies failed
-             * @returns {JQuery.Promise} With a `require` function
+             * @returns {JQuery.Promise<ModuleRequire>} With a `require` function
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-using
              */
             function using(
@@ -345,7 +345,6 @@ declare global {
              * Exposed for testing and debugging only.
              *
              * @private
-             * @property {number}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-property-maxQueryLength
              */
             const maxQueryLength: number;
@@ -355,7 +354,6 @@ declare global {
              * state; it is not a public interface for modifying the registry.
              *
              * @private
-             * @property {Object}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-property-moduleRegistry
              */
             const moduleRegistry: Record<string, ModuleRegistryEntry>;
@@ -431,7 +429,7 @@ declare global {
              *
              * @private
              * @param {string[]} modules Array of string module names
-             * @returns {Array} List of dependencies, including 'module'.
+             * @returns {string[]} List of dependencies, including 'module'.
              * @throws {Error} If an unregistered module or a dependency loop is encountered
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-resolve
              */

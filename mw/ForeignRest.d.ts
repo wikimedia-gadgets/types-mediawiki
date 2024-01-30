@@ -41,11 +41,11 @@ declare global {
              * mw.ForeignRest = MyForeignRest;
              * ```
              *
+             * @since 1.36
              * @param {string} url URL pointing to another wiki's `rest.php` endpoint.
              * @param {ForeignApi} foreignActionApi
              * @param {Partial<ForeignRestOptions>} [options]
-             * @since 1.36
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignApi-method-constructor
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignRest-method-constructor
              */
             constructor(
                 url: string,

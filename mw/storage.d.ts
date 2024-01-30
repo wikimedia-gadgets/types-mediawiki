@@ -3,7 +3,6 @@
  * that is safe to call in all browsers.
  *
  * @private
- * @param {Object|undefined} store The Storage instance to wrap around
  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage
  */
 interface SafeStorage {
@@ -11,7 +10,7 @@ interface SafeStorage {
      * Retrieve value from device storage.
      *
      * @param {string} key Key of item to retrieve
-     * @returns {string|null|boolean} String value, null if no value exists, or false
+     * @returns {string|null|false} String value, null if no value exists, or false
      *  if storage is not available.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-get
      */
@@ -83,7 +82,7 @@ interface SafeStorage {
      * Get all keys with expiry values
      *
      * @private
-     * @returns {JQuery.Promise} Promise resolving with all the keys which have
+     * @returns {JQuery.Promise<string[]>} Promise resolving with all the keys which have
      *  expiry values (unprefixed), or as many could be retrieved in the allocated time.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-getExpiryKeys
      */

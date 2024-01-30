@@ -136,6 +136,7 @@ declare global {
              *
              * @param {ApiParams} parameters (modified in-place)
              * @param {boolean} useUS Whether to use U+001F when joining multi-valued parameters.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-preprocessParameters
              */
             private preprocessParameters(parameters: ApiParams, useUS: boolean): void;
 
@@ -165,11 +166,11 @@ declare global {
              * } );
              * ```
              *
+             * @since 1.22
              * @param {string} tokenType The name of the token, like `options` or `edit`
              * @param {ApiParams} params API parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
              * @returns {JQuery.Promise<ApiResponse>}
-             * @since 1.22
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-postWithToken
              */
             postWithToken(
@@ -181,10 +182,10 @@ declare global {
             /**
              * Get a token for a certain action from the API.
              *
+             * @since 1.22
              * @param {string} type Token type
              * @param {ApiParams|string} [additionalParams] Additional parameters for the API (since 1.35). When given a string, it's treated as the `assert` parameter (since 1.25)
              * @returns {JQuery.Promise<string>} Received token
-             * @since 1.22
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-getToken
              */
             getToken(type: string, additionalParams?: ApiParams | string): JQuery.Promise<string>;
@@ -196,8 +197,8 @@ declare global {
              * You may also want to use `postWithToken()` instead, which invalidates bad cached tokens
              * automatically.
              *
-             * @param {string} type Token type
              * @since 1.26
+             * @param {string} type Token type
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-badToken
              */
             badToken(type: string): void;
@@ -273,6 +274,7 @@ declare global {
              * );
              * ```
              *
+             * @since 1.28
              * @param {TitleLike} title Page title
              * @param {ApiEditPageParams} params Edit API parameters
              * @param {string} content Page content
@@ -340,6 +342,7 @@ declare global {
              *     } );
              * ```
              *
+             * @since 1.28
              * @param {TitleLike} title Page title
              * @param {function(Revision):string|ApiEditPageParams} transform Callback that prepares the edit
              * @returns {JQuery.Promise<any>}
@@ -370,6 +373,7 @@ declare global {
             /**
              * Get the current user's groups and rights.
              *
+             * @since 1.27
              * @returns {JQuery.Promise<UserInfo>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.user-method-getUserInfo
              */
@@ -385,6 +389,7 @@ declare global {
              * * `apierror-assertuserfailed`: when the client-side logic thinks the user is logged in but the server thinks it is anonymous
              * * `apierror-assertnameduserfailed`: when both the client-side logic and the server thinks the user is logged in but they see it logged in under a different username.
              *
+             * @since 1.27
              * @param {ApiParams} query Query parameters. The object will not be changed
              * @returns {JQuery.Promise<AssertUser>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.user-method-assertCurrentUser
@@ -412,7 +417,7 @@ declare global {
              *
              * If a request from a previous `saveOptions()` call is still pending, this will wait for it to be completed, otherwise MediaWiki gets sad. No requests are sent for anonymous users, as they would fail anyway. See T214963.
              *
-             * @param {Object} options Options as a `{ name: value, … }` object
+             * @param {Object.<string, string|null>} options Options as a `{ name: value, … }` object
              * @returns {JQuery.Promise<ApiResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.options-method-saveOptions
              */
@@ -421,10 +426,10 @@ declare global {
             /**
              * Convenience method for `action=watch`.
              *
+             * @since 1.35 - expiry parameter can be passed when Watchlist Expiry is enabled
              * @param {TypeOrArray<TitleLike>} pages
              * @param {string} [expiry]
              * @returns {JQuery.Promise<{ watch: TypeOrArray<WatchStatus> }>}
-             * @since 1.35: expiry parameter can be passed when watchlist expiry is enabled
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.watch-method-watch
              */
             watch<P extends TypeOrArray<TitleLike>>(
@@ -457,32 +462,34 @@ declare global {
             /**
              * Get a set of messages.
              *
-             * @param {string[]} messages Messages to retrieve
+             * @since 1.27
+             * @param {string|string[]} messages Messages to retrieve
              * @param {ApiQueryAllMessagesParams} [options] Additional parameters for the API call
              * @returns {JQuery.Promise<ApiResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.messages-method-getMessages
              */
             getMessages(
-                messages: string[],
+                messages: string | string[],
                 options?: ApiQueryAllMessagesParams
             ): JQuery.Promise<ApiResponse>;
 
             /**
              * Load a set of messages and add them to `mw.messages`.
              *
-             * @param {string[]} messages Messages to retrieve
+             * @param {string|string[]} messages Messages to retrieve
              * @param {ApiQueryAllMessagesParams} [options] Additional parameters for the API call
              * @returns {JQuery.Promise<ApiResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.messages-method-loadMessages
              */
             loadMessages(
-                messages: string[],
+                messages: string | string[],
                 options?: ApiQueryAllMessagesParams
             ): JQuery.Promise<ApiResponse>;
 
             /**
              * Load a set of messages and add them to `mw.messages`. Only messages that are not already known are loaded. If all messages are known, the returned promise is resolved immediately.
              *
+             * @since 1.27
              * @param {string[]} messages Messages to retrieve
              * @param {ApiQueryAllMessagesParams} [options] Additional parameters for the API call
              * @returns {JQuery.Promise<ApiResponse>}
@@ -525,6 +532,7 @@ declare global {
             /**
              * Convenience method for `action=rollback`.
              *
+             * @since 1.28
              * @param {TitleLike} page
              * @param {string} user
              * @param {ApiRollbackParams} [params] Additional parameters

@@ -92,42 +92,50 @@ declare global {
          */
         class Uri {
             /**
-             * @property {string|undefined} fragment For example `top`
+             * For example `top`
+             *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-fragment
              */
             fragment: string | undefined;
             /**
-             * @property {string} host For example `www.example.com` (always present)
+             * For example `www.example.com` (always present)
+             *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-host
              */
             host: string;
             /**
-             * @property {string|undefined} password For example `pwd`
+             * For example `pwd`
+             *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-password
              */
             password: string | undefined;
             /**
-             * @property {string} path For example `/dir/dir.2/index.htm` (always present)
+             * For example `/dir/dir.2/index.htm` (always present)
+             *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-path
              */
             path: string;
             /**
-             * @property {string|undefined} port For example `81`
+             * For example `81`
+             *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-port
              */
             port: string | undefined;
             /**
-             * @property {string} protocol For example `http` (always present)
+             * For example `http` (always present)
+             *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-protocol
              */
             protocol: string;
             /**
-             * @property {Object} query For example `{ a: '0', b: '', c: 'value' }` (always present)
+             * For example `{ a: '0', b: '', c: 'value' }` (always present)
+             *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-query
              */
             query: QueryParams;
             /**
-             * @property {string|undefined} user For example `usr`
+             * For example `usr`
+             *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-user
              */
             user: string | undefined;
@@ -146,7 +154,6 @@ declare global {
             /**
              * The order here matches the order of captured matches in the `parser` property regexes.
              *
-             * @property {string[]} properties
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-static-property-properties
              */
             private static properties: [
@@ -169,7 +176,7 @@ declare global {
              *  properties. If omitted (or set to `undefined`, `null` or empty string), then an object
              *  will be created for the default `uri` of this constructor (`location.href` for mw.Uri,
              *  other values for other instances -- see mw.UriRelative for details).
-             * @param {Object|boolean} [options] Object with options, or (backwards compatibility) a boolean
+             * @param {Partial<UriOptions>|boolean} [options] Object with options, or (backwards compatibility) a boolean
              *  for strictMode
              * @throws {Error} when the query string or fragment contains an unknown % sequence
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-constructor
@@ -261,7 +268,7 @@ declare global {
              * Parse a string and set our properties accordingly.
              *
              * @param {string} str URI, see constructor.
-             * @param {Object} options See constructor.
+             * @param {Partial<UriOptions>} options See constructor.
              * @throws {Error} when the query string or fragment contains an unknown % sequence
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-parse
              */

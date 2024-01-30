@@ -35,7 +35,7 @@ declare global {
              * } );
              * ```
              *
-             * @param {RestOptions} [options]
+             * @param {Partial<RestOptions>} [options]
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-constructor
              */
             constructor(options?: Partial<RestOptions>);

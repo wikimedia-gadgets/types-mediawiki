@@ -111,9 +111,9 @@ declare global {
          * Display a notification message to the user.
          *
          * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
-         * @param {Object} [options] The options to use for the notification.
+         * @param {Partial<NotificationOptions>} [options] The options to use for the notification.
          *  See {@link NotificationOptions defaults} for details.
-         * @returns {JQuery.Promise} Notification object
+         * @returns {JQuery.Promise<Notification>} Notification object
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-notify
          */
         function notify(
@@ -138,6 +138,10 @@ declare global {
              */
             const autoHideLimit: number;
 
+            /**
+             * @private
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-property-autoHideSeconds
+             */
             const autoHideSeconds: {
                 short: number;
                 long: number;
@@ -170,7 +174,7 @@ declare global {
              * Display a notification message to the user.
              *
              * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
-             * @param {Object} [options] The options to use for the notification.
+             * @param {Partial<NotificationOptions>} [options] The options to use for the notification.
              *  See {@link NotificationOptions defaults} for details.
              * @returns {Notification} Notification object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-method-notify

@@ -38,9 +38,9 @@ declare global {
              * mw.ForeignApi = MyForeignApi;
              * ```
              *
-             * @param {string | Uri} url URL pointing to another wiki's `api.php` endpoint.
-             * @param {Partial<ForeignApiOptions>} [options]
              * @since 1.26
+             * @param {string|Uri} url URL pointing to another wiki's `api.php` endpoint.
+             * @param {Partial<ForeignApiOptions>} [options]
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignApi-method-constructor
              */
             constructor(url: string | Uri, options?: Partial<ForeignApiOptions>);
@@ -48,8 +48,8 @@ declare global {
             /**
              * Return the origin to use for API requests, in the required format (protocol, host and port, if any).
              *
-             * @protected
              * @returns {string|undefined}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignApi-method-getOrigin
              */
             protected getOrigin(): string | undefined;
         }
