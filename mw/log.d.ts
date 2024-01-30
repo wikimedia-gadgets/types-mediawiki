@@ -29,7 +29,7 @@ declare global {
              *
              * See {@link mw.log} for other logging methods.
              *
-             * @param {...string} msg Messages to output to console.
+             * @param {...Mixed} msg Messages to output to console.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-log
              */
             (...msg: any[]): void;
@@ -105,7 +105,7 @@ declare global {
             /**
              * Write a message to the browser console's warning channel.
              *
-             * @param {...string} msg Messages to output to console
+             * @param {...Mixed} msg Messages to output to console
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.log-method-warn
              */
             warn(...msg: any[]): void;
