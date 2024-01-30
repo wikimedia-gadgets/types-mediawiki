@@ -218,7 +218,7 @@ declare global {
              * Creates the data mw.Map if there isn't one for the specified language already.
              *
              * @param {string} langCode
-             * @param {string|Object.<string, Mixed>} dataKey Key or object of key/values
+             * @param {string|Object.<string, any>} dataKey Key or object of key/values
              * @param {Mixed} [value] Value for dataKey, omit if dataKey is an object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-setData
              */
