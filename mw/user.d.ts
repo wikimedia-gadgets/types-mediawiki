@@ -17,6 +17,50 @@ interface UserTokens extends Record<string, string> {
 
 export interface User {
     /**
+     * Manage client preferences
+     *
+     * For skins that enable the `clientPrefEnabled` option (see Skin class in PHP),
+     * this feature allows you to store preferences in the browser session that will
+     * switch one or more the classes on the HTML document.
+     *
+     * This is only supported for unregistered users. For registered users, skins
+     * and extensions must use user preferences (e.g. hidden or API-only options)
+     * and swap class names server-side through the Skin interface.
+     *
+     * This feature is limited to page views by unregistered users. For logged-in requests,
+     * store preferences in the database instead, via UserOptionsManager or mw.Api#saveOption
+     * (may be hidden or API-only to exclude from Special:Preferences), and then include the
+     * desired classes directly in Skin::getHtmlElementAttributes.
+     *
+     * Classes toggled by this feature must be named as `<feature>-clientpref-<value>`,
+     * where `value` contains only alphanumerical characters (a-zA-Z0-9), and `feature`
+     * can also include hyphens.
+     */
+    clientPrefs: {
+        /**
+         * Retrieve the current value of the feature from the HTML document element
+         *
+         * @param {string} feature
+         * @return {false|string} returns false if the feature is not recognized.
+         *   returns string if a feature was found.
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user.clientPrefs-method-get
+         */
+        get(feature: string): false | string;
+
+        /**
+         * Change the class on the HTML document element, and save the value in a cookie
+         *
+         * @param {string} feature
+         * @param {string} value
+         * @return {boolean} True if feature was stored successfully, false if the value
+         *   uses a forbidden character or the feature is not recognised
+         *   e.g. a matching class was not defined on the HTML document element.
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user.clientPrefs-method-set
+         */
+        set(feature: string, value: string): boolean;
+    };
+
+    /**
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-options
      */
     // TODO: add types for items in the options map
