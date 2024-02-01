@@ -130,17 +130,6 @@ declare global {
             ): string;
 
             /**
-             * Helper function to flip transformation tables.
-             *
-             * @param {...Object.<number|string, string>} tables Transformation tables
-             * @returns {Object.<string, number|string>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-flipTransform
-             */
-            function flipTransform<T extends Record<PropertyKey, PropertyKey>>(
-                ...tables: T[]
-            ): FlipObject<T>;
-
-            /**
              * Provides an alternative text depending on specified gender.
              *
              * Usage in message text: `{{gender:[gender|user object]|masculine|feminine|neutral}}`.
@@ -226,48 +215,6 @@ declare global {
             function setData(langCode: string, dataKey: Record<string, any>): void;
 
             /**
-             * Apply numeric pattern to absolute value using options. Gives no
-             * consideration to local customs.
-             *
-             * Adapted from dojo/number library with thanks
-             * <http://dojotoolkit.org/reference-guide/1.8/dojo/number.html>
-             *
-             * @private
-             * @param {number} value the number to be formatted, ignores sign
-             * @param {string} pattern the number portion of a pattern (e.g. `#,##0.00`)
-             * @param {Object} [options] If provided, all option keys must be present:
-             * @param {string} options.decimal The decimal separator. Defaults to: `'.'`.
-             * @param {string} options.group The group separator. Defaults to: `','`.
-             * @param {number|null} options.minimumGroupingDigits
-             * @returns {string}
-             */
-            function commafyNumber(
-                value: number,
-                pattern: string,
-                options?: { decimal: string; group: string; minimumGroupingDigits: number | null }
-            ): string;
-
-            /**
-             * Pad a string to guarantee that it is at least `size` length by
-             * filling with the character `ch` at either the start or end of the
-             * string. Pads at the start, by default.
-             *
-             * Example: Fill the string to length 10 with '+' characters on the right.
-             *
-             * ```js
-             * pad( 'blah', 10, '+', true ); // => 'blah++++++'
-             * ```
-             *
-             * @private
-             * @param {string} text The string to pad
-             * @param {number} size The length to pad to
-             * @param {string} [ch='0'] Character to pad with
-             * @param {boolean} [end=false] Adds padding at the end if true, otherwise pads at start
-             * @returns {string}
-             */
-            function pad(text: string, size: number, ch?: string, end?: boolean): string;
-
-            /**
              * Pads an array to a specific length by copying the last one element.
              *
              * @private
@@ -277,16 +224,6 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-preConvertPlural
              */
             function preConvertPlural(forms: string[], count: number): string[];
-
-            /**
-             * Replicate a string 'n' times.
-             *
-             * @private
-             * @param {string} str The string to replicate
-             * @param {number} num Number of times to replicate the string
-             * @returns {string}
-             */
-            function replicate(str: string, num: number): string;
         }
     }
 }
