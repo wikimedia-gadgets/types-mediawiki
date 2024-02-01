@@ -18,7 +18,7 @@ declare global {
         /**
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.experiments
          */
-        namespace experiment {
+        namespace experiments {
             /**
              * Gets the bucket for the experiment given the token.
              *
