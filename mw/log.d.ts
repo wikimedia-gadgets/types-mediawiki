@@ -16,24 +16,24 @@ declare global {
         }
 
         /**
+         * Write a verbose message to the browser's console in debug mode.
+         *
+         * This method is mainly intended for verbose logging. It is a no-op in production mode.
+         * In ResourceLoader debug mode, it will use the browser's console.
+         *
+         * See {@link mw.log} for other logging methods.
+         *
+         * @param {...Mixed} msg Messages to output to console.
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-log
+         */
+        function log(...msg: any[]): void;
+
+        /**
          * Collection of methods to help log messages to the console.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.log
          */
-        const log: {
-            /**
-             * Write a verbose message to the browser's console in debug mode.
-             *
-             * This method is mainly intended for verbose logging. It is a no-op in production mode.
-             * In ResourceLoader debug mode, it will use the browser's console.
-             *
-             * See {@link mw.log} for other logging methods.
-             *
-             * @param {...Mixed} msg Messages to output to console.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-log
-             */
-            (...msg: any[]): void;
-
+        namespace log {
             /**
              * Create a property on a host object that, when accessed, will log
              * a deprecation warning to the console.
@@ -54,7 +54,7 @@ declare global {
              *  Tracking is disabled by default, except for global variables on `window`.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-deprecate
              */
-            deprecate<T, K extends string & keyof T>(
+            function deprecate<T, K extends string & keyof T>(
                 obj: T,
                 key: K,
                 val: T[K],
@@ -72,7 +72,7 @@ declare global {
              * @param {...Mixed} msg Messages to output to console
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-error
              */
-            error(...msg: any[]): void;
+            function error(...msg: any[]): void;
 
             /**
              * Create a function that logs a deprecation warning when called.
@@ -100,7 +100,7 @@ declare global {
              * @returns {Function}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-makeDeprecated
              */
-            makeDeprecated(key: string | null, msg: string): () => void;
+            function makeDeprecated(key: string | null, msg: string): () => void;
 
             /**
              * Write a message to the browser console's warning channel.
@@ -108,8 +108,8 @@ declare global {
              * @param {...Mixed} msg Messages to output to console
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.log-method-warn
              */
-            warn(...msg: any[]): void;
-        };
+            function warn(...msg: any[]): void;
+        }
     }
 }
 
