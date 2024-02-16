@@ -15,7 +15,7 @@ const queryApiData = await new mw.Api().get({
     formatversion: "2",
 });
 
-function processParamInfo(type, name, multi) {
+function processParamInfo(type, prefix, name, multi) {
     if (Array.isArray(type)) {
         type = type.map((e) => `'${e}'`).join(" | ");
         if (multi) {
@@ -42,8 +42,11 @@ function processParamInfo(type, name, multi) {
         name === "site" // gusite used by ApiQueryGlobalUsage
     ) {
         type = "string | string[]";
-    } else if (name.includes(`-`)) {
-        name = `'${name}'`;
+    }
+
+    name = prefix + name;
+    if (name.includes("-")) {
+        name = `"${name}"`;
     }
     return { name, type };
 }
@@ -61,12 +64,17 @@ const actionsTypes = data.paraminfo.modules
             `export interface ${getInterfaceName(module)}Params extends ApiParams {\n` +
             module.parameters
                 .map((param) => {
-                    const { name, type } = processParamInfo(param.type, param.name, param.multi);
+                    const { name, type } = processParamInfo(
+                        param.type,
+                        module.prefix,
+                        param.name,
+                        param.multi
+                    );
                     return `${name}?: ${type}`;
                 })
                 .join("\n")
                 .replace(/^/gm, "\t") +
-            `\n}`
+            "\n}"
         );
     })
     .join("\n\n");
@@ -77,12 +85,17 @@ const queryTypes = queryApiData.paraminfo.modules
             `export interface ${getInterfaceName(module)}Params extends ApiQueryParams {\n` +
             module.parameters
                 .map((param) => {
-                    const { name, type } = processParamInfo(param.type, param.name, param.multi);
-                    return `${module.prefix}${name}?: ${type}`;
+                    const { name, type } = processParamInfo(
+                        param.type,
+                        module.prefix,
+                        param.name,
+                        param.multi
+                    );
+                    return `${name}?: ${type}`;
                 })
                 .join("\n")
                 .replace(/^/gm, "\t") +
-            `\n}`
+            "\n}"
         );
     })
     .join("\n\n");
