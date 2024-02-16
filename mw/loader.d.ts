@@ -433,7 +433,7 @@ declare global {
              * @throws {Error} If an unregistered module or a dependency loop is encountered
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-resolve
              */
-            function resolve<T extends string, U extends T>(modules: U[]): T[];
+            function resolve<T extends string, U extends T = T>(modules: U[]): T[];
 
             /**
              * Start loading of all queued module dependencies.

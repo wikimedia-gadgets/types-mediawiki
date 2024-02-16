@@ -45,7 +45,7 @@ declare global {
          * Also focusses the textarea.
          *
          * @param {string} command Command to execute
-         * @param {TextSelectionEncapsulateOptions} [options]
+         * @param {Partial<TextSelectionEncapsulateOptions>} [options]
          * @returns {JQuery}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
          */
@@ -60,24 +60,18 @@ declare global {
          * @param {string} command Command to execute
          * @param {Object} [options]
          * @param {boolean} [options.startAndEnd=false] Return range of the selection rather than just start
-         * @returns {number[]} Array with two numbers, for start and end of selection
+         * @returns {number|number[]} Array with two numbers, for start and end of selection
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
          */
         textSelection(
             command: "getCaretPosition",
             options: { startAndEnd: true }
         ): [number, number];
-
-        /**
-         * Get the current cursor position (in UTF-16 code units) in a textarea.
-         *
-         * @param {string} command Command to execute
-         * @param {Object} [options]
-         * @param {boolean} [options.startAndEnd=false] Return range of the selection rather than just start
-         * @returns {number}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
-         */
         textSelection(command: "getCaretPosition", options?: { startAndEnd?: false }): number;
+        textSelection(
+            command: "getCaretPosition",
+            options?: { startAndEnd: boolean }
+        ): number | [number, number];
 
         /**
          * Set the current cursor position (in UTF-16 code units) in a textarea.
@@ -130,8 +124,8 @@ declare global {
          * Do things to the selection in the textarea, using a command from the alternative textSelection API for this element.
          *
          * @param {string} command Command to execute
-         * @param {Mixed} [commandOptions] Options to pass to the command
-         * @returns {Mixed} Depending on the command
+         * @param {any} [commandOptions] Options to pass to the command
+         * @returns {any} Depending on the command
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
          */
         textSelection(command: string, commandOptions?: unknown): any;

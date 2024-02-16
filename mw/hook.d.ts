@@ -55,7 +55,7 @@ interface Hook<T extends any[] = any[]> {
     /**
      * Call hook handlers with data.
      *
-     * @param {Mixed} data
+     * @param {any} data
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook-method-fire
      */
     fire(...data: T): this;

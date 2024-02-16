@@ -15,6 +15,11 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignRest
          */
         class ForeignRest extends Rest {
+            static static: {};
+            static super: typeof Rest;
+            /** @deprecated Use `super` instead */
+            static parent: typeof Rest;
+
             /**
              * Create an object like {@link mw.Rest}, but automatically handling everything required
              * to communicate with another MediaWiki wiki via cross-origin requests (CORS).

@@ -13,8 +13,8 @@ declare global {
              *
              * @param {string} key The key for the cookie
              * @param {string} [prefix] The prefix of the key. If undefined or null, `$wgCookiePrefix` is used
-             * @param {Mixed} [defaultValue] A value to return if the cookie does not exist
-             * @returns {Mixed} If the cookie exists, the value of the cookie, otherwise `defaultValue`
+             * @param {any} [defaultValue] A value to return if the cookie does not exist
+             * @returns {any} If the cookie exists, the value of the cookie, otherwise `defaultValue`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.cookie-method-get
              */
             function get<D>(
@@ -22,15 +22,15 @@ declare global {
                 prefix: string | undefined | null,
                 defaultValue: D
             ): string | D;
-            function get(key: string, prefix?: string | null): string;
+            function get(key: string, prefix?: string | null): string | null;
 
             /**
              * Get the value of a `SameSite` = `None` cookie, using the legacy `ss0-` prefix if needed.
              *
              * @param {string} key The key for the cookie
              * @param {string} [prefix] The prefix of the key. If undefined or null, `$wgCookiePrefix` is used
-             * @param {Mixed} [defaultValue] A value to return if the cookie does not exist
-             * @returns {Mixed} If the cookie exists, the value of the cookie, otherwise `defaultValue`
+             * @param {any} [defaultValue] A value to return if the cookie does not exist
+             * @returns {any} If the cookie exists, the value of the cookie, otherwise `defaultValue`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.cookie-method-getCrossSite
              */
             function getCrossSite<D>(
@@ -38,7 +38,7 @@ declare global {
                 prefix: string | undefined | null,
                 defaultValue: D
             ): string | D;
-            function getCrossSite(key: string, prefix?: string | null): string;
+            function getCrossSite(key: string, prefix?: string | null): string | undefined;
 
             /**
              * Set or delete a cookie.
