@@ -8,6 +8,30 @@ type password = string;
 type upload = File; // XXX
 type OneOrMore<T> = T | T[];
 
+export type ApiAssert = "anon" | "bot" | "user";
+
+export type ApiTokenType =
+    | "createaccount"
+    | "csrf"
+    | "deleteglobalaccount"
+    | "login"
+    | "patrol"
+    | "rollback"
+    | "setglobalaccountstatus"
+    | "userrights"
+    | "watch";
+
+export type ApiLegacyTokenType =
+    | "block"
+    | "delete"
+    | "edit"
+    | "email"
+    | "import"
+    | "move"
+    | "options"
+    | "protect"
+    | "unblock";
+
 export interface ApiParams {
     action?: string;
     format?: "json" | "jsonfm" | "xml" | "xmlfm" | "php" | "none";
