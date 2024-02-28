@@ -163,7 +163,6 @@ declare global {
              * @param {HTMLElement|JQuery|string} [nextnode] Element that the new item should be added before.
              *  Must be another item in the same list, it will be ignored otherwise.
              *  Can be specified as DOM reference, as jQuery object, or as CSS selector string.
-             * @fires util_addPortletLink
              * @returns {HTMLLIElement|null} The added list item, or null if no element was added.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-addPortletLink
              */

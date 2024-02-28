@@ -9,7 +9,6 @@ declare global {
              * @param {string} [topic='error.caught'] Error topic. Conventionally in the form
              *   'error.?component?' (where ?component? identifies the code logging the error at a
              *   high level; e.g. an extension name).
-             * @fires error_caught
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.log
              */
             function logError(error: Error, topic?: `error.${string}`): void;

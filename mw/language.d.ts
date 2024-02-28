@@ -49,36 +49,6 @@ declare global {
             const data: Record<string, Map>;
 
             /**
-             * Information about month names in current UI language.
-             *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-property-months
-             */
-            const months: {
-                /**
-                 * Array of month names (in nominative case in languages which have the distinction),
-                 * zero-indexed.
-                 */
-                abbrev: string[];
-
-                /**
-                 * Object containing zero-indexed arrays of message keys for appropriate messages
-                 * which can be passed to {@link mw.msg}.
-                 */
-                keys: Record<"abbrev" | "genitive" | "names", string[]>;
-
-                /**
-                 * Array of month names in genitive case, zero-indexed.
-                 */
-                genitive: string[];
-
-                /**
-                 * Array of month names (in nominative case in languages which have the distinction),
-                 * zero-indexed.
-                 */
-                names: string[];
-            };
-
-            /**
              * Formats language tags according the BCP 47 standard.
              * See LanguageCode::bcp47 for the PHP implementation.
              *
@@ -228,6 +198,36 @@ declare global {
                 forms: T,
                 count: number
             ): [...T, ...string[]];
+
+            /**
+             * Information about month names in current UI language.
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-property-months
+             */
+            namespace months {
+                /**
+                 * Array of month names (in nominative case in languages which have the distinction),
+                 * zero-indexed.
+                 */
+                const abbrev: string[];
+
+                /**
+                 * Object containing zero-indexed arrays of message keys for appropriate messages
+                 * which can be passed to {@link mw.msg}.
+                 */
+                const keys: Record<"abbrev" | "genitive" | "names", string[]>;
+
+                /**
+                 * Array of month names in genitive case, zero-indexed.
+                 */
+                const genitive: string[];
+
+                /**
+                 * Array of month names (in nominative case in languages which have the distinction),
+                 * zero-indexed.
+                 */
+                const names: string[];
+            }
         }
     }
 }

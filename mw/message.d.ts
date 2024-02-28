@@ -24,6 +24,7 @@ declare global {
          *
          * Similar to the Message class in MediaWiki PHP.
          *
+         * @example
          * ```js
          * var obj, str;
          * mw.messages.set( {
@@ -68,6 +69,7 @@ declare global {
              *
              * Similar to the Message class in MediaWiki PHP.
              *
+             * @example
              * ```js
              * var obj, str;
              * mw.messages.set( {

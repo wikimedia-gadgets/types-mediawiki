@@ -3,6 +3,7 @@ declare global {
         /**
          * HTML construction helper functions
          *
+         * @example
          * ```js
          * var Html, output;
          *
