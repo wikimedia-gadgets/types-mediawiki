@@ -71,7 +71,7 @@ interface Client {
      *  Defaults to the global `navigator` object.
      * @return {Object} The client object
      */
-    profile(nav?: { userAgent: string; platform: string }): ClientProfile;
+    profile(nav?: Navigator): ClientProfile;
 
     /**
      * Checks the current browser against a support map object.
@@ -113,6 +113,11 @@ interface Client {
      * @return {boolean} The current browser is in the support map
      */
     test(map: any, profile?: ClientProfile, exactMatchOnly?: boolean): boolean;
+}
+
+export interface Navigator {
+    userAgent: string;
+    platform: string;
 }
 
 interface ClientProfile {
