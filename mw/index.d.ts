@@ -18,6 +18,7 @@ import "./message";
 import "./notification";
 import "./RegExp";
 import "./Rest";
+import "./searchSuggest";
 import "./storage";
 import "./template";
 import "./Title";
