@@ -10,7 +10,7 @@ declare global {
          * - The inner content is wrapped in a "div.mw-collapsible-content" (except for tables and lists).
          *
          * @param {Options} [options]
-         * @return {JQuery}
+         * @returns {JQuery}
          */
         makeCollapsible(options?: Options): this;
     }
