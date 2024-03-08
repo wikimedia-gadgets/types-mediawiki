@@ -1,11 +1,3 @@
-import {
-    ApiEditPageParams,
-    ApiParseParams,
-    ApiQueryAllMessagesParams,
-    ApiRollbackParams,
-    ApiUploadParams,
-} from "../api_params";
-
 export interface RestOptions {
     ajax: JQuery.AjaxSettings;
 }
@@ -43,20 +35,16 @@ declare global {
              * } );
              * ```
              *
-             * @param {RestOptions} options
+             * @param {Partial<RestOptions>} [options]
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-constructor
              */
-            constructor(options?: RestOptions);
+            constructor(options?: Partial<RestOptions>);
 
-            /**
-             * @private
-             */
-            defaultOptions: RestOptions;
+            private defaults: RestOptions;
 
             /**
              * Abort all unfinished requests issued by this Api object.
              *
-             * @returns {void}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-abort
              */
             abort(): void;
@@ -131,8 +119,8 @@ declare global {
              * Perform the API call.
              *
              * @param {string} path
-             * @param {JQuery.AjaxSettings?} ajaxOptions
-             * @returns {JQuery.Promise<RestResponse>} API response data and the jqXHR object
+             * @param {JQuery.AjaxSettings} [ajaxOptions]
+             * @returns {JQuery.Promise<RestResponse>} Done: API response data and the jqXHR object.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-ajax
              */
             ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<RestResponse>;
