@@ -3,6 +3,7 @@ import "./config";
 import "./confirmCloseWindow";
 import "./cookie";
 import "./debug";
+import "./deflate";
 import "./ForeignApi";
 import "./ForeignRest";
 import "./global";
