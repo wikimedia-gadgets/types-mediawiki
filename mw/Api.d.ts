@@ -9,7 +9,8 @@ import {
 type TitleLike = string | mw.Title;
 type TitleLikeArray = string[] | mw.Title[]; // TitleLike[] would be a mixed array
 type ApiParams = Record<string, string | string[] | boolean | number | number[]>;
-type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
+
+export type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
 
 /**
  * Default options for jQuery#ajax calls. Can be overridden by passing
