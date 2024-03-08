@@ -1,5 +1,6 @@
 import "./Api";
 import "./config";
+import "./confirmCloseWindow";
 import "./cookie";
 import "./ForeignApi";
 import "./ForeignRest";
