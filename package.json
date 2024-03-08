@@ -27,7 +27,7 @@
         "@types/oojs-ui": "^0.46.0"
     },
     "devDependencies": {
-        "dtslint": "^4.0.6",
+        "dtslint": "^4.1.1",
         "husky": "^4.3.7",
         "lint-staged": "^10.5.3",
         "prettier": "^2.2.1",
