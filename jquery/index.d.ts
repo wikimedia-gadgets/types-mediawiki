@@ -4,6 +4,7 @@ import "./client";
 import "./collapsibleTabs";
 import "./colorUtil";
 import "./confirmable";
+import "./footHovzer";
 import "./highlightText";
 import "./lengthLimit";
 import "./makeCollapsible";
