@@ -1,4 +1,5 @@
 import "./Api";
+import "./cldr";
 import "./config";
 import "./confirmCloseWindow";
 import "./cookie";
