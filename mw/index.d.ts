@@ -2,6 +2,7 @@ import "./Api";
 import "./config";
 import "./confirmCloseWindow";
 import "./cookie";
+import "./debug";
 import "./ForeignApi";
 import "./ForeignRest";
 import "./global";
