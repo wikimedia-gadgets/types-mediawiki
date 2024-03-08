@@ -19,13 +19,33 @@ declare global {
     }
 }
 
+export interface ParserTypeMap {
+    numeric: number;
+    text: string;
+}
+
+export interface ParserMap {
+    currency: "numeric";
+    date: "numeric";
+    IPAddress: "numeric";
+    number: "numeric";
+    text: "text";
+    time: "numeric";
+    usLongDate: "numeric";
+}
+
 type MultiSortKey = "altKey" | "ctrlKey" | "metaKey" | "shiftKey";
 
-interface Parser {
-    id: string;
-    type: string;
+type ParserFromType<K extends keyof ParserTypeMap> = ParserBase<ParserTypeMap[K], K>;
+type ParserFromKey<K extends keyof ParserMap> = ParserFromType<ParserMap[K]>;
 
-    format(s: string): any;
+type Parser = { [P in keyof ParserTypeMap]: ParserFromType<P> }[keyof ParserTypeMap];
+
+interface ParserBase<T, K extends string = string> {
+    id: string;
+    type: K;
+
+    format(s: string): T;
 
     is(s: string, table: HTMLTableElement): boolean;
 }
@@ -47,6 +67,7 @@ interface TableSorter {
 
     formatInt(s: string): number;
 
+    getParser<K extends keyof ParserMap>(id: K): ParserFromKey<K>;
     getParser(id: string): Parser;
 
     getParsers(): Parser[];
