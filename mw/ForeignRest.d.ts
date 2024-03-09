@@ -6,7 +6,7 @@ interface ForeignRestOptions extends RestOptions {
      * accept cross-origin requests, or if you don't need to perform write actions or read
      * restricted information and want to avoid the overhead.
      */
-    anonymous?: boolean;
+    anonymous: boolean;
 }
 
 declare global {
@@ -14,9 +14,14 @@ declare global {
         /**
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignRest
          */
-        class ForeignRest extends mw.Rest {
+        class ForeignRest extends Rest {
+            static static: {};
+            static super: typeof Rest;
+            /** @deprecated Use `super` instead */
+            static parent: typeof Rest;
+
             /**
-             * Create an object like `mw.Rest`, but automatically handling everything required
+             * Create an object like {@link mw.Rest}, but automatically handling everything required
              * to communicate with another MediaWiki wiki via cross-origin requests (CORS).
              *
              * The foreign wiki must be configured to accept requests from the current wiki. See https://www.mediawiki.org/wiki/Manual:$wgCrossSiteAJAXdomains for details.
@@ -41,16 +46,16 @@ declare global {
              * mw.ForeignRest = MyForeignRest;
              * ```
              *
-             * @param {string | mw.Uri} url URL pointing to another wiki's rest.php endpoint.
-             * @param {mw.ForeignApi} foreignActionApi
-             * @param {ForeignRestOptions?} options
-             * @since 1.26
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignApi-method-constructor
+             * @since 1.36
+             * @param {string} url URL pointing to another wiki's `rest.php` endpoint.
+             * @param {ForeignApi} foreignActionApi
+             * @param {Partial<ForeignRestOptions>} [options]
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignRest-method-constructor
              */
             constructor(
-                url: string | mw.Uri,
-                foreignActionApi: mw.ForeignApi,
-                options?: ForeignRestOptions
+                url: string,
+                foreignActionApi: ForeignApi,
+                options?: Partial<ForeignRestOptions>
             );
         }
     }

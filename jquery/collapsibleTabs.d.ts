@@ -13,13 +13,21 @@ declare global {
     }
 }
 
-/** A jQuery plugin that makes collapsible tabs for the Vector skin. */
+/**
+ * A jQuery plugin that makes collapsible tabs for the Vector skin.
+ */
 interface CollapsibleTabsOptions {
-    /** Optional tab selector. Defaults to `#p-views ul`. */
+    /**
+     * Optional tab selector. Defaults to `#p-views ul`.
+     */
     expandedContainer: string;
-    /** Optional menu item selector. Defaults to `#p-cactions ul`. */
+    /**
+     * Optional menu item selector. Defaults to `#p-cactions ul`.
+     */
     collapsedContainer: string;
-    /** Optional selector for tabs that are collapsible. Defaults to `li.collapsible`. */
+    /**
+     * Optional selector for tabs that are collapsible. Defaults to `li.collapsible`.
+     */
     collapsible: string;
     shifting: boolean;
     expandedWidth: number;

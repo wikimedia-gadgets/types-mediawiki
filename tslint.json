@@ -1,11 +1,7 @@
 {
     "extends": ["dtslint/dtslint.json", "tslint-config-prettier"],
-    "linterOptions": {
-        "exclude": ["api_params/index.d.ts"]
-    },
     "rules": {
         "no-padding": false,
-        "no-unnecessary-qualifier": false,
         "unified-signatures": false,
         "no-redundant-jsdoc": false,
         "no-unnecessary-generics": false

@@ -1,20 +1,90 @@
+export interface UserInfo {
+    /**
+     * User groups that the user belongs to
+     */
+    groups: string[];
+    /**
+     * User's rights
+     */
+    rights: string[];
+}
+
+interface UserTokens extends Record<string, string> {
+    csrfToken: string;
+    patrolToken: string;
+    watchToken: string;
+}
+
 export interface User {
     /**
-     * @property {Map}
-     * @see: https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-options
+     * Manage client preferences
+     *
+     * For skins that enable the `clientPrefEnabled` option (see Skin class in PHP),
+     * this feature allows you to store preferences in the browser session that will
+     * switch one or more the classes on the HTML document.
+     *
+     * This is only supported for unregistered users. For registered users, skins
+     * and extensions must use user preferences (e.g. hidden or API-only options)
+     * and swap class names server-side through the Skin interface.
+     *
+     * This feature is limited to page views by unregistered users. For logged-in requests,
+     * store preferences in the database instead, via UserOptionsManager or mw.Api#saveOption
+     * (may be hidden or API-only to exclude from Special:Preferences), and then include the
+     * desired classes directly in Skin::getHtmlElementAttributes.
+     *
+     * Classes toggled by this feature must be named as `<feature>-clientpref-<value>`,
+     * where `value` contains only alphanumerical characters (a-zA-Z0-9), and `feature`
+     * can also include hyphens.
+     */
+    clientPrefs: {
+        /**
+         * Retrieve the current value of the feature from the HTML document element
+         *
+         * @param {string} feature
+         * @return {false|string} returns false if the feature is not recognized.
+         *   returns string if a feature was found.
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user.clientPrefs-method-get
+         */
+        get(feature: string): false | string;
+
+        /**
+         * Change the class on the HTML document element, and save the value in a cookie
+         *
+         * @param {string} feature
+         * @param {string} value
+         * @return {boolean} True if feature was stored successfully, false if the value
+         *   uses a forbidden character or the feature is not recognised
+         *   e.g. a matching class was not defined on the HTML document element.
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user.clientPrefs-method-set
+         */
+        set(feature: string, value: string): boolean;
+    };
+
+    /**
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-options
      */
     // TODO: add types for items in the options map
     options: mw.Map;
 
     /**
-     * @property {mw.Map}
-     * @see: https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-tokens
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-tokens
      */
-    tokens: mw.Map<{
-        csrfToken: string;
-        patrolToken: string;
-        watchToken: string;
-    }>;
+    tokens: mw.Map<UserTokens>;
+
+    /**
+     * Acquire a temporary user username and stash it in the current session, if temp account creation
+     * is enabled and the current user is logged out. If a name has already been stashed, returns the
+     * same name.
+     *
+     * If the user later performs an action that results in temp account creation, the stashed username
+     * will be used for their account. It may also be used in previews. However, the account is not
+     * created yet, and the name is not visible to other users.
+     *
+     * @returns {JQuery.Promise<string>} Promise resolved with the username if we succeeded,
+     *   or resolved with `null` if we failed
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-acquireTempUserName
+     */
+    acquireTempUserName(): JQuery.Promise<string>;
 
     /**
      * Generate a random user session ID.
@@ -36,7 +106,7 @@ export interface User {
      * See https://en.wikipedia.org/wiki/Birthday_attack#Mathematics
      * n(p;H) = n(0.01,2^80)= sqrt (2 * 2^80 * ln(1/(1-0.01)))
      *
-     * @return {string} 80 bit integer in hex format, padded
+     * @returns {string} 80 bit integer (20 characters) in hex format, padded
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-generateRandomSessionId
      */
     generateRandomSessionId(): string;
@@ -45,17 +115,18 @@ export interface User {
      * Get the current user's groups
      *
      * @param {Function} [callback]
-     * @return {JQuery.Promise}
+     * @returns {JQuery.Promise<string[]>}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getGroups
      */
-    getGroups(callback?: (groups: string[]) => any): JQuery.Promise<string[]>;
+    getGroups<T>(callback: (groups: string[]) => T): JQuery.Promise<T>;
+    getGroups(): JQuery.Promise<string[]>;
 
     /**
      * Get the current user's database id
      *
-     * Not to be confused with #id.
+     * Not to be confused with {@link id}.
      *
-     * @return {number} Current user's id, or 0 if user is anonymous
+     * @returns {number} Current user's id, or 0 if user is anonymous
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getId
      */
     getId(): number;
@@ -63,7 +134,7 @@ export interface User {
     /**
      * Get the current user's name
      *
-     * @return {string|null} User name string or null if user is anonymous
+     * @returns {string|null} User name string or null if user is anonymous
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getName
      */
     getName(): string | null;
@@ -73,7 +144,7 @@ export interface User {
      * cached within this class (also known as a page view token).
      *
      * @since 1.32
-     * @return {string} 80 bit integer in hex format, padded
+     * @returns {string} 80 bit integer in hex format, padded
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getPageviewToken
      */
     getPageviewToken(): string;
@@ -81,27 +152,28 @@ export interface User {
     /**
      * Get date user registered, if available
      *
-     * @return {boolean|null|Date} False for anonymous users, null if data is
+     * @returns {false|null|Date} False for anonymous users, null if data is
      *  unavailable, or Date for when the user registered.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getRegistration
      */
-    getRegistration(): boolean | null | Date;
+    getRegistration(): false | null | Date;
 
     /**
      * Get the current user's rights
      *
      * @param {Function} [callback]
-     * @return {JQuery.Promise}
+     * @returns {JQuery.Promise<string[]>}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getRights
      */
-    getRights(callback?: (rights: string[]) => any): JQuery.Promise<string[]>;
+    getRights<T>(callback: (rights: string[]) => T): JQuery.Promise<T>;
+    getRights(): JQuery.Promise<string[]>;
 
     /**
      * Get the current user's name or the session ID
      *
-     * Not to be confused with #getId.
+     * Not to be confused with {@link getId}.
      *
-     * @return {string} User name or random session ID
+     * @returns {string} User name or random session ID
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-id
      */
     id(): string;
@@ -109,7 +181,7 @@ export interface User {
     /**
      * Whether the current user is anonymous
      *
-     * @return {boolean}
+     * @returns {boolean}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-isAnon
      */
     isAnon(): boolean;
@@ -117,7 +189,7 @@ export interface User {
     /**
      * Is the user a normal non-temporary registered user?
      *
-     * @return {boolean}
+     * @returns {boolean}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-isNamed
      */
     isNamed(): boolean;
@@ -125,7 +197,7 @@ export interface User {
     /**
      * Is the user an autocreated temporary user?
      *
-     * @return {boolean}
+     * @returns {boolean}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-isTemp
      */
     isTemp(): boolean;
@@ -139,7 +211,7 @@ export interface User {
      *
      * **Note:** Server-side code must never interpret or modify this value.
      *
-     * @return {string} Random session ID
+     * @returns {string} Random session ID (20 hex characters)
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-sessionId
      */
     sessionId(): string;
@@ -148,13 +220,10 @@ export interface User {
      * Get the current user's groups or rights
      *
      * @private
-     * @return {JQuery.Promise}
+     * @returns {JQuery.Promise<UserInfo>}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getUserInfo
      */
-    getUserInfo(): JQuery.Promise<{
-        groups: string[];
-        rights: string[];
-    }>;
+    getUserInfo(): JQuery.Promise<UserInfo>;
 }
 
 declare global {

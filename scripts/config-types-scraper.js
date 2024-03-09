@@ -2,10 +2,15 @@
 // paste this into the browser console, and copy the log output
 
 function processType(type) {
+    const data = {};
     type = type.toLowerCase();
-    type = type.replace(/or (unset|not defined)/, "");
+    type = type.replace("not defined", "unset");
     type = type.replace("integer", "number");
     type = type.replace(/ or /g, " | ");
+    if (type.includes("unset")) {
+        data.optional = true;
+        type = type.replace(/ \| unset/g, "");
+    }
     if (type.startsWith("array of")) {
         const element = type.replace(/array of (.*)s(\s|$)/, "$1");
         type = `${element}[]`;
@@ -13,7 +18,8 @@ function processType(type) {
     if (type === "array") type = "string[]";
     if (type === "object") type = "Record<string, string>";
 
-    return type.trim();
+    data.type = type.trim();
+    return data;
 }
 
 const types = {};
@@ -24,10 +30,29 @@ for (const table of tables) {
         const cells = row.querySelectorAll("td");
         if (!cells.length) continue;
         const name = cells[0].innerText.trim();
-        const type = processType(cells[1].innerText);
-        types[name] = type;
+        types[name] = {
+            ...processType(cells[1].innerText),
+            description: cells[2].innerText,
+        };
     }
 }
 
-const entries = Object.entries(types).map(([k, v]) => `${" ".repeat(12)}${k}: ${v};`);
-console.log(`{\n${entries.join("\n")}${" ".repeat(8)}\n}`);
+function formatEntry(name, data) {
+    return [
+        "/**",
+        ...data.description.split("\n").map((e) => ` * ${e.trim()}`),
+        " *",
+        ` * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#${name}`,
+        " */",
+        `${name}${data.optional ? "?" : ""}: ${data.type};`,
+    ];
+}
+
+function formatCode(lines, level = 0) {
+    return `{\n${lines.map((e) => `${" ".repeat(4 * (level + 1))}${e}`).join("\n")}${" ".repeat(
+        4 * level
+    )}\n}`;
+}
+
+const lines = Object.entries(types).flatMap((e) => formatEntry(...e));
+console.log(formatCode(lines, 2));
