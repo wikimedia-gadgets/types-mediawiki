@@ -91,10 +91,10 @@ declare global {
              * } );
              * ```
              *
-             * @param {Api|ApiOptions} [apiconfig] A mw.Api object (or subclass), or configuration
+             * @param {Api|Partial<ApiOptions>} [apiconfig] A mw.Api object (or subclass), or configuration
              *     to pass to the constructor of mw.Api.
              */
-            constructor(apiconfig?: Api | ApiOptions);
+            constructor(apiconfig?: Api | Partial<ApiOptions>);
 
             /**
              * Finish a stash upload.
