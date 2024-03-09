@@ -28,7 +28,7 @@ Edit your project's `tsconfig.json` file so that it includes
 ]
 ```
 
-You should be all set! `mw` will be available in the global scope. There is no need to put any import statements in the TypeScript source files. 
+You should be all set! `mw` will be available in the global scope. There is no need to put any import statements in the TypeScript source files.
 
 **If you find any errors or have suggestions for more specific typings, please open a PR or file an issue.**
 
@@ -58,4 +58,3 @@ import type { ApiEditPageParams, ApiParseParams } from "types-mediawiki/api_para
 ```
 
 Since it is just a type import, it doesn't generate any JavaScript. Hence, such imports can also be used in non-modular applications.
-
