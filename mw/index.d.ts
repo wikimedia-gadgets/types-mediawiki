@@ -22,6 +22,7 @@ import "./searchSuggest";
 import "./storage";
 import "./template";
 import "./Title";
+import "./Upload";
 import "./Uri";
 import "./user";
 import "./util";
