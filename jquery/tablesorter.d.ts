@@ -36,12 +36,12 @@ export interface ParserMap {
 
 type MultiSortKey = "altKey" | "ctrlKey" | "metaKey" | "shiftKey";
 
-type ParserFromType<K extends keyof ParserTypeMap> = ParserBase<ParserTypeMap[K], K>;
-type ParserFromKey<K extends keyof ParserMap> = ParserFromType<ParserMap[K]>;
+type ParserFromType<K extends keyof ParserTypeMap> = Parser<ParserTypeMap[K], K>;
+type ParserFromKey<K extends keyof ParserMap> = ParserMap[K] extends keyof ParserTypeMap
+    ? ParserFromType<ParserMap[K]>
+    : Parser;
 
-type Parser = { [P in keyof ParserTypeMap]: ParserFromType<P> }[keyof ParserTypeMap];
-
-interface ParserBase<T, K extends string = string> {
+interface Parser<T = unknown, K extends string = string> {
     id: string;
     type: K;
 
@@ -55,7 +55,7 @@ interface TableSorter {
     defaultOptions: Options;
     monthNames: {};
 
-    addParser(parser: Parser): void;
+    addParser<T = unknown>(parser: Parser<T>): void;
 
     clearTableBody(table: HTMLTableElement): void;
 
@@ -68,7 +68,7 @@ interface TableSorter {
     formatInt(s: string): number;
 
     getParser<K extends keyof ParserMap>(id: K): ParserFromKey<K>;
-    getParser(id: string): Parser;
+    getParser<T = unknown>(id: string): Parser<T>;
 
     getParsers(): Parser[];
 }

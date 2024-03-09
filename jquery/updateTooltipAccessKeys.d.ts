@@ -1,4 +1,4 @@
-import { Navigator } from "./client";
+import { ClientNavigator } from "./client";
 
 declare global {
     interface JQuery {
@@ -6,7 +6,7 @@ declare global {
     }
 }
 
-type Modifier = "alt" | "alt-shift" | "ctrl" | "ctrl-option";
+type KeyModifier = "alt" | "alt-shift" | "ctrl" | "ctrl-option";
 
 interface TooltipAccessKeys<This = JQuery> {
     /**
@@ -29,10 +29,10 @@ interface TooltipAccessKeys<This = JQuery> {
     getAccessKeyLabel(element: HTMLElement): string;
 
     /**
-     * @param {Navigator} [nav] An object with a 'userAgent' and 'platform' property.
+     * @param {ClientNavigator} [nav] An object with a 'userAgent' and 'platform' property.
      * @returns {string}
      */
-    getAccessKeyPrefix(nav?: Navigator): `${Modifier}-`;
+    getAccessKeyPrefix(nav?: ClientNavigator): `${KeyModifier}-`;
 
     /**
      * Switch test mode on and off.
