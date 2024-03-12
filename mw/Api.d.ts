@@ -17,7 +17,8 @@ type TypeOrArray<T> = T extends any ? T | T[] : never; // T[] would be a mixed a
 type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
 
 type UnknownApiParams = Record<string, string | string[] | boolean | number | number[]>;
-type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
+
+export type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
 
 interface Revision {
     content: string;

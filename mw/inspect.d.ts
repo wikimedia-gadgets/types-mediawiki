@@ -1,0 +1,157 @@
+import { ResourceLoaderStoreStats } from "./loader";
+
+interface SelectorCounts {
+    /**
+     * Number of matched selectors.
+     */
+    matched: number;
+    /**
+     * Total number of selectors.
+     */
+    total: number;
+}
+
+interface ResourceLoaderCSSReport {
+    allSelectors: number;
+    matchedSelectors: number;
+    module: string;
+    percentMatched: `${number}%` | null;
+}
+
+interface ResourceLoaderSizeReport {
+    name: string;
+    size: string;
+    sizeInBytes: number;
+}
+
+interface ResourceLoaderStoreReport extends ResourceLoaderStoreStats {
+    enabled: boolean;
+    totalSize: string;
+    totalSizeInBytes: number;
+}
+
+interface ResourceLoaderTimeReport {
+    execute: number;
+    name: string;
+    script: number;
+    total: string;
+    totalInMs: number;
+}
+
+type ResourceLoaderReport = keyof ResourceLoaderReportMap;
+
+interface ResourceLoaderReportMap {
+    /**
+     * For each module with styles, count the number of selectors, and
+     * count how many match against some element currently in the DOM.
+     */
+    css: ResourceLoaderCSSReport;
+
+    /**
+     * Generate a breakdown of all loaded modules and their size in
+     * kibibytes. Modules are ordered from largest to smallest.
+     */
+    size: ResourceLoaderSizeReport;
+
+    /**
+     * Report stats on mw.loader.store: the number of localStorage
+     * cache hits and misses, the number of items purged from the
+     * cache, and the total size of the module blob in localStorage.
+     */
+    store: ResourceLoaderStoreReport;
+
+    /**
+     * Generate a breakdown of all loaded modules and their time
+     * spent during initialisation (measured in milliseconds).
+     *
+     * This timing data is collected by mw.loader.profiler.
+     */
+    time: ResourceLoaderTimeReport;
+}
+
+interface Dependency {
+    requires: string[];
+    requiredBy: string[];
+}
+
+declare global {
+    namespace mw {
+        /**
+         * Generate and print reports.
+         *
+         * When invoked without arguments, prints all available reports.
+         *
+         * @param {...string} [reports] One or more of "size", "css", "store", or "time".
+         */
+        function inspect(...reports: ResourceLoaderReport[]): void;
+
+        namespace inspect {
+            /**
+             * @private
+             */
+            const reports: { [P in ResourceLoaderReport]: () => Array<ResourceLoaderReportMap[P]> };
+
+            /**
+             * Given CSS source, count both the total number of selectors it
+             * contains and the number which match some element in the current
+             * document.
+             *
+             * @param {string} css CSS source
+             * @returns {SelectorCounts} Selector counts
+             */
+            function auditSelectors(css: string): SelectorCounts;
+
+            /**
+             * Print tabular data to the console using console.table.
+             *
+             * @param {any[]} data Tabular data represented as an array of objects
+             *  with common properties.
+             */
+            function dumpTable(data: any[]): void;
+
+            /**
+             * Return a map of all dependency relationships between loaded modules.
+             *
+             * @returns {Object.<string, Dependency>} Maps module names to objects. Each sub-object has
+             *  two properties, 'requires' and 'requiredBy'.
+             */
+            function getDependencyGraph(): Record<string, Dependency>;
+
+            /**
+             * Get a list of all loaded ResourceLoader modules.
+             *
+             * @returns {string[]} List of module names
+             */
+            function getLoadedModules(): string[];
+
+            /**
+             * Calculate the byte size of a ResourceLoader module.
+             *
+             * @param {string} moduleName The name of the module
+             * @returns {number|null} Module size in bytes or null
+             */
+            function getModuleSize(moduleName: string): number | null;
+
+            /**
+             * Perform a string search across the JavaScript and CSS source code
+             * of all loaded modules and return an array of the names of the
+             * modules that matched.
+             *
+             * @param {string|RegExp} pattern String or regexp to match.
+             * @returns {string[]} Array of the names of modules that matched.
+             */
+            function grep(pattern: string | RegExp): string[];
+
+            /**
+             * Generate and print reports.
+             *
+             * When invoked without arguments, prints all available reports.
+             *
+             * @param {...ResourceLoaderReport} [reports] One or more of "size", "css", "store", or "time".
+             */
+            function runReports(...reports: ResourceLoaderReport[]): void;
+        }
+    }
+}
+
+export {};
