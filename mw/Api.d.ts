@@ -745,5 +745,7 @@ declare global {
 
 /** @deprecated Use {@link mw.Api.Options} instead */
 export type ApiOptions = mw.Api.Options;
+/** @deprecated Use {@link mw.Api.Response} instead */
+export type ApiResponse = mw.Api.Response;
 
 export {};

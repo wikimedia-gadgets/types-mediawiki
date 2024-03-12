@@ -608,4 +608,7 @@ declare global {
     }
 }
 
+/** @deprecated Use {@link mw.loader.store.Stats} instead */
+export type ResourceLoaderStoreStats = mw.loader.store.Stats;
+
 export {};
