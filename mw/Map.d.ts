@@ -1,20 +1,4 @@
-type TypeOrArray<T> = T | T[];
-
-// Get/PickOrDefault<V, S, TD, TX> extracts values from V using key selection S
-//  - TD is the value type of missing properties
-//  - TX is the value type of unknown properties
-
-type GetOrDefault<V, K extends PropertyKey, TD, TX = unknown> = K extends keyof V
-    ? V extends Required<Pick<V, K>>
-        ? V[K]
-        : Required<V>[K] | TD
-    : TX | TD;
-
-type PickOrDefault<V, S extends TypeOrArray<PropertyKey>, TD, TX = unknown> = S extends Array<
-    infer K
->
-    ? { [P in K & PropertyKey]-?: GetOrDefault<V, P, TD, TX> }
-    : GetOrDefault<V, S & PropertyKey, TD, TX>;
+import { PickOrDefault, TypeOrArray } from "./utils";
 
 // `ExtensibleMap<V, TX>` is an alternative to `Map<V & Record<string, TX>>`, but unlike the latter
 // ExtensibleMap provides additional overloads to improve selection autocompletion and type checking.

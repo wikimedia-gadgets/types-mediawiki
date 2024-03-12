@@ -1,4 +1,4 @@
-import { QueryParams } from "./Uri";
+import { QueryParams } from "./utils";
 
 export type TitleLike = string | mw.Title;
 

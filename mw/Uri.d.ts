@@ -1,4 +1,4 @@
-export type QueryParams = Record<string, string | number | boolean | null | undefined>;
+import { QueryParams } from "./utils";
 
 interface UriOptions {
     /**

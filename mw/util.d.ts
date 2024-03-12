@@ -1,13 +1,4 @@
-import { QueryParams } from "./Uri";
-
-type NoReturn<T extends (...args: any[]) => any> = T extends (
-    this: infer U,
-    ...args: infer V
-) => any
-    ? unknown extends U
-        ? (...args: V) => void
-        : (this: U, ...args: V) => void
-    : never;
+import { NoReturn, QueryParams } from "./utils";
 
 interface ImageUrlData {
     /**

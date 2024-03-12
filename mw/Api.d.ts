@@ -1,5 +1,4 @@
 import {
-    ApiParams,
     ApiEditPageParams,
     ApiLegacyTokenType,
     ApiParseParams,
@@ -12,9 +11,7 @@ import {
 } from "../api_params";
 import { TitleLike } from "./Title";
 import { UserInfo } from "./user";
-
-type TypeOrArray<T> = T extends any ? T | T[] : never; // T[] would be a mixed array
-type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
+import { ReplaceValue, TypeOrUnionArray } from "./utils";
 
 type UnknownApiParams = Record<string, string | string[] | boolean | number | number[]>;
 type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
@@ -527,12 +524,12 @@ declare global {
              * Convenience method for `action=watch`.
              *
              * @since 1.35 - expiry parameter can be passed when Watchlist Expiry is enabled
-             * @param {TypeOrArray<TitleLike>} pages
+             * @param {TypeOrUnionArray<TitleLike>} pages
              * @param {string} [expiry]
              * @returns {JQuery.Promise<TypeOrArray<WatchStatus>>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.watch-method-watch
              */
-            watch<P extends TypeOrArray<TitleLike>>(
+            watch<P extends TypeOrUnionArray<TitleLike>>(
                 pages: P,
                 expiry?: string
             ): JQuery.Promise<ReplaceValue<P, TitleLike, WatchStatus>>;
@@ -540,11 +537,11 @@ declare global {
             /**
              * Convenience method for `action=watch&unwatch=1`.
              *
-             * @param {TypeOrArray<TitleLike>} pages
+             * @param {TypeOrUnionArray<TitleLike>} pages
              * @returns {JQuery.Promise<TypeOrArray<WatchStatus>>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.watch-method-unwatch
              */
-            unwatch<P extends TypeOrArray<TitleLike>>(
+            unwatch<P extends TypeOrUnionArray<TitleLike>>(
                 pages: P
             ): JQuery.Promise<ReplaceValue<P, TitleLike, WatchStatus>>;
 
