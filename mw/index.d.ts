@@ -20,6 +20,7 @@ import "./Title";
 import "./Uri";
 import "./user";
 import "./util";
+import "./utils";
 
 type ObjectAnalyticEventData = Record<string, any>;
 type AnalyticEventData = ObjectAnalyticEventData | number | string | undefined;
