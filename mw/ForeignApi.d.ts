@@ -63,6 +63,7 @@ declare global {
     }
 }
 
+/** @deprecated Use {@link mw.ForeignApi.Options} instead */
 export type ForeignApiOptions = mw.ForeignApi.Options;
 
 export {};

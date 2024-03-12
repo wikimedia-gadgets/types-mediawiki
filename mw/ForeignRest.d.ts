@@ -63,6 +63,7 @@ declare global {
     }
 }
 
+/** @deprecated Use {@link mw.ForeignRest.Options} instead */
 export type ForeignRestOptions = mw.ForeignRest.Options;
 
 export {};
