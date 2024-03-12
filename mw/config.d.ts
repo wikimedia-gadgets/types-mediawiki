@@ -361,35 +361,35 @@ declare global {
              */
             wgDiffNewId?: number;
         }>;
+
+        interface PageParseReport {
+            cachereport: CacheReport;
+            limitreport: LimitReport;
+        }
+
+        interface CacheReport {
+            timestamp: `${number}`;
+            transientcontent: boolean;
+            ttl: number;
+        }
+
+        interface LimitReport {
+            "cputime": `${number}`;
+            "expansiondepth": LimitReportValue;
+            "expensivefunctioncount": LimitReportValue;
+            "postexpandincludesize": LimitReportValue;
+            "ppvisitednodes": LimitReportValue;
+            "templateargumentsize": LimitReportValue;
+            "timingprofile": string[];
+            "unstrip-depth": LimitReportValue;
+            "unstrip-size": LimitReportValue;
+        }
+
+        interface LimitReportValue {
+            value: number;
+            limit: number;
+        }
     }
-}
-
-interface PageParseReport {
-    cachereport: CacheReport;
-    limitreport: LimitReport;
-}
-
-interface CacheReport {
-    timestamp: `${number}`;
-    transientcontent: boolean;
-    ttl: number;
-}
-
-interface LimitReport {
-    "cputime": `${number}`;
-    "expansiondepth": LimitReportValue;
-    "expensivefunctioncount": LimitReportValue;
-    "postexpandincludesize": LimitReportValue;
-    "ppvisitednodes": LimitReportValue;
-    "templateargumentsize": LimitReportValue;
-    "timingprofile": string[];
-    "unstrip-depth": LimitReportValue;
-    "unstrip-size": LimitReportValue;
-}
-
-interface LimitReportValue {
-    value: number;
-    limit: number;
 }
 
 export {};

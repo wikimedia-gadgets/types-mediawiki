@@ -1,12 +1,5 @@
 import { ApiOptions } from "./Api";
 
-interface ForeignApiOptions extends ApiOptions {
-    /**
-     * Whether to perform all requests anonymously. Use this option if the target wiki may otherwise not accept cross-origin requests, or if you don't need to perform write actions or read restricted information and want to avoid the overhead.
-     */
-    anonymous: boolean;
-}
-
 declare global {
     namespace mw {
         /**
@@ -45,10 +38,10 @@ declare global {
              *
              * @since 1.26
              * @param {string|Uri} url URL pointing to another wiki's `api.php` endpoint.
-             * @param {Partial<ForeignApiOptions>} [options]
+             * @param {Partial<ForeignApi.Options>} [options]
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignApi-method-constructor
              */
-            constructor(url: string | Uri, options?: Partial<ForeignApiOptions>);
+            constructor(url: string | Uri, options?: Partial<ForeignApi.Options>);
 
             /**
              * Return the origin to use for API requests, in the required format (protocol, host and port, if any).
@@ -58,7 +51,18 @@ declare global {
              */
             protected getOrigin(): "*" | `${string}//${string}` | undefined;
         }
+
+        namespace ForeignApi {
+            interface Options extends ApiOptions {
+                /**
+                 * Whether to perform all requests anonymously. Use this option if the target wiki may otherwise not accept cross-origin requests, or if you don't need to perform write actions or read restricted information and want to avoid the overhead.
+                 */
+                anonymous: boolean;
+            }
+        }
     }
 }
+
+export type ForeignApiOptions = mw.ForeignApi.Options;
 
 export {};

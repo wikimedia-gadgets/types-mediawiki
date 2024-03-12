@@ -1,14 +1,5 @@
 import { RestOptions } from "./Rest";
 
-interface ForeignRestOptions extends RestOptions {
-    /**
-     * Perform all requests anonymously. Use this option if the target wiki may otherwise not
-     * accept cross-origin requests, or if you don't need to perform write actions or read
-     * restricted information and want to avoid the overhead.
-     */
-    anonymous: boolean;
-}
-
 declare global {
     namespace mw {
         /**
@@ -49,16 +40,29 @@ declare global {
              * @since 1.36
              * @param {string} url URL pointing to another wiki's `rest.php` endpoint.
              * @param {ForeignApi} foreignActionApi
-             * @param {Partial<ForeignRestOptions>} [options]
+             * @param {Partial<ForeignRest.Options>} [options]
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignRest-method-constructor
              */
             constructor(
                 url: string,
                 foreignActionApi: ForeignApi,
-                options?: Partial<ForeignRestOptions>
+                options?: Partial<ForeignRest.Options>
             );
+        }
+
+        namespace ForeignRest {
+            interface Options extends RestOptions {
+                /**
+                 * Perform all requests anonymously. Use this option if the target wiki may otherwise not
+                 * accept cross-origin requests, or if you don't need to perform write actions or read
+                 * restricted information and want to avoid the overhead.
+                 */
+                anonymous: boolean;
+            }
         }
     }
 }
+
+export type ForeignRestOptions = mw.ForeignRest.Options;
 
 export {};

@@ -1,9 +1,7 @@
-import { QueryParams } from "./utils";
-
-export type TitleLike = string | mw.Title;
-
 declare global {
     namespace mw {
+        type TitleLike = string | Title;
+
         /**
          * Parse titles into an object structure. Note that when using the constructor
          * directly, passing invalid titles will result in an exception. Use {@link newFromText} to use the
@@ -415,5 +413,8 @@ declare global {
         }
     }
 }
+
+/** @deprecated Use {@link mw.TitleLike} instead */
+export type TitleLike = mw.TitleLike;
 
 export {};

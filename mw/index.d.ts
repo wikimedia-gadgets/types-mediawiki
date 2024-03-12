@@ -22,24 +22,6 @@ import "./user";
 import "./util";
 import "./utils";
 
-type ObjectAnalyticEventData = Record<string, any>;
-type AnalyticEventData = ObjectAnalyticEventData | number | string | undefined;
-
-interface ErrorAnalyticEventData extends ObjectAnalyticEventData {
-    exception?: any;
-    module?: string;
-    source: string;
-}
-
-interface AnalyticEvent {
-    topic: string;
-    data: AnalyticEventData;
-}
-
-interface AnalyticEventCallback {
-    (topic: string, data: AnalyticEventData): void;
-}
-
 declare global {
     /**
      * Base library for MediaWiki.
@@ -150,20 +132,20 @@ declare global {
          * was subscribed.
          *
          * @param {string} topic Topic name
-         * @param {AnalyticEventData} [data] Data describing the event.
+         * @param {AnalyticEvent.Data} [data] Data describing the event.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-track
          */
-        function track(topic: string, data?: AnalyticEventData): void;
+        function track(topic: string, data?: AnalyticEvent.Data): void;
 
         /**
          * Track an early error event via mw.track and send it to the window console.
          *
          * @private
          * @param {string} topic Topic name
-         * @param {ErrorAnalyticEventData} data Data describing the event, encoded as an object; see {@link errorLogger.logError}
+         * @param {AnalyticEvent.ErrorData} data Data describing the event, encoded as an object; see {@link errorLogger.logError}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackError
          */
-        function trackError(topic: string, data: ErrorAnalyticEventData): void;
+        function trackError(topic: string, data: AnalyticEvent.ErrorData): void;
 
         /**
          * Register a handler for subset of analytic events, specified by topic.
@@ -186,18 +168,18 @@ declare global {
          * ```
          *
          * @param {string} topic Handle events whose name starts with this string prefix
-         * @param {function(string, AnalyticEventData): void} callback Handler to call for each matching tracked event
+         * @param {AnalyticEvent.Callback} callback Handler to call for each matching tracked event
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackSubscribe
          */
-        function trackSubscribe(topic: string, callback: AnalyticEventCallback): void;
+        function trackSubscribe(topic: string, callback: AnalyticEvent.Callback): void;
 
         /**
          * Stop handling events for a particular handler
          *
-         * @param {function(string, AnalyticEventData): void} callback
+         * @param {AnalyticEvent.Callback} callback
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackUnsubscribe
          */
-        function trackUnsubscribe(callback: AnalyticEventCallback): void;
+        function trackUnsubscribe(callback: AnalyticEvent.Callback): void;
 
         /**
          * List of all analytic events emitted so far.
@@ -208,6 +190,26 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-trackQueue
          */
         const trackQueue: AnalyticEvent[];
+
+        interface AnalyticEvent {
+            topic: string;
+            data: AnalyticEvent.Data;
+        }
+
+        namespace AnalyticEvent {
+            type ObjectData = Record<string, any>;
+            type Data = ObjectData | number | string | undefined;
+
+            interface ErrorData extends ObjectData {
+                exception?: any;
+                module?: string;
+                source: string;
+            }
+
+            interface Callback {
+                (topic: string, data: Data): void;
+            }
+        }
     }
 }
 

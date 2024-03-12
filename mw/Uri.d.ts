@@ -1,27 +1,3 @@
-import { QueryParams } from "./utils";
-
-interface UriOptions {
-    /**
-     * Trigger strict mode parsing of the url.
-     */
-    strictMode: boolean;
-    /**
-     * Whether to let duplicate query parameters override each other (`true`) or automagically convert them to an array (`false`).
-     */
-    overrideKeys: boolean;
-    /**
-     * Whether to parse array query parameters (e.g. `&foo[0]=a&foo[1]=b` or `&foo[]=a&foo[]=b`) or leave them alone.
-     * Currently this does not handle associative or multi-dimensional arrays, but that may be improved in the future.
-     * Implies `overrideKeys: true` (query parameters without `[...]` are not parsed as arrays).
-     */
-    arrayParams: boolean;
-}
-
-interface UriParser {
-    strict: RegExp;
-    loose: RegExp;
-}
-
 declare global {
     namespace mw {
         /**
@@ -149,7 +125,7 @@ declare global {
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-static-property-parser
              */
-            private static parser: UriParser;
+            private static parser: Uri.Parser;
 
             /**
              * The order here matches the order of captured matches in the `parser` property regexes.
@@ -176,14 +152,14 @@ declare global {
              *  properties. If omitted (or set to `undefined`, `null` or empty string), then an object
              *  will be created for the default `uri` of this constructor (`location.href` for mw.Uri,
              *  other values for other instances -- see mw.UriRelative for details).
-             * @param {Partial<UriOptions>|boolean} [options] Object with options, or (backwards compatibility) a boolean
+             * @param {Partial<Uri.Options>|boolean} [options] Object with options, or (backwards compatibility) a boolean
              *  for strictMode
              * @throws {Error} when the query string or fragment contains an unknown % sequence
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-constructor
              */
             constructor(
                 uri?: string | Uri | Partial<Record<typeof Uri.properties[number], string>>,
-                options?: Partial<UriOptions> | boolean
+                options?: Partial<Uri.Options> | boolean
             );
 
             /**
@@ -268,11 +244,11 @@ declare global {
              * Parse a string and set our properties accordingly.
              *
              * @param {string} str URI, see constructor.
-             * @param {Partial<UriOptions>} options See constructor.
+             * @param {Partial<Uri.Options>} options See constructor.
              * @throws {Error} when the query string or fragment contains an unknown % sequence
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-parse
              */
-            private parse(str: string, options: Partial<UriOptions>): void;
+            private parse(str: string, options: Partial<Uri.Options>): void;
 
             /**
              * Decode a url encoded value.
@@ -299,6 +275,30 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-static-method-encode
              */
             static encode(s: string): string;
+        }
+
+        namespace Uri {
+            interface Options {
+                /**
+                 * Trigger strict mode parsing of the url.
+                 */
+                strictMode: boolean;
+                /**
+                 * Whether to let duplicate query parameters override each other (`true`) or automagically convert them to an array (`false`).
+                 */
+                overrideKeys: boolean;
+                /**
+                 * Whether to parse array query parameters (e.g. `&foo[0]=a&foo[1]=b` or `&foo[]=a&foo[]=b`) or leave them alone.
+                 * Currently this does not handle associative or multi-dimensional arrays, but that may be improved in the future.
+                 * Implies `overrideKeys: true` (query parameters without `[...]` are not parsed as arrays).
+                 */
+                arrayParams: boolean;
+            }
+
+            interface Parser {
+                strict: RegExp;
+                loose: RegExp;
+            }
         }
     }
 }
