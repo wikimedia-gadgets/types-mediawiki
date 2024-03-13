@@ -32,11 +32,11 @@ declare global {
          * $.createSpinner( { id: 'magic' } );
          * ```
          *
-         * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
+         * @param {string|JQuery.Spinner.Options} [opts] Options. If a string is given, it will be treated as the value
          *   of the `id` option.
          * @returns {JQuery}
          */
-        createSpinner(opts?: string | Options): JQuery;
+        createSpinner(opts?: string | JQuery.Spinner.Options): JQuery;
 
         /**
          * Remove a spinner element.
@@ -54,32 +54,34 @@ declare global {
          * Inserts spinner as siblings (not children) of the target elements.
          * Collection contents remain unchanged.
          *
-         * @param {string|Object} [opts] Options. If a string is given, it will be treated as the value
+         * @param {string|JQuery.Spinner.Options} [opts] Options. If a string is given, it will be treated as the value
          *   of the `id` option.
          * @returns {JQuery}
          */
-        injectSpinner(opts?: string | Options): this;
+        injectSpinner(opts?: string | JQuery.Spinner.Options): this;
     }
-}
 
-type Size = "large" | "small";
-type Type = "block" | "inline";
+    namespace JQuery.Spinner {
+        type Size = "large" | "small";
+        type Type = "block" | "inline";
 
-interface Options {
-    /**
-     * If given, spinner will be given an id of "mw-spinner-{id}".
-     */
-    id?: string | undefined;
+        interface Options {
+            /**
+             * If given, spinner will be given an id of "mw-spinner-{id}".
+             */
+            id?: string | undefined;
 
-    /**
-     * 'small' or 'large' for a 20-pixel or 32-pixel spinner.
-     */
-    size?: Size;
+            /**
+             * 'small' or 'large' for a 20-pixel or 32-pixel spinner.
+             */
+            size?: Size;
 
-    /**
-     * 'inline' or 'block'. Inline creates an inline-block with width and height equal to spinner size. Block is a block-level element with width 100%, height equal to spinner size.
-     */
-    type?: Type;
+            /**
+             * 'inline' or 'block'. Inline creates an inline-block with width and height equal to spinner size. Block is a block-level element with width 100%, height equal to spinner size.
+             */
+            type?: Type;
+        }
+    }
 }
 
 export {};

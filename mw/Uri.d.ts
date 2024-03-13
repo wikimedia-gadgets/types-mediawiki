@@ -303,4 +303,7 @@ declare global {
     }
 }
 
+/** @deprecated Use {@link mw.QueryParams} instead */
+export type QueryParams = mw.QueryParams;
+
 export {};
