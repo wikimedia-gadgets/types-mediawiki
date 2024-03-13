@@ -1,5 +1,3 @@
-import { ResourceLoaderStoreStats } from "./loader";
-
 declare global {
     namespace mw {
         /**
@@ -133,7 +131,7 @@ declare global {
                     sizeInBytes: number;
                 }
 
-                interface Store extends ResourceLoaderStoreStats {
+                interface Store extends loader.store.Stats {
                     enabled: boolean;
                     totalSize: string;
                     totalSizeInBytes: number;

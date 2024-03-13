@@ -9,8 +9,6 @@ import {
     ApiAssert,
     ApiQueryTokensParams,
 } from "../api_params";
-import { TitleLike } from "./Title";
-import { UserInfo } from "./user";
 
 declare global {
     namespace mw {
@@ -375,10 +373,10 @@ declare global {
              * Get the current user's groups and rights.
              *
              * @since 1.27
-             * @returns {JQuery.Promise<UserInfo>}
+             * @returns {JQuery.Promise<User.Info>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.user-method-getUserInfo
              */
-            getUserInfo(): JQuery.Promise<UserInfo>;
+            getUserInfo(): JQuery.Promise<User.Info>;
 
             /**
              * Extend an API parameter object with an assertion that the user won't change.

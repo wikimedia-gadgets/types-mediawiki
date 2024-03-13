@@ -1,5 +1,3 @@
-import { User } from "./user";
-
 declare global {
     namespace mw {
         /**

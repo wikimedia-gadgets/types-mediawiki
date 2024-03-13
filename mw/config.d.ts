@@ -1,5 +1,3 @@
-import { ExtensibleMap } from "./Map";
-
 declare global {
     namespace mw {
         /**
@@ -13,7 +11,7 @@ declare global {
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-config
          */
-        const config: ExtensibleMap<{
+        const config: Map.Extensible<{
             /**
              * Since MediaWiki 1.36+, 0 means debug mode is off, and a positive non-zero number means debug mode is on (e.g. 1 or 2).
              *

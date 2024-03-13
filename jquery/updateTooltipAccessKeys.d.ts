@@ -1,5 +1,3 @@
-import { ClientNavigator } from "./client";
-
 declare global {
     interface JQuery {
         updateTooltipAccessKeys: JQuery.TooltipAccessKeys<this>;
@@ -27,10 +25,10 @@ declare global {
             getAccessKeyLabel(element: HTMLElement): string;
 
             /**
-             * @param {ClientNavigator} [nav] An object with a 'userAgent' and 'platform' property.
+             * @param {Client.Navigator} [nav] An object with a 'userAgent' and 'platform' property.
              * @returns {string}
              */
-            getAccessKeyPrefix(nav?: ClientNavigator): `${TooltipAccessKeys.KeyModifier}-`;
+            getAccessKeyPrefix(nav?: Client.Navigator): `${TooltipAccessKeys.KeyModifier}-`;
 
             /**
              * Switch test mode on and off.

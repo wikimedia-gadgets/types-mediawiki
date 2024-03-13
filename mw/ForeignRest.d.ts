@@ -1,5 +1,3 @@
-import { RestOptions } from "./Rest";
-
 declare global {
     namespace mw {
         /**
@@ -51,7 +49,7 @@ declare global {
         }
 
         namespace ForeignRest {
-            interface Options extends RestOptions {
+            interface Options extends Rest.Options {
                 /**
                  * Perform all requests anonymously. Use this option if the target wiki may otherwise not
                  * accept cross-origin requests, or if you don't need to perform write actions or read

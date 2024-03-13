@@ -1,5 +1,3 @@
-import { ApiResponse } from "./Api";
-
 declare global {
     namespace mw.searchSuggest {
         /**
@@ -11,7 +9,7 @@ declare global {
             response: (result: string[], info: ResultInfo) => void,
             maxRows?: number | "max",
             namespace?: number | number[]
-        ): JQuery.Promise<ApiResponse>;
+        ): JQuery.Promise<Api.Response>;
 
         interface ResultInfo {
             type: string;

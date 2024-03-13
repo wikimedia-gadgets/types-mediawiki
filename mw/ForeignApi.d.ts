@@ -1,5 +1,3 @@
-import { ApiOptions } from "./Api";
-
 declare global {
     namespace mw {
         /**
@@ -53,7 +51,7 @@ declare global {
         }
 
         namespace ForeignApi {
-            interface Options extends ApiOptions {
+            interface Options extends Api.Options {
                 /**
                  * Whether to perform all requests anonymously. Use this option if the target wiki may otherwise not accept cross-origin requests, or if you don't need to perform write actions or read restricted information and want to avoid the overhead.
                  */
