@@ -48,12 +48,6 @@ export interface ApiParams {
     errorlang?: string;
     errorsuselocal?: boolean;
     centralauthtoken?: string;
-
-    // format=json
-    callback?: string;
-    utf8?: boolean;
-    ascii?: boolean;
-    formatversion?: "1" | "2" | "latest";
 }
 
 // AUTOMATICALLY GENERATED FROM HERE:
