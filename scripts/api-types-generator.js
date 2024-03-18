@@ -47,7 +47,8 @@ const NAME_PATH_MAP = {
 };
 
 async function getModules(modules) {
-    const result = await new mw.Api().get({
+    getModules._api ??= new mw.Api();
+    const result = await getModules._api.get({
         action: "paraminfo",
         format: "json",
         modules,
@@ -98,10 +99,9 @@ function processParamInfo(param) {
 }
 
 function processModule(module) {
-    const oldName = getOldInterfaceName(module);
+    const oldName = getOldInterfaceName(module),
+        props = module.parameters.map(processParamInfo);
     let path = module.classname.split("\\");
-    let parentPath = ["Params"];
-    let props = module.parameters.map(processParamInfo);
 
     // remove redundant parts
     path = path.filter((s) => !MODULE_PATH_EXCLUDE.includes(s)).map((s) => s.replace("Api", ""));
@@ -111,19 +111,17 @@ function processModule(module) {
     }
 
     switch (module.group) {
-        case "format":
-            // Xxx extends Params --> Format.Xxx extends Params
-            //                     or Format.XxxFM extends Params
-            path = ["Format", firstToUppercase(module.name).replace("fm", "FM")];
         case "action":
-            props.unshift({ name: module.group, type: quote(module.name) });
+            break;
+        case "format":
+            // Xxx  -->  Format.Xxx  or  Format.XxxFM
+            path = ["Format", firstToUppercase(module.name).replace("fm", "FM")];
             break;
         case "list":
         case "meta":
         case "prop":
-            // Xxx.QueryYyy extends Params --> Query.Xxx.Yyy extends Query
+            // Xxx.QueryYyy  -->  Query.Xxx.Yyy
             path = ["Query", ...path.map((s) => s.replace("Query", ""))];
-            parentPath = ["Query"];
             break;
         default:
             throw `Unknown group "${module.group}"`;
@@ -142,6 +140,7 @@ function processModule(module) {
     }
 
     const strPath = path.join(".");
+    processModule._pathMap ??= new Map();
     if (processModule._pathMap.has(strPath)) {
         console.error(
             `Path "${strPath}" is used by both "${processModule._pathMap.get(strPath)}" and "${
@@ -153,10 +152,8 @@ function processModule(module) {
         processModule._pathMap.set(strPath, module.name);
     }
 
-    return { oldName, path, parentPath, props };
+    return { oldName, path, props };
 }
-
-processModule._pathMap = new Map();
 
 function formatProperty(prop) {
     let name = prop.name;
@@ -170,19 +167,18 @@ function formatProperty(prop) {
 function formatInterface(interface) {
     const path = [...interface.path];
     const name = path.pop();
-    const parentPath = interface.parentPath;
 
     let lines;
     if (interface.props.length) {
         lines = [
-            `interface ${name} extends ${parentPath.join(".")} {`,
+            `interface ${name} extends Params {`,
             ...interface.props.map(formatProperty).map(indent),
             "}",
         ];
     } else {
         lines = [
             "// tslint:disable-next-line:no-empty-interface",
-            `interface ${name} extends ${parentPath.join(".")} {}`,
+            `interface ${name} extends Params {}`,
         ];
     }
 

@@ -15,7 +15,6 @@ declare global {
     namespace mw.Api.Params {
         namespace AbuseFilter {
             interface CheckMatch extends Params {
-                action: "abusefiltercheckmatch";
                 filter?: string;
                 vars?: string;
                 rcid?: number;
@@ -25,14 +24,12 @@ declare global {
 
         namespace AbuseFilter {
             interface CheckSyntax extends Params {
-                action: "abusefilterchecksyntax";
                 filter?: string;
             }
         }
 
         namespace AbuseFilter {
             interface EvalExpression extends Params {
-                action: "abusefilterevalexpression";
                 expression?: string;
                 prettyprint?: boolean;
             }
@@ -40,7 +37,6 @@ declare global {
 
         namespace AbuseFilter {
             interface UnblockAutopromote extends Params {
-                action: "abusefilterunblockautopromote";
                 user?: string;
                 token?: string;
             }
@@ -48,24 +44,20 @@ declare global {
 
         namespace AbuseFilter {
             interface AbuseLogPrivateDetails extends Params {
-                action: "abuselogprivatedetails";
                 logid?: number;
                 reason?: string;
                 token?: string;
             }
         }
 
-        interface AcquireTempUserName extends Params {
-            action: "acquiretempusername";
-        }
+        // tslint:disable-next-line:no-empty-interface
+        interface AcquireTempUserName extends Params {}
 
         interface AntiSpoof extends Params {
-            action: "antispoof";
             username?: string;
         }
 
         interface Block extends Params {
-            action: "block";
             user?: string;
             userid?: number;
             expiry?: string;
@@ -87,48 +79,40 @@ declare global {
         }
 
         interface BounceHandler extends Params {
-            action: "bouncehandler";
             email?: string;
         }
 
         interface CategoryTree extends Params {
-            action: "categorytree";
             category?: string;
             options?: string;
         }
 
         namespace CentralAuth {
-            interface CentralAuthToken extends Params {
-                action: "centralauthtoken";
-            }
+            // tslint:disable-next-line:no-empty-interface
+            interface CentralAuthToken extends Params {}
         }
 
         interface CentralNoticeCdnCacheUpdateBanner extends Params {
-            action: "centralnoticecdncacheupdatebanner";
             banner?: string;
             language?: string;
             token?: string;
         }
 
         interface CentralNoticeChoiceData extends Params {
-            action: "centralnoticechoicedata";
             project?: string;
             language?: string;
         }
 
         interface CentralNoticeQueryCampaign extends Params {
-            action: "centralnoticequerycampaign";
             campaign?: string;
         }
 
         interface ChangeAuthenticationData extends Params {
-            action: "changeauthenticationdata";
             changeauthrequest?: string;
             changeauthtoken?: string;
         }
 
         interface ChangeContentModel extends Params {
-            action: "changecontentmodel";
             title?: string;
             pageid?: number;
             summary?: string;
@@ -150,7 +134,6 @@ declare global {
         }
 
         interface CheckToken extends Params {
-            action: "checktoken";
             type?:
                 | "createaccount"
                 | "csrf"
@@ -167,7 +150,6 @@ declare global {
 
         namespace CirrusSearch {
             interface ConfigDump extends Params {
-                action: "cirrus-config-dump";
                 prop?: TypeOrArray<
                     "globals" | "namespacemap" | "profiles" | "replicagroup" | "usertesting"
                 >;
@@ -175,30 +157,25 @@ declare global {
         }
 
         namespace CirrusSearch {
-            interface MappingDump extends Params {
-                action: "cirrus-mapping-dump";
-            }
+            // tslint:disable-next-line:no-empty-interface
+            interface MappingDump extends Params {}
         }
 
         namespace CirrusSearch {
             interface ProfilesDump extends Params {
-                action: "cirrus-profiles-dump";
                 verbose?: boolean;
             }
         }
 
         namespace CirrusSearch {
-            interface SettingsDump extends Params {
-                action: "cirrus-settings-dump";
-            }
+            // tslint:disable-next-line:no-empty-interface
+            interface SettingsDump extends Params {}
         }
 
-        interface ClearHasMsg extends Params {
-            action: "clearhasmsg";
-        }
+        // tslint:disable-next-line:no-empty-interface
+        interface ClearHasMsg extends Params {}
 
         interface ClientLogin extends Params {
-            action: "clientlogin";
             loginrequests?: TypeOrArray<string>;
             loginmessageformat?: "html" | "none" | "raw" | "wikitext";
             loginmergerequestfields?: boolean;
@@ -209,7 +186,6 @@ declare global {
         }
 
         interface Collection extends Params {
-            action: "collection";
             submodule?:
                 | "addarticle"
                 | "addcategory"
@@ -230,7 +206,6 @@ declare global {
         }
 
         interface ComparePages extends Params {
-            action: "compare";
             fromtitle?: string;
             fromid?: number;
             fromrev?: number;
@@ -313,7 +288,6 @@ declare global {
         }
 
         interface AMCreateAccount extends Params {
-            action: "createaccount";
             createrequests?: TypeOrArray<string>;
             createmessageformat?: "html" | "none" | "raw" | "wikitext";
             createmergerequestfields?: boolean;
@@ -325,7 +299,6 @@ declare global {
 
         namespace CentralAuth {
             interface CreateLocalAccount extends Params {
-                action: "createlocalaccount";
                 username?: string;
                 reason?: string;
                 token?: string;
@@ -333,14 +306,12 @@ declare global {
         }
 
         interface CSPReport extends Params {
-            action: "cspreport";
             reportonly?: boolean;
             source?: string;
         }
 
         namespace ContentTranslation.Action {
             interface ContentTranslationDelete extends Params {
-                action: "cxdelete";
                 from?: string;
                 to?: string;
                 sourcetitle?: string;
@@ -350,7 +321,6 @@ declare global {
 
         namespace ContentTranslation.Action {
             interface ContentTranslationPublish extends Params {
-                action: "cxpublish";
                 title?: string;
                 html?: string;
                 from?: string;
@@ -367,7 +337,6 @@ declare global {
 
         namespace ContentTranslation.Action {
             interface SectionTranslationPublish extends Params {
-                action: "cxpublishsection";
                 title?: string;
                 html?: string;
                 sourcelanguage?: string;
@@ -386,7 +355,6 @@ declare global {
 
         namespace ContentTranslation.Action {
             interface ContentTranslationSave extends Params {
-                action: "cxsave";
                 from?: string;
                 to?: string;
                 sourcetitle?: string;
@@ -403,7 +371,6 @@ declare global {
 
         namespace ContentTranslation.Action {
             interface ContentTranslationSplit extends Params {
-                action: "cxsplit";
                 translationid?: number;
                 token?: string;
             }
@@ -411,7 +378,6 @@ declare global {
 
         namespace ContentTranslation.Action {
             interface ContentTranslationSuggestionList extends Params {
-                action: "cxsuggestionlist";
                 listname?: string;
                 listaction?: "add" | "remove" | "view";
                 titles?: TypeOrArray<string>;
@@ -423,13 +389,11 @@ declare global {
 
         namespace ContentTranslation.Action {
             interface ContentTranslationToken extends Params {
-                action: "cxtoken";
                 token?: string;
             }
         }
 
         interface Delete extends Params {
-            action: "delete";
             title?: string;
             pageid?: number;
             reason?: string;
@@ -445,7 +409,6 @@ declare global {
 
         namespace CentralAuth {
             interface DeleteGlobalAccount extends Params {
-                action: "deleteglobalaccount";
                 user?: string;
                 reason?: string;
                 token?: string;
@@ -454,7 +417,6 @@ declare global {
 
         namespace DiscussionTools {
             interface DiscussionToolsCompare extends Params {
-                action: "discussiontoolscompare";
                 fromtitle?: string;
                 fromrev?: number;
                 totitle?: string;
@@ -464,7 +426,6 @@ declare global {
 
         namespace DiscussionTools {
             interface DiscussionToolsEdit extends Params {
-                action: "discussiontoolsedit";
                 paction?: "addcomment" | "addtopic";
                 autosubscribe?: "default" | "no" | "yes";
                 page?: string;
@@ -502,7 +463,6 @@ declare global {
 
         namespace DiscussionTools {
             interface DiscussionToolsFindComment extends Params {
-                action: "discussiontoolsfindcomment";
                 idorname?: string;
                 heading?: string;
                 page?: string;
@@ -511,14 +471,12 @@ declare global {
 
         namespace DiscussionTools {
             interface DiscussionToolsGetSubscriptions extends Params {
-                action: "discussiontoolsgetsubscriptions";
                 commentname?: TypeOrArray<string>;
             }
         }
 
         namespace DiscussionTools {
             interface DiscussionToolsPageInfo extends Params {
-                action: "discussiontoolspageinfo";
                 page?: string;
                 oldid?: number;
                 prop?: TypeOrArray<"threaditemshtml" | "transcludedfrom">;
@@ -528,7 +486,6 @@ declare global {
 
         namespace DiscussionTools {
             interface DiscussionToolsPreview extends Params {
-                action: "discussiontoolspreview";
                 type?: "reply" | "topic";
                 page?: string;
                 wikitext?: string;
@@ -550,7 +507,6 @@ declare global {
 
         namespace DiscussionTools {
             interface DiscussionToolsSubscribe extends Params {
-                action: "discussiontoolssubscribe";
                 page?: string;
                 token?: string;
                 commentname?: string;
@@ -560,7 +516,6 @@ declare global {
 
         namespace Notifications {
             interface EchoMarkRead extends Params {
-                action: "echomarkread";
                 wikis?: TypeOrArray<string>;
                 list?: TypeOrArray<string>;
                 unreadlist?: TypeOrArray<string>;
@@ -572,7 +527,6 @@ declare global {
 
         namespace Notifications {
             interface EchoMarkSeen extends Params {
-                action: "echomarkseen";
                 type?: "alert" | "all" | "message";
                 timestampFormat?: "ISO_8601" | "MW";
             }
@@ -580,7 +534,6 @@ declare global {
 
         namespace Notifications {
             interface EchoMute extends Params {
-                action: "echomute";
                 type?: "page-linked-title" | "user";
                 mute?: TypeOrArray<string>;
                 unmute?: TypeOrArray<string>;
@@ -590,14 +543,12 @@ declare global {
 
         namespace Notifications.Push {
             interface EchoPushSubscriptions extends Params {
-                action: "echopushsubscriptions";
                 command?: "create" | "delete";
                 token?: string;
             }
         }
 
         interface EditPage extends Params {
-            action: "edit";
             title?: string;
             pageid?: number;
             section?: string;
@@ -659,14 +610,12 @@ declare global {
 
         namespace VisualEditor.EditCheck {
             interface EditCheckReferenceUrl extends Params {
-                action: "editcheckreferenceurl";
                 url?: string;
             }
         }
 
         namespace MassMessage {
             interface EditMassMessageList extends Params {
-                action: "editmassmessagelist";
                 spamlist?: string;
                 description?: string;
                 add?: TypeOrArray<string>;
@@ -678,7 +627,6 @@ declare global {
         }
 
         interface EmailUser extends Params {
-            action: "emailuser";
             target?: string;
             subject?: string;
             text?: string;
@@ -687,7 +635,6 @@ declare global {
         }
 
         interface ExpandTemplates extends Params {
-            action: "expandtemplates";
             title?: string;
             text?: string;
             revid?: number;
@@ -736,20 +683,17 @@ declare global {
         }
 
         namespace ConfirmEdit.FancyCaptcha {
-            interface FancyCaptchaReload extends Params {
-                action: "fancycaptchareload";
-            }
+            // tslint:disable-next-line:no-empty-interface
+            interface FancyCaptchaReload extends Params {}
         }
 
         interface FeaturedFeeds extends Params {
-            action: "featuredfeed";
             feedformat?: "atom" | "rss";
             feed?: "featured" | "potd" | "raw" | "wikimag";
             language?: string;
         }
 
         interface FeedContributions extends Params {
-            action: "feedcontributions";
             feedformat?: "atom" | "rss";
             user?: string;
             namespace?: number;
@@ -764,7 +708,6 @@ declare global {
         }
 
         interface FeedRecentChanges extends Params {
-            action: "feedrecentchanges";
             feedformat?: "atom" | "rss";
             namespace?: number;
             invert?: boolean;
@@ -786,7 +729,6 @@ declare global {
         }
 
         interface FeedWatchlist extends Params {
-            action: "feedwatchlist";
             feedformat?: "atom" | "rss";
             hours?: number;
             linktosections?: boolean;
@@ -812,7 +754,6 @@ declare global {
         }
 
         interface FileRevert extends Params {
-            action: "filerevert";
             filename?: string;
             comment?: string;
             archivename?: string;
@@ -820,7 +761,6 @@ declare global {
         }
 
         interface Flow extends Params {
-            action: "flow";
             submodule?:
                 | "edit-header"
                 | "edit-post"
@@ -848,7 +788,6 @@ declare global {
 
         namespace Flow {
             interface ParsoidUtilsFlow extends Params {
-                action: "flow-parsoid-utils";
                 from?: "html" | "wikitext";
                 to?: "html" | "wikitext";
                 content?: string;
@@ -859,7 +798,6 @@ declare global {
 
         namespace Thanks {
             interface FlowThank extends Params {
-                action: "flowthank";
                 postid?: string;
                 token?: string;
             }
@@ -867,7 +805,6 @@ declare global {
 
         namespace GlobalBlocking {
             interface GlobalBlock extends Params {
-                action: "globalblock";
                 target?: string;
                 expiry?: string;
                 unblock?: boolean;
@@ -884,7 +821,6 @@ declare global {
 
         namespace GlobalPreferences {
             interface GlobalPreferenceOverrides extends Params {
-                action: "globalpreferenceoverrides";
                 reset?: boolean;
                 resetkinds?: TypeOrArray<
                     | "all"
@@ -903,7 +839,6 @@ declare global {
         }
 
         interface GlobalPreferences extends Params {
-            action: "globalpreferences";
             reset?: boolean;
             resetkinds?: TypeOrArray<
                 | "all"
@@ -922,7 +857,6 @@ declare global {
 
         namespace CentralAuth {
             interface GlobalUserRights extends Params {
-                action: "globaluserrights";
                 user?: string;
                 userid?: number;
                 add?: TypeOrArray<
@@ -982,7 +916,6 @@ declare global {
 
         namespace GrowthExperiments {
             interface InvalidateImageRecommendation extends Params {
-                action: "growthinvalidateimagerecommendation";
                 tasktype?: "image-recommendation" | "section-image-recommendation";
                 title?: string;
                 filename?: string;
@@ -994,7 +927,6 @@ declare global {
 
         namespace GrowthExperiments {
             interface InvalidatePersonalizedPraiseSuggestion extends Params {
-                action: "growthinvalidatepersonalizedpraisesuggestion";
                 mentee?: string;
                 reason?: "praised" | "skipped";
                 skipreason?: "already-praised" | "not-now" | "not-praiseworthy" | "other";
@@ -1004,7 +936,6 @@ declare global {
 
         namespace GrowthExperiments {
             interface ManageMentorList extends Params {
-                action: "growthmanagementorlist";
                 geaction?: "add" | "change" | "remove";
                 message?: string;
                 weight?: "0" | "1" | "2" | "4";
@@ -1018,14 +949,12 @@ declare global {
 
         namespace GrowthExperiments {
             interface MentorDashboardUpdateData extends Params {
-                action: "growthmentordashboardupdatedata";
                 token?: string;
             }
         }
 
         namespace GrowthExperiments {
             interface SetMenteeStatus extends Params {
-                action: "growthsetmenteestatus";
                 state?: "disabled" | "enabled" | "optout";
                 token?: string;
             }
@@ -1033,7 +962,6 @@ declare global {
 
         namespace GrowthExperiments {
             interface SetMentor extends Params {
-                action: "growthsetmentor";
                 mentee?: string;
                 mentor?: string;
                 reason?: string;
@@ -1043,7 +971,6 @@ declare global {
 
         namespace GrowthExperiments {
             interface StarMentee extends Params {
-                action: "growthstarmentee";
                 gesaction?: "star" | "unstar";
                 gesmentee?: string;
                 token?: string;
@@ -1051,7 +978,6 @@ declare global {
         }
 
         interface Help extends Params {
-            action: "help";
             modules?: TypeOrArray<string>;
             submodules?: boolean;
             recursivesubmodules?: boolean;
@@ -1061,7 +987,6 @@ declare global {
 
         namespace GrowthExperiments {
             interface HelpPanelPostQuestion extends Params {
-                action: "helppanelquestionposter";
                 body?: string;
                 source?:
                     | "helpdesk"
@@ -1076,19 +1001,16 @@ declare global {
 
         namespace GrowthExperiments {
             interface QuestionStore extends Params {
-                action: "homepagequestionstore";
                 storage?:
                     | "growthexperiments-helppanel-questions"
                     | "growthexperiments-mentor-questions";
             }
         }
 
-        interface Disabled extends Params {
-            action: "imagerotate";
-        }
+        // tslint:disable-next-line:no-empty-interface
+        interface Disabled extends Params {}
 
         interface Import extends Params {
-            action: "import";
             summary?: string;
             xml?: File;
             interwikiprefix?: string;
@@ -1187,7 +1109,6 @@ declare global {
 
         namespace Format {
             interface Json extends Params {
-                format: "json";
                 callback?: string;
                 utf8?: boolean;
                 ascii?: boolean;
@@ -1197,7 +1118,6 @@ declare global {
 
         namespace JsonConfig {
             interface JC extends Params {
-                action: "jsonconfig";
                 command?: "reload" | "reset" | "status";
                 namespace?: number;
                 title?: string;
@@ -1207,14 +1127,12 @@ declare global {
 
         namespace JsonConfig {
             interface JCData extends Params {
-                action: "jsondata";
                 title?: string;
             }
         }
 
         namespace Format {
             interface JsonFM extends Params {
-                format: "jsonfm";
                 wrappedhtml?: boolean;
                 callback?: string;
                 utf8?: boolean;
@@ -1225,14 +1143,12 @@ declare global {
 
         namespace UniversalLanguageSelector {
             interface LanguageSearch extends Params {
-                action: "languagesearch";
                 search?: string;
                 typos?: number;
             }
         }
 
         interface LinkAccount extends Params {
-            action: "linkaccount";
             linkrequests?: TypeOrArray<string>;
             linkmessageformat?: "html" | "none" | "raw" | "wikitext";
             linkmergerequestfields?: boolean;
@@ -1242,7 +1158,6 @@ declare global {
         }
 
         interface Login extends Params {
-            action: "login";
             lgname?: string;
             lgpassword?: string;
             lgdomain?: string;
@@ -1250,12 +1165,10 @@ declare global {
         }
 
         interface Logout extends Params {
-            action: "logout";
             token?: string;
         }
 
         interface ManageTags extends Params {
-            action: "managetags";
             operation?: "activate" | "create" | "deactivate" | "delete";
             tag?: string;
             reason?: string;
@@ -1265,7 +1178,6 @@ declare global {
         }
 
         interface MassMessage extends Params {
-            "action": "massmessage";
             "spamlist"?: string;
             "subject"?: string;
             "message"?: string;
@@ -1274,7 +1186,6 @@ declare global {
         }
 
         interface MergeHistory extends Params {
-            action: "mergehistory";
             from?: string;
             fromid?: number;
             to?: string;
@@ -1285,7 +1196,6 @@ declare global {
         }
 
         interface Move extends Params {
-            action: "move";
             from?: string;
             fromid?: number;
             to?: string;
@@ -1301,14 +1211,12 @@ declare global {
         }
 
         namespace Format {
-            interface None extends Params {
-                format: "none";
-            }
+            // tslint:disable-next-line:no-empty-interface
+            interface None extends Params {}
         }
 
         namespace OATHAuth {
             interface OATHValidate extends Params {
-                action: "oathvalidate";
                 user?: string;
                 data?: string;
                 token?: string;
@@ -1316,7 +1224,6 @@ declare global {
         }
 
         interface OpenSearch extends Params {
-            action: "opensearch";
             search?: string;
             namespace?: TypeOrArray<number>;
             limit?: Limit;
@@ -1334,7 +1241,6 @@ declare global {
         }
 
         interface Options extends Params {
-            action: "options";
             reset?: boolean;
             resetkinds?: TypeOrArray<
                 | "all"
@@ -1352,7 +1258,6 @@ declare global {
         }
 
         interface ParamInfo extends Params {
-            action: "paraminfo";
             modules?: TypeOrArray<string>;
             helpformat?: "html" | "none" | "raw" | "wikitext";
             querymodules?: TypeOrArray<
@@ -1494,7 +1399,6 @@ declare global {
         }
 
         interface Parse extends Params {
-            action: "parse";
             title?: string;
             text?: string;
             revid?: number;
@@ -1615,14 +1519,12 @@ declare global {
         }
 
         interface ParserMigration extends Params {
-            action: "parser-migration";
             title?: string;
             config?: TypeOrArray<"new" | "old">;
             redirect?: string;
         }
 
         interface Patrol extends Params {
-            action: "patrol";
             rcid?: number;
             revid?: number;
             tags?: TypeOrArray<string>;
@@ -1631,21 +1533,18 @@ declare global {
 
         namespace Format {
             interface Php extends Params {
-                format: "php";
                 formatversion?: "1" | "2" | "latest";
             }
         }
 
         namespace Format {
             interface PhpFM extends Params {
-                format: "phpfm";
                 wrappedhtml?: boolean;
                 formatversion?: "1" | "2" | "latest";
             }
         }
 
         interface Protect extends Params {
-            action: "protect";
             title?: string;
             pageid?: number;
             protections?: TypeOrArray<string>;
@@ -1660,7 +1559,6 @@ declare global {
         }
 
         interface Purge extends Params {
-            action: "purge";
             forcelinkupdate?: boolean;
             forcerecursivelinkupdate?: boolean;
             continue?: string;
@@ -1717,7 +1615,6 @@ declare global {
         }
 
         interface Query extends Params {
-            action: "query";
             prop?: TypeOrArray<
                 | "categories"
                 | "categoryinfo"
@@ -1914,13 +1811,11 @@ declare global {
 
         namespace Format {
             interface RawFM extends Params {
-                format: "rawfm";
                 wrappedhtml?: boolean;
             }
         }
 
         interface ReadingLists extends Params {
-            action: "readinglists";
             command?:
                 | "create"
                 | "createentry"
@@ -1933,20 +1828,17 @@ declare global {
         }
 
         interface RemoveAuthenticationData extends Params {
-            action: "removeauthenticationdata";
             request?: string;
             token?: string;
         }
 
         interface ResetPassword extends Params {
-            action: "resetpassword";
             user?: string;
             email?: string;
             token?: string;
         }
 
         interface RevisionDelete extends Params {
-            action: "revisiondelete";
             type?: "archive" | "filearchive" | "logging" | "oldimage" | "revision";
             target?: string;
             ids?: TypeOrArray<string>;
@@ -1959,7 +1851,6 @@ declare global {
         }
 
         interface Rollback extends Params {
-            action: "rollback";
             title?: string;
             pageid?: number;
             tags?: TypeOrArray<string>;
@@ -1971,13 +1862,11 @@ declare global {
             token?: string;
         }
 
-        interface Rsd extends Params {
-            action: "rsd";
-        }
+        // tslint:disable-next-line:no-empty-interface
+        interface Rsd extends Params {}
 
         namespace Kartographer {
             interface SanitizeMapData extends Params {
-                action: "sanitize-mapdata";
                 title?: string;
                 text?: string;
             }
@@ -1985,7 +1874,6 @@ declare global {
 
         namespace Scribunto {
             interface ScribuntoConsole extends Params {
-                action: "scribunto-console";
                 title?: string;
                 content?: string;
                 session?: number;
@@ -1997,7 +1885,6 @@ declare global {
 
         namespace SecurePoll {
             interface SecurePollAuth extends Params {
-                action: "securepollauth";
                 token?: string;
                 id?: number;
             }
@@ -2005,7 +1892,6 @@ declare global {
 
         namespace CentralAuth {
             interface SetGlobalAccountStatus extends Params {
-                action: "setglobalaccountstatus";
                 user?: string;
                 locked?: "" | "lock" | "unlock";
                 hidden?: "" | "lists" | "suppressed";
@@ -2016,7 +1902,6 @@ declare global {
         }
 
         interface SetNotificationTimestamp extends Params {
-            action: "setnotificationtimestamp";
             entirewatchlist?: boolean;
             timestamp?: string;
             torevid?: number;
@@ -2076,7 +1961,6 @@ declare global {
         }
 
         interface SetPageLanguage extends Params {
-            action: "setpagelanguage";
             title?: string;
             pageid?: number;
             lang?:
@@ -2593,14 +2477,12 @@ declare global {
 
         namespace UrlShortener {
             interface ShortenUrl extends Params {
-                action: "shortenurl";
                 url?: string;
                 qrcode?: boolean;
             }
         }
 
         interface SiteMatrix extends Params {
-            action: "sitematrix";
             smtype?: TypeOrArray<"language" | "special">;
             smstate?: TypeOrArray<"all" | "closed" | "fishbowl" | "nonglobal" | "private">;
             smlangprop?: TypeOrArray<"code" | "dir" | "localname" | "name" | "site">;
@@ -2610,12 +2492,10 @@ declare global {
         }
 
         interface SpamBlacklist extends Params {
-            action: "spamblacklist";
             url?: TypeOrArray<string>;
         }
 
         interface StashEdit extends Params {
-            action: "stashedit";
             title?: string;
             section?: string;
             sectiontitle?: string;
@@ -2653,7 +2533,6 @@ declare global {
 
         namespace EventStreamConfig {
             interface StreamConfigs extends Params {
-                action: "streamconfigs";
                 streams?: TypeOrArray<string>;
                 constraints?: TypeOrArray<string>;
                 all_settings?: boolean;
@@ -2662,7 +2541,6 @@ declare global {
 
         namespace SecurePoll {
             interface StrikeVote extends Params {
-                action: "strikevote";
                 option?: "strike" | "unstrike";
                 reason?: string;
                 voteid?: number;
@@ -2672,7 +2550,6 @@ declare global {
 
         namespace ContentTranslation.Action {
             interface SectionTranslationDelete extends Params {
-                action: "sxdelete";
                 sectiontranslationid?: number;
                 translationid?: number;
                 sectionid?: string;
@@ -2682,7 +2559,6 @@ declare global {
 
         namespace ContentTranslation.Action {
             interface SectionTranslationSave extends Params {
-                action: "sxsave";
                 sourcelanguage?: string;
                 targetlanguage?: string;
                 sourcetitle?: string;
@@ -2699,7 +2575,6 @@ declare global {
         }
 
         interface Tag extends Params {
-            action: "tag";
             rcid?: TypeOrArray<number>;
             revid?: TypeOrArray<number>;
             logid?: TypeOrArray<number>;
@@ -2736,7 +2611,6 @@ declare global {
         }
 
         interface TemplateData extends Params {
-            action: "templatedata";
             includeMissingTitles?: boolean;
             doNotIgnoreMissingTitles?: boolean;
             lang?: string;
@@ -2794,7 +2668,6 @@ declare global {
 
         namespace Thanks {
             interface CoreThank extends Params {
-                action: "thank";
                 rev?: number;
                 log?: number;
                 token?: string;
@@ -2804,7 +2677,6 @@ declare global {
 
         namespace TimedMediaHandler {
             interface TimedText extends Params {
-                action: "timedtext";
                 title?: string;
                 pageid?: number;
                 trackformat?: "srt" | "vtt";
@@ -2813,7 +2685,6 @@ declare global {
         }
 
         interface TitleBlacklist extends Params {
-            action: "titleblacklist";
             tbtitle?: string;
             tbaction?:
                 | "create"
@@ -2827,13 +2698,11 @@ declare global {
         }
 
         interface TorBlock extends Params {
-            action: "torblock";
             ip?: string;
         }
 
         namespace TimedMediaHandler {
             interface TranscodeReset extends Params {
-                action: "transcodereset";
                 title?: string;
                 transcodekey?: string;
                 token?: string;
@@ -2842,21 +2711,18 @@ declare global {
 
         namespace UniversalLanguageSelector {
             interface ULSLocalization extends Params {
-                action: "ulslocalization";
                 language?: string;
             }
         }
 
         namespace UniversalLanguageSelector {
             interface ULSSetLanguage extends Params {
-                action: "ulssetlang";
                 languagecode?: string;
                 token?: string;
             }
         }
 
         interface Unblock extends Params {
-            action: "unblock";
             id?: number;
             user?: string;
             userid?: number;
@@ -2868,7 +2734,6 @@ declare global {
         }
 
         interface Undelete extends Params {
-            action: "undelete";
             title?: string;
             reason?: string;
             tags?: TypeOrArray<string>;
@@ -2881,13 +2746,11 @@ declare global {
         }
 
         interface UnlinkAccount extends Params {
-            action: "unlinkaccount";
             request?: string;
             token?: string;
         }
 
         interface Upload extends Params {
-            action: "upload";
             filename?: string;
             comment?: string;
             tags?: TypeOrArray<string>;
@@ -2910,7 +2773,6 @@ declare global {
         }
 
         interface Userrights extends Params {
-            action: "userrights";
             user?: string;
             userid?: number;
             add?: TypeOrArray<
@@ -2958,7 +2820,6 @@ declare global {
         }
 
         interface ValidatePassword extends Params {
-            action: "validatepassword";
             password?: string;
             user?: string;
             email?: string;
@@ -2966,7 +2827,6 @@ declare global {
         }
 
         interface VisualEditor extends Params {
-            action: "visualeditor";
             page?: string;
             badetag?: string;
             format?: "json" | "jsonfm";
@@ -2983,7 +2843,6 @@ declare global {
 
         namespace VisualEditor {
             interface VisualEditorEdit extends Params {
-                action: "visualeditoredit";
                 paction?: "diff" | "save" | "serialize" | "serializeforcache";
                 page?: string;
                 token?: string;
@@ -3023,7 +2882,6 @@ declare global {
         }
 
         interface Watch extends Params {
-            action: "watch";
             title?: string;
             expiry?: string;
             unwatch?: boolean;
@@ -3082,19 +2940,16 @@ declare global {
         }
 
         namespace MobileFrontend {
-            interface WebappManifest extends Params {
-                action: "webapp-manifest";
-            }
+            // tslint:disable-next-line:no-empty-interface
+            interface WebappManifest extends Params {}
         }
 
         interface WebAuthn extends Params {
-            action: "webauthn";
             func?: "getAuthInfo" | "getRegisterInfo";
         }
 
         namespace WikimediaEvents {
             interface WikimediaEventsBlockedEdit extends Params {
-                action: "wikimediaeventsblockededit";
                 page?: string;
                 interface?:
                     | "discussiontools"
@@ -3108,7 +2963,6 @@ declare global {
 
         namespace Format {
             interface Xml extends Params {
-                format: "xml";
                 xslt?: string;
                 includexmlnamespace?: boolean;
             }
@@ -3116,7 +2970,6 @@ declare global {
 
         namespace Format {
             interface XmlFM extends Params {
-                format: "xmlfm";
                 wrappedhtml?: boolean;
                 xslt?: string;
                 includexmlnamespace?: boolean;
@@ -3124,7 +2977,7 @@ declare global {
         }
 
         namespace Query.AbuseFilter {
-            interface AbuseFilters extends Query {
+            interface AbuseFilters extends Params {
                 abfstartid?: number;
                 abfendid?: number;
                 abfdir?: "newer" | "older";
@@ -3148,7 +3001,7 @@ declare global {
         }
 
         namespace Query.AbuseFilter {
-            interface AbuseLog extends Query {
+            interface AbuseLog extends Params {
                 afllogid?: number;
                 aflstart?: string;
                 aflend?: string;
@@ -3173,7 +3026,7 @@ declare global {
         }
 
         namespace Query {
-            interface AllCategories extends Query {
+            interface AllCategories extends Params {
                 acfrom?: string;
                 accontinue?: string;
                 acto?: string;
@@ -3187,7 +3040,7 @@ declare global {
         }
 
         namespace Query {
-            interface AllDeletedRevisions extends Query {
+            interface AllDeletedRevisions extends Params {
                 adrprop?: TypeOrArray<
                     | "comment"
                     | "content"
@@ -3242,7 +3095,7 @@ declare global {
         }
 
         namespace Query {
-            interface AllFileUsages extends Query {
+            interface AllFileUsages extends Params {
                 afcontinue?: string;
                 affrom?: string;
                 afto?: string;
@@ -3255,7 +3108,7 @@ declare global {
         }
 
         namespace Query {
-            interface AllImages extends Query {
+            interface AllImages extends Params {
                 aisort?: "name" | "timestamp";
                 aidir?: "ascending" | "descending" | "newer" | "older";
                 aifrom?: string;
@@ -3295,7 +3148,7 @@ declare global {
         }
 
         namespace Query {
-            interface AllLinks extends Query {
+            interface AllLinks extends Params {
                 alcontinue?: string;
                 alfrom?: string;
                 alto?: string;
@@ -3309,7 +3162,7 @@ declare global {
         }
 
         namespace Query {
-            interface AllMessages extends Query {
+            interface AllMessages extends Params {
                 ammessages?: TypeOrArray<string>;
                 amprop?: TypeOrArray<"default">;
                 amenableparser?: boolean;
@@ -3327,7 +3180,7 @@ declare global {
         }
 
         namespace Query {
-            interface AllPages extends Query {
+            interface AllPages extends Params {
                 apfrom?: string;
                 apcontinue?: string;
                 apto?: string;
@@ -3349,7 +3202,7 @@ declare global {
         }
 
         namespace Query {
-            interface AllRedirects extends Query {
+            interface AllRedirects extends Params {
                 arcontinue?: string;
                 arfrom?: string;
                 arto?: string;
@@ -3363,7 +3216,7 @@ declare global {
         }
 
         namespace Query {
-            interface AllRevisions extends Query {
+            interface AllRevisions extends Params {
                 arvprop?: TypeOrArray<
                     | "comment"
                     | "content"
@@ -3415,7 +3268,7 @@ declare global {
         }
 
         namespace Query {
-            interface AllTransclusions extends Query {
+            interface AllTransclusions extends Params {
                 atcontinue?: string;
                 atfrom?: string;
                 atto?: string;
@@ -3429,7 +3282,7 @@ declare global {
         }
 
         namespace Query {
-            interface AllUsers extends Query {
+            interface AllUsers extends Params {
                 aufrom?: string;
                 auto?: string;
                 auprefix?: string;
@@ -3684,7 +3537,7 @@ declare global {
         }
 
         namespace Query {
-            interface AuthManagerInfo extends Query {
+            interface AuthManagerInfo extends Params {
                 amisecuritysensitiveoperation?: string;
                 amirequestsfor?:
                     | "change"
@@ -3702,13 +3555,13 @@ declare global {
         }
 
         namespace Query {
-            interface Babel extends Query {
+            interface Babel extends Params {
                 babuser?: string;
             }
         }
 
         namespace Query {
-            interface Backlinks extends Query {
+            interface Backlinks extends Params {
                 bltitle?: string;
                 blpageid?: number;
                 blcontinue?: string;
@@ -3721,13 +3574,13 @@ declare global {
         }
 
         namespace Query {
-            interface BetaFeatures extends Query {
+            interface BetaFeatures extends Params {
                 bfcounts?: string;
             }
         }
 
         namespace Query {
-            interface Blocks extends Query {
+            interface Blocks extends Params {
                 bkstart?: string;
                 bkend?: string;
                 bkdir?: "newer" | "older";
@@ -3756,7 +3609,7 @@ declare global {
         }
 
         namespace Query {
-            interface Categories extends Query {
+            interface Categories extends Params {
                 clprop?: TypeOrArray<"hidden" | "sortkey" | "timestamp">;
                 clshow?: TypeOrArray<"!hidden" | "hidden">;
                 cllimit?: Limit;
@@ -3767,13 +3620,13 @@ declare global {
         }
 
         namespace Query {
-            interface CategoryInfo extends Query {
+            interface CategoryInfo extends Params {
                 cicontinue?: string;
             }
         }
 
         namespace Query {
-            interface CategoryMembers extends Query {
+            interface CategoryMembers extends Params {
                 cmtitle?: string;
                 cmpageid?: number;
                 cmprop?: TypeOrArray<
@@ -3797,13 +3650,13 @@ declare global {
         }
 
         namespace Query {
-            interface CentralNoticeActiveCampaigns extends Query {
+            interface CentralNoticeActiveCampaigns extends Params {
                 cnacincludefuture?: boolean;
             }
         }
 
         namespace Query {
-            interface CentralNoticeLogs extends Query {
+            interface CentralNoticeLogs extends Params {
                 campaign?: string;
                 user?: string;
                 limit?: Limit;
@@ -3814,7 +3667,7 @@ declare global {
         }
 
         namespace Query {
-            interface CheckUser extends Query {
+            interface CheckUser extends Params {
                 curequest?: "actions" | "ipusers" | "userips" | "edits";
                 cutarget?: string;
                 cureason?: string;
@@ -3826,7 +3679,7 @@ declare global {
         }
 
         namespace Query.CheckUser {
-            interface CheckUserLog extends Query {
+            interface CheckUserLog extends Params {
                 culuser?: string;
                 cultarget?: string;
                 culreason?: string;
@@ -3839,26 +3692,26 @@ declare global {
         }
 
         namespace Query.CirrusSearch {
-            interface BuildDocument extends Query {
+            interface BuildDocument extends Params {
                 cbbuilders?: TypeOrArray<"content" | "links">;
                 cblimiterprofile?: string;
             }
         }
 
         namespace Query.CirrusSearch {
-            interface CompSuggestBuildDoc extends Query {
+            interface CompSuggestBuildDoc extends Params {
                 csbmethod?: string;
             }
         }
 
         namespace Query.CirrusSearch {
-            interface CirrusDoc extends Query {
+            interface CirrusDoc extends Params {
                 cdincludes?: TypeOrArray<string>;
             }
         }
 
         namespace Query.ContentTranslation {
-            interface Action extends Query {
+            interface Action extends Params {
                 translationid?: string;
                 from?: string;
                 to?: string;
@@ -3875,7 +3728,7 @@ declare global {
         }
 
         namespace Query.ContentTranslation.Action {
-            interface ContentTranslationCorpora extends Query {
+            interface ContentTranslationCorpora extends Params {
                 translationid?: number;
                 striphtml?: boolean;
                 types?: TypeOrArray<"mt" | "source" | "user">;
@@ -3883,7 +3736,7 @@ declare global {
         }
 
         namespace Query.ContentTranslation.Action {
-            interface ContentTranslationLanguageTrend extends Query {
+            interface ContentTranslationLanguageTrend extends Params {
                 source?: string;
                 target?: string;
                 interval?: "month" | "week";
@@ -3892,11 +3745,11 @@ declare global {
 
         namespace Query.ContentTranslation.Action {
             // tslint:disable-next-line:no-empty-interface
-            interface ContentTranslationStats extends Query {}
+            interface ContentTranslationStats extends Params {}
         }
 
         namespace Query.ContentTranslation.Action {
-            interface ContentTranslationSuggestions extends Query {
+            interface ContentTranslationSuggestions extends Params {
                 from?: string;
                 to?: string;
                 listid?: string;
@@ -3907,7 +3760,7 @@ declare global {
         }
 
         namespace Query {
-            interface Contributors extends Query {
+            interface Contributors extends Params {
                 pcgroup?: TypeOrArray<
                     | "abusefilter"
                     | "accountcreator"
@@ -4312,7 +4165,7 @@ declare global {
         }
 
         namespace Query.GeoData {
-            interface Coordinates extends Query {
+            interface Coordinates extends Params {
                 colimit?: Limit;
                 cocontinue?: string;
                 coprop?: TypeOrArray<"country" | "dim" | "globe" | "name" | "region" | "type">;
@@ -4323,14 +4176,14 @@ declare global {
         }
 
         namespace Query.ContentTranslation.Action {
-            interface DeletedTranslations extends Query {
+            interface DeletedTranslations extends Params {
                 dtafter?: string;
                 dtnamespace?: number;
             }
         }
 
         namespace Query.ContentTranslation.Action {
-            interface PublishedTranslations extends Query {
+            interface PublishedTranslations extends Params {
                 from?: string;
                 to?: string;
                 limit?: Limit;
@@ -4339,13 +4192,13 @@ declare global {
         }
 
         namespace Query.ContentTranslation.Action {
-            interface TranslatorStats extends Query {
+            interface TranslatorStats extends Params {
                 translator?: string;
             }
         }
 
         namespace Query {
-            interface DeletedRevisions extends Query {
+            interface DeletedRevisions extends Params {
                 drvprop?: TypeOrArray<
                     | "comment"
                     | "content"
@@ -4395,7 +4248,7 @@ declare global {
         }
 
         namespace Query {
-            interface Deletedrevs extends Query {
+            interface Deletedrevs extends Params {
                 drstart?: string;
                 drend?: string;
                 drdir?: "newer" | "older";
@@ -4427,14 +4280,14 @@ declare global {
         }
 
         namespace Query.Wikibase {
-            interface Description extends Query {
+            interface Description extends Params {
                 desccontinue?: number;
                 descprefersource?: "central" | "local";
             }
         }
 
         namespace Query {
-            interface DuplicateFiles extends Query {
+            interface DuplicateFiles extends Params {
                 dflimit?: Limit;
                 dfcontinue?: string;
                 dfdir?: "ascending" | "descending";
@@ -4443,7 +4296,7 @@ declare global {
         }
 
         namespace Query {
-            interface EmbeddedIn extends Query {
+            interface EmbeddedIn extends Params {
                 eititle?: string;
                 eipageid?: number;
                 eicontinue?: string;
@@ -4455,7 +4308,7 @@ declare global {
         }
 
         namespace Query {
-            interface ExternalLinks extends Query {
+            interface ExternalLinks extends Params {
                 ellimit?: Limit;
                 elcontinue?: string;
                 elprotocol?:
@@ -4494,7 +4347,7 @@ declare global {
         }
 
         namespace Query.TextExtracts {
-            interface Extracts extends Query {
+            interface Extracts extends Params {
                 exchars?: number;
                 exsentences?: number;
                 exlimit?: Limit;
@@ -4506,7 +4359,7 @@ declare global {
         }
 
         namespace Query {
-            interface ExtLinksUsage extends Query {
+            interface ExtLinksUsage extends Params {
                 euprop?: TypeOrArray<"ids" | "title" | "url">;
                 eucontinue?: string;
                 euprotocol?:
@@ -4547,7 +4400,7 @@ declare global {
         }
 
         namespace Query {
-            interface FeatureUsage extends Query {
+            interface FeatureUsage extends Params {
                 afustart?: string;
                 afuend?: string;
                 afuagent?: string;
@@ -4556,7 +4409,7 @@ declare global {
         }
 
         namespace Query {
-            interface Filearchive extends Query {
+            interface Filearchive extends Params {
                 fafrom?: string;
                 fato?: string;
                 faprefix?: string;
@@ -4583,7 +4436,7 @@ declare global {
         }
 
         namespace Query {
-            interface FileRepoInfo extends Query {
+            interface FileRepoInfo extends Params {
                 friprop?: TypeOrArray<
                     | "canUpload"
                     | "descBaseUrl"
@@ -4603,7 +4456,7 @@ declare global {
         }
 
         namespace Query {
-            interface FileUsage extends Query {
+            interface FileUsage extends Params {
                 fuprop?: TypeOrArray<"pageid" | "redirect" | "title">;
                 funamespace?: TypeOrArray<number>;
                 fushow?: TypeOrArray<"!redirect" | "redirect">;
@@ -4614,18 +4467,18 @@ declare global {
 
         namespace Query.Flow {
             // tslint:disable-next-line:no-empty-interface
-            interface PropFlowInfo extends Query {}
+            interface PropFlowInfo extends Params {}
         }
 
         namespace Query.Gadgets {
-            interface GadgetCategories extends Query {
+            interface GadgetCategories extends Params {
                 gcprop?: TypeOrArray<"members" | "name" | "title">;
                 gcnames?: TypeOrArray<string>;
             }
         }
 
         namespace Query {
-            interface Gadgets extends Query {
+            interface Gadgets extends Params {
                 gaprop?: TypeOrArray<"desc" | "id" | "metadata">;
                 gacategories?: TypeOrArray<string>;
                 gaids?: TypeOrArray<string>;
@@ -4635,7 +4488,7 @@ declare global {
         }
 
         namespace Query.GeoData {
-            interface GeoSearchElastic extends Query {
+            interface GeoSearchElastic extends Params {
                 gscoord?: string;
                 gspage?: string;
                 gsbbox?: string;
@@ -4652,7 +4505,7 @@ declare global {
         }
 
         namespace Query.CentralAuth {
-            interface GlobalAllUsers extends Query {
+            interface GlobalAllUsers extends Params {
                 agufrom?: string;
                 aguto?: string;
                 aguprefix?: string;
@@ -4711,7 +4564,7 @@ declare global {
         }
 
         namespace Query.GlobalBlocking {
-            interface GlobalBlocks extends Query {
+            interface GlobalBlocks extends Params {
                 bgstart?: string;
                 bgend?: string;
                 bgdir?: "newer" | "older";
@@ -4726,25 +4579,25 @@ declare global {
         }
 
         namespace Query.CentralAuth {
-            interface GlobalGroups extends Query {
+            interface GlobalGroups extends Params {
                 ggpprop?: TypeOrArray<"rights">;
             }
         }
 
         namespace Query {
-            interface GlobalPreferences extends Query {
+            interface GlobalPreferences extends Params {
                 gprprop?: TypeOrArray<"localoverrides" | "preferences">;
             }
         }
 
         namespace Query.CentralAuth {
-            interface GlobalRenameStatus extends Query {
+            interface GlobalRenameStatus extends Params {
                 grsuser?: string;
             }
         }
 
         namespace Query {
-            interface GlobalUsage extends Query {
+            interface GlobalUsage extends Params {
                 guprop?: TypeOrArray<"namespace" | "pageid" | "url">;
                 gulimit?: Limit;
                 gunamespace?: TypeOrArray<number>;
@@ -4755,7 +4608,7 @@ declare global {
         }
 
         namespace Query.CentralAuth {
-            interface GlobalUserInfo extends Query {
+            interface GlobalUserInfo extends Params {
                 guiuser?: string;
                 guiid?: number;
                 guiprop?: TypeOrArray<"editcount" | "groups" | "merged" | "rights" | "unattached">;
@@ -4763,7 +4616,7 @@ declare global {
         }
 
         namespace Query.GrowthExperiments {
-            interface ImageSuggestionData extends Query {
+            interface ImageSuggestionData extends Params {
                 gisdtasktype?: "image-recommendation" | "section-image-recommendation";
                 gisdcontinue?: string;
             }
@@ -4771,27 +4624,27 @@ declare global {
 
         namespace Query.GrowthExperiments {
             // tslint:disable-next-line:no-empty-interface
-            interface MenteeStatus extends Query {}
+            interface MenteeStatus extends Params {}
         }
 
         namespace Query.GrowthExperiments {
             // tslint:disable-next-line:no-empty-interface
-            interface MentorList extends Query {}
+            interface MentorList extends Params {}
         }
 
         namespace Query.GrowthExperiments {
-            interface MentorMentee extends Query {
+            interface MentorMentee extends Params {
                 gemmmentor?: string;
             }
         }
 
         namespace Query.GrowthExperiments {
             // tslint:disable-next-line:no-empty-interface
-            interface MentorStatus extends Query {}
+            interface MentorStatus extends Params {}
         }
 
         namespace Query.GrowthExperiments {
-            interface NextSuggestedTaskType extends Query {
+            interface NextSuggestedTaskType extends Params {
                 gnsttactivetasktype?:
                     | "copyedit"
                     | "expand"
@@ -4806,11 +4659,11 @@ declare global {
 
         namespace Query.GrowthExperiments {
             // tslint:disable-next-line:no-empty-interface
-            interface StarredMentees extends Query {}
+            interface StarredMentees extends Params {}
         }
 
         namespace Query.GrowthExperiments {
-            interface GrowthTasks extends Query {
+            interface GrowthTasks extends Params {
                 gttasktypes?: TypeOrArray<
                     | "copyedit"
                     | "expand"
@@ -4871,7 +4724,7 @@ declare global {
         }
 
         namespace Query {
-            interface ImageInfo extends Query {
+            interface ImageInfo extends Params {
                 iiprop?: TypeOrArray<
                     | "archivename"
                     | "badfile"
@@ -4911,7 +4764,7 @@ declare global {
         }
 
         namespace Query {
-            interface Images extends Query {
+            interface Images extends Params {
                 imlimit?: Limit;
                 imcontinue?: string;
                 imimages?: TypeOrArray<string>;
@@ -4920,7 +4773,7 @@ declare global {
         }
 
         namespace Query {
-            interface ImageUsage extends Query {
+            interface ImageUsage extends Params {
                 iutitle?: string;
                 iupageid?: number;
                 iucontinue?: string;
@@ -4933,7 +4786,7 @@ declare global {
         }
 
         namespace Query {
-            interface Info extends Query {
+            interface Info extends Params {
                 inprop?: TypeOrArray<
                     | "associatedpage"
                     | "displaytitle"
@@ -4968,7 +4821,7 @@ declare global {
 
         namespace Query {
             // tslint:disable-next-line:interface-name
-            interface IWBacklinks extends Query {
+            interface IWBacklinks extends Params {
                 iwblprefix?: string;
                 iwbltitle?: string;
                 iwblcontinue?: string;
@@ -4980,7 +4833,7 @@ declare global {
 
         namespace Query {
             // tslint:disable-next-line:interface-name
-            interface IWLinks extends Query {
+            interface IWLinks extends Params {
                 iwprop?: TypeOrArray<"url">;
                 iwprefix?: string;
                 iwtitle?: string;
@@ -4992,7 +4845,7 @@ declare global {
         }
 
         namespace Query {
-            interface LangBacklinks extends Query {
+            interface LangBacklinks extends Params {
                 lbllang?: string;
                 lbltitle?: string;
                 lblcontinue?: string;
@@ -5003,7 +4856,7 @@ declare global {
         }
 
         namespace Query {
-            interface LangLinks extends Query {
+            interface LangLinks extends Params {
                 llprop?: TypeOrArray<"autonym" | "langname" | "url">;
                 lllang?: string;
                 lltitle?: string;
@@ -5017,11 +4870,11 @@ declare global {
 
         namespace Query.ContentTranslation.Action {
             // tslint:disable-next-line:no-empty-interface
-            interface LangLinksCount extends Query {}
+            interface LangLinksCount extends Params {}
         }
 
         namespace Query {
-            interface Languageinfo extends Query {
+            interface Languageinfo extends Params {
                 liprop?: TypeOrArray<
                     | "autonym"
                     | "bcp47"
@@ -5038,7 +4891,7 @@ declare global {
         }
 
         namespace Query {
-            interface Links extends Query {
+            interface Links extends Params {
                 plnamespace?: TypeOrArray<number>;
                 pllimit?: Limit;
                 plcontinue?: string;
@@ -5048,7 +4901,7 @@ declare global {
         }
 
         namespace Query {
-            interface LinksHere extends Query {
+            interface LinksHere extends Params {
                 lhprop?: TypeOrArray<"pageid" | "redirect" | "title">;
                 lhnamespace?: TypeOrArray<number>;
                 lhshow?: TypeOrArray<"!redirect" | "redirect">;
@@ -5058,7 +4911,7 @@ declare global {
         }
 
         namespace Query.Linter {
-            interface LintErrors extends Query {
+            interface LintErrors extends Params {
                 "lntcategories"?: TypeOrArray<
                     | "bogus-image-options"
                     | "deletable-table-tag"
@@ -5091,11 +4944,11 @@ declare global {
 
         namespace Query.Linter {
             // tslint:disable-next-line:no-empty-interface
-            interface LinterStats extends Query {}
+            interface LinterStats extends Params {}
         }
 
         namespace Query {
-            interface LogEvents extends Query {
+            interface LogEvents extends Params {
                 leprop?: TypeOrArray<
                     | "comment"
                     | "details"
@@ -5276,7 +5129,7 @@ declare global {
         }
 
         namespace Query.Kartographer {
-            interface MapData extends Query {
+            interface MapData extends Params {
                 mpdgroups?: string;
                 mpdlimit?: Limit;
                 mpdcontinue?: number;
@@ -5285,11 +5138,11 @@ declare global {
 
         namespace Query.MassMessage {
             // tslint:disable-next-line:no-empty-interface
-            interface MMContent extends Query {}
+            interface MMContent extends Params {}
         }
 
         namespace Query.PageViewInfo {
-            interface MostViewed extends Query {
+            interface MostViewed extends Params {
                 pvimmetric?: "pageviews";
                 pvimlimit?: Limit;
                 pvimoffset?: number;
@@ -5297,7 +5150,7 @@ declare global {
         }
 
         namespace Query {
-            interface MyStashedFiles extends Query {
+            interface MyStashedFiles extends Params {
                 msfprop?: TypeOrArray<"size" | "type">;
                 msflimit?: Limit;
                 msfcontinue?: string;
@@ -5305,7 +5158,7 @@ declare global {
         }
 
         namespace Query.Notifications {
-            interface EchoNotifications extends Query {
+            interface EchoNotifications extends Params {
                 notwikis?: TypeOrArray<string>;
                 notfilter?: TypeOrArray<"!read" | "read">;
                 notprop?: TypeOrArray<"count" | "list" | "seenTime">;
@@ -5327,7 +5180,7 @@ declare global {
         }
 
         namespace Query.OATHAuth {
-            interface OATH extends Query {
+            interface OATH extends Params {
                 oathuser?: string;
                 oathreason?: string;
             }
@@ -5335,18 +5188,18 @@ declare global {
 
         namespace Query.ORES {
             // tslint:disable-next-line:no-empty-interface
-            interface Hooks extends Query {}
+            interface Hooks extends Params {}
         }
 
         namespace Query {
-            interface PageAssessments extends Query {
+            interface PageAssessments extends Params {
                 pacontinue?: string;
                 palimit?: Limit;
             }
         }
 
         namespace Query {
-            interface PageImages extends Query {
+            interface PageImages extends Params {
                 piprop?: TypeOrArray<"name" | "original" | "thumbnail">;
                 pithumbsize?: number;
                 pilimit?: Limit;
@@ -5357,21 +5210,21 @@ declare global {
         }
 
         namespace Query {
-            interface PagePropNames extends Query {
+            interface PagePropNames extends Params {
                 ppncontinue?: string;
                 ppnlimit?: Limit;
             }
         }
 
         namespace Query {
-            interface PageProps extends Query {
+            interface PageProps extends Params {
                 ppcontinue?: string;
                 ppprop?: TypeOrArray<string>;
             }
         }
 
         namespace Query {
-            interface PagesWithProp extends Query {
+            interface PagesWithProp extends Params {
                 pwppropname?: string;
                 pwpprop?: TypeOrArray<"ids" | "title" | "value">;
                 pwpcontinue?: string;
@@ -5381,7 +5234,7 @@ declare global {
         }
 
         namespace Query.Wikibase {
-            interface PageTerms extends Query {
+            interface PageTerms extends Params {
                 wbptcontinue?: number;
                 wbptlanguage?:
                     | "aa"
@@ -5975,7 +5828,7 @@ declare global {
         }
 
         namespace Query.PageViewInfo {
-            interface PageViews extends Query {
+            interface PageViews extends Params {
                 pvipmetric?: "pageviews";
                 pvipdays?: number;
                 pvipcontinue?: string;
@@ -5983,7 +5836,7 @@ declare global {
         }
 
         namespace Query {
-            interface PrefixSearch extends Query {
+            interface PrefixSearch extends Params {
                 pssearch?: string;
                 psnamespace?: TypeOrArray<number>;
                 pslimit?: Limit;
@@ -5999,7 +5852,7 @@ declare global {
         }
 
         namespace Query.PageAssessments {
-            interface ProjectPages extends Query {
+            interface ProjectPages extends Params {
                 wppassessments?: boolean;
                 wppprojects?: TypeOrArray<string>;
                 wpplimit?: Limit;
@@ -6009,11 +5862,11 @@ declare global {
 
         namespace Query.PageAssessments {
             // tslint:disable-next-line:no-empty-interface
-            interface Projects extends Query {}
+            interface Projects extends Params {}
         }
 
         namespace Query {
-            interface ProtectedTitles extends Query {
+            interface ProtectedTitles extends Params {
                 ptnamespace?: TypeOrArray<number>;
                 ptlevel?: TypeOrArray<"autoconfirmed" | "editextendedsemiprotected" | "sysop">;
                 ptlimit?: Limit;
@@ -6034,7 +5887,7 @@ declare global {
         }
 
         namespace Query {
-            interface QueryPage extends Query {
+            interface QueryPage extends Params {
                 qppage?:
                     | "Ancientpages"
                     | "BrokenRedirects"
@@ -6080,7 +5933,7 @@ declare global {
         }
 
         namespace Query {
-            interface Random extends Query {
+            interface Random extends Params {
                 rnnamespace?: TypeOrArray<number>;
                 rnfilterredir?: "all" | "nonredirects" | "redirects";
                 rnredirect?: boolean;
@@ -6090,7 +5943,7 @@ declare global {
         }
 
         namespace Query.ReadingLists {
-            interface ReadingListEntries extends Query {
+            interface ReadingListEntries extends Params {
                 rlelists?: TypeOrArray<number>;
                 rlechangedsince?: string;
                 rlesort?: "name" | "updated";
@@ -6101,7 +5954,7 @@ declare global {
         }
 
         namespace Query {
-            interface ReadingLists extends Query {
+            interface ReadingLists extends Params {
                 rllist?: number;
                 rlproject?: string;
                 rltitle?: string;
@@ -6114,7 +5967,7 @@ declare global {
         }
 
         namespace Query {
-            interface RecentChanges extends Query {
+            interface RecentChanges extends Params {
                 rcstart?: string;
                 rcend?: string;
                 rcdir?: "newer" | "older";
@@ -6167,7 +6020,7 @@ declare global {
         }
 
         namespace Query {
-            interface Redirects extends Query {
+            interface Redirects extends Params {
                 rdprop?: TypeOrArray<"fragment" | "pageid" | "title">;
                 rdnamespace?: TypeOrArray<number>;
                 rdshow?: TypeOrArray<"!fragment" | "fragment">;
@@ -6177,7 +6030,7 @@ declare global {
         }
 
         namespace Query {
-            interface Revisions extends Query {
+            interface Revisions extends Params {
                 rvprop?: TypeOrArray<
                     | "comment"
                     | "content"
@@ -6230,7 +6083,7 @@ declare global {
         }
 
         namespace Query {
-            interface Search extends Query {
+            interface Search extends Params {
                 srsearch?: string;
                 srnamespace?: TypeOrArray<number>;
                 srlimit?: Limit;
@@ -6282,7 +6135,7 @@ declare global {
         }
 
         namespace Query {
-            interface Siteinfo extends Query {
+            interface Siteinfo extends Params {
                 siprop?: TypeOrArray<
                     | "autocreatetempuser"
                     | "autopromote"
@@ -6321,14 +6174,14 @@ declare global {
         }
 
         namespace Query.PageViewInfo {
-            interface SiteViews extends Query {
+            interface SiteViews extends Params {
                 pvismetric?: "pageviews" | "uniques";
                 pvisdays?: number;
             }
         }
 
         namespace Query {
-            interface StashImageInfo extends Query {
+            interface StashImageInfo extends Params {
                 siifilekey?: TypeOrArray<string>;
                 siisessionkey?: TypeOrArray<string>;
                 siiprop?: TypeOrArray<
@@ -6353,7 +6206,7 @@ declare global {
         }
 
         namespace Query {
-            interface Tags extends Query {
+            interface Tags extends Params {
                 tgcontinue?: string;
                 tglimit?: Limit;
                 tgprop?: TypeOrArray<
@@ -6363,7 +6216,7 @@ declare global {
         }
 
         namespace Query {
-            interface Templates extends Query {
+            interface Templates extends Params {
                 tlnamespace?: TypeOrArray<number>;
                 tllimit?: Limit;
                 tlcontinue?: string;
@@ -6373,7 +6226,7 @@ declare global {
         }
 
         namespace Query {
-            interface Tokens extends Query {
+            interface Tokens extends Params {
                 type?: TypeOrArray<
                     | "createaccount"
                     | "csrf"
@@ -6389,7 +6242,7 @@ declare global {
         }
 
         namespace Query {
-            interface TranscludedIn extends Query {
+            interface TranscludedIn extends Params {
                 tiprop?: TypeOrArray<"pageid" | "redirect" | "title">;
                 tinamespace?: TypeOrArray<number>;
                 tishow?: TypeOrArray<"!redirect" | "redirect">;
@@ -6400,11 +6253,11 @@ declare global {
 
         namespace Query.TimedMediaHandler {
             // tslint:disable-next-line:no-empty-interface
-            interface TranscodeStatus extends Query {}
+            interface TranscodeStatus extends Params {}
         }
 
         namespace Query.Notifications {
-            interface EchoUnreadNotificationPages extends Query {
+            interface EchoUnreadNotificationPages extends Params {
                 unpwikis?: TypeOrArray<string>;
                 unpgrouppages?: boolean;
                 unplimit?: Limit;
@@ -6412,7 +6265,7 @@ declare global {
         }
 
         namespace Query {
-            interface UserContribs extends Query {
+            interface UserContribs extends Params {
                 uclimit?: Limit;
                 ucstart?: string;
                 ucend?: string;
@@ -6456,7 +6309,7 @@ declare global {
         }
 
         namespace Query {
-            interface UserInfo extends Query {
+            interface UserInfo extends Params {
                 uiprop?: TypeOrArray<
                     | "acceptlang"
                     | "blockinfo"
@@ -6483,7 +6336,7 @@ declare global {
         }
 
         namespace Query {
-            interface Users extends Query {
+            interface Users extends Params {
                 usprop?: TypeOrArray<
                     | "blockinfo"
                     | "cancreate"
@@ -6504,7 +6357,7 @@ declare global {
         }
 
         namespace Query.TimedMediaHandler {
-            interface VideoInfo extends Query {
+            interface VideoInfo extends Params {
                 viprop?: TypeOrArray<
                     | "archivename"
                     | "badfile"
@@ -6546,7 +6399,7 @@ declare global {
         }
 
         namespace Query {
-            interface Watchlist extends Query {
+            interface Watchlist extends Params {
                 wlallrev?: boolean;
                 wlstart?: string;
                 wlend?: string;
@@ -6596,7 +6449,7 @@ declare global {
         }
 
         namespace Query {
-            interface WatchlistRaw extends Query {
+            interface WatchlistRaw extends Params {
                 wrcontinue?: string;
                 wrnamespace?: TypeOrArray<number>;
                 wrlimit?: Limit;
@@ -6611,7 +6464,7 @@ declare global {
         }
 
         namespace Query.Wikibase {
-            interface PropsEntityUsage extends Query {
+            interface PropsEntityUsage extends Params {
                 wbeuprop?: TypeOrArray<"url">;
                 wbeuaspect?: TypeOrArray<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
                 wbeuentities?: TypeOrArray<string>;
@@ -6621,7 +6474,7 @@ declare global {
         }
 
         namespace Query.Wikibase {
-            interface ListEntityUsage extends Query {
+            interface ListEntityUsage extends Params {
                 wbleuprop?: TypeOrArray<"url">;
                 wbleuaspect?: TypeOrArray<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
                 wbleuentities?: TypeOrArray<string>;
@@ -6631,13 +6484,13 @@ declare global {
         }
 
         namespace Query.Wikibase {
-            interface ClientInfo extends Query {
+            interface ClientInfo extends Params {
                 wbprop?: TypeOrArray<"siteid" | "url">;
             }
         }
 
         namespace Query.CentralAuth {
-            interface WikiSets extends Query {
+            interface WikiSets extends Params {
                 wsfrom?: string;
                 wsprop?: TypeOrArray<"type" | "wikisincluded" | "wikisnotincluded">;
                 wslimit?: Limit;
