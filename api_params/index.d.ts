@@ -698,7 +698,7 @@ export interface ApiFeedRecentChangesParams extends ApiParams {
     hidepatrolled?: boolean;
     hidemyself?: boolean;
     hidecategorization?: boolean;
-    tagfilter?: string | string[];
+    tagfilter?: string;
     inverttags?: boolean;
     target?: string;
     showlinkedto?: boolean;
