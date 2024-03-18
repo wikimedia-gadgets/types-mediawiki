@@ -1,5 +1,3 @@
-type SameSite = "none" | "lax" | "strict";
-
 declare global {
     namespace mw {
         /**
@@ -8,6 +6,8 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.cookie
          */
         namespace cookie {
+            type SameSite = "none" | "lax" | "strict";
+
             /**
              * Get the value of a cookie.
              *

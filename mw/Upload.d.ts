@@ -1,5 +1,3 @@
-import { ApiOptions, ApiResponse } from "./Api";
-
 declare global {
     namespace mw {
         /**
@@ -91,17 +89,17 @@ declare global {
              * } );
              * ```
              *
-             * @param {Api|Partial<ApiOptions>} [apiconfig] A mw.Api object (or subclass), or configuration
+             * @param {Api|Partial<Api.Options>} [apiconfig] A mw.Api object (or subclass), or configuration
              *     to pass to the constructor of mw.Api.
              */
-            constructor(apiconfig?: Api | Partial<ApiOptions>);
+            constructor(apiconfig?: Api | Partial<Api.Options>);
 
             /**
              * Finish a stash upload.
              *
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.Response>}
              */
-            finishStashUpload(): JQuery.Promise<ApiResponse>;
+            finishStashUpload(): JQuery.Promise<Api.Response>;
 
             /**
              * Get the mw.Api instance used by this Upload object.
@@ -144,9 +142,9 @@ declare global {
              * Only available once the upload is finished! Don't try to get it
              * beforehand.
              *
-             * @returns {ApiResponse|undefined}
+             * @returns {Api.Response|undefined}
              */
-            getImageInfo(): ApiResponse | undefined;
+            getImageInfo(): Api.Response | undefined;
 
             /**
              * Gets the state of the upload.
@@ -234,16 +232,16 @@ declare global {
             /**
              * Upload the file directly.
              *
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.Response>}
              */
-            upload(): JQuery.Promise<ApiResponse>;
+            upload(): JQuery.Promise<Api.Response>;
 
             /**
              * Upload the file to the stash to be completed later.
              *
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.Response>}
              */
-            uploadToStash(): JQuery.Promise<ApiResponse>;
+            uploadToStash(): JQuery.Promise<Api.Response>;
         }
 
         namespace Upload {

@@ -1,9 +1,3 @@
-export interface RestOptions {
-    ajax: JQuery.AjaxSettings;
-}
-
-export type RestResponse = Record<string, any>; // Unknown JSON object
-
 declare global {
     namespace mw {
         /**
@@ -35,12 +29,12 @@ declare global {
              * } );
              * ```
              *
-             * @param {Partial<RestOptions>} [options]
+             * @param {Partial<Rest.Options>} [options]
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-constructor
              */
-            constructor(options?: Partial<RestOptions>);
+            constructor(options?: Partial<Rest.Options>);
 
-            private defaults: RestOptions;
+            private defaults: Rest.Options;
 
             /**
              * Abort all unfinished requests issued by this Api object.
@@ -55,14 +49,14 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} query
              * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
+             * @returns {JQuery.Promise<Rest.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-get
              */
             get(
                 path: string,
                 query: Record<string, any>,
                 headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
+            ): JQuery.Promise<Rest.Response>;
 
             /**
              * Perform REST API post request.
@@ -72,14 +66,14 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
+             * @returns {JQuery.Promise<Rest.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-post
              */
             post(
                 path: string,
                 body: Record<string, any>,
                 headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
+            ): JQuery.Promise<Rest.Response>;
 
             /**
              * Perform REST API PUT request.
@@ -89,14 +83,14 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
+             * @returns {JQuery.Promise<Rest.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-put
              */
             put(
                 path: string,
                 body: Record<string, any>,
                 headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
+            ): JQuery.Promise<Rest.Response>;
 
             /**
              * Perform REST API DELETE request.
@@ -106,26 +100,40 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
+             * @returns {JQuery.Promise<Rest.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-delete
              */
             delete(
                 path: string,
                 body: Record<string, any>,
                 headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
+            ): JQuery.Promise<Rest.Response>;
 
             /**
              * Perform the API call.
              *
              * @param {string} path
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<RestResponse>} Done: API response data and the jqXHR object.
+             * @returns {JQuery.Promise<Rest.Response>} Done: API response data and the jqXHR object.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-ajax
              */
-            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<RestResponse>;
+            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<Rest.Response>;
+        }
+
+        namespace Rest {
+            interface Options {
+                ajax: JQuery.AjaxSettings;
+            }
+
+            // Unknown JSON object
+            type Response = Record<string, any>;
         }
     }
 }
+
+/** @deprecated Use {@link mw.Rest.Options} instead */
+export type RestOptions = mw.Rest.Options;
+/** @deprecated Use {@link mw.Rest.Response} instead */
+export type RestResponse = mw.Rest.Response;
 
 export {};

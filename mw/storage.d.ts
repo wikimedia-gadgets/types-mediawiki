@@ -1,135 +1,3 @@
-/**
- * A wrapper for the HTML5 Storage interface (`localStorage` or `sessionStorage`)
- * that is safe to call in all browsers.
- *
- * @private
- * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage
- */
-interface SafeStorage {
-    /**
-     * Retrieve value from device storage.
-     *
-     * @param {string} key Key of item to retrieve
-     * @returns {string|null|false} String value, null if no value exists, or false
-     *  if storage is not available.
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-get
-     */
-    get(key: string): string | null | false;
-
-    /**
-     * Retrieve JSON object from device storage.
-     *
-     * @param {string} key Key of item to retrieve
-     * @returns {Object|null|boolean} Object, null if no value exists or value
-     *  is not JSON-parseable, or false if storage is not available.
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-getObject
-     */
-    getObject(key: string): any;
-
-    /**
-     * Remove a value from device storage.
-     *
-     * @param {string} key Key of item to remove
-     * @returns {boolean} Whether the key was removed
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-remove
-     */
-    remove(key: string): boolean;
-
-    /**
-     * Set a value in device storage.
-     *
-     * @param {string} key Key name to store under
-     * @param {string} value Value to be stored
-     * @param {number} [expiry] Number of seconds after which this item can be deleted
-     * @returns {boolean} The value was set
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-set
-     */
-    set(key: string, value: string, expiry?: number): boolean;
-
-    /**
-     * Set the expiry time for an item in the store
-     *
-     * @param {string} key Key name
-     * @param {number} [expiry] Number of seconds after which this item can be deleted,
-     *  omit to clear the expiry (either making the item never expire, or to clean up
-     *  when deleting a key).
-     * @returns {boolean} The expiry was set (or cleared) [since 1.41]
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-setExpires
-     */
-    setExpires(key: string, expiry?: number): boolean;
-
-    /**
-     * Set an object value in device storage by JSON encoding
-     *
-     * @param {string} key Key name to store under
-     * @param {Object} value Object value to be stored
-     * @param {number} [expiry] Number of seconds after which this item can be deleted
-     * @returns {boolean} The value was set
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-setObject
-     */
-    setObject(key: string, value: any, expiry?: number): boolean;
-
-    /**
-     * Clear any expired items from the store
-     *
-     * @private
-     * @returns {JQuery.Promise} Resolves when items have been expired
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-clearExpired
-     */
-    clearExpired(): JQuery.Promise<undefined>;
-
-    /**
-     * Get all keys with expiry values
-     *
-     * @private
-     * @returns {JQuery.Promise<string[]>} Promise resolving with all the keys which have
-     *  expiry values (unprefixed), or as many could be retrieved in the allocated time.
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-getExpiryKeys
-     */
-    getExpiryKeys(): JQuery.Promise<string[]>;
-
-    /**
-     * Check if a given key has expired
-     *
-     * @private
-     * @param {string} key Key name
-     * @returns {boolean} Whether key is expired
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-isExpired
-     */
-    isExpired(key: string): boolean;
-}
-
-interface MwStorage extends SafeStorage {
-    /**
-     * A safe interface to HTML5 `sessionStorage`.
-     *
-     * This normalises differences across browsers and silences any and all
-     * exceptions that may occur.
-     *
-     * **Note**: Data persisted via `sessionStorage` will persist for the lifetime
-     * of the browser *tab*, not the browser *window*.
-     * For longer-lasting persistence across tabs, refer to {@link mw.storage} or {@link mw.cookie} instead.
-     *
-     * Example:
-     *
-     * ```js
-     * mw.storage.session.set( key, value );
-     * mw.storage.session.get( key );
-     * ```
-     *
-     * Example:
-     *
-     * ```js
-     * var session = require( 'mediawiki.storage' ).session;
-     * session.set( key, value );
-     * session.get( key );
-     * ```
-     *
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.storage.session
-     */
-    session: SafeStorage;
-}
-
 declare global {
     namespace mw {
         /**
@@ -174,7 +42,141 @@ declare global {
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.storage
          */
-        const storage: MwStorage;
+        const storage: SafeStorage.Local;
+
+        /**
+         * A wrapper for the HTML5 Storage interface (`localStorage` or `sessionStorage`)
+         * that is safe to call in all browsers.
+         *
+         * @private
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage
+         */
+        interface SafeStorage {
+            /**
+             * Retrieve value from device storage.
+             *
+             * @param {string} key Key of item to retrieve
+             * @returns {string|null|false} String value, null if no value exists, or false
+             *  if storage is not available.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-get
+             */
+            get(key: string): string | null | false;
+
+            /**
+             * Retrieve JSON object from device storage.
+             *
+             * @param {string} key Key of item to retrieve
+             * @returns {Object|null|boolean} Object, null if no value exists or value
+             *  is not JSON-parseable, or false if storage is not available.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-getObject
+             */
+            getObject(key: string): any;
+
+            /**
+             * Remove a value from device storage.
+             *
+             * @param {string} key Key of item to remove
+             * @returns {boolean} Whether the key was removed
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-remove
+             */
+            remove(key: string): boolean;
+
+            /**
+             * Set a value in device storage.
+             *
+             * @param {string} key Key name to store under
+             * @param {string} value Value to be stored
+             * @param {number} [expiry] Number of seconds after which this item can be deleted
+             * @returns {boolean} The value was set
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-set
+             */
+            set(key: string, value: string, expiry?: number): boolean;
+
+            /**
+             * Set the expiry time for an item in the store
+             *
+             * @param {string} key Key name
+             * @param {number} [expiry] Number of seconds after which this item can be deleted,
+             *  omit to clear the expiry (either making the item never expire, or to clean up
+             *  when deleting a key).
+             * @returns {boolean} The expiry was set (or cleared) [since 1.41]
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-setExpires
+             */
+            setExpires(key: string, expiry?: number): boolean;
+
+            /**
+             * Set an object value in device storage by JSON encoding
+             *
+             * @param {string} key Key name to store under
+             * @param {Object} value Object value to be stored
+             * @param {number} [expiry] Number of seconds after which this item can be deleted
+             * @returns {boolean} The value was set
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-setObject
+             */
+            setObject(key: string, value: any, expiry?: number): boolean;
+
+            /**
+             * Clear any expired items from the store
+             *
+             * @private
+             * @returns {JQuery.Promise} Resolves when items have been expired
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-clearExpired
+             */
+            clearExpired(): JQuery.Promise<undefined>;
+
+            /**
+             * Get all keys with expiry values
+             *
+             * @private
+             * @returns {JQuery.Promise<string[]>} Promise resolving with all the keys which have
+             *  expiry values (unprefixed), or as many could be retrieved in the allocated time.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-getExpiryKeys
+             */
+            getExpiryKeys(): JQuery.Promise<string[]>;
+
+            /**
+             * Check if a given key has expired
+             *
+             * @private
+             * @param {string} key Key name
+             * @returns {boolean} Whether key is expired
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-isExpired
+             */
+            isExpired(key: string): boolean;
+        }
+
+        namespace SafeStorage {
+            interface Local extends SafeStorage {
+                /**
+                 * A safe interface to HTML5 `sessionStorage`.
+                 *
+                 * This normalises differences across browsers and silences any and all
+                 * exceptions that may occur.
+                 *
+                 * **Note**: Data persisted via `sessionStorage` will persist for the lifetime
+                 * of the browser *tab*, not the browser *window*.
+                 * For longer-lasting persistence across tabs, refer to {@link mw.storage} or {@link mw.cookie} instead.
+                 *
+                 * Example:
+                 *
+                 * ```js
+                 * mw.storage.session.set( key, value );
+                 * mw.storage.session.get( key );
+                 * ```
+                 *
+                 * Example:
+                 *
+                 * ```js
+                 * var session = require( 'mediawiki.storage' ).session;
+                 * session.set( key, value );
+                 * session.get( key );
+                 * ```
+                 *
+                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.storage.session
+                 */
+                session: SafeStorage;
+            }
+        }
     }
 }
 
