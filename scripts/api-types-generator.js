@@ -1,6 +1,8 @@
 // Paste this into the browser console
 // and copy the console log output
 
+/** @type {import("..")} */
+
 /**
  * Order in which API modules are displayed, depending on their group.
  * Modules from another group are added at the end.
@@ -64,39 +66,158 @@ const REQUIRED_PARAMS_MAP = {
 };
 
 /**
- * @typedef InterfaceData
- * @property {string} name Interface name
- * @property {string} parentName Name of the API param interface to inherit properties from
- * @property {PropertyData[]} props Sorted list of properties
+ * @typedef ModuleData
+ * @property {string} name
+ * @property {string} classname
+ * @property {string} path
+ * @property {string} [group]
+ * @property {string} prefix
+ * @property {string} source
+ * @property {string} sourcename
+ * @property {string} licensetag
+ * @property {string} licenselink
+ * @property {boolean} [internal]
+ * @property {boolean} [readrights]
+ * @property {boolean} [writerights]
+ * @property {boolean} [mustbeposted]
+ * @property {string[]} helpurls
+ * @property {ModuleParamData[]} parameters
+ * @property {ModuleTemplateParamData[]} templatedparameters
+ * @property {boolean} [dynamicparameters]
+ */
+/**
+ * @typedef {ModuleParamData&ModuleTemplateParamData_} ModuleTemplateParamData
+ * @typedef ModuleTemplateParamData_
+ * @property {Record<string, string>} templatevars
+ */
+/**
+ * @typedef ModuleParamData
+ * @property {number} index
+ * @property {string} name
+ * @property {string|string[]} type
+ * @property {unknown} [default]
+ * @property {boolean} [multi]
+ * @property {number} [lowlimit]
+ * @property {number} [highlimit]
+ * @property {number} [limit]
+ * @property {number} [min]
+ * @property {number} [max]
+ * @property {boolean} [mustExist]
+ * @property {boolean} [mustExist]
+ * @property {boolean} [required]
+ * @property {boolean} [sensitive]
+ * @property {boolean} [deprecated]
+ * @property {string} [allspecifier]
+ * @property {string[]} [subtypes]
+ * @property {Record<string, ModuleData>} [submodules]
+ * @property {string} [submoduleparamprefix]
+ * @property {string[]} [internalvalues]
+ * @property {string} [tokentype]
  */
 
+/**
+ * @typedef InterfaceData
+ * @property {string} name Interface name
+ * @property {string} [parentName] Name of the API param interface to inherit properties from
+ * @property {PropertyData[]} props Sorted list of properties
+ */
 /**
  * @typedef PropertyData
  * @property {string} name Property name
  * @property {string|string[]} type Property type or list of different types
- * @property {boolean} multi Whether multiple values can be specified as a list
+ * @property {boolean} [multi] Whether multiple values can be specified as a list
  * @property {boolean} required Whether the property is required or optional
  */
 
 /**
- * Get module data from the API.
- * @param {...string} args Module names
- * @returns {Promise<any[]>} Module data
+ * @param {any} parameter
+ * @returns {Promise<Record<string, ModuleData>>}
  */
-async function getModules() {
-    getModules._api ??= new mw.Api();
-    const results = await Promise.all(
-        Array.prototype.map.call(arguments, (modules) =>
-            getModules._api.get({
-                action: "paraminfo",
-                format: "json",
-                modules,
-                formatversion: 2,
-            })
-        )
-    );
-    return results.flatMap((r) => r.paraminfo.modules);
+async function loadSubmodules(parameter) {
+    if (!parameter.submodules) {
+        return Promise.resolve({});
+    }
+
+    /** @type {Array<Promise<Record<string, ModuleData>>>} */
+    const promises = [];
+    /** @type {Record<string, string>} */
+    const toResolve = {};
+
+    Object.entries(parameter.submodules).forEach(([key, path]) => {
+        if (getModules._cache[path]) {
+            const submodulePromise = getModules._cache[path].then((data) => {
+                parameter.submodules[key] = data;
+                return { key: data };
+            });
+            promises.push(submodulePromise);
+        } else {
+            toResolve[path] = key;
+        }
+    });
+
+    if (Object.keys(toResolve).length) {
+        const submodulePromise = getModules(Object.keys(toResolve));
+        promises.unshift(submodulePromise);
+
+        const submoduleRecordPromise = submodulePromise.then((data) => {
+            Object.entries(data).forEach(([k, v]) => {
+                parameter.submodules[toResolve[k]] = v;
+            });
+            return data;
+        });
+
+        Object.keys(toResolve).forEach((path) => {
+            getModules._cache[path] = submoduleRecordPromise.then(
+                (resolvedData) => resolvedData[path]
+            );
+        });
+    }
+
+    const data = await Promise.all(promises);
+    return Object.assign({}, ...data);
 }
+
+/**
+ * Get module data from the API.
+ * @param {string[]} [modules] Module names
+ * @returns {Promise<Record<string, ModuleData>>} Module data
+ */
+async function getModules(modules) {
+    if (modules === undefined) {
+        modules = ["main"];
+    }
+
+    const promises = [];
+    for (let i = 0; i < modules.length; i += 50) {
+        const modulesToQuery = modules.slice(i, i + 50);
+        console.log("Querying module data...", modulesToQuery);
+
+        const apiRequest = getModules._api.get({
+            action: "paraminfo",
+            format: "json",
+            modules: modulesToQuery,
+            formatversion: 2,
+        });
+
+        const promise = new Promise((resolve, reject) => {
+            apiRequest.then(async (response) => {
+                const rawData = response.paraminfo.modules;
+                const data = Object.fromEntries(rawData.map((module) => [module.path, module]));
+                const submoduleData = await Promise.all(
+                    rawData.flatMap((module) => module.parameters.map(loadSubmodules))
+                );
+                resolve(Object.assign(data, ...submoduleData));
+            }, reject);
+        });
+
+        promises.push(promise);
+    }
+
+    return Object.assign({}, ...(await Promise.all(promises)));
+}
+getModules._api = new mw.Api();
+/** @type {Record<string, Promise<ModuleData>>} */
+getModules._cache = {};
 
 /**
  * @param {string} s
@@ -133,104 +254,131 @@ function addEmptyLine(l) {
 
 /**
  * Get some data about an interface property.
- * @param {any} param API paramerer data
+ * @param {ModuleData} module API module data
+ * @param {ModuleParamData} param API paramerer data
  * @returns {PropertyData}
  */
-function processParam(param) {
-    let name = param.name,
-        type = param.type,
-        multi = param.multi,
-        required = param.required;
+function processParam(module, param) {
+    /** @type {PropertyData} */
+    const property = {
+        name: param.name,
+        type: param.type,
+        multi: !!param.multi,
+        required: !!param.required,
+    };
 
-    if (type in TYPE_MAP) {
-        type = TYPE_MAP[type];
-    } else if (Array.isArray(type)) {
-        if (NAME_TYPE_GENERALIZE.includes(name)) {
-            type = "string";
+    if (typeof property.type === "object") {
+        if (NAME_TYPE_GENERALIZE.includes(property.name)) {
+            property.type = "string";
         } else {
-            type = type.map(quote);
+            property.type = property.type.map(quote);
         }
+    } else if (property.type in TYPE_MAP) {
+        property.type = TYPE_MAP[property.type];
     }
 
-    if (this.name in REQUIRED_PARAMS_MAP && name in REQUIRED_PARAMS_MAP[this.name]) {
-        required = REQUIRED_PARAMS_MAP[this.name][name];
-    } else if (FORCE_OPTIONAL_PARAMS.includes(name)) {
-        required = false;
+    if (module.name in REQUIRED_PARAMS_MAP && property.name in REQUIRED_PARAMS_MAP[module.name]) {
+        property.required = REQUIRED_PARAMS_MAP[module.name][property.name];
+    } else if (FORCE_OPTIONAL_PARAMS.includes(property.name)) {
+        property.required = false;
     }
 
-    return { name, type, multi, required };
+    return property;
 }
 
 /**
  * Get some data about a module interface.
- * @param {any} module API module data
+ * @param {ModuleData} module API module data
  * @returns {InterfaceData}
  */
 function processModule(module) {
-    let name = module.classname,
-        parentName = "ApiParams",
-        props = module.parameters.map(processParam.bind(module));
+    /** @type {InterfaceData} */
+    const interface = {
+        name: module.classname,
+        parentName: "ApiParams",
+        props: module.parameters.map((param) => processParam(module, param)),
+    };
 
-    name = name
+    interface.name = interface.name
         .replace(/\\/g, "")
         .replace(/^MediaWikiExtensions?/, "")
         .replace(/ApiApi/g, "Api");
 
-    for (const prop of props) {
+    for (const prop of interface.props) {
         prop.name = module.prefix + prop.name;
     }
 
     switch (module.group) {
+        case undefined:
+            interface.name = "Api";
+            delete interface.parentName;
+            break;
         case "format":
-            name = `ApiFormat${firstToUppercase(module.name).replace("fm", "FM")}`;
+            interface.name = `ApiFormat${firstToUppercase(module.name).replace("fm", "FM")}`;
+            interface.props.unshift({ name: "format", type: quote(module.name), required: true });
+            break;
         case "action":
-            props.unshift({ name: module.group, type: quote(module.name), required: true });
+            interface.props.unshift({ name: "action", type: quote(module.name), required: true });
             break;
         case "list":
         case "meta":
         case "prop":
-            parentName = "ApiQueryParams";
+            interface.parentName = "ApiQueryParams";
+            break;
+        case "command":
+            switch (module.source) {
+                case "Echo":
+                    interface.parentName = "NotificationsPushApiEchoPushSubscriptionsParams";
+                    break;
+                case "ReadingLists":
+                    interface.parentName = "ReadingListsApiQueryReadingListsParams";
+                    break;
+                default:
+                    console.error(`Unknown source "${module.source}" for module "${module.name}".`);
+            }
+            interface.props.unshift({ name: "command", type: quote(module.name), required: true });
+            break;
+        case "submodule":
+            switch (module.source) {
+                case "Flow":
+                    interface.parentName = "FlowApiFlowParams";
+                    break;
+                case "Collection":
+                    interface.parentName = "CollectionApiCollectionParams";
+                    break;
+                default:
+                    console.error(`Unknown source "${module.source}" for module "${module.name}".`);
+            }
+            interface.props.unshift({
+                name: "submodule",
+                type: quote(module.name),
+                required: true,
+            });
             break;
         default:
             console.error(`Unknown group "${module.group}" for module "${module.name}".`);
     }
 
     if (module.name in NAME_PATH_MAP) {
-        name = NAME_PATH_MAP[module.name];
+        interface.name = NAME_PATH_MAP[module.name];
     }
 
-    name += "Params";
+    interface.name += "Params";
 
-    processModule._pathMap ??= new Map();
-    if (processModule._pathMap.has(name)) {
-        const otherModuleName = processModule._pathMap.get(name);
+    if (processModule._pathMap.has(interface.name)) {
+        const otherModuleName = processModule._pathMap.get(interface.name);
         console.error(
             `Interface "${name}" is used by both "${otherModuleName}" and "${module.name}" API modules.`,
             "Add an entry to NAME_PATH_MAP to manually set the path of one of these."
         );
     } else {
-        processModule._pathMap.set(name, module.name);
+        processModule._pathMap.set(interface.name, module.name);
     }
 
-    return { name, parentName, props };
+    return interface;
 }
-
-/**
- * Get some data about a list of modules.
- * @param {any[]} modules API module data
- * @returns {InterfaceData[]}
- */
-function processAllModules(modules) {
-    const groupKey = {};
-    modules.forEach((module) => {
-        groupKey[module.group] ??= MODULE_GROUP_SORT_ORDER.includes(module.group)
-            ? MODULE_GROUP_SORT_ORDER.indexOf(module.group)
-            : MODULE_GROUP_SORT_ORDER.length;
-    });
-    modules = modules.sort((m1, m2) => groupKey[m1.group] - groupKey[m2.group]);
-
-    return modules.map(processModule);
-}
+/** @type {Map<string, string>} */
+processModule._pathMap = new Map();
 
 /**
  * Format an interface property as a TS string.
@@ -269,18 +417,20 @@ function formatProperty(prop) {
  * @returns {string[]}
  */
 function formatInterface(interface) {
+    let name = interface.name;
+    if (interface.parentName) {
+        name += ` extends ${interface.parentName}`;
+    }
+
     let lines;
     if (interface.props.length) {
         lines = [
-            `export interface ${interface.name} extends ${interface.parentName} {`,
+            `export interface ${name} {`,
             ...interface.props.map(formatProperty).map(indent),
             "}",
         ];
     } else {
-        lines = [
-            "// tslint:disable-next-line:no-empty-interface",
-            `export interface ${interface.name} extends ${interface.parentName} {}`,
-        ];
+        lines = ["// tslint:disable-next-line:no-empty-interface", `export interface ${name} {}`];
     }
 
     if (interface.name.match(/^I[^a-z]/)) {
@@ -299,7 +449,6 @@ function formatContent(interfaces) {
     return [...interfaces.map(formatInterface).flatMap(addEmptyLine), "export {};"];
 }
 
-const modules = await getModules("*", "query+*");
-const interfaces = processAllModules(modules);
-const lines = formatContent(interfaces);
-console.log(lines.join("\n"));
+const modules = await getModules();
+const interfaces = Object.values(modules).map(processModule);
+console.log(formatContent(interfaces).join("\n"));
