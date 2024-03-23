@@ -4,13 +4,6 @@
 /** @type {import("..")} */
 
 /**
- * Order in which API modules are displayed, depending on their group.
- * Modules from another group are added at the end.
- * @type {string[]}
- */
-const MODULE_GROUP_SORT_ORDER = ["action", "format"]; // "list", "meta", and "props" are intentionally mixed up
-
-/**
  * An API type with this name will be replaced with its associated TS type.
  * @type {Record<string, string>}
  */
@@ -81,6 +74,7 @@ const REQUIRED_PARAMS_MAP = {
  * @property {boolean} [writerights]
  * @property {boolean} [mustbeposted]
  * @property {string[]} helpurls
+ * @property {Array<[ModuleData, PropertyData]>} parentmodules
  * @property {ModuleParamData[]} parameters
  * @property {ModuleTemplateParamData[]} templatedparameters
  * @property {boolean} [dynamicparameters]
@@ -130,94 +124,125 @@ const REQUIRED_PARAMS_MAP = {
  */
 
 /**
- * @param {any} parameter
+ * @param {any} module
  * @returns {Promise<Record<string, ModuleData>>}
  */
-async function loadSubmodules(parameter) {
-    if (!parameter.submodules) {
-        return Promise.resolve({});
+function loadSubmodules(module) {
+    /** @type {Array<Promise<Record<string, ModuleData>>>} */
+    const promises = [];
+
+    for (const parameter of module.parameters) {
+        const submodules = parameter.submodules;
+        if (!submodules) {
+            continue;
+        }
+
+        /**
+         * @param {Record<string, string>} acc
+         * @param {[string, string]} param
+         */
+        function swapKeyValue(acc, [key, path]) {
+            acc[path] = key;
+            return acc;
+        }
+
+        const submoduleKeyOf = Object.entries(submodules).reduce(swapKeyValue, {});
+        const paths = Object.values(submodules);
+
+        if (paths.length) {
+            const submodulePromise = getModules(paths).then((submoduleData) => {
+                for (const submodule of Object.values(submoduleData)) {
+                    submodules[submoduleKeyOf[submodule.path]] = submodule;
+                }
+                return submoduleData;
+            });
+            promises.unshift(submodulePromise);
+        }
+    }
+
+    return Promise.all(promises).then((data) => Object.assign({}, ...data));
+}
+
+/**
+ *
+ * @param {string[]} paths Module paths
+ * @returns {Promise<ModuleData[]>} Module data
+ */
+function queryModules(paths) {
+    console.log("Querying module data...", paths);
+
+    const apiRequest = queryModules._api.get({
+        action: "paraminfo",
+        format: "json",
+        modules: paths,
+        formatversion: 2,
+    });
+
+    return new Promise((resolve, reject) => {
+        apiRequest.then((response) => resolve(response.paraminfo.modules), reject);
+    });
+}
+queryModules._api = new mw.Api();
+
+/**
+ * Get module data from the API.
+ * @param {string[]} [paths] Module paths
+ * @returns {Promise<Record<string, ModuleData>>} Module data
+ */
+function getModules(paths) {
+    if (paths === undefined) {
+        paths = ["main"];
     }
 
     /** @type {Array<Promise<Record<string, ModuleData>>>} */
     const promises = [];
-    /** @type {Record<string, string>} */
-    const toResolve = {};
+    /** @type {string[]} */
+    const pathsToQuery = [];
 
-    Object.entries(parameter.submodules).forEach(([key, path]) => {
-        if (getModules._cache[path]) {
-            const submodulePromise = getModules._cache[path].then((data) => {
-                parameter.submodules[key] = data;
-                return { key: data };
-            });
-            promises.push(submodulePromise);
+    for (const path of paths) {
+        if (!path.includes("*") && Object.hasOwn(getModules._cache, path)) {
+            promises.push(getModules._cache[path].then((data) => ({ [path]: data[path] })));
         } else {
-            toResolve[path] = key;
+            pathsToQuery.push(path);
         }
-    });
+    }
 
-    if (Object.keys(toResolve).length) {
-        const submodulePromise = getModules(Object.keys(toResolve));
-        promises.unshift(submodulePromise);
-
-        const submoduleRecordPromise = submodulePromise.then((data) => {
-            Object.entries(data).forEach(([k, v]) => {
-                parameter.submodules[toResolve[k]] = v;
-            });
-            return data;
-        });
-
-        Object.keys(toResolve).forEach((path) => {
-            getModules._cache[path] = submoduleRecordPromise.then(
-                (resolvedData) => resolvedData[path]
+    for (let i = 0; i < pathsToQuery.length; i += 50) {
+        const batch = pathsToQuery.slice(i, i + 50);
+        const batchPromise = queryModules(batch).then((modules) => {
+            const moduleData = Object.fromEntries(modules.map((module) => [module.path, module]));
+            return Promise.all(modules.flatMap(loadSubmodules)).then((submoduleData) =>
+                Object.assign(moduleData, ...submoduleData)
             );
         });
+
+        promises.push(batchPromise);
+        for (const path of pathsToQuery) {
+            getModules._cache[path] = batchPromise;
+        }
     }
 
-    const data = await Promise.all(promises);
-    return Object.assign({}, ...data);
+    return Promise.all(promises).then((data) => Object.assign({}, ...data));
 }
+/** @type {Record<string, Promise<Record<string, ModuleData>>>} */
+getModules._cache = {};
 
 /**
- * Get module data from the API.
- * @param {string[]} [modules] Module names
- * @returns {Promise<Record<string, ModuleData>>} Module data
+ * Sort modules by path.
+ * @param {Record<string, ModuleData>} modules
+ * @returns {ModuleData[]}
  */
-async function getModules(modules) {
-    if (modules === undefined) {
-        modules = ["main"];
-    }
-
-    const promises = [];
-    for (let i = 0; i < modules.length; i += 50) {
-        const modulesToQuery = modules.slice(i, i + 50);
-        console.log("Querying module data...", modulesToQuery);
-
-        const apiRequest = getModules._api.get({
-            action: "paraminfo",
-            format: "json",
-            modules: modulesToQuery,
-            formatversion: 2,
-        });
-
-        const promise = new Promise((resolve, reject) => {
-            apiRequest.then(async (response) => {
-                const rawData = response.paraminfo.modules;
-                const data = Object.fromEntries(rawData.map((module) => [module.path, module]));
-                const submoduleData = await Promise.all(
-                    rawData.flatMap((module) => module.parameters.map(loadSubmodules))
-                );
-                resolve(Object.assign(data, ...submoduleData));
-            }, reject);
-        });
-
-        promises.push(promise);
-    }
-
-    return Object.assign({}, ...(await Promise.all(promises)));
+function sortModules(modules) {
+    return Object.values(modules).sort((m1, m2) => {
+        if (m1.path === "main") {
+            return -1;
+        } else if (m2.path === "main") {
+            return 1;
+        } else {
+            return m1.path.localeCompare(m2.path);
+        }
+    });
 }
-getModules._api = new mw.Api();
-/** @type {Record<string, Promise<ModuleData>>} */
-getModules._cache = {};
 
 /**
  * @param {string} s
@@ -450,5 +475,5 @@ function formatContent(interfaces) {
 }
 
 const modules = await getModules();
-const interfaces = Object.values(modules).map(processModule);
+const interfaces = sortModules(modules).map(processModule);
 console.log(formatContent(interfaces).join("\n"));
