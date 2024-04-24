@@ -30,8 +30,8 @@ interface ModuleRequire {
     /**
      * Get the exported value of a module.
      *
-     * @param moduleName Module name
-     * @returns Exported value
+     * @param {string} moduleName Module name
+     * @returns {any} Exported value
      */
     (moduleName: string): any;
 }
@@ -103,8 +103,7 @@ declare global {
             /**
              * Load a script by URL.
              *
-             * Example:
-             *
+             * @example
              * ```js
              * mw.loader.getScript(
              *     'https://example.org/x-1.0.0.js'
@@ -117,7 +116,6 @@ declare global {
              *     } );
              * } );
              * ```
-             *
              * @param {string} url Script URL
              * @returns {JQuery.Promise} Resolved when the script is loaded
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-getScript
@@ -136,93 +134,37 @@ declare global {
              *    uncaught error from the module's script files.
              * - `missing`: The module was requested but is not defined according to the server.
              *
+             * Internal mw.loader state machine:
+             *
+             * - `registered`:
+             *    The module is known to the system but not yet required.
+             *    Meta data is stored by mw.loader#register.
+             *    Calls to that method are generated server-side by StartupModule.
+             * - `loading`:
+             *    The module was required through mw.loader (either directly or as dependency of
+             *    another module). The client will fetch module contents from mw.loader.store
+             *    or from the server. The contents should later be received by mw.loader#implement.
+             * - `loaded`:
+             *    The module has been received by mw.loader#implement.
+             *    Once the module has no more dependencies in-flight, the module will be executed,
+             *    controlled via #setAndPropagate and #doPropagation.
+             * - `executing`:
+             *    The module is being executed (apply messages and stylesheets, execute scripts)
+             *    by mw.loader#execute.
+             * - `ready`:
+             *    The module has been successfully executed.
+             * - `error`:
+             *    The module (or one of its dependencies) produced an uncaught error during execution.
+             * - `missing`:
+             *    The module was registered client-side and requested, but the server denied knowledge
+             *    of the module's existence.
+             *
              * @param {string} module Name of module
              * @returns {string|null} The state, or null if the module (or its state) is not
              *  in the registry.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-getState
              */
             function getState(module: string): ModuleState | null;
-
-            /**
-             * Implement a module given a function which returns the components of the module
-             *
-             * @param {Function} declarator
-             *
-             * The declarator should return an array with the following keys:
-             *
-             * - 0. {string} module Name of module and current module version. Formatted
-             *   as '`[name]@[version]`". This version should match the requested version
-             *   (from #batchRequest and #registry). This avoids race conditions (T117587).
-             *
-             * - 1. {ModuleScript} [script] Module code. This can be a function,
-             *   a list of URLs to load via `<script src>`, a string for `globalEval()`, or an
-             *   object like {"files": {"foo.js":function, "bar.js": function, ...}, "main": "foo.js"}.
-             *   If an object is provided, the main file will be executed immediately, and the other
-             *   files will only be executed if loaded via require(). If a function or string is
-             *   provided, it will be executed/evaluated immediately. If an array is provided, all
-             *   URLs in the array will be loaded immediately, and executed as soon as they arrive.
-             *
-             * - 2. {ModuleStyle} [style] Should follow one of the following patterns:
-             *
-             *   ```js
-             *   { "css": [css, ..] }
-             *   { "url": { (media): [url, ..] } }
-             *   ```
-             *
-             *   The reason css strings are not concatenated anymore is T33676. We now check
-             *   whether it's safe to extend the stylesheet.
-             *
-             * - 3. {ModuleMessages} [messages] List of key/value pairs to be added to {@link mw.messages}.
-             * - 4. {ModuleTemplates} [templates] List of key/value pairs to be added to {@link mw.templates}.
-             * - 5. {String|null} [deprecationWarning] Deprecation warning if any
-             *
-             * The declarator must not use any scope variables, since it will be serialized with
-             * {@link Function.prototype.toString()} and later restored and executed in the global scope.
-             *
-             * The elements are all optional except the name.
-             */
-            function impl(declarator: ModuleDeclarator): void;
-
-            /**
-             * Implement a module given the components of the module.
-             *
-             * See {@link impl} for a full description of the parameters.
-             *
-             * Prior to MW 1.41, this was used internally, but now it is only kept
-             * for backwards compatibility.
-             *
-             * Does not support mw.loader.store caching.
-             *
-             * @param {string} module
-             * @param {ModuleScript} [script] Module code. This can be a function,
-             *  a list of URLs to load via `<script src>`, a string for `domEval()`, or an
-             *  object like {"files": {"foo.js":function, "bar.js": function, ...}, "main": "foo.js"}.
-             *  If an object is provided, the main file will be executed immediately, and the other
-             *  files will only be executed if loaded via require(). If a function or string is
-             *  provided, it will be executed/evaluated immediately. If an array is provided, all
-             *  URLs in the array will be loaded immediately, and executed as soon as they arrive.
-             * @param {ModuleStyle} [style] Should follow one of the following patterns:
-             *
-             * ```js
-             * { "css": [css, ..] }
-             * { "url": { <media>: [url, ..] } }
-             * ```
-             *
-             * The reason css strings are not concatenated anymore is T33676. We now check
-             * whether it's safe to extend the stylesheet.
-             * @param {ModuleMessages} [messages] List of key/value pairs to be added to {@link mw.messages}.
-             * @param {ModuleTemplates} [templates] List of key/value pairs to be added to {@link mw.templates}.
-             * @param {string|null} [deprecationWarning] Deprecation warning if any
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-implement
-             */
-            function implement(
-                module: string,
-                script?: ModuleScript,
-                style?: ModuleStyle,
-                messages?: ModuleMessages,
-                templates?: ModuleTemplates,
-                deprecationWarning?: string | null
-            ): void;
 
             /**
              * Load an external script or one or more modules.
@@ -245,54 +187,6 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-load
              */
             function load(modules: string | string[], type?: "text/css" | "text/javascript"): void;
-
-            /**
-             * Register a module, letting the system know about it and its properties.
-             *
-             * The startup module calls this method.
-             *
-             * When using multiple module registration by passing an array, dependencies that
-             * are specified as references to modules within the array will be resolved before
-             * the modules are registered.
-             *
-             * @param {string|Array} modules Module name or array of arrays, each containing
-             *  a list of arguments compatible with this method
-             * @param {string|number} [version] Module version hash (falls backs to empty string)
-             *  Can also be a number (timestamp) for compatibility with MediaWiki 1.25 and earlier.
-             * @param {string[]} [dependencies] Array of module names on which this module depends.
-             * @param {string} [group=null] Group which the module is in
-             * @param {string} [source='local'] Name of the source
-             * @param {string} [skip=null] Script body of the skip function
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-register
-             */
-            function register(
-                modules: string,
-                version?: string | number,
-                dependencies?: string[],
-                group?: string | null,
-                source?: string,
-                skip?: string | null
-            ): void;
-            function register(
-                modules: Array<
-                    [
-                        module: string,
-                        version?: string | number,
-                        dependencies?: Array<string | number>,
-                        group?: string | null,
-                        source?: string,
-                        skip?: string | null
-                    ]
-                >
-            ): void;
-
-            /**
-             * Change the state of one or more modules.
-             *
-             * @param {Object.<string, ModuleState>} states Object of module name/state pairs
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-state
-             */
-            function state(states: Record<string, ModuleState>): void;
 
             /**
              * Execute a function after one or more modules are ready.
@@ -392,6 +286,21 @@ declare global {
             ): HTMLScriptElement;
 
             /**
+             * Register a source.
+             *
+             * The {@link work()} method will use this information to split up requests by source.
+             *
+             * @example
+             * ```
+             * mw.loader.addSource( { mediawikiwiki: 'https://www.mediawiki.org/w/load.php' } );
+             * ```
+             * @private
+             * @param {Object.<string, string>} ids An object mapping ids to load.php end point urls
+             * @throws {Error} If source id is already registered
+             */
+            function addSource(ids: Record<string, string>): void;
+
+            /**
              * Add one or more modules to the module load queue.
              *
              * See also {@link work()}.
@@ -406,6 +315,128 @@ declare global {
                 dependencies: string[],
                 ready?: () => void,
                 error?: (error: Error, ...args: any[]) => void
+            ): void;
+
+            /**
+             * Implement a module given a function which returns the components of the module
+             *
+             * @private
+             * @param {Function} declarator The declarator should return an array with the following keys:
+             *
+             * - 0. {string} module Name of module and current module version. Formatted
+             *   as '`[name]@[version]`". This version should match the requested version
+             *   (from #batchRequest and #registry). This avoids race conditions (T117587).
+             *
+             * - 1. {ModuleScript} [script] Module code. This can be a function,
+             *   a list of URLs to load via `<script src>`, a string for `globalEval()`, or an
+             *   object like {"files": {"foo.js":function, "bar.js": function, ...}, "main": "foo.js"}.
+             *   If an object is provided, the main file will be executed immediately, and the other
+             *   files will only be executed if loaded via require(). If a function or string is
+             *   provided, it will be executed/evaluated immediately. If an array is provided, all
+             *   URLs in the array will be loaded immediately, and executed as soon as they arrive.
+             *
+             * - 2. {ModuleStyle} [style] Should follow one of the following patterns:
+             *
+             *   ```js
+             *   { "css": [css, ..] }
+             *   { "url": { (media): [url, ..] } }
+             *   ```
+             *
+             *   The reason css strings are not concatenated anymore is T33676. We now check
+             *   whether it's safe to extend the stylesheet.
+             *
+             * - 3. {ModuleMessages} [messages] List of key/value pairs to be added to {@link mw.messages}.
+             * - 4. {ModuleTemplates} [templates] List of key/value pairs to be added to {@link mw.templates}.
+             * - 5. {String|null} [deprecationWarning] Deprecation warning if any
+             *
+             * The declarator must not use any scope variables, since it will be serialized with
+             * {@link Function.prototype.toString()} and later restored and executed in the global scope.
+             *
+             * The elements are all optional except the name.
+             */
+            function impl(declarator: ModuleDeclarator): void;
+
+            /**
+             * Implement a module given the components of the module.
+             *
+             * See {@link impl} for a full description of the parameters.
+             *
+             * Prior to MW 1.41, this was used internally, but now it is only kept
+             * for backwards compatibility.
+             *
+             * Does not support mw.loader.store caching.
+             *
+             * @private
+             * @param {string} module
+             * @param {ModuleScript} [script] Module code. This can be a function,
+             *  a list of URLs to load via `<script src>`, a string for `domEval()`, or an
+             *  object like {"files": {"foo.js":function, "bar.js": function, ...}, "main": "foo.js"}.
+             *  If an object is provided, the main file will be executed immediately, and the other
+             *  files will only be executed if loaded via require(). If a function or string is
+             *  provided, it will be executed/evaluated immediately. If an array is provided, all
+             *  URLs in the array will be loaded immediately, and executed as soon as they arrive.
+             * @param {ModuleStyle} [style] Should follow one of the following patterns:
+             *
+             * ```js
+             * { "css": [css, ..] }
+             * { "url": { <media>: [url, ..] } }
+             * ```
+             *
+             * The reason css strings are not concatenated anymore is T33676. We now check
+             * whether it's safe to extend the stylesheet.
+             * @param {ModuleMessages} [messages] List of key/value pairs to be added to {@link mw.messages}.
+             * @param {ModuleTemplates} [templates] List of key/value pairs to be added to {@link mw.templates}.
+             * @param {string|null} [deprecationWarning] Deprecation warning if any
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-implement
+             */
+            function implement(
+                module: string,
+                script?: ModuleScript,
+                style?: ModuleStyle,
+                messages?: ModuleMessages,
+                templates?: ModuleTemplates,
+                deprecationWarning?: string | null
+            ): void;
+
+            /**
+             * Register a module, letting the system know about it and its properties.
+             *
+             * The startup module calls this method.
+             *
+             * When using multiple module registration by passing an array, dependencies that
+             * are specified as references to modules within the array will be resolved before
+             * the modules are registered.
+             *
+             * @private
+             * @param {string|Array} modules Module name or array of arrays, each containing
+             *  a list of arguments compatible with this method
+             * @param {string|number} [version] Module version hash (falls backs to empty string)
+             *  Can also be a number (timestamp) for compatibility with MediaWiki 1.25 and earlier.
+             * @param {string[]} [dependencies] Array of module names on which this module depends.
+             * @param {string} [group=null] Group which the module is in
+             * @param {string} [source='local'] Name of the source
+             * @param {string} [skip=null] Script body of the skip function
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-register
+             */
+            function register(
+                modules: string,
+                version?: string | number,
+                dependencies?: string[],
+                group?: string | null,
+                source?: string,
+                skip?: string | null
+            ): void;
+            function register(
+                modules: Array<
+                    [
+                        module: string,
+                        version?: string | number,
+                        dependencies?: Array<string | number>,
+                        group?: string | null,
+                        source?: string,
+                        skip?: string | null
+                    ]
+                >
             ): void;
 
             /**
@@ -437,6 +468,15 @@ declare global {
             function resolve<T extends string, U extends T = T>(modules: U[]): T[];
 
             /**
+             * Change the state of one or more modules.
+             *
+             * @private
+             * @param {Object.<string, ModuleState>} states Object of module name/state pairs
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-state
+             */
+            function state(states: Record<string, ModuleState>): void;
+
+            /**
              * Start loading of all queued module dependencies.
              *
              * @private
@@ -452,7 +492,6 @@ declare global {
                  * The localStorage key for the entire module store. The key references
                  * $wgDBname to prevent clashes between wikis which share a common host.
                  *
-                 * @property {string}
                  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-property-key
                  */
                 const key: string;
@@ -462,7 +501,6 @@ declare global {
                  *
                  * Defined by ResourceLoader\StartupModule::getStoreVary() in PHP.
                  *
-                 * @property {string}
                  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-property-vary
                  */
                 const vary: string;

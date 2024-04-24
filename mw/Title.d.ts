@@ -2,31 +2,66 @@ import { QueryParams } from "./Uri";
 
 export type TitleLike = string | mw.Title;
 
+interface TitleExistenceStore {
+    /**
+     * Keyed by title. Boolean true value indicates page does exist.
+     */
+    pages: { [title: string]: boolean };
+
+    /**
+     * The setter function. Returns a boolean.
+     *
+     * Example to declare existing titles:
+     *
+     * ```js
+     * Title.exist.set( ['User:John_Doe', ...] );
+     * ```
+     *
+     * Example to declare titles nonexistent:
+     *
+     * ```js
+     * Title.exist.set( ['File:Foo_bar.jpg', ...], false );
+     * ```
+     *
+     * @param {string|string[]} titles Title(s) in strict prefixedDb title form
+     * @param {boolean} [state=true] State of the given titles
+     * @returns {boolean}
+     */
+    set(titles: string | string[], state?: boolean): boolean;
+}
+
 declare global {
     namespace mw {
         /**
-         * Parse titles into an object structure. Note that when using the constructor
-         * directly, passing invalid titles will result in an exception. Use {@link newFromText} to use the
-         * logic directly and get null for invalid titles which is easier to work with.
+         * Library for constructing MediaWiki titles.
          *
          * Note that in the constructor and {@link newFromText} method, `namespace` is the **default** namespace
          * only, and can be overridden by a namespace prefix in `title`. If you do not want this behavior,
-         * use {@link makeTitle}. Compare:
+         * use {@link makeTitle}.
          *
+         * @example
          * ```js
-         * new mw.Title( 'Foo', NS_TEMPLATE ).getPrefixedText();                  // => 'Template:Foo'
-         * mw.Title.newFromText( 'Foo', NS_TEMPLATE ).getPrefixedText();          // => 'Template:Foo'
-         * mw.Title.makeTitle( NS_TEMPLATE, 'Foo' ).getPrefixedText();            // => 'Template:Foo'
+         * new mw.Title( 'Foo', NS_TEMPLATE ).getPrefixedText();
+         * // => 'Template:Foo'
+         * mw.Title.newFromText( 'Foo', NS_TEMPLATE ).getPrefixedText();
+         * // => 'Template:Foo'
+         * mw.Title.makeTitle( NS_TEMPLATE, 'Foo' ).getPrefixedText();
+         * // => 'Template:Foo'
          *
-         * new mw.Title( 'Category:Foo', NS_TEMPLATE ).getPrefixedText();         // => 'Category:Foo'
-         * mw.Title.newFromText( 'Category:Foo', NS_TEMPLATE ).getPrefixedText(); // => 'Category:Foo'
-         * mw.Title.makeTitle( NS_TEMPLATE, 'Category:Foo' ).getPrefixedText();   // => 'Template:Category:Foo'
+         * new mw.Title( 'Category:Foo', NS_TEMPLATE ).getPrefixedText();
+         * // => 'Category:Foo'
+         * mw.Title.newFromText( 'Category:Foo', NS_TEMPLATE ).getPrefixedText();
+         * // => 'Category:Foo'
+         * mw.Title.makeTitle( NS_TEMPLATE, 'Category:Foo' ).getPrefixedText();
+         * // => 'Template:Category:Foo'
          *
-         * new mw.Title( 'Template:Foo', NS_TEMPLATE ).getPrefixedText();         // => 'Template:Foo'
-         * mw.Title.newFromText( 'Template:Foo', NS_TEMPLATE ).getPrefixedText(); // => 'Template:Foo'
-         * mw.Title.makeTitle( NS_TEMPLATE, 'Template:Foo' ).getPrefixedText();   // => 'Template:Template:Foo'
+         * new mw.Title( 'Template:Foo', NS_TEMPLATE ).getPrefixedText();
+         * // => 'Template:Foo'
+         * mw.Title.newFromText( 'Template:Foo', NS_TEMPLATE ).getPrefixedText();
+         * // => 'Template:Foo'
+         * mw.Title.makeTitle( NS_TEMPLATE, 'Template:Foo' ).getPrefixedText();
+         * // => 'Template:Template:Foo'
          * ```
-         *
          * @since 1.18
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title
          */
@@ -36,35 +71,13 @@ declare global {
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-static-property-exist
              */
-            static exist: {
-                /**
-                 * Keyed by title. Boolean true value indicates page does exist.
-                 */
-                pages: { [title: string]: boolean };
-
-                /**
-                 * The setter function.
-                 *
-                 * Example to declare existing titles:
-                 *
-                 * ```js
-                 * Title.exist.set( ['User:John_Doe', ...] );
-                 * ```
-                 *
-                 * Example to declare titles nonexistent:
-                 *
-                 * ```js
-                 * Title.exist.set( ['File:Foo_bar.jpg', ...], false );
-                 * ```
-                 *
-                 * @param {string|string[]} titles Title(s) in strict prefixedDb title form
-                 * @param {boolean} [state=true] State of the given titles
-                 * @returns {boolean}
-                 */
-                set(titles: string | string[], state?: boolean): boolean;
-            };
+            static exist: TitleExistenceStore;
 
             /**
+             * Parse titles into an object structure. Note that when using the constructor
+             * directly, passing invalid titles will result in an exception. See {@link newFromText} to use the
+             * logic directly and get null for invalid titles which is easier to work with.
+             *
              * @param {string} title Title of the page. If no second argument given,
              *  this will be searched for a namespace
              * @param {number} [namespace=NS_MAIN] If given, will used as default namespace for the given title
@@ -74,7 +87,7 @@ declare global {
             constructor(title: string, namespace?: number);
 
             /**
-             * Check the title can have an associated talk page
+             * Check the title can have an associated talk page.
              *
              * @returns {boolean} The title can have an associated talk page
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-canHaveTalkPage
@@ -82,7 +95,7 @@ declare global {
             canHaveTalkPage(): boolean;
 
             /**
-             * Whether this title exists on the wiki.
+             * Whether this title exists on the wiki. See {@link mw.Title.exists}.
              *
              * @returns {boolean|null} Boolean if the information is available, otherwise null
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-exists
@@ -90,7 +103,7 @@ declare global {
             exists(): boolean | null;
 
             /**
-             * Get the extension of the page name (if any)
+             * Get the extension of the page name (if any).
              *
              * @returns {string|null} Name extension or null if there is none
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getExtension
@@ -100,10 +113,10 @@ declare global {
             /**
              * Get the page name as if it is a file name, without extension or namespace prefix,
              * in the human-readable form with spaces instead of underscores. For example, the title
-             * "File:Example_image.svg" will be returned as "Example image".
+             * `File:Example_image.svg` will be returned as `Example image`.
              *
              * Note that this method will work for non-file titles but probably give nonsensical results.
-             * A title like "User:Dr._J._Fail" will be returned as "Dr. J"! Use {@link getMainText} instead.
+             * A title like `User:Dr._J._Fail` will be returned as `Dr. J`! Use {@link getMainText} instead.
              *
              * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getFileNameTextWithoutExtension
@@ -113,10 +126,10 @@ declare global {
             /**
              * Get the page name as if it is a file name, without extension or namespace prefix,
              * in the canonical form with underscores instead of spaces. For example, the title
-             * "File:Example_image.svg" will be returned as "Example_image".
+             * `File:Example_image.svg` will be returned as `Example image`.
              *
              * Note that this method will work for non-file titles but probably give nonsensical results.
-             * A title like "User:Dr._J._Fail" will be returned as "Dr._J"! Use {@link getMain} instead.
+             * A title like `User:Dr._J._Fail` will be returned as `Dr. J`! Use {@link getMain} instead.
              *
              * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getFileNameWithoutExtension
@@ -135,9 +148,9 @@ declare global {
             getFragment(): string | null;
 
             /**
-             * Get the main page name
+             * Get the main page name.
              *
-             * Example: "Example_image.svg" for "File:Example_image.svg".
+             * Example: `Example_image.svg` for `File:Example_image.svg`.
              *
              * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getMain
@@ -145,9 +158,9 @@ declare global {
             getMain(): string;
 
             /**
-             * Get the main page name (transformed by #text)
+             * Get the main page name (transformed by {@link text()}).
              *
-             * Example: "Example image.svg" for "File:Example_image.svg".
+             * Example: `Example image.svg` for `File:Example_image.svg`.
              *
              * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getMainText
@@ -156,21 +169,21 @@ declare global {
 
             /**
              * Get the page name as if it is a file name, without extension or namespace prefix. Warning,
-             * this is usually not what you want! A title like "User:Dr._J._Fail" will be returned as
-             * "Dr. J"! Use {@link getMain} or {@link getMainText} for the actual page name.
+             * this is usually not what you want! A title like `User:Dr._J._Fail` will be returned as
+             * `Dr. J`! Use {@link getMain} or {@link getMainText} for the actual page name.
              *
              * @deprecated since 1.40, use {@link getFileNameWithoutExtension} instead
              * @returns {string} File name without file extension, in the canonical form with underscores
-             *  instead of spaces. For example, the title "File:Example_image.svg" will be returned as
+             *  instead of spaces. For example, the title `File:Example_image.svg` will be returned as
              *  "Example_image".
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getName
              */
             getName(): string;
 
             /**
-             * Get the namespace number
+             * Get the namespace number.
              *
-             * Example: 6 for "File:Example_image.svg".
+             * Example: 6 for `File:Example_image.svg`.
              *
              * @returns {number}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getNamespaceId
@@ -178,9 +191,9 @@ declare global {
             getNamespaceId(): number;
 
             /**
-             * Get the namespace prefix (in the content language)
+             * Get the namespace prefix (in the content language).
              *
-             * Example: "File:" for "File:Example_image.svg".
+             * Example: `File:` for `File:Example_image.svg`.
              * In #NS_MAIN this is '', otherwise namespace name plus ':'
              *
              * @returns {string}
@@ -190,21 +203,21 @@ declare global {
 
             /**
              * Get the page name as if it is a file name, without extension or namespace prefix. Warning,
-             * this is usually not what you want! A title like "User:Dr._J._Fail" will be returned as
-             * "Dr. J"! Use {@link getMainText} for the actual page name.
+             * this is usually not what you want! A title like `User:Dr._J._Fail` will be returned as
+             * `Dr. J`! Use {@link getMainText} for the actual page name.
              *
              * @deprecated since 1.40, use {@link getFileNameTextWithoutExtension} instead
              * @returns {string} File name without file extension, formatted with spaces instead of
-             *  underscores. For example, the title "File:Example_image.svg" will be returned as
-             *  "Example image".
+             *  underscores. For example, the title `File:Example_image.svg` will be returned as
+             *  `Example image`.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getNameText
              */
             getNameText(): string;
 
             /**
-             * Get the full page name
+             * Get the full page name.
              *
-             * Example: "File:Example_image.svg".
+             * Example: `File:Example_image.svg`.
              * Most useful for API calls, anything that must identify the "title".
              *
              * @returns {string}
@@ -213,9 +226,9 @@ declare global {
             getPrefixedDb(): string;
 
             /**
-             * Get the full page name (transformed by #text)
+             * Get the full page name (transformed by {@link text()}).
              *
-             * Example: "File:Example image.svg" for "File:Example_image.svg".
+             * Example: `File:Example image.svg` for `File:Example_image.svg`.
              *
              * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getPrefixedText
@@ -223,7 +236,7 @@ declare global {
             getPrefixedText(): string;
 
             /**
-             * Get the page name relative to a namespace
+             * Get the page name relative to a namespace.
              *
              * Example:
              *
@@ -238,7 +251,7 @@ declare global {
             getRelativeText(namespace: number): string;
 
             /**
-             * Get the title for the subject page of a talk page
+             * Get the title for the subject page of a talk page.
              *
              * @returns {Title|null} The title for the subject page of a talk page, null if not available
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getSubjectPage
@@ -246,7 +259,7 @@ declare global {
             getSubjectPage(): Title | null;
 
             /**
-             * Get the title for the associated talk page
+             * Get the title for the associated talk page.
              *
              * @returns {Title|null} The title for the associated talk page, null if not available
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getTalkPage
@@ -254,7 +267,7 @@ declare global {
             getTalkPage(): Title | null;
 
             /**
-             * Get the URL to this title
+             * Get the URL to this title. See {@link mw.util.getUrl()}.
              *
              * @param {QueryParams} [params] A mapping of query parameter names to values,
              *     e.g. `{ action: 'edit' }`.
@@ -264,7 +277,7 @@ declare global {
             getUrl(params?: QueryParams): string;
 
             /**
-             * Check if the title is in a talk namespace
+             * Check if the title is in a talk namespace.
              *
              * @returns {boolean} The title is in a talk namespace
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-isTalkPage
@@ -272,14 +285,14 @@ declare global {
             isTalkPage(): boolean;
 
             /**
-             * Alias of {@link getPrefixedDb}
+             * Alias of {@link getPrefixedDb}.
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-toString
              */
             toString(): string;
 
             /**
-             * Alias of {@link getPrefixedText}
+             * Alias of {@link getPrefixedText}.
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-toText
              */
@@ -296,7 +309,7 @@ declare global {
             static exists(title: TitleLike): boolean | null;
 
             /**
-             * Check if a given namespace is a talk namespace
+             * Check if a given namespace is a talk namespace.
              *
              * See NamespaceInfo::isTalk in PHP
              *
@@ -309,8 +322,8 @@ declare global {
             /**
              * Constructor for Title objects with predefined namespace.
              *
-             * Unlike {@link newFromText} or {@link constructor}, this function doesn't allow the given `namespace` to be
-             * overridden by a namespace prefix in `title`. See {@link constructor} for details about this behavior.
+             * Unlike {@link newFromText} or the constructor, this function doesn't allow the given `namespace` to be
+             * overridden by a namespace prefix in `title`. See the constructor documentation for details about this behavior.
              *
              * The single exception to this is when `namespace` is 0, indicating the main namespace. The
              * function behaves like {@link newFromText} in that case.
@@ -335,12 +348,12 @@ declare global {
             static newFromFileName(uncleanName: string): Title | null;
 
             /**
-             * Get the file title from an image element
+             * Get the file title from an image element.
              *
+             * @example
              * ```js
              * var title = mw.Title.newFromImg( imageNode );
              * ```
-             *
              * @param {HTMLElement|JQuery} img The image to use as a base
              * @returns {Title|null} The file title or null if unsuccessful
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-static-method-newFromImg
@@ -363,7 +376,7 @@ declare global {
 
             /**
              * Constructor for Title objects from user input altering that input to
-             * produce a title that MediaWiki will accept as legal
+             * produce a title that MediaWiki will accept as legal.
              *
              * @param {string} title
              * @param {number} [defaultNamespace=NS_MAIN]
@@ -403,7 +416,7 @@ declare global {
             static phpCharToUpper(chr: string): string;
 
             /**
-             * Check if signature buttons should be shown in a given namespace
+             * Check if signature buttons should be shown in a given namespace.
              *
              * See NamespaceInfo::wantSignatures in PHP
              *

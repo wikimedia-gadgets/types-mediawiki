@@ -67,12 +67,17 @@ export interface ExtensibleMap<V extends Record<string, any>, TX = unknown>
 declare global {
     namespace mw {
         /**
-         * Create an object that can be read from or written to via methods that allow interaction both
-         * with single and multiple properties at once.
+         * ES3 compatible class similar to [ES6 Map]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map}.
          *
-         * **NOTE**: This is a private utility class for internal use by the framework.
-         * Don't rely on its existence.
+         * Create an object that can be read from or written to via methods that allow
+         * interaction both with single and multiple properties at once.
          *
+         * @example
+         * ```js
+         * const map = new mw.Map();
+         * map.set( 'foo', 5 );
+         * alert( 5 === map.get( 'foo' ) );
+         * ```
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map
          */
         class Map<V extends Record<string, any> = any> {

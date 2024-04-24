@@ -7,7 +7,7 @@ interface Compiler {
 declare global {
     namespace mw {
         /**
-         * Requires mediawiki.template ResourceLoader module
+         * Requires `mediawiki.template` ResourceLoader module.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.template
          */

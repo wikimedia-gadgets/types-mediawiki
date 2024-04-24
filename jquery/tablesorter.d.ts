@@ -5,7 +5,8 @@ declare global {
 
     interface JQuery {
         /**
-         * Create a sortable table with multi-column sorting capabilities
+         * Create a sortable table with multi-column sorting capabilities.
+         * Provided by `jquery.tablesorter` ResourceLoader module.
          *
          * ```js
          * // Create a simple tablesorter interface
@@ -14,6 +15,9 @@ declare global {
          * // Create a tablesorter interface, initially sorting on the first and second column
          * $( 'table' ).tablesorter( { sortList: [ { 0: 'desc' }, { 1: 'asc' } ] } );
          * ```
+         *
+         * @param {Partial<Options>} settings
+         * @returns {JQuery}
          */
         tablesorter(this: JQuery<HTMLTableElement>, settings?: Partial<Options>): this;
     }

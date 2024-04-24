@@ -1,7 +1,3 @@
-export interface RestOptions {
-    ajax: JQuery.AjaxSettings;
-}
-
 export type RestResponse = Record<string, any>; // Unknown JSON object
 
 declare global {
@@ -15,6 +11,7 @@ declare global {
              * MediaWiki server. mw.Rest objects represent the REST API of a particular
              * MediaWiki server.
              *
+             * @example
              * ```js
              * var api = new mw.Rest();
              * api.get( '/v1/page/Main_Page/html' )
@@ -34,13 +31,12 @@ declare global {
              *     console.log( data );
              * } );
              * ```
-             *
-             * @param {Partial<RestOptions>} [options]
+             * @param {Rest.Options} [options] See {@link mw.Rest.Options}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-constructor
              */
-            constructor(options?: Partial<RestOptions>);
+            constructor(options?: Rest.Options);
 
-            private defaults: RestOptions;
+            private defaults: Required<Rest.Options>;
 
             /**
              * Abort all unfinished requests issued by this Api object.
@@ -67,24 +63,24 @@ declare global {
             /**
              * Perform REST API post request.
              *
-             * Note: only sending application/json is currently supported.
+             * Note: only sending `application/json` is currently supported.
              *
              * @param {string} path
-             * @param {Object.<string, any>} body
+             * @param {Object.<string, any>} [body]
              * @param {Object.<string, any>} [headers]
              * @returns {JQuery.Promise<RestResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-post
              */
             post(
                 path: string,
-                body: Record<string, any>,
+                body?: Record<string, any>,
                 headers?: Record<string, any>
             ): JQuery.Promise<RestResponse>;
 
             /**
              * Perform REST API PUT request.
              *
-             * Note: only sending application/json is currently supported.
+             * Note: only sending `application/json` is currently supported.
              *
              * @param {string} path
              * @param {Object.<string, any>} body
@@ -101,7 +97,7 @@ declare global {
             /**
              * Perform REST API DELETE request.
              *
-             * Note: only sending application/json is currently supported.
+             * Note: only sending `application/json` is currently supported.
              *
              * @param {string} path
              * @param {Object.<string, any>} body
@@ -125,7 +121,16 @@ declare global {
              */
             ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<RestResponse>;
         }
+
+        namespace Rest {
+            interface Options {
+                ajax?: JQuery.AjaxSettings;
+            }
+        }
     }
 }
+
+/** @deprecated Use `mw.Rest.Options` instead. Note that `RestOptions` is strictly equivalent to `Required<mw.Rest.Options>` as properties are now optional for consistency. */
+export type RestOptions = Required<mw.Rest.Options>;
 
 export {};

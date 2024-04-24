@@ -11,7 +11,16 @@ type KeyModifier = "alt" | "alt-shift" | "ctrl" | "ctrl-option";
 interface TooltipAccessKeys<This = JQuery> {
     /**
      * Update the titles for all elements in a jQuery selection.
+     * Installed by {@link mediawiki.util} module.
      *
+     * @example
+     * ```js
+     * // Converts tooltip "[z]" to associated browser shortcut key e.g. "[ctrl-option-z]"
+     * mw.loader.using( 'mediawiki.util' ).then( () => {
+     *     var $a = $('<a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z"><span>Main page</span></a>');
+     *     $a.updateTooltipAccessKeys();
+     * } );
+     * ```
      * @returns {JQuery}
      */
     (): This;

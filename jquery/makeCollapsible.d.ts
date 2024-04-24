@@ -2,6 +2,7 @@ declare global {
     interface JQuery {
         /**
          * Enable collapsible-functionality on all elements in the collection.
+         * Provided by the `jquery.makeCollapsible` ResourceLoader module.
          *
          * - Will prevent binding twice to the same element.
          * - Initial state is expanded by default, this can be overridden by adding class
@@ -9,6 +10,12 @@ declare global {
          * - Elements made collapsible have jQuery data "mw-made-collapsible" set to true.
          * - The inner content is wrapped in a "div.mw-collapsible-content" (except for tables and lists).
          *
+         * @example
+         * ```js
+         * mw.loader.using( 'jquery.makeCollapsible' ).then( () => {
+         *     $( 'table' ).makeCollapsible();
+         * } );
+         * ```
          * @param {Options} [options]
          * @returns {JQuery}
          */

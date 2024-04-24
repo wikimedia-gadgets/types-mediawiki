@@ -9,7 +9,7 @@ type NoReturn<T extends (...args: any[]) => any> = T extends (
         : (this: U, ...args: V) => void
     : never;
 
-interface ImageUrlData {
+interface ResizeableThumbnailUrl {
     /**
      * File name (same format as {@link mw.Title.getMainText()}).
      */
@@ -34,13 +34,21 @@ interface ImageUrlData {
 declare global {
     namespace mw {
         /**
-         * Utility library provided by the `mediawiki.util` module.
+         * Utility library provided by the `mediawiki.util` ResourceLoader module. Accessible
+         * inside ResourceLoader modules or for gadgets as part of the {@link mw mw global object}.
          *
+         * @example
+         * ```js
+         * // Inside MediaWiki extensions
+         * const util = require( 'mediawiki.util' );
+         * // In gadgets
+         * const mwUtil = mw.util;
+         * ```
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util
          */
         namespace util {
             /**
-             * The content wrapper of the skin (e.g. `.mw-body`).
+             * The content wrapper of the skin (`.mw-body`, for example).
              *
              * Populated on document ready. To use this property,
              * wait for `$.ready` and be sure to have a module dependency on
@@ -56,7 +64,6 @@ declare global {
              * allow your code to re-run when the page changes (e.g. live preview
              * or re-render after ajax save).
              *
-             * @property {JQuery}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-property-S-content
              */
             const $content: JQuery;
@@ -67,7 +74,7 @@ declare global {
              * To access the `<style>` element, reference `sheet.ownerNode`, or call
              * the {@link mw.loader.addStyleTag} method directly.
              *
-             * This function returns the CSSStyleSheet object for convience with features
+             * This function returns the CSSStyleSheet object for convenience with features
              * that are managed at that level, such as toggling of styles:
              *
              * ```js
@@ -101,12 +108,14 @@ declare global {
             function addPortlet(id: string, label?: string, before?: string): HTMLElement | null;
 
             /**
-             * Add a link to a portlet menu on the page, such as:
+             * Add a link to a portlet menu on the page.
              *
-             * - p-cactions (Content actions),
-             * - p-personal (Personal tools),
-             * - p-navigation (Navigation),
-             * - p-tb (Toolbox).
+             * The portlets that are supported include:
+             *
+             * - p-cactions (Content actions)
+             * - p-personal (Personal tools)
+             * - p-navigation (Navigation)
+             * - p-tb (Toolbox)
              * - p-associated-pages (For namespaces and special page tabs on supported skins)
              * - p-namespaces (For namespaces on legacy skins)
              *
@@ -244,7 +253,7 @@ declare global {
             function escapeIdForLink(str: string): string;
 
             /**
-             * Escape string for safe inclusion in regular expression
+             * Escape string for safe inclusion in regular expression.
              *
              * The following characters are escaped:
              *
@@ -264,12 +273,12 @@ declare global {
              * Currently this does not handle associative or multi-dimensional arrays, but that may be
              * improved in the future.
              *
+             * @example
              * ```js
              * mw.util.getArrayParam( 'foo', new URLSearchParams( '?foo[0]=a&foo[1]=b' ) ); // [ 'a', 'b' ]
              * mw.util.getArrayParam( 'foo', new URLSearchParams( '?foo[]=a&foo[]=b' ) ); // [ 'a', 'b' ]
              * mw.util.getArrayParam( 'foo', new URLSearchParams( '?foo=a' ) ); // null
              * ```
-             *
              * @param {string} param The parameter name.
              * @param {URLSearchParams} [params] Parsed URL parameters to search through, defaulting to the current browsing location.
              * @returns {string[]|null} Parameter value, or null if parameter was not found.
@@ -280,12 +289,12 @@ declare global {
             /**
              * Get the value for a given URL query parameter.
              *
+             * @example
              * ```js
              * mw.util.getParamValue( 'foo', '/?foo=x' ); // "x"
              * mw.util.getParamValue( 'foo', '/?foo=' ); // ""
              * mw.util.getParamValue( 'foo', '/' ); // null
              * ```
-             *
              * @param {string} param The parameter name.
              * @param {string} [url=location.href] URL to search through, defaulting to the current browsing location.
              * @returns {string|null} Parameter value, or null if parameter was not found.
@@ -294,7 +303,7 @@ declare global {
             function getParamValue(param: string, url?: string): string | null;
 
             /**
-             * Get the target element from a link hash
+             * Get the target element from a link hash.
              *
              * This is the same element as you would get from
              * `document.querySelectorAll(':target')`, but can be used on
@@ -316,7 +325,7 @@ declare global {
             function getTargetFromFragment(hash?: string): HTMLElement | null;
 
             /**
-             * Get the URL to a given local wiki page name,
+             * Get the URL to a given local wiki page name.
              *
              * @param {string|null} [pageName=wgPageName] Page name
              * @param {QueryParams} [params] A mapping of query parameter names to values,
@@ -337,7 +346,18 @@ declare global {
             function hidePortlet(portletId: string): void;
 
             /**
-             * Check whether a string is a valid IP address
+             * Determine if an input string represents a value of infinity.
+             * This is used when testing for infinity in the context of expiries,
+             * such as watchlisting, page protection, and block expiries.
+             *
+             * @param {string|null} str
+             * @return {boolean}
+             * @stable
+             */
+            function isInfinity(str: string | null): boolean;
+
+            /**
+             * Check whether a string is a valid IP address.
              *
              * @since 1.25
              * @param {string} address String to check
@@ -352,6 +372,7 @@ declare global {
              *
              * Based on \Wikimedia\IPUtils::isIPv4 in PHP.
              *
+             * @example
              * ```js
              * // Valid
              * mw.util.isIPv4Address( '80.100.20.101' );
@@ -361,7 +382,6 @@ declare global {
              * mw.util.isIPv4Address( '192.0.2.0/24' );
              * mw.util.isIPv4Address( 'hello' );
              * ```
-             *
              * @param {string} address
              * @param {boolean} [allowBlock=false]
              * @returns {boolean}
@@ -381,6 +401,7 @@ declare global {
              *
              * Based on \Wikimedia\IPUtils::isIPv6 in PHP.
              *
+             * @example
              * ```js
              * // Valid
              * mw.util.isIPv6Address( '2001:db8:a:0:0:0:0:0' );
@@ -390,7 +411,6 @@ declare global {
              * mw.util.isIPv6Address( '2001:db8:a::/32' );
              * mw.util.isIPv6Address( 'hello' );
              * ```
-             *
              * @param {string} address
              * @param {boolean} [allowBlock=false]
              * @returns {boolean}
@@ -399,7 +419,7 @@ declare global {
             function isIPv6Address(address: string, allowBlock?: boolean): boolean;
 
             /**
-             * Is a portlet visible?
+             * Whether a portlet is visible.
              *
              * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
              * @returns {boolean}
@@ -408,7 +428,7 @@ declare global {
             function isPortletVisible(portletId: string): boolean;
 
             /**
-             * Does given username match $wgAutoCreateTempUser?
+             * Checks if the given username matches $wgAutoCreateTempUser.
              *
              * This functionality has been adapted from `MediaWiki\User\TempUser\Pattern::isMatch()`
              *
@@ -424,14 +444,14 @@ declare global {
              * the image.
              *
              * @param {string} url URL to parse (URL-encoded)
-             * @returns {ImageUrlData|null} URL data, or null if the URL is not a valid MediaWiki
-             *   image/thumbnail URL.
+             * @returns {ResizeableThumbnailUrl|null} URL data, or null if the URL is not a valid MediaWiki
+             *  image/thumbnail URL.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-parseImageUrl
              */
-            function parseImageUrl(url: string): ImageUrlData | null;
+            function parseImageUrl(url: string): ResizeableThumbnailUrl | null;
 
             /**
-             * Percent-decode a string, as found in a URL hash fragment
+             * Percent-decode a string, as found in a URL hash fragment.
              *
              * Implements the percent-decode method as defined in
              * {@link https://url.spec.whatwg.org/#percent-decode}.
@@ -462,7 +482,7 @@ declare global {
             function prettifyIP(ip: string): string | null;
 
             /**
-             * Encode the string like PHP's rawurlencode
+             * Encode the string like PHP's rawurlencode.
              *
              * @param {string} str String to be encoded.
              * @returns {string} Encoded string
@@ -519,10 +539,10 @@ declare global {
              *
              * This validation is based on the HTML5 specification.
              *
+             * @example
              * ```js
              * mw.util.validateEmail( "me@example.org" ) === true;
              * ```
-             *
              * @param {string} email E-mail address
              * @returns {boolean|null} True if valid, false if invalid, null if `email` was empty.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-validateEmail

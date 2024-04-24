@@ -41,7 +41,6 @@ declare global {
              *     }
              * }
              * ```
-             *
              * @param {Experiment} experiment
              * @param {string} experiment.name The name of the experiment
              * @param {boolean} experiment.enabled Whether or not the experiment is

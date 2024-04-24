@@ -6,7 +6,16 @@ declare global {
     interface JQuery {
         /**
          * Highlight certain text in current nodes (by wrapping it in `<span class="highlight">...</span>`).
+         * Provided by the `jquery.highlightText` ResourceLoader module.
          *
+         * @example
+         * ```js
+         * mw.loader.using( 'jquery.highlightText' ).then( () => {
+         *     // no styling is provided by default.
+         *     mw.util.addCSS( `.highlight { background: yellow; }` )
+         *     $( '#bodyContent' ).highlightText( 'bear' );
+         * } );
+         * ```
          * @param {string} matchString String to match
          * @param {Options} [options]
          * @returns {JQuery}

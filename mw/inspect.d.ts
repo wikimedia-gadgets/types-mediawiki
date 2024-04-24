@@ -77,14 +77,17 @@ interface Dependency {
 declare global {
     namespace mw {
         /**
-         * Generate and print reports.
+         * Generates a ResourceLoader report using the {@link mw.inspect mediawiki.inspect module}.
          *
          * When invoked without arguments, prints all available reports.
          *
-         * @param {...string} [reports] One or more of "size", "css", "store", or "time".
+         * @param {...string} [reports]
          */
         function inspect(...reports: ResourceLoaderReport[]): void;
 
+        /**
+         * Tools for inspecting page composition and performance.
+         */
         namespace inspect {
             /**
              * @private

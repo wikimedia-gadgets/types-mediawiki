@@ -1,5 +1,4 @@
 import {
-    ApiParams,
     ApiEditPageParams,
     ApiLegacyTokenType,
     ApiParseParams,
@@ -11,7 +10,6 @@ import {
     ApiQueryTokensParams,
 } from "../api_params";
 import { TitleLike } from "./Title";
-import { UserInfo } from "./user";
 
 type TypeOrArray<T> = T extends any ? T | T[] : never; // T[] would be a mixed array
 type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
@@ -21,6 +19,9 @@ type UnknownApiParams = Record<string, string | string[] | boolean | number | nu
 export type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
 
 interface Revision {
+    /**
+     * Revision content.
+     */
     content: string;
     timestamp: string;
 }
@@ -57,12 +58,6 @@ interface AssertUser {
     assertUser: string;
 }
 
-interface WatchStatus {
-    ns: number;
-    title: string;
-    watched: boolean;
-}
-
 interface RollbackInfo {
     /**
      * The revision being restored (the last revision before revision(s) by the reverted user).
@@ -88,67 +83,49 @@ interface FinishUpload {
     (data?: ApiUploadParams): JQuery.Promise<ApiResponse>;
 }
 
-/**
- * Default options for {@link jQuery.ajax} calls. Can be overridden by passing
- * `options` to {@link mw.Api} constructor.
- *
- * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-property-defaultOptions
- */
-export interface ApiOptions {
-    /**
-     * Default query parameters for API requests
-     */
-    parameters: UnknownApiParams;
-    /**
-     * Default options for {@link jQuery.ajax}
-     */
-    ajax: JQuery.AjaxSettings;
-    /**
-     * Whether to use U+001F when joining multi-valued parameters (since 1.28).
-     * Default is true if ajax.url is not set, false otherwise for compatibility.
-     */
-    useUS?: boolean;
-}
-
 declare global {
     namespace mw {
         /**
+         * Interact with the API of a particular MediaWiki site. mw.Api objects represent the API of
+         * one particular MediaWiki site.
+         *
+         * ```js
+         * var api = new mw.Api();
+         * api.get( {
+         *     action: 'query',
+         *     meta: 'userinfo'
+         * } ).done( function ( data ) {
+         *     console.log( data );
+         * } );
+         * ```
+         *
+         * Since MW 1.25, multiple values for a parameter can be specified using an array:
+         *
+         * ```js
+         * var api = new mw.Api();
+         * api.get( {
+         *     action: 'query',
+         *     meta: [ 'userinfo', 'siteinfo' ] // same effect as 'userinfo|siteinfo'
+         * } ).done( function ( data ) {
+         *     console.log( data );
+         * } );
+         * ```
+         *
+         * Since MW 1.26, boolean values for API parameters can be specified natively. Parameter
+         * values set to `false` or `undefined` will be omitted from the request, as required by
+         * the API.
+         *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api
          */
         class Api {
             /**
-             * Constructor to create an object to interact with the API of a particular MediaWiki server. mw.Api objects represent the API of a particular MediaWiki server.
-             *
-             * ```js
-             * var api = new mw.Api();
-             * api.get( {
-             *     action: 'query',
-             *     meta: 'userinfo'
-             * } ).done( function ( data ) {
-             *     console.log( data );
-             * } );
-             * ```
-             *
-             * Since MW 1.25, multiple values for a parameter can be specified using an array:
-             *
-             * ```js
-             * var api = new mw.Api();
-             * api.get( {
-             *     action: 'query',
-             *     meta: [ 'userinfo', 'siteinfo' ] // same effect as 'userinfo|siteinfo'
-             * } ).done( function ( data ) {
-             *     console.log( data );
-             * } );
-             * ```
-             *
-             * Since MW 1.26, boolean values for a parameter can be specified directly. If the value is false or undefined, the parameter will be omitted from the request, as required by the API.
-             *
-             * @param {ApiOptions} [options]
+             * @param {Api.Options} [options] See {@link mw.Api.Options}. This can also be overridden for
+             *  each request by passing them to {@link get()} or {@link post()} (or directly to {@link ajax()}) later on.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-constructor
              */
-            constructor(options?: Partial<ApiOptions>);
+            constructor(options?: Api.Options);
 
-            private defaults: ApiOptions;
+            private defaults: Required<Api.Options>;
 
             /**
              * Abort all unfinished requests issued by this Api object.
@@ -195,8 +172,8 @@ declare global {
             /**
              * Perform the API call.
              *
-             * @param {UnknownApiParams} parameters Parameters to the API. See also {@link ApiOptions.parameters}
-             * @param {JQuery.AjaxSettings} [ajaxOptions] Parameters to pass to jQuery.ajax. See also {@link ApiOptions.ajax}
+             * @param {UnknownApiParams} parameters Parameters to the API. See also {@link mw.Api.Options.parameters}.
+             * @param {JQuery.AjaxSettings} [ajaxOptions] Parameters to pass to jQuery.ajax. See also {@link mw.Api.Options.ajax}.
              * @returns {JQuery.Promise<ApiResponse>} A promise that settles when the API response is processed.
              *   Has an 'abort' method which can be used to abort the request.
              *
@@ -218,7 +195,7 @@ declare global {
              *       first line of the server response). For HTTP/2, `exception` is always an empty string.
              *     - When the response is not valid JSON but the previous error conditions aren't met,
              *       textStatus is "parsererror" and exception is the exception object thrown by
-             *       `JSON.parse`.
+             *       {@link JSON.parse}.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-ajax
              */
             ajax(
@@ -229,8 +206,9 @@ declare global {
             /**
              * Post to API with the specified type of token. If we have no token, get one and try to post.
              * If we already have a cached token, try using that, and if the request fails using the cached token,
-             * blank it out and start over. For example, to change a user option, you could do:
+             * blank it out and start over.
              *
+             * @example <caption>For example, to change a user option, you could do:</caption>
              * ```js
              * new mw.Api().postWithToken( 'csrf', {
              *     action: 'options',
@@ -238,12 +216,11 @@ declare global {
              *     optionvalue: 'female'
              * } );
              * ```
-             *
              * @since 1.22
              * @param {string} tokenType The name of the token, like `options` or `edit`.
              * @param {UnknownApiParams} params API parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<ApiResponse>} See {@link post}
+             * @returns {JQuery.Promise<ApiResponse>} See {@link post()}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-postWithToken
              */
             postWithToken(
@@ -268,8 +245,8 @@ declare global {
              *
              * @since 1.22
              * @param {string} type Token type
-             * @param {ApiQueryTokensParams|ApiAssert} [additionalParams] Additional parameters for the API (since 1.35). When given a string, it's treated as the `assert` parameter (since 1.25)
-             * @returns {JQuery.Promise<string>} Received token
+             * @param {ApiQueryTokensParams|ApiAssert} [additionalParams] Additional parameters for the API (since 1.35). When given a string, it's treated as the `assert` parameter (since 1.25).
+             * @returns {JQuery.Promise<string>} Received token.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-getToken
              */
             getToken(
@@ -289,8 +266,8 @@ declare global {
             /**
              * Indicate that the cached token for a certain action of the API is bad.
              *
-             * Call this if you get a `badtoken` error when using the token returned by `getToken()`.
-             * You may also want to use `postWithToken()` instead, which invalidates bad cached tokens
+             * Call this if you get a `badtoken` error when using the token returned by {@link getToken()}.
+             * You may also want to use {@link postWithToken()} instead, which invalidates bad cached tokens
              * automatically.
              *
              * @since 1.26
@@ -318,8 +295,7 @@ declare global {
              * Error messages, particularly for editing pages, may consist of multiple paragraphs of text.
              * Your user interface should have enough space for that.
              *
-             * Example usage:
-             *
+             * @example
              * ```js
              * var api = new mw.Api();
              * // var title = 'Test valid title';
@@ -333,7 +309,6 @@ declare global {
              *     mw.notify( api.getErrorMessage( data ), { type: 'error' } );
              * } );
              * ```
-             *
              * @param {ApiResponse} data API response indicating an error
              * @returns {JQuery} Error messages, each wrapped in a `<div>`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-getErrorMessage
@@ -344,8 +319,8 @@ declare global {
              * Post to API with csrf token. If we have no token, get one and try to post. If we have a cached token try using that, and if it fails, blank out the cached token and start over.
              *
              * @param {UnknownApiParams} params API parameters
-             * @param {JQuery.AjaxSettings} [ajaxOptions] See {@link post}
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @param {JQuery.AjaxSettings} [ajaxOptions]
+             * @returns {JQuery.Promise<ApiResponse>} See {@link post}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.edit-method-postWithEditToken
              */
             postWithEditToken(
@@ -364,15 +339,13 @@ declare global {
             /**
              * Create a new page.
              *
-             * Example:
-             *
+             * @example
              * ```js
              * new mw.Api().create( 'Sandbox',
              *     { summary: 'Load sand particles.' },
              *     'Sand.'
              * );
              * ```
-             *
              * @since 1.28
              * @param {TitleLike} title Page title
              * @param {ApiEditPageParams} params Edit API parameters
@@ -389,7 +362,7 @@ declare global {
             /**
              * Edit an existing page.
              *
-             * To create a new page, use create() instead.
+             * To create a new page, use {@link create()} instead.
              *
              * Simple transformation:
              *
@@ -443,14 +416,11 @@ declare global {
              *
              * @since 1.28
              * @param {TitleLike} title Page title
-             * @param {function(Revision):string|ApiEditPageParams} transform Callback that prepares the edit
+             * @param {Api.EditTransform} transform Callback that prepares the edit
              * @returns {JQuery.Promise<EditResult>} Edit API response
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.edit-method-edit
              */
-            edit(
-                title: TitleLike,
-                transform: (revision: Revision) => string | ApiEditPageParams
-            ): JQuery.Promise<EditResult>;
+            edit(title: TitleLike, transform: Api.EditTransform): JQuery.Promise<EditResult>;
 
             /**
              * Post a new section to the page.
@@ -459,7 +429,7 @@ declare global {
              * @param {string} header
              * @param {string} message Wikitext message
              * @param {ApiEditPageParams} additionalParams Additional API parameters
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<ApiResponse>} See {@link postWithEditToken}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.edit-method-newSection
              */
             newSection(
@@ -473,21 +443,33 @@ declare global {
              * Get the current user's groups and rights.
              *
              * @since 1.27
-             * @returns {JQuery.Promise<UserInfo>}
+             * @returns {JQuery.Promise<Api.UserInfo>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.user-method-getUserInfo
              */
-            getUserInfo(): JQuery.Promise<UserInfo>;
+            getUserInfo(): JQuery.Promise<Api.UserInfo>;
 
             /**
              * Extend an API parameter object with an assertion that the user won't change.
              *
-             * This is useful for API calls which create new revisions or log entries. When the current page was loaded when the user was logged in, but at the time of the API call the user is not logged in anymore (e.g. due to session expiry), their IP is recorded in the page history or log, which can cause serious privacy issues. Extending the API parameters via this method ensures that that won't happen, by checking the user's identity that was embedded into the page when it was rendered against the active session on the server.
+             * This is useful for API calls which create new revisions or log entries. When the current
+             * page was loaded when the user was logged in, but at the time of the API call the user
+             * is not logged in anymore (e.g. due to session expiry), their IP is recorded in the page
+             * history or log, which can cause serious privacy issues. Extending the API parameters via
+             * this method ensures that that won't happen, by checking the user's identity that was
+             * embedded into the page when it was rendered against the active session on the server.
              *
-             * Use it like this: `api.postWithToken( 'csrf', api.assertCurrentUser( { action: 'edit', ... } ) )`. When the assertion fails, the API request will fail, with one of the following error codes:
-             * * `apierror-assertanonfailed`: when the client-side logic thinks the user is anonymous but the server thinks it is logged in
-             * * `apierror-assertuserfailed`: when the client-side logic thinks the user is logged in but the server thinks it is anonymous
-             * * `apierror-assertnameduserfailed`: when both the client-side logic and the server thinks the user is logged in but they see it logged in under a different username.
+             * When the assertion fails, the API request will fail, with one of the following error codes:
+             * - `apierror-assertanonfailed`: when the client-side logic thinks the user is anonymous
+             *   but the server thinks it is logged in
+             * - `apierror-assertuserfailed`: when the client-side logic thinks the user is logged in but the
+             *   server thinks it is anonymous
+             * - `apierror-assertnameduserfailed`: when both the client-side logic and the server thinks the
+             *   user is logged in but they see it logged in under a different username.
              *
+             * @example
+             * ```js
+             * api.postWithToken( 'csrf', api.assertCurrentUser( { action: 'edit', ... } ) )
+             * ```
              * @since 1.27
              * @param {UnknownApiParams} query Query parameters. The object will not be changed
              * @returns {AssertUser}
@@ -498,7 +480,8 @@ declare global {
             ): Omit<T, keyof AssertUser> & AssertUser;
 
             /**
-             * Asynchronously save the value of a single user option using the API. See `saveOptions()`.
+             * Asynchronously save the value of a single user option using the API.
+             * See {@link saveOptions()}.
              *
              * @param {string} name
              * @param {string|null} value
@@ -512,11 +495,15 @@ declare global {
              *
              * If a value of `null` is provided, the given option will be reset to the default value.
              *
-             * Any warnings returned by the API, including warnings about invalid option names or values, are ignored. However, do not rely on this behavior.
+             * Any warnings returned by the API, including warnings about invalid option names or values,
+             * are ignored. However, do not rely on this behavior.
              *
-             * If necessary, the options will be saved using several sequential API requests. Only one promise is always returned that will be resolved when all requests complete.
+             * If necessary, the options will be saved using several sequential API requests. Only one promise
+             * is always returned that will be resolved when all requests complete.
              *
-             * If a request from a previous `saveOptions()` call is still pending, this will wait for it to be completed, otherwise MediaWiki gets sad. No requests are sent for anonymous users, as they would fail anyway. See T214963.
+             * If a request from a previous {@link saveOptions()} call is still pending, this will wait for it to be
+             * completed, otherwise MediaWiki gets sad. No requests are sent for anonymous users, as they
+             * would fail anyway. See T214963.
              *
              * @param {Object.<string, string|null>} options Options as a `{ name: value, … }` object
              * @returns {JQuery.Promise<ApiResponse>}
@@ -528,34 +515,43 @@ declare global {
              * Convenience method for `action=watch`.
              *
              * @since 1.35 - expiry parameter can be passed when Watchlist Expiry is enabled
-             * @param {TypeOrArray<TitleLike>} pages
-             * @param {string} [expiry]
-             * @returns {JQuery.Promise<TypeOrArray<WatchStatus>>}
+             * @param {TypeOrArray<TitleLike>} pages Full page name or instance of {@link mw.Title}, or an
+             *  array thereof. If an array is passed, the return value passed to the promise will also be an
+             *  array of appropriate objects.
+             * @param {string} [expiry] When the page should expire from the watchlist. If omitted, the
+             *  page will not expire.
+             * @returns {JQuery.Promise<TypeOrArray<Api.WatchedPage>>} A promise that resolves
+             *  with an object (or array of objects) describing each page that was passed in and its
+             *  current watched/unwatched status.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.watch-method-watch
              */
             watch<P extends TypeOrArray<TitleLike>>(
                 pages: P,
                 expiry?: string
-            ): JQuery.Promise<ReplaceValue<P, TitleLike, WatchStatus>>;
+            ): JQuery.Promise<ReplaceValue<P, TitleLike, Api.WatchedPage>>;
 
             /**
              * Convenience method for `action=watch&unwatch=1`.
              *
-             * @param {TypeOrArray<TitleLike>} pages
-             * @returns {JQuery.Promise<TypeOrArray<WatchStatus>>}
+             * @param {TypeOrArray<TitleLike>} pages Full page name or instance of {@link mw.Title}, or an
+             *  array thereof. If an array is passed, the return value passed to the promise will also be an
+             *  array of appropriate objects.
+             * @returns {JQuery.Promise<TypeOrArray<Api.WatchedPage>>} A promise that resolves
+             *  with an object (or array of objects) describing each page that was passed in and its
+             *  current watched/unwatched status.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.watch-method-unwatch
              */
             unwatch<P extends TypeOrArray<TitleLike>>(
                 pages: P
-            ): JQuery.Promise<ReplaceValue<P, TitleLike, WatchStatus>>;
+            ): JQuery.Promise<ReplaceValue<P, TitleLike, Api.WatchedPage>>;
 
             /**
              * Convenience method for `action=parse`.
              *
-             * @param {TitleLike} content Content to parse, either as a wikitext string or a mw.Title
+             * @param {TitleLike} content Content to parse, either as a wikitext string or a {@link mw.Title}
              * @param {ApiParseParams} [additionalParams] Parameters object to set custom settings, e.g.
-             *   redirects, sectionpreview.  prop should not be overridden.
-             * @returns {JQuery.Promise<string>} Parsed HTML of `wikitext`.
+             *   `redirects`, `sectionpreview`. `prop` should not be overridden.
+             * @returns {JQuery.Promise<string>} Promise that resolves with the parsed HTML of `wikitext`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.parse-method-parse
              */
             parse(content: TitleLike, additionalParams?: ApiParseParams): JQuery.Promise<string>;
@@ -575,7 +571,7 @@ declare global {
             ): JQuery.Promise<Partial<Record<T, string>>>;
 
             /**
-             * Load a set of messages and add them to `mw.messages`.
+             * Load a set of messages and add them to {@link mw.messages}.
              *
              * @param {string|string[]} messages Messages to retrieve
              * @param {ApiQueryAllMessagesParams} [options] Additional parameters for the API call
@@ -588,16 +584,17 @@ declare global {
             ): JQuery.Promise<boolean>;
 
             /**
-             * Load a set of messages and add them to `mw.messages`. Only messages that are not already known are loaded. If all messages are known, the returned promise is resolved immediately.
+             * Load a set of messages and add them to {@link mw.messages}. Only messages that are not already known
+             * are loaded. If all messages are known, the returned promise is resolved immediately.
              *
              * @since 1.27
-             * @param {string[]} messages Messages to retrieve
+             * @param {string|string[]} messages Messages to retrieve
              * @param {ApiQueryAllMessagesParams} [options] Additional parameters for the API call
              * @returns {JQuery.Promise<boolean>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.messages-method-loadMessagesIfMissing
              */
             loadMessagesIfMissing(
-                messages: string[],
+                messages: string | string[],
                 options?: ApiQueryAllMessagesParams
             ): JQuery.Promise<boolean>;
 
@@ -605,7 +602,7 @@ declare global {
              * Determine if a category exists.
              *
              * @param {TitleLike} title
-             * @returns {JQuery.Promise<boolean>}
+             * @returns {JQuery.Promise<boolean>} Promise that resolves with a boolean indicating whether the category exists.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.category-method-isCategory
              */
             isCategory(title: TitleLike): JQuery.Promise<boolean>;
@@ -616,7 +613,7 @@ declare global {
              * E.g. given "Foo", return "Food", "Foolish people", "Foosball tables"...
              *
              * @param {string} prefix Prefix to match.
-             * @returns {JQuery.Promise<string[]>} Matched categories
+             * @returns {JQuery.Promise<string[]>} Promise that resolves with an array of matched categories
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.category-method-getCategoriesByPrefix
              */
             getCategoriesByPrefix(prefix: string): JQuery.Promise<string[]>;
@@ -625,7 +622,7 @@ declare global {
              * Get the categories that a particular page on the wiki belongs to.
              *
              * @param {TitleLike} title
-             * @returns {JQuery.Promise<false|Title[]>} List of category titles or false if title was not found
+             * @returns {JQuery.Promise<false|Title[]>} Promise that resolves with an array of category titles, or with false if the title was not found.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.category-method-getCategories
              */
             getCategories(title: TitleLike): JQuery.Promise<false | Title[]>;
@@ -667,12 +664,14 @@ declare global {
              * Upload a file to the stash, in chunks.
              *
              * This function will return a promise that will resolve with a function to finish the stash upload.
+             * See {@link uploadToStash}.
              *
              * @param {File|HTMLInputElement} file
              * @param {ApiUploadParams} [data]
              * @param {number} [chunkSize] Size (in bytes) per chunk (default: 5MB)
              * @param {number} [chunkRetries] Amount of times to retry a failed chunk (default: 1)
-             * @returns {JQuery.Promise<FinishUpload>}
+             * @returns {JQuery.Promise<FinishUpload>} Promise that resolves with a
+             *  function that should be called to finish the upload.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.upload-method-chunkedUploadToStash
              */
             chunkedUploadToStash(
@@ -710,8 +709,11 @@ declare global {
             /**
              * Upload a file to the stash.
              *
-             * This function will return a promise that will resolve with a function to finish the stash upload. You can call that function with an argument containing more, or conflicting, data to pass to the server. For example:
+             * This function will return a promise, which when resolved, will pass back a function
+             * to finish the stash upload. You can call that function with an argument containing
+             * more, or conflicting, data to pass to the server.
              *
+             * @example
              * ```js
              * // upload a file to the stash with a placeholder filename
              * api.uploadToStash( file, { filename: 'testing.png' } ).done( function ( finish ) {
@@ -725,7 +727,8 @@ declare global {
              *
              * @param {File|HTMLInputElement} file
              * @param {ApiUploadParams} [data]
-             * @returns {JQuery.Promise<FinishUpload>}
+             * @returns {JQuery.Promise<FinishUpload>} Promise that resolves with a
+             *  function that should be called to finish the upload.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.upload-method-uploadToStash
              */
             uploadToStash(
@@ -741,7 +744,69 @@ declare global {
              */
             login(username: string, password: string): JQuery.Promise<ApiResponse>;
         }
+
+        namespace Api {
+            interface EditTransform {
+                /**
+                 * @param {Object} revision Current revision
+                 * @returns {string|ApiEditPageParams|JQuery.Promise<string>|JQuery.Promise<ApiEditPageParams>} New content, object with edit API parameters, or promise providing one of those.
+                 */
+                (revision: Revision):
+                    | string
+                    | ApiEditPageParams
+                    | JQuery.Promise<string>
+                    | JQuery.Promise<ApiEditPageParams>;
+            }
+
+            /**
+             * Default options for {@link jQuery.ajax} calls. Can be overridden by passing
+             * `options` to {@link mw.Api} constructor.
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-property-defaultOptions
+             */
+            interface Options {
+                /**
+                 * Default query parameters for API requests
+                 */
+                parameters?: UnknownApiParams;
+                /**
+                 * Default options for {@link jQuery.ajax}
+                 */
+                ajax?: JQuery.AjaxSettings;
+                /**
+                 * Whether to use U+001F when joining multi-valued parameters (since 1.28).
+                 * Default is true if ajax.url is not set, false otherwise for compatibility.
+                 */
+                useUS?: boolean;
+            }
+
+            interface UserInfo {
+                /**
+                 * User groups that the user belongs to.
+                 */
+                groups: string[];
+                /**
+                 * User's rights.
+                 */
+                rights: string[];
+            }
+
+            interface WatchedPage {
+                ns: number;
+                /**
+                 * Full page name.
+                 */
+                title: string;
+                /**
+                 * Whether the page is now watched (true) or unwatched (false).
+                 */
+                watched: boolean;
+            }
+        }
     }
 }
+
+/** @deprecated Use `mw.Api.Options` instead. Note that `ApiOptions` is strictly equivalent to `Required<mw.Api.Options>` as properties are now optional for consistency. */
+export type ApiOptions = Required<mw.Api.Options>;
 
 export {};

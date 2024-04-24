@@ -2,6 +2,7 @@ declare global {
     interface JQuery {
         /**
          * Get the contents of the textarea.
+         * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
          * @returns {string}
@@ -11,6 +12,7 @@ declare global {
 
         /**
          * Set the contents of the textarea, replacing anything that was there before.
+         * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
          * @param {string} content
@@ -21,6 +23,7 @@ declare global {
 
         /**
          * Get the currently selected text in this textarea.
+         * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
          * @returns {string}
@@ -30,6 +33,7 @@ declare global {
 
         /**
          * Replace the selected text in the textarea with the given text, or insert it at the cursor.
+         * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
          * @param {string} value
@@ -41,6 +45,7 @@ declare global {
         /**
          * Insert text at the beginning and end of a text selection, optionally
          * inserting text at the caret when selection is empty.
+         * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * Also focusses the textarea.
          *
@@ -56,6 +61,7 @@ declare global {
 
         /**
          * Get the current cursor position (in UTF-16 code units) in a textarea.
+         * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
          * @param {Object} [options]
@@ -75,6 +81,7 @@ declare global {
 
         /**
          * Set the current cursor position (in UTF-16 code units) in a textarea.
+         * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
          * @param {Object} options
@@ -88,6 +95,7 @@ declare global {
         /**
          * Scroll a textarea to the current cursor position. You can set the cursor
          * position with 'setSelection'.
+         * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
          * @param {Object} [options]
@@ -100,6 +108,7 @@ declare global {
 
         /**
          * Register an alternative textSelection API for this element.
+         * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
          * @param {Object.<string, Function>} functions Functions to replace. Keys are command names (as in {@link textSelection},
@@ -114,6 +123,7 @@ declare global {
 
         /**
          * Unregister the alternative textSelection API for this element (see 'register').
+         * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
@@ -122,6 +132,14 @@ declare global {
 
         /**
          * Do things to the selection in the textarea, using a command from the alternative textSelection API for this element.
+         * Provided by the `jquery.textSelection` ResourceLoader module.
+         *
+         * @example
+         * ```js
+         * mw.loader.using( 'jquery.textSelection' ).then( () => {
+         *     const contents = $( 'textarea' ).textSelection( 'getContents' );
+         * } );
+         * ```
          *
          * @param {string} command Command to execute
          * @param {any} [commandOptions] Options to pass to the command

@@ -28,6 +28,8 @@ declare global {
     function importScript(title: string): HTMLScriptElement | null;
 
     /**
+     * Import a script using an absolute URI.
+     *
      * @since 1.12.2
      * @param {string} url
      * @returns {HTMLScriptElement|null} Script tag, or null if it was already imported before
@@ -46,6 +48,8 @@ declare global {
     function importStylesheet(title: string): HTMLLinkElement;
 
     /**
+     * Import a stylesheet using an absolute URI.
+     *
      * @since 1.12.2
      * @param {string} url
      * @param {string} media

@@ -5,6 +5,7 @@ import "./confirmCloseWindow";
 import "./cookie";
 import "./debug";
 import "./deflate";
+import "./errorLogger";
 import "./ForeignApi";
 import "./ForeignRest";
 import "./ForeignUpload";
@@ -33,8 +34,14 @@ type ObjectAnalyticEventData = Record<string, any>;
 type AnalyticEventData = ObjectAnalyticEventData | number | string | undefined;
 
 interface ErrorAnalyticEventData extends ObjectAnalyticEventData {
-    exception?: any;
+    exception?: Error;
+    /**
+     * Name of module which caused the error.
+     */
     module?: string;
+    /**
+     * Error source.
+     */
     source: string;
 }
 
@@ -51,16 +58,12 @@ declare global {
     /**
      * Base library for MediaWiki.
      *
-     * Exposed globally as `mw`, with `mediaWiki` as alias.
-     *
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw
      */
     const mediaWiki: typeof mw;
 
     /**
      * Base library for MediaWiki.
-     *
-     * Exposed globally as `mw`, with `mediaWiki` as alias.
      *
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw
      */
@@ -75,10 +78,22 @@ declare global {
         const libs: Record<string, any>;
 
         /**
-         * OOUI widgets specific to MediaWiki
+         * Store for templates associated with a module.
+         */
+        const templates: Map<Record<string, any>>;
+
+        /**
+         * OOUI widgets specific to MediaWiki.
+         * Initially empty. To expand the amount of available widgets the `mediawiki.widget` module can be loaded.
          *
          * types for mw.widgets are out of scope!
          *
+         * @example
+         * ```
+         * mw.loader.using('mediawiki.widget').then(() => {
+         *     OO.ui.getWindowManager().addWindows( [ new mw.widget.AbandonEditDialog() ] );
+         * });
+         * ```
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.base.html#mw-property-libs
          */
         const widgets: any;
@@ -86,7 +101,7 @@ declare global {
         /**
          * Format a string. Replace $1, $2 ... $N with positional arguments.
          *
-         * Used by {@link Message.parser()}.
+         * Used by {@link mw.Message.parse}.
          *
          * @since 1.25
          * @param {string} formatString Format string
@@ -163,10 +178,13 @@ declare global {
         function track(topic: string, data?: AnalyticEventData): void;
 
         /**
-         * Track an early error event via mw.track and send it to the window console.
+         * Track `'resourceloader.exception'` event and send it to the window console.
+         *
+         * This exists for internal use by mw.loader only, to remember and buffer
+         * very early events for `mw.trackSubscribe( 'resourceloader.exception' )`
+         * even while `mediawiki.base` and `mw.track` are still in-flight.
          *
          * @private
-         * @param {string} topic Topic name
          * @param {ErrorAnalyticEventData} data Data describing the event, encoded as an object; see {@link errorLogger.logError}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackError
          */
@@ -180,18 +198,16 @@ declare global {
          * `data` event object. The `this` value for the callback is a plain object with `topic` and
          * `data` properties set to those same values.
          *
-         * Example to monitor all topics for debugging:
-         *
+         * @example
          * ```js
+         * // To monitor all topics for debugging
          * mw.trackSubscribe( '', console.log );
          * ```
-         *
-         * Example to subscribe to any of `foo.*`, e.g. both `foo.bar` and `foo.quux`:
-         *
+         * @example
          * ```js
+         * // To subscribe to any of `foo.*`, e.g. both `foo.bar` and `foo.quux`
          * mw.trackSubscribe( 'foo.', console.log );
          * ```
-         *
          * @param {string} topic Handle events whose name starts with this string prefix
          * @param {function(string, AnalyticEventData): void} callback Handler to call for each matching tracked event
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackSubscribe
@@ -199,7 +215,7 @@ declare global {
         function trackSubscribe(topic: string, callback: AnalyticEventCallback): void;
 
         /**
-         * Stop handling events for a particular handler
+         * Stop handling events for a particular handler.
          *
          * @param {function(string, AnalyticEventData): void} callback
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackUnsubscribe

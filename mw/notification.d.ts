@@ -1,60 +1,9 @@
-interface NotificationOptions {
-    /**
-     * A boolean indicating whether the notification should automatically
-     * be hidden after shown. Or if it should persist.
-     */
-    autoHide: boolean;
-
-    /**
-     * Key to {@link mw.notification.autoHideSeconds} for number of seconds for timeout of auto-hide
-     * notifications.
-     */
-    autoHideSeconds: "long" | "short";
-
-    /**
-     * An optional string. When a notification is tagged only one message
-     * with that tag will be displayed. Trying to display a new notification
-     * with the same tag as one already being displayed will cause the other
-     * notification to be closed and this new notification to open up inside
-     * the same place as the previous notification.
-     */
-    tag: string | null;
-
-    /**
-     * An optional title for the notification. Will be displayed above the
-     * content. Usually in bold.
-     */
-    title: string | null;
-
-    /**
-     * An optional string for the type of the message used for styling:
-     * Examples: 'info', 'warn', 'error', 'success'.
-     */
-    type: "error" | "info" | "success" | "warn" | null;
-
-    /**
-     * A boolean indicating if the autoHide timeout should be based on
-     * time the page was visible to user. Or if it should use wall clock time.
-     */
-    visibleTimeout: boolean;
-
-    /**
-     * HTML ID to set on the notification element.
-     */
-    id: string | false;
-
-    /**
-     * CSS class names in the form of a single string or
-     * array of strings, to be set on the notification element.
-     */
-    classes: string | string[] | false;
-}
-
 /**
- * A Notification object for 1 message.
+ * Describes a notification. See {@link mw.notification mw.notification module}. A Notification object for 1 message.
  *
  * The constructor is not publicly accessible; use {@link mw.notification.notify} instead.
- * This does not insert anything into the document (see {@link start}).
+ * This does not insert anything into the document. To add to document use
+ * {@link mw.notification.notify}.
  *
  * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Notification_
  */
@@ -77,7 +26,7 @@ interface Notification {
     close(): void;
 
     /**
-     * Pause any running auto-hide timer for this notification
+     * Pause any running auto-hide timer for this notification.
      *
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Notification_-method-pause
      */
@@ -108,11 +57,11 @@ interface Notification {
 declare global {
     namespace mw {
         /**
-         * Display a notification message to the user.
+         * Convenience method for loading and accessing the {@link mw.notification.notify mw.notification module}.
          *
          * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
          * @param {Partial<NotificationOptions>} [options] The options to use for the notification.
-         *  See {@link NotificationOptions defaults} for details.
+         *  See {@link defaults} the defaults.
          * @returns {JQuery.Promise<Notification>} Notification object
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-notify
          */
@@ -122,6 +71,8 @@ declare global {
         ): JQuery.Promise<Notification>;
 
         /**
+         * Library for sending notifications to end users.
+         *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification
          */
         namespace notification {
@@ -148,7 +99,7 @@ declare global {
             };
 
             /**
-             * The defaults for notify options parameter.
+             * The defaults for {@link notify} options parameter.
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-property-defaults
              */
@@ -174,15 +125,66 @@ declare global {
              * Display a notification message to the user.
              *
              * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
-             * @param {Partial<NotificationOptions>} [options] The options to use for the notification.
-             *  See {@link NotificationOptions defaults} for details.
+             * @param {NotificationOptions} [options] The options to use for the notification.
+             *  Options not specified default to the values in {@link defaults}.
              * @returns {Notification} Notification object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-method-notify
              */
             function notify(
                 message: string | Message | JQuery | HTMLElement | HTMLElement[],
-                options?: Partial<NotificationOptions>
+                options?: NotificationOptions
             ): Notification;
+
+            interface NotificationOptions {
+                /**
+                 * Whether the notification should automatically
+                 * be hidden after shown. Or if it should persist.
+                 */
+                autoHide?: boolean;
+
+                /**
+                 * Key to {@link autoHideSeconds} for number of seconds for timeout of auto-hide
+                 * notifications.
+                 */
+                autoHideSeconds?: "long" | "short";
+
+                /**
+                 * CSS class names to be set on the notification element.
+                 */
+                classes?: string | string[] | false;
+
+                /**
+                 * HTML ID to set on the notification element.
+                 */
+                id?: string | false;
+
+                /**
+                 * An optional string. When a notification is tagged only one message
+                 * with that tag will be displayed. Trying to display a new notification
+                 * with the same tag as one already being displayed will cause the other
+                 * notification to be closed and this new notification to open up inside
+                 * the same place as the previous notification.
+                 */
+                tag?: string | null;
+
+                /**
+                 * An optional title for the notification. Will be displayed above the
+                 * content. Usually in bold.
+                 */
+                title?: string | null;
+
+                /**
+                 * An optional string for the type of the message used for styling.
+                 * Examples: `info`, `warn`, `error`, `success`.
+                 */
+                type?: "error" | "info" | "success" | "warn" | null;
+
+                /**
+                 * A boolean indicating if the autoHide timeout should be based on
+                 * time the page was visible to user. Or if it should use wall clock time.
+                 */
+                visibleTimeout?: boolean;
+            }
         }
     }
 }

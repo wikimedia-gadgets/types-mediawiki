@@ -212,15 +212,15 @@ declare global {
                 const abbrev: string[];
 
                 /**
+                 * Array of month names in genitive case, zero-indexed.
+                 */
+                const genitive: string[];
+
+                /**
                  * Object containing zero-indexed arrays of message keys for appropriate messages
                  * which can be passed to {@link mw.msg}.
                  */
                 const keys: Record<"abbrev" | "genitive" | "names", string[]>;
-
-                /**
-                 * Array of month names in genitive case, zero-indexed.
-                 */
-                const genitive: string[];
 
                 /**
                  * Array of month names (in nominative case in languages which have the distinction),

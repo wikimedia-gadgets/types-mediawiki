@@ -1,25 +1,34 @@
 declare global {
     interface JQuery {
+        /**
+         * Enable inline confirmation for given clickable element (like `<a />` or `<button />`).
+         * Provided by the `jquery.confirmable` ResourceLoader module.
+         *
+         * An additional inline confirmation step being shown before the default action is carried out on
+         * click.
+         *
+         * Calling `.confirmable( { handler: function () { … } } )` will fire the handler only after the
+         * confirmation step.
+         *
+         * The element will have the `jquery-confirmable-element` class added to it when it's clicked for
+         * the first time, which has `white-space: nowrap;` and `display: inline-block;` defined in CSS.
+         * If the computed values for the element are different when you make it confirmable, you might
+         * encounter unexpected behavior.
+         *
+         * @example
+         * ```js
+         * mw.loader.using( 'jquery.confirmable' ).then( () => {
+         *     $( 'button' ).confirmable();
+         * } );
+         * ```
+         */
         confirmable: Confirmable;
     }
 }
 
 interface Confirmable {
     /**
-     * Enable inline confirmation for given clickable element (like `<a />` or `<button />`).
-     *
-     * An additional inline confirmation step being shown before the default action is carried out on
-     * click.
-     *
-     * Calling `.confirmable( { handler: function () { … } } )` will fire the handler only after the
-     * confirmation step.
-     *
-     * The element will have the `jquery-confirmable-element` class added to it when it's clicked for
-     * the first time, which has `white-space: nowrap;` and `display: inline-block;` defined in CSS.
-     * If the computed values for the element are different when you make it confirmable, you might
-     * encounter unexpected behavior.
-     *
-     * @param {Options} [options]
+     * @param {Partial<Options>} [options]
      */
     (options?: Partial<Options>): this;
 
@@ -69,31 +78,35 @@ interface Options {
 interface I18N {
     /**
      * Text to use for the confirmation question.
+     * Defaults to `Are you sure?`.
      */
     confirm: string;
 
     /**
      * Text to use for the 'No' button.
+     * Defaults to `No`.
      */
     no: string;
 
     /**
-     * Title text to use for the 'No' button.
+     * Optional title text to use for the 'No' button.
      */
     noTitle: string | undefined;
 
     /**
      * Word separator to place between the three text messages.
+     * Defaults to ` `.
      */
     space: string;
 
     /**
      * Text to use for the 'Yes' button.
+     * Defaults to `Yes`.
      */
     yes: string;
 
     /**
-     * Title text to use for the 'Yes' button.
+     * Optional title text to use for the 'Yes' button.
      */
     yesTitle: string | undefined;
 }

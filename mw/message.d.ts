@@ -20,9 +20,7 @@ declare global {
         const messages: Map<{ [key: string]: string }>;
 
         /**
-         * Object constructor for messages.
-         *
-         * Similar to the Message class in MediaWiki PHP.
+         * Describes a translateable text or HTML string. Similar to the Message class in MediaWiki PHP.
          *
          * @example
          * ```js
@@ -60,14 +58,12 @@ declare global {
          * mw.log( obj.escaped() );
          * // You will find: Time &quot;after&quot; &lt;time&gt;
          * ```
-         *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message
          */
         class Message {
             /**
              * Object constructor for messages.
-             *
-             * Similar to the Message class in MediaWiki PHP.
+             * The constructor is not publicly accessible; use {@link mw.message} instead.
              *
              * @example
              * ```js
@@ -105,7 +101,6 @@ declare global {
              * mw.log( obj.escaped() );
              * // You will find: Time &quot;after&quot; &lt;time&gt;
              * ```
-             *
              * @param {Map} map Message store
              * @param {string} key
              * @param {Array} [parameters]
@@ -124,7 +119,7 @@ declare global {
             escaped(): string;
 
             /**
-             * Check if a message exists
+             * Check if a message exists. Equivalent to {@link mw.Map.exists}.
              *
              * @returns {boolean}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-exists
@@ -174,22 +169,6 @@ declare global {
             parseDom(): JQuery;
 
             /**
-             * Get parsed contents of the message.
-             *
-             * The default parser does simple $N replacements and nothing else.
-             * This may be overridden to provide a more complex message parser.
-             * The primary override is in the mediawiki.jqueryMsg module.
-             *
-             * This function will not be called for nonexistent messages.
-             *
-             * @private For internal use by mediawiki.jqueryMsg only
-             * @param {string} format
-             * @returns {string} Parsed message
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-parser
-             */
-            private parser(format: string): string;
-
-            /**
              * Return message plainly.
              *
              * This substitutes parameters, but otherwise does not transform the
@@ -211,6 +190,22 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-text
              */
             text(): string;
+
+            /**
+             * Get parsed contents of the message.
+             *
+             * The default parser does simple $N replacements and nothing else.
+             * This may be overridden to provide a more complex message parser.
+             * The primary override is in the mediawiki.jqueryMsg module.
+             *
+             * This function will not be called for nonexistent messages.
+             *
+             * @private For internal use by mediawiki.jqueryMsg only
+             * @param {string} format
+             * @returns {string} Parsed message
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-parser
+             */
+            private parser(format: string): string;
 
             /**
              * Convert message object to a string using the "text"-format .

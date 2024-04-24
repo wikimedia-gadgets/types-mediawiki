@@ -32,6 +32,7 @@ declare global {
          * $.createSpinner( { id: 'magic' } );
          * ```
          *
+         * @ignore
          * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
          *   of the `id` option.
          * @returns {JQuery}
@@ -41,6 +42,7 @@ declare global {
         /**
          * Remove a spinner element.
          *
+         * @ignore
          * @param {string} id Id of the spinner, as passed to {@link createSpinner}
          * @returns {JQuery} The (now detached) spinner element
          */
@@ -49,12 +51,13 @@ declare global {
 
     interface JQuery {
         /**
-         * Inject a spinner after each element in the collection
+         * Inject a spinner after each element in the collection.
+         * Provided by the `jquery.spinner` ResourceLoader module.
          *
          * Inserts spinner as siblings (not children) of the target elements.
          * Collection contents remain unchanged.
          *
-         * @param {string|Object} [opts] Options. If a string is given, it will be treated as the value
+         * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
          *   of the `id` option.
          * @returns {JQuery}
          */

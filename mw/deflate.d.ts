@@ -1,15 +1,15 @@
 declare global {
     namespace mw {
         /**
-         * Compress the content and add the 'rawdeflate,' prefix.
+         * Convert a byte stream to base64 text.
+         * Before using load the `mediawiki.deflate` ResourceLoader module.
          *
          * @example
          * ```js
          * mw.loader.using( 'mediawiki.deflate' ).then( function () {
-         *     var deflated = mw.deflate( myContent );
+         *     return mw.deflate( html );
          * } );
          * ```
-         *
          * @param {string|ArrayBuffer} data Undeflated data
          * @returns {string} Deflated data
          * @see https://github.com/wikimedia/mediawiki/blob/master/resources/src/mediawiki.deflate/mw.deflate.js#L3

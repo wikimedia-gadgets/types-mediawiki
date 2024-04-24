@@ -2,6 +2,7 @@ declare global {
     interface JQuery {
         /**
          * This plugin provides a generic way to add suggestions to a text box.
+         * Provided by the `jquery.suggestions` ResourceLoader module.
          *
          * Set options:
          *
@@ -10,11 +11,14 @@ declare global {
          * $( '#textbox' ).suggestions( option, value );
          * ```
          *
-         * Initialize:
-         *
+         * @example
          * ```js
-         * $( '#textbox' ).suggestions();
+         * // Initialize:
+         * mw.loader.using( 'jquery.suggestions' ).then(()=> {
+         *     $( '#textbox' ).suggestions();
+         * });
          * ```
+         * Initialize:
          *
          * @param {string} property Name of property
          * @param {any} value Value to set property with
