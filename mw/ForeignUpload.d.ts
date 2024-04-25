@@ -1,6 +1,3 @@
-import { ApiOptions } from "./Api";
-import { ForeignApiOptions } from "./ForeignApi";
-
 declare global {
     namespace mw {
         /**
@@ -48,10 +45,10 @@ declare global {
              *     wiki. If not remote, this class behaves identically to mw.Upload (unless further subclassed)
              *     Use the same names as set in $wgForeignFileRepos for this. Also,
              *     make sure there is an entry in the $wgForeignUploadTargets array for this name.
-             * @param {Partial<ApiOptions>} [apiconfig] Passed to the constructor of mw.ForeignApi or mw.Api, as needed.
+             * @param {Api.Options} [apiconfig] Passed to the constructor of mw.ForeignApi or mw.Api, as needed.
              */
-            constructor(target: string, apiconfig?: Partial<ForeignApiOptions>);
-            constructor(apiconfig?: Partial<ApiOptions>);
+            constructor(target: string, apiconfig?: ForeignApi.Options);
+            constructor(apiconfig?: Api.Options);
         }
     }
 }

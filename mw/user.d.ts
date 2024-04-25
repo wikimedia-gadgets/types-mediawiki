@@ -223,10 +223,10 @@ export interface User {
      * Get the current user's groups or rights.
      *
      * @private
-     * @returns {JQuery.Promise<UserInfo>}
+     * @returns {JQuery.Promise<mw.Api.UserInfo>}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getUserInfo
      */
-    getUserInfo(): JQuery.Promise<UserInfo>;
+    getUserInfo(): JQuery.Promise<mw.Api.UserInfo>;
 }
 
 declare global {

@@ -1,4 +1,4 @@
-import { ApiOptions, ApiResponse } from "./Api";
+import { ApiResponse } from "./Api";
 
 declare global {
     namespace mw {
@@ -91,10 +91,10 @@ declare global {
              * } );
              * ```
              *
-             * @param {Api|Partial<ApiOptions>} [apiconfig] A mw.Api object (or subclass), or configuration
+             * @param {Api|Api.Options} [apiconfig] A mw.Api object (or subclass), or configuration
              *     to pass to the constructor of mw.Api.
              */
-            constructor(apiconfig?: Api | Partial<ApiOptions>);
+            constructor(apiconfig?: Api | Api.Options);
 
             /**
              * Finish a stash upload.
