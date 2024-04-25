@@ -21,6 +21,7 @@ declare global {
          *     $( 'button' ).confirmable();
          * } );
          * ```
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.confirmable
          */
         confirmable: Confirmable;
     }

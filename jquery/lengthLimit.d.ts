@@ -15,6 +15,7 @@ declare global {
          * @param {number} byteLimit Number of bytes the value may be in size.
          * @param {FilterFunction} [filterFunction] Function to call on the string before assessing the length.
          * @returns {TrimResult}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.trimByteLength
          */
         trimByteLength(
             safeVal: string,
@@ -39,6 +40,7 @@ declare global {
          *  called with fetched value as argument.
          * @param {FilterFunction} [filterFunction] Function to call on the string before assessing the length.
          * @returns {JQuery}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.byteLimit
          */
         byteLimit(limit: number, filterFunction?: FilterFunction): this;
         byteLimit(filterFunction?: FilterFunction): this;
@@ -46,12 +48,11 @@ declare global {
         /**
          * Enforces a codepoint (character) limit on an input field.
          *
-         * For unfortunate historical reasons, browsers' native maxlength counts [the number of UTF-16
-         * code units rather than Unicode codepoints] [1], which means that codepoints outside the Basic
+         * For unfortunate historical reasons, browsers' native maxlength counts
+         * {@link https://www.w3.org/TR/html5/sec-forms.html#limiting-user-input-length-the-maxlength-attribute the number of UTF-16
+         * code units rather than Unicode codepoints}, which means that codepoints outside the Basic
          * Multilingual Plane (e.g. many emojis) count as 2 characters each. This plugin exists to
          * correct this.
-         *
-         * [1]: https://www.w3.org/TR/html5/sec-forms.html#limiting-user-input-length-the-maxlength-attribute
          *
          * Can be called with a custom limit (to use that limit instead of the maxlength attribute
          * value), a filter function (in case the limit should apply to something other than the
@@ -61,6 +62,7 @@ declare global {
          *  called with fetched value as argument.
          * @param {FilterFunction} [filterFunction] Function to call on the string before assessing the length.
          * @returns {JQuery}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.codePointLimit
          */
         codePointLimit(limit: number, filterFunction?: FilterFunction): this;
         codePointLimit(filterFunction?: FilterFunction): this;

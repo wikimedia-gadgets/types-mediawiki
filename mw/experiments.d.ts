@@ -18,7 +18,7 @@ declare global {
         /**
          * Provides an API for bucketing users in experiments.
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.experiments
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.experiments.html
          */
         namespace experiments {
             /**
@@ -53,7 +53,7 @@ declare global {
              * @param {string} token A token that uniquely identifies the user for the
              *  duration of the experiment
              * @returns {string|undefined} The bucket
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.experiments-method-getBucket
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.experiments.html#.getBucket
              */
             function getBucket(experiment: Experiment, token: string): string | undefined;
         }

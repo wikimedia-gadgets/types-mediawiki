@@ -8,7 +8,7 @@ declare global {
          * - transforming message syntax (`{{PLURAL:}}`, `{{GRAMMAR:}}`, `{{GENDER:}}`)
          * - formatting numbers
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html
          */
         namespace language {
             /**
@@ -44,7 +44,7 @@ declare global {
              * - `bcp47Map`
              * - `languageNames`
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-property-data
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.data
              */
             const data: Record<string, Map>;
 
@@ -54,7 +54,7 @@ declare global {
              *
              * @param {string} languageTag Well-formed language tag
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-bcp47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.bcp47
              */
             function bcp47(languageTag: string): string;
 
@@ -68,7 +68,7 @@ declare global {
              * @param {string} word
              * @param {string} form
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-convertGrammar
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.convertGrammar
              */
             function convertGrammar(word: string, form: string): string;
 
@@ -78,7 +78,7 @@ declare global {
              * @param {number} num Value to be converted
              * @param {boolean} [integer=false] Whether to convert the return value to an integer
              * @returns {number|string} Formatted number
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-convertNumber
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.convertNumber
              */
             function convertNumber(num: number, integer: true): number;
             function convertNumber(num: number, integer?: false): string;
@@ -91,7 +91,7 @@ declare global {
              * @param {string[]} forms List of plural forms
              * @param {Object.<number, string>} [explicitPluralForms] List of explicit plural forms
              * @returns {string} Correct form for quantifier in this language
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-convertPlural
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.convertPlural
              */
             function convertPlural(
                 count: number,
@@ -110,7 +110,7 @@ declare global {
              * @param {string} gender 'male', 'female', or anything else for neutral.
              * @param {string[]} forms List of gender forms
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-gender
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.gender
              */
             function gender<T extends string>(gender: string, forms: [T, T?, T?]): T;
             function gender<T extends string = never>(gender: string, forms: [T?, T?, T?]): T | "";
@@ -125,7 +125,7 @@ declare global {
              * @param {string} dataKey
              * @returns {any} Value stored in the mw.Map (or `undefined` if there is no map for the
              *  specified langCode)
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-getData
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.getData
              */
             function getData(langCode: string, dataKey: string): any;
 
@@ -133,7 +133,6 @@ declare global {
              * Get the digit transform table for current UI language.
              *
              * @returns {Object.<number|string, string>|string[]}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-getDigitTransformTable
              */
             function getDigitTransformTable(): string[] | Record<number | string, string>;
 
@@ -141,7 +140,7 @@ declare global {
              * Get the language fallback chain for current UI language, including the language itself.
              *
              * @returns {string[]} List of language keys, e.g. `['pfl', de', 'en']`
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-getFallbackLanguageChain
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.getFallbackLanguageChain
              */
             function getFallbackLanguageChain(): string[];
 
@@ -149,7 +148,7 @@ declare global {
              * Get the language fallback chain for current UI language (not including the language itself).
              *
              * @returns {string[]} List of language keys, e.g. `['de', 'en']`
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-getFallbackLanguages
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.getFallbackLanguages
              */
             function getFallbackLanguages(): string[];
 
@@ -157,7 +156,6 @@ declare global {
              * Get the separator transform table for current UI language.
              *
              * @returns {Object.<number|string, string>|string[]}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-getSeparatorTransformTable
              */
             function getSeparatorTransformTable(): string[] | Record<number | string, string>;
 
@@ -168,7 +166,7 @@ declare global {
              *
              * @param {string[]} list
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-listToText
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.listToText
              */
             function listToText(list: string[]): string;
 
@@ -180,7 +178,7 @@ declare global {
              * @param {string} langCode
              * @param {string|Object.<string, any>} dataKey Key or object of key/values
              * @param {any} [value] Value for dataKey, omit if dataKey is an object
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-setData
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.setData
              */
             function setData(langCode: string, dataKey: string, value: any): void;
             function setData(langCode: string, dataKey: Record<string, any>): void;
@@ -192,7 +190,6 @@ declare global {
              * @param {string[]} forms Number of forms given to convertPlural
              * @param {number} count Number of forms required
              * @returns {string[]} Padded array of forms
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-method-preConvertPlural
              */
             function preConvertPlural<T extends string[]>(
                 forms: T,
@@ -202,7 +199,7 @@ declare global {
             /**
              * Information about month names in current UI language.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.language-property-months
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.months
              */
             namespace months {
                 /**

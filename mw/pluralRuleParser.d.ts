@@ -6,6 +6,7 @@ declare global {
          * @param {string} rule
          * @param {integer} number
          * @returns {boolean} true if evaluation passed, false if evaluation failed.
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.libs.pluralruleparser.html
          */
         function pluralRuleParser(rule: string, number: number): boolean;
     }

@@ -1,5 +1,8 @@
 import { ApiResponse } from "./Api";
 
+/**
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.searchSuggest.html#~ResponseFunction
+ */
 interface ResponseFunction {
     /**
      * @param {string[]} titles titles of pages that match search
@@ -8,6 +11,9 @@ interface ResponseFunction {
     (titles: string[], meta: ResponseMetaData): void;
 }
 
+/**
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.searchSuggest.html#~ResponseMetaData
+ */
 interface ResponseMetaData {
     query: string;
     /**
@@ -35,6 +41,7 @@ declare global {
          *     });
          * });
          * ```
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.searchSuggest.html
          */
         namespace searchSuggest {
             /**
@@ -46,6 +53,7 @@ declare global {
              * @param {string|number} [limit]
              * @param {string|number|string[]|number[]} [namespace]
              * @returns {JQuery.Promise<ApiResponse>}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.searchSuggest.html#.request
              */
             function request(
                 api: Api,

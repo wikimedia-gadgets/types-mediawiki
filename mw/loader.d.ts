@@ -76,9 +76,9 @@ declare global {
          * well as dependency resolution and execution of source code.
          *
          * For more information, refer to
-         * <https://www.mediawiki.org/wiki/ResourceLoader/Features>
+         * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/ResourceLoader/Features}
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html
          */
         namespace loader {
             /**
@@ -88,7 +88,7 @@ declare global {
              * @param {Node|null} [nextNode] The element where the style tag
              *  should be inserted before
              * @returns {HTMLStyleElement} Reference to the created style element
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-addStyleTag
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.addStyleTag
              */
             function addStyleTag(text: string, nextNode?: Node | null): HTMLStyleElement;
 
@@ -96,7 +96,7 @@ declare global {
              * Get the names of all registered ResourceLoader modules.
              *
              * @returns {string[]}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-getModuleNames
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.getModuleNames
              */
             function getModuleNames(): string[];
 
@@ -118,7 +118,7 @@ declare global {
              * ```
              * @param {string} url Script URL
              * @returns {JQuery.Promise} Resolved when the script is loaded
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-getScript
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.getScript
              */
             function getScript(url: string): JQuery.Promise<any>;
 
@@ -162,7 +162,7 @@ declare global {
              * @param {string} module Name of module
              * @returns {string|null} The state, or null if the module (or its state) is not
              *  in the registry.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-getState
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.getState
              */
             function getState(module: string): ModuleState | null;
 
@@ -184,7 +184,7 @@ declare global {
              *  external script or style; acceptable values are "text/css" and
              *  "text/javascript"; if no type is provided, text/javascript is assumed.
              * @throws {Error} If type is invalid
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-load
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.load
              */
             function load(modules: string | string[], type?: "text/css" | "text/javascript"): void;
 
@@ -227,7 +227,7 @@ declare global {
              * @param {Function} [ready] Callback to execute when all dependencies are ready
              * @param {Function} [error] Callback to execute if one or more dependencies failed
              * @returns {JQuery.Promise<ModuleRequire>} With a `require` function
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-using
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.using
              */
             function using(
                 dependencies: string | string[],
@@ -239,7 +239,6 @@ declare global {
              * Exposed for testing and debugging only.
              *
              * @private
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-property-maxQueryLength
              */
             const maxQueryLength: number;
 
@@ -248,7 +247,6 @@ declare global {
              * state; it is not a public interface for modifying the registry.
              *
              * @private
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-property-moduleRegistry
              */
             const moduleRegistry: Record<string, ModuleRegistryEntry>;
 
@@ -260,7 +258,6 @@ declare global {
              * @param {string} [media] Media attribute
              * @param {Node|null} [nextNode]
              * @returns {HTMLLinkElement}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.loader.html#global-method-addLinkTag
              */
             function addLinkTag(
                 url: string,
@@ -277,7 +274,6 @@ declare global {
              * @param {string[]} [modules] List of modules being requested, for state to be marked as error
              * in case the script fails to load
              * @returns {HTMLScriptElement}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.loader.html#mw-loader-method-addScriptTag
              */
             function addScriptTag(
                 src: string,
@@ -309,7 +305,6 @@ declare global {
              * @param {string[]} dependencies Array of module names in the registry
              * @param {Function} [ready] Callback to execute when all dependencies are ready
              * @param {Function} [error] Callback to execute when any dependency fails
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-enqueue
              */
             function enqueue(
                 dependencies: string[],
@@ -387,7 +382,6 @@ declare global {
              * @param {ModuleMessages} [messages] List of key/value pairs to be added to {@link mw.messages}.
              * @param {ModuleTemplates} [templates] List of key/value pairs to be added to {@link mw.templates}.
              * @param {string|null} [deprecationWarning] Deprecation warning if any
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-implement
              */
             function implement(
                 module: string,
@@ -416,7 +410,6 @@ declare global {
              * @param {string} [group=null] Group which the module is in
              * @param {string} [source='local'] Name of the source
              * @param {string} [skip=null] Script body of the skip function
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-register
              */
             function register(
                 modules: string,
@@ -451,7 +444,6 @@ declare global {
              *
              * @since 1.27
              * @private
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-require
              */
             const require: ModuleRequire;
 
@@ -462,7 +454,6 @@ declare global {
              * @param {string[]} modules Array of string module names
              * @returns {string[]} List of dependencies, including 'module'.
              * @throws {Error} If an unregistered module or a dependency loop is encountered
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-resolve
              */
             // note: U is required so T is not inferred from the "modules" argument
             function resolve<T extends string, U extends T = T>(modules: U[]): T[];
@@ -472,7 +463,6 @@ declare global {
              *
              * @private
              * @param {Object.<string, ModuleState>} states Object of module name/state pairs
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-state
              */
             function state(states: Record<string, ModuleState>): void;
 
@@ -480,13 +470,9 @@ declare global {
              * Start loading of all queued module dependencies.
              *
              * @private
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-work
              */
             function work(): void;
 
-            /**
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store
-             */
             namespace store {
                 /**
                  * The localStorage key for the entire module store. The key references
@@ -500,8 +486,6 @@ declare global {
                  * A string containing various factors by which the module cache should vary.
                  *
                  * Defined by ResourceLoader\StartupModule::getStoreVary() in PHP.
-                 *
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-property-vary
                  */
                 const vary: string;
 
@@ -510,14 +494,11 @@ declare global {
                  *
                  * @since 1.32
                  * @param {string} module Module name
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-add
                  */
                 function add(module: string): void;
 
                 /**
                  * Clear the entire module store right now.
-                 *
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-clear
                  */
                 function clear(): void;
 
@@ -526,7 +507,6 @@ declare global {
                  *
                  * @param {string} module Module name
                  * @returns {string|boolean} Module implementation or false if unavailable
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-get
                  */
                 function get(module: string): string | false;
 
@@ -535,23 +515,17 @@ declare global {
                  *
                  * Retrieves store from localStorage and (if successfully retrieved) decoding
                  * the stored JSON value to a plain object.
-                 *
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-init
                  */
                 function init(): void;
 
                 /**
                  * Internal helper for {@link init()}. Separated for ease of testing.
-                 *
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-load
                  */
                 function load(): void;
 
                 /**
                  * Iterate through the module store, removing any item that does not correspond
                  * (in name and version) to an item in the module registry.
-                 *
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-prune
                  */
                 function prune(): void;
 
@@ -559,36 +533,27 @@ declare global {
                  * Construct a JSON-serializable object representing the content of the store.
                  *
                  * @returns {Object} Module store contents.
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-toJSON
                  */
                 function toJSON(): { items: string; vary: string; asOf: number };
 
                 /**
                  * Whether the store is in use on this page.
-                 *
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.loader.html
                  */
                 const enabled: boolean | null;
 
                 /**
                  * The contents of the store, mapping '[name]@[version]' keys
                  * to module implementations.
-                 *
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.loader.html
                  */
                 const items: Record<ModuleKey, any>;
 
                 /**
                  * Names of modules to be stored during the next update.
-                 *
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.loader.html
                  */
                 const queue: string[];
 
                 /**
-                 * Cache hit stats
-                 *
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.loader.html
+                 * Cache hit stats.
                  */
                 const stats: ResourceLoaderStoreStats;
 
@@ -603,7 +568,6 @@ declare global {
                  *
                  * @private
                  * @param {string} module Module name
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-set
                  */
                 function set(module: string): void;
 
@@ -636,7 +600,6 @@ declare global {
                  * be called if the store is enabled.
                  *
                  * @private
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-method-requestUpdate
                  */
                 function requestUpdate(): void;
             }

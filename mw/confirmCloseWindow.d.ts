@@ -63,6 +63,7 @@ declare global {
          * ```
          * @param {Options} [options]
          * @returns {ConfirmCloseWindow} An object of functions to work with this module
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.confirmCloseWindow
          */
         function confirmCloseWindow(options?: Options): ConfirmCloseWindow;
     }

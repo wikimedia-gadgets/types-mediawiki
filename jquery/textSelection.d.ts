@@ -6,7 +6,7 @@ declare global {
          *
          * @param {string} command Command to execute
          * @returns {string}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(command: "getContents"): string;
 
@@ -17,7 +17,7 @@ declare global {
          * @param {string} command Command to execute
          * @param {string} content
          * @returns {JQuery}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(command: "setContents", content: string): this;
 
@@ -27,7 +27,7 @@ declare global {
          *
          * @param {string} command Command to execute
          * @returns {string}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(command: "getSelection"): string;
 
@@ -38,7 +38,7 @@ declare global {
          * @param {string} command Command to execute
          * @param {string} value
          * @returns {JQuery}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(command: "replaceSelection", value: string): this;
 
@@ -52,7 +52,7 @@ declare global {
          * @param {string} command Command to execute
          * @param {Partial<TextSelectionEncapsulateOptions>} [options]
          * @returns {JQuery}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(
             command: "encapsulateSelection",
@@ -67,7 +67,7 @@ declare global {
          * @param {Object} [options]
          * @param {boolean} [options.startAndEnd=false] Return range of the selection rather than just start
          * @returns {number|number[]} Array with two numbers, for start and end of selection
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(
             command: "getCaretPosition",
@@ -88,7 +88,7 @@ declare global {
          * @param {number} options.start
          * @param {number} [options.end=options.start]
          * @returns {JQuery}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(command: "setSelection", options: { start: number; end?: number }): this;
 
@@ -102,7 +102,7 @@ declare global {
          * @param {boolean} [options.force=false] Whether to force a scroll even if the caret position
          *  is already visible.
          * @returns {JQuery}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(command: "scrollToCaretPosition", options: { force?: boolean }): this;
 
@@ -114,7 +114,7 @@ declare global {
          * @param {Object.<string, Function>} functions Functions to replace. Keys are command names (as in {@link textSelection},
          *  except 'register' and 'unregister'). Values are functions to execute when a given command is
          *  called.
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(
             command: "register",
@@ -126,7 +126,7 @@ declare global {
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(command: "unregister"): void;
 
@@ -143,7 +143,7 @@ declare global {
          * @param {string} command Command to execute
          * @param {any} [commandOptions] Options to pass to the command
          * @returns {any} Depending on the command
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.plugin.textSelection-method-textSelection
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(command: string, commandOptions?: unknown): any;
     }

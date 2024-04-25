@@ -2,6 +2,9 @@ import { QueryParams } from "./Uri";
 
 export type TitleLike = string | mw.Title;
 
+/**
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#~TitleExistenceStore
+ */
 interface TitleExistenceStore {
     /**
      * Keyed by title. Boolean true value indicates page does exist.
@@ -63,13 +66,13 @@ declare global {
          * // => 'Template:Template:Foo'
          * ```
          * @since 1.18
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html
          */
         class Title {
             /**
              * Store page existence
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-static-property-exist
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.exist
              */
             static exist: TitleExistenceStore;
 
@@ -82,7 +85,7 @@ declare global {
              *  this will be searched for a namespace
              * @param {number} [namespace=NS_MAIN] If given, will used as default namespace for the given title
              * @throws {Error} When the title is invalid
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-constructor
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#Title
              */
             constructor(title: string, namespace?: number);
 
@@ -90,7 +93,7 @@ declare global {
              * Check the title can have an associated talk page.
              *
              * @returns {boolean} The title can have an associated talk page
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-canHaveTalkPage
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#canHaveTalkPage
              */
             canHaveTalkPage(): boolean;
 
@@ -98,7 +101,7 @@ declare global {
              * Whether this title exists on the wiki. See {@link mw.Title.exists}.
              *
              * @returns {boolean|null} Boolean if the information is available, otherwise null
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-exists
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#exists
              */
             exists(): boolean | null;
 
@@ -106,7 +109,7 @@ declare global {
              * Get the extension of the page name (if any).
              *
              * @returns {string|null} Name extension or null if there is none
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getExtension
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getExtension
              */
             getExtension(): string | null;
 
@@ -119,7 +122,7 @@ declare global {
              * A title like `User:Dr._J._Fail` will be returned as `Dr. J`! Use {@link getMainText} instead.
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getFileNameTextWithoutExtension
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getFileNameTextWithoutExtension
              */
             getFileNameTextWithoutExtension(): string;
 
@@ -132,7 +135,7 @@ declare global {
              * A title like `User:Dr._J._Fail` will be returned as `Dr. J`! Use {@link getMain} instead.
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getFileNameWithoutExtension
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getFileNameWithoutExtension
              */
             getFileNameWithoutExtension(): string;
 
@@ -143,7 +146,7 @@ declare global {
              * the value is not url encoded.
              *
              * @returns {string|null}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getFragment
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getFragment
              */
             getFragment(): string | null;
 
@@ -153,7 +156,7 @@ declare global {
              * Example: `Example_image.svg` for `File:Example_image.svg`.
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getMain
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getMain
              */
             getMain(): string;
 
@@ -163,7 +166,7 @@ declare global {
              * Example: `Example image.svg` for `File:Example_image.svg`.
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getMainText
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getMainText
              */
             getMainText(): string;
 
@@ -176,7 +179,7 @@ declare global {
              * @returns {string} File name without file extension, in the canonical form with underscores
              *  instead of spaces. For example, the title `File:Example_image.svg` will be returned as
              *  "Example_image".
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getName
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getName
              */
             getName(): string;
 
@@ -186,7 +189,7 @@ declare global {
              * Example: 6 for `File:Example_image.svg`.
              *
              * @returns {number}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getNamespaceId
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getNamespaceId
              */
             getNamespaceId(): number;
 
@@ -197,7 +200,7 @@ declare global {
              * In #NS_MAIN this is '', otherwise namespace name plus ':'
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getNamespacePrefix
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getNamespacePrefix
              */
             getNamespacePrefix(): string;
 
@@ -210,7 +213,7 @@ declare global {
              * @returns {string} File name without file extension, formatted with spaces instead of
              *  underscores. For example, the title `File:Example_image.svg` will be returned as
              *  `Example image`.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getNameText
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getNameText
              */
             getNameText(): string;
 
@@ -221,7 +224,7 @@ declare global {
              * Most useful for API calls, anything that must identify the "title".
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getPrefixedDb
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getPrefixedDb
              */
             getPrefixedDb(): string;
 
@@ -231,7 +234,7 @@ declare global {
              * Example: `File:Example image.svg` for `File:Example_image.svg`.
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getPrefixedText
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getPrefixedText
              */
             getPrefixedText(): string;
 
@@ -246,7 +249,7 @@ declare global {
              *
              * @param {number} namespace The namespace to be relative to
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getRelativeText
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getRelativeText
              */
             getRelativeText(namespace: number): string;
 
@@ -254,7 +257,7 @@ declare global {
              * Get the title for the subject page of a talk page.
              *
              * @returns {Title|null} The title for the subject page of a talk page, null if not available
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getSubjectPage
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getSubjectPage
              */
             getSubjectPage(): Title | null;
 
@@ -262,7 +265,7 @@ declare global {
              * Get the title for the associated talk page.
              *
              * @returns {Title|null} The title for the associated talk page, null if not available
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getTalkPage
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getTalkPage
              */
             getTalkPage(): Title | null;
 
@@ -272,7 +275,7 @@ declare global {
              * @param {QueryParams} [params] A mapping of query parameter names to values,
              *     e.g. `{ action: 'edit' }`.
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-getUrl
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getUrl
              */
             getUrl(params?: QueryParams): string;
 
@@ -280,21 +283,21 @@ declare global {
              * Check if the title is in a talk namespace.
              *
              * @returns {boolean} The title is in a talk namespace
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-isTalkPage
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#isTalkPage
              */
             isTalkPage(): boolean;
 
             /**
              * Alias of {@link getPrefixedDb}.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-toString
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#toString
              */
             toString(): string;
 
             /**
              * Alias of {@link getPrefixedText}.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-toText
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#toText
              */
             toText(): string;
 
@@ -304,7 +307,7 @@ declare global {
              * @param {string|Title} title prefixed db-key name (string) or instance of Title
              * @returns {boolean|null} Boolean if the information is available, otherwise null
              * @throws {Error} If title is not a string or mw.Title
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-static-method-exists
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.exists
              */
             static exists(title: TitleLike): boolean | null;
 
@@ -315,7 +318,7 @@ declare global {
              *
              * @param {number} namespaceId Namespace ID
              * @returns {boolean} Namespace is a talk namespace
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-isTalkNamespace
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.isTalkNamespace
              */
             static isTalkNamespace(namespaceId: number): boolean;
 
@@ -331,7 +334,7 @@ declare global {
              * @param {number} namespace Namespace to use for the title
              * @param {string} title
              * @returns {Title|null} A valid Title object or null if the title is invalid
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-static-method-makeTitle
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.makeTitle
              */
             static makeTitle(namespace: number, title: string): Title | null;
 
@@ -343,7 +346,7 @@ declare global {
              * @param {string} uncleanName The unclean file name including file extension but
              *   without namespace
              * @returns {Title|null} A valid Title object or null if the title is invalid
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-static-method-newFromFileName
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.newFromFileName
              */
             static newFromFileName(uncleanName: string): Title | null;
 
@@ -356,7 +359,7 @@ declare global {
              * ```
              * @param {HTMLElement|JQuery} img The image to use as a base
              * @returns {Title|null} The file title or null if unsuccessful
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-static-method-newFromImg
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.newFromImg
              */
             static newFromImg(img: HTMLElement | JQuery): Title | null;
 
@@ -370,7 +373,7 @@ declare global {
              * @param {string} title
              * @param {number} [namespace=NS_MAIN] Default namespace
              * @returns {Title|null} A valid Title object or null if the title is invalid
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-static-method-newFromText
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.newFromText
              */
             static newFromText(title: string, namespace?: number): Title | null;
 
@@ -387,7 +390,7 @@ declare global {
              *  There are pages in the file namespace under which file upload is impossible.
              *  Automatically assumed if the title is created in the Media namespace.
              * @returns {Title|null} A valid Title object or null if the input cannot be turned into a valid title
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-static-method-newFromUserInput
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.newFromUserInput
              */
             static newFromUserInput(
                 title: string,
@@ -402,7 +405,7 @@ declare global {
              *
              * @param {string} extension File extension (without the leading dot)
              * @returns {string} File extension in canonical form
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-normalizeExtension
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.normalizeExtension
              */
             static normalizeExtension(extension: string): string;
 
@@ -411,7 +414,7 @@ declare global {
              *
              * @param {string} chr Unicode character
              * @returns {string} Unicode character, in upper case, according to the same rules as in PHP
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-phpCharToUpper
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.phpCharToUpper
              */
             static phpCharToUpper(chr: string): string;
 
@@ -422,7 +425,7 @@ declare global {
              *
              * @param {number} namespaceId Namespace ID
              * @returns {boolean} Namespace is a signature namespace
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title-method-wantSignaturesNamespace
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.wantSignaturesNamespace
              */
             static wantSignatureNamespace(namespaceId: number): boolean;
         }

@@ -16,6 +16,7 @@ declare global {
          * @param {mw.cookie.CookieOptions} [options]
          * @returns {string|Object} The current value (if getting a cookie), or an internal `document.cookie`
          *  expression (if setting or removing).
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.cookie
          */
         cookie(key: string, value: string | null, options?: mw.cookie.CookieOptions): string;
         cookie(key: string): unknown;
@@ -33,6 +34,7 @@ declare global {
          * @param {string} key
          * @param {mw.cookie.CookieOptions} options
          * @returns {boolean} True if the cookie previously existed
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.removeCookie
          */
         removeCookie(key: string, options: mw.cookie.CookieOptions): boolean;
     }

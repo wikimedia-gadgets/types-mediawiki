@@ -24,6 +24,8 @@ export interface User {
      * Classes toggled by this feature must be named as `<feature>-clientpref-<value>`,
      * where `value` contains only alphanumerical characters (a-z, A-Z, and 0-9), and `feature`
      * can also include hyphens.
+     *
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.clientPrefs.html
      */
     clientPrefs: {
         /**
@@ -32,7 +34,7 @@ export interface User {
          * @param {string} feature
          * @returns {false|string} returns false if the feature is not recognized.
          *   returns string if a feature was found.
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user.clientPrefs-method-get
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.clientPrefs.html#.get
          */
         get(feature: string): false | string;
 
@@ -44,7 +46,7 @@ export interface User {
          * @returns {boolean} True if feature was stored successfully, false if the value
          *   uses a forbidden character or the feature is not recognised
          *   e.g. a matching class was not defined on the HTML document element.
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user.clientPrefs-method-set
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.clientPrefs.html#.set
          */
         set(feature: string, value: string): boolean;
     };
@@ -52,7 +54,7 @@ export interface User {
     /**
      * Map of user preferences and their values.
      *
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-options
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.options
      */
     // TODO: add types for items in the options map
     options: mw.Map;
@@ -60,7 +62,7 @@ export interface User {
     /**
      * Map of retrieved user tokens.
      *
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-property-tokens
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.tokens
      */
     tokens: mw.Map<UserTokens>;
 
@@ -75,7 +77,7 @@ export interface User {
      *
      * @returns {JQuery.Promise<string>} Promise resolved with the username if we succeeded,
      *   or resolved with `null` if we failed
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-acquireTempUserName
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.acquireTempUserName
      */
     acquireTempUserName(): JQuery.Promise<string>;
 
@@ -101,14 +103,14 @@ export interface User {
      * `n(p;H) = n(0.01,2^80)= sqrt (2 * 2^80 * ln(1/(1-0.01)))`
      *
      * @returns {string} 80 bit integer (20 characters) in hex format, padded
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-generateRandomSessionId
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.generateRandomSessionId
      */
     generateRandomSessionId(): string;
 
     /**
      * Get date user first registered, if available.
      *
-     * @return {false|null|Date} False for anonymous users, null if data is
+     * @returns {false|null|Date} False for anonymous users, null if data is
      *  unavailable, or Date for when the user registered. For temporary users
      *  that is when their temporary account was created.
      */
@@ -119,7 +121,7 @@ export interface User {
      *
      * @param {Function} [callback]
      * @returns {JQuery.Promise<string[]>}
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getGroups
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getGroups
      */
     getGroups<T>(callback: (groups: string[]) => T): JQuery.Promise<T>;
     getGroups(): JQuery.Promise<string[]>;
@@ -130,7 +132,7 @@ export interface User {
      * Not to be confused with {@link id}.
      *
      * @returns {number} Current user's id, or 0 if user is anonymous
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getId
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getId
      */
     getId(): number;
 
@@ -138,7 +140,7 @@ export interface User {
      * Get the current user's name.
      *
      * @returns {string|null} User name string or null if user is anonymous
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getName
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getName
      */
     getName(): string | null;
 
@@ -148,7 +150,7 @@ export interface User {
      *
      * @since 1.32
      * @returns {string} 80 bit integer in hex format, padded
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getPageviewToken
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getPageviewToken
      */
     getPageviewToken(): string;
 
@@ -157,7 +159,7 @@ export interface User {
      *
      * @returns {false|null|Date} False for anonymous users, null if data is
      *  unavailable, or Date for when the user registered.
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getRegistration
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getRegistration
      */
     getRegistration(): false | null | Date;
 
@@ -166,7 +168,7 @@ export interface User {
      *
      * @param {Function} [callback]
      * @returns {JQuery.Promise<string[]>}
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getRights
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getRights
      */
     getRights<T>(callback: (rights: string[]) => T): JQuery.Promise<T>;
     getRights(): JQuery.Promise<string[]>;
@@ -177,7 +179,7 @@ export interface User {
      * Not to be confused with {@link getId}.
      *
      * @returns {string} User name or random session ID
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-id
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.id
      */
     id(): string;
 
@@ -185,7 +187,7 @@ export interface User {
      * Check whether the current user is anonymous.
      *
      * @returns {boolean}
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-isAnon
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.isAnon
      */
     isAnon(): boolean;
 
@@ -193,7 +195,7 @@ export interface User {
      * Check whether the user is a normal non-temporary registered user.
      *
      * @returns {boolean}
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-isNamed
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.isNamed
      */
     isNamed(): boolean;
 
@@ -201,7 +203,7 @@ export interface User {
      * Check whether the user is an autocreated temporary user.
      *
      * @returns {boolean}
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-isTemp
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.isTemp
      */
     isTemp(): boolean;
 
@@ -215,7 +217,7 @@ export interface User {
      * **Note:** Server-side code must never interpret or modify this value.
      *
      * @returns {string} Random session ID (20 hex characters)
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-sessionId
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.sessionId
      */
     sessionId(): string;
 
@@ -224,7 +226,6 @@ export interface User {
      *
      * @private
      * @returns {JQuery.Promise<mw.Api.UserInfo>}
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getUserInfo
      */
     getUserInfo(): JQuery.Promise<mw.Api.UserInfo>;
 }
@@ -234,7 +235,7 @@ declare global {
         /**
          * User library provided by `mediawiki.user` ResourceLoader module.
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html
          */
         const user: User;
     }

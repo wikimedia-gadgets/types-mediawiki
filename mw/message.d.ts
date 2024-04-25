@@ -8,14 +8,14 @@ declare global {
          * @param {string} key Key of message to get
          * @param {...any} parameters Values for $N replacements
          * @returns {Message}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-message
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.message
          */
         function message(key: string, ...parameters: any[]): Message;
 
         /**
          * Store for messages.
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-messages
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.messages
          */
         const messages: Map<{ [key: string]: string }>;
 
@@ -58,7 +58,7 @@ declare global {
          * mw.log( obj.escaped() );
          * // You will find: Time &quot;after&quot; &lt;time&gt;
          * ```
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html
          */
         class Message {
             /**
@@ -104,7 +104,7 @@ declare global {
              * @param {Map} map Message store
              * @param {string} key
              * @param {Array} [parameters]
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-constructor
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#Message
              */
             constructor(map: Map<Record<string, string>>, key: string, parameters?: any[]);
 
@@ -114,7 +114,7 @@ declare global {
              * This is equivalent to the {@link text} format, which is then HTML-escaped.
              *
              * @returns {string} String form of html escaped message
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-escaped
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#escaped
              */
             escaped(): string;
 
@@ -122,7 +122,7 @@ declare global {
              * Check if a message exists. Equivalent to {@link mw.Map.exists}.
              *
              * @returns {boolean}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-exists
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#exists
              */
             exists(): boolean;
 
@@ -133,7 +133,7 @@ declare global {
              *
              * @since 1.41
              * @returns {boolean}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-isParseable
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#isParseable
              */
             isParseable(): boolean;
 
@@ -142,7 +142,7 @@ declare global {
              *
              * @param {Array} parameters
              * @returns {Message}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-params
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#params
              */
             params(parameters: any[]): this;
 
@@ -153,7 +153,7 @@ declare global {
              * into HTML. Without jqueryMsg, it is equivalent to {@link escaped}.
              *
              * @returns {string} String form of parsed message
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-parse
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#parse
              */
             parse(): string;
 
@@ -164,7 +164,7 @@ declare global {
              *
              * @since 1.27
              * @returns {JQuery}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-parseDom
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#parseDom
              */
             parseDom(): JQuery;
 
@@ -175,7 +175,7 @@ declare global {
              * message content.
              *
              * @returns {string} String form of plain message
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-plain
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#plain
              */
             plain(): string;
 
@@ -187,7 +187,7 @@ declare global {
              * Without jqueryMsg, it is equivalent to {@link plain}.
              *
              * @returns {string} String form of text message
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-text
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#text
              */
             text(): string;
 
@@ -203,7 +203,6 @@ declare global {
              * @private For internal use by mediawiki.jqueryMsg only
              * @param {string} format
              * @returns {string} Parsed message
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-parser
              */
             private parser(format: string): string;
 
@@ -218,7 +217,6 @@ declare global {
              *  implicitly through string casting.
              * @returns {string} Message in the given format, or `⧼key⧽` if the key
              *  does not exist.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Message-method-toString
              */
             private toString(format?: "escaped" | "parse" | "plain" | "text"): string;
         }
@@ -231,7 +229,7 @@ declare global {
          * @param {string} key Key of message to get
          * @param {...any} parameters Values for $N replacements
          * @returns {string}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-msg
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.msg
          */
         function msg(key: string, ...parameters: any[]): string;
     }

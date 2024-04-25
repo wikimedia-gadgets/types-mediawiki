@@ -1,7 +1,7 @@
 declare global {
     namespace mw {
         /**
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignRest
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignRest.html
          */
         class ForeignRest extends Rest {
             static static: {};
@@ -14,7 +14,7 @@ declare global {
              * with another MediaWiki wiki via cross-origin requests (CORS).
              *
              * The foreign wiki must be configured to accept requests from the current wiki. See
-             * https://www.mediawiki.org/wiki/Manual:$wgCrossSiteAJAXdomains for details.
+             * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains} for details.
              *
              * ```js
              * var api = new mw.ForeignRest( 'https://commons.wikimedia.org/w/rest.php' );
@@ -39,7 +39,7 @@ declare global {
              * @param {string} url URL pointing to another wiki's `rest.php` endpoint.
              * @param {ForeignApi} foreignActionApi
              * @param {ForeignRest.Options} [options] See {@link mw.Rest}.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignRest-method-constructor
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignRest.html#ForeignRest
              */
             constructor(url: string, foreignActionApi: ForeignApi, options?: ForeignRest.Options);
         }

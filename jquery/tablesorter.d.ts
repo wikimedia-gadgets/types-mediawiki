@@ -18,6 +18,7 @@ declare global {
          *
          * @param {Partial<Options>} settings
          * @returns {JQuery}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.tablesorter
          */
         tablesorter(this: JQuery<HTMLTableElement>, settings?: Partial<Options>): this;
     }
@@ -77,6 +78,9 @@ interface TableSorter {
     getParsers(): Parser[];
 }
 
+/**
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#~TableSorterOptions
+ */
 interface Options {
     /**
      * Boolean flag indicating iftablesorter should cancel

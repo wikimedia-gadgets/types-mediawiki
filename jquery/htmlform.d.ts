@@ -5,6 +5,7 @@ declare global {
          *
          * @param {boolean} [instantToggle=false]
          * @returns {JQuery}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.goIn
          */
         goIn(instantToggle?: boolean): this;
 
@@ -13,6 +14,7 @@ declare global {
          *
          * @param {boolean} [instantToggle=false]
          * @returns {JQuery}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.goOut
          */
         goOut(instantToggle?: boolean): this;
     }

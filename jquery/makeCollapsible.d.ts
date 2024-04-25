@@ -18,6 +18,7 @@ declare global {
          * ```
          * @param {Options} [options]
          * @returns {JQuery}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.makeCollapsible
          */
         makeCollapsible(options?: Options): this;
     }

@@ -13,7 +13,7 @@ declare global {
          * ) );
          * mw.log( output ); // <div><img src="&lt;"/></div>
          * ```
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.html
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html.html
          */
         namespace html {
             /**
@@ -27,7 +27,7 @@ declare global {
              *  - null: The element is treated as void with short closing form, e.g. `<br/>`.
              *  - this.Raw: The raw value is directly included.
              * @returns {string} HTML
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.html-method-element
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html.html#.element
              */
             function element(
                 name: string,
@@ -47,7 +47,7 @@ declare global {
              * ```
              * @param {string} s The string to escape
              * @returns {string} HTML
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.html-method-escape
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html.html#.escape
              */
             function escape(s: string): string;
 
@@ -59,13 +59,14 @@ declare global {
              * const raw = new mw.html.Raw( 'Text' );
              * mw.html.element( 'div', { class: 'html' }, raw );
              * ```
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.html.Raw-method-constructor
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html.Raw.html
              */
             class Raw<V extends string = string> {
                 value: V;
 
                 /**
                  * @param {string} value
+                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html.Raw.html#Raw
                  */
                 constructor(value: V);
             }

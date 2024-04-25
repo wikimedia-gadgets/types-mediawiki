@@ -1,7 +1,7 @@
 declare global {
     namespace mw {
         /**
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignApi
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignApi.html
          */
         class ForeignApi extends Api {
             static static: {};
@@ -14,7 +14,7 @@ declare global {
              * with another MediaWiki wiki via cross-origin requests (CORS).
              *
              * The foreign wiki must be configured to accept requests from the current wiki. See
-             * <https://www.mediawiki.org/wiki/Manual:$wgCrossSiteAJAXdomains> for details.
+             * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains} for details.
              *
              * ```js
              * var api = new mw.ForeignApi( 'https://commons.wikimedia.org/w/api.php' );
@@ -43,7 +43,7 @@ declare global {
              * @since 1.26
              * @param {string|Uri} url URL pointing to another wiki's `api.php` endpoint.
              * @param {ForeignApi.Options} [options] Also accepts all the options from {@link mw.Api.Options}.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignApi-method-constructor
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignApi.html#ForeignApi
              */
             constructor(url: string | Uri, options?: ForeignApi.Options);
 
@@ -51,7 +51,6 @@ declare global {
              * Return the origin to use for API requests, in the required format (protocol, host and port, if any).
              *
              * @returns {string|undefined}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.ForeignApi-method-getOrigin
              */
             protected getOrigin(): "*" | `${string}//${string}` | undefined;
         }

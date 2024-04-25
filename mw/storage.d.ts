@@ -5,7 +5,7 @@
  * The constructor is not publicly accessible. An instance can be accessed from
  * {@link mw.storage} or {@link module:mediawiki.storage}.
  *
- * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html
  */
 interface SafeStorage {
     /**
@@ -14,7 +14,7 @@ interface SafeStorage {
      * @param {string} key Key of item to retrieve
      * @returns {string|null|false} String value, null if no value exists, or false
      *  if storage is not available.
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-get
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#get
      */
     get(key: string): string | null | false;
 
@@ -24,7 +24,7 @@ interface SafeStorage {
      * @param {string} key Key of item to retrieve
      * @returns {Object|null|boolean} Object, null if no value exists or value
      *  is not JSON-parseable, or false if storage is not available.
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-getObject
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#getObject
      */
     getObject(key: string): any;
 
@@ -33,7 +33,7 @@ interface SafeStorage {
      *
      * @param {string} key Key of item to remove
      * @returns {boolean} Whether the key was removed
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-remove
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#remove
      */
     remove(key: string): boolean;
 
@@ -44,7 +44,7 @@ interface SafeStorage {
      * @param {string} value Value to be stored
      * @param {number} [expiry] Number of seconds after which this item can be deleted
      * @returns {boolean} The value was set
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-set
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#set
      */
     set(key: string, value: string, expiry?: number): boolean;
 
@@ -56,7 +56,7 @@ interface SafeStorage {
      *  omit to clear the expiry (either making the item never expire, or to clean up
      *  when deleting a key).
      * @returns {boolean} The expiry was set (or cleared) [since 1.41]
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-setExpires
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#setExpires
      */
     setExpires(key: string, expiry?: number): boolean;
 
@@ -67,7 +67,7 @@ interface SafeStorage {
      * @param {Object} value Object value to be stored
      * @param {number} [expiry] Number of seconds after which this item can be deleted
      * @returns {boolean} The value was set
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-setObject
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#setObject
      */
     setObject(key: string, value: any, expiry?: number): boolean;
 
@@ -76,7 +76,6 @@ interface SafeStorage {
      *
      * @private
      * @returns {JQuery.Promise} Resolves when items have been expired
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-clearExpired
      */
     clearExpired(): JQuery.Promise<undefined>;
 
@@ -86,7 +85,6 @@ interface SafeStorage {
      * @private
      * @returns {JQuery.Promise<string[]>} Promise resolving with all the keys which have
      *  expiry values (unprefixed), or as many could be retrieved in the allocated time.
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-getExpiryKeys
      */
     getExpiryKeys(): JQuery.Promise<string[]>;
 
@@ -96,7 +94,6 @@ interface SafeStorage {
      * @private
      * @param {string} key Key name
      * @returns {boolean} Whether key is expired
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.SafeStorage-method-isExpired
      */
     isExpired(key: string): boolean;
 }
@@ -124,7 +121,7 @@ interface MwStorage extends SafeStorage {
      * to know about and delete when the data is no longer needed. Instead,
      * store dynamic values in an object under a single constant key that you
      * manage or replace over time.
-     * See also <https://phabricator.wikimedia.org/T121646>.
+     * See also {@link https://phabricator.wikimedia.org/T121646}.
      *
      * @example
      * ```js
@@ -137,7 +134,7 @@ interface MwStorage extends SafeStorage {
      * session.set( key, value );
      * session.get( key );
      * ```
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.storage.session
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage.html#.session
      */
     session: SafeStorage;
 }
@@ -166,7 +163,7 @@ declare global {
          * to know about and delete when the data is no longer needed. Instead,
          * store dynamic values in an object under a single constant key that you
          * manage or replace over time.
-         * See also <https://phabricator.wikimedia.org/T121646>.
+         * See also {@link https://phabricator.wikimedia.org/T121646}.
          *
          * @example
          * ```js
@@ -180,7 +177,7 @@ declare global {
          * local.set( key, value, expiry );
          * local.get( key );
          * ```
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.storage
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.storage
          */
         const storage: MwStorage;
     }

@@ -60,14 +60,14 @@ declare global {
     /**
      * Base library for MediaWiki.
      *
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html
      */
     const mediaWiki: typeof mw;
 
     /**
      * Base library for MediaWiki.
      *
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html
      */
     namespace mw {
         /**
@@ -75,12 +75,14 @@ declare global {
          * want to add a new global, or the global is bad and needs containment
          * or wrapping.
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-libs
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.libs
          */
         namespace libs {}
 
         /**
          * Store for templates associated with a module.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.templates
          */
         const templates: Map<Record<string, any>>;
 
@@ -96,7 +98,7 @@ declare global {
          *     OO.ui.getWindowManager().addWindows( [ new mw.widget.AbandonEditDialog() ] );
          * });
          * ```
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.base.html#mw-property-libs
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.widgets.html
          */
         namespace widgets {}
 
@@ -109,7 +111,7 @@ declare global {
          * @param {string} formatString Format string
          * @param {...string} parameters Values for $N replacements
          * @returns {string} Formatted string
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-format
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.format
          */
         function format(formatString: string, ...parameters: string[]): string;
 
@@ -121,7 +123,7 @@ declare global {
          * On all other browsers, it will fall back to using `Date`.
          *
          * @returns {number} Current time
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-now
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.now
          */
         function now(): number;
 
@@ -133,7 +135,7 @@ declare global {
          *
          * Basic logic is as follows:
          *
-         * - User input event should be acknowledged within 100ms per [RAIL].
+         * - User input event should be acknowledged within 100ms per {@link https://developers.google.com/web/fundamentals/performance/rail RAIL}.
          * - Idle work should be grouped in blocks of upto 50ms so that enough time
          *   remains for the event handler to execute and any rendering to take place.
          * - Whenever a native event happens (e.g. user input), the deadline for any
@@ -143,17 +145,16 @@ declare global {
          *
          * See also:
          *
-         * - <https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback>
-         * - <https://w3c.github.io/requestidlecallback/>
-         * - <https://developers.google.com/web/updates/2015/08/using-requestidlecallback>
-         * [RAIL]: https://developers.google.com/web/fundamentals/performance/rail
+         * - {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback}
+         * - {@link https://w3c.github.io/requestidlecallback/}
+         * - {@link https://developers.google.com/web/updates/2015/08/using-requestidlecallback}
          *
          * @param {Function} callback
          * @param {Object} [options]
          * @param {number} [options.timeout] If set, the callback will be scheduled for
          *  immediate execution after this amount of time (in milliseconds) if it didn't run
          *  by that time.
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-requestIdleCallback
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.requestIdleCallback
          */
         function requestIdleCallback(
             callback: (...args: any[]) => any,
@@ -175,7 +176,7 @@ declare global {
          *
          * @param {string} topic Topic name
          * @param {AnalyticEventData} [data] Data describing the event.
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-track
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.track
          */
         function track(topic: string, data?: AnalyticEventData): void;
 
@@ -188,7 +189,6 @@ declare global {
          *
          * @private
          * @param {ErrorAnalyticEventData} data Data describing the event, encoded as an object; see {@link errorLogger.logError}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackError
          */
         function trackError(topic: string, data: ErrorAnalyticEventData): void;
 
@@ -212,7 +212,7 @@ declare global {
          * ```
          * @param {string} topic Handle events whose name starts with this string prefix
          * @param {function(string, AnalyticEventData): void} callback Handler to call for each matching tracked event
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackSubscribe
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.trackSubscribe
          */
         function trackSubscribe(topic: string, callback: AnalyticEventCallback): void;
 
@@ -220,17 +220,16 @@ declare global {
          * Stop handling events for a particular handler.
          *
          * @param {function(string, AnalyticEventData): void} callback
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-trackUnsubscribe
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.trackUnsubscribe
          */
         function trackUnsubscribe(callback: AnalyticEventCallback): void;
 
         /**
          * List of all analytic events emitted so far.
          *
-         * Exposed only for use by mediawiki.base.
+         * Exposed only for use by `mediawiki.base`.
          *
          * @private
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-trackQueue
          */
         const trackQueue: AnalyticEvent[];
     }

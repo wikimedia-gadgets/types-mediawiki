@@ -3,7 +3,7 @@ export type RestResponse = Record<string, any>; // Unknown JSON object
 declare global {
     namespace mw {
         /**
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html
          */
         class Rest {
             /**
@@ -32,7 +32,7 @@ declare global {
              * } );
              * ```
              * @param {Rest.Options} [options] See {@link mw.Rest.Options}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-constructor
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#Rest
              */
             constructor(options?: Rest.Options);
 
@@ -41,7 +41,7 @@ declare global {
             /**
              * Abort all unfinished requests issued by this Api object.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-abort
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#abort
              */
             abort(): void;
 
@@ -52,7 +52,7 @@ declare global {
              * @param {Object.<string, any>} query
              * @param {Object.<string, any>} [headers]
              * @returns {JQuery.Promise<RestResponse>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-get
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#get
              */
             get(
                 path: string,
@@ -69,7 +69,7 @@ declare global {
              * @param {Object.<string, any>} [body]
              * @param {Object.<string, any>} [headers]
              * @returns {JQuery.Promise<RestResponse>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-post
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#post
              */
             post(
                 path: string,
@@ -86,7 +86,7 @@ declare global {
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
              * @returns {JQuery.Promise<RestResponse>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-put
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#put
              */
             put(
                 path: string,
@@ -103,7 +103,7 @@ declare global {
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
              * @returns {JQuery.Promise<RestResponse>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-delete
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#delete
              */
             delete(
                 path: string,
@@ -117,16 +117,19 @@ declare global {
              * @param {string} path
              * @param {JQuery.AjaxSettings} [ajaxOptions]
              * @returns {JQuery.Promise<RestResponse>} Done: API response data and the jqXHR object.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-ajax
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#ajax
              */
             ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<RestResponse>;
         }
 
         namespace Rest {
+            /**
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#.Options
+             */
             interface Options {
                 /**
-                 * Default options for {@link Rest.ajax()} calls. Can be overridden by passing `options` to
-                 * the {@link Rest} constructor.
+                 * Default options for {@link Rest.ajax ajax()} calls. Can be overridden by passing `options` to
+                 * the {@link mw.Rest} constructor.
                  */
                 ajax?: JQuery.AjaxSettings;
             }

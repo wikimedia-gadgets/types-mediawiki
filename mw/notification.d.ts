@@ -5,7 +5,7 @@
  * This does not insert anything into the document. To add to document use
  * {@link mw.notification.notify}.
  *
- * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Notification_
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/Notification.html
  */
 interface Notification {
     $notification: JQuery;
@@ -21,14 +21,14 @@ interface Notification {
     /**
      * Close the notification.
      *
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Notification_-method-close
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/Notification.html#close
      */
     close(): void;
 
     /**
      * Pause any running auto-hide timer for this notification.
      *
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Notification_-method-pause
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/Notification.html#pause
      */
     pause(): void;
 
@@ -37,7 +37,7 @@ interface Notification {
      * Does nothing if autoHide is disabled.
      * Either to resume from pause or to make the first start.
      *
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Notification_-method-resume
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/Notification.html#pause
      */
     resume(): void;
 
@@ -49,7 +49,6 @@ interface Notification {
      * handles the fadeIn animations and replacement transitions, and starts autoHide timers.
      *
      * @private
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Notification_-method-start
      */
     start(): void;
 }
@@ -63,7 +62,7 @@ declare global {
          * @param {Partial<notification.NotificationOptions>} [options] The options to use for the notification.
          *  See {@link notification.defaults the defaults}.
          * @returns {JQuery.Promise<Notification>} Notification object
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-notify
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.notify
          */
         function notify(
             message: string | Message | JQuery | HTMLElement | HTMLElement[],
@@ -73,7 +72,7 @@ declare global {
         /**
          * Library for sending notifications to end users.
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html
          */
         namespace notification {
             /**
@@ -85,13 +84,12 @@ declare global {
              * This basically represents the minimal number of notifications the user should
              * be able to process during the {@link notification.defaults default} {@link autoHideSeconds} time.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-property-autoHideLimit
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.autoHideLimit
              */
             const autoHideLimit: number;
 
             /**
              * @private
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-property-autoHideSeconds
              */
             const autoHideSeconds: {
                 short: number;
@@ -101,7 +99,7 @@ declare global {
             /**
              * The defaults for {@link notify} options parameter.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-property-defaults
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.defaults
              */
             const defaults: NotificationOptions;
 
@@ -109,7 +107,7 @@ declare global {
              * Pause auto-hide timers for all notifications.
              * Notifications will not auto-hide until resume is called.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-method-pause
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.pause
              */
             function pause(): void;
 
@@ -117,7 +115,7 @@ declare global {
              * Resume any paused auto-hide timers from the beginning.
              * Only the first {@link autoHideLimit} timers will be resumed.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-method-resume
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.resume
              */
             function resume(): void;
 
@@ -128,13 +126,16 @@ declare global {
              * @param {NotificationOptions} [options] The options to use for the notification.
              *  Options not specified default to the values in {@link defaults}.
              * @returns {Notification} Notification object
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.notification-method-notify
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.notify
              */
             function notify(
                 message: string | Message | JQuery | HTMLElement | HTMLElement[],
                 options?: NotificationOptions
             ): Notification;
 
+            /**
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.NotificationOptions
+             */
             interface NotificationOptions {
                 /**
                  * Whether the notification should automatically

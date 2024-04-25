@@ -9,6 +9,8 @@ declare global {
          * Note you can provide the {@link target} or not - if the first argument is
          * an object, we assume you want the default, and treat it as apiconfig
          * instead.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignUpload.html
          */
         class ForeignUpload extends Upload {
             static static: {};
@@ -28,6 +30,8 @@ declare global {
              *
              * Defaults to the first available foreign upload target,
              * or to local uploads if no foreign target is configured.
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignUpload.html#.target
              */
             target: string;
 
@@ -46,6 +50,7 @@ declare global {
              *     Use the same names as set in $wgForeignFileRepos for this. Also,
              *     make sure there is an entry in the $wgForeignUploadTargets array for this name.
              * @param {Api.Options} [apiconfig] Passed to the constructor of mw.ForeignApi or mw.Api, as needed.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignUpload.html#ForeignUpload
              */
             constructor(target: string, apiconfig?: ForeignApi.Options);
             constructor(apiconfig?: Api.Options);

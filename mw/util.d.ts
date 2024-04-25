@@ -9,6 +9,9 @@ type NoReturn<T extends (...args: any[]) => any> = T extends (
         : (this: U, ...args: V) => void
     : never;
 
+/**
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#~ResizeableThumbnailUrl
+ */
 interface ResizeableThumbnailUrl {
     /**
      * File name (same format as {@link mw.Title.getMainText()}).
@@ -44,7 +47,7 @@ declare global {
          * // In gadgets
          * const mwUtil = mw.util;
          * ```
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html
          */
         namespace util {
             /**
@@ -64,7 +67,7 @@ declare global {
              * allow your code to re-run when the page changes (e.g. live preview
              * or re-render after ajax save).
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-property-S-content
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.$content
              */
             const $content: JQuery;
 
@@ -85,11 +88,11 @@ declare global {
              * } );
              * ```
              *
-             * See also [MDN: CSSStyleSheet](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet).
+             * See also {@link https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet MDN: CSSStyleSheet}.
              *
              * @param {string} text CSS to be appended
              * @returns {CSSStyleSheet} The sheet object
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-addCSS
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addCSS
              */
             function addCSS(text: string): CSSStyleSheet;
 
@@ -103,7 +106,7 @@ declare global {
              * @returns {HTMLElement|null} will be null if it was not possible to create an portlet with
              *  the required information e.g. the selector given in before parameter could not be resolved
              *  to an existing element in the page.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-addPortlet
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addPortlet
              */
             function addPortlet(id: string, label?: string, before?: string): HTMLElement | null;
 
@@ -173,7 +176,7 @@ declare global {
              *  Must be another item in the same list, it will be ignored otherwise.
              *  Can be specified as DOM reference, as jQuery object, or as CSS selector string.
              * @returns {HTMLLIElement|null} The added list item, or null if no element was added.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-addPortletLink
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addPortletLink
              */
             function addPortletLink(
                 portletId: string,
@@ -189,7 +192,7 @@ declare global {
              * Add content to the subtitle of the skin.
              *
              * @param {HTMLElement|string} nodeOrHTMLString
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-addSubtitle
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addSubtitle
              */
             function addSubtitle(nodeOrHTMLString: HTMLElement | string): void;
 
@@ -197,7 +200,7 @@ declare global {
              * Clears the entire subtitle if present in the page. Used for refreshing subtitle
              * after edit with response from parse API.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-clearSubtitle
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.clearSubtitle
              */
             function clearSubtitle(): void;
 
@@ -209,14 +212,14 @@ declare global {
              *
              * Ported from Underscore.js 1.5.2, Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud
              * and Investigative Reporters & Editors, distributed under the MIT license, from
-             * <https://github.com/jashkenas/underscore/blob/1.5.2/underscore.js#L689>.
+             * {@link https://github.com/jashkenas/underscore/blob/1.5.2/underscore.js#L689}.
              *
              * @since 1.34
              * @param {Function} func Function to debounce
              * @param {number} [wait=0] Wait period in milliseconds
              * @param {boolean} [immediate] Trigger on leading edge
              * @returns {Function} Debounced function
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-debounce
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.debounce
              */
             function debounce<T extends (...args: any[]) => any>(
                 func: T,
@@ -236,7 +239,7 @@ declare global {
              * @since 1.30
              * @param {string} str String to encode
              * @returns {string} Encoded string
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-escapeIdForAttribute
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.escapeIdForAttribute
              */
             function escapeIdForAttribute(str: string): string;
 
@@ -248,7 +251,7 @@ declare global {
              * @since 1.30
              * @param {string} str String to encode
              * @returns {string} Encoded string
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-escapeIdForLink
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.escapeIdForLink
              */
             function escapeIdForLink(str: string): string;
 
@@ -264,7 +267,7 @@ declare global {
              * @since 1.26; moved to {@link mw.util} in 1.34
              * @param {string} str String to escape
              * @returns {string} Escaped string
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-escapeRegExp
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.escapeRegExp
              */
             function escapeRegExp(str: string): string;
 
@@ -282,7 +285,7 @@ declare global {
              * @param {string} param The parameter name.
              * @param {URLSearchParams} [params] Parsed URL parameters to search through, defaulting to the current browsing location.
              * @returns {string[]|null} Parameter value, or null if parameter was not found.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-getArrayParam
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.getArrayParam
              */
             function getArrayParam(param: string, params?: URLSearchParams): string[] | null;
 
@@ -298,7 +301,7 @@ declare global {
              * @param {string} param The parameter name.
              * @param {string} [url=location.href] URL to search through, defaulting to the current browsing location.
              * @returns {string|null} Parameter value, or null if parameter was not found.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-getParamValue
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.getParamValue
              */
             function getParamValue(param: string, url?: string): string | null;
 
@@ -320,7 +323,7 @@ declare global {
              * @param {string} [hash] Hash fragment, without the leading '#'.
              *  Taken from location.hash if omitted.
              * @returns {HTMLElement|null} Element, if found
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-getTargetFromFragment
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.getTargetFromFragment
              */
             function getTargetFromFragment(hash?: string): HTMLElement | null;
 
@@ -331,7 +334,7 @@ declare global {
              * @param {QueryParams} [params] A mapping of query parameter names to values,
              *  e.g. `{ action: 'edit' }`
              * @returns {string} URL, relative to `wgServer`.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-getUrl
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.getUrl
              */
             // params are handled by $.param, which converts any value to a string. However, instead of using toString(),
             // object are serialized (deep ones recursively), so only simple values are allowed to prevent mistakes.
@@ -341,7 +344,7 @@ declare global {
              * Hide a portlet.
              *
              * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-hidePortlet
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.hidePortlet
              */
             function hidePortlet(portletId: string): void;
 
@@ -351,8 +354,8 @@ declare global {
              * such as watchlisting, page protection, and block expiries.
              *
              * @param {string|null} str
-             * @return {boolean}
-             * @stable
+             * @returns {boolean}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isInfinity
              */
             function isInfinity(str: string | null): boolean;
 
@@ -363,7 +366,7 @@ declare global {
              * @param {string} address String to check
              * @param {boolean} [allowBlock=false] If a block of IPs should be allowed
              * @returns {boolean}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-isIPAddress
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isIPAddress
              */
             function isIPAddress(address: string, allowBlock?: boolean): boolean;
 
@@ -385,7 +388,7 @@ declare global {
              * @param {string} address
              * @param {boolean} [allowBlock=false]
              * @returns {boolean}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-isIPv4Address
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isIPv4Address
              */
             function isIPv4Address(
                 address: string,
@@ -414,7 +417,7 @@ declare global {
              * @param {string} address
              * @param {boolean} [allowBlock=false]
              * @returns {boolean}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-isIPv6Address
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isIPv6Address
              */
             function isIPv6Address(address: string, allowBlock?: boolean): boolean;
 
@@ -423,7 +426,7 @@ declare global {
              *
              * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
              * @returns {boolean}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-isPortletVisible
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isPortletVisible
              */
             function isPortletVisible(portletId: string): boolean;
 
@@ -434,7 +437,7 @@ declare global {
              *
              * @param {string} username
              * @returns {boolean}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-isTemporaryUser
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isTemporaryUser
              */
             function isTemporaryUser(username: string): boolean;
 
@@ -446,7 +449,7 @@ declare global {
              * @param {string} url URL to parse (URL-encoded)
              * @returns {ResizeableThumbnailUrl|null} URL data, or null if the URL is not a valid MediaWiki
              *  image/thumbnail URL.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-parseImageUrl
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.parseImageUrl
              */
             function parseImageUrl(url: string): ResizeableThumbnailUrl | null;
 
@@ -464,7 +467,7 @@ declare global {
              *
              * @param {string} text Text to decode
              * @returns {string|null} Decoded text, null if decoding failed
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-percentDecodeFragment
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.percentDecodeFragment
              */
             function percentDecodeFragment(text: string): string | null;
 
@@ -477,7 +480,7 @@ declare global {
              *
              * @param {string} ip IP address in quad or octet form (CIDR or not).
              * @returns {string|null}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-prettifyIP
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.prettifyIP
              */
             function prettifyIP(ip: string): string | null;
 
@@ -486,7 +489,7 @@ declare global {
              *
              * @param {string} str String to be encoded.
              * @returns {string} Encoded string
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-rawurlencode
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.rawurlencode
              */
             function rawurlencode(str: string): string;
 
@@ -501,7 +504,7 @@ declare global {
              *
              * @param {string} ip IP address in quad or octet form (CIDR or not).
              * @returns {string|null}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-sanitizeIP
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.sanitizeIP
              */
             function sanitizeIP(ip: string): string | null;
 
@@ -509,7 +512,7 @@ declare global {
              * Reveal a portlet if it is hidden.
              *
              * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-showPortlet
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.showPortlet
              */
             function showPortlet(portletId: string): void;
 
@@ -527,7 +530,7 @@ declare global {
              * @param {Function} func Function to throttle
              * @param {number} wait Throttle window length, in milliseconds
              * @returns {Function} Throttled function
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-throttle
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.throttle
              */
             function throttle<T extends (...args: any[]) => any>(
                 func: T,
@@ -545,7 +548,7 @@ declare global {
              * ```
              * @param {string} email E-mail address
              * @returns {boolean|null} True if valid, false if invalid, null if `email` was empty.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-validateEmail
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.validateEmail
              */
             function validateEmail(email: string): boolean | null;
 
@@ -557,7 +560,7 @@ declare global {
              * @since 1.18
              * @param {string} [str="index"] Name of entry point (e.g. 'index' or 'api')
              * @returns {string} URL to the script file (e.g. `/w/api.php`)
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-wikiScript
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.wikiScript
              */
             function wikiScript(str?: string): string;
 
@@ -572,7 +575,7 @@ declare global {
              *
              * @param {string} str String to be encoded.
              * @returns {string} Encoded string
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-wikiUrlencode
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.wikiUrlencode
              */
             function wikiUrlencode(str: string): string;
         }

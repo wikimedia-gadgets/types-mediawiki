@@ -60,6 +60,7 @@ declare global {
          * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
          *   of the `id` option.
          * @returns {JQuery}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.injectSpinner
          */
         injectSpinner(opts?: string | Options): this;
     }

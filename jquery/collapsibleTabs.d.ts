@@ -1,20 +1,25 @@
-/**
- * CollapsibleTabsPlugin used in MediaWiki vector skin
- * Copied from https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/skins/Vector/+/master/resources/CollapsibleTabsPlugin.d.ts
- */
-
 declare global {
     interface JQueryStatic {
+        /**
+         * CollapsibleTabsPlugin used in MediaWiki vector skin
+         * Copied from {@link https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/skins/Vector/+/master/resources/CollapsibleTabsPlugin.d.ts}
+         */
         collapsibleTabs: CollapsibleTabsStatic;
     }
 
     interface JQuery {
+        /**
+         * CollapsibleTabsPlugin used in MediaWiki vector skin
+         * Copied from {@link https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/skins/Vector/+/master/resources/CollapsibleTabsPlugin.d.ts}
+         */
         collapsibleTabs(options: Partial<CollapsibleTabsOptions>): void;
     }
 }
 
 /**
  * A jQuery plugin that makes collapsible tabs for the Vector skin.
+ *
+ * @see https://doc.wikimedia.org/mediawiki-skins-Vector/master/js/js/CollapsibleTabsOptions.html
  */
 interface CollapsibleTabsOptions {
     /**

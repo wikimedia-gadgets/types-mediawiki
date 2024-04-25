@@ -2,6 +2,8 @@ declare global {
     namespace mw {
         /**
          * Allows the logging of client errors for later inspections.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.errorLogger.html
          */
         namespace errorLogger {
             /**
@@ -12,7 +14,7 @@ declare global {
              * @param {string} [topic='error.caught'] Error topic. Conventionally in the form
              *   'error.%component%' (where %component% identifies the code logging the error at a
              *   high level; e.g. an extension name).
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.log
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.errorLogger.html#.logError
              */
             function logError(error: Error, topic?: `error.${string}`): void;
         }

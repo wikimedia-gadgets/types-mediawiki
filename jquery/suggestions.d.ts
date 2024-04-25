@@ -20,6 +20,7 @@ declare global {
          * @param {string} property Name of property
          * @param {any} value Value to set property with
          * @returns {JQuery}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.suggestions
          */
         suggestions<K extends keyof Options<T>, T = any>(property: K, value: Options<T>[K]): this;
         suggestions<T = any>(options?: Partial<Options<T>>): this;
