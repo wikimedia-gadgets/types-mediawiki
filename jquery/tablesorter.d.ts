@@ -122,6 +122,7 @@ interface Options {
     /**
      * An array containing objects specifying sorting. By passing more
      * than one object, multi-sorting will be applied. Object structure:
+     *
      * ```
      * { <Integer column index>: <String 'asc' or 'desc'> }
      * ```

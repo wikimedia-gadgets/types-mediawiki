@@ -61,7 +61,6 @@ declare global {
          *     }
          * })
          * ```
-         *
          * @param {Options} [options]
          * @returns {ConfirmCloseWindow} An object of functions to work with this module
          */

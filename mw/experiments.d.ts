@@ -16,6 +16,8 @@ interface Experiment {
 declare global {
     namespace mw {
         /**
+         * Provides an API for bucketing users in experiments.
+         *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.experiments
          */
         namespace experiments {

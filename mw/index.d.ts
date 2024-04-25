@@ -89,7 +89,7 @@ declare global {
          * types for mw.widgets are out of scope!
          *
          * @example
-         * ```
+         * ```js
          * mw.loader.using('mediawiki.widget').then(() => {
          *     OO.ui.getWindowManager().addWindows( [ new mw.widget.AbandonEditDialog() ] );
          * });

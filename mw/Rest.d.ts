@@ -124,6 +124,10 @@ declare global {
 
         namespace Rest {
             interface Options {
+                /**
+                 * Default options for {@link Rest.ajax()} calls. Can be overridden by passing `options` to
+                 * the {@link Rest} constructor.
+                 */
                 ajax?: JQuery.AjaxSettings;
             }
         }

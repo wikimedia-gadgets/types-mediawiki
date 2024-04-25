@@ -140,7 +140,6 @@ declare global {
          *     const contents = $( 'textarea' ).textSelection( 'getContents' );
          * } );
          * ```
-         *
          * @param {string} command Command to execute
          * @param {any} [commandOptions] Options to pass to the command
          * @returns {any} Depending on the command

@@ -4,13 +4,6 @@ declare global {
          * This plugin provides a generic way to add suggestions to a text box.
          * Provided by the `jquery.suggestions` ResourceLoader module.
          *
-         * Set options:
-         *
-         * ```js
-         * $( '#textbox' ).suggestions( { option1: value1, option2: value2 } );
-         * $( '#textbox' ).suggestions( option, value );
-         * ```
-         *
          * @example
          * ```js
          * // Initialize:
@@ -18,8 +11,12 @@ declare global {
          *     $( '#textbox' ).suggestions();
          * });
          * ```
-         * Initialize:
-         *
+         * @example
+         * ```js
+         * // Set options:
+         * $( '#textbox' ).suggestions( { option1: value1, option2: value2 } );
+         * $( '#textbox' ).suggestions( option, value );
+         * ```
          * @param {string} property Name of property
          * @param {any} value Value to set property with
          * @returns {JQuery}

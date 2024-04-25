@@ -291,7 +291,7 @@ declare global {
              * The {@link work()} method will use this information to split up requests by source.
              *
              * @example
-             * ```
+             * ```js
              * mw.loader.addSource( { mediawikiwiki: 'https://www.mediawiki.org/w/load.php' } );
              * ```
              * @private

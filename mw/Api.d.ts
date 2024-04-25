@@ -724,7 +724,6 @@ declare global {
              *     } );
              * } );
              * ```
-             *
              * @param {File|HTMLInputElement} file
              * @param {ApiUploadParams} [data]
              * @returns {JQuery.Promise<FinishUpload>} Promise that resolves with a

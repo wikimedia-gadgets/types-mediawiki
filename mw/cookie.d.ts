@@ -21,11 +21,11 @@ declare global {
              *
              * @param {string} key The key for the cookie
              * @param {string} [prefix] The prefix of the key. If undefined or null, `$wgCookiePrefix` is used
-             * @param {null|string} [defaultValue] A value to return if the cookie does not exist
-             * @returns {any} If the cookie exists, the value of the cookie, otherwise `defaultValue`
+             * @param {string|null} [defaultValue] A value to return if the cookie does not exist
+             * @returns {string|null} If the cookie exists, the value of the cookie, otherwise `defaultValue`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.cookie-method-get
              */
-            function get<D>(
+            function get<D extends string | null>(
                 key: string,
                 prefix: string | undefined | null,
                 defaultValue: D
@@ -37,11 +37,11 @@ declare global {
              *
              * @param {string} key The key for the cookie
              * @param {string} [prefix] The prefix of the key. If undefined or null, `$wgCookiePrefix` is used
-             * @param {null|string} [defaultValue] A value to return if the cookie does not exist
-             * @returns {any} If the cookie exists, the value of the cookie, otherwise `defaultValue`
+             * @param {string|null} [defaultValue] A value to return if the cookie does not exist
+             * @returns {string|null|undefined} If the cookie exists, the value of the cookie, otherwise `defaultValue`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.cookie-method-getCrossSite
              */
-            function getCrossSite<D>(
+            function getCrossSite<D extends string | null>(
                 key: string,
                 prefix: string | undefined | null,
                 defaultValue: D

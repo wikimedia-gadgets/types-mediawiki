@@ -188,7 +188,7 @@ declare global {
          * Create an instance of mw.hook, fired when a portlet is successfully created.
          *
          * @example
-         * ```
+         * ```js
          * mw.hook( 'util.addPortlet' ).add( ( p ) => {
          *     p.style.border = 'solid 1px black';
          * } );
@@ -203,7 +203,7 @@ declare global {
          * Create an instance of mw.hook, fired when a portlet link is successfully created.
          *
          * @example
-         * ```
+         * ```js
          * mw.hook( 'util.addPortletLink' ).add( ( link ) => {
          *     const span = $( '<span class="icon">' );
          *     link.appendChild( span );

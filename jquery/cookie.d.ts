@@ -25,12 +25,11 @@ declare global {
          * Remove a cookie by key.
          *
          * @example
+         * ```js
          * mw.loader.using( 'mediawiki.cookie' ).then( () => {
          *     $.removeCookie( 'name', {} );
          * } );
-         *
-         * @memberof jQueryPlugins
-         * @method removeCookie
+         * ```
          * @param {string} key
          * @param {mw.cookie.CookieOptions} options
          * @returns {boolean} True if the cookie previously existed

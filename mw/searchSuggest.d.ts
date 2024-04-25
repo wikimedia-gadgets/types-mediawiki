@@ -27,7 +27,7 @@ declare global {
          * Loaded via the `mediawiki.searchSuggest` ResourceLoader library.
          *
          * @example
-         * ```
+         * ```js
          * mw.loader.using('mediawiki.searchSuggest').then(() => {
          *     var api = new mw.Api();
          *     mw.searchSuggest.request(api, 'Dogs that', ( results ) => {

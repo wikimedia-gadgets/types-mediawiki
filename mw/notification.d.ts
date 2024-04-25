@@ -60,14 +60,14 @@ declare global {
          * Convenience method for loading and accessing the {@link mw.notification.notify mw.notification module}.
          *
          * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
-         * @param {Partial<NotificationOptions>} [options] The options to use for the notification.
-         *  See {@link defaults} the defaults.
+         * @param {Partial<notification.NotificationOptions>} [options] The options to use for the notification.
+         *  See {@link notification.defaults the defaults}.
          * @returns {JQuery.Promise<Notification>} Notification object
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-notify
          */
         function notify(
             message: string | Message | JQuery | HTMLElement | HTMLElement[],
-            options?: Partial<NotificationOptions>
+            options?: Partial<notification.NotificationOptions>
         ): JQuery.Promise<Notification>;
 
         /**
