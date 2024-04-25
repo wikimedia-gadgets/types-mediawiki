@@ -75,7 +75,7 @@ declare global {
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-property-libs
          */
-        const libs: Record<string, any>;
+        namespace libs {}
 
         /**
          * Store for templates associated with a module.
@@ -96,7 +96,7 @@ declare global {
          * ```
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/source/mediawiki.base.html#mw-property-libs
          */
-        const widgets: any;
+        namespace widgets {}
 
         /**
          * Format a string. Replace $1, $2 ... $N with positional arguments.
