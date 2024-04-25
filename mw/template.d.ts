@@ -54,39 +54,6 @@ declare global {
          */
         namespace template {
             /**
-             * Register a new compiler.
-             *
-             * A compiler is any object that implements a {@link mw.template.compile} method. The compile() method must
-             * return a Template interface with a method {@link TemplateRenderer.render render()} that returns HTML.
-             *
-             * The compiler name must correspond with the name suffix of templates that use this compiler.
-             *
-             * @param {string} name Compiler name
-             * @param {TemplateCompiler} compiler
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.template.html#.registerCompiler
-             */
-            function registerCompiler(name: string, compiler: TemplateCompiler): void;
-
-            /**
-             * Get the name of the associated compiler based on a template name.
-             *
-             * @param {string} templateName Name of a template (including suffix)
-             * @returns {string} Name of a compiler
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.template.html#.getCompilerName
-             */
-            function getCompilerName(templateName: string): string;
-
-            /**
-             * Get a compiler via its name.
-             *
-             * @param {string} name Name of a compiler
-             * @returns {TemplateCompiler} The compiler
-             * @throws {Error} when unknown compiler provided
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.template.html#.getCompiler
-             */
-            function getCompiler(name: string): TemplateCompiler;
-
-            /**
              * Register a template associated with a module.
              *
              * Precompiles the newly added template based on the suffix in its name.
@@ -104,6 +71,17 @@ declare global {
             ): TemplateRenderer;
 
             /**
+             * Compile a string of template markup with an engine of choice.
+             *
+             * @param {string} templateBody Template body
+             * @param {string} compilerName The name of a registered compiler.
+             * @returns {TemplateRenderer} Compiled template
+             * @throws {Error} when unknown compiler name provided.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.template.html#.compile
+             */
+            function compile(templateBody: string, compilerName: string): TemplateRenderer;
+
+            /**
              * Get a compiled template by module and template name.
              *
              * @param {string} moduleName Name of the module to retrieve the template from
@@ -114,15 +92,37 @@ declare global {
             function get(moduleName: string, templateName: string): TemplateRenderer;
 
             /**
-             * Compile a string of template markup with an engine of choice.
+             * Get a compiler via its name.
              *
-             * @param {string} templateBody Template body
-             * @param {string} compilerName The name of a registered compiler.
-             * @returns {TemplateRenderer} Compiled template
-             * @throws {Error} when unknown compiler name provided.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.template.html#.compile
+             * @param {string} name Name of a compiler
+             * @returns {TemplateCompiler} The compiler
+             * @throws {Error} when unknown compiler provided
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.template.html#.getCompiler
              */
-            function compile(templateBody: string, compilerName: string): TemplateRenderer;
+            function getCompiler(name: string): TemplateCompiler;
+
+            /**
+             * Get the name of the associated compiler based on a template name.
+             *
+             * @param {string} templateName Name of a template (including suffix)
+             * @returns {string} Name of a compiler
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.template.html#.getCompilerName
+             */
+            function getCompilerName(templateName: string): string;
+
+            /**
+             * Register a new compiler.
+             *
+             * A compiler is any object that implements a {@link mw.template.compile} method. The compile() method must
+             * return a Template interface with a method {@link TemplateRenderer.render render()} that returns HTML.
+             *
+             * The compiler name must correspond with the name suffix of templates that use this compiler.
+             *
+             * @param {string} name Compiler name
+             * @param {TemplateCompiler} compiler
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.template.html#.registerCompiler
+             */
+            function registerCompiler(name: string, compiler: TemplateCompiler): void;
         }
     }
 }

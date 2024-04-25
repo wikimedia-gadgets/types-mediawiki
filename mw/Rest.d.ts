@@ -46,6 +46,33 @@ declare global {
             abort(): void;
 
             /**
+             * Perform the API call.
+             *
+             * @param {string} path
+             * @param {JQuery.AjaxSettings} [ajaxOptions]
+             * @returns {JQuery.Promise<RestResponse>} Done: API response data and the jqXHR object.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#ajax
+             */
+            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<RestResponse>;
+
+            /**
+             * Perform REST API DELETE request.
+             *
+             * Note: only sending `application/json` is currently supported.
+             *
+             * @param {string} path
+             * @param {Object.<string, any>} body
+             * @param {Object.<string, any>} [headers]
+             * @returns {JQuery.Promise<RestResponse>}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#delete
+             */
+            delete(
+                path: string,
+                body: Record<string, any>,
+                headers?: Record<string, any>
+            ): JQuery.Promise<RestResponse>;
+
+            /**
              * Perform REST API get request.
              *
              * @param {string} path
@@ -93,33 +120,6 @@ declare global {
                 body: Record<string, any>,
                 headers?: Record<string, any>
             ): JQuery.Promise<RestResponse>;
-
-            /**
-             * Perform REST API DELETE request.
-             *
-             * Note: only sending `application/json` is currently supported.
-             *
-             * @param {string} path
-             * @param {Object.<string, any>} body
-             * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#delete
-             */
-            delete(
-                path: string,
-                body: Record<string, any>,
-                headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
-
-            /**
-             * Perform the API call.
-             *
-             * @param {string} path
-             * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<RestResponse>} Done: API response data and the jqXHR object.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#ajax
-             */
-            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<RestResponse>;
         }
 
         namespace Rest {

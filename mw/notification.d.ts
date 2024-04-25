@@ -104,6 +104,20 @@ declare global {
             const defaults: NotificationOptions;
 
             /**
+             * Display a notification message to the user.
+             *
+             * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
+             * @param {NotificationOptions} [options] The options to use for the notification.
+             *  Options not specified default to the values in {@link defaults}.
+             * @returns {Notification} Notification object
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.notify
+             */
+            function notify(
+                message: string | Message | JQuery | HTMLElement | HTMLElement[],
+                options?: NotificationOptions
+            ): Notification;
+
+            /**
              * Pause auto-hide timers for all notifications.
              * Notifications will not auto-hide until resume is called.
              *
@@ -118,20 +132,6 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.resume
              */
             function resume(): void;
-
-            /**
-             * Display a notification message to the user.
-             *
-             * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
-             * @param {NotificationOptions} [options] The options to use for the notification.
-             *  Options not specified default to the values in {@link defaults}.
-             * @returns {Notification} Notification object
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.notify
-             */
-            function notify(
-                message: string | Message | JQuery | HTMLElement | HTMLElement[],
-                options?: NotificationOptions
-            ): Notification;
 
             /**
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.NotificationOptions
