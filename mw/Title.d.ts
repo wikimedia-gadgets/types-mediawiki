@@ -129,10 +129,10 @@ declare global {
             /**
              * Get the page name as if it is a file name, without extension or namespace prefix,
              * in the canonical form with underscores instead of spaces. For example, the title
-             * `File:Example_image.svg` will be returned as `Example image`.
+             * `File:Example_image.svg` will be returned as `Example_image`.
              *
              * Note that this method will work for non-file titles but probably give nonsensical results.
-             * A title like `User:Dr._J._Fail` will be returned as `Dr. J`! Use {@link getMain} instead.
+             * A title like `User:Dr._J._Fail` will be returned as `Dr._J`! Use {@link getMain} instead.
              *
              * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getFileNameWithoutExtension

@@ -288,18 +288,18 @@ declare global {
                  * Currently this does not handle associative or multi-dimensional arrays, but that may be improved in the future.
                  * Implies `overrideKeys: true` (query parameters without `[...]` are not parsed as arrays). Defaults to false.
                  */
-                arrayParams: boolean;
+                arrayParams?: boolean;
 
                 /**
                  * Whether to let duplicate query parameters override each other (`true`) or automagically convert them to an array (`false`).
                  * Defaults to false.
                  */
-                overrideKeys: boolean;
+                overrideKeys?: boolean;
 
                 /**
                  * Trigger strict mode parsing of the url. Defaults to false.
                  */
-                strictMode: boolean;
+                strictMode?: boolean;
             }
         }
     }
