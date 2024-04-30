@@ -43,11 +43,11 @@ declare global {
          *
          * // also returns $( '<div>hello world</div>' );
          * mw.loader.using( 'mediawiki.template.mustache' ).then( () => {
-         *   const $node = mw.template.compile( '<div>{{ >Foo }}</div>', 'mustache' ).render( {
-         *     text: 'Hello world'
-         *   }, {
-         *     Foo: mw.template.compile( '{{text}}', 'mustache' )
-         *   } );
+         *     const $node = mw.template.compile( '<div>{{ >Foo }}</div>', 'mustache' ).render( {
+         *         text: 'Hello world'
+         *     }, {
+         *         Foo: mw.template.compile( '{{text}}', 'mustache' )
+         *     } );
          * } );
          * ```
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.template.html

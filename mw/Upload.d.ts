@@ -299,7 +299,7 @@ declare global {
                 UPLOADING,
 
                 /**
-                 * Upload finished, but not published, call #finishStashUpload.
+                 * Upload finished, but not published, call {@link Upload.finishStashUpload finishStashUpload}.
                  */
                 STASHED,
 

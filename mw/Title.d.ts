@@ -33,6 +33,16 @@ interface TitleExistenceStore {
     set(titles: string | string[], state?: boolean): boolean;
 }
 
+interface UserInputOptions {
+    /**
+     * Makes sure that a file is uploadable under the title returned.
+     * There are pages in the file namespace under which file upload is impossible.
+     * Automatically assumed if the title is created in the Media namespace.
+     * Defaults to true.
+     */
+    forUploading?: boolean;
+}
+
 declare global {
     namespace mw {
         /**
@@ -178,7 +188,7 @@ declare global {
              * @deprecated since 1.40, use {@link getFileNameWithoutExtension} instead
              * @returns {string} File name without file extension, in the canonical form with underscores
              *  instead of spaces. For example, the title `File:Example_image.svg` will be returned as
-             *  "Example_image".
+             *  `Example_image`.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getName
              */
             getName(): string;
@@ -344,7 +354,7 @@ declare global {
              * Returns null on fatal errors.
              *
              * @param {string} uncleanName The unclean file name including file extension but
-             *   without namespace
+             *  without namespace
              * @returns {Title|null} A valid Title object or null if the title is invalid
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.newFromFileName
              */
@@ -384,18 +394,14 @@ declare global {
              * @param {string} title
              * @param {number} [defaultNamespace=NS_MAIN]
              *  If given, will used as default namespace for the given title.
-             * @param {Object} [options] additional options
-             * @param {boolean} [options.forUploading=true]
-             *  Makes sure that a file is uploadable under the title returned.
-             *  There are pages in the file namespace under which file upload is impossible.
-             *  Automatically assumed if the title is created in the Media namespace.
+             * @param {UserInputOptions} [options] additional options
              * @returns {Title|null} A valid Title object or null if the input cannot be turned into a valid title
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.newFromUserInput
              */
             static newFromUserInput(
                 title: string,
                 defaultNamespace?: number,
-                options?: { forUploading?: boolean }
+                options?: UserInputOptions
             ): Title | null;
 
             /**

@@ -59,6 +59,12 @@ interface ModuleRegistryEntry {
     version: string;
 }
 
+interface JsonModuleStore {
+    asOf: number;
+    items: string;
+    vary: string;
+}
+
 export interface ResourceLoaderStoreStats {
     expired: number;
     failed: number;
@@ -138,12 +144,12 @@ declare global {
              *
              * - `registered`:
              *    The module is known to the system but not yet required.
-             *    Meta data is stored by mw.loader#register.
+             *    Meta data is stored by {@link mw.loader.register}.
              *    Calls to that method are generated server-side by StartupModule.
              * - `loading`:
              *    The module was required through mw.loader (either directly or as dependency of
              *    another module). The client will fetch module contents from mw.loader.store
-             *    or from the server. The contents should later be received by mw.loader#implement.
+             *    or from the server. The contents should later be received by {@link mw.loader.implement}.
              * - `loaded`:
              *    The module has been received by mw.loader#implement.
              *    Once the module has no more dependencies in-flight, the module will be executed,
@@ -180,7 +186,7 @@ declare global {
              *
              * @param {string|string[]} modules Either the name of a module, array of modules,
              *  or a URL of an external script or style
-             * @param {string} [type='text/javascript'] MIME type to use if calling with a URL of an
+             * @param {string} [type="text/javascript"] MIME type to use if calling with a URL of an
              *  external script or style; acceptable values are "text/css" and
              *  "text/javascript"; if no type is provided, text/javascript is assumed.
              * @throws {Error} If type is invalid
@@ -316,15 +322,15 @@ declare global {
              * Implement a module given a function which returns the components of the module
              *
              * @private
-             * @param {Function} declarator The declarator should return an array with the following keys:
+             * @param {ModuleDeclarator} declarator The declarator should return an array with the following keys:
              *
              * - 0. {string} module Name of module and current module version. Formatted
-             *   as '`[name]@[version]`". This version should match the requested version
+             *   as `[name]@[version]`. This version should match the requested version
              *   (from #batchRequest and #registry). This avoids race conditions (T117587).
              *
              * - 1. {ModuleScript} [script] Module code. This can be a function,
              *   a list of URLs to load via `<script src>`, a string for `globalEval()`, or an
-             *   object like {"files": {"foo.js":function, "bar.js": function, ...}, "main": "foo.js"}.
+             *   object like `{"files": {"foo.js":function, "bar.js": function, ...}, "main": "foo.js"}`.
              *   If an object is provided, the main file will be executed immediately, and the other
              *   files will only be executed if loaded via require(). If a function or string is
              *   provided, it will be executed/evaluated immediately. If an array is provided, all
@@ -406,10 +412,10 @@ declare global {
              *  a list of arguments compatible with this method
              * @param {string|number} [version] Module version hash (falls backs to empty string)
              *  Can also be a number (timestamp) for compatibility with MediaWiki 1.25 and earlier.
-             * @param {string[]} [dependencies] Array of module names on which this module depends.
-             * @param {string} [group=null] Group which the module is in
-             * @param {string} [source='local'] Name of the source
-             * @param {string} [skip=null] Script body of the skip function
+             * @param {Array<string|number>} [dependencies] Array of module names on which this module depends.
+             * @param {string|null} [group=null] Group which the module is in
+             * @param {string} [source="local"] Name of the source
+             * @param {string|null} [skip=null] Script body of the skip function
              */
             function register(
                 modules: string,
@@ -532,9 +538,9 @@ declare global {
                 /**
                  * Construct a JSON-serializable object representing the content of the store.
                  *
-                 * @returns {Object} Module store contents.
+                 * @returns {JsonModuleStore} Module store contents.
                  */
-                function toJSON(): { items: string; vary: string; asOf: number };
+                function toJSON(): JsonModuleStore;
 
                 /**
                  * Whether the store is in use on this page.

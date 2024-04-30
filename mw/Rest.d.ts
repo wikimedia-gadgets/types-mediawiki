@@ -20,10 +20,10 @@ declare global {
              * } );
              *
              * api.post( '/v1/page/Main_Page', {
-             *      token: 'anon_token',
-             *      source: 'Lörem Ipsüm',
-             *      comment: 'tästing',
-             *      title: 'My_Page'
+             *     token: 'anon_token',
+             *     source: 'Lörem Ipsüm',
+             *     comment: 'tästing',
+             *     title: 'My_Page'
              * }, {
              *     'authorization': 'token'
              * } )

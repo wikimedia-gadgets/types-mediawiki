@@ -529,7 +529,7 @@ declare global {
              *
              * @param {TitleLike} content Content to parse, either as a wikitext string or a {@link mw.Title}
              * @param {ApiParseParams} [additionalParams] Parameters object to set custom settings, e.g.
-             *   `redirects`, `sectionpreview`. `prop` should not be overridden.
+             *  `redirects`, `sectionpreview`. `prop` should not be overridden.
              * @returns {JQuery.Promise<string>} Promise that resolves with the parsed HTML of `wikitext`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#parse
              */
@@ -749,8 +749,8 @@ declare global {
              */
             interface EditTransform {
                 /**
-                 * @param {Object} revision Current revision
-                 * @returns {string|ApiEditPageParams|JQuery.Promise<string>|JQuery.Promise<ApiEditPageParams>} New content, object with edit API parameters, or promise providing one of those.
+                 * @param {Revision} revision Current revision
+                 * @returns {string|ApiEditPageParams|JQuery.Promise<string|ApiEditPageParams>} New content, object with edit API parameters, or promise providing one of those.
                  */
                 (revision: Revision):
                     | string

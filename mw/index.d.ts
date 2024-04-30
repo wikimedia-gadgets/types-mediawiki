@@ -32,6 +32,15 @@ import "./Uri";
 import "./user";
 import "./util";
 
+interface IdleCallbackOptions {
+    /**
+     * If set, the callback will be scheduled for
+     * immediate execution after this amount of time (in milliseconds) if it didn't run
+     * by that time.
+     */
+    timeout?: number;
+}
+
 type ObjectAnalyticEventData = Record<string, any>;
 type AnalyticEventData = ObjectAnalyticEventData | number | string | undefined;
 
@@ -150,15 +159,12 @@ declare global {
          * - {@link https://developers.google.com/web/updates/2015/08/using-requestidlecallback}
          *
          * @param {Function} callback
-         * @param {Object} [options]
-         * @param {number} [options.timeout] If set, the callback will be scheduled for
-         *  immediate execution after this amount of time (in milliseconds) if it didn't run
-         *  by that time.
+         * @param {IdleCallbackOptions} [options]
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.requestIdleCallback
          */
         function requestIdleCallback(
             callback: (...args: any[]) => any,
-            options?: { timeout?: number }
+            options?: IdleCallbackOptions
         ): void;
 
         /**

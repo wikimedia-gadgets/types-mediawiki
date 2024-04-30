@@ -25,10 +25,10 @@ interface ResizeableThumbnailUrl {
 
     /**
      * @param w Width, which must be smaller than the width of the original image (or equal to it; that
-     *   only works if `MediaHandler::mustRender` returns true for the file). Null when the
-     *   file in the original URL is not a thumbnail.
-     *   On wikis with `$wgGenerateThumbnailOnParse` set to true, this will fall back to using
-     *   `Special:Redirect` which is less efficient. Otherwise, it is a direct thumbnail URL.
+     *  only works if `MediaHandler::mustRender` returns true for the file). Null when the
+     *  file in the original URL is not a thumbnail.
+     *  On wikis with `$wgGenerateThumbnailOnParse` set to true, this will fall back to using
+     *  `Special:Redirect` which is less efficient. Otherwise, it is a direct thumbnail URL.
      * @returns A thumbnail URL (URL-encoded) with that width.
      */
     resizeUrl: (w: number) => string | null;
@@ -159,7 +159,7 @@ declare global {
              *
              * ```js
              * $.when( mw.loader.using( [ 'mediawiki.util' ] ), $.ready ).then( function () {
-             *      mw.util.addPortletLink( 'p-tb', 'https://www.mediawiki.org/', 'mediawiki.org' );
+             *     mw.util.addPortletLink( 'p-tb', 'https://www.mediawiki.org/', 'mediawiki.org' );
              * } );
              * ```
              *
@@ -330,7 +330,7 @@ declare global {
             /**
              * Get the URL to a given local wiki page name.
              *
-             * @param {string|null} [pageName=wgPageName] Page name
+             * @param {string|null} [pageName="wgPageName"] Page name
              * @param {QueryParams} [params] A mapping of query parameter names to values,
              *  e.g. `{ action: 'edit' }`
              * @returns {string} URL, relative to `wgServer`.

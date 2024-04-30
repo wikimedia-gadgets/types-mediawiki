@@ -6,7 +6,7 @@ declare global {
          * The argument is an object with options used to construct the spinner (see below).
          *
          * It is a good practice to keep a reference to the created spinner to be able to remove it
-         * later. Alternatively, one can use the 'id' option and #removeSpinner (but make sure to choose
+         * later. Alternatively, one can use the 'id' option and {@link removeSpinner} (but make sure to choose
          * an id that's unlikely to cause conflicts, e.g. with extensions, gadgets or user scripts).
          *
          * CSS classes used:
@@ -34,7 +34,7 @@ declare global {
          *
          * @ignore
          * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
-         *   of the `id` option.
+         *  of the `id` option.
          * @returns {JQuery}
          */
         createSpinner(opts?: string | Options): JQuery;
@@ -58,7 +58,7 @@ declare global {
          * Collection contents remain unchanged.
          *
          * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
-         *   of the `id` option.
+         *  of the `id` option.
          * @returns {JQuery}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.injectSpinner
          */

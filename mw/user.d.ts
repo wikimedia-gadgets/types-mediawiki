@@ -33,7 +33,7 @@ export interface User {
          *
          * @param {string} feature
          * @returns {false|string} returns false if the feature is not recognized.
-         *   returns string if a feature was found.
+         *  returns string if a feature was found.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.clientPrefs.html#.get
          */
         get(feature: string): false | string;
@@ -44,8 +44,8 @@ export interface User {
          * @param {string} feature
          * @param {string} value
          * @returns {boolean} True if feature was stored successfully, false if the value
-         *   uses a forbidden character or the feature is not recognised
-         *   e.g. a matching class was not defined on the HTML document element.
+         *  uses a forbidden character or the feature is not recognised
+         *  e.g. a matching class was not defined on the HTML document element.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.clientPrefs.html#.set
          */
         set(feature: string, value: string): boolean;
@@ -76,7 +76,7 @@ export interface User {
      * created yet, and the name is not visible to other users.
      *
      * @returns {JQuery.Promise<string>} Promise resolved with the username if we succeeded,
-     *   or resolved with `null` if we failed
+     *  or resolved with `null` if we failed
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.acquireTempUserName
      */
     acquireTempUserName(): JQuery.Promise<string>;
@@ -119,7 +119,7 @@ export interface User {
     /**
      * Get the current user's groups.
      *
-     * @param {Function} [callback]
+     * @param {function(string[]):any} [callback]
      * @returns {JQuery.Promise<string[]>}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getGroups
      */
@@ -166,7 +166,7 @@ export interface User {
     /**
      * Get the current user's rights.
      *
-     * @param {Function} [callback]
+     * @param {function(string[]):any} [callback]
      * @returns {JQuery.Promise<string[]>}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getRights
      */

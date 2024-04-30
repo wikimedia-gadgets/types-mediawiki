@@ -50,13 +50,13 @@ declare global {
          * Also focusses the textarea.
          *
          * @param {string} command Command to execute
-         * @param {Partial<TextSelectionEncapsulateOptions>} [options]
+         * @param {TextSelectionEncapsulateOptions} [options]
          * @returns {JQuery}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(
             command: "encapsulateSelection",
-            options?: Partial<TextSelectionEncapsulateOptions>
+            options?: TextSelectionEncapsulateOptions
         ): this;
 
         /**
@@ -64,19 +64,21 @@ declare global {
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
-         * @param {Object} [options]
-         * @param {boolean} [options.startAndEnd=false] Return range of the selection rather than just start
+         * @param {GetCaretPositionOptions} [options]
          * @returns {number|number[]} Array with two numbers, for start and end of selection
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
         textSelection(
             command: "getCaretPosition",
-            options: { startAndEnd: true }
+            options: GetCaretPositionOptions & { startAndEnd: true }
         ): [number, number];
-        textSelection(command: "getCaretPosition", options?: { startAndEnd?: false }): number;
         textSelection(
             command: "getCaretPosition",
-            options?: { startAndEnd: boolean }
+            options?: GetCaretPositionOptions & { startAndEnd?: false }
+        ): number;
+        textSelection(
+            command: "getCaretPosition",
+            options?: GetCaretPositionOptions
         ): number | [number, number];
 
         /**
@@ -84,13 +86,11 @@ declare global {
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
-         * @param {Object} options
-         * @param {number} options.start
-         * @param {number} [options.end=options.start]
+         * @param {SetSelectionOptions} options
          * @returns {JQuery}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
-        textSelection(command: "setSelection", options: { start: number; end?: number }): this;
+        textSelection(command: "setSelection", options: SetSelectionOptions): this;
 
         /**
          * Scroll a textarea to the current cursor position. You can set the cursor
@@ -98,13 +98,14 @@ declare global {
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
-         * @param {Object} [options]
-         * @param {boolean} [options.force=false] Whether to force a scroll even if the caret position
-         *  is already visible.
+         * @param {ScrollToCaretPositionOptions} [options]
          * @returns {JQuery}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection
          */
-        textSelection(command: "scrollToCaretPosition", options: { force?: boolean }): this;
+        textSelection(
+            command: "scrollToCaretPosition",
+            options?: ScrollToCaretPositionOptions
+        ): this;
 
         /**
          * Register an alternative textSelection API for this element.
@@ -153,39 +154,61 @@ interface TextSelectionEncapsulateOptions {
     /**
      * Text to insert before the cursor/selection.
      */
-    pre: string;
+    pre?: string;
     /**
      * Text to insert between pre and post and select afterwards.
      */
-    peri: string;
+    peri?: string;
     /**
      * Text to insert after the cursor/selection.
      */
-    post: string;
+    post?: string;
     /**
      * Put the inserted text on a line of its own. Defaults to false.
      */
-    ownline: boolean;
+    ownline?: boolean;
     /**
      * If there is a selection, replace it with peri instead of leaving it alone. Defaults to false.
      */
-    replace: boolean;
+    replace?: boolean;
     /**
      * Select the peri text if it was inserted (but not if there was a selection and replace==false, or if splitlines==true). Defaults to true.
      */
-    selectPeri: boolean;
+    selectPeri?: boolean;
     /**
      * If multiple lines are selected, encapsulate each line individually. Defaults to false.
      */
-    splitlines: boolean;
+    splitlines?: boolean;
     /**
      * Position to start selection at.
      */
-    selectionStart: number;
+    selectionStart?: number;
     /**
      * Position to end selection at. Defaults to the position to start setection at.
      */
-    selectionEnd: number;
+    selectionEnd?: number;
+}
+
+interface GetCaretPositionOptions {
+    /**
+     * Return range of the selection rather than just start. Defaults to false.
+     */
+    startAndEnd?: boolean;
+}
+
+interface SetSelectionOptions {
+    /**
+     * Defaults to start.
+     */
+    end?: number;
+    start: number;
+}
+
+interface ScrollToCaretPositionOptions {
+    /**
+     * Whether to force a scroll even if the caret position is already visible. Defaults to false.
+     */
+    force?: boolean;
 }
 
 export {};

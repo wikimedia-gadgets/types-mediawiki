@@ -149,7 +149,7 @@ declare global {
             /**
              * Create and manipulate MediaWiki URIs.
              *
-             * @param {Object|string} [uri] URI string, or an Object with appropriate properties (especially
+             * @param {string|Uri|Object.<string,string>} [uri] URI string, or an Object with appropriate properties (especially
              *  another URI object to clone). Object must have non-blank `protocol`, `host`, and `path`
              *  properties. If omitted (or set to `undefined`, `null` or empty string), then an object
              *  will be created for the default `uri` of this constructor (`location.href` for mw.Uri,

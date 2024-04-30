@@ -16,11 +16,11 @@ declare global {
          * $( 'table' ).tablesorter( { sortList: [ { 0: 'desc' }, { 1: 'asc' } ] } );
          * ```
          *
-         * @param {Partial<Options>} settings
+         * @param {TableSorterOptions} settings
          * @returns {JQuery}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.tablesorter
          */
-        tablesorter(this: JQuery<HTMLTableElement>, settings?: Partial<Options>): this;
+        tablesorter(this: JQuery<HTMLTableElement>, settings?: TableSorterOptions): this;
     }
 }
 
@@ -57,14 +57,14 @@ interface Parser<T = unknown, K extends string = string> {
 
 interface TableSorter {
     dateRegex: [];
-    defaultOptions: Options;
+    defaultOptions: Required<TableSorterOptions>;
     monthNames: {};
 
     addParser<T = unknown>(parser: Parser<T>): void;
 
     clearTableBody(table: HTMLTableElement): void;
 
-    construct<T extends JQuery<HTMLTableElement>>($tables: T, settings?: Partial<Options>): T;
+    construct<T extends JQuery<HTMLTableElement>>($tables: T, settings?: TableSorterOptions): T;
 
     formatDigit(s: string): number;
 
@@ -81,47 +81,47 @@ interface TableSorter {
 /**
  * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#~TableSorterOptions
  */
-interface Options {
+interface TableSorterOptions {
     /**
      * Boolean flag indicating iftablesorter should cancel
      * selection of the table headers text.
      * Defaults to true.
      */
-    cancelSelection: boolean;
+    cancelSelection?: boolean;
 
-    columns: number;
+    columns?: number;
 
-    columnToHeader: number[];
+    columnToHeader?: number[];
     /**
      * A string of the class name to be appended to
      * sortable tr elements in the thead on a ascending sort.
      * Defaults to 'headerSortUp'.
      */
-    cssAsc: string;
+    cssAsc?: string;
 
-    cssChildRow: string;
+    cssChildRow?: string;
 
     /**
      * A string of the class name to be appended to
      * sortable tr elements in the thead on a descending sort.
      * Defaults to 'headerSortDown'.
      */
-    cssDesc: string;
+    cssDesc?: string;
 
     /**
      * A string of the class name to be appended to sortable
      * tr elements in the thead of the table.
      * Defaults to 'headerSort'.
      */
-    cssHeader: string;
+    cssHeader?: string;
 
-    cssInitial: string;
+    cssInitial?: string;
 
-    headerList: HTMLTableCellElement[];
+    headerList?: HTMLTableCellElement[];
 
-    headerToColumns: number[][];
+    headerToColumns?: number[][];
 
-    parsers: Parser[];
+    parsers?: Parser[];
 
     /**
      * An array containing objects specifying sorting. By passing more
@@ -131,15 +131,15 @@ interface Options {
      * { <Integer column index>: <String 'asc' or 'desc'> }
      * ```
      */
-    sortList: Array<[number, number]>;
+    sortList?: Array<[number, number]>;
 
     /**
      * A string of the multi-column sort key.
      * Defaults to 'shiftKey'.
      */
-    sortMultiSortKey: MultiSortKey;
+    sortMultiSortKey?: MultiSortKey;
 
-    unsortableClass: string;
+    unsortableClass?: string;
 }
 
 export {};
