@@ -4,7 +4,7 @@
     "description": "TypeScript definitions for MediaWiki JS interface",
     "types": "index.d.ts",
     "scripts": {
-        "lint": "dtslint --localTs node_modules/typescript/lib .",
+        "test": "tsd",
         "format": "prettier --write ."
     },
     "repository": {
@@ -29,10 +29,10 @@
         "vue": "3.3.9"
     },
     "devDependencies": {
-        "dtslint": "^4.1.1",
         "husky": "^4.3.7",
         "lint-staged": "^10.5.3",
         "prettier": "^2.2.1",
+        "tsd": "^0.31.0",
         "tslint-config-prettier": "^1.18.0",
         "typescript": "^4.2.2"
     },
