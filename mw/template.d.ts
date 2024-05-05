@@ -46,39 +46,35 @@ declare global {
              * @param {string} moduleName Name of the ResourceLoader module the template is associated with
              * @param {string} templateName Name of the template (including suffix)
              * @param {string} templateBody Contents of the template (e.g. html markup)
-             * @returns {CompiledTemplate} Compiled template
+             * @returns {Renderer} Compiled template
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.template-method-add
              */
-            function add(
-                moduleName: string,
-                templateName: string,
-                templateBody: string
-            ): CompiledTemplate;
+            function add(moduleName: string, templateName: string, templateBody: string): Renderer;
 
             /**
              * Get a compiled template by module and template name.
              *
              * @param {string} moduleName Name of the module to retrieve the template from
              * @param {string} templateName Name of template to be retrieved
-             * @returns {CompiledTemplate} Compiled template
+             * @returns {Renderer} Compiled template
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.template-method-get
              */
-            function get(moduleName: string, templateName: string): CompiledTemplate;
+            function get(moduleName: string, templateName: string): Renderer;
 
             /**
              * Compile a string of template markup with an engine of choice.
              *
              * @param {string} templateBody Template body
              * @param {string} compilerName The name of a registered compiler
-             * @returns {CompiledTemplate} Compiled template
+             * @returns {Renderer} Compiled template
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.template-method-compile
              */
-            function compile(templateBody: string, compilerName: string): CompiledTemplate;
+            function compile(templateBody: string, compilerName: string): Renderer;
 
-            type CompiledTemplate = any; // Can this be made more specific?
+            type Renderer = any; // Can this be made more specific?
 
             interface Compiler {
-                compile(src: string): CompiledTemplate;
+                compile(src: string): Renderer;
             }
         }
     }

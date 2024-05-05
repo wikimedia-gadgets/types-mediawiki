@@ -361,10 +361,10 @@ declare global {
              * Get the current user's groups and rights.
              *
              * @since 1.27
-             * @returns {JQuery.Promise<User.Info>}
+             * @returns {JQuery.Promise<Api.UserInfo>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.user-method-getUserInfo
              */
-            getUserInfo(): JQuery.Promise<User.Info>;
+            getUserInfo(): JQuery.Promise<Api.UserInfo>;
 
             /**
              * Extend an API parameter object with an assertion that the user won't change.
@@ -418,24 +418,24 @@ declare global {
              * @since 1.35 - expiry parameter can be passed when Watchlist Expiry is enabled
              * @param {TypeOrUnionArray<TitleLike>} pages
              * @param {string} [expiry]
-             * @returns {JQuery.Promise<TypeOrArray<Api.Response.Watch>>}
+             * @returns {JQuery.Promise<TypeOrArray<Api.WatchedPage>>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.watch-method-watch
              */
             watch<P extends TypeOrUnionArray<TitleLike>>(
                 pages: P,
                 expiry?: string
-            ): JQuery.Promise<ReplaceValue<P, TitleLike, Api.Response.Watch>>;
+            ): JQuery.Promise<ReplaceValue<P, TitleLike, Api.WatchedPage>>;
 
             /**
              * Convenience method for `action=watch&unwatch=1`.
              *
              * @param {TypeOrUnionArray<TitleLike>} pages
-             * @returns {JQuery.Promise<TypeOrArray<Api.Response.Watch>>}
+             * @returns {JQuery.Promise<TypeOrArray<Api.WatchedPage>>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api.plugin.watch-method-unwatch
              */
             unwatch<P extends TypeOrUnionArray<TitleLike>>(
                 pages: P
-            ): JQuery.Promise<ReplaceValue<P, TitleLike, Api.Response.Watch>>;
+            ): JQuery.Promise<ReplaceValue<P, TitleLike, Api.WatchedPage>>;
 
             /**
              * Convenience method for `action=parse`.
@@ -737,12 +737,23 @@ declare global {
                     summary: string;
                     title: string;
                 }
+            }
 
-                interface Watch {
-                    ns: number;
-                    title: string;
-                    watched: boolean;
-                }
+            interface WatchedPage {
+                ns: number;
+                title: string;
+                watched: boolean;
+            }
+
+            interface UserInfo {
+                /**
+                 * User groups that the user belongs to
+                 */
+                groups: string[];
+                /**
+                 * User's rights
+                 */
+                rights: string[];
             }
 
             interface AssertUser extends Params {

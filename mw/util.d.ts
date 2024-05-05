@@ -391,11 +391,11 @@ declare global {
              * the image.
              *
              * @param {string} url URL to parse (URL-encoded)
-             * @returns {ImageUrlData|null} URL data, or null if the URL is not a valid MediaWiki
+             * @returns {ResizeableThumbnailUrl|null} URL data, or null if the URL is not a valid MediaWiki
              *   image/thumbnail URL.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.util-method-parseImageUrl
              */
-            function parseImageUrl(url: string): ImageUrlData | null;
+            function parseImageUrl(url: string): ResizeableThumbnailUrl | null;
 
             /**
              * Percent-decode a string, as found in a URL hash fragment
@@ -523,7 +523,7 @@ declare global {
              */
             function wikiUrlencode(str: string): string;
 
-            interface ImageUrlData {
+            interface ResizeableThumbnailUrl {
                 /**
                  * File name (same format as {@link mw.Title.getMainText()}).
                  */

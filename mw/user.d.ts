@@ -210,24 +210,13 @@ declare global {
              * Get the current user's groups or rights
              *
              * @private
-             * @returns {JQuery.Promise<User.Info>}
+             * @returns {JQuery.Promise<Api.UserInfo>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.user-method-getUserInfo
              */
-            getUserInfo(): JQuery.Promise<User.Info>;
+            getUserInfo(): JQuery.Promise<Api.UserInfo>;
         }
 
         namespace User {
-            interface Info {
-                /**
-                 * User groups that the user belongs to
-                 */
-                groups: string[];
-                /**
-                 * User's rights
-                 */
-                rights: string[];
-            }
-
             interface Tokens extends Record<string, string> {
                 csrfToken: string;
                 patrolToken: string;
@@ -238,7 +227,7 @@ declare global {
 }
 
 /** @deprecated Use {@link mw.User.Info} instead */
-export type UserInfo = mw.User.Info;
+export type UserInfo = mw.Api.UserInfo;
 /** @deprecated Use {@link mw.User} instead */
 export type User = mw.User;
 

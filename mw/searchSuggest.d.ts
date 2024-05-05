@@ -6,12 +6,12 @@ declare global {
         function request(
             api: Api,
             query: string,
-            response: (result: string[], info: ResultInfo) => void,
+            response: (result: string[], info: ResponseMetaData) => void,
             maxRows?: number | "max",
             namespace?: number | number[]
         ): JQuery.Promise<Api.Response>;
 
-        interface ResultInfo {
+        interface ResponseMetaData {
             type: string;
             searchId: string;
             query: string;
