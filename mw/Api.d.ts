@@ -53,10 +53,11 @@ interface EditChangedResult extends EditSuccessResult {
     newtimestamp: string;
 }
 
-interface AssertUser {
+// type alias to fix #45
+type AssertUser = {
     assert: "anon" | "user";
     assertUser: string;
-}
+};
 
 interface RollbackInfo {
     /**
