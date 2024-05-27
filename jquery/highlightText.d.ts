@@ -19,7 +19,7 @@ declare global {
          * @param {string} matchString String to match
          * @param {Options} [options]
          * @returns {JQuery}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.highlightText
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.highlightText.html#.$.fn.highlightText
          */
         highlightText(matchString: string, options?: Options): this;
     }

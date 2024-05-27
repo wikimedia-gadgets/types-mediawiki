@@ -22,7 +22,7 @@ interface TooltipAccessKeys<This = JQuery> {
      * } );
      * ```
      * @returns {JQuery}
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.updateTooltipAccessKeys
+     * @see https://doc.wikimedia.org/mediawiki-core/REL1_42/js/jQueryPlugins.html#.updateTooltipAccessKeys
      */
     (): This;
 

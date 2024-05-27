@@ -69,6 +69,11 @@ declare global {
 type Size = "large" | "small";
 type Type = "block" | "inline";
 
+/**
+ * Options for {@link JQuery.injectSpinner}.
+ *
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#~SpinnerOpts
+ */
 interface Options {
     /**
      * If given, spinner will be given an id of "mw-spinner-{id}".
