@@ -31,7 +31,7 @@ interface ResizeableThumbnailUrl {
      *  `Special:Redirect` which is less efficient. Otherwise, it is a direct thumbnail URL.
      * @returns A thumbnail URL (URL-encoded) with that width.
      */
-    resizeUrl: (w: number) => string | null;
+    resizeUrl: ((w: number) => string) | null;
 }
 
 declare global {
