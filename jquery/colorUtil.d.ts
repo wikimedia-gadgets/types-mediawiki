@@ -1,6 +1,7 @@
 declare global {
     interface JQueryStatic {
         /**
+         * @deprecated Removed since 1.41.
          * @see https://doc.wikimedia.org/mediawiki-core/REL1_40/js/#!/api/jQuery.colorUtil
          */
         colorUtil: ColorUtil;

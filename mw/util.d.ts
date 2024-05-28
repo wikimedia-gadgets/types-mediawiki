@@ -99,6 +99,7 @@ declare global {
             /**
              * Creates a detached portlet Element in the skin with no elements.
              *
+             * @since 1.41
              * @param {string} id of the new portlet.
              * @param {string} [label] of the new portlet.
              * @param {string} [before] selector of the element preceding the new portlet. If not passed
@@ -191,6 +192,7 @@ declare global {
             /**
              * Add content to the subtitle of the skin.
              *
+             * @since 1.40
              * @param {HTMLElement|string} nodeOrHTMLString
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addSubtitle
              */
@@ -200,6 +202,7 @@ declare global {
              * Clears the entire subtitle if present in the page. Used for refreshing subtitle
              * after edit with response from parse API.
              *
+             * @since 1.40
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.clearSubtitle
              */
             function clearSubtitle(): void;
@@ -264,7 +267,8 @@ declare global {
              * \ { } ( ) | . ? * + - ^ $ [ ]
              * ```
              *
-             * @since 1.26; moved to {@link mw.util} in 1.34
+             * @since 1.26
+             * @since 1.34 - moved to {@link mw.util}.
              * @param {string} str String to escape
              * @returns {string} Escaped string
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.escapeRegExp
@@ -282,6 +286,7 @@ declare global {
              * mw.util.getArrayParam( 'foo', new URLSearchParams( '?foo[]=a&foo[]=b' ) ); // [ 'a', 'b' ]
              * mw.util.getArrayParam( 'foo', new URLSearchParams( '?foo=a' ) ); // null
              * ```
+             * @since 1.41
              * @param {string} param The parameter name.
              * @param {URLSearchParams} [params] Parsed URL parameters to search through, defaulting to the current browsing location.
              * @returns {string[]|null} Parameter value, or null if parameter was not found.
@@ -353,6 +358,7 @@ declare global {
              * This is used when testing for infinity in the context of expiries,
              * such as watchlisting, page protection, and block expiries.
              *
+             * @since 1.42
              * @param {string|null} str
              * @returns {boolean}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isInfinity
@@ -435,6 +441,7 @@ declare global {
              *
              * This functionality has been adapted from `MediaWiki\User\TempUser\Pattern::isMatch()`
              *
+             * @since 1.40
              * @param {string} username
              * @returns {boolean}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isTemporaryUser

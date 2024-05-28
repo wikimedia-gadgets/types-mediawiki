@@ -59,6 +59,28 @@ declare global {
             function bcp47(languageTag: string): string;
 
             /**
+             * Apply pattern to format value as a string.
+             *
+             * Using patterns from {@link https://www.unicode.org/reports/tr35/#Number_Format_Patterns Unicode TR35}.
+             *
+             * @private
+             * @deprecated This function will be made private in a future release;
+             *  it is poorly named, corresponds to a deprecated function in core, and
+             *  its functionality should be rolled into convertNumber().
+             * @deprecated Removed since 1.40.
+             * @param {number} value
+             * @param {string} pattern Pattern string as described by Unicode TR35
+             * @param {number|null} [minimumGroupingDigits=null]
+             * @throws {Error} If unable to find a number expression in `pattern`.
+             * @return {string}
+             */
+            function commafy(
+                value: number,
+                pattern: string,
+                minimumGroupingDigits?: number | null
+            ): string;
+
+            /**
              * Grammatical transformations, needed for inflected languages.
              * Invoked by putting `{{grammar:case|word}}` in a message.
              *

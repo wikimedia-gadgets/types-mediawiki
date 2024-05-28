@@ -131,6 +131,7 @@ declare global {
              * Note that this method will work for non-file titles but probably give nonsensical results.
              * A title like `User:Dr._J._Fail` will be returned as `Dr. J`! Use {@link getMainText} instead.
              *
+             * @since 1.40
              * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getFileNameTextWithoutExtension
              */
@@ -144,6 +145,7 @@ declare global {
              * Note that this method will work for non-file titles but probably give nonsensical results.
              * A title like `User:Dr._J._Fail` will be returned as `Dr._J`! Use {@link getMain} instead.
              *
+             * @since 1.40
              * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getFileNameWithoutExtension
              */

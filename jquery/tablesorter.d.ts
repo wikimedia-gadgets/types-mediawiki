@@ -33,9 +33,17 @@ export interface ParserMap {
     currency: "numeric";
     date: "numeric";
     IPAddress: "numeric";
+    /**
+     * @deprecated Removed since 1.40.
+     */
+    isoDate: "numeric";
     number: "numeric";
     text: "text";
     time: "numeric";
+    /**
+     * @deprecated Removed since 1.40.
+     */
+    url: "text";
     usLongDate: "numeric";
 }
 

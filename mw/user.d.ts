@@ -25,6 +25,7 @@ export interface User {
      * where `value` contains only alphanumerical characters (a-z, A-Z, and 0-9), and `feature`
      * can also include hyphens.
      *
+     * @since 1.41
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.clientPrefs.html
      */
     clientPrefs: {
@@ -75,6 +76,7 @@ export interface User {
      * will be used for their account. It may also be used in previews. However, the account is not
      * created yet, and the name is not visible to other users.
      *
+     * @since 1.41
      * @returns {JQuery.Promise<string>} Promise resolved with the username if we succeeded,
      *  or resolved with `null` if we failed
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.acquireTempUserName
@@ -110,6 +112,7 @@ export interface User {
     /**
      * Get date user first registered, if available.
      *
+     * @since 1.42
      * @returns {false|null|Date} False for anonymous users, null if data is
      *  unavailable, or Date for when the user registered. For temporary users
      *  that is when their temporary account was created.
@@ -194,6 +197,7 @@ export interface User {
     /**
      * Check whether the user is a normal non-temporary registered user.
      *
+     * @since 1.40
      * @returns {boolean}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.isNamed
      */
@@ -202,6 +206,7 @@ export interface User {
     /**
      * Check whether the user is an autocreated temporary user.
      *
+     * @since 1.40
      * @returns {boolean}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.isTemp
      */

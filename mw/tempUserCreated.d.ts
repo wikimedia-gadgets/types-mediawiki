@@ -3,6 +3,7 @@ declare global {
         /**
          * Respond to the creation of a temporary user.
          *
+         * @since 1.42
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.tempUserCreated.html
          */
         namespace tempUserCreated {

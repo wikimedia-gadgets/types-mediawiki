@@ -63,6 +63,7 @@ interface SafeStorage {
     /**
      * Set an object value in device storage by JSON encoding.
      *
+     * @since 1.41 - returns a boolean indicating whether the value was set.
      * @param {string} key Key name to store under
      * @param {Object} value Object value to be stored
      * @param {number} [expiry] Number of seconds after which this item can be deleted
