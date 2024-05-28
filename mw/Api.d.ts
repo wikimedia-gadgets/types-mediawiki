@@ -48,9 +48,9 @@ interface EditNoChangeResult extends EditSuccessResult {
 }
 
 interface EditChangedResult extends EditSuccessResult {
-    oldrevid: number;
     newrevid: number;
     newtimestamp: string;
+    oldrevid: number;
 }
 
 // type alias to fix #45

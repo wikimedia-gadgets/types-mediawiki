@@ -1,16 +1,16 @@
 interface Experiment {
     /**
-     * The name of the experiment
+     * A map of bucket name to probability that the user will be assigned to that bucket
      */
-    name: string;
+    buckets: Record<string, number>;
     /**
      * Whether the experiment is enabled. If the experiment is disabled, then the user is always assigned to the control bucket
      */
     enabled: boolean;
     /**
-     * A map of bucket name to probability that the user will be assigned to that bucket
+     * The name of the experiment
      */
-    buckets: Record<string, number>;
+    name: string;
 }
 
 declare global {

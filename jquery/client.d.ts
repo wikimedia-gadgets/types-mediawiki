@@ -128,8 +128,8 @@ interface Client {
 }
 
 export interface ClientNavigator {
-    userAgent: string;
     platform: string;
+    userAgent: string;
 }
 
 type ClientProfileName =
@@ -157,9 +157,9 @@ type ClientSupportMap =
     | Record<"ltr" | "rtl", UndirectedClientSupportMap>;
 
 interface ClientProfile {
-    name: ClientProfileName;
     layout: "edge" | "gecko" | "khtml" | "presto" | "trident" | "webkit";
     layoutVersion: number;
+    name: ClientProfileName;
     platform: "ipad" | "iphone" | "linux" | "mac" | "solaris" | "win";
     version: string;
     versionBase: string;

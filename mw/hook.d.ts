@@ -76,13 +76,13 @@ interface PostEditData {
      */
     message?: string | JQuery | HTMLElement[];
     /**
-     * User that made the edit.
-     */
-    user?: string | User;
-    /**
      * Whether a temporary user account was created.
      */
     tempUserCreated?: boolean;
+    /**
+     * User that made the edit.
+     */
+    user?: string | User;
 }
 
 interface SearchIndex {
@@ -90,10 +90,10 @@ interface SearchIndex {
 }
 
 interface SearchIndexEntry {
-    $highlight: JQuery;
     $field: JQuery;
-    $wrapper: JQuery;
+    $highlight: JQuery;
     $tabPanel: JQuery;
+    $wrapper: JQuery;
 }
 
 interface EditRecovery {

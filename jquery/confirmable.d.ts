@@ -27,9 +27,10 @@ declare global {
     }
 }
 
-// make all properties required, replacing optional values with undefined
+// make all properties required, replacing optional values with undefined,
+// whether "exactOptionalPropertyTypes" is enabled or not.
 type RequiredOrUndefined<T> = {
-    [P in keyof Required<T>]: undefined extends T[P] ? T[P] | undefined : T[P];
+    [P in keyof Required<T>]: T[P];
 };
 
 interface Confirmable {

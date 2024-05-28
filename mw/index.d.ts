@@ -57,8 +57,8 @@ interface ErrorAnalyticEventData extends ObjectAnalyticEventData {
 }
 
 interface AnalyticEvent {
-    topic: string;
     data: AnalyticEventData;
+    topic: string;
 }
 
 interface AnalyticEventCallback {

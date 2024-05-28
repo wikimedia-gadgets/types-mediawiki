@@ -14,8 +14,8 @@ interface Notification {
     isPaused: boolean;
     options: mw.notification.NotificationOptions;
     timeout: {
-        set: typeof setTimeout;
         clear: typeof clearTimeout;
+        set: typeof setTimeout;
     };
 
     /**
@@ -92,8 +92,8 @@ declare global {
              * @private
              */
             const autoHideSeconds: {
-                short: number;
                 long: number;
+                short: number;
             };
 
             /**

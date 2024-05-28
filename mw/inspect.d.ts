@@ -70,8 +70,8 @@ interface ResourceLoaderReportMap {
 }
 
 interface Dependency {
-    requires: string[];
     requiredBy: string[];
+    requires: string[];
 }
 
 declare global {

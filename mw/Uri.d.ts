@@ -1,8 +1,8 @@
 export type QueryParams = Record<string, string | number | boolean | null | undefined>;
 
 interface UriParser {
-    strict: RegExp;
     loose: RegExp;
+    strict: RegExp;
 }
 
 declare global {
