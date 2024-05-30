@@ -1,37 +1,20 @@
 export type QueryParams = Record<string, string | number | boolean | null | undefined>;
 
-interface UriOptions {
-    /**
-     * Trigger strict mode parsing of the url.
-     */
-    strictMode: boolean;
-    /**
-     * Whether to let duplicate query parameters override each other (`true`) or automagically convert them to an array (`false`).
-     */
-    overrideKeys: boolean;
-    /**
-     * Whether to parse array query parameters (e.g. `&foo[0]=a&foo[1]=b` or `&foo[]=a&foo[]=b`) or leave them alone.
-     * Currently this does not handle associative or multi-dimensional arrays, but that may be improved in the future.
-     * Implies `overrideKeys: true` (query parameters without `[...]` are not parsed as arrays).
-     */
-    arrayParams: boolean;
-}
-
 interface UriParser {
-    strict: RegExp;
     loose: RegExp;
+    strict: RegExp;
 }
 
 declare global {
     namespace mw {
         /**
-         * A factory method to create an mw.Uri class with a default location to resolve relative URLs
+         * A factory method to create an {@link mw.Uri} class with a default location to resolve relative URLs
          * against (including protocol-relative URLs).
          *
          * @param {string|Function} documentLocation A full url, or function returning one.
          *  If passed a function, the return value may change over time and this will be honoured. (T74334)
          * @returns {Function} An mw.Uri class constructor
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw-method-UriRelative
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.UriRelative
          */
         function UriRelative(documentLocation: string | (() => string)): typeof Uri;
 
@@ -88,55 +71,55 @@ declare global {
          * Parsing based on parseUri 1.2.2 (c) Steven Levithan <http://stevenlevithan.com>, MIT License.
          * <http://stevenlevithan.com/demo/parseuri/js/>
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html
          */
         class Uri {
             /**
-             * For example `top`
+             * For example `top`.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-fragment
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#fragment
              */
             fragment: string | undefined;
             /**
-             * For example `www.example.com` (always present)
+             * For example `www.example.com` (always present).
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-host
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#host
              */
             host: string;
             /**
-             * For example `pwd`
+             * For example `pwd`.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-password
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#password
              */
             password: string | undefined;
             /**
-             * For example `/dir/dir.2/index.htm` (always present)
+             * For example `/dir/dir.2/index.htm` (always present).
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-path
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#path
              */
             path: string;
             /**
-             * For example `81`
+             * For example `81`.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-port
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#port
              */
             port: string | undefined;
             /**
-             * For example `http` (always present)
+             * For example `http` (always present).
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-protocol
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#protocol
              */
             protocol: string;
             /**
-             * For example `{ a: '0', b: '', c: 'value' }` (always present)
+             * For example `{ a: '0', b: '', c: 'value' }` (always present).
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-query
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#query
              */
             query: QueryParams;
             /**
-             * For example `usr`
+             * For example `usr`.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-property-user
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#user
              */
             user: string | undefined;
 
@@ -146,15 +129,11 @@ declare global {
              * These are gnarly expressions. For improved readability, they have been moved to a separate
              * file where they make use of named capture groups. That syntax isn't valid in JavaScript ES5,
              * so the server-side strips these before delivering to the client.
-             *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-static-property-parser
              */
             private static parser: UriParser;
 
             /**
              * The order here matches the order of captured matches in the `parser` property regexes.
-             *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-static-property-properties
              */
             private static properties: [
                 "protocol",
@@ -168,29 +147,28 @@ declare global {
             ];
 
             /**
-             * Construct a new URI object. Throws error if arguments are illegal/impossible, or
-             * otherwise don't parse.
+             * Create and manipulate MediaWiki URIs.
              *
-             * @param {Object|string} [uri] URI string, or an Object with appropriate properties (especially
+             * @param {string|Uri|Object.<string,string>} [uri] URI string, or an Object with appropriate properties (especially
              *  another URI object to clone). Object must have non-blank `protocol`, `host`, and `path`
              *  properties. If omitted (or set to `undefined`, `null` or empty string), then an object
              *  will be created for the default `uri` of this constructor (`location.href` for mw.Uri,
-             *  other values for other instances -- see mw.UriRelative for details).
-             * @param {Partial<UriOptions>|boolean} [options] Object with options, or (backwards compatibility) a boolean
+             *  other values for other instances -- see {@link mw.UriRelative} for details).
+             * @param {Uri.UriOptions|boolean} [options] Object with options, or (backwards compatibility) a boolean
              *  for strictMode
              * @throws {Error} when the query string or fragment contains an unknown % sequence
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-constructor
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#Uri
              */
             constructor(
                 uri?: string | Uri | Partial<Record<typeof Uri.properties[number], string>>,
-                options?: Partial<UriOptions> | boolean
+                options?: Uri.UriOptions | boolean
             );
 
             /**
-             * Clone this URI
+             * Clone this URI.
              *
              * @returns {Uri} New URI object with same properties
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-clone
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#clone
              */
             clone(): Uri;
 
@@ -200,7 +178,7 @@ declare global {
              * @param {QueryParams} parameters Query parameters to add to ours (or to override ours with) as an
              *  object
              * @returns {Uri} This URI object
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-extend
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#extend
              */
             extend(parameters: QueryParams): Uri;
 
@@ -210,7 +188,7 @@ declare global {
              * In most real-world URLs this is simply the hostname, but the definition of 'authority' section is more general.
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-getAuthority
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#getAuthority
              */
             getAuthority(): string;
 
@@ -218,7 +196,7 @@ declare global {
              * Get host and port section of a URI.
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-getHostPort
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#getHostPort
              */
             getHostPort(): string;
 
@@ -228,7 +206,7 @@ declare global {
              * Does not preserve the original order of arguments passed in the URI. Does handle escaping.
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-getQueryString
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#getQueryString
              */
             getQueryString(): string;
 
@@ -236,7 +214,7 @@ declare global {
              * Get everything after the authority section of the URI.
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-getRelativePath
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#getRelativePath
              */
             getRelativePath(): string;
 
@@ -244,7 +222,7 @@ declare global {
              * Get user and password section of a URI.
              *
              * @returns {string}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-getUserInfo
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#getUserInfo
              */
             getUserInfo(): string;
 
@@ -260,7 +238,7 @@ declare global {
              * is important.
              *
              * @returns {string} The URI string
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-toString
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#toString
              */
             toString(): `${string}://${string}`;
 
@@ -268,11 +246,10 @@ declare global {
              * Parse a string and set our properties accordingly.
              *
              * @param {string} str URI, see constructor.
-             * @param {Partial<UriOptions>} options See constructor.
+             * @param {Uri.UriOptions} options See constructor.
              * @throws {Error} when the query string or fragment contains an unknown % sequence
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-method-parse
              */
-            private parse(str: string, options: Partial<UriOptions>): void;
+            private parse(str: string, options: Uri.UriOptions): void;
 
             /**
              * Decode a url encoded value.
@@ -283,7 +260,7 @@ declare global {
              * @param {string} s String to decode
              * @returns {string} Decoded string
              * @throws {Error} when the string contains an unknown % sequence
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-static-method-decode
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#.decode
              */
             static decode(s: string): string;
 
@@ -292,13 +269,38 @@ declare global {
              *
              * Standard encodeURIComponent, with extra stuff to make all browsers work similarly and more
              * compliant with RFC 3986. Similar to rawurlencode from PHP and our JS library
-             * mw.util.rawurlencode, except this also replaces spaces with `+`.
+             * {@link mw.util.rawurlencode}, except this also replaces spaces with `+`.
              *
              * @param {string} s String to encode
              * @returns {string} Encoded string for URI
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Uri-static-method-encode
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#.encode
              */
             static encode(s: string): string;
+        }
+
+        namespace Uri {
+            /**
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#.UriOptions
+             */
+            interface UriOptions {
+                /**
+                 * Whether to parse array query parameters (e.g. `&foo[0]=a&foo[1]=b` or `&foo[]=a&foo[]=b`) or leave them alone.
+                 * Currently this does not handle associative or multi-dimensional arrays, but that may be improved in the future.
+                 * Implies `overrideKeys: true` (query parameters without `[...]` are not parsed as arrays). Defaults to false.
+                 */
+                arrayParams?: boolean;
+
+                /**
+                 * Whether to let duplicate query parameters override each other (`true`) or automagically convert them to an array (`false`).
+                 * Defaults to false.
+                 */
+                overrideKeys?: boolean;
+
+                /**
+                 * Trigger strict mode parsing of the url. Defaults to false.
+                 */
+                strictMode?: boolean;
+            }
         }
     }
 }

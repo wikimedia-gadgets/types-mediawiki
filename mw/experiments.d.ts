@@ -1,22 +1,24 @@
 interface Experiment {
     /**
-     * The name of the experiment
+     * A map of bucket name to probability that the user will be assigned to that bucket
      */
-    name: string;
+    buckets: Record<string, number>;
     /**
      * Whether the experiment is enabled. If the experiment is disabled, then the user is always assigned to the control bucket
      */
     enabled: boolean;
     /**
-     * A map of bucket name to probability that the user will be assigned to that bucket
+     * The name of the experiment
      */
-    buckets: Record<string, number>;
+    name: string;
 }
 
 declare global {
     namespace mw {
         /**
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.experiments
+         * Provides an API for bucketing users in experiments.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.experiments.html
          */
         namespace experiments {
             /**
@@ -41,18 +43,11 @@ declare global {
              *     }
              * }
              * ```
-             *
              * @param {Experiment} experiment
-             * @param {string} experiment.name The name of the experiment
-             * @param {boolean} experiment.enabled Whether or not the experiment is
-             *  enabled. If the experiment is disabled, then the user is always assigned
-             *  to the control bucket
-             * @param {Object.<string, number>} experiment.buckets A map of bucket name to probability
-             *  that the user will be assigned to that bucket
              * @param {string} token A token that uniquely identifies the user for the
              *  duration of the experiment
              * @returns {string|undefined} The bucket
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.experiments-method-getBucket
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.experiments.html#.getBucket
              */
             function getBucket(experiment: Experiment, token: string): string | undefined;
         }

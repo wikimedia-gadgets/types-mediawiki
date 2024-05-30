@@ -26,7 +26,7 @@ export interface ExtensibleMap<V extends Record<string, any>, TX = unknown>
      *
      * @param selection Key to check
      * @returns True if the key exists
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-exists
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html#.exists
      */
     exists<S extends keyof V>(selection: S): selection is S;
     exists<S extends string>(selection: S): selection is S;
@@ -40,7 +40,7 @@ export interface ExtensibleMap<V extends Record<string, any>, TX = unknown>
      * @param fallback Value for keys that don't exist.
      * @returns If selection was a string, returns the value. If selection was an array, returns
      * an object of key/values. If no selection is passed, a new object with all key/values is returned.
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-get
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html#.get
      */
     get<S extends TypeOrArray<keyof V>, TD>(
         selection: S,
@@ -57,7 +57,7 @@ export interface ExtensibleMap<V extends Record<string, any>, TX = unknown>
      * @param selection Key to set value for, or object mapping keys to values
      * @param value Value to set (optional, only in use when key is a string)
      * @returns True on success, false on failure
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-set
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html#.set
      */
     set<S extends keyof V>(selection: S, value: V[S]): boolean;
     set<S extends string>(selection: S, value: TX): boolean;
@@ -67,23 +67,33 @@ export interface ExtensibleMap<V extends Record<string, any>, TX = unknown>
 declare global {
     namespace mw {
         /**
-         * Create an object that can be read from or written to via methods that allow interaction both
-         * with single and multiple properties at once.
+         * ES3 compatible class similar to {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map ES6 Map}.
          *
-         * **NOTE**: This is a private utility class for internal use by the framework.
-         * Don't rely on its existence.
+         * Create an object that can be read from or written to via methods that allow
+         * interaction both with single and multiple properties at once.
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map
+         * @example
+         * ```js
+         * const map = new mw.Map();
+         * map.set( 'foo', 5 );
+         * alert( 5 === map.get( 'foo' ) );
+         * ```
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html
          */
         class Map<V extends Record<string, any> = any> {
             private values: V;
+
+            /**
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html#Map
+             */
+            constructor();
 
             /**
              * Check if a given key exists in the map.
              *
              * @param selection Key to check
              * @returns True if the key exists
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-exists
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html#.exists
              */
             exists<S extends keyof V>(selection: S): selection is S;
 
@@ -96,7 +106,7 @@ declare global {
              * @param fallback Value for keys that don't exist.
              * @returns If selection was a string, returns the value. If selection was an array, returns
              * an object of key/values. If no selection is passed, a new object with all key/values is returned.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-get
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html#.get
              */
             get<S extends TypeOrArray<keyof V>, TD>(
                 selection: S,
@@ -111,7 +121,7 @@ declare global {
              * @param selection Key to set value for, or object mapping keys to values
              * @param value Value to set (optional, only in use when key is a string)
              * @returns True on success, false on failure
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Map-method-set
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html#.set
              */
             set<S extends keyof V>(selection: S, value: V[S]): boolean;
             set<S extends Partial<V>>(selection: S): boolean;

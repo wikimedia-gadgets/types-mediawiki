@@ -2,23 +2,25 @@ declare global {
     interface JQuery {
         /**
          * This plugin provides a generic way to add suggestions to a text box.
+         * Provided by the `jquery.suggestions` ResourceLoader module.
          *
-         * Set options:
-         *
+         * @example
          * ```js
+         * // Initialize:
+         * mw.loader.using( 'jquery.suggestions' ).then(()=> {
+         *     $( '#textbox' ).suggestions();
+         * });
+         * ```
+         * @example
+         * ```js
+         * // Set options:
          * $( '#textbox' ).suggestions( { option1: value1, option2: value2 } );
          * $( '#textbox' ).suggestions( option, value );
          * ```
-         *
-         * Initialize:
-         *
-         * ```js
-         * $( '#textbox' ).suggestions();
-         * ```
-         *
          * @param {string} property Name of property
          * @param {any} value Value to set property with
          * @returns {JQuery}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.suggestions
          */
         suggestions<K extends keyof Options<T>, T = any>(property: K, value: Options<T>[K]): this;
         suggestions<T = any>(options?: Partial<Options<T>>): this;

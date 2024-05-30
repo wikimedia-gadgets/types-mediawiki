@@ -51,7 +51,7 @@ let namespaces = mw.config.get("pageTriageNamespaces") as number[];
 
 ### MediaWiki API parameters
 
-This package also provides typings for API request parameters for the [MediaWiki Action API](https://www.mediawiki.org/wiki/API:Main_page). API endpoints defined in MediaWiki core and by a number of common extensions (the ones enabled on English Wikipedia) are covered. These aren't exported to the global scope, however. For usage, you need to import them. For example:
+This package also provides typings for API request parameters for the [MediaWiki Action API](https://www.mediawiki.org/wiki/Special:MyLanguage/API:Main_page). API endpoints defined in MediaWiki core and by a number of common extensions (the ones enabled on English Wikipedia) are covered. These aren't exported to the global scope, however. For usage, you need to import them. For example:
 
 ```ts
 import type { ApiEditPageParams, ApiParseParams } from "types-mediawiki/api_params";

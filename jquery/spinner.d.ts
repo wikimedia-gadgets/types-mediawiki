@@ -6,7 +6,7 @@ declare global {
          * The argument is an object with options used to construct the spinner (see below).
          *
          * It is a good practice to keep a reference to the created spinner to be able to remove it
-         * later. Alternatively, one can use the 'id' option and #removeSpinner (but make sure to choose
+         * later. Alternatively, one can use the 'id' option and {@link removeSpinner} (but make sure to choose
          * an id that's unlikely to cause conflicts, e.g. with extensions, gadgets or user scripts).
          *
          * CSS classes used:
@@ -32,8 +32,9 @@ declare global {
          * $.createSpinner( { id: 'magic' } );
          * ```
          *
+         * @ignore
          * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
-         *   of the `id` option.
+         *  of the `id` option.
          * @returns {JQuery}
          */
         createSpinner(opts?: string | Options): JQuery;
@@ -41,6 +42,7 @@ declare global {
         /**
          * Remove a spinner element.
          *
+         * @ignore
          * @param {string} id Id of the spinner, as passed to {@link createSpinner}
          * @returns {JQuery} The (now detached) spinner element
          */
@@ -49,14 +51,16 @@ declare global {
 
     interface JQuery {
         /**
-         * Inject a spinner after each element in the collection
+         * Inject a spinner after each element in the collection.
+         * Provided by the `jquery.spinner` ResourceLoader module.
          *
          * Inserts spinner as siblings (not children) of the target elements.
          * Collection contents remain unchanged.
          *
-         * @param {string|Object} [opts] Options. If a string is given, it will be treated as the value
-         *   of the `id` option.
+         * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
+         *  of the `id` option.
          * @returns {JQuery}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.injectSpinner
          */
         injectSpinner(opts?: string | Options): this;
     }
@@ -65,6 +69,11 @@ declare global {
 type Size = "large" | "small";
 type Type = "block" | "inline";
 
+/**
+ * Options for {@link JQuery.injectSpinner}.
+ *
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#~SpinnerOpts
+ */
 interface Options {
     /**
      * If given, spinner will be given an id of "mw-spinner-{id}".
