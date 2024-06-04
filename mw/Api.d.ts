@@ -1,89 +1,3 @@
-import {
-    ApiAssert,
-    ApiEditPageParams,
-    ApiLegacyTokenType,
-    ApiParseParams,
-    ApiQueryAllMessagesParams,
-    ApiQueryTokensParams,
-    ApiRollbackParams,
-    ApiTokenType,
-    ApiUploadParams,
-} from "../api_params";
-import { TitleLike } from "./Title";
-
-type TypeOrArray<T> = T extends any ? T | T[] : never; // T[] would be a mixed array
-type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
-
-type UnknownApiParams = Record<string, string | string[] | boolean | number | number[]>;
-
-export type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
-
-interface Revision {
-    /**
-     * Revision content.
-     */
-    content: string;
-    timestamp: string;
-}
-
-type EditResult = EditFailureResult | EditNoChangeResult | EditChangedResult;
-
-interface EditFailureResult {
-    result: "Failure";
-}
-
-interface EditSuccessResult {
-    contentmodel: string | false;
-    pageid: number;
-    result: "Success";
-    tempusercreated?: true;
-    tempusercreatedredirect?: string;
-    title: string;
-    watched?: true;
-    watchlistexpiry?: string;
-}
-
-interface EditNoChangeResult extends EditSuccessResult {
-    nochange: true;
-}
-
-interface EditChangedResult extends EditSuccessResult {
-    newrevid: number;
-    newtimestamp: string;
-    oldrevid: number;
-}
-
-// type alias to fix #45
-type AssertUser = {
-    assert: "anon" | "user";
-    assertUser: string;
-};
-
-interface RollbackInfo {
-    /**
-     * The revision being restored (the last revision before revision(s) by the reverted user).
-     */
-    last_revid: number;
-    /**
-     * The revision being reverted (previously the current revision of the page).
-     */
-    old_revid: number;
-    pageid: number;
-    revid: number;
-    summary: string;
-    title: string;
-}
-
-interface FinishUpload {
-    /**
-     * Call this function to finish the upload.
-     *
-     * @param {ApiUploadParams} data Additional data for the upload.
-     * @returns {JQuery.Promise<ApiResponse>} API promise for the final upload.
-     */
-    (data?: ApiUploadParams): JQuery.Promise<ApiResponse>;
-}
-
 declare global {
     namespace mw {
         /**
@@ -138,9 +52,9 @@ declare global {
             /**
              * Perform the API call.
              *
-             * @param {UnknownApiParams} parameters Parameters to the API. See also {@link mw.Api.Options.parameters}.
+             * @param {Api.UnknownParams} parameters Parameters to the API. See also {@link mw.Api.Options.parameters}.
              * @param {JQuery.AjaxSettings} [ajaxOptions] Parameters to pass to jQuery.ajax. See also {@link mw.Api.Options.ajax}.
-             * @returns {JQuery.Promise<ApiResponse>} A promise that settles when the API response is processed.
+             * @returns {JQuery.Promise<Api.Response>} A promise that settles when the API response is processed.
              *   Has an 'abort' method which can be used to abort the request.
              *
              *   - On success, resolves to `( result, jqXHR )` where `result` is the parsed API response.
@@ -165,9 +79,9 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#ajax
              */
             ajax(
-                parameters: UnknownApiParams,
+                parameters: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<ApiResponse>;
+            ): JQuery.Promise<Api.Response>;
 
             /**
              * Extend an API parameter object with an assertion that the user won't change.
@@ -192,13 +106,13 @@ declare global {
              * api.postWithToken( 'csrf', api.assertCurrentUser( { action: 'edit', ... } ) )
              * ```
              * @since 1.27
-             * @param {UnknownApiParams} query Query parameters. The object will not be changed
-             * @returns {AssertUser}
+             * @param {Api.UnknownParams} query Query parameters. The object will not be changed
+             * @returns {Api.AssertUser}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#assertCurrentUser
              */
-            assertCurrentUser<T extends UnknownApiParams>(
+            assertCurrentUser<T extends Api.UnknownParams>(
                 query: T
-            ): Omit<T, keyof AssertUser> & AssertUser;
+            ): Omit<T, keyof Api.AssertUser> & Api.AssertUser;
 
             /**
              * Indicate that the cached token for a certain action of the API is bad.
@@ -211,27 +125,27 @@ declare global {
              * @param {string} type Token type
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#badToken
              */
-            badToken(type: ApiTokenType): void;
+            badToken(type: Api.TokenType): void;
             /** @deprecated Use "csrf" instead */
-            badToken(type: ApiLegacyTokenType): void;
+            badToken(type: Api.LegacyTokenType): void;
             badToken(type: string): void;
 
             /**
              * Upload a file in several chunks.
              *
              * @param {File} file
-             * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
+             * @param {Api.Params.Upload} data Other upload options, see `action=upload` API docs for more
              * @param {number} [chunkSize] Size (in bytes) per chunk (default: 5MB)
              * @param {number} [chunkRetries] Amount of times to retry a failed chunk (default: 1)
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#chunkedUpload
              */
             chunkedUpload(
                 file: File,
-                data: ApiUploadParams,
+                data: Api.Params.Upload,
                 chunkSize?: number,
                 chunkRetries?: number
-            ): JQuery.Promise<ApiResponse>;
+            ): JQuery.Promise<Api.Response>;
 
             /**
              * Upload a file to the stash, in chunks.
@@ -240,19 +154,19 @@ declare global {
              * See {@link uploadToStash}.
              *
              * @param {File|HTMLInputElement} file
-             * @param {ApiUploadParams} [data]
+             * @param {Api.Params.Upload} [data]
              * @param {number} [chunkSize] Size (in bytes) per chunk (default: 5MB)
              * @param {number} [chunkRetries] Amount of times to retry a failed chunk (default: 1)
-             * @returns {JQuery.Promise<FinishUpload>} Promise that resolves with a
+             * @returns {JQuery.Promise<Api.FinishUpload>} Promise that resolves with a
              *  function that should be called to finish the upload.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#chunkedUploadToStash
              */
             chunkedUploadToStash(
                 file: File | HTMLInputElement,
-                data?: ApiUploadParams,
+                data?: Api.Params.Upload,
                 chunkSize?: number,
                 chunkRetries?: number
-            ): JQuery.Promise<FinishUpload>;
+            ): JQuery.Promise<Api.FinishUpload>;
 
             /**
              * Create a new page.
@@ -266,16 +180,16 @@ declare global {
              * ```
              * @since 1.28
              * @param {TitleLike} title Page title
-             * @param {ApiEditPageParams} params Edit API parameters
+             * @param {Api.Params.EditPage} params Edit API parameters
              * @param {string} content Page content
-             * @returns {JQuery.Promise<EditResult>} API response
+             * @returns {JQuery.Promise<Api.Response.Edit>} API response
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#create
              */
             create(
                 title: TitleLike,
-                params: ApiEditPageParams,
+                params: Api.Params.EditPage,
                 content: string
-            ): JQuery.Promise<EditResult>;
+            ): JQuery.Promise<Api.Response.Edit>;
 
             /**
              * Edit an existing page.
@@ -335,23 +249,23 @@ declare global {
              * @since 1.28
              * @param {TitleLike} title Page title
              * @param {Api.EditTransform} transform Callback that prepares the edit
-             * @returns {JQuery.Promise<EditResult>} Edit API response
+             * @returns {JQuery.Promise<Api.Response.Edit>} Edit API response
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#edit
              */
-            edit(title: TitleLike, transform: Api.EditTransform): JQuery.Promise<EditResult>;
+            edit(title: TitleLike, transform: Api.EditTransform): JQuery.Promise<Api.Response.Edit>;
 
             /**
              * Perform API get request. See {@link ajax()} for details.
              *
-             * @param {UnknownApiParams} parameters
+             * @param {Api.UnknownParams} parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#get
              */
             get(
-                parameters: UnknownApiParams,
+                parameters: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<ApiResponse>;
+            ): JQuery.Promise<Api.Response>;
 
             /**
              * Get the categories that a particular page on the wiki belongs to.
@@ -411,24 +325,24 @@ declare global {
              *     mw.notify( api.getErrorMessage( data ), { type: 'error' } );
              * } );
              * ```
-             * @param {ApiResponse} data API response indicating an error
+             * @param {Api.Response} data API response indicating an error
              * @returns {JQuery} Error messages, each wrapped in a `<div>`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getErrorMessage
              */
-            getErrorMessage(data: ApiResponse): JQuery;
+            getErrorMessage(data: Api.Response): JQuery;
 
             /**
              * Get a set of messages.
              *
              * @since 1.27
              * @param {string|string[]} messages Messages to retrieve
-             * @param {ApiQueryAllMessagesParams} [options] Additional parameters for the API call
+             * @param {Api.Params.Query.AllMessages} [options] Additional parameters for the API call
              * @returns {JQuery.Promise<Object.<string, string>>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getMessages
              */
             getMessages<T extends string>(
                 messages: T | T[],
-                options?: ApiQueryAllMessagesParams
+                options?: Api.Params.Query.AllMessages
             ): JQuery.Promise<Partial<Record<T, string>>>;
 
             /**
@@ -436,22 +350,22 @@ declare global {
              *
              * @since 1.22
              * @param {string} type Token type
-             * @param {ApiQueryTokensParams|ApiAssert} [additionalParams] Additional parameters for the API (since 1.35). When given a string, it's treated as the `assert` parameter (since 1.25).
+             * @param {Api.Params.Query.Tokens|Api.Assert} [additionalParams] Additional parameters for the API (since 1.35). When given a string, it's treated as the `assert` parameter (since 1.25).
              * @returns {JQuery.Promise<string>} Received token.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getToken
              */
             getToken(
-                type: ApiTokenType,
-                additionalParams?: ApiQueryTokensParams | ApiAssert
+                type: Api.TokenType,
+                additionalParams?: Api.Params.Query.Tokens | Api.Assert
             ): JQuery.Promise<string>;
             /** @deprecated Use "csrf" instead */
             getToken(
-                type: ApiLegacyTokenType,
-                additionalParams?: ApiQueryTokensParams | ApiAssert
+                type: Api.LegacyTokenType,
+                additionalParams?: Api.Params.Query.Tokens | Api.Assert
             ): JQuery.Promise<string>;
             getToken(
                 type: string,
-                additionalParams?: ApiQueryTokensParams | ApiAssert
+                additionalParams?: Api.Params.Query.Tokens | Api.Assert
             ): JQuery.Promise<string>;
 
             /**
@@ -476,13 +390,13 @@ declare global {
              * Load a set of messages and add them to {@link mw.messages}.
              *
              * @param {string|string[]} messages Messages to retrieve
-             * @param {ApiQueryAllMessagesParams} [options] Additional parameters for the API call
+             * @param {Api.Params.Query.AllMessages} [options] Additional parameters for the API call
              * @returns {JQuery.Promise<boolean>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#loadMessages
              */
             loadMessages(
                 messages: string | string[],
-                options?: ApiQueryAllMessagesParams
+                options?: Api.Params.Query.AllMessages
             ): JQuery.Promise<boolean>;
 
             /**
@@ -492,22 +406,22 @@ declare global {
              * @since 1.27
              * @since 1.42 - accepts a single string message as parameter.
              * @param {string|string[]} messages Messages to retrieve
-             * @param {ApiQueryAllMessagesParams} [options] Additional parameters for the API call
+             * @param {Api.Params.Query.AllMessages} [options] Additional parameters for the API call
              * @returns {JQuery.Promise<boolean>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#loadMessagesIfMissing
              */
             loadMessagesIfMissing(
                 messages: string | string[],
-                options?: ApiQueryAllMessagesParams
+                options?: Api.Params.Query.AllMessages
             ): JQuery.Promise<boolean>;
 
             /**
              * @param {string} username
              * @param {string} password
-             * @returns {JQuery.Promise<ApiResponse>} See {@link post()}
+             * @returns {JQuery.Promise<Api.Response>} See {@link post()}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#login
              */
-            login(username: string, password: string): JQuery.Promise<ApiResponse>;
+            login(username: string, password: string): JQuery.Promise<Api.Response>;
 
             /**
              * Post a new section to the page.
@@ -515,53 +429,53 @@ declare global {
              * @param {TitleLike} title Target page
              * @param {string} header
              * @param {string} message Wikitext message
-             * @param {ApiEditPageParams} additionalParams Additional API parameters
-             * @returns {JQuery.Promise<ApiResponse>} See {@link postWithEditToken}
+             * @param {Api.Params.EditPage} additionalParams Additional API parameters
+             * @returns {JQuery.Promise<Api.Response>} See {@link postWithEditToken}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#newSection
              */
             newSection(
                 title: TitleLike,
                 header: string,
                 message: string,
-                additionalParams?: ApiEditPageParams
-            ): JQuery.Promise<ApiResponse>;
+                additionalParams?: Api.Params.EditPage
+            ): JQuery.Promise<Api.Response>;
 
             /**
              * Convenience method for `action=parse`.
              *
              * @param {TitleLike} content Content to parse, either as a wikitext string or a {@link mw.Title}
-             * @param {ApiParseParams} [additionalParams] Parameters object to set custom settings, e.g.
+             * @param {Api.Params.Parse} [additionalParams] Parameters object to set custom settings, e.g.
              *  `redirects`, `sectionpreview`. `prop` should not be overridden.
              * @returns {JQuery.Promise<string>} Promise that resolves with the parsed HTML of `wikitext`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#parse
              */
-            parse(content: TitleLike, additionalParams?: ApiParseParams): JQuery.Promise<string>;
+            parse(content: TitleLike, additionalParams?: Api.Params.Parse): JQuery.Promise<string>;
 
             /**
              * Perform API post request. See {@link ajax()} for details.
              *
-             * @param {UnknownApiParams} parameters
+             * @param {Api.UnknownParams} parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#post
              */
             post(
-                parameters: UnknownApiParams,
+                parameters: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<ApiResponse>;
+            ): JQuery.Promise<Api.Response>;
 
             /**
              * Post to API with csrf token. If we have no token, get one and try to post. If we have a cached token try using that, and if it fails, blank out the cached token and start over.
              *
-             * @param {UnknownApiParams} params API parameters
+             * @param {Api.UnknownParams} params API parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<ApiResponse>} See {@link post}
+             * @returns {JQuery.Promise<Api.Response>} See {@link post}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#postWithEditToken
              */
             postWithEditToken(
-                params: UnknownApiParams,
+                params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<ApiResponse>;
+            ): JQuery.Promise<Api.Response>;
 
             /**
              * Post to API with the specified type of token. If we have no token, get one and try to post.
@@ -578,27 +492,27 @@ declare global {
              * ```
              * @since 1.22
              * @param {string} tokenType The name of the token, like `options` or `edit`.
-             * @param {UnknownApiParams} params API parameters
+             * @param {Api.UnknownParams} params API parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<ApiResponse>} See {@link post()}
+             * @returns {JQuery.Promise<Api.Response>} See {@link post()}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#postWithToken
              */
             postWithToken(
-                tokenType: ApiTokenType,
-                params: UnknownApiParams,
+                tokenType: Api.TokenType,
+                params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<ApiResponse>;
+            ): JQuery.Promise<Api.Response>;
             /** @deprecated Use "csrf" instead */
             postWithToken(
-                tokenType: ApiLegacyTokenType,
-                params: UnknownApiParams,
+                tokenType: Api.LegacyTokenType,
+                params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<ApiResponse>;
+            ): JQuery.Promise<Api.Response>;
             postWithToken(
                 tokenType: string,
-                params: UnknownApiParams,
+                params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<ApiResponse>;
+            ): JQuery.Promise<Api.Response>;
 
             /**
              * Convenience method for `action=rollback`.
@@ -606,15 +520,15 @@ declare global {
              * @since 1.28
              * @param {TitleLike} page
              * @param {string} user
-             * @param {ApiRollbackParams} [params] Additional parameters
+             * @param {Api.Params.Rollback} [params] Additional parameters
              * @returns {JQuery.Promise<RollbackInfo>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#rollback
              */
             rollback(
                 page: TitleLike,
                 user: string,
-                params?: ApiRollbackParams
-            ): JQuery.Promise<RollbackInfo>;
+                params?: Api.Params.Rollback
+            ): JQuery.Promise<Api.Response.Rollback>;
 
             /**
              * Asynchronously save the value of a single user option using the API.
@@ -622,10 +536,10 @@ declare global {
              *
              * @param {string} name
              * @param {string|null} value
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#saveOption
              */
-            saveOption(name: string, value: string | null): JQuery.Promise<ApiResponse>;
+            saveOption(name: string, value: string | null): JQuery.Promise<Api.Response>;
 
             /**
              * Asynchronously save the values of user options using the {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Options Options API}.
@@ -643,10 +557,10 @@ declare global {
              * would fail anyway. See T214963.
              *
              * @param {Object.<string, string|null>} options Options as a `{ name: value, … }` object
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#saveOptions
              */
-            saveOptions(options: Record<string, string | null>): JQuery.Promise<ApiResponse>;
+            saveOptions(options: Record<string, string | null>): JQuery.Promise<Api.Response>;
 
             /**
              * Convenience method for `action=watch&unwatch=1`.
@@ -669,24 +583,24 @@ declare global {
              * The file will be uploaded using AJAX and FormData.
              *
              * @param {File|Blob|HTMLInputElement} file HTML `input type=file` element with a file already inside of it, or a File object.
-             * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @param {Api.Params.Upload} data Other upload options, see `action=upload` API docs for more
+             * @returns {JQuery.Promise<Api.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#upload
              */
             upload(
                 file: File | Blob | HTMLInputElement,
-                data: ApiUploadParams
-            ): JQuery.Promise<ApiResponse>;
+                data: Api.Params.Upload
+            ): JQuery.Promise<Api.Response>;
 
             /**
              * Finish an upload in the stash.
              *
              * @param {string} filekey
-             * @param {ApiUploadParams} data
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @param {Api.Params.Upload} data
+             * @returns {JQuery.Promise<Api.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#uploadFromStash
              */
-            uploadFromStash(filekey: string, data: ApiUploadParams): JQuery.Promise<ApiResponse>;
+            uploadFromStash(filekey: string, data: Api.Params.Upload): JQuery.Promise<Api.Response>;
 
             /**
              * Upload a file to the stash.
@@ -707,15 +621,15 @@ declare global {
              * } );
              * ```
              * @param {File|HTMLInputElement} file
-             * @param {ApiUploadParams} [data]
+             * @param {Api.Params.Upload} [data]
              * @returns {JQuery.Promise<FinishUpload>} Promise that resolves with a
              *  function that should be called to finish the upload.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#uploadToStash
              */
             uploadToStash(
                 file: File | HTMLInputElement,
-                data?: ApiUploadParams
-            ): JQuery.Promise<FinishUpload>;
+                data?: Api.Params.Upload
+            ): JQuery.Promise<Api.FinishUpload>;
 
             /**
              * Convenience method for `action=watch`.
@@ -739,26 +653,153 @@ declare global {
             /**
              * Massage parameters from the nice format we accept into a format suitable for the API.
              *
-             * @param {UnknownApiParams} parameters (modified in-place)
+             * @param {Api.UnknownParams} parameters (modified in-place)
              * @param {boolean} useUS Whether to use U+001F when joining multi-valued parameters.
              */
-            private preprocessParameters(parameters: UnknownApiParams, useUS: boolean): void;
+            private preprocessParameters(parameters: Api.UnknownParams, useUS: boolean): void;
         }
 
         namespace Api {
+            type Limit = number | "max";
+            type Assert = "anon" | "bot" | "user";
+            type TokenType =
+                | "createaccount"
+                | "csrf"
+                | "deleteglobalaccount"
+                | "login"
+                | "patrol"
+                | "rollback"
+                | "setglobalaccountstatus"
+                | "userrights"
+                | "watch";
+            type LegacyTokenType =
+                | "block"
+                | "delete"
+                | "edit"
+                | "email"
+                | "import"
+                | "move"
+                | "options"
+                | "protect"
+                | "unblock";
+
+            type UnknownParams = Record<string, string | string[] | boolean | number | number[]>;
+
+            interface Params {
+                action?: string;
+                format?: "json" | "jsonfm" | "none" | "php" | "phpfm" | "rawfm" | "xml" | "xmlfm";
+                maxlag?: number;
+                smaxage?: number;
+                maxage?: number;
+                assert?: "user" | "bot" | "anon";
+                assertuser?: string;
+                requestid?: string;
+                servedby?: boolean;
+                curtimestamp?: boolean;
+                responselanginfo?: boolean;
+                origin?: string;
+                uselang?: string;
+                errorformat?: "bc" | "html" | "none" | "plaintext" | "raw" | "wikitext";
+                errorlang?: string;
+                errorsuselocal?: boolean;
+                centralauthtoken?: string;
+
+                // format=json
+                callback?: string;
+                utf8?: boolean;
+                ascii?: boolean;
+                formatversion?: "1" | "2" | "latest";
+            }
+
+            namespace Params {
+                // see api_params/index.d.ts
+            }
+
             /**
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#.EditTransform
              */
             interface EditTransform {
                 /**
                  * @param {Revision} revision Current revision
-                 * @returns {string|ApiEditPageParams|JQuery.Promise<string|ApiEditPageParams>} New content, object with edit API parameters, or promise providing one of those.
+                 * @returns {string|Params.EditPage|JQuery.Promise<string|Params.EditPage>} New content, object with edit API parameters, or promise providing one of those.
                  */
                 (revision: Revision):
                     | string
-                    | ApiEditPageParams
+                    | Params.EditPage
                     | JQuery.Promise<string>
-                    | JQuery.Promise<ApiEditPageParams>;
+                    | JQuery.Promise<Params.EditPage>;
+            }
+
+            interface Revision {
+                /**
+                 * Revision content.
+                 */
+                content: string;
+                timestamp: string;
+            }
+
+            type Response = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
+
+            namespace Response {
+                type Edit = Edit.Failure | Edit.NoChange | Edit.Changed;
+
+                namespace Edit {
+                    interface Failure {
+                        result: "Failure";
+                    }
+
+                    interface Success {
+                        contentmodel: string | false;
+                        pageid: number;
+                        result: "Success";
+                        tempusercreated?: true;
+                        tempusercreatedredirect?: string;
+                        title: string;
+                        watched?: true;
+                        watchlistexpiry?: string;
+                    }
+
+                    interface NoChange extends Success {
+                        nochange: true;
+                    }
+
+                    interface Changed extends Success {
+                        newrevid: number;
+                        newtimestamp: string;
+                        oldrevid: number;
+                    }
+                }
+
+                interface Rollback {
+                    /**
+                     * The revision being restored (the last revision before revision(s) by the reverted user).
+                     */
+                    last_revid: number;
+                    /**
+                     * The revision being reverted (previously the current revision of the page).
+                     */
+                    old_revid: number;
+                    pageid: number;
+                    revid: number;
+                    summary: string;
+                    title: string;
+                }
+            }
+
+            // type alias to fix #45
+            type AssertUser = {
+                assert: "anon" | "user";
+                assertuser: string;
+            };
+
+            interface FinishUpload {
+                /**
+                 * Call this function to finish the upload.
+                 *
+                 * @param {Params.Upload} data Additional data for the upload.
+                 * @returns {JQuery.Promise<Response>} API promise for the final upload.
+                 */
+                (data?: Params.Upload): JQuery.Promise<Response>;
             }
 
             /**
@@ -775,7 +816,7 @@ declare global {
                 /**
                  * Default query parameters for API requests
                  */
-                parameters?: UnknownApiParams;
+                parameters?: UnknownParams;
                 /**
                  * Whether to use U+001F when joining multi-valued parameters (since 1.28).
                  * Default is true if ajax.url is not set, false otherwise for compatibility.
@@ -815,7 +856,9 @@ declare global {
     }
 }
 
-/** @deprecated Use `mw.Api.Options` instead. Note that `ApiOptions` is strictly equivalent to `Required<mw.Api.Options>` as properties are now optional for consistency. */
+/** @deprecated Use {@link mw.Api.Options} instead. Note that `ApiOptions` is strictly equivalent to `Required<mw.Api.Options>` as properties are now optional for consistency. */
 export type ApiOptions = Required<mw.Api.Options>;
+/** @deprecated Use {@link mw.Api.Response} instead */
+export type ApiResponse = mw.Api.Response;
 
 export {};

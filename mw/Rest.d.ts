@@ -1,5 +1,3 @@
-export type RestResponse = Record<string, any>; // Unknown JSON object
-
 declare global {
     namespace mw {
         /**
@@ -50,10 +48,10 @@ declare global {
              *
              * @param {string} path
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<RestResponse>} Done: API response data and the jqXHR object.
+             * @returns {JQuery.Promise<Rest.Response>} Done: API response data and the jqXHR object.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#ajax
              */
-            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<RestResponse>;
+            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<Rest.Response>;
 
             /**
              * Perform REST API DELETE request.
@@ -63,14 +61,14 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
+             * @returns {JQuery.Promise<Rest.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#delete
              */
             delete(
                 path: string,
                 body: Record<string, any>,
                 headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
+            ): JQuery.Promise<Rest.Response>;
 
             /**
              * Perform REST API get request.
@@ -78,14 +76,14 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} query
              * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
+             * @returns {JQuery.Promise<Rest.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#get
              */
             get(
                 path: string,
                 query: Record<string, any>,
                 headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
+            ): JQuery.Promise<Rest.Response>;
 
             /**
              * Perform REST API post request.
@@ -96,14 +94,14 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} [body]
              * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
+             * @returns {JQuery.Promise<Rest.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#post
              */
             post(
                 path: string,
                 body?: Record<string, any>,
                 headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
+            ): JQuery.Promise<Rest.Response>;
 
             /**
              * Perform REST API PUT request.
@@ -113,14 +111,14 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<RestResponse>}
+             * @returns {JQuery.Promise<Rest.Response>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#put
              */
             put(
                 path: string,
                 body: Record<string, any>,
                 headers?: Record<string, any>
-            ): JQuery.Promise<RestResponse>;
+            ): JQuery.Promise<Rest.Response>;
         }
 
         namespace Rest {
@@ -134,11 +132,16 @@ declare global {
                  */
                 ajax?: JQuery.AjaxSettings;
             }
+
+            // Unknown JSON object
+            type Response = Record<string, any>;
         }
     }
 }
 
-/** @deprecated Use `mw.Rest.Options` instead. Note that `RestOptions` is strictly equivalent to `Required<mw.Rest.Options>` as properties are now optional for consistency. */
+/** @deprecated Use {@link mw.Rest.Options} instead. Note that `RestOptions` is strictly equivalent to `Required<mw.Rest.Options>` as properties are now optional for consistency. */
 export type RestOptions = Required<mw.Rest.Options>;
+/** @deprecated Use {@link mw.Rest.Response} instead */
+export type RestResponse = mw.Rest.Response;
 
 export {};
