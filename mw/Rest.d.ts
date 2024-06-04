@@ -1,7 +1,7 @@
 declare global {
     namespace mw {
         /**
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html
          */
         class Rest {
             /**
@@ -9,6 +9,7 @@ declare global {
              * MediaWiki server. mw.Rest objects represent the REST API of a particular
              * MediaWiki server.
              *
+             * @example
              * ```js
              * var api = new mw.Rest();
              * api.get( '/v1/page/Main_Page/html' )
@@ -17,10 +18,10 @@ declare global {
              * } );
              *
              * api.post( '/v1/page/Main_Page', {
-             *      token: 'anon_token',
-             *      source: 'Lörem Ipsüm',
-             *      comment: 'tästing',
-             *      title: 'My_Page'
+             *     token: 'anon_token',
+             *     source: 'Lörem Ipsüm',
+             *     comment: 'tästing',
+             *     title: 'My_Page'
              * }, {
              *     'authorization': 'token'
              * } )
@@ -28,20 +29,46 @@ declare global {
              *     console.log( data );
              * } );
              * ```
-             *
-             * @param {Partial<Rest.Options>} [options]
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-constructor
+             * @param {Rest.Options} [options] See {@link mw.Rest.Options}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#Rest
              */
-            constructor(options?: Partial<Rest.Options>);
+            constructor(options?: Rest.Options);
 
-            private defaults: Rest.Options;
+            private defaults: Required<Rest.Options>;
 
             /**
              * Abort all unfinished requests issued by this Api object.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-abort
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#abort
              */
             abort(): void;
+
+            /**
+             * Perform the API call.
+             *
+             * @param {string} path
+             * @param {JQuery.AjaxSettings} [ajaxOptions]
+             * @returns {JQuery.Promise<Rest.Response>} Done: API response data and the jqXHR object.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#ajax
+             */
+            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<Rest.Response>;
+
+            /**
+             * Perform REST API DELETE request.
+             *
+             * Note: only sending `application/json` is currently supported.
+             *
+             * @param {string} path
+             * @param {Object.<string, any>} body
+             * @param {Object.<string, any>} [headers]
+             * @returns {JQuery.Promise<Rest.Response>}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#delete
+             */
+            delete(
+                path: string,
+                body: Record<string, any>,
+                headers?: Record<string, any>
+            ): JQuery.Promise<Rest.Response>;
 
             /**
              * Perform REST API get request.
@@ -50,7 +77,7 @@ declare global {
              * @param {Object.<string, any>} query
              * @param {Object.<string, any>} [headers]
              * @returns {JQuery.Promise<Rest.Response>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-get
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#get
              */
             get(
                 path: string,
@@ -61,68 +88,49 @@ declare global {
             /**
              * Perform REST API post request.
              *
-             * Note: only sending application/json is currently supported.
+             * Note: only sending `application/json` is currently supported.
              *
+             * @since 1.42 - body parameter is optional.
              * @param {string} path
-             * @param {Object.<string, any>} body
+             * @param {Object.<string, any>} [body]
              * @param {Object.<string, any>} [headers]
              * @returns {JQuery.Promise<Rest.Response>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-post
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#post
              */
             post(
                 path: string,
-                body: Record<string, any>,
+                body?: Record<string, any>,
                 headers?: Record<string, any>
             ): JQuery.Promise<Rest.Response>;
 
             /**
              * Perform REST API PUT request.
              *
-             * Note: only sending application/json is currently supported.
+             * Note: only sending `application/json` is currently supported.
              *
              * @param {string} path
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
              * @returns {JQuery.Promise<Rest.Response>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-put
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#put
              */
             put(
                 path: string,
                 body: Record<string, any>,
                 headers?: Record<string, any>
             ): JQuery.Promise<Rest.Response>;
-
-            /**
-             * Perform REST API DELETE request.
-             *
-             * Note: only sending application/json is currently supported.
-             *
-             * @param {string} path
-             * @param {Object.<string, any>} body
-             * @param {Object.<string, any>} [headers]
-             * @returns {JQuery.Promise<Rest.Response>}
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Rest-method-delete
-             */
-            delete(
-                path: string,
-                body: Record<string, any>,
-                headers?: Record<string, any>
-            ): JQuery.Promise<Rest.Response>;
-
-            /**
-             * Perform the API call.
-             *
-             * @param {string} path
-             * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<Rest.Response>} Done: API response data and the jqXHR object.
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Api-method-ajax
-             */
-            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): JQuery.Promise<Rest.Response>;
         }
 
         namespace Rest {
+            /**
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#.Options
+             */
             interface Options {
-                ajax: JQuery.AjaxSettings;
+                /**
+                 * Default options for {@link Rest.ajax ajax()} calls. Can be overridden by passing `options` to
+                 * the {@link mw.Rest} constructor.
+                 */
+                ajax?: JQuery.AjaxSettings;
             }
 
             // Unknown JSON object
@@ -131,8 +139,8 @@ declare global {
     }
 }
 
-/** @deprecated Use {@link mw.Rest.Options} instead */
-export type RestOptions = mw.Rest.Options;
+/** @deprecated Use {@link mw.Rest.Options} instead. Note that `RestOptions` is strictly equivalent to `Required<mw.Rest.Options>` as properties are now optional for consistency. */
+export type RestOptions = Required<mw.Rest.Options>;
 /** @deprecated Use {@link mw.Rest.Response} instead */
 export type RestResponse = mw.Rest.Response;
 

@@ -1,9 +1,9 @@
 declare global {
     interface JQueryStatic {
         /**
-         * User-agent detection
+         * User-agent detection.
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.client
+         * @see https://doc.wikimedia.org/jquery-client/master/jQuery.client.html
          */
         client: JQuery.Client;
     }
@@ -24,19 +24,6 @@ declare global {
              *     'version': '3.5.1',
              *     'versionBase': '3',
              *     'versionNumber': 3.5,
-             * }
-             * ```
-             *
-             * Example:
-             *
-             * ```js
-             * if ( $.client.profile().layout == 'gecko' ) {
-             *     // This will only run in Gecko browsers, such as Mozilla Firefox.
-             * }
-             *
-             * var profile = $.client.profile();
-             * if ( profile.layout == 'gecko' && profile.platform == 'linux' ) {
-             *     // This will only run in Gecko browsers on Linux.
              * }
              * ```
              *
@@ -76,10 +63,21 @@ declare global {
              * - `solaris` (untested)
              * - `win`
              *
+             * @example
+             * ```js
+             * if ( $.client.profile().layout == 'gecko' ) {
+             *     // This will only run in Gecko browsers, such as Mozilla Firefox.
+             * }
+             *
+             * var profile = $.client.profile();
+             * if ( profile.layout == 'gecko' && profile.platform == 'linux' ) {
+             *     // This will only run in Gecko browsers on Linux.
+             * }
+             * ```
              * @param {Client.Navigator} [nav] An object with a 'userAgent' and 'platform' property.
              *  Defaults to the global `navigator` object.
              * @returns {Client.Profile} The client object
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.client-method-profile
+             * @see https://doc.wikimedia.org/jquery-client/master/jQuery.client.html#.profile
              */
             profile(nav?: Client.Navigator): Client.Profile;
 
@@ -124,7 +122,7 @@ declare global {
              * @param {boolean} [exactMatchOnly=false] Only return true if the browser is matched,
              *  otherwise returns true if the browser is not found.
              * @returns {boolean} The current browser is in the support map
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/jQuery.client-method-test
+             * @see https://doc.wikimedia.org/jquery-client/master/jQuery.client.html#.test
              */
             test(
                 map: Client.SupportMap,
@@ -135,8 +133,8 @@ declare global {
 
         namespace Client {
             interface Navigator {
-                userAgent: string;
                 platform: string;
+                userAgent: string;
             }
 
             type ProfileName =
@@ -164,9 +162,9 @@ declare global {
             }
 
             interface Profile {
-                name: ProfileName;
                 layout: "edge" | "gecko" | "khtml" | "presto" | "trident" | "webkit";
                 layoutVersion: number;
+                name: ProfileName;
                 platform: "ipad" | "iphone" | "linux" | "mac" | "solaris" | "win";
                 version: string;
                 versionBase: string;

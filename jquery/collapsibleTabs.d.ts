@@ -1,14 +1,17 @@
-/**
- * CollapsibleTabsPlugin used in MediaWiki vector skin
- * Copied from https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/skins/Vector/+/master/resources/CollapsibleTabsPlugin.d.ts
- */
-
 declare global {
     interface JQueryStatic {
+        /**
+         * CollapsibleTabsPlugin used in MediaWiki vector skin
+         * Copied from {@link https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/skins/Vector/+/master/resources/CollapsibleTabsPlugin.d.ts}
+         */
         collapsibleTabs: JQuery.CollapsibleTabs.Static;
     }
 
     interface JQuery {
+        /**
+         * CollapsibleTabsPlugin used in MediaWiki vector skin
+         * Copied from {@link https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/skins/Vector/+/master/resources/CollapsibleTabsPlugin.d.ts}
+         */
         collapsibleTabs(options: Partial<JQuery.CollapsibleTabs.Options>): void;
     }
 
@@ -16,14 +19,14 @@ declare global {
         interface CollapsibleTabs extends CollapsibleTabs.Static, CollapsibleTabs.Options {}
 
         namespace CollapsibleTabs {
+            interface CollapsibleTabs extends CollapsibleTabs.Static, CollapsibleTabs.Options {}
+
             /**
              * A jQuery plugin that makes collapsible tabs for the Vector skin.
+             *
+             * @see https://doc.wikimedia.org/mediawiki-skins-Vector/master/js/js/CollapsibleTabsOptions.html
              */
             interface Options {
-                /**
-                 * Optional tab selector. Defaults to `#p-views ul`.
-                 */
-                expandedContainer: string;
                 /**
                  * Optional menu item selector. Defaults to `#p-cactions ul`.
                  */
@@ -32,12 +35,16 @@ declare global {
                  * Optional selector for tabs that are collapsible. Defaults to `li.collapsible`.
                  */
                 collapsible: string;
-                shifting: boolean;
+                /**
+                 * Optional tab selector. Defaults to `#p-views ul`.
+                 */
+                expandedContainer: string;
                 expandedWidth: number;
-
-                expandCondition(eleWidth: number): boolean;
+                shifting: boolean;
 
                 collapseCondition(): boolean;
+
+                expandCondition(eleWidth: number): boolean;
             }
 
             interface Static {
@@ -46,6 +53,8 @@ declare global {
 
                 addData($collapsible: JQuery): void;
 
+                calculateTabDistance(): number;
+
                 getSettings($collapsible: JQuery): Options;
 
                 handleResize(): void;
@@ -53,8 +62,6 @@ declare global {
                 moveToCollapsed($moving: JQuery): void;
 
                 moveToExpanded($moving: JQuery): void;
-
-                calculateTabDistance(): number;
             }
         }
     }

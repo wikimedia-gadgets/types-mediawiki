@@ -2,32 +2,35 @@ declare global {
     namespace mw {
         /**
          * Prevent the closing of a window with a confirm message (the onbeforeunload event seems to
-         * work in most browsers.)
+         * work in most browsers).
+         *
+         * Provided by the `mediawiki.confirmCloseWindow` module.
          *
          * This supersedes any previous onbeforeunload handler. If there was a handler before, it is
          * restored when you execute the returned release() function.
          *
+         * @example
          * ```js
-         * var allowCloseWindow = mw.confirmCloseWindow();
-         * // ... do stuff that can't be interrupted ...
-         * allowCloseWindow.release();
+         * mw.loader.using( 'mediawiki.confirmCloseWindow' ).then(() => {
+         *     var allowCloseWindow = mw.confirmCloseWindow();
+         *     // ... do stuff that can't be interrupted ...
+         *     allowCloseWindow.release();
+         *
+         *     // The second function returned is a trigger function to trigger the check and an alert
+         *     // window manually, e.g.:
+         *
+         *     var allowCloseWindow = mw.confirmCloseWindow();
+         *     // ... do stuff that can't be interrupted ...
+         *     if ( allowCloseWindow.trigger() ) {
+         *         // don't do anything (e.g. destroy the input field)
+         *     } else {
+         *         // do whatever you wanted to do
+         *     }
+         * })
          * ```
-         *
-         * The second function returned is a trigger function to trigger the check and an alert
-         * window manually, e.g.:
-         *
-         * ```js
-         * var allowCloseWindow = mw.confirmCloseWindow();
-         * // ... do stuff that can't be interrupted ...
-         * if ( allowCloseWindow.trigger() ) {
-         *     // don't do anything (e.g. destroy the input field)
-         * } else {
-         *     // do whatever you wanted to do
-         * }
-         * ```
-         *
          * @param {ConfirmCloseWindow.Options} [options]
          * @returns {ConfirmCloseWindow} An object of functions to work with this module
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.confirmCloseWindow
          */
         function confirmCloseWindow(options?: ConfirmCloseWindow.Options): ConfirmCloseWindow;
 

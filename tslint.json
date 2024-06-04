@@ -1,9 +1,0 @@
-{
-    "extends": ["dtslint/dtslint.json", "tslint-config-prettier"],
-    "rules": {
-        "no-padding": false,
-        "unified-signatures": false,
-        "no-redundant-jsdoc": false,
-        "no-unnecessary-generics": false
-    }
-}

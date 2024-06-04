@@ -35,6 +35,16 @@ declare global {
                 ? (...args: V) => void
                 : (this: U, ...args: V) => void
             : never;
+
+        // make all properties required, replacing optional values with undefined,
+        // whether "exactOptionalPropertyTypes" is enabled or not.
+        type RequiredOrUndefined<T> = {
+            [P in keyof Required<T>]: T[P];
+        };
+
+        type MethodsOf<T> = {
+            [P in keyof T]: T[P] extends (...args: unknown[]) => void ? P : never;
+        }[keyof T];
     }
 }
 
