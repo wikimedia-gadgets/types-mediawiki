@@ -1,6 +1,6 @@
 {
     "name": "types-mediawiki",
-    "version": "1.8.0",
+    "version": "1.8.1",
     "description": "TypeScript definitions for MediaWiki JS interface",
     "types": "index.d.ts",
     "scripts": {
