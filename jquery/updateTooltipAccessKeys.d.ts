@@ -11,7 +11,8 @@ type KeyModifier = "alt" | "alt-shift" | "ctrl" | "ctrl-option";
 interface TooltipAccessKeys<This = JQuery> {
     /**
      * Update the titles for all elements in a jQuery selection.
-     * Installed by {@link mediawiki.util} module.
+     *
+     * To use this {@link jQuery} plugin, load the `mediawiki.util` module using {@link mw.loader}.
      *
      * @example
      * ```js

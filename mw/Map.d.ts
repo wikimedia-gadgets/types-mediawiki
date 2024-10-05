@@ -67,17 +67,34 @@ export interface ExtensibleMap<V extends Record<string, any>, TX = unknown>
 declare global {
     namespace mw {
         /**
-         * ES3 compatible class similar to {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map ES6 Map}.
+         * Collection of values by string keys.
          *
-         * Create an object that can be read from or written to via methods that allow
-         * interaction both with single and multiple properties at once.
+         * This is an internal class that backs the mw.config and mw.messages APIs.
          *
-         * @example
+         * It allows reading and writing to the collection via public methods,
+         * and allows batch iteraction for all its methods.
+         *
+         * For {@link mw.config}, scripts sometimes choose to "import" a set of keys locally,
+         * like so:
+         *
          * ```js
-         * const map = new mw.Map();
-         * map.set( 'foo', 5 );
-         * alert( 5 === map.get( 'foo' ) );
+         * var conf = mw.config.get( [ 'wgServerName', 'wgUserName', 'wgPageName' ] );
+         * conf.wgServerName; // "example.org"
          * ```
+         *
+         * Check the existence ("AND" condition) of multiple keys:
+         *
+         * ```js
+         * if ( mw.config.exists( [ 'wgFoo', 'wgBar' ] ) );
+         * ```
+         *
+         * For mw.messages, the {@link set} method allows {@link mw.loader} and {@link mw.Api} to essentially
+         * extend the object, and batch-apply all their loaded values in one go:
+         *
+         * ```
+         * mw.messages.set( { "mon": "Monday", "tue": "Tuesday" } );
+         * ```
+         *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html
          */
         class Map<V extends Record<string, any> = any> {

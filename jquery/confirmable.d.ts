@@ -2,7 +2,6 @@ declare global {
     interface JQuery {
         /**
          * Enable inline confirmation for given clickable element (like `<a />` or `<button />`).
-         * Provided by the `jquery.confirmable` ResourceLoader module.
          *
          * An additional inline confirmation step being shown before the default action is carried out on
          * click.
@@ -14,6 +13,8 @@ declare global {
          * the first time, which has `white-space: nowrap;` and `display: inline-block;` defined in CSS.
          * If the computed values for the element are different when you make it confirmable, you might
          * encounter unexpected behavior.
+         *
+         * To use this {@link jQuery} plugin, load the `jquery.confirmable` module with {@link mw.loader}.
          *
          * @example
          * ```js

@@ -18,12 +18,12 @@ declare global {
          * @example
          * ```js
          * // Create a large spinner reserving all available horizontal space.
-         * var $spinner = $.createSpinner( { size: 'large', type: 'block' } );
+         * const $spinner = $.createSpinner( { size: 'large', type: 'block' } );
          * // Insert above page content.
          * $( '#mw-content-text' ).prepend( $spinner );
          *
          * // Place a small inline spinner next to the "Save" button
-         * var $spinner = $.createSpinner( { size: 'small', type: 'inline' } );
+         * const $spinner = $.createSpinner( { size: 'small', type: 'inline' } );
          * // Alternatively, just `$.createSpinner();` as these are the default options.
          * $( '#wpSave' ).after( $spinner );
          *
@@ -34,7 +34,7 @@ declare global {
          *
          * @ignore
          * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
-         *  of the `id` option.
+         *  of the {@link Options.id id} option.
          * @returns {JQuery}
          */
         createSpinner(opts?: string | Options): JQuery;
@@ -58,7 +58,7 @@ declare global {
          * Collection contents remain unchanged.
          *
          * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
-         *  of the `id` option.
+         *  of the {@link Options.id id} option.
          * @returns {JQuery}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.injectSpinner
          */

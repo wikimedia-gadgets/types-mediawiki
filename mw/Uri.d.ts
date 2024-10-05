@@ -19,7 +19,7 @@ declare global {
         function UriRelative(documentLocation: string | (() => string)): typeof Uri;
 
         /**
-         * Library for simple URI parsing and manipulation.
+         * Create and manipulate MediaWiki URIs.
          *
          * Intended to be minimal, but featureful; do not expect full RFC 3986 compliance. The use cases we
          * have in mind are constructing 'next page' or 'previous page' URLs, detecting whether we need to
@@ -65,8 +65,8 @@ declare global {
          * fragment  'top'
          * ```
          *
-         * (N.b., 'password' is technically not allowed for HTTP URIs, but it is possible with other kinds
-         * of URIs.)
+         * Note: 'password' is technically not allowed for HTTP URIs, but it is possible with other kinds
+         * of URIs.
          *
          * Parsing based on parseUri 1.2.2 (c) Steven Levithan <http://stevenlevithan.com>, MIT License.
          * <http://stevenlevithan.com/demo/parseuri/js/>
@@ -147,7 +147,8 @@ declare global {
             ];
 
             /**
-             * Create and manipulate MediaWiki URIs.
+             * Construct a new URI object. Throws error if arguments are illegal/impossible, or
+             * otherwise don't parse.
              *
              * @param {string|Uri|Object.<string,string>} [uri] URI string, or an Object with appropriate properties (especially
              *  another URI object to clone). Object must have non-blank `protocol`, `host`, and `path`
