@@ -201,6 +201,7 @@ declare global {
              * This function will not be called for nonexistent messages.
              *
              * @private For internal use by mediawiki.jqueryMsg only
+             * @since 1.38 - format parameter can be passed.
              * @param {string} format
              * @returns {string} Parsed message
              */
@@ -213,6 +214,7 @@ declare global {
              * Do not call this directly. Use {@link mw.Message.text()} instead, one of the
              * other format methods.
              *
+             * @since 1.38 - format parameter can be passed.
              * @param {string} [format="text"] Internal parameter. Uses "text" if called
              *  implicitly through string casting.
              * @returns {string} Message in the given format, or `⧼key⧽` if the key

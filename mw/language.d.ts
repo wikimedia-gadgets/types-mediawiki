@@ -64,7 +64,7 @@ declare global {
              * Using patterns from {@link https://www.unicode.org/reports/tr35/#Number_Format_Patterns Unicode TR35}.
              *
              * @private
-             * @deprecated This function will be made private in a future release;
+             * @deprecated since 1.36 - This function will be made private in a future release;
              *  it is poorly named, corresponds to a deprecated function in core, and
              *  its functionality should be rolled into convertNumber().
              * @deprecated Removed since 1.40.

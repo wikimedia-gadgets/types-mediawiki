@@ -1,6 +1,7 @@
 declare global {
     namespace mw {
         /**
+         * @since 1.36
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignRest.html
          */
         class ForeignRest extends Rest {

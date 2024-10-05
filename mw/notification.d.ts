@@ -151,6 +151,8 @@ declare global {
 
                 /**
                  * CSS class names to be set on the notification element.
+                 *
+                 * @since 1.38
                  */
                 classes?: string | string[] | false;
 

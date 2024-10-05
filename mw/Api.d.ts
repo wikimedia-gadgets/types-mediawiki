@@ -14,7 +14,7 @@ import { TitleLike } from "./Title";
 type TypeOrArray<T> = T extends any ? T | T[] : never; // T[] would be a mixed array
 type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
 
-type UnknownApiParams = Record<string, string | string[] | boolean | number | number[]>;
+type UnknownApiParams = Record<string, string | number | boolean | string[] | number[] | undefined>;
 
 export type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
 
@@ -211,7 +211,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#badToken
              */
             badToken(type: ApiTokenType): void;
-            /** @deprecated Use "csrf" instead */
+            /** @deprecated Use `badToken('csrf')` instead */
             badToken(type: ApiLegacyTokenType): void;
             badToken(type: string): void;
 
@@ -420,6 +420,7 @@ declare global {
              * Get a set of messages.
              *
              * @since 1.27
+             * @since 1.37 - accepts a single string message as parameter.
              * @param {string|string[]} messages Messages to retrieve
              * @param {ApiQueryAllMessagesParams} [options] Additional parameters for the API call
              * @returns {JQuery.Promise<Object.<string, string>>}
@@ -445,7 +446,7 @@ declare global {
                 type: ApiTokenType,
                 additionalParams?: ApiQueryTokensParams | ApiAssert
             ): JQuery.Promise<string>;
-            /** @deprecated Use "csrf" instead */
+            /** @deprecated Use `getToken('csrf')` instead */
             getToken(
                 type: ApiLegacyTokenType,
                 additionalParams?: ApiQueryTokensParams | ApiAssert
@@ -476,6 +477,7 @@ declare global {
             /**
              * Load a set of messages and add them to {@link mw.messages}.
              *
+             * @since 1.37 - accepts a single string message as parameter.
              * @param {string|string[]} messages Messages to retrieve
              * @param {ApiQueryAllMessagesParams} [options] Additional parameters for the API call
              * @returns {JQuery.Promise<boolean>}
@@ -589,7 +591,7 @@ declare global {
                 params: UnknownApiParams,
                 ajaxOptions?: JQuery.AjaxSettings
             ): JQuery.Promise<ApiResponse>;
-            /** @deprecated Use "csrf" instead */
+            /** @deprecated Use `postWithToken('csrf', params)` instead */
             postWithToken(
                 tokenType: ApiLegacyTokenType,
                 params: UnknownApiParams,

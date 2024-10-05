@@ -11,6 +11,7 @@ declare module "vue" {
      * To ensure all Vue code has the i18n plugin and the error handler installed, use of
      * `vue.createMwApp()` is recommended anywhere one would normally use `Vue.createApp()`.
      *
+     * @since 1.38
      * @method createMwApp
      * @param {...any} args
      * @returns {Object} Vue app instance

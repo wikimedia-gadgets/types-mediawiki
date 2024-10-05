@@ -218,6 +218,7 @@ declare global {
              * {@link https://github.com/jashkenas/underscore/blob/1.5.2/underscore.js#L689}.
              *
              * @since 1.34
+             * @since 1.38 - swapped parameter order; immediate parameter can be passed.
              * @param {Function} func Function to debounce
              * @param {number} [wait=0] Wait period in milliseconds
              * @param {boolean} [immediate] Trigger on leading edge
@@ -229,9 +230,26 @@ declare global {
                 wait?: number,
                 immediate?: boolean
             ): NoReturn<T>;
+
+            /**
+             * Return a function, that, as long as it continues to be invoked, will not
+             * be triggered. The function will be called after it stops being called for
+             * N milliseconds.
+             *
+             * Ported from Underscore.js 1.5.2, Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud
+             * and Investigative Reporters & Editors, distributed under the MIT license, from
+             * {@link https://github.com/jashkenas/underscore/blob/1.5.2/underscore.js#L689}.
+             *
+             * @since 1.34
+             * @deprecated since 1.38 - use `mw.util.debounce(func, wait)` instead of `mw.util.debounce(wait, func)`.
+             * @param {number} delay Wait period in milliseconds
+             * @param {Function} callback Function to debounce
+             * @returns {Function} Debounced function
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.debounce
+             */
             function debounce<T extends (...args: any[]) => any>(
-                wait: number,
-                func: T
+                delay: number,
+                callback: T
             ): NoReturn<T>;
 
             /**
@@ -325,6 +343,7 @@ declare global {
              * is fully encoded, and throws an error on a string like '%A',
              * so we use the percent-decode.
              *
+             * @since 1.39
              * @param {string} [hash] Hash fragment, without the leading '#'.
              *  Taken from location.hash if omitted.
              * @returns {HTMLElement|null} Element, if found
@@ -348,6 +367,7 @@ declare global {
             /**
              * Hide a portlet.
              *
+             * @since 1.36
              * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.hidePortlet
              */
@@ -430,6 +450,7 @@ declare global {
             /**
              * Whether a portlet is visible.
              *
+             * @since 1.36
              * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
              * @returns {boolean}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isPortletVisible
@@ -472,6 +493,7 @@ declare global {
              * To get the desired behaviour we percent-encode any '+' in the fragment
              * to effectively expose the percent-decode implementation.
              *
+             * @since 1.39
              * @param {string} text Text to decode
              * @returns {string|null} Decoded text, null if decoding failed
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.percentDecodeFragment
@@ -485,6 +507,7 @@ declare global {
              *
              * This functionality has been adapted from `\Wikimedia\IPUtils::prettifyIP()`
              *
+             * @since 1.38
              * @param {string} ip IP address in quad or octet form (CIDR or not).
              * @returns {string|null}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.prettifyIP
@@ -509,6 +532,7 @@ declare global {
              *
              * This functionality has been adapted from `\Wikimedia\IPUtils::sanitizeIP()`
              *
+             * @since 1.38
              * @param {string} ip IP address in quad or octet form (CIDR or not).
              * @returns {string|null}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.sanitizeIP
@@ -518,6 +542,7 @@ declare global {
             /**
              * Reveal a portlet if it is hidden.
              *
+             * @since 1.36
              * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.showPortlet
              */
@@ -534,6 +559,7 @@ declare global {
              *
              * Ported from OOUI.
              *
+             * @since 1.38
              * @param {Function} func Function to throttle
              * @param {number} wait Throttle window length, in milliseconds
              * @returns {Function} Throttled function

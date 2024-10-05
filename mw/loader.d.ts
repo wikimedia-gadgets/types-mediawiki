@@ -263,6 +263,7 @@ declare global {
              * Utility function for execute()
              *
              * @private
+             * @since 1.39
              * @param {string} url URL
              * @param {string} [media] Media attribute
              * @param {Node|null} [nextNode]
@@ -278,6 +279,7 @@ declare global {
              * Load and execute a script.
              *
              * @private
+             * @since 1.39
              * @param {string} src URL to script, will be used as the src attribute in the script tag
              * @param {function():void} [callback] Callback to run after request resolution
              * @param {string[]} [modules] List of modules being requested, for state to be marked as error

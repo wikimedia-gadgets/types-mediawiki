@@ -10,6 +10,7 @@ declare global {
              * Logs an error by notifying subscribers to the given {@link mw.track()} topic
              * (by default `error.caught`) that an event has occurred.
              *
+             * @since 1.36
              * @param {Error} error
              * @param {string} [topic='error.caught'] Error topic. Conventionally in the form
              *  'error.%component%' (where %component% identifies the code logging the error at a

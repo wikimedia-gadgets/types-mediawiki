@@ -40,6 +40,7 @@ interface SafeStorage {
     /**
      * Set a value in device storage.
      *
+     * @since 1.39 - expiry parameter can be passed.
      * @param {string} key Key name to store under
      * @param {string} value Value to be stored
      * @param {number} [expiry] Number of seconds after which this item can be deleted
@@ -51,6 +52,7 @@ interface SafeStorage {
     /**
      * Set the expiry time for an item in the store.
      *
+     * @since 1.39
      * @since 1.41 - returns a boolean indicating whether the expiry was set.
      * @param {string} key Key name
      * @param {number} [expiry] Number of seconds after which this item can be deleted,
@@ -64,6 +66,7 @@ interface SafeStorage {
     /**
      * Set an object value in device storage by JSON encoding.
      *
+     * @since 1.39 - expiry parameter can be passed.
      * @since 1.41 - returns a boolean indicating whether the value was set.
      * @param {string} key Key name to store under
      * @param {Object} value Object value to be stored
@@ -77,6 +80,7 @@ interface SafeStorage {
      * Clear any expired items from the store.
      *
      * @private
+     * @since 1.39
      * @returns {JQuery.Promise} Resolves when items have been expired
      */
     clearExpired(): JQuery.Promise<undefined>;
@@ -85,6 +89,7 @@ interface SafeStorage {
      * Get all keys with expiry values.
      *
      * @private
+     * @since 1.39
      * @returns {JQuery.Promise<string[]>} Promise resolving with all the keys which have
      *  expiry values (unprefixed), or as many could be retrieved in the allocated time.
      */
@@ -94,6 +99,7 @@ interface SafeStorage {
      * Check if a given key has expired.
      *
      * @private
+     * @since 1.39
      * @param {string} key Key name
      * @returns {boolean} Whether key is expired
      */
