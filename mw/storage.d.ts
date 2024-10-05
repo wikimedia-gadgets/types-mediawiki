@@ -51,11 +51,12 @@ interface SafeStorage {
     /**
      * Set the expiry time for an item in the store.
      *
+     * @since 1.41 - returns a boolean indicating whether the expiry was set.
      * @param {string} key Key name
      * @param {number} [expiry] Number of seconds after which this item can be deleted,
      *  omit to clear the expiry (either making the item never expire, or to clean up
      *  when deleting a key).
-     * @returns {boolean} The expiry was set (or cleared) [since 1.41]
+     * @returns {boolean} The expiry was set (or cleared)
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#setExpires
      */
     setExpires(key: string, expiry?: number): boolean;

@@ -215,30 +215,26 @@ declare global {
              * And any on-going requests from other dependencies or using() calls are also
              * automatically re-used.
              *
-             * Example of inline dependency on OOjs:
-             *
+             * @example
              * ```js
+             * // Inline dependency on OOjs
              * mw.loader.using( 'oojs', function () {
              *     OO.compare( [ 1 ], [ 1 ] );
              * } );
              * ```
-             *
-             * Example of inline dependency obtained via `require()`:
-             *
+             * @example
              * ```js
+             * // Inline dependency obtained via require()
              * mw.loader.using( [ 'mediawiki.util' ], function ( require ) {
              *     var util = require( 'mediawiki.util' );
              * } );
              * ```
-             *
-             * Since MediaWiki 1.23 this returns a promise.
-             *
-             * Since MediaWiki 1.28 the promise is resolved with a `require` function.
-             *
+             * @since 1.23 - this returns a promise.
+             * @since 1.28 - the promise is resolved with a `require` function.
              * @param {string|string[]} dependencies Module name or array of modules names the
              *  callback depends on to be ready before executing
-             * @param {Function} [ready] Callback to execute when all dependencies are ready
-             * @param {Function} [error] Callback to execute if one or more dependencies failed
+             * @param {function(ModuleRequire):void} [ready] Callback to execute when all dependencies are ready
+             * @param {function(Error, ...any):void} [error] Callback to execute if one or more dependencies failed
              * @returns {JQuery.Promise<ModuleRequire>} With a `require` function
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.using
              */
@@ -283,7 +279,7 @@ declare global {
              *
              * @private
              * @param {string} src URL to script, will be used as the src attribute in the script tag
-             * @param {Function} [callback] Callback to run after request resolution
+             * @param {function():void} [callback] Callback to run after request resolution
              * @param {string[]} [modules] List of modules being requested, for state to be marked as error
              * in case the script fails to load
              * @returns {HTMLScriptElement}
@@ -316,8 +312,8 @@ declare global {
              *
              * @private
              * @param {string[]} dependencies Array of module names in the registry
-             * @param {Function} [ready] Callback to execute when all dependencies are ready
-             * @param {Function} [error] Callback to execute when any dependency fails
+             * @param {function():void} [ready] Callback to execute when all dependencies are ready
+             * @param {function(Error, ...any):void} [error] Callback to execute when any dependency fails
              */
             function enqueue(
                 dependencies: string[],
@@ -456,7 +452,7 @@ declare global {
              * please use the dynamically provided `require()` function instead.
              *
              * In case of lazy-loaded modules via {@link mw.loader.using()}, the returned
-             * Promise provides the function, see using() for examples.
+             * Promise provides the function, see {@link mw.loader.using using()} for examples.
              *
              * @since 1.27
              * @private

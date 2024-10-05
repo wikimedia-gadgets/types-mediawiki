@@ -14,18 +14,16 @@ interface TitleExistenceStore {
     /**
      * The setter function. Returns a boolean.
      *
-     * Example to declare existing titles:
-     *
+     * @example
      * ```js
+     * // To declare existing titles
      * Title.exist.set( ['User:John_Doe', ...] );
      * ```
-     *
-     * Example to declare titles nonexistent:
-     *
+     * @example
      * ```js
+     * // To declare titles nonexistent
      * Title.exist.set( ['File:Foo_bar.jpg', ...], false );
      * ```
-     *
      * @param {string|string[]} titles Title(s) in strict prefixedDb title form
      * @param {boolean} [state=true] State of the given titles
      * @returns {boolean}

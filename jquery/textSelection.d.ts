@@ -112,7 +112,7 @@ declare global {
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
          * @param {string} command Command to execute
-         * @param {Object.<string, Function>} functions Functions to replace. Keys are command names (as in {@link textSelection},
+         * @param {Object.<string, function(unknown):void>} functions Functions to replace. Keys are command names (as in {@link textSelection},
          *  except 'register' and 'unregister'). Values are functions to execute when a given command is
          *  called.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.textSelection

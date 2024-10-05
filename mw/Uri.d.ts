@@ -11,7 +11,7 @@ declare global {
          * A factory method to create an {@link mw.Uri} class with a default location to resolve relative URLs
          * against (including protocol-relative URLs).
          *
-         * @param {string|Function} documentLocation A full url, or function returning one.
+         * @param {string|function():string} documentLocation A full url, or function returning one.
          *  If passed a function, the return value may change over time and this will be honoured. (T74334)
          * @returns {Function} An mw.Uri class constructor
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.UriRelative

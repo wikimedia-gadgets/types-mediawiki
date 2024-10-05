@@ -72,7 +72,7 @@ declare global {
              * @param {string} pattern Pattern string as described by Unicode TR35
              * @param {number|null} [minimumGroupingDigits=null]
              * @throws {Error} If unable to find a number expression in `pattern`.
-             * @return {string}
+             * @returns {string}
              */
             function commafy(
                 value: number,

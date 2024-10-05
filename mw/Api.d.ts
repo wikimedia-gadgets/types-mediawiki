@@ -14,7 +14,7 @@ import { TitleLike } from "./Title";
 type TypeOrArray<T> = T extends any ? T | T[] : never; // T[] would be a mixed array
 type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
 
-type UnknownApiParams = Record<string, string | number | boolean | string[] | number[] | undefined>;
+type UnknownApiParams = Record<string, string | string[] | boolean | number | number[]>;
 
 export type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
 
@@ -100,7 +100,7 @@ declare global {
          * } );
          * ```
          *
-         * Since MW 1.25, multiple values for a parameter can be specified using an array:
+         * @since 1.25 - multiple values for a parameter can be specified using an array:
          *
          * ```js
          * var api = new mw.Api();
@@ -112,10 +112,9 @@ declare global {
          * } );
          * ```
          *
-         * Since MW 1.26, boolean values for API parameters can be specified natively. Parameter
+         * @since 1.26 - boolean values for API parameters can be specified natively. Parameter
          * values set to `false` or `undefined` will be omitted from the request, as required by
          * the API.
-         *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html
          */
         class Api {
@@ -435,8 +434,10 @@ declare global {
              * Get a token for a certain action from the API.
              *
              * @since 1.22
+             * @since 1.25 - assert parameter can be passed.
+             * @since 1.35 - additional parameters can be passed as an object instead of `assert`.
              * @param {string} type Token type
-             * @param {ApiQueryTokensParams|ApiAssert} [additionalParams] Additional parameters for the API (since 1.35). When given a string, it's treated as the `assert` parameter (since 1.25).
+             * @param {ApiQueryTokensParams|ApiAssert} [additionalParams] Additional parameters for the API. When given a string, it's treated as the `assert` parameter.
              * @returns {JQuery.Promise<string>} Received token.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getToken
              */
