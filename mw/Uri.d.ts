@@ -11,6 +11,7 @@ declare global {
          * A factory method to create an {@link mw.Uri} class with a default location to resolve relative URLs
          * against (including protocol-relative URLs).
          *
+         * @deprecated since 1.43, use browser native URL instead.
          * @param {string|function():string} documentLocation A full url, or function returning one.
          *  If passed a function, the return value may change over time and this will be honoured. (T74334)
          * @returns {Function} An mw.Uri class constructor
@@ -71,6 +72,7 @@ declare global {
          * Parsing based on parseUri 1.2.2 (c) Steven Levithan <http://stevenlevithan.com>, MIT License.
          * <http://stevenlevithan.com/demo/parseuri/js/>
          *
+         * @deprecated since 1.43, use browser native URL instead.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html
          */
         class Uri {

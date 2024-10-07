@@ -489,6 +489,27 @@ declare global {
             function isTemporaryUser(username: string): boolean;
 
             /**
+             * Create a message box element. Callers are responsible for ensuring suitable Codex styles
+             * have been added to the page e.g. mediawiki.codex.messagebox.styles.
+             *
+             * @since 1.43
+             * @param {string|Node} textOrElement text or node.
+             * @param {string} [type] defaults to notice.
+             * @param {boolean} [inline] whether the notice should be inline.
+             * @returns {Element}
+             */
+            function messageBox(
+                textOrElement: string | Node,
+                type: "error" | "notice" | "success" | "warning",
+                inline?: boolean
+            ): Element;
+            function messageBox(
+                textOrElement: string | Node,
+                type?: string,
+                inline?: boolean
+            ): Element;
+
+            /**
              * Parse the URL of an image uploaded to MediaWiki, or a thumbnail for such an image,
              * and return the image name, thumbnail size and a template that can be used to resize
              * the image.
