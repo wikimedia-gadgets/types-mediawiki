@@ -6,13 +6,13 @@ declare global {
          * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
          * @param {notification.Options} [options] The options to use for the notification.
          *  See {@link notification.defaults the defaults}.
-         * @returns {JQuery.Promise<Notification>} Notification object
+         * @returns {JQuery.Promise<notification.Notification>} Notification object
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.notify
          */
         function notify(
             message: string | Message | JQuery | HTMLElement | HTMLElement[],
             options?: notification.Options
-        ): JQuery.Promise<Notification>;
+        ): JQuery.Promise<notification.Notification>;
 
         /**
          * Library for sending notifications to end users.
