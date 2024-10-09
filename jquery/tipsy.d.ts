@@ -38,9 +38,12 @@ declare global {
         namespace Tipsy {
             type StringProvider<T = HTMLElement> = string | ((ctx: T) => string);
 
-            type NSDirection = "n" | "s" | "";
-            type EWDirection = "e" | "w" | "";
-            type Direction = `${NSDirection}${EWDirection}`;
+            type Direction = `${Direction.NS}${Direction.EW}`;
+
+            namespace Direction {
+                type NS = "n" | "s" | "";
+                type EW = "e" | "w" | "";
+            }
 
             interface Options<T = HTMLElement> {
                 center?: boolean;
