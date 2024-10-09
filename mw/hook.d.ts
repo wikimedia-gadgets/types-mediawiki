@@ -326,14 +326,16 @@ declare global {
         }
 
         interface SearchIndex {
-            [k: string]: SearchIndexEntry[];
+            [k: string]: SearchIndex.Entry[];
         }
 
-        interface SearchIndexEntry {
-            $field: JQuery;
-            $highlight: JQuery;
-            $tabPanel: JQuery;
-            $wrapper: JQuery;
+        namespace SearchIndex {
+            interface Entry {
+                $field: JQuery;
+                $highlight: JQuery;
+                $tabPanel: JQuery;
+                $wrapper: JQuery;
+            }
         }
 
         interface EditRecovery {

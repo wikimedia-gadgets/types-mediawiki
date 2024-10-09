@@ -178,14 +178,14 @@ declare global {
              * );
              * ```
              * @since 1.28
-             * @param {TitleLike} title Page title
+             * @param {Title.Like} title Page title
              * @param {Api.Params.EditPage} params Edit API parameters
              * @param {string} content Page content
              * @returns {JQuery.Promise<Api.Response.Edit>} API response
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#create
              */
             create(
-                title: TitleLike,
+                title: Title.Like,
                 params: Api.Params.EditPage,
                 content: string
             ): JQuery.Promise<Api.Response.Edit>;
@@ -246,12 +246,15 @@ declare global {
              * ```
              *
              * @since 1.28
-             * @param {TitleLike} title Page title
+             * @param {Title.Like} title Page title
              * @param {Api.EditTransform} transform Callback that prepares the edit
              * @returns {JQuery.Promise<Api.Response.Edit>} Edit API response
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#edit
              */
-            edit(title: TitleLike, transform: Api.EditTransform): JQuery.Promise<Api.Response.Edit>;
+            edit(
+                title: Title.Like,
+                transform: Api.EditTransform
+            ): JQuery.Promise<Api.Response.Edit>;
 
             /**
              * Perform API get request. See {@link ajax()} for details.
@@ -269,11 +272,11 @@ declare global {
             /**
              * Get the categories that a particular page on the wiki belongs to.
              *
-             * @param {TitleLike} title
+             * @param {Title.Like} title
              * @returns {JQuery.Promise<false|Title[]>} Promise that resolves with an array of category titles, or with false if the title was not found.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getCategories
              */
-            getCategories(title: TitleLike): JQuery.Promise<false | Title[]>;
+            getCategories(title: Title.Like): JQuery.Promise<false | Title[]>;
 
             /**
              * Get a list of categories that match a certain prefix.
@@ -382,11 +385,11 @@ declare global {
             /**
              * Determine if a category exists.
              *
-             * @param {TitleLike} title
+             * @param {Title.Like} title
              * @returns {JQuery.Promise<boolean>} Promise that resolves with a boolean indicating whether the category exists.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#isCategory
              */
-            isCategory(title: TitleLike): JQuery.Promise<boolean>;
+            isCategory(title: Title.Like): JQuery.Promise<boolean>;
 
             /**
              * Load a set of messages and add them to {@link mw.messages}.
@@ -429,7 +432,7 @@ declare global {
             /**
              * Post a new section to the page.
              *
-             * @param {TitleLike} title Target page
+             * @param {Title.Like} title Target page
              * @param {string} header
              * @param {string} message Wikitext message
              * @param {Api.Params.EditPage} additionalParams Additional API parameters
@@ -437,7 +440,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#newSection
              */
             newSection(
-                title: TitleLike,
+                title: Title.Like,
                 header: string,
                 message: string,
                 additionalParams?: Api.Params.EditPage
@@ -446,13 +449,13 @@ declare global {
             /**
              * Convenience method for `action=parse`.
              *
-             * @param {TitleLike} content Content to parse, either as a wikitext string or a {@link mw.Title}
+             * @param {Title.Like} content Content to parse, either as a wikitext string or a {@link mw.Title}
              * @param {Api.Params.Parse} [additionalParams] Parameters object to set custom settings, e.g.
              *  `redirects`, `sectionpreview`. `prop` should not be overridden.
              * @returns {JQuery.Promise<string>} Promise that resolves with the parsed HTML of `wikitext`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#parse
              */
-            parse(content: TitleLike, additionalParams?: Api.Params.Parse): JQuery.Promise<string>;
+            parse(content: Title.Like, additionalParams?: Api.Params.Parse): JQuery.Promise<string>;
 
             /**
              * Perform API post request. See {@link ajax()} for details.
@@ -521,14 +524,14 @@ declare global {
              * Convenience method for `action=rollback`.
              *
              * @since 1.28
-             * @param {TitleLike} page
+             * @param {Title.Like} page
              * @param {string} user
              * @param {Api.Params.Rollback} [params] Additional parameters
              * @returns {JQuery.Promise<RollbackInfo>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#rollback
              */
             rollback(
-                page: TitleLike,
+                page: Title.Like,
                 user: string,
                 params?: Api.Params.Rollback
             ): JQuery.Promise<Api.Response.Rollback>;
@@ -568,7 +571,7 @@ declare global {
             /**
              * Convenience method for `action=watch&unwatch=1`.
              *
-             * @param {TypeOrArray<TitleLike>} pages Full page name or instance of {@link mw.Title}, or an
+             * @param {TypeOrArray<Title.Like>} pages Full page name or instance of {@link mw.Title}, or an
              *  array thereof. If an array is passed, the return value passed to the promise will also be an
              *  array of appropriate objects.
              * @returns {JQuery.Promise<TypeOrArray<Api.WatchedPage>>} A promise that resolves
@@ -576,9 +579,9 @@ declare global {
              *  current watched/unwatched status.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#unwatch
              */
-            unwatch<P extends TypeOrArray<TitleLike>>(
+            unwatch<P extends TypeOrArray<Title.Like>>(
                 pages: P
-            ): JQuery.Promise<ReplaceValue<P, TitleLike, Api.WatchedPage>>;
+            ): JQuery.Promise<ReplaceValue<P, Title.Like, Api.WatchedPage>>;
 
             /**
              * Upload a file to MediaWiki.
@@ -638,7 +641,7 @@ declare global {
              * Convenience method for `action=watch`.
              *
              * @since 1.35 - expiry parameter can be passed when Watchlist Expiry is enabled.
-             * @param {TypeOrArray<TitleLike>} pages Full page name or instance of {@link mw.Title}, or an
+             * @param {TypeOrArray<Title.Like>} pages Full page name or instance of {@link mw.Title}, or an
              *  array thereof. If an array is passed, the return value passed to the promise will also be an
              *  array of appropriate objects.
              * @param {string} [expiry] When the page should expire from the watchlist. If omitted, the
@@ -648,10 +651,10 @@ declare global {
              *  current watched/unwatched status.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#watch
              */
-            watch<P extends TypeOrArray<TitleLike>>(
+            watch<P extends TypeOrArray<Title.Like>>(
                 pages: P,
                 expiry?: string
-            ): JQuery.Promise<ReplaceValue<P, TitleLike, Api.WatchedPage>>;
+            ): JQuery.Promise<ReplaceValue<P, Title.Like, Api.WatchedPage>>;
 
             /**
              * Massage parameters from the nice format we accept into a format suitable for the API.

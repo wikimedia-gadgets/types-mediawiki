@@ -361,31 +361,33 @@ declare global {
         }>;
 
         interface PageParseReport {
-            cachereport: CacheReport;
-            limitreport: LimitReport;
+            cachereport: PageParseReport.Cache;
+            limitreport: PageParseReport.Limit;
         }
 
-        interface CacheReport {
-            timestamp: `${number}`;
-            transientcontent: boolean;
-            ttl: number;
-        }
+        namespace PageParseReport {
+            interface Cache {
+                timestamp: `${number}`;
+                transientcontent: boolean;
+                ttl: number;
+            }
 
-        interface LimitReport {
-            "cputime": `${number}`;
-            "expansiondepth": LimitReportValue;
-            "expensivefunctioncount": LimitReportValue;
-            "postexpandincludesize": LimitReportValue;
-            "ppvisitednodes": LimitReportValue;
-            "templateargumentsize": LimitReportValue;
-            "timingprofile": string[];
-            "unstrip-depth": LimitReportValue;
-            "unstrip-size": LimitReportValue;
-        }
+            interface Limit {
+                "cputime": `${number}`;
+                "expansiondepth": LimitValue;
+                "expensivefunctioncount": LimitValue;
+                "postexpandincludesize": LimitValue;
+                "ppvisitednodes": LimitValue;
+                "templateargumentsize": LimitValue;
+                "timingprofile": string[];
+                "unstrip-depth": LimitValue;
+                "unstrip-size": LimitValue;
+            }
 
-        interface LimitReportValue {
-            limit: number;
-            value: number;
+            interface LimitValue {
+                limit: number;
+                value: number;
+            }
         }
     }
 }

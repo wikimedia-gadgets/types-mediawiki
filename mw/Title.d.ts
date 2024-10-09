@@ -1,7 +1,5 @@
 declare global {
     namespace mw {
-        type TitleLike = string | Title;
-
         /**
          * Library for constructing MediaWiki titles.
          *
@@ -278,7 +276,7 @@ declare global {
              * @throws {Error} If title is not a string or mw.Title
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#.exists
              */
-            static exists(title: TitleLike): boolean | null;
+            static exists(title: Title.Like): boolean | null;
 
             /**
              * Check if a given namespace is a talk namespace.
@@ -396,6 +394,8 @@ declare global {
         }
 
         namespace Title {
+            type Like = string | Title;
+
             /**
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#~TitleExistenceStore
              */
@@ -438,7 +438,7 @@ declare global {
     }
 }
 
-/** @deprecated Use {@link mw.TitleLike} instead */
-export type TitleLike = mw.TitleLike;
+/** @deprecated Use {@link mw.Title.Like} instead */
+export type TitleLike = mw.Title.Like;
 
 export {};
