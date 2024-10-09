@@ -3,7 +3,7 @@ declare global {
      * Schedule a function to run once the page is ready (DOM loaded).
      *
      * @since 1.5.8
-     * @param {Function} fn
+     * @param {function():void} fn
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/window.html#.addOnloadHook
      */
     function addOnloadHook(fn: () => void): void;

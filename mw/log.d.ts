@@ -79,7 +79,7 @@ declare global {
              * @param {string|null} key Name of the feature for deprecation tracker,
              *  or null for a console-only deprecation.
              * @param {string} msg Deprecation warning.
-             * @returns {Function}
+             * @returns {function():void}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.log.html#.makeDeprecated
              */
             function makeDeprecated(key: string | null, msg: string): () => void;

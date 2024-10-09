@@ -11,11 +11,12 @@ declare module "vue" {
      * To ensure all Vue code has the i18n plugin and the error handler installed, use of
      * `vue.createMwApp()` is recommended anywhere one would normally use `Vue.createApp()`.
      *
+     * @since 1.38
      * @method createMwApp
      * @param {...any} args
-     * @return {Object} Vue app instance
+     * @returns {Object} Vue app instance
      * @memberof module:vue
-     * @see {@link https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/core/+/25026db6cc45d72ce7433d08c6632c03d0e60aee/resources/src/vue/index.js#29}
+     * @see {@link https://doc.wikimedia.org/mediawiki-core/master/js/module-vue.html#.createMwApp}
      */
     export const createMwApp: typeof createApp;
 
@@ -38,9 +39,9 @@ declare module "vue" {
          *
          * @param {string} key Key of message to get
          * @param {...any} parameters Values for $N replacements
-         * @return {mw.Message}
+         * @returns {mw.Message}
          * @memberof module:vue.prototype
-         * @see {@link https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/core/+/25026db6cc45d72ce7433d08c6632c03d0e60aee/resources/src/vue/i18n.js#31}
+         * @see {@link https://doc.wikimedia.org/mediawiki-core/master/js/module-vue.html#$i18n}
          */
         $i18n: (key: string, ...parameters: any[]) => mw.Message;
     }

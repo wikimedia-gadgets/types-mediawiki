@@ -14,7 +14,7 @@ declare global {
          * } );
          * ```
          *
-         * Since MW 1.25, multiple values for a parameter can be specified using an array:
+         * @since 1.25 - multiple values for a parameter can be specified using an array:
          *
          * ```js
          * var api = new mw.Api();
@@ -26,10 +26,9 @@ declare global {
          * } );
          * ```
          *
-         * Since MW 1.26, boolean values for API parameters can be specified natively. Parameter
+         * @since 1.26 - boolean values for API parameters can be specified natively. Parameter
          * values set to `false` or `undefined` will be omitted from the request, as required by
          * the API.
-         *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html
          */
         class Api {
@@ -126,7 +125,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#badToken
              */
             badToken(type: Api.TokenType): void;
-            /** @deprecated Use "csrf" instead */
+            /** @deprecated Use `badToken('csrf')` instead */
             badToken(type: Api.LegacyTokenType): void;
             badToken(type: string): void;
 
@@ -335,6 +334,7 @@ declare global {
              * Get a set of messages.
              *
              * @since 1.27
+             * @since 1.37 - accepts a single string message as parameter.
              * @param {string|string[]} messages Messages to retrieve
              * @param {Api.Params.Query.AllMessages} [options] Additional parameters for the API call
              * @returns {JQuery.Promise<Object.<string, string>>}
@@ -349,8 +349,10 @@ declare global {
              * Get a token for a certain action from the API.
              *
              * @since 1.22
+             * @since 1.25 - assert parameter can be passed.
+             * @since 1.35 - additional parameters can be passed as an object instead of `assert`.
              * @param {string} type Token type
-             * @param {Api.Params.Query.Tokens|Api.Assert} [additionalParams] Additional parameters for the API (since 1.35). When given a string, it's treated as the `assert` parameter (since 1.25).
+             * @param {Api.Params.Query.Tokens|Api.Assert} [additionalParams] Additional parameters for the API. When given a string, it's treated as the `assert` parameter.
              * @returns {JQuery.Promise<string>} Received token.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getToken
              */
@@ -358,7 +360,7 @@ declare global {
                 type: Api.TokenType,
                 additionalParams?: Api.Params.Query.Tokens | Api.Assert
             ): JQuery.Promise<string>;
-            /** @deprecated Use "csrf" instead */
+            /** @deprecated Use `getToken('csrf')` instead */
             getToken(
                 type: Api.LegacyTokenType,
                 additionalParams?: Api.Params.Query.Tokens | Api.Assert
@@ -389,6 +391,7 @@ declare global {
             /**
              * Load a set of messages and add them to {@link mw.messages}.
              *
+             * @since 1.37 - accepts a single string message as parameter.
              * @param {string|string[]} messages Messages to retrieve
              * @param {Api.Params.Query.AllMessages} [options] Additional parameters for the API call
              * @returns {JQuery.Promise<boolean>}
@@ -502,7 +505,7 @@ declare global {
                 params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
             ): JQuery.Promise<Api.Response>;
-            /** @deprecated Use "csrf" instead */
+            /** @deprecated Use `postWithToken('csrf', params)` instead */
             postWithToken(
                 tokenType: Api.LegacyTokenType,
                 params: Api.UnknownParams,
@@ -683,7 +686,10 @@ declare global {
                 | "protect"
                 | "unblock";
 
-            type UnknownParams = Record<string, string | string[] | boolean | number | number[]>;
+            type UnknownParams = Record<
+                string,
+                string | number | boolean | string[] | number[] | undefined
+            >;
 
             interface Params {
                 action?: string;

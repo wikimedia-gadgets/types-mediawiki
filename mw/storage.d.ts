@@ -82,6 +82,7 @@ declare global {
             /**
              * Set a value in device storage.
              *
+             * @since 1.39 - expiry parameter can be passed.
              * @param {string} key Key name to store under
              * @param {string} value Value to be stored
              * @param {number} [expiry] Number of seconds after which this item can be deleted
@@ -93,11 +94,13 @@ declare global {
             /**
              * Set the expiry time for an item in the store.
              *
+             * @since 1.39
+             * @since 1.41 - returns a boolean indicating whether the expiry was set.
              * @param {string} key Key name
              * @param {number} [expiry] Number of seconds after which this item can be deleted,
              *  omit to clear the expiry (either making the item never expire, or to clean up
              *  when deleting a key).
-             * @returns {boolean} The expiry was set (or cleared) [since 1.41]
+             * @returns {boolean} The expiry was set (or cleared)
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#setExpires
              */
             setExpires(key: string, expiry?: number): boolean;
@@ -105,6 +108,7 @@ declare global {
             /**
              * Set an object value in device storage by JSON encoding.
              *
+             * @since 1.39 - expiry parameter can be passed.
              * @since 1.41 - returns a boolean indicating whether the value was set.
              * @param {string} key Key name to store under
              * @param {Object} value Object value to be stored
@@ -118,6 +122,7 @@ declare global {
              * Clear any expired items from the store.
              *
              * @private
+             * @since 1.39
              * @returns {JQuery.Promise} Resolves when items have been expired
              */
             clearExpired(): JQuery.Promise<undefined>;
@@ -126,6 +131,7 @@ declare global {
              * Get all keys with expiry values.
              *
              * @private
+             * @since 1.39
              * @returns {JQuery.Promise<string[]>} Promise resolving with all the keys which have
              *  expiry values (unprefixed), or as many could be retrieved in the allocated time.
              */
@@ -135,6 +141,7 @@ declare global {
              * Check if a given key has expired.
              *
              * @private
+             * @since 1.39
              * @param {string} key Key name
              * @returns {boolean} Whether key is expired
              */

@@ -58,6 +58,7 @@ declare global {
              *
              * Note: only sending `application/json` is currently supported.
              *
+             * @since 1.39
              * @param {string} path
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
@@ -108,6 +109,7 @@ declare global {
              *
              * Note: only sending `application/json` is currently supported.
              *
+             * @since 1.39
              * @param {string} path
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
