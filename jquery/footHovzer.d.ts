@@ -3,14 +3,12 @@ declare global {
         /**
          * Utility to stack stuff in an overlay fixed on the bottom of the page.
          *
-         * Usage:
-         *
+         * @example
          * ```js
          * var hovzer = $.getFootHovzer();
          * hovzer.$.append( $myCollection );
          * hovzer.update();
          * ```
-         *
          * @private
          * @returns {FootHovzer}
          */

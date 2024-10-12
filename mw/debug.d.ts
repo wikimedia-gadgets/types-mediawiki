@@ -41,15 +41,20 @@ declare global {
          * Enabled server-side through `$wgDebugToolbar`.
          *
          * @since 1.19
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html
          */
         namespace Debug {
             /**
              * Toolbar container element.
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.$container
              */
             const $container: JQuery;
 
             /**
              * Object containing data for the debug toolbar.
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.data
              */
             const data: Data;
 
@@ -57,6 +62,7 @@ declare global {
              * Build the console panel.
              *
              * @returns {JQuery} Console panel
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.buildConsoleTable
              */
             function buildConsoleTable(): JQuery;
 
@@ -64,11 +70,14 @@ declare global {
              * Build legacy debug log pane.
              *
              * @returns {JQuery}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.buildDebugLogTable
              */
             function buildDebugLogTable(): JQuery;
 
             /**
              * Construct the HTML for the debugging toolbar.
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.buildHtml
              */
             function buildHtml(): void;
 
@@ -76,6 +85,7 @@ declare global {
              * Build included files pane.
              *
              * @returns {JQuery}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.buildIncludesPane
              */
             function buildIncludesPane(): JQuery;
 
@@ -83,6 +93,7 @@ declare global {
              * Build query list pane.
              *
              * @returns {JQuery}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.buildQueryTable
              */
             function buildQueryTable(): JQuery;
 
@@ -90,6 +101,7 @@ declare global {
              * Build request information pane.
              *
              * @returns {JQuery}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.buildRequestPane
              */
             function buildRequestPane(): JQuery;
 
@@ -100,6 +112,7 @@ declare global {
              * (since it binds to elements on the page).
              *
              * @param {Data} [data] Defaults to 'debugInfo' from {@link mw.config}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.init
              */
             function init(data?: Data): void;
 
@@ -110,6 +123,7 @@ declare global {
              * because it's meant to be an event handler.
              *
              * @param {JQuery.Event} e
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.switchPane
              */
             function switchPane(e: JQuery.Event): void;
         }

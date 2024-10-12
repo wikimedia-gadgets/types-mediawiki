@@ -42,7 +42,7 @@ function formatEntry(name, data) {
         "/**",
         ...data.description.split("\n").map((e) => ` * ${e.trim()}`),
         " *",
-        ` * @see https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#${name}`,
+        ` * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#${name}`,
         " */",
         `${name}${data.optional ? "?" : ""}: ${data.type};`,
     ];

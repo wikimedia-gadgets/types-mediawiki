@@ -70,21 +70,27 @@ interface ResourceLoaderReportMap {
 }
 
 interface Dependency {
-    requires: string[];
     requiredBy: string[];
+    requires: string[];
 }
 
 declare global {
     namespace mw {
         /**
-         * Generate and print reports.
+         * Generates a ResourceLoader report using the {@link mw.inspect mediawiki.inspect module}.
          *
          * When invoked without arguments, prints all available reports.
          *
-         * @param {...string} [reports] One or more of "size", "css", "store", or "time".
+         * @param {...string} [reports]
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.inspect
          */
         function inspect(...reports: ResourceLoaderReport[]): void;
 
+        /**
+         * Tools for inspecting page composition and performance.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html
+         */
         namespace inspect {
             /**
              * @private
@@ -98,6 +104,7 @@ declare global {
              *
              * @param {string} css CSS source
              * @returns {SelectorCounts} Selector counts
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.auditSelectors
              */
             function auditSelectors(css: string): SelectorCounts;
 
@@ -106,6 +113,7 @@ declare global {
              *
              * @param {any[]} data Tabular data represented as an array of objects
              *  with common properties.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.dumpTable
              */
             function dumpTable(data: any[]): void;
 
@@ -114,6 +122,7 @@ declare global {
              *
              * @returns {Object.<string, Dependency>} Maps module names to objects. Each sub-object has
              *  two properties, 'requires' and 'requiredBy'.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.getDependencyGraph
              */
             function getDependencyGraph(): Record<string, Dependency>;
 
@@ -121,6 +130,7 @@ declare global {
              * Get a list of all loaded ResourceLoader modules.
              *
              * @returns {string[]} List of module names
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.getLoadedModules
              */
             function getLoadedModules(): string[];
 
@@ -129,6 +139,7 @@ declare global {
              *
              * @param {string} moduleName The name of the module
              * @returns {number|null} Module size in bytes or null
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.getModuleSize
              */
             function getModuleSize(moduleName: string): number | null;
 
@@ -139,6 +150,7 @@ declare global {
              *
              * @param {string|RegExp} pattern String or regexp to match.
              * @returns {string[]} Array of the names of modules that matched.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.grep
              */
             function grep(pattern: string | RegExp): string[];
 
@@ -148,6 +160,7 @@ declare global {
              * When invoked without arguments, prints all available reports.
              *
              * @param {...ResourceLoaderReport} [reports] One or more of "size", "css", "store", or "time".
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.runReports
              */
             function runReports(...reports: ResourceLoaderReport[]): void;
         }

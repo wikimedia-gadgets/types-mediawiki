@@ -1,26 +1,27 @@
-/**
- * CollapsibleTabsPlugin used in MediaWiki vector skin
- * Copied from https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/skins/Vector/+/master/resources/CollapsibleTabsPlugin.d.ts
- */
-
 declare global {
     interface JQueryStatic {
+        /**
+         * CollapsibleTabsPlugin used in MediaWiki vector skin
+         * Copied from {@link https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/skins/Vector/+/master/resources/CollapsibleTabsPlugin.d.ts}
+         */
         collapsibleTabs: CollapsibleTabsStatic;
     }
 
     interface JQuery {
+        /**
+         * CollapsibleTabsPlugin used in MediaWiki vector skin
+         * Copied from {@link https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/skins/Vector/+/master/resources/CollapsibleTabsPlugin.d.ts}
+         */
         collapsibleTabs(options: Partial<CollapsibleTabsOptions>): void;
     }
 }
 
 /**
  * A jQuery plugin that makes collapsible tabs for the Vector skin.
+ *
+ * @see https://doc.wikimedia.org/mediawiki-skins-Vector/master/js/js/CollapsibleTabsOptions.html
  */
 interface CollapsibleTabsOptions {
-    /**
-     * Optional tab selector. Defaults to `#p-views ul`.
-     */
-    expandedContainer: string;
     /**
      * Optional menu item selector. Defaults to `#p-cactions ul`.
      */
@@ -29,12 +30,16 @@ interface CollapsibleTabsOptions {
      * Optional selector for tabs that are collapsible. Defaults to `li.collapsible`.
      */
     collapsible: string;
-    shifting: boolean;
+    /**
+     * Optional tab selector. Defaults to `#p-views ul`.
+     */
+    expandedContainer: string;
     expandedWidth: number;
-
-    expandCondition(eleWidth: number): boolean;
+    shifting: boolean;
 
     collapseCondition(): boolean;
+
+    expandCondition(eleWidth: number): boolean;
 }
 
 interface CollapsibleTabsStatic {
@@ -43,6 +48,8 @@ interface CollapsibleTabsStatic {
 
     addData($collapsible: JQuery): void;
 
+    calculateTabDistance(): number;
+
     getSettings($collapsible: JQuery): CollapsibleTabsOptions;
 
     handleResize(): void;
@@ -50,8 +57,6 @@ interface CollapsibleTabsStatic {
     moveToCollapsed($moving: JQuery): void;
 
     moveToExpanded($moving: JQuery): void;
-
-    calculateTabDistance(): number;
 }
 
 interface CollapsibleTabs extends CollapsibleTabsStatic, CollapsibleTabsOptions {}
