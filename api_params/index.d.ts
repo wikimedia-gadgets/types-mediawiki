@@ -33,8 +33,8 @@ export type ApiLegacyTokenType =
     | "unblock";
 
 export interface ApiParams {
-    action?: ApiParamsAction;
-    format?: ApiParamsFormat;
+    action?: string;
+    format?: string;
     maxlag?: number;
     smaxage?: number;
     maxage?: number;
@@ -51,174 +51,6 @@ export interface ApiParams {
     errorlang?: string;
     errorsuselocal?: boolean;
     centralauthtoken?: string;
-}
-
-type ApiParamsAction = keyof ApiParamsActionMap;
-
-interface ApiParamsActionMap {
-    "abusefiltercheckmatch": ApiActionAbuseFilterCheckMatchParams;
-    "abusefilterchecksyntax": ApiActionAbuseFilterCheckSyntaxParams;
-    "abusefilterevalexpression": ApiActionAbuseFilterEvalExpressionParams;
-    "abusefilterunblockautopromote": ApiActionAbuseFilterUnblockAutopromoteParams;
-    "abuselogprivatedetails": ApiActionAbuseLogPrivateDetailsParams;
-    "acquiretempusername": ApiActionAcquireTempUserNameParams;
-    "antispoof": ApiActionAntiSpoofParams;
-    "block": ApiActionBlockParams;
-    "bouncehandler": ApiActionBounceHandlerParams;
-    "categorytree": ApiActionCategoryTreeParams;
-    "centralauthtoken": ApiActionCentralAuthTokenParams;
-    "centralnoticecdncacheupdatebanner": ApiActionCentralNoticeCdnCacheUpdateBannerParams;
-    "centralnoticechoicedata": ApiActionCentralNoticeChoiceDataParams;
-    "centralnoticequerycampaign": ApiActionCentralNoticeQueryCampaignParams;
-    "changeauthenticationdata": ApiActionChangeAuthenticationDataParams;
-    "changecontentmodel": ApiActionChangeContentModelParams;
-    "checktoken": ApiActionCheckTokenParams;
-    "cirrus-check-sanity": ApiActionCirrusCheckSanityParams;
-    "cirrus-config-dump": ApiActionCirrusConfigDumpParams;
-    "cirrus-mapping-dump": ApiActionCirrusMappingDumpParams;
-    "cirrus-profiles-dump": ApiActionCirrusProfilesDumpParams;
-    "cirrus-settings-dump": ApiActionCirrusSettingsDumpParams;
-    "clearhasmsg": ApiActionClearHasMsgParams;
-    "clientlogin": ApiActionClientLoginParams;
-    "collection": ApiActionCollectionParams;
-    "communityconfigurationedit": ApiActionCommunityConfigurationEditParams;
-    "compare": ApiActionCompareParams;
-    "createaccount": ApiActionCreateAccountParams;
-    "createlocalaccount": ApiActionCreateLocalAccountParams;
-    "cspreport": ApiActionCSPReportParams;
-    "cxcheckunreviewed": ApiActionCxcheckunreviewedParams;
-    "cxdelete": ApiActionCxdeleteParams;
-    "cxpublish": ApiActionCxpublishParams;
-    "cxpublishsection": ApiActionCxpublishsectionParams;
-    "cxsave": ApiActionCxsaveParams;
-    "cxsplit": ApiActionCxsplitParams;
-    "cxsuggestionlist": ApiActionCxsuggestionlistParams;
-    "cxtoken": ApiActionCxtokenParams;
-    "delete": ApiActionDeleteParams;
-    "deleteglobalaccount": ApiActionDeleteGlobalAccountParams;
-    "discussiontoolscompare": ApiActionDiscussionToolsCompareParams;
-    "discussiontoolsedit": ApiActionDiscussionToolsEditParams;
-    "discussiontoolsfindcomment": ApiActionDiscussionToolsFindCommentParams;
-    "discussiontoolsgetsubscriptions": ApiActionDiscussionToolsGetSubscriptionsParams;
-    "discussiontoolspageinfo": ApiActionDiscussionToolsPageInfoParams;
-    "discussiontoolspreview": ApiActionDiscussionToolsPreviewParams;
-    "discussiontoolssubscribe": ApiActionDiscussionToolsSubscribeParams;
-    "discussiontoolsthank": ApiActionDiscussionToolsThankParams;
-    "echocreateevent": ApiActionEchoCreateEventParams;
-    "echomarkread": ApiActionEchoMarkReadParams;
-    "echomarkseen": ApiActionEchoMarkSeenParams;
-    "echomute": ApiActionEchoMuteParams;
-    "echopushsubscriptions": ApiActionEchoPushSubscriptionsParams;
-    "edit": ApiActionEditParams;
-    "editcheckreferenceurl": ApiActionEditCheckReferenceUrlParams;
-    "editmassmessagelist": ApiActionEditMassMessageListParams;
-    "emailuser": ApiActionEmailUserParams;
-    "expandtemplates": ApiActionExpandTemplatesParams;
-    "fancycaptchareload": ApiActionFancyCaptchaReloadParams;
-    "featuredfeed": ApiActionFeaturedFeedParams;
-    "feedcontributions": ApiActionFeedContributionsParams;
-    "feedrecentchanges": ApiActionFeedRecentChangesParams;
-    "feedwatchlist": ApiActionFeedWatchlistParams;
-    "filerevert": ApiActionFileRevertParams;
-    "flagconfig": ApiActionFlagConfigParams;
-    "globalblock": ApiActionGlobalBlockParams;
-    "globalpreferenceoverrides": ApiActionGlobalPreferenceOverridesParams;
-    "globalpreferences": ApiActionGlobalPreferencesParams;
-    "globaluserrights": ApiActionGlobalUserRightsParams;
-    "growthinvalidateimagerecommendation": ApiActionGrowthInvalidateImageRecommendationParams;
-    "growthinvalidatepersonalizedpraisesuggestion": ApiActionGrowthInvalidatePersonalizedPraiseSuggestionParams;
-    "growthmanagementorlist": ApiActionGrowthManageMentorListParams;
-    "growthmentordashboardupdatedata": ApiActionGrowthMentorDashboardUpdateDataParams;
-    "growthsetmenteestatus": ApiActionGrowthSetMenteeStatusParams;
-    "growthsetmentor": ApiActionGrowthSetMentorParams;
-    "growthstarmentee": ApiActionGrowthStarMenteeParams;
-    "help": ApiActionHelpParams;
-    "helppanelquestionposter": ApiActionHelppanelquestionposterParams;
-    "homepagequestionstore": ApiActionHomepagequestionstoreParams;
-    "imagerotate": ApiActionImagerotateParams;
-    "import": ApiActionImportParams;
-    "jsonconfig": ApiActionJsonConfigParams;
-    "jsondata": ApiActionJsonDataParams;
-    "languagesearch": ApiActionLanguageSearchParams;
-    "linkaccount": ApiActionLinkAccountParams;
-    "login": ApiActionLoginParams;
-    "logout": ApiActionLogoutParams;
-    "managetags": ApiActionManageTagsParams;
-    "massmessage": ApiActionMassMessageParams;
-    "mergehistory": ApiActionMergeHistoryParams;
-    "move": ApiActionMoveParams;
-    "oathvalidate": ApiActionOATHValidateParams;
-    "opensearch": ApiActionOpenSearchParams;
-    "options": ApiActionOptionsParams;
-    "pagetriageaction": ApiActionPageTriageActionParams;
-    "pagetriagelist": ApiActionPageTriageListParams;
-    "pagetriagestats": ApiActionPageTriageStatsParams;
-    "pagetriagetagcopyvio": ApiActionPageTriageTagCopyvioParams;
-    "pagetriagetagging": ApiActionPageTriageTaggingParams;
-    "paraminfo": ApiActionParamInfoParams;
-    "parse": ApiActionParseParams;
-    "parser-migration": ApiActionParserMigrationParams;
-    "patrol": ApiActionPatrolParams;
-    "protect": ApiActionProtectParams;
-    "purge": ApiActionPurgeParams;
-    "query": ApiActionQueryParams;
-    "readinglists": ApiActionReadingListsParams;
-    "removeauthenticationdata": ApiActionRemoveAuthenticationDataParams;
-    "resetpassword": ApiActionResetPasswordParams;
-    "review": ApiActionReviewParams;
-    "revisiondelete": ApiActionRevisionDeleteParams;
-    "rollback": ApiActionRollbackParams;
-    "rsd": ApiActionRsdParams;
-    "sanitize-mapdata": ApiActionSanitizeMapDataParams;
-    "scribunto-console": ApiActionScribuntoConsoleParams;
-    "securepollauth": ApiActionSecurePollAuthParams;
-    "setglobalaccountstatus": ApiActionSetGlobalAccountStatusParams;
-    "setnotificationtimestamp": ApiActionSetNotificationTimestampParams;
-    "setpagelanguage": ApiActionSetPageLanguageParams;
-    "shortenurl": ApiActionShortenUrlParams;
-    "sitematrix": ApiActionSiteMatrixParams;
-    "spamblacklist": ApiActionSpamBlacklistParams;
-    "stabilize": ApiActionStabilizeParams;
-    "stashedit": ApiActionStashEditParams;
-    "streamconfigs": ApiActionStreamConfigSParams;
-    "strikevote": ApiActionStrikeVoteParams;
-    "sxdelete": ApiActionSxdeleteParams;
-    "sxsave": ApiActionSxsaveParams;
-    "tag": ApiActionTagParams;
-    "templatedata": ApiActionTemplateDataParams;
-    "thank": ApiActionThankParams;
-    "timedtext": ApiActionTimedTextParams;
-    "titleblacklist": ApiActionTitleBlacklistParams;
-    "torblock": ApiActionTorBlockParams;
-    "transcodereset": ApiActionTranscodeResetParams;
-    "ulslocalization": ApiActionULSLocalizationParams;
-    "ulssetlang": ApiActionULSSetLangParams;
-    "unblock": ApiActionUnblockParams;
-    "undelete": ApiActionUndeleteParams;
-    "unlinkaccount": ApiActionQueryUnlinkAccountParams;
-    "upload": ApiActionUploadParams;
-    "userrights": ApiActionUserrightsParams;
-    "validatepassword": ApiActionValidatePasswordParams;
-    "visualeditor": ApiActionVisualEditorParams;
-    "visualeditoredit": ApiActionVisualEditorEditParams;
-    "watch": ApiActionWatchParams;
-    "webapp-manifest": ApiActionWebappManifestParams;
-    "webauthn": ApiActionWebAuthnParams;
-    "wikilove": ApiActionWikiLoveParams;
-    "wikimediaeventsblockededit": ApiActionWikimediaEventsBlockedEditParams;
-}
-
-type ApiParamsFormat = keyof ApiParamsFormatMap;
-
-interface ApiParamsFormatMap {
-    json: ApiFormatJsonParams;
-    jsonfm: ApiFormatJsonFMParams;
-    none: ApiFormatNoneParams;
-    php: ApiFormatPhpParams;
-    phpfm: ApiFormatPhpFMParams;
-    rawfm: ApiFormatRawFMParams;
-    xml: ApiFormatXmlParams;
-    xmlfm: ApiFormatXmlFMParams;
 }
 
 export interface ApiActionAbuseFilterCheckMatchParams extends ApiParams {
@@ -440,28 +272,7 @@ export interface ApiActionClientLoginParams extends ApiParams {
  */
 export interface ApiActionCollectionParams extends ApiParams {
     action?: "collection";
-    submodule: ApiActionCollectionParamsSubmodule;
-}
-
-type ApiActionCollectionParamsSubmodule = keyof ApiActionCollectionParamsSubmoduleMap;
-
-interface ApiActionCollectionParamsSubmoduleMap {
-    addarticle: ApiActionCollectionSubmoduleAddArticleParams;
-    addcategory: ApiActionCollectionSubmoduleAddCategoryParams;
-    addchapter: ApiActionCollectionSubmoduleAddChapterParams;
-    clearcollection: ApiActionCollectionSubmoduleClearCollectionParams;
-    getbookcreatorboxcontent: ApiActionCollectionSubmoduleGetBookCreatorBoxContentParams;
-    getcollection: ApiActionCollectionSubmoduleGetCollectionParams;
-    getpopupdata: ApiActionCollectionSubmoduleGetPopupDataParams;
-    postcollection: ApiActionCollectionSubmodulePostCollectionParams;
-    removearticle: ApiActionCollectionSubmoduleRemoveArticleParams;
-    removeitem: ApiActionCollectionSubmoduleRemoveItemParams;
-    renamechapter: ApiActionCollectionSubmoduleRenameChapterParams;
-    setsorting: ApiActionCollectionSubmoduleSetSortingParams;
-    settitles: ApiActionCollectionSubmoduleSetTitlesParams;
-    sortitems: ApiActionCollectionSubmoduleSortItemsParams;
-    suggestarticleaction: ApiActionCollectionSubmoduleSuggestArticleActionParams;
-    suggestundoarticleaction: ApiActionCollectionSubmoduleSuggestUndoArticleActionParams;
+    submodule: string;
 }
 
 export interface ApiActionCollectionSubmoduleAddArticleParams extends ApiActionCollectionParams {
@@ -1048,15 +859,8 @@ export interface ApiActionEchoMuteParams extends ApiParams {
  */
 export interface ApiActionEchoPushSubscriptionsParams extends ApiParams {
     action?: "echopushsubscriptions";
-    command: ApiActionEchoPushSubscriptionsParamsCommand;
+    command: string;
     token?: string;
-}
-
-type ApiActionEchoPushSubscriptionsParamsCommand = keyof ApiActionEchoPushSubscriptionsParamsCommandMap;
-
-interface ApiActionEchoPushSubscriptionsParamsCommandMap {
-    create: ApiActionEchoPushSubscriptionsCommandCreateParams;
-    delete: ApiActionEchoPushSubscriptionsCommandDeleteParams;
 }
 
 /**
@@ -2206,60 +2010,9 @@ export interface ApiActionPurgeParams extends ApiParams {
     titles?: string | string[];
     pageids?: number | number[];
     revids?: number | number[];
-    generator?: ApiActionPurgeParamsGenerator;
+    generator?: string;
     redirects?: boolean;
     converttitles?: boolean;
-}
-
-type ApiActionPurgeParamsGenerator = keyof ApiActionPurgeParamsGeneratorMap;
-
-interface ApiActionPurgeParamsGeneratorMap {
-    allcategories: ApiActionPurgeGeneratorAllCategoriesParams;
-    alldeletedrevisions: ApiActionPurgeGeneratorAllDeletedRevisionsParams;
-    allfileusages: ApiActionPurgeGeneratorQueryAllFileUsagesParams;
-    allimages: ApiActionPurgeGeneratorAllImagesParams;
-    alllinks: ApiActionPurgeGeneratorAllLinksParams;
-    allpages: ApiActionPurgeGeneratorAllPagesParams;
-    allredirects: ApiActionPurgeGeneratorQueryAllRedirectsParams;
-    allrevisions: ApiActionPurgeGeneratorAllRevisionsParams;
-    alltransclusions: ApiActionPurgeGeneratorQueryAllTransclusionsParams;
-    automatictranslationdenselanguages: ApiActionPurgeGeneratorAutomaticTranslationDenseLanguagesParams;
-    backlinks: ApiActionPurgeGeneratorBacklinksParams;
-    categories: ApiActionPurgeGeneratorCategoriesParams;
-    categorymembers: ApiActionPurgeGeneratorCategoryMembersParams;
-    contenttranslation: ApiActionPurgeGeneratorContentTranslationParams;
-    contenttranslationsuggestions: ApiActionPurgeGeneratorContentTranslationSuggestionsParams;
-    deletedrevisions: ApiActionPurgeGeneratorDeletedRevisionsParams;
-    duplicatefiles: ApiActionPurgeGeneratorDuplicateFilesParams;
-    embeddedin: ApiActionPurgeGeneratorQueryEmbeddedInParams;
-    exturlusage: ApiActionPurgeGeneratorExturlusageParams;
-    fileusage: ApiActionPurgeGeneratorQueryFileUsageParams;
-    geosearch: ApiActionPurgeGeneratorGeoSearchParams;
-    growthtasks: ApiActionPurgeGeneratorGrowthTasksParams;
-    images: ApiActionPurgeGeneratorImagesParams;
-    imageusage: ApiActionPurgeGeneratorQueryImageUsageParams;
-    iwbacklinks: ApiActionPurgeGeneratorIWBacklinksParams;
-    langbacklinks: ApiActionPurgeGeneratorLangBacklinksParams;
-    links: ApiActionPurgeGeneratorLinksParams;
-    linkshere: ApiActionPurgeGeneratorQueryLinksHereParams;
-    mostviewed: ApiActionPurgeGeneratorMostViewedParams;
-    oldreviewedpages: ApiActionPurgeGeneratorOldreviewedpagesParams;
-    pageswithprop: ApiActionPurgeGeneratorPagesWithPropParams;
-    prefixsearch: ApiActionPurgeGeneratorPrefixSearchParams;
-    projectpages: ApiActionPurgeGeneratorProjectPagesParams;
-    protectedtitles: ApiActionPurgeGeneratorProtectedTitlesParams;
-    querypage: ApiActionPurgeGeneratorQueryPageParams;
-    random: ApiActionPurgeGeneratorRandomParams;
-    readinglistentries: ApiActionPurgeGeneratorReadingListEntriesParams;
-    recentchanges: ApiActionPurgeGeneratorRecentChangesParams;
-    redirects: ApiActionPurgeGeneratorQueryRedirectsParams;
-    revisions: ApiActionPurgeGeneratorRevisionsParams;
-    search: ApiActionPurgeGeneratorSearchParams;
-    templates: ApiActionPurgeGeneratorQueryTemplatesParams;
-    transcludedin: ApiActionPurgeGeneratorQueryTranscludedInParams;
-    watchlist: ApiActionPurgeGeneratorWatchlistParams;
-    watchlistraw: ApiActionPurgeGeneratorWatchlistRawParams;
-    wblistentityusage: ApiActionPurgeGeneratorWblistentityusageParams;
 }
 
 /**
@@ -3460,9 +3213,9 @@ export interface ApiActionPurgeGeneratorWblistentityusageParams extends ApiActio
  */
 export interface ApiActionQueryParams extends ApiParams {
     action?: "query";
-    prop?: OneOrMore<ApiActionQueryParamsProp>;
-    list?: OneOrMore<ApiActionQueryParamsList>;
-    meta?: OneOrMore<ApiActionQueryParamsMeta>;
+    prop?: string | string[];
+    list?: string | string[];
+    meta?: string | string[];
     indexpageids?: boolean;
     export?: boolean;
     exportnowrap?: boolean;
@@ -3473,208 +3226,9 @@ export interface ApiActionQueryParams extends ApiParams {
     titles?: string | string[];
     pageids?: number | number[];
     revids?: number | number[];
-    generator?: ApiActionQueryParamsGenerator;
+    generator?: string;
     redirects?: boolean;
     converttitles?: boolean;
-}
-
-type ApiActionQueryParamsProp = keyof ApiActionQueryParamsPropMap;
-
-interface ApiActionQueryParamsPropMap {
-    categories: ApiActionQueryPropCategoriesParams;
-    categoryinfo: ApiActionQueryPropCategoryInfoParams;
-    cirrusbuilddoc: ApiActionQueryPropCirrusBuildDocParams;
-    cirruscompsuggestbuilddoc: ApiActionQueryPropCirrusCompSuggestBuildDocParams;
-    cirrusdoc: ApiActionQueryPropCirrusDocParams;
-    contributors: ApiActionQueryPropContributorsParams;
-    coordinates: ApiActionQueryPropCoordinatesParams;
-    deletedrevisions: ApiActionQueryPropDeletedRevisionsParams;
-    description: ApiActionQueryPropDescriptionParams;
-    duplicatefiles: ApiActionQueryPropDuplicateFilesParams;
-    extlinks: ApiActionQueryPropExtlinksParams;
-    extracts: ApiActionQueryPropExtractsParams;
-    fileusage: ApiActionQueryPropQueryFileUsageParams;
-    flagged: ApiActionQueryPropFlaggedParams;
-    globalusage: ApiActionQueryPropGlobalUsageParams;
-    growthimagesuggestiondata: ApiActionQueryPropGrowthImageSuggestionDataParams;
-    imageinfo: ApiActionQueryPropImageInfoParams;
-    images: ApiActionQueryPropImagesParams;
-    info: ApiActionQueryPropInfoParams;
-    isreviewed: ApiActionQueryPropIsReviewedParams;
-    iwlinks: ApiActionQueryPropIWLinksParams;
-    langlinks: ApiActionQueryPropLangLinksParams;
-    langlinkscount: ApiActionQueryPropLangLinksCountParams;
-    links: ApiActionQueryPropLinksParams;
-    linkshere: ApiActionQueryPropQueryLinksHereParams;
-    mapdata: ApiActionQueryPropMapDataParams;
-    mmcontent: ApiActionQueryPropMMContentParams;
-    pageassessments: ApiActionQueryPropPageAssessmentsParams;
-    pageimages: ApiActionQueryPropPageImagesParams;
-    pageprops: ApiActionQueryPropPagePropsParams;
-    pageterms: ApiActionQueryPropPageTermsParams;
-    pageviews: ApiActionQueryPropPageViewsParams;
-    redirects: ApiActionQueryPropQueryRedirectsParams;
-    revisions: ApiActionQueryPropRevisionsParams;
-    stashimageinfo: ApiActionQueryPropStashImageInfoParams;
-    templates: ApiActionQueryPropQueryTemplatesParams;
-    transcludedin: ApiActionQueryPropQueryTranscludedInParams;
-    transcodestatus: ApiActionQueryPropTranscodeStatusParams;
-    videoinfo: ApiActionQueryPropVideoInfoParams;
-    wbentityusage: ApiActionQueryPropWbentityusageParams;
-}
-
-type ApiActionQueryParamsList = keyof ApiActionQueryParamsListMap;
-
-interface ApiActionQueryParamsListMap {
-    abusefilters: ApiActionQueryListAbuseFiltersParams;
-    abuselog: ApiActionQueryListAbuseLogParams;
-    allcategories: ApiActionQueryListAllCategoriesParams;
-    alldeletedrevisions: ApiActionQueryListAllDeletedRevisionsParams;
-    allfileusages: ApiActionQueryListQueryAllFileUsagesParams;
-    allimages: ApiActionQueryListAllImagesParams;
-    alllinks: ApiActionQueryListAllLinksParams;
-    allpages: ApiActionQueryListAllPagesParams;
-    allredirects: ApiActionQueryListQueryAllRedirectsParams;
-    allrevisions: ApiActionQueryListAllRevisionsParams;
-    alltransclusions: ApiActionQueryListQueryAllTransclusionsParams;
-    allusers: ApiActionQueryListAllUsersParams;
-    automatictranslationdenselanguages: ApiActionQueryListAutomaticTranslationDenseLanguagesParams;
-    backlinks: ApiActionQueryListBacklinksParams;
-    betafeatures: ApiActionQueryListBetaFeaturesParams;
-    blocks: ApiActionQueryListBlocksParams;
-    categorymembers: ApiActionQueryListCategoryMembersParams;
-    centralnoticeactivecampaigns: ApiActionQueryListCentralNoticeActiveCampaignsParams;
-    centralnoticelogs: ApiActionQueryListCentralNoticeLogsParams;
-    checkuser: ApiActionQueryListCheckUserParams;
-    checkuserlog: ApiActionQueryListCheckUserLogParams;
-    contenttranslation: ApiActionQueryListContentTranslationParams;
-    contenttranslationcorpora: ApiActionQueryListContentTranslationCorporaParams;
-    contenttranslationlangtrend: ApiActionQueryListContenttranslationlangtrendParams;
-    contenttranslationstats: ApiActionQueryListContentTranslationStatsParams;
-    contenttranslationsuggestions: ApiActionQueryListContentTranslationSuggestionsParams;
-    cxpublishedtranslations: ApiActionQueryListCxpublishedtranslationsParams;
-    cxtranslatorstats: ApiActionQueryListCxtranslatorstatsParams;
-    deletedrevs: ApiActionQueryListDeletedrevsParams;
-    embeddedin: ApiActionQueryListQueryEmbeddedInParams;
-    exturlusage: ApiActionQueryListExturlusageParams;
-    filearchive: ApiActionQueryListFilearchiveParams;
-    gadgetcategories: ApiActionQueryListGadgetCategoriesParams;
-    gadgets: ApiActionQueryListGadgetsParams;
-    geosearch: ApiActionQueryListGeoSearchParams;
-    globalallusers: ApiActionQueryListGlobalAllUsersParams;
-    globalblocks: ApiActionQueryListGlobalBlocksParams;
-    globalgroups: ApiActionQueryListGlobalGroupsParams;
-    growthmentorlist: ApiActionQueryListGrowthMentorListParams;
-    growthmentormentee: ApiActionQueryListGrowthMentorMenteeParams;
-    growthstarredmentees: ApiActionQueryListGrowthStarredMenteesParams;
-    growthtasks: ApiActionQueryListGrowthTasksParams;
-    imageusage: ApiActionQueryListQueryImageUsageParams;
-    iwbacklinks: ApiActionQueryListIWBacklinksParams;
-    langbacklinks: ApiActionQueryListLangBacklinksParams;
-    linterrors: ApiActionQueryListLinterrorsParams;
-    logevents: ApiActionQueryListLogEventsParams;
-    mostviewed: ApiActionQueryListMostViewedParams;
-    mystashedfiles: ApiActionQueryListMyStashedFilesParams;
-    oldreviewedpages: ApiActionQueryListOldreviewedpagesParams;
-    pagepropnames: ApiActionQueryListPagePropNamesParams;
-    pageswithprop: ApiActionQueryListPagesWithPropParams;
-    prefixsearch: ApiActionQueryListPrefixSearchParams;
-    projectpages: ApiActionQueryListProjectPagesParams;
-    projects: ApiActionQueryListProjectsParams;
-    protectedtitles: ApiActionQueryListProtectedTitlesParams;
-    querypage: ApiActionQueryListQueryPageParams;
-    random: ApiActionQueryListRandomParams;
-    readinglistentries: ApiActionQueryListReadingListEntriesParams;
-    recentchanges: ApiActionQueryListRecentChangesParams;
-    search: ApiActionQueryListSearchParams;
-    tags: ApiActionQueryListTagsParams;
-    usercontribs: ApiActionQueryListUserContribsParams;
-    users: ApiActionQueryListUsersParams;
-    watchlist: ApiActionQueryListWatchlistParams;
-    watchlistraw: ApiActionQueryListWatchlistRawParams;
-    wblistentityusage: ApiActionQueryListWblistentityusageParams;
-    wikisets: ApiActionQueryListWikiSetsParams;
-}
-
-type ApiActionQueryParamsMeta = keyof ApiActionQueryParamsMetaMap;
-
-interface ApiActionQueryParamsMetaMap {
-    allmessages: ApiActionQueryMetaAllMessagesParams;
-    authmanagerinfo: ApiActionQueryMetaAuthManagerInfoParams;
-    babel: ApiActionQueryMetaBabelParams;
-    communityconfiguration: ApiActionQueryMetaCommunityConfigurationParams;
-    cxdeletedtranslations: ApiActionQueryMetaCxdeletedtranslationsParams;
-    featureusage: ApiActionQueryMetaFeatureUsageParams;
-    filerepoinfo: ApiActionQueryMetaFileRepoInfoParams;
-    globalpreferences: ApiActionQueryMetaGlobalPreferencesParams;
-    globalrenamestatus: ApiActionQueryMetaGlobalRenameStatusParams;
-    globaluserinfo: ApiActionQueryMetaGlobalUserInfoParams;
-    growthmenteestatus: ApiActionQueryMetaGrowthMenteeStatusParams;
-    growthmentorstatus: ApiActionQueryMetaGrowthMentorStatusParams;
-    growthnextsuggestedtasktype: ApiActionQueryMetaGrowthNextSuggestedTaskTypeParams;
-    languageinfo: ApiActionQueryMetaLanguageinfoParams;
-    linterstats: ApiActionQueryMetaLinterStatsParams;
-    notifications: ApiActionQueryMetaNotificationsParams;
-    oath: ApiActionQueryMetaOATHParams;
-    ores: ApiActionQueryMetaORESParams;
-    readinglists: ApiActionQueryMetaReadingListsParams;
-    siteinfo: ApiActionQueryMetaSiteinfoParams;
-    siteviews: ApiActionQueryMetaSiteViewsParams;
-    tokens: ApiActionQueryMetaTokensParams;
-    unreadnotificationpages: ApiActionQueryMetaUnreadNotificationPagesParams;
-    userinfo: ApiActionQueryMetaUserInfoParams;
-    wikibase: ApiActionQueryMetaWikibaseParams;
-}
-
-type ApiActionQueryParamsGenerator = keyof ApiActionQueryParamsGeneratorMap;
-
-interface ApiActionQueryParamsGeneratorMap {
-    allcategories: ApiActionQueryGeneratorAllCategoriesParams;
-    alldeletedrevisions: ApiActionQueryGeneratorAllDeletedRevisionsParams;
-    allfileusages: ApiActionQueryGeneratorQueryAllFileUsagesParams;
-    allimages: ApiActionQueryGeneratorAllImagesParams;
-    alllinks: ApiActionQueryGeneratorAllLinksParams;
-    allpages: ApiActionQueryGeneratorAllPagesParams;
-    allredirects: ApiActionQueryGeneratorQueryAllRedirectsParams;
-    allrevisions: ApiActionQueryGeneratorAllRevisionsParams;
-    alltransclusions: ApiActionQueryGeneratorQueryAllTransclusionsParams;
-    automatictranslationdenselanguages: ApiActionQueryGeneratorAutomaticTranslationDenseLanguagesParams;
-    backlinks: ApiActionQueryGeneratorBacklinksParams;
-    categories: ApiActionQueryGeneratorCategoriesParams;
-    categorymembers: ApiActionQueryGeneratorCategoryMembersParams;
-    contenttranslation: ApiActionQueryGeneratorContentTranslationParams;
-    contenttranslationsuggestions: ApiActionQueryGeneratorContentTranslationSuggestionsParams;
-    deletedrevisions: ApiActionQueryGeneratorDeletedRevisionsParams;
-    duplicatefiles: ApiActionQueryGeneratorDuplicateFilesParams;
-    embeddedin: ApiActionQueryGeneratorQueryEmbeddedInParams;
-    exturlusage: ApiActionQueryGeneratorExturlusageParams;
-    fileusage: ApiActionQueryGeneratorQueryFileUsageParams;
-    geosearch: ApiActionQueryGeneratorGeoSearchParams;
-    growthtasks: ApiActionQueryGeneratorGrowthTasksParams;
-    images: ApiActionQueryGeneratorImagesParams;
-    imageusage: ApiActionQueryGeneratorQueryImageUsageParams;
-    iwbacklinks: ApiActionQueryGeneratorIWBacklinksParams;
-    langbacklinks: ApiActionQueryGeneratorLangBacklinksParams;
-    links: ApiActionQueryGeneratorLinksParams;
-    linkshere: ApiActionQueryGeneratorQueryLinksHereParams;
-    mostviewed: ApiActionQueryGeneratorMostViewedParams;
-    oldreviewedpages: ApiActionQueryGeneratorOldreviewedpagesParams;
-    pageswithprop: ApiActionQueryGeneratorPagesWithPropParams;
-    prefixsearch: ApiActionQueryGeneratorPrefixSearchParams;
-    projectpages: ApiActionQueryGeneratorProjectPagesParams;
-    protectedtitles: ApiActionQueryGeneratorProtectedTitlesParams;
-    querypage: ApiActionQueryGeneratorQueryPageParams;
-    random: ApiActionQueryGeneratorRandomParams;
-    readinglistentries: ApiActionQueryGeneratorReadingListEntriesParams;
-    recentchanges: ApiActionQueryGeneratorRecentChangesParams;
-    redirects: ApiActionQueryGeneratorQueryRedirectsParams;
-    revisions: ApiActionQueryGeneratorRevisionsParams;
-    search: ApiActionQueryGeneratorSearchParams;
-    templates: ApiActionQueryGeneratorQueryTemplatesParams;
-    transcludedin: ApiActionQueryGeneratorQueryTranscludedInParams;
-    watchlist: ApiActionQueryGeneratorWatchlistParams;
-    watchlistraw: ApiActionQueryGeneratorWatchlistRawParams;
-    wblistentityusage: ApiActionQueryGeneratorWblistentityusageParams;
 }
 
 /**
@@ -8668,20 +8222,8 @@ export interface ApiActionQueryGeneratorWblistentityusageParams extends ApiActio
  */
 export interface ApiActionReadingListsParams extends ApiParams {
     action?: "readinglists";
-    command: ApiActionReadingListsParamsCommand;
+    command: string;
     token?: string;
-}
-
-type ApiActionReadingListsParamsCommand = keyof ApiActionReadingListsParamsCommandMap;
-
-interface ApiActionReadingListsParamsCommandMap {
-    create: ApiActionReadingListsCommandCreateParams;
-    createentry: ApiActionReadingListsCommandCreateEntryParams;
-    delete: ApiActionReadingListsCommandDeleteParams;
-    deleteentry: ApiActionReadingListsCommandDeleteEntryParams;
-    setup: ApiActionReadingListsCommandSetupParams;
-    teardown: ApiActionReadingListsCommandTeardownParams;
-    update: ApiActionReadingListsCommandUpdateParams;
 }
 
 /**
@@ -8875,61 +8417,10 @@ export interface ApiActionSetNotificationTimestampParams extends ApiParams {
     titles?: string | string[];
     pageids?: number | number[];
     revids?: number | number[];
-    generator?: ApiActionSetNotificationTimestampParamsGenerator;
+    generator?: string;
     redirects?: boolean;
     converttitles?: boolean;
     token?: string;
-}
-
-type ApiActionSetNotificationTimestampParamsGenerator = keyof ApiActionSetNotificationTimestampParamsGeneratorMap;
-
-interface ApiActionSetNotificationTimestampParamsGeneratorMap {
-    allcategories: ApiActionSetNotificationTimestampGeneratorAllCategoriesParams;
-    alldeletedrevisions: ApiActionSetNotificationTimestampGeneratorAllDeletedRevisionsParams;
-    allfileusages: ApiActionSetNotificationTimestampGeneratorQueryAllFileUsagesParams;
-    allimages: ApiActionSetNotificationTimestampGeneratorAllImagesParams;
-    alllinks: ApiActionSetNotificationTimestampGeneratorAllLinksParams;
-    allpages: ApiActionSetNotificationTimestampGeneratorAllPagesParams;
-    allredirects: ApiActionSetNotificationTimestampGeneratorQueryAllRedirectsParams;
-    allrevisions: ApiActionSetNotificationTimestampGeneratorAllRevisionsParams;
-    alltransclusions: ApiActionSetNotificationTimestampGeneratorQueryAllTransclusionsParams;
-    automatictranslationdenselanguages: ApiActionSetNotificationTimestampGeneratorAutomaticTranslationDenseLanguagesParams;
-    backlinks: ApiActionSetNotificationTimestampGeneratorBacklinksParams;
-    categories: ApiActionSetNotificationTimestampGeneratorCategoriesParams;
-    categorymembers: ApiActionSetNotificationTimestampGeneratorCategoryMembersParams;
-    contenttranslation: ApiActionSetNotificationTimestampGeneratorContentTranslationParams;
-    contenttranslationsuggestions: ApiActionSetNotificationTimestampGeneratorContentTranslationSuggestionsParams;
-    deletedrevisions: ApiActionSetNotificationTimestampGeneratorDeletedRevisionsParams;
-    duplicatefiles: ApiActionSetNotificationTimestampGeneratorDuplicateFilesParams;
-    embeddedin: ApiActionSetNotificationTimestampGeneratorQueryEmbeddedInParams;
-    exturlusage: ApiActionSetNotificationTimestampGeneratorExturlusageParams;
-    fileusage: ApiActionSetNotificationTimestampGeneratorQueryFileUsageParams;
-    geosearch: ApiActionSetNotificationTimestampGeneratorGeoSearchParams;
-    growthtasks: ApiActionSetNotificationTimestampGeneratorGrowthTasksParams;
-    images: ApiActionSetNotificationTimestampGeneratorImagesParams;
-    imageusage: ApiActionSetNotificationTimestampGeneratorQueryImageUsageParams;
-    iwbacklinks: ApiActionSetNotificationTimestampGeneratorIWBacklinksParams;
-    langbacklinks: ApiActionSetNotificationTimestampGeneratorLangBacklinksParams;
-    links: ApiActionSetNotificationTimestampGeneratorLinksParams;
-    linkshere: ApiActionSetNotificationTimestampGeneratorQueryLinksHereParams;
-    mostviewed: ApiActionSetNotificationTimestampGeneratorMostViewedParams;
-    oldreviewedpages: ApiActionSetNotificationTimestampGeneratorOldreviewedpagesParams;
-    pageswithprop: ApiActionSetNotificationTimestampGeneratorPagesWithPropParams;
-    prefixsearch: ApiActionSetNotificationTimestampGeneratorPrefixSearchParams;
-    projectpages: ApiActionSetNotificationTimestampGeneratorProjectPagesParams;
-    protectedtitles: ApiActionSetNotificationTimestampGeneratorProtectedTitlesParams;
-    querypage: ApiActionSetNotificationTimestampGeneratorQueryPageParams;
-    random: ApiActionSetNotificationTimestampGeneratorRandomParams;
-    readinglistentries: ApiActionSetNotificationTimestampGeneratorReadingListEntriesParams;
-    recentchanges: ApiActionSetNotificationTimestampGeneratorRecentChangesParams;
-    redirects: ApiActionSetNotificationTimestampGeneratorQueryRedirectsParams;
-    revisions: ApiActionSetNotificationTimestampGeneratorRevisionsParams;
-    search: ApiActionSetNotificationTimestampGeneratorSearchParams;
-    templates: ApiActionSetNotificationTimestampGeneratorQueryTemplatesParams;
-    transcludedin: ApiActionSetNotificationTimestampGeneratorQueryTranscludedInParams;
-    watchlist: ApiActionSetNotificationTimestampGeneratorWatchlistParams;
-    watchlistraw: ApiActionSetNotificationTimestampGeneratorWatchlistRawParams;
-    wblistentityusage: ApiActionSetNotificationTimestampGeneratorWblistentityusageParams;
 }
 
 /**
@@ -10884,60 +10375,9 @@ export interface ApiActionTemplateDataParams extends ApiParams {
     titles?: string | string[];
     pageids?: number | number[];
     revids?: number | number[];
-    generator?: ApiActionTemplateDataParamsGenerator;
+    generator?: string;
     redirects?: boolean;
     converttitles?: boolean;
-}
-
-type ApiActionTemplateDataParamsGenerator = keyof ApiActionTemplateDataParamsGeneratorMap;
-
-interface ApiActionTemplateDataParamsGeneratorMap {
-    allcategories: ApiActionTemplateDataGeneratorAllCategoriesParams;
-    alldeletedrevisions: ApiActionTemplateDataGeneratorAllDeletedRevisionsParams;
-    allfileusages: ApiActionTemplateDataGeneratorQueryAllFileUsagesParams;
-    allimages: ApiActionTemplateDataGeneratorAllImagesParams;
-    alllinks: ApiActionTemplateDataGeneratorAllLinksParams;
-    allpages: ApiActionTemplateDataGeneratorAllPagesParams;
-    allredirects: ApiActionTemplateDataGeneratorQueryAllRedirectsParams;
-    allrevisions: ApiActionTemplateDataGeneratorAllRevisionsParams;
-    alltransclusions: ApiActionTemplateDataGeneratorQueryAllTransclusionsParams;
-    automatictranslationdenselanguages: ApiActionTemplateDataGeneratorAutomaticTranslationDenseLanguagesParams;
-    backlinks: ApiActionTemplateDataGeneratorBacklinksParams;
-    categories: ApiActionTemplateDataGeneratorCategoriesParams;
-    categorymembers: ApiActionTemplateDataGeneratorCategoryMembersParams;
-    contenttranslation: ApiActionTemplateDataGeneratorContentTranslationParams;
-    contenttranslationsuggestions: ApiActionTemplateDataGeneratorContentTranslationSuggestionsParams;
-    deletedrevisions: ApiActionTemplateDataGeneratorDeletedRevisionsParams;
-    duplicatefiles: ApiActionTemplateDataGeneratorDuplicateFilesParams;
-    embeddedin: ApiActionTemplateDataGeneratorQueryEmbeddedInParams;
-    exturlusage: ApiActionTemplateDataGeneratorExturlusageParams;
-    fileusage: ApiActionTemplateDataGeneratorQueryFileUsageParams;
-    geosearch: ApiActionTemplateDataGeneratorGeoSearchParams;
-    growthtasks: ApiActionTemplateDataGeneratorGrowthTasksParams;
-    images: ApiActionTemplateDataGeneratorImagesParams;
-    imageusage: ApiActionTemplateDataGeneratorQueryImageUsageParams;
-    iwbacklinks: ApiActionTemplateDataGeneratorIWBacklinksParams;
-    langbacklinks: ApiActionTemplateDataGeneratorLangBacklinksParams;
-    links: ApiActionTemplateDataGeneratorLinksParams;
-    linkshere: ApiActionTemplateDataGeneratorQueryLinksHereParams;
-    mostviewed: ApiActionTemplateDataGeneratorMostViewedParams;
-    oldreviewedpages: ApiActionTemplateDataGeneratorOldreviewedpagesParams;
-    pageswithprop: ApiActionTemplateDataGeneratorPagesWithPropParams;
-    prefixsearch: ApiActionTemplateDataGeneratorPrefixSearchParams;
-    projectpages: ApiActionTemplateDataGeneratorProjectPagesParams;
-    protectedtitles: ApiActionTemplateDataGeneratorProtectedTitlesParams;
-    querypage: ApiActionTemplateDataGeneratorQueryPageParams;
-    random: ApiActionTemplateDataGeneratorRandomParams;
-    readinglistentries: ApiActionTemplateDataGeneratorReadingListEntriesParams;
-    recentchanges: ApiActionTemplateDataGeneratorRecentChangesParams;
-    redirects: ApiActionTemplateDataGeneratorQueryRedirectsParams;
-    revisions: ApiActionTemplateDataGeneratorRevisionsParams;
-    search: ApiActionTemplateDataGeneratorSearchParams;
-    templates: ApiActionTemplateDataGeneratorQueryTemplatesParams;
-    transcludedin: ApiActionTemplateDataGeneratorQueryTranscludedInParams;
-    watchlist: ApiActionTemplateDataGeneratorWatchlistParams;
-    watchlistraw: ApiActionTemplateDataGeneratorWatchlistRawParams;
-    wblistentityusage: ApiActionTemplateDataGeneratorWblistentityusageParams;
 }
 
 /**
@@ -12468,61 +11908,10 @@ export interface ApiActionWatchParams extends ApiParams {
     titles?: string | string[];
     pageids?: number | number[];
     revids?: number | number[];
-    generator?: ApiActionWatchParamsGenerator;
+    generator?: string;
     redirects?: boolean;
     converttitles?: boolean;
     token?: string;
-}
-
-type ApiActionWatchParamsGenerator = keyof ApiActionWatchParamsGeneratorMap;
-
-interface ApiActionWatchParamsGeneratorMap {
-    allcategories: ApiActionWatchGeneratorAllCategoriesParams;
-    alldeletedrevisions: ApiActionWatchGeneratorAllDeletedRevisionsParams;
-    allfileusages: ApiActionWatchGeneratorQueryAllFileUsagesParams;
-    allimages: ApiActionWatchGeneratorAllImagesParams;
-    alllinks: ApiActionWatchGeneratorAllLinksParams;
-    allpages: ApiActionWatchGeneratorAllPagesParams;
-    allredirects: ApiActionWatchGeneratorQueryAllRedirectsParams;
-    allrevisions: ApiActionWatchGeneratorAllRevisionsParams;
-    alltransclusions: ApiActionWatchGeneratorQueryAllTransclusionsParams;
-    automatictranslationdenselanguages: ApiActionWatchGeneratorAutomaticTranslationDenseLanguagesParams;
-    backlinks: ApiActionWatchGeneratorBacklinksParams;
-    categories: ApiActionWatchGeneratorCategoriesParams;
-    categorymembers: ApiActionWatchGeneratorCategoryMembersParams;
-    contenttranslation: ApiActionWatchGeneratorContentTranslationParams;
-    contenttranslationsuggestions: ApiActionWatchGeneratorContentTranslationSuggestionsParams;
-    deletedrevisions: ApiActionWatchGeneratorDeletedRevisionsParams;
-    duplicatefiles: ApiActionWatchGeneratorDuplicateFilesParams;
-    embeddedin: ApiActionWatchGeneratorQueryEmbeddedInParams;
-    exturlusage: ApiActionWatchGeneratorExturlusageParams;
-    fileusage: ApiActionWatchGeneratorQueryFileUsageParams;
-    geosearch: ApiActionWatchGeneratorGeoSearchParams;
-    growthtasks: ApiActionWatchGeneratorGrowthTasksParams;
-    images: ApiActionWatchGeneratorImagesParams;
-    imageusage: ApiActionWatchGeneratorQueryImageUsageParams;
-    iwbacklinks: ApiActionWatchGeneratorIWBacklinksParams;
-    langbacklinks: ApiActionWatchGeneratorLangBacklinksParams;
-    links: ApiActionWatchGeneratorLinksParams;
-    linkshere: ApiActionWatchGeneratorQueryLinksHereParams;
-    mostviewed: ApiActionWatchGeneratorMostViewedParams;
-    oldreviewedpages: ApiActionWatchGeneratorOldreviewedpagesParams;
-    pageswithprop: ApiActionWatchGeneratorPagesWithPropParams;
-    prefixsearch: ApiActionWatchGeneratorPrefixSearchParams;
-    projectpages: ApiActionWatchGeneratorProjectPagesParams;
-    protectedtitles: ApiActionWatchGeneratorProtectedTitlesParams;
-    querypage: ApiActionWatchGeneratorQueryPageParams;
-    random: ApiActionWatchGeneratorRandomParams;
-    readinglistentries: ApiActionWatchGeneratorReadingListEntriesParams;
-    recentchanges: ApiActionWatchGeneratorRecentChangesParams;
-    redirects: ApiActionWatchGeneratorQueryRedirectsParams;
-    revisions: ApiActionWatchGeneratorRevisionsParams;
-    search: ApiActionWatchGeneratorSearchParams;
-    templates: ApiActionWatchGeneratorQueryTemplatesParams;
-    transcludedin: ApiActionWatchGeneratorQueryTranscludedInParams;
-    watchlist: ApiActionWatchGeneratorWatchlistParams;
-    watchlistraw: ApiActionWatchGeneratorWatchlistRawParams;
-    wblistentityusage: ApiActionWatchGeneratorWblistentityusageParams;
 }
 
 /**

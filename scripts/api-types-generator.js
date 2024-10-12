@@ -535,7 +535,6 @@ class ModuleFormatter {
         this.quote = this.quote.bind(this);
         this.indent = this.indent.bind(this);
         this.formatProperty = this.formatProperty.bind(this);
-        this.formatModule = this.formatModule.bind(this);
     }
 
     /**
@@ -653,21 +652,6 @@ class ModuleFormatter {
     }
 
     /**
-     * @param {string} name
-     * @param {string} mapName
-     * @param {boolean} [exported]
-     * @returns {string}
-     */
-    formatKeyType(name, mapName, exported) {
-        let line = `type ${name} = keyof ${mapName};`;
-        if (exported) {
-            line = `export ${line}`;
-        }
-
-        return line;
-    }
-
-    /**
      * Format an interface parameter as a TS string.
      * @param {PropertyData} prop Interface parameter data
      * @returns {string[]}
@@ -747,6 +731,7 @@ class ModuleFormatter {
      * @returns {string[]}
      */
     formatModule(module) {
+        const interfaceName = `${this.formatModuleName(module)}Params`;
         const parameterPrefix = this.formatParameterPrefix(module);
 
         /** @type {ParameterData[]} */
@@ -766,37 +751,6 @@ class ModuleFormatter {
             }
         });
 
-        const paramsName = `${this.formatModuleName(module)}Params`;
-
-        /** @type {LineBlock<2>} */
-        const types = [];
-
-        // Sub-module interfaces & key types
-        for (const submoduleSet of submoduleSets) {
-            const parameter = submoduleSet.parameter;
-            const enumName = `${paramsName}${parameter.name}`;
-            const mapName = `${enumName}Map`;
-
-            parameter.type = enumName;
-
-            types.push(this.formatKeyType(enumName, mapName));
-            types.push(
-                this.formatInterface(
-                    mapName,
-                    submoduleSet.values.map(([value, submodule]) => {
-                        this.pathStack.push({ parameter, value });
-                        const type = `${this.formatModuleName(submodule)}Params`;
-                        this.pathStack.pop();
-                        return {
-                            key: value,
-                            type,
-                            required: true,
-                        };
-                    })
-                )
-            );
-        }
-
         /** @type {InterfaceOptions} */
         const options = { exported: true };
 
@@ -815,12 +769,13 @@ class ModuleFormatter {
             }
         }
 
-        types.unshift(
+        /** @type {LineBlock<2>} */
+        const types = [
             this.addJsdoc(
                 module.jsdoc,
-                this.formatInterface(paramsName, prefixedParameters, options)
-            )
-        );
+                this.formatInterface(interfaceName, prefixedParameters, options)
+            ),
+        ];
 
         for (const submoduleSet of submoduleSets) {
             const parameter = submoduleSet.parameter;
