@@ -1,3 +1,5 @@
+// AUTOMATICALLY GENERATED (see scripts/api-types-generator.js)
+
 type timestamp = string;
 type expiry = string;
 type namespace = number;
@@ -30,157 +32,9 @@ export type ApiLegacyTokenType =
     | "protect"
     | "unblock";
 
-// AUTOMATICALLY GENERATED FROM HERE:
-
 export interface ApiParams {
-    action?:
-        | "abusefiltercheckmatch"
-        | "abusefilterchecksyntax"
-        | "abusefilterevalexpression"
-        | "abusefilterunblockautopromote"
-        | "abuselogprivatedetails"
-        | "acquiretempusername"
-        | "antispoof"
-        | "block"
-        | "centralauthtoken"
-        | "centralnoticecdncacheupdatebanner"
-        | "centralnoticechoicedata"
-        | "centralnoticequerycampaign"
-        | "changeauthenticationdata"
-        | "changecontentmodel"
-        | "checktoken"
-        | "cirrus-config-dump"
-        | "cirrus-mapping-dump"
-        | "cirrus-profiles-dump"
-        | "cirrus-settings-dump"
-        | "clearhasmsg"
-        | "clientlogin"
-        | "compare"
-        | "createaccount"
-        | "createlocalaccount"
-        | "cxdelete"
-        | "cxsuggestionlist"
-        | "cxtoken"
-        | "delete"
-        | "deleteglobalaccount"
-        | "discussiontoolsedit"
-        | "discussiontoolsfindcomment"
-        | "discussiontoolsgetsubscriptions"
-        | "discussiontoolssubscribe"
-        | "echomarkread"
-        | "echomarkseen"
-        | "echomute"
-        | "edit"
-        | "editmassmessagelist"
-        | "emailuser"
-        | "expandtemplates"
-        | "featuredfeed"
-        | "feedcontributions"
-        | "feedrecentchanges"
-        | "feedwatchlist"
-        | "filerevert"
-        | "flagconfig"
-        | "globalblock"
-        | "globalpreferenceoverrides"
-        | "globalpreferences"
-        | "globaluserrights"
-        | "growthmanagementorlist"
-        | "growthmentordashboardupdatedata"
-        | "growthsetmenteestatus"
-        | "growthsetmentor"
-        | "growthstarmentee"
-        | "help"
-        | "homepagequestionstore"
-        | "imagerotate"
-        | "import"
-        | "jsonconfig"
-        | "languagesearch"
-        | "linkaccount"
-        | "login"
-        | "logout"
-        | "managetags"
-        | "massmessage"
-        | "mergehistory"
-        | "move"
-        | "opensearch"
-        | "options"
-        | "pagetriageaction"
-        | "pagetriagelist"
-        | "pagetriagestats"
-        | "pagetriagetagcopyvio"
-        | "pagetriagetagging"
-        | "paraminfo"
-        | "parse"
-        | "patrol"
-        | "protect"
-        | "purge"
-        | "query"
-        | "removeauthenticationdata"
-        | "resetpassword"
-        | "review"
-        | "revisiondelete"
-        | "rollback"
-        | "rsd"
-        | "setglobalaccountstatus"
-        | "setnotificationtimestamp"
-        | "setpagelanguage"
-        | "shortenurl"
-        | "sitematrix"
-        | "spamblacklist"
-        | "stabilize"
-        | "streamconfigs"
-        | "strikevote"
-        | "sxdelete"
-        | "tag"
-        | "templatedata"
-        | "thank"
-        | "titleblacklist"
-        | "torblock"
-        | "transcodereset"
-        | "unblock"
-        | "undelete"
-        | "unlinkaccount"
-        | "upload"
-        | "userrights"
-        | "validatepassword"
-        | "watch"
-        | "webapp-manifest"
-        | "webauthn"
-        | "wikilove"
-        | "bouncehandler"
-        | "categorytree"
-        | "collection"
-        | "cspreport"
-        | "cxcheckunreviewed"
-        | "cxpublish"
-        | "cxpublishsection"
-        | "cxsave"
-        | "cxsplit"
-        | "discussiontoolscompare"
-        | "discussiontoolspageinfo"
-        | "discussiontoolspreview"
-        | "echopushsubscriptions"
-        | "editcheckreferenceurl"
-        | "fancycaptchareload"
-        | "growthinvalidateimagerecommendation"
-        | "growthinvalidatepersonalizedpraisesuggestion"
-        | "helppanelquestionposter"
-        | "jsondata"
-        | "oathvalidate"
-        | "parser-migration"
-        | "readinglists"
-        | "sanitize-mapdata"
-        | "scribunto-console"
-        | "securepollauth"
-        | "stashedit"
-        | "sxsave"
-        | "timedtext"
-        | "ulslocalization"
-        | "ulssetlang"
-        | "visualeditor"
-        | "visualeditoredit"
-        | "wikimediaeventsblockededit";
-    format?: "json" | "jsonfm" | "none" | "php" | "phpfm" | "rawfm" | "xml" | "xmlfm";
+    action?: ApiParamsAction;
+    format?: ApiParamsFormat;
     maxlag?: number;
     smaxage?: number;
     maxage?: number;
@@ -199,50 +53,224 @@ export interface ApiParams {
     centralauthtoken?: string;
 }
 
-export interface AbuseFilterApiCheckMatchParams extends ApiParams {
-    action: "abusefiltercheckmatch";
+type ApiParamsAction = keyof ApiParamsActionMap;
+
+interface ApiParamsActionMap {
+    "abusefiltercheckmatch": ApiActionAbuseFilterCheckMatchParams;
+    "abusefilterchecksyntax": ApiActionAbuseFilterCheckSyntaxParams;
+    "abusefilterevalexpression": ApiActionAbuseFilterEvalExpressionParams;
+    "abusefilterunblockautopromote": ApiActionAbuseFilterUnblockAutopromoteParams;
+    "abuselogprivatedetails": ApiActionAbuseLogPrivateDetailsParams;
+    "acquiretempusername": ApiActionAcquireTempUserNameParams;
+    "antispoof": ApiActionAntiSpoofParams;
+    "block": ApiActionBlockParams;
+    "bouncehandler": ApiActionBounceHandlerParams;
+    "categorytree": ApiActionCategoryTreeParams;
+    "centralauthtoken": ApiActionCentralAuthTokenParams;
+    "centralnoticecdncacheupdatebanner": ApiActionCentralNoticeCdnCacheUpdateBannerParams;
+    "centralnoticechoicedata": ApiActionCentralNoticeChoiceDataParams;
+    "centralnoticequerycampaign": ApiActionCentralNoticeQueryCampaignParams;
+    "changeauthenticationdata": ApiActionChangeAuthenticationDataParams;
+    "changecontentmodel": ApiActionChangeContentModelParams;
+    "checktoken": ApiActionCheckTokenParams;
+    "cirrus-check-sanity": ApiActionCirrusCheckSanityParams;
+    "cirrus-config-dump": ApiActionCirrusConfigDumpParams;
+    "cirrus-mapping-dump": ApiActionCirrusMappingDumpParams;
+    "cirrus-profiles-dump": ApiActionCirrusProfilesDumpParams;
+    "cirrus-settings-dump": ApiActionCirrusSettingsDumpParams;
+    "clearhasmsg": ApiActionClearHasMsgParams;
+    "clientlogin": ApiActionClientLoginParams;
+    "collection": ApiActionCollectionParams;
+    "communityconfigurationedit": ApiActionCommunityConfigurationEditParams;
+    "compare": ApiActionCompareParams;
+    "createaccount": ApiActionCreateAccountParams;
+    "createlocalaccount": ApiActionCreateLocalAccountParams;
+    "cspreport": ApiActionCSPReportParams;
+    "cxcheckunreviewed": ApiActionCxcheckunreviewedParams;
+    "cxdelete": ApiActionCxdeleteParams;
+    "cxpublish": ApiActionCxpublishParams;
+    "cxpublishsection": ApiActionCxpublishsectionParams;
+    "cxsave": ApiActionCxsaveParams;
+    "cxsplit": ApiActionCxsplitParams;
+    "cxsuggestionlist": ApiActionCxsuggestionlistParams;
+    "cxtoken": ApiActionCxtokenParams;
+    "delete": ApiActionDeleteParams;
+    "deleteglobalaccount": ApiActionDeleteGlobalAccountParams;
+    "discussiontoolscompare": ApiActionDiscussionToolsCompareParams;
+    "discussiontoolsedit": ApiActionDiscussionToolsEditParams;
+    "discussiontoolsfindcomment": ApiActionDiscussionToolsFindCommentParams;
+    "discussiontoolsgetsubscriptions": ApiActionDiscussionToolsGetSubscriptionsParams;
+    "discussiontoolspageinfo": ApiActionDiscussionToolsPageInfoParams;
+    "discussiontoolspreview": ApiActionDiscussionToolsPreviewParams;
+    "discussiontoolssubscribe": ApiActionDiscussionToolsSubscribeParams;
+    "discussiontoolsthank": ApiActionDiscussionToolsThankParams;
+    "echocreateevent": ApiActionEchoCreateEventParams;
+    "echomarkread": ApiActionEchoMarkReadParams;
+    "echomarkseen": ApiActionEchoMarkSeenParams;
+    "echomute": ApiActionEchoMuteParams;
+    "echopushsubscriptions": ApiActionEchoPushSubscriptionsParams;
+    "edit": ApiActionEditParams;
+    "editcheckreferenceurl": ApiActionEditCheckReferenceUrlParams;
+    "editmassmessagelist": ApiActionEditMassMessageListParams;
+    "emailuser": ApiActionEmailUserParams;
+    "expandtemplates": ApiActionExpandTemplatesParams;
+    "fancycaptchareload": ApiActionFancyCaptchaReloadParams;
+    "featuredfeed": ApiActionFeaturedFeedParams;
+    "feedcontributions": ApiActionFeedContributionsParams;
+    "feedrecentchanges": ApiActionFeedRecentChangesParams;
+    "feedwatchlist": ApiActionFeedWatchlistParams;
+    "filerevert": ApiActionFileRevertParams;
+    "flagconfig": ApiActionFlagConfigParams;
+    "globalblock": ApiActionGlobalBlockParams;
+    "globalpreferenceoverrides": ApiActionGlobalPreferenceOverridesParams;
+    "globalpreferences": ApiActionGlobalPreferencesParams;
+    "globaluserrights": ApiActionGlobalUserRightsParams;
+    "growthinvalidateimagerecommendation": ApiActionGrowthInvalidateImageRecommendationParams;
+    "growthinvalidatepersonalizedpraisesuggestion": ApiActionGrowthInvalidatePersonalizedPraiseSuggestionParams;
+    "growthmanagementorlist": ApiActionGrowthManageMentorListParams;
+    "growthmentordashboardupdatedata": ApiActionGrowthMentorDashboardUpdateDataParams;
+    "growthsetmenteestatus": ApiActionGrowthSetMenteeStatusParams;
+    "growthsetmentor": ApiActionGrowthSetMentorParams;
+    "growthstarmentee": ApiActionGrowthStarMenteeParams;
+    "help": ApiActionHelpParams;
+    "helppanelquestionposter": ApiActionHelppanelquestionposterParams;
+    "homepagequestionstore": ApiActionHomepagequestionstoreParams;
+    "imagerotate": ApiActionImagerotateParams;
+    "import": ApiActionImportParams;
+    "jsonconfig": ApiActionJsonConfigParams;
+    "jsondata": ApiActionJsonDataParams;
+    "languagesearch": ApiActionLanguageSearchParams;
+    "linkaccount": ApiActionLinkAccountParams;
+    "login": ApiActionLoginParams;
+    "logout": ApiActionLogoutParams;
+    "managetags": ApiActionManageTagsParams;
+    "massmessage": ApiActionMassMessageParams;
+    "mergehistory": ApiActionMergeHistoryParams;
+    "move": ApiActionMoveParams;
+    "oathvalidate": ApiActionOATHValidateParams;
+    "opensearch": ApiActionOpenSearchParams;
+    "options": ApiActionOptionsParams;
+    "pagetriageaction": ApiActionPageTriageActionParams;
+    "pagetriagelist": ApiActionPageTriageListParams;
+    "pagetriagestats": ApiActionPageTriageStatsParams;
+    "pagetriagetagcopyvio": ApiActionPageTriageTagCopyvioParams;
+    "pagetriagetagging": ApiActionPageTriageTaggingParams;
+    "paraminfo": ApiActionParamInfoParams;
+    "parse": ApiActionParseParams;
+    "parser-migration": ApiActionParserMigrationParams;
+    "patrol": ApiActionPatrolParams;
+    "protect": ApiActionProtectParams;
+    "purge": ApiActionPurgeParams;
+    "query": ApiActionQueryParams;
+    "readinglists": ApiActionReadingListsParams;
+    "removeauthenticationdata": ApiActionRemoveAuthenticationDataParams;
+    "resetpassword": ApiActionResetPasswordParams;
+    "review": ApiActionReviewParams;
+    "revisiondelete": ApiActionRevisionDeleteParams;
+    "rollback": ApiActionRollbackParams;
+    "rsd": ApiActionRsdParams;
+    "sanitize-mapdata": ApiActionSanitizeMapDataParams;
+    "scribunto-console": ApiActionScribuntoConsoleParams;
+    "securepollauth": ApiActionSecurePollAuthParams;
+    "setglobalaccountstatus": ApiActionSetGlobalAccountStatusParams;
+    "setnotificationtimestamp": ApiActionSetNotificationTimestampParams;
+    "setpagelanguage": ApiActionSetPageLanguageParams;
+    "shortenurl": ApiActionShortenUrlParams;
+    "sitematrix": ApiActionSiteMatrixParams;
+    "spamblacklist": ApiActionSpamBlacklistParams;
+    "stabilize": ApiActionStabilizeParams;
+    "stashedit": ApiActionStashEditParams;
+    "streamconfigs": ApiActionStreamConfigSParams;
+    "strikevote": ApiActionStrikeVoteParams;
+    "sxdelete": ApiActionSxdeleteParams;
+    "sxsave": ApiActionSxsaveParams;
+    "tag": ApiActionTagParams;
+    "templatedata": ApiActionTemplateDataParams;
+    "thank": ApiActionThankParams;
+    "timedtext": ApiActionTimedTextParams;
+    "titleblacklist": ApiActionTitleBlacklistParams;
+    "torblock": ApiActionTorBlockParams;
+    "transcodereset": ApiActionTranscodeResetParams;
+    "ulslocalization": ApiActionULSLocalizationParams;
+    "ulssetlang": ApiActionULSSetLangParams;
+    "unblock": ApiActionUnblockParams;
+    "undelete": ApiActionUndeleteParams;
+    "unlinkaccount": ApiActionQueryUnlinkAccountParams;
+    "upload": ApiActionUploadParams;
+    "userrights": ApiActionUserrightsParams;
+    "validatepassword": ApiActionValidatePasswordParams;
+    "visualeditor": ApiActionVisualEditorParams;
+    "visualeditoredit": ApiActionVisualEditorEditParams;
+    "watch": ApiActionWatchParams;
+    "webapp-manifest": ApiActionWebappManifestParams;
+    "webauthn": ApiActionWebAuthnParams;
+    "wikilove": ApiActionWikiLoveParams;
+    "wikimediaeventsblockededit": ApiActionWikimediaEventsBlockedEditParams;
+}
+
+type ApiParamsFormat = keyof ApiParamsFormatMap;
+
+interface ApiParamsFormatMap {
+    json: ApiFormatJsonParams;
+    jsonfm: ApiFormatJsonFMParams;
+    none: ApiFormatNoneParams;
+    php: ApiFormatPhpParams;
+    phpfm: ApiFormatPhpFMParams;
+    rawfm: ApiFormatRawFMParams;
+    xml: ApiFormatXmlParams;
+    xmlfm: ApiFormatXmlFMParams;
+}
+
+export interface ApiActionAbuseFilterCheckMatchParams extends ApiParams {
+    action?: "abusefiltercheckmatch";
     filter: string;
     vars?: string;
     rcid?: number;
     logid?: number;
 }
 
-export interface AbuseFilterApiCheckSyntaxParams extends ApiParams {
-    action: "abusefilterchecksyntax";
+export interface ApiActionAbuseFilterCheckSyntaxParams extends ApiParams {
+    action?: "abusefilterchecksyntax";
     filter: string;
 }
 
-export interface AbuseFilterApiEvalExpressionParams extends ApiParams {
-    action: "abusefilterevalexpression";
+export interface ApiActionAbuseFilterEvalExpressionParams extends ApiParams {
+    action?: "abusefilterevalexpression";
     expression: string;
     prettyprint?: boolean;
 }
 
-export interface AbuseFilterApiUnblockAutopromoteParams extends ApiParams {
-    action: "abusefilterunblockautopromote";
+export interface ApiActionAbuseFilterUnblockAutopromoteParams extends ApiParams {
+    action?: "abusefilterunblockautopromote";
     user: string;
     token?: string;
 }
 
-export interface AbuseFilterApiAbuseLogPrivateDetailsParams extends ApiParams {
-    action: "abuselogprivatedetails";
+export interface ApiActionAbuseLogPrivateDetailsParams extends ApiParams {
+    action?: "abuselogprivatedetails";
     logid?: number;
     reason?: string;
     token?: string;
 }
 
-export interface ApiAcquireTempUserNameParams extends ApiParams {
-    action: "acquiretempusername";
+export interface ApiActionAcquireTempUserNameParams extends ApiParams {
+    action?: "acquiretempusername";
 }
 
-export interface AntiSpoofApiAntiSpoofParams extends ApiParams {
-    action: "antispoof";
+export interface ApiActionAntiSpoofParams extends ApiParams {
+    action?: "antispoof";
     username: string;
 }
 
-export interface ApiBlockParams extends ApiParams {
-    action: "block";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Block}
+ */
+export interface ApiActionBlockParams extends ApiParams {
+    action?: "block";
     user?: string;
+    /**
+     * @deprecated
+     */
     userid?: number;
     expiry?: string;
     reason?: string;
@@ -259,50 +287,64 @@ export interface ApiBlockParams extends ApiParams {
     partial?: boolean;
     pagerestrictions?: string | string[];
     namespacerestrictions?: namespace | namespace[];
+    actionrestrictions?: OneOrMore<"create" | "move" | "thanks" | "upload">;
     token?: string;
 }
 
-export interface BounceHandlerApiBounceHandlerParams extends ApiParams {
-    action: "bouncehandler";
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:BounceHandler#API}
+ */
+export interface ApiActionBounceHandlerParams extends ApiParams {
+    action?: "bouncehandler";
     email: string;
 }
 
-export interface CategoryTreeApiCategoryTreeParams extends ApiParams {
-    action: "categorytree";
+/**
+ * @private
+ */
+export interface ApiActionCategoryTreeParams extends ApiParams {
+    action?: "categorytree";
     category: string;
     options?: string;
 }
 
-export interface CentralAuthApiCentralAuthTokenParams extends ApiParams {
-    action: "centralauthtoken";
+export interface ApiActionCentralAuthTokenParams extends ApiParams {
+    action?: "centralauthtoken";
 }
 
-export interface ApiCentralNoticeCdnCacheUpdateBannerParams extends ApiParams {
-    action: "centralnoticecdncacheupdatebanner";
+export interface ApiActionCentralNoticeCdnCacheUpdateBannerParams extends ApiParams {
+    action?: "centralnoticecdncacheupdatebanner";
     banner: string;
     language: string;
     token?: string;
 }
 
-export interface ApiCentralNoticeChoiceDataParams extends ApiParams {
-    action: "centralnoticechoicedata";
+export interface ApiActionCentralNoticeChoiceDataParams extends ApiParams {
+    action?: "centralnoticechoicedata";
     project: string;
     language: string;
 }
 
-export interface ApiCentralNoticeQueryCampaignParams extends ApiParams {
-    action: "centralnoticequerycampaign";
+export interface ApiActionCentralNoticeQueryCampaignParams extends ApiParams {
+    action?: "centralnoticequerycampaign";
     campaign?: string;
 }
 
-export interface ApiChangeAuthenticationDataParams extends ApiParams {
-    action: "changeauthenticationdata";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Manage_authentication_data}
+ */
+export interface ApiActionChangeAuthenticationDataParams extends ApiParams {
+    action?: "changeauthenticationdata";
     changeauthrequest: string;
     changeauthtoken?: string;
 }
 
-export interface ApiChangeContentModelParams extends ApiParams {
-    action: "changecontentmodel";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Help:ChangeContentModel}
+ */
+export interface ApiActionChangeContentModelParams extends ApiParams {
+    action?: "changecontentmodel";
     title?: string;
     pageid?: number;
     summary?: string;
@@ -323,8 +365,11 @@ export interface ApiChangeContentModelParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiCheckTokenParams extends ApiParams {
-    action: "checktoken";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Checktoken}
+ */
+export interface ApiActionCheckTokenParams extends ApiParams {
+    action?: "checktoken";
     type:
         | "createaccount"
         | "csrf"
@@ -339,30 +384,48 @@ export interface ApiCheckTokenParams extends ApiParams {
     maxtokenage?: number;
 }
 
-export interface CirrusSearchApiConfigDumpParams extends ApiParams {
-    action: "cirrus-config-dump";
+/**
+ * @private
+ */
+export interface ApiActionCirrusCheckSanityParams extends ApiParams {
+    action?: "cirrus-check-sanity";
+    cluster?: "cloudelastic" | "codfw" | "eqiad";
+    from: number;
+    limit?: limit;
+    sequenceid?: number;
+    rerenderfrequency?: number;
+}
+
+export interface ApiActionCirrusConfigDumpParams extends ApiParams {
+    action?: "cirrus-config-dump";
     prop?: OneOrMore<"globals" | "namespacemap" | "profiles" | "replicagroup" | "usertesting">;
 }
 
-export interface CirrusSearchApiMappingDumpParams extends ApiParams {
-    action: "cirrus-mapping-dump";
+export interface ApiActionCirrusMappingDumpParams extends ApiParams {
+    action?: "cirrus-mapping-dump";
 }
 
-export interface CirrusSearchApiProfilesDumpParams extends ApiParams {
-    action: "cirrus-profiles-dump";
+export interface ApiActionCirrusProfilesDumpParams extends ApiParams {
+    action?: "cirrus-profiles-dump";
     verbose?: boolean;
 }
 
-export interface CirrusSearchApiSettingsDumpParams extends ApiParams {
-    action: "cirrus-settings-dump";
+export interface ApiActionCirrusSettingsDumpParams extends ApiParams {
+    action?: "cirrus-settings-dump";
 }
 
-export interface ApiClearHasMsgParams extends ApiParams {
-    action: "clearhasmsg";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:ClearHasMsg}
+ */
+export interface ApiActionClearHasMsgParams extends ApiParams {
+    action?: "clearhasmsg";
 }
 
-export interface ApiClientLoginParams extends ApiParams {
-    action: "clientlogin";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Login}
+ */
+export interface ApiActionClientLoginParams extends ApiParams {
+    action?: "clientlogin";
     loginrequests?: string | string[];
     loginmessageformat?: "html" | "none" | "raw" | "wikitext";
     loginmergerequestfields?: boolean;
@@ -372,123 +435,184 @@ export interface ApiClientLoginParams extends ApiParams {
     logintoken?: string;
 }
 
-export interface CollectionApiCollectionParams extends ApiParams {
-    action: "collection";
-    submodule:
-        | "addarticle"
-        | "addcategory"
-        | "addchapter"
-        | "clearcollection"
-        | "getbookcreatorboxcontent"
-        | "getcollection"
-        | "getpopupdata"
-        | "postcollection"
-        | "removearticle"
-        | "removeitem"
-        | "renamechapter"
-        | "setsorting"
-        | "settitles"
-        | "sortitems"
-        | "suggestarticleaction"
-        | "suggestundoarticleaction";
+/**
+ * @private
+ */
+export interface ApiActionCollectionParams extends ApiParams {
+    action?: "collection";
+    submodule: ApiActionCollectionParamsSubmodule;
 }
 
-export interface CollectionApiAddArticleParams extends CollectionApiCollectionParams {
+type ApiActionCollectionParamsSubmodule = keyof ApiActionCollectionParamsSubmoduleMap;
+
+interface ApiActionCollectionParamsSubmoduleMap {
+    addarticle: ApiActionCollectionSubmoduleAddArticleParams;
+    addcategory: ApiActionCollectionSubmoduleAddCategoryParams;
+    addchapter: ApiActionCollectionSubmoduleAddChapterParams;
+    clearcollection: ApiActionCollectionSubmoduleClearCollectionParams;
+    getbookcreatorboxcontent: ApiActionCollectionSubmoduleGetBookCreatorBoxContentParams;
+    getcollection: ApiActionCollectionSubmoduleGetCollectionParams;
+    getpopupdata: ApiActionCollectionSubmoduleGetPopupDataParams;
+    postcollection: ApiActionCollectionSubmodulePostCollectionParams;
+    removearticle: ApiActionCollectionSubmoduleRemoveArticleParams;
+    removeitem: ApiActionCollectionSubmoduleRemoveItemParams;
+    renamechapter: ApiActionCollectionSubmoduleRenameChapterParams;
+    setsorting: ApiActionCollectionSubmoduleSetSortingParams;
+    settitles: ApiActionCollectionSubmoduleSetTitlesParams;
+    sortitems: ApiActionCollectionSubmoduleSortItemsParams;
+    suggestarticleaction: ApiActionCollectionSubmoduleSuggestArticleActionParams;
+    suggestundoarticleaction: ApiActionCollectionSubmoduleSuggestUndoArticleActionParams;
+}
+
+export interface ApiActionCollectionSubmoduleAddArticleParams extends ApiActionCollectionParams {
     submodule: "addarticle";
     namespace: number;
     title: string;
     oldid?: number;
 }
 
-export interface CollectionApiAddCategoryParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleAddCategoryParams extends ApiActionCollectionParams {
     submodule: "addcategory";
     title?: string;
 }
 
-export interface CollectionApiAddChapterParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleAddChapterParams extends ApiActionCollectionParams {
     submodule: "addchapter";
     chaptername?: string;
 }
 
-export interface CollectionApiClearCollectionParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleClearCollectionParams
+    extends ApiActionCollectionParams {
     submodule: "clearcollection";
 }
 
-export interface CollectionApiGetBookCreatorBoxContentParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleGetBookCreatorBoxContentParams
+    extends ApiActionCollectionParams {
     submodule: "getbookcreatorboxcontent";
     hint?: string;
     oldid?: number;
     pagename?: string;
 }
 
-export interface CollectionApiGetCollectionParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleGetCollectionParams extends ApiActionCollectionParams {
     submodule: "getcollection";
 }
 
-export interface CollectionApiGetPopupDataParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleGetPopupDataParams extends ApiActionCollectionParams {
     submodule: "getpopupdata";
     title: string;
 }
 
-export interface CollectionApiPostCollectionParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmodulePostCollectionParams
+    extends ApiActionCollectionParams {
     submodule: "postcollection";
     collection?: string;
 }
 
-export interface CollectionApiRemoveArticleParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleRemoveArticleParams extends ApiActionCollectionParams {
     submodule: "removearticle";
     namespace: number;
     title: string;
     oldid?: number;
 }
 
-export interface CollectionApiRemoveItemParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleRemoveItemParams extends ApiActionCollectionParams {
     submodule: "removeitem";
     index?: number;
 }
 
-export interface CollectionApiRenameChapterParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleRenameChapterParams extends ApiActionCollectionParams {
     submodule: "renamechapter";
     index: number;
     chaptername: string;
 }
 
-export interface CollectionApiSetSortingParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleSetSortingParams extends ApiActionCollectionParams {
     submodule: "setsorting";
     items: number | number[];
 }
 
-export interface CollectionApiSetTitlesParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleSetTitlesParams extends ApiActionCollectionParams {
     submodule: "settitles";
     title: string;
     subtitle?: string;
     settings?: string;
 }
 
-export interface CollectionApiSortItemsParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleSortItemsParams extends ApiActionCollectionParams {
     submodule: "sortitems";
 }
 
-export interface CollectionApiSuggestArticleActionParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleSuggestArticleActionParams
+    extends ApiActionCollectionParams {
     submodule: "suggestarticleaction";
     suggestaction: "add" | "ban" | "remove";
     title: string;
 }
 
-export interface CollectionApiSuggestUndoArticleActionParams extends CollectionApiCollectionParams {
+export interface ApiActionCollectionSubmoduleSuggestUndoArticleActionParams
+    extends ApiActionCollectionParams {
     submodule: "suggestundoarticleaction";
     lastaction: "add" | "ban" | "remove";
     title: string;
 }
 
-export interface ApiComparePagesParams extends ApiParams {
-    action: "compare";
+export interface ApiActionCommunityConfigurationEditParams extends ApiParams {
+    action?: "communityconfigurationedit";
+    provider:
+        | "GrowthHomepage"
+        | "GrowthMentorList"
+        | "GrowthSuggestedEdits"
+        | "HelpPanel"
+        | "Mentorship";
+    content: string;
+    summary?: string;
+    token?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Compare}
+ */
+export interface ApiActionCompareParams extends ApiParams {
+    action?: "compare";
     fromtitle?: string;
     fromid?: number;
     fromrev?: number;
-    fromslots?: OneOrMore<"main">;
+    fromslots?: string | string[];
+    [k: `fromtext-${string}`]: string;
+    [k: `fromsection-${string}`]: string;
+    [k: `fromcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    [k: `fromcontentmodel-${string}`]:
+        | "GadgetDefinition"
+        | "JsonSchema"
+        | "MassMessageListContent"
+        | "Scribunto"
+        | "SecurePoll"
+        | "css"
+        | "javascript"
+        | "json"
+        | "sanitized-css"
+        | "text"
+        | "unknown"
+        | "wikitext";
     frompst?: boolean;
+    /**
+     * @deprecated
+     */
     fromtext?: string;
+    /**
+     * @deprecated
+     */
     fromcontentformat?:
         | "application/json"
         | "application/octet-stream"
@@ -500,6 +624,9 @@ export interface ApiComparePagesParams extends ApiParams {
         | "text/unknown"
         | "text/x-wiki"
         | "unknown/unknown";
+    /**
+     * @deprecated
+     */
     fromcontentmodel?:
         | "GadgetDefinition"
         | "JsonSchema"
@@ -513,14 +640,49 @@ export interface ApiComparePagesParams extends ApiParams {
         | "text"
         | "unknown"
         | "wikitext";
+    /**
+     * @deprecated
+     */
     fromsection?: string;
     totitle?: string;
     toid?: number;
     torev?: number;
     torelative?: "cur" | "next" | "prev";
-    toslots?: OneOrMore<"main">;
+    toslots?: string | string[];
+    [k: `totext-${string}`]: string;
+    [k: `tosection-${string}`]: string;
+    [k: `tocontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    [k: `tocontentmodel-${string}`]:
+        | "GadgetDefinition"
+        | "JsonSchema"
+        | "MassMessageListContent"
+        | "Scribunto"
+        | "SecurePoll"
+        | "css"
+        | "javascript"
+        | "json"
+        | "sanitized-css"
+        | "text"
+        | "unknown"
+        | "wikitext";
     topst?: boolean;
+    /**
+     * @deprecated
+     */
     totext?: string;
+    /**
+     * @deprecated
+     */
     tocontentformat?:
         | "application/json"
         | "application/octet-stream"
@@ -532,6 +694,9 @@ export interface ApiComparePagesParams extends ApiParams {
         | "text/unknown"
         | "text/x-wiki"
         | "unknown/unknown";
+    /**
+     * @deprecated
+     */
     tocontentmodel?:
         | "GadgetDefinition"
         | "JsonSchema"
@@ -545,6 +710,9 @@ export interface ApiComparePagesParams extends ApiParams {
         | "text"
         | "unknown"
         | "wikitext";
+    /**
+     * @deprecated
+     */
     tosection?: string;
     prop?: OneOrMore<
         | "comment"
@@ -558,12 +726,15 @@ export interface ApiComparePagesParams extends ApiParams {
         | "title"
         | "user"
     >;
-    slots?: OneOrMore<"main">;
+    slots?: OneOrMore<"main" | "*">;
     difftype?: "inline" | "table" | "unified";
 }
 
-export interface ApiAMCreateAccountParams extends ApiParams {
-    action: "createaccount";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Account_creation}
+ */
+export interface ApiActionCreateAccountParams extends ApiParams {
+    action?: "createaccount";
     createrequests?: string | string[];
     createmessageformat?: "html" | "none" | "raw" | "wikitext";
     createmergerequestfields?: boolean;
@@ -573,34 +744,42 @@ export interface ApiAMCreateAccountParams extends ApiParams {
     createtoken?: string;
 }
 
-export interface CentralAuthApiCreateLocalAccountParams extends ApiParams {
-    action: "createlocalaccount";
+export interface ApiActionCreateLocalAccountParams extends ApiParams {
+    action?: "createlocalaccount";
     username: string;
     reason?: string;
     token?: string;
 }
 
-export interface ApiCSPReportParams extends ApiParams {
-    action: "cspreport";
+/**
+ * @private
+ */
+export interface ApiActionCSPReportParams extends ApiParams {
+    action?: "cspreport";
     reportonly?: boolean;
     source?: string;
 }
 
-export interface ContentTranslationActionApiContentTranslationUnreviewedCheckParams
-    extends ApiParams {
-    action: "cxcheckunreviewed";
+/**
+ * @private
+ */
+export interface ApiActionCxcheckunreviewedParams extends ApiParams {
+    action?: "cxcheckunreviewed";
 }
 
-export interface ContentTranslationActionApiContentTranslationDeleteParams extends ApiParams {
-    action: "cxdelete";
+export interface ApiActionCxdeleteParams extends ApiParams {
+    action?: "cxdelete";
     from: string;
     to: string;
     sourcetitle: string;
     token?: string;
 }
 
-export interface ContentTranslationActionApiContentTranslationPublishParams extends ApiParams {
-    action: "cxpublish";
+/**
+ * @private
+ */
+export interface ApiActionCxpublishParams extends ApiParams {
+    action?: "cxpublish";
     title: string;
     html: string;
     from: string;
@@ -614,8 +793,11 @@ export interface ContentTranslationActionApiContentTranslationPublishParams exte
     token?: string;
 }
 
-export interface ContentTranslationActionApiSectionTranslationPublishParams extends ApiParams {
-    action: "cxpublishsection";
+/**
+ * @private
+ */
+export interface ApiActionCxpublishsectionParams extends ApiParams {
+    action?: "cxpublishsection";
     title: string;
     html: string;
     sourcelanguage: string;
@@ -631,8 +813,11 @@ export interface ContentTranslationActionApiSectionTranslationPublishParams exte
     token?: string;
 }
 
-export interface ContentTranslationActionApiContentTranslationSaveParams extends ApiParams {
-    action: "cxsave";
+/**
+ * @private
+ */
+export interface ApiActionCxsaveParams extends ApiParams {
+    action?: "cxsave";
     from: string;
     to: string;
     sourcetitle: string;
@@ -646,15 +831,17 @@ export interface ContentTranslationActionApiContentTranslationSaveParams extends
     token?: string;
 }
 
-export interface ContentTranslationActionApiContentTranslationSplitParams extends ApiParams {
-    action: "cxsplit";
+/**
+ * @private
+ */
+export interface ApiActionCxsplitParams extends ApiParams {
+    action?: "cxsplit";
     translationid: number;
     token?: string;
 }
 
-export interface ContentTranslationActionApiContentTranslationSuggestionListParams
-    extends ApiParams {
-    action: "cxsuggestionlist";
+export interface ApiActionCxsuggestionlistParams extends ApiParams {
+    action?: "cxsuggestionlist";
     listname: string;
     listaction: "add" | "remove" | "view";
     titles: string | string[];
@@ -663,43 +850,55 @@ export interface ContentTranslationActionApiContentTranslationSuggestionListPara
     token?: string;
 }
 
-export interface ContentTranslationActionApiContentTranslationTokenParams extends ApiParams {
-    action: "cxtoken";
+export interface ApiActionCxtokenParams extends ApiParams {
+    action?: "cxtoken";
     token?: string;
 }
 
-export interface ApiDeleteParams extends ApiParams {
-    action: "delete";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Delete}
+ */
+export interface ApiActionDeleteParams extends ApiParams {
+    action?: "delete";
     title?: string;
     pageid?: number;
     reason?: string;
     tags?: string | string[];
     deletetalk?: boolean;
+    /**
+     * @deprecated
+     */
     watch?: boolean;
     watchlist?: "nochange" | "preferences" | "unwatch" | "watch";
     watchlistexpiry?: expiry;
+    /**
+     * @deprecated
+     */
     unwatch?: boolean;
     oldimage?: string;
     token?: string;
 }
 
-export interface CentralAuthApiDeleteGlobalAccountParams extends ApiParams {
-    action: "deleteglobalaccount";
+export interface ApiActionDeleteGlobalAccountParams extends ApiParams {
+    action?: "deleteglobalaccount";
     user: string;
     reason?: string;
     token?: string;
 }
 
-export interface DiscussionToolsApiDiscussionToolsCompareParams extends ApiParams {
-    action: "discussiontoolscompare";
+/**
+ * @private
+ */
+export interface ApiActionDiscussionToolsCompareParams extends ApiParams {
+    action?: "discussiontoolscompare";
     fromtitle?: string;
     fromrev?: number;
     totitle?: string;
     torev?: number;
 }
 
-export interface DiscussionToolsApiDiscussionToolsEditParams extends ApiParams {
-    action: "discussiontoolsedit";
+export interface ApiActionDiscussionToolsEditParams extends ApiParams {
+    action?: "discussiontoolsedit";
     paction: "addcomment" | "addtopic";
     autosubscribe?: "default" | "no" | "yes";
     page: string;
@@ -714,9 +913,11 @@ export interface DiscussionToolsApiDiscussionToolsEditParams extends ApiParams {
     allownosectiontitle?: boolean;
     useskin?:
         | "apioutput"
+        | "authentication-popup"
         | "cologneblue"
         | "contenttranslation"
         | "fallback"
+        | "json"
         | "minerva"
         | "modern"
         | "monobook"
@@ -734,37 +935,45 @@ export interface DiscussionToolsApiDiscussionToolsEditParams extends ApiParams {
     mobileformat?: boolean;
 }
 
-export interface DiscussionToolsApiDiscussionToolsFindCommentParams extends ApiParams {
-    action: "discussiontoolsfindcomment";
+export interface ApiActionDiscussionToolsFindCommentParams extends ApiParams {
+    action?: "discussiontoolsfindcomment";
     idorname?: string;
     heading?: string;
     page?: string;
 }
 
-export interface DiscussionToolsApiDiscussionToolsGetSubscriptionsParams extends ApiParams {
-    action: "discussiontoolsgetsubscriptions";
+export interface ApiActionDiscussionToolsGetSubscriptionsParams extends ApiParams {
+    action?: "discussiontoolsgetsubscriptions";
     commentname: string | string[];
 }
 
-export interface DiscussionToolsApiDiscussionToolsPageInfoParams extends ApiParams {
-    action: "discussiontoolspageinfo";
+/**
+ * @private
+ */
+export interface ApiActionDiscussionToolsPageInfoParams extends ApiParams {
+    action?: "discussiontoolspageinfo";
     page?: string;
     oldid?: number;
     prop?: OneOrMore<"threaditemshtml" | "transcludedfrom">;
     excludesignatures?: boolean;
 }
 
-export interface DiscussionToolsApiDiscussionToolsPreviewParams extends ApiParams {
-    action: "discussiontoolspreview";
+/**
+ * @private
+ */
+export interface ApiActionDiscussionToolsPreviewParams extends ApiParams {
+    action?: "discussiontoolspreview";
     type: "reply" | "topic";
     page: string;
     wikitext: string;
     sectiontitle?: string;
     useskin?:
         | "apioutput"
+        | "authentication-popup"
         | "cologneblue"
         | "contenttranslation"
         | "fallback"
+        | "json"
         | "minerva"
         | "modern"
         | "monobook"
@@ -774,16 +983,40 @@ export interface DiscussionToolsApiDiscussionToolsPreviewParams extends ApiParam
     mobileformat?: boolean;
 }
 
-export interface DiscussionToolsApiDiscussionToolsSubscribeParams extends ApiParams {
-    action: "discussiontoolssubscribe";
+export interface ApiActionDiscussionToolsSubscribeParams extends ApiParams {
+    action?: "discussiontoolssubscribe";
     page: string;
     token?: string;
     commentname: string;
     subscribe: boolean;
 }
 
-export interface NotificationsApiEchoMarkReadParams extends ApiParams {
-    action: "echomarkread";
+export interface ApiActionDiscussionToolsThankParams extends ApiParams {
+    action?: "discussiontoolsthank";
+    page: string;
+    commentid: string;
+    token?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Echo_(Notifications)/API}
+ */
+export interface ApiActionEchoCreateEventParams extends ApiParams {
+    action?: "echocreateevent";
+    user?: string;
+    header: string;
+    content: string;
+    page?: string;
+    section: "alert" | "notice";
+    email?: boolean;
+    token?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Echo_(Notifications)/API}
+ */
+export interface ApiActionEchoMarkReadParams extends ApiParams {
+    action?: "echomarkread";
     wikis?: string | string[];
     list?: string | string[];
     unreadlist?: string | string[];
@@ -792,42 +1025,65 @@ export interface NotificationsApiEchoMarkReadParams extends ApiParams {
     token?: string;
 }
 
-export interface NotificationsApiEchoMarkSeenParams extends ApiParams {
-    action: "echomarkseen";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Echo_(Notifications)/API}
+ */
+export interface ApiActionEchoMarkSeenParams extends ApiParams {
+    action?: "echomarkseen";
     type: "alert" | "all" | "message";
     timestampFormat?: "ISO_8601" | "MW";
 }
 
-export interface NotificationsApiEchoMuteParams extends ApiParams {
-    action: "echomute";
+export interface ApiActionEchoMuteParams extends ApiParams {
+    action?: "echomute";
     type: "page-linked-title" | "user";
     mute?: string | string[];
     unmute?: string | string[];
     token?: string;
 }
 
-export interface NotificationsPushApiEchoPushSubscriptionsParams extends ApiParams {
-    action: "echopushsubscriptions";
-    command: "create" | "delete";
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Echo#API}
+ */
+export interface ApiActionEchoPushSubscriptionsParams extends ApiParams {
+    action?: "echopushsubscriptions";
+    command: ApiActionEchoPushSubscriptionsParamsCommand;
     token?: string;
 }
 
-export interface NotificationsPushApiEchoPushSubscriptionsCreateParams
-    extends NotificationsPushApiEchoPushSubscriptionsParams {
+type ApiActionEchoPushSubscriptionsParamsCommand = keyof ApiActionEchoPushSubscriptionsParamsCommandMap;
+
+interface ApiActionEchoPushSubscriptionsParamsCommandMap {
+    create: ApiActionEchoPushSubscriptionsCommandCreateParams;
+    delete: ApiActionEchoPushSubscriptionsCommandDeleteParams;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionEchoPushSubscriptionsCommandCreateParams
+    extends ApiActionEchoPushSubscriptionsParams {
     command: "create";
     provider: "apns" | "fcm";
     providertoken: string;
     topic?: string;
 }
 
-export interface NotificationsPushApiEchoPushSubscriptionsDeleteParams
-    extends NotificationsPushApiEchoPushSubscriptionsParams {
+/**
+ * @private
+ */
+export interface ApiActionEchoPushSubscriptionsCommandDeleteParams
+    extends ApiActionEchoPushSubscriptionsParams {
     command: "delete";
     providertoken: string | string[];
 }
 
-export interface ApiEditPageParams extends ApiParams {
-    action: "edit";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Edit}
+ */
+export interface ApiActionEditParams extends ApiParams {
+    action?: "edit";
     title?: string;
     pageid?: number;
     section?: string;
@@ -844,7 +1100,13 @@ export interface ApiEditPageParams extends ApiParams {
     recreate?: boolean;
     createonly?: boolean;
     nocreate?: boolean;
+    /**
+     * @deprecated
+     */
     watch?: boolean;
+    /**
+     * @deprecated
+     */
     unwatch?: boolean;
     watchlist?: "nochange" | "preferences" | "unwatch" | "watch";
     watchlistexpiry?: expiry;
@@ -886,13 +1148,19 @@ export interface ApiEditPageParams extends ApiParams {
     captchaid?: string;
 }
 
-export interface VisualEditorEditCheckApiEditCheckReferenceUrlParams extends ApiParams {
-    action: "editcheckreferenceurl";
+/**
+ * @private
+ */
+export interface ApiActionEditCheckReferenceUrlParams extends ApiParams {
+    action?: "editcheckreferenceurl";
     url: string;
 }
 
-export interface MediaWikiMassMessageApiEditMassMessageListParams extends ApiParams {
-    action: "editmassmessagelist";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:MassMessage/API}
+ */
+export interface ApiActionEditMassMessageListParams extends ApiParams {
+    action?: "editmassmessagelist";
     spamlist: string;
     description?: string;
     add?: string | string[];
@@ -902,8 +1170,11 @@ export interface MediaWikiMassMessageApiEditMassMessageListParams extends ApiPar
     token?: string;
 }
 
-export interface ApiEmailUserParams extends ApiParams {
-    action: "emailuser";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Email}
+ */
+export interface ApiActionEmailUserParams extends ApiParams {
+    action?: "emailuser";
     target: string;
     subject: string;
     text: string;
@@ -911,8 +1182,11 @@ export interface ApiEmailUserParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiExpandTemplatesParams extends ApiParams {
-    action: "expandtemplates";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Expandtemplates}
+ */
+export interface ApiActionExpandTemplatesParams extends ApiParams {
+    action?: "expandtemplates";
     title?: string;
     text: string;
     revid?: number;
@@ -929,6 +1203,9 @@ export interface ApiExpandTemplatesParams extends ApiParams {
     >;
     includecomments?: boolean;
     showstrategykeys?: boolean;
+    /**
+     * @deprecated
+     */
     generatexml?: boolean;
     templatesandboxprefix?: string | string[];
     templatesandboxtitle?: string;
@@ -959,19 +1236,25 @@ export interface ApiExpandTemplatesParams extends ApiParams {
         | "unknown/unknown";
 }
 
-export interface ConfirmEditFancyCaptchaApiFancyCaptchaReloadParams extends ApiParams {
-    action: "fancycaptchareload";
+/**
+ * @private
+ */
+export interface ApiActionFancyCaptchaReloadParams extends ApiParams {
+    action?: "fancycaptchareload";
 }
 
-export interface FeaturedFeedsApiFeaturedFeedsParams extends ApiParams {
-    action: "featuredfeed";
+export interface ApiActionFeaturedFeedParams extends ApiParams {
+    action?: "featuredfeed";
     feedformat?: "atom" | "rss";
     feed: "featured" | "onthisday" | "potd";
     language?: string;
 }
 
-export interface ApiFeedContributionsParams extends ApiParams {
-    action: "feedcontributions";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Feedcontributions}
+ */
+export interface ApiActionFeedContributionsParams extends ApiParams {
+    action?: "feedcontributions";
     feedformat?: "atom" | "rss";
     user: string;
     namespace?: namespace;
@@ -985,8 +1268,11 @@ export interface ApiFeedContributionsParams extends ApiParams {
     showsizediff?: boolean;
 }
 
-export interface ApiFeedRecentChangesParams extends ApiParams {
-    action: "feedrecentchanges";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Feedrecentchanges}
+ */
+export interface ApiActionFeedRecentChangesParams extends ApiParams {
+    action?: "feedrecentchanges";
     feedformat?: "atom" | "rss";
     namespace?: namespace;
     invert?: boolean;
@@ -1007,8 +1293,11 @@ export interface ApiFeedRecentChangesParams extends ApiParams {
     showlinkedto?: boolean;
 }
 
-export interface ApiFeedWatchlistParams extends ApiParams {
-    action: "feedwatchlist";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlist_feed}
+ */
+export interface ApiActionFeedWatchlistParams extends ApiParams {
+    action?: "feedwatchlist";
     feedformat?: "atom" | "rss";
     hours?: number;
     linktosections?: boolean;
@@ -1033,35 +1322,43 @@ export interface ApiFeedWatchlistParams extends ApiParams {
     wlexcludeuser?: string;
 }
 
-export interface ApiFileRevertParams extends ApiParams {
-    action: "filerevert";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Filerevert}
+ */
+export interface ApiActionFileRevertParams extends ApiParams {
+    action?: "filerevert";
     filename: string;
     comment?: string;
     archivename: string;
     token?: string;
 }
 
-export interface ApiFlagConfigParams extends ApiParams {
-    action: "flagconfig";
+export interface ApiActionFlagConfigParams extends ApiParams {
+    action?: "flagconfig";
 }
 
-export interface GlobalBlockingApiGlobalBlockParams extends ApiParams {
-    action: "globalblock";
-    target: string;
-    expiry?: expiry;
-    unblock?: boolean;
-    reason: string;
-    anononly?: boolean;
-    modify?: boolean;
-    alsolocal?: boolean;
-    localblockstalk?: boolean;
-    localblocksemail?: boolean;
-    localanononly?: boolean;
-    token?: string;
+export interface ApiActionGlobalBlockParams extends ApiParams {
+    "action"?: "globalblock";
+    "target": string;
+    "expiry"?: expiry;
+    "unblock"?: boolean;
+    "reason": string;
+    "anononly"?: boolean;
+    "allow-account-creation"?: boolean;
+    "modify"?: boolean;
+    "alsolocal"?: boolean;
+    "localblockstalk"?: boolean;
+    "localblocksemail"?: boolean;
+    "localanononly"?: boolean;
+    "local-allow-account-creation"?: boolean;
+    "token"?: string;
 }
 
-export interface GlobalPreferencesApiGlobalPreferenceOverridesParams extends ApiParams {
-    action: "globalpreferenceoverrides";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GlobalPreferences/API}
+ */
+export interface ApiActionGlobalPreferenceOverridesParams extends ApiParams {
+    action?: "globalpreferenceoverrides";
     reset?: boolean;
     resetkinds?: OneOrMore<
         | "all"
@@ -1078,27 +1375,23 @@ export interface GlobalPreferencesApiGlobalPreferenceOverridesParams extends Api
     token?: string;
 }
 
-export interface GlobalPreferencesApiGlobalPreferencesParams extends ApiParams {
-    action: "globalpreferences";
-    reset?: boolean;
-    resetkinds?: OneOrMore<
-        | "all"
-        | "registered"
-        | "registered-checkmatrix"
-        | "registered-multiselect"
-        | "special"
-        | "unused"
-        | "userjs"
-    >;
-    change?: string | string[];
-    optionname?: string;
-    optionvalue?: string;
-    token?: string;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Globalpreferences}
+ */
+export interface ApiActionGlobalPreferencesParams extends ApiParams {
+    action?: "globalpreferences";
+    prop?: OneOrMore<"localoverrides" | "preferences">;
 }
 
-export interface CentralAuthApiGlobalUserRightsParams extends ApiParams {
-    action: "globaluserrights";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:User_group_membership}
+ */
+export interface ApiActionGlobalUserRightsParams extends ApiParams {
+    action?: "globaluserrights";
     user?: string;
+    /**
+     * @deprecated
+     */
     userid?: number;
     add?: OneOrMore<
         | "abusefilter-helper"
@@ -1113,6 +1406,7 @@ export interface CentralAuthApiGlobalUserRightsParams extends ApiParams {
         | "global-ipblock-exempt"
         | "global-rollbacker"
         | "global-sysop"
+        | "global-temporary-account-viewer"
         | "new-wikis-importer"
         | "oathauth-tester"
         | "ombuds"
@@ -1138,6 +1432,7 @@ export interface CentralAuthApiGlobalUserRightsParams extends ApiParams {
         | "global-ipblock-exempt"
         | "global-rollbacker"
         | "global-sysop"
+        | "global-temporary-account-viewer"
         | "new-wikis-importer"
         | "oathauth-tester"
         | "ombuds"
@@ -1154,8 +1449,11 @@ export interface CentralAuthApiGlobalUserRightsParams extends ApiParams {
     tags?: string | string[];
 }
 
-export interface GrowthExperimentsApiInvalidateImageRecommendationParams extends ApiParams {
-    action: "growthinvalidateimagerecommendation";
+/**
+ * @private
+ */
+export interface ApiActionGrowthInvalidateImageRecommendationParams extends ApiParams {
+    action?: "growthinvalidateimagerecommendation";
     tasktype?: "image-recommendation" | "section-image-recommendation";
     title: string;
     filename: string;
@@ -1164,17 +1462,19 @@ export interface GrowthExperimentsApiInvalidateImageRecommendationParams extends
     token?: string;
 }
 
-export interface GrowthExperimentsApiInvalidatePersonalizedPraiseSuggestionParams
-    extends ApiParams {
-    action: "growthinvalidatepersonalizedpraisesuggestion";
+/**
+ * @private
+ */
+export interface ApiActionGrowthInvalidatePersonalizedPraiseSuggestionParams extends ApiParams {
+    action?: "growthinvalidatepersonalizedpraisesuggestion";
     mentee: string;
     reason?: "praised" | "skipped";
     skipreason?: "already-praised" | "not-now" | "not-praiseworthy" | "other";
     token?: string;
 }
 
-export interface GrowthExperimentsApiManageMentorListParams extends ApiParams {
-    action: "growthmanagementorlist";
+export interface ApiActionGrowthManageMentorListParams extends ApiParams {
+    action?: "growthmanagementorlist";
     geaction: "add" | "change" | "remove";
     message?: string;
     weight?: "0" | "1" | "2" | "4";
@@ -1185,34 +1485,39 @@ export interface GrowthExperimentsApiManageMentorListParams extends ApiParams {
     token?: string;
 }
 
-export interface GrowthExperimentsApiMentorDashboardUpdateDataParams extends ApiParams {
-    action: "growthmentordashboardupdatedata";
+export interface ApiActionGrowthMentorDashboardUpdateDataParams extends ApiParams {
+    action?: "growthmentordashboardupdatedata";
     token?: string;
 }
 
-export interface GrowthExperimentsApiSetMenteeStatusParams extends ApiParams {
-    action: "growthsetmenteestatus";
+export interface ApiActionGrowthSetMenteeStatusParams extends ApiParams {
+    action?: "growthsetmenteestatus";
     state: "disabled" | "enabled" | "optout";
     token?: string;
 }
 
-export interface GrowthExperimentsApiSetMentorParams extends ApiParams {
-    action: "growthsetmentor";
+export interface ApiActionGrowthSetMentorParams extends ApiParams {
+    action?: "growthsetmentor";
     mentee: string;
     mentor: string;
     reason?: string;
     token?: string;
 }
 
-export interface GrowthExperimentsApiStarMenteeParams extends ApiParams {
-    action: "growthstarmentee";
+export interface ApiActionGrowthStarMenteeParams extends ApiParams {
+    action?: "growthstarmentee";
     gesaction: "star" | "unstar";
     gesmentee: string;
     token?: string;
 }
 
-export interface ApiHelpParams extends ApiParams {
-    action: "help";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Main_page}
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:FAQ}
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Quick_start_guide}
+ */
+export interface ApiActionHelpParams extends ApiParams {
+    action?: "help";
     modules?: string | string[];
     submodules?: boolean;
     recursivesubmodules?: boolean;
@@ -1220,8 +1525,11 @@ export interface ApiHelpParams extends ApiParams {
     toc?: boolean;
 }
 
-export interface GrowthExperimentsApiHelpPanelPostQuestionParams extends ApiParams {
-    action: "helppanelquestionposter";
+/**
+ * @private
+ */
+export interface ApiActionHelppanelquestionposterParams extends ApiParams {
+    action?: "helppanelquestionposter";
     body: string;
     source?:
         | "helpdesk"
@@ -1233,17 +1541,20 @@ export interface GrowthExperimentsApiHelpPanelPostQuestionParams extends ApiPara
     token?: string;
 }
 
-export interface GrowthExperimentsApiQuestionStoreParams extends ApiParams {
-    action: "homepagequestionstore";
+export interface ApiActionHomepagequestionstoreParams extends ApiParams {
+    action?: "homepagequestionstore";
     storage: "growthexperiments-helppanel-questions" | "growthexperiments-mentor-questions";
 }
 
-export interface ApiDisabledParams extends ApiParams {
-    action: "imagerotate";
+export interface ApiActionImagerotateParams extends ApiParams {
+    action?: "imagerotate";
 }
 
-export interface ApiImportParams extends ApiParams {
-    action: "import";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Import}
+ */
+export interface ApiActionImportParams extends ApiParams {
+    action?: "import";
     summary?: string;
     xml?: upload;
     interwikiprefix?: string;
@@ -1268,44 +1579,36 @@ export interface ApiImportParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiFormatJsonParams extends ApiParams {
-    format: "json";
-    callback?: string;
-    utf8?: boolean;
-    ascii?: boolean;
-    formatversion?: "1" | "2" | "latest";
-}
-
-export interface JsonConfigJCApiParams extends ApiParams {
-    action: "jsonconfig";
+export interface ApiActionJsonConfigParams extends ApiParams {
+    action?: "jsonconfig";
     command?: "reload" | "reset" | "status";
     namespace?: number;
     title?: string;
     content?: string;
 }
 
-export interface JsonConfigJCDataApiParams extends ApiParams {
-    action: "jsondata";
+/**
+ * @private
+ */
+export interface ApiActionJsonDataParams extends ApiParams {
+    action?: "jsondata";
     title: string;
 }
 
-export interface ApiFormatJsonFMParams extends ApiParams {
-    format: "jsonfm";
-    wrappedhtml?: boolean;
-    callback?: string;
-    utf8?: boolean;
-    ascii?: boolean;
-    formatversion?: "1" | "2" | "latest";
-}
-
-export interface UniversalLanguageSelectorApiLanguageSearchParams extends ApiParams {
-    action: "languagesearch";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Languagesearch}
+ */
+export interface ApiActionLanguageSearchParams extends ApiParams {
+    action?: "languagesearch";
     search: string;
     typos?: number;
 }
 
-export interface ApiLinkAccountParams extends ApiParams {
-    action: "linkaccount";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkaccount}
+ */
+export interface ApiActionLinkAccountParams extends ApiParams {
+    action?: "linkaccount";
     linkrequests?: string | string[];
     linkmessageformat?: "html" | "none" | "raw" | "wikitext";
     linkmergerequestfields?: boolean;
@@ -1314,21 +1617,30 @@ export interface ApiLinkAccountParams extends ApiParams {
     linktoken?: string;
 }
 
-export interface ApiLoginParams extends ApiParams {
-    action: "login";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Login}
+ */
+export interface ApiActionLoginParams extends ApiParams {
+    action?: "login";
     lgname?: string;
     lgpassword?: password;
     lgdomain?: string;
     lgtoken?: string;
 }
 
-export interface ApiLogoutParams extends ApiParams {
-    action: "logout";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Logout}
+ */
+export interface ApiActionLogoutParams extends ApiParams {
+    action?: "logout";
     token?: string;
 }
 
-export interface ApiManageTagsParams extends ApiParams {
-    action: "managetags";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Tag_management}
+ */
+export interface ApiActionManageTagsParams extends ApiParams {
+    action?: "managetags";
     operation: "activate" | "create" | "deactivate" | "delete";
     tag: string;
     reason?: string;
@@ -1337,8 +1649,11 @@ export interface ApiManageTagsParams extends ApiParams {
     token?: string;
 }
 
-export interface MediaWikiMassMessageApiMassMessageParams extends ApiParams {
-    "action": "massmessage";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:MassMessage/API}
+ */
+export interface ApiActionMassMessageParams extends ApiParams {
+    "action"?: "massmessage";
     "spamlist": string;
     "subject": string;
     "message"?: string;
@@ -1346,8 +1661,11 @@ export interface MediaWikiMassMessageApiMassMessageParams extends ApiParams {
     "token"?: string;
 }
 
-export interface ApiMergeHistoryParams extends ApiParams {
-    action: "mergehistory";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Mergehistory}
+ */
+export interface ApiActionMergeHistoryParams extends ApiParams {
+    action?: "mergehistory";
     from?: string;
     fromid?: number;
     to?: string;
@@ -1357,8 +1675,11 @@ export interface ApiMergeHistoryParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiMoveParams extends ApiParams {
-    action: "move";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Move}
+ */
+export interface ApiActionMoveParams extends ApiParams {
+    action?: "move";
     from?: string;
     fromid?: number;
     to: string;
@@ -1373,31 +1694,39 @@ export interface ApiMoveParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiFormatNoneParams extends ApiParams {
-    format: "none";
-}
-
-export interface OATHAuthApiModuleApiOATHValidateParams extends ApiParams {
-    action: "oathvalidate";
+/**
+ * @private
+ */
+export interface ApiActionOATHValidateParams extends ApiParams {
+    action?: "oathvalidate";
     user?: string;
     data: string;
     token?: string;
 }
 
-export interface ApiOpenSearchParams extends ApiParams {
-    action: "opensearch";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Opensearch}
+ */
+export interface ApiActionOpenSearchParams extends ApiParams {
+    action?: "opensearch";
     search: string;
     namespace?: namespace | namespace[];
     limit?: limit;
     profile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+    /**
+     * @deprecated
+     */
     suggest?: boolean;
     redirects?: "resolve" | "return";
     format?: "json" | "jsonfm" | "xml" | "xmlfm";
     warningsaserror?: boolean;
 }
 
-export interface ApiOptionsParams extends ApiParams {
-    action: "options";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Options}
+ */
+export interface ApiActionOptionsParams extends ApiParams {
+    action?: "options";
     reset?: boolean;
     resetkinds?: OneOrMore<
         | "all"
@@ -1411,11 +1740,12 @@ export interface ApiOptionsParams extends ApiParams {
     change?: string | string[];
     optionname?: string;
     optionvalue?: string;
+    global?: "ignore" | "override" | "update";
     token?: string;
 }
 
-export interface PageTriageApiPageTriageActionParams extends ApiParams {
-    action: "pagetriageaction";
+export interface ApiActionPageTriageActionParams extends ApiParams {
+    action?: "pagetriageaction";
     pageid: number;
     reviewed?: "0" | "1";
     enqueue?: boolean;
@@ -1425,8 +1755,8 @@ export interface PageTriageApiPageTriageActionParams extends ApiParams {
     tags?: string | string[];
 }
 
-export interface PageTriageApiPageTriageListParams extends ApiParams {
-    action: "pagetriagelist";
+export interface ApiActionPageTriageListParams extends ApiParams {
+    action?: "pagetriagelist";
     show_predicted_class_stub?: boolean;
     show_predicted_class_start?: boolean;
     show_predicted_class_c?: boolean;
@@ -1464,8 +1794,8 @@ export interface PageTriageApiPageTriageListParams extends ApiParams {
     dir?: "newestfirst" | "newestreview" | "oldestfirst" | "oldestreview";
 }
 
-export interface PageTriageApiPageTriageStatsParams extends ApiParams {
-    action: "pagetriagestats";
+export interface ApiActionPageTriageStatsParams extends ApiParams {
+    action?: "pagetriagestats";
     show_predicted_class_stub?: boolean;
     show_predicted_class_start?: boolean;
     show_predicted_class_c?: boolean;
@@ -1498,15 +1828,15 @@ export interface PageTriageApiPageTriageStatsParams extends ApiParams {
     date_range_to?: timestamp;
 }
 
-export interface PageTriageApiPageTriageTagCopyvioParams extends ApiParams {
-    action: "pagetriagetagcopyvio";
+export interface ApiActionPageTriageTagCopyvioParams extends ApiParams {
+    action?: "pagetriagetagcopyvio";
     revid: number;
     untag?: boolean;
     token?: string;
 }
 
-export interface PageTriageApiPageTriageTaggingParams extends ApiParams {
-    action: "pagetriagetagging";
+export interface ApiActionPageTriageTaggingParams extends ApiParams {
+    action?: "pagetriagetagging";
     pageid: number;
     token?: string;
     wikitext: string;
@@ -1515,10 +1845,16 @@ export interface PageTriageApiPageTriageTaggingParams extends ApiParams {
     taglist: string | string[];
 }
 
-export interface ApiParamInfoParams extends ApiParams {
-    action: "paraminfo";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Parameter_information}
+ */
+export interface ApiActionParamInfoParams extends ApiParams {
+    action?: "paraminfo";
     modules?: string | string[];
     helpformat?: "html" | "none" | "raw" | "wikitext";
+    /**
+     * @deprecated
+     */
     querymodules?: OneOrMore<
         | "abusefilters"
         | "abuselog"
@@ -1534,6 +1870,7 @@ export interface ApiParamInfoParams extends ApiParams {
         | "alltransclusions"
         | "allusers"
         | "authmanagerinfo"
+        | "automatictranslationdenselanguages"
         | "babel"
         | "backlinks"
         | "betafeatures"
@@ -1548,6 +1885,7 @@ export interface ApiParamInfoParams extends ApiParams {
         | "cirrusbuilddoc"
         | "cirruscompsuggestbuilddoc"
         | "cirrusdoc"
+        | "communityconfiguration"
         | "contenttranslation"
         | "contenttranslationcorpora"
         | "contenttranslationlangtrend"
@@ -1652,15 +1990,27 @@ export interface ApiParamInfoParams extends ApiParams {
         | "wikibase"
         | "wikisets"
     >;
+    /**
+     * @deprecated
+     */
     mainmodule?: string;
+    /**
+     * @deprecated
+     */
     pagesetmodule?: string;
+    /**
+     * @deprecated
+     */
     formatmodules?: OneOrMore<
         "json" | "jsonfm" | "none" | "php" | "phpfm" | "rawfm" | "xml" | "xmlfm"
     >;
 }
 
-export interface ApiParseParams extends ApiParams {
-    action: "parse";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Parsing_wikitext}
+ */
+export interface ApiActionParseParams extends ApiParams {
+    action?: "parse";
     title?: string;
     text?: string;
     revid?: number;
@@ -1698,26 +2048,38 @@ export interface ApiParseParams extends ApiParams {
         | "headitems"
     >;
     wrapoutputclass?: string;
+    usearticle?: boolean;
     parsoid?: boolean;
     pst?: boolean;
     onlypst?: boolean;
+    /**
+     * @deprecated
+     */
     effectivelanglinks?: boolean;
     section?: string;
     sectiontitle?: string;
+    /**
+     * @deprecated
+     */
     disablepp?: boolean;
     disablelimitreport?: boolean;
     disableeditsection?: boolean;
     disablestylededuplication?: boolean;
     showstrategykeys?: boolean;
+    /**
+     * @deprecated
+     */
     generatexml?: boolean;
     preview?: boolean;
     sectionpreview?: boolean;
     disabletoc?: boolean;
     useskin?:
         | "apioutput"
+        | "authentication-popup"
         | "cologneblue"
         | "contenttranslation"
         | "fallback"
+        | "json"
         | "minerva"
         | "modern"
         | "monobook"
@@ -1778,34 +2140,32 @@ export interface ApiParseParams extends ApiParams {
         | "unknown/unknown";
 }
 
-export interface ParserMigrationApiParserMigrationParams extends ApiParams {
-    action: "parser-migration";
+/**
+ * @private
+ */
+export interface ApiActionParserMigrationParams extends ApiParams {
+    action?: "parser-migration";
     title: string;
     config?: OneOrMore<"new" | "old">;
     redirect?: string;
 }
 
-export interface ApiPatrolParams extends ApiParams {
-    action: "patrol";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Patrol}
+ */
+export interface ApiActionPatrolParams extends ApiParams {
+    action?: "patrol";
     rcid?: number;
     revid?: number;
     tags?: string | string[];
     token?: string;
 }
 
-export interface ApiFormatPhpParams extends ApiParams {
-    format: "php";
-    formatversion?: "1" | "2" | "latest";
-}
-
-export interface ApiFormatPhpFMParams extends ApiParams {
-    format: "phpfm";
-    wrappedhtml?: boolean;
-    formatversion?: "1" | "2" | "latest";
-}
-
-export interface ApiProtectParams extends ApiParams {
-    action: "protect";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protect}
+ */
+export interface ApiActionProtectParams extends ApiParams {
+    action?: "protect";
     title?: string;
     pageid?: number;
     protections: string | string[];
@@ -1813,209 +2173,1283 @@ export interface ApiProtectParams extends ApiParams {
     reason?: string;
     tags?: string | string[];
     cascade?: boolean;
+    /**
+     * @deprecated
+     */
     watch?: boolean;
     watchlist?: "nochange" | "preferences" | "unwatch" | "watch";
     watchlistexpiry?: expiry;
     token?: string;
 }
 
-export interface ApiPurgeParams extends ApiParams {
-    action: "purge";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Purge}
+ */
+export interface ApiActionPurgeParams extends ApiParams {
+    action?: "purge";
     forcelinkupdate?: boolean;
     forcerecursivelinkupdate?: boolean;
     continue?: string;
     titles?: string | string[];
     pageids?: number | number[];
     revids?: number | number[];
-    generator?:
-        | "allcategories"
-        | "alldeletedrevisions"
-        | "allfileusages"
-        | "allimages"
-        | "alllinks"
-        | "allpages"
-        | "allredirects"
-        | "allrevisions"
-        | "alltransclusions"
-        | "backlinks"
-        | "categories"
-        | "categorymembers"
-        | "contenttranslation"
-        | "contenttranslationsuggestions"
-        | "deletedrevisions"
-        | "duplicatefiles"
-        | "embeddedin"
-        | "exturlusage"
-        | "fileusage"
-        | "geosearch"
-        | "images"
-        | "imageusage"
-        | "iwbacklinks"
-        | "langbacklinks"
-        | "links"
-        | "linkshere"
-        | "mostviewed"
-        | "oldreviewedpages"
-        | "pageswithprop"
-        | "prefixsearch"
-        | "projectpages"
-        | "protectedtitles"
-        | "querypage"
-        | "random"
-        | "recentchanges"
-        | "redirects"
-        | "revisions"
-        | "search"
-        | "templates"
-        | "transcludedin"
-        | "watchlist"
-        | "watchlistraw"
-        | "wblistentityusage"
-        | "growthtasks"
-        | "readinglistentries";
+    generator?: ApiActionPurgeParamsGenerator;
     redirects?: boolean;
     converttitles?: boolean;
 }
 
-export interface ApiQueryParams extends ApiParams {
-    action: "query";
-    prop?: OneOrMore<
-        | "categories"
-        | "categoryinfo"
-        | "cirrusbuilddoc"
-        | "cirruscompsuggestbuilddoc"
-        | "cirrusdoc"
-        | "contributors"
-        | "coordinates"
-        | "deletedrevisions"
-        | "duplicatefiles"
-        | "extlinks"
-        | "extracts"
-        | "fileusage"
-        | "flagged"
-        | "globalusage"
-        | "growthimagesuggestiondata"
-        | "imageinfo"
-        | "images"
-        | "info"
-        | "isreviewed"
-        | "iwlinks"
-        | "langlinks"
-        | "langlinkscount"
-        | "links"
-        | "linkshere"
-        | "mmcontent"
-        | "pageassessments"
-        | "pageimages"
-        | "pageprops"
-        | "pageterms"
-        | "pageviews"
-        | "redirects"
-        | "revisions"
-        | "stashimageinfo"
-        | "templates"
-        | "transcludedin"
-        | "transcodestatus"
-        | "videoinfo"
-        | "wbentityusage"
-        | "description"
-        | "mapdata"
-    >;
-    list?: OneOrMore<
-        | "abusefilters"
-        | "abuselog"
-        | "allcategories"
-        | "alldeletedrevisions"
-        | "allfileusages"
-        | "allimages"
-        | "alllinks"
-        | "allpages"
-        | "allredirects"
-        | "allrevisions"
-        | "alltransclusions"
-        | "allusers"
-        | "backlinks"
-        | "betafeatures"
-        | "blocks"
-        | "categorymembers"
-        | "centralnoticeactivecampaigns"
-        | "centralnoticelogs"
-        | "checkuser"
-        | "checkuserlog"
-        | "contenttranslation"
-        | "contenttranslationcorpora"
-        | "contenttranslationlangtrend"
-        | "contenttranslationstats"
-        | "contenttranslationsuggestions"
-        | "cxpublishedtranslations"
-        | "cxtranslatorstats"
-        | "embeddedin"
-        | "exturlusage"
-        | "filearchive"
-        | "gadgetcategories"
-        | "gadgets"
-        | "geosearch"
-        | "globalallusers"
-        | "globalblocks"
-        | "globalgroups"
-        | "growthmentorlist"
-        | "growthmentormentee"
-        | "growthstarredmentees"
-        | "imageusage"
-        | "iwbacklinks"
-        | "langbacklinks"
-        | "linterrors"
-        | "logevents"
-        | "mostviewed"
-        | "mystashedfiles"
-        | "oldreviewedpages"
-        | "pagepropnames"
-        | "pageswithprop"
-        | "prefixsearch"
-        | "projectpages"
-        | "projects"
-        | "protectedtitles"
-        | "querypage"
-        | "random"
-        | "recentchanges"
-        | "search"
+type ApiActionPurgeParamsGenerator = keyof ApiActionPurgeParamsGeneratorMap;
+
+interface ApiActionPurgeParamsGeneratorMap {
+    allcategories: ApiActionPurgeGeneratorAllCategoriesParams;
+    alldeletedrevisions: ApiActionPurgeGeneratorAllDeletedRevisionsParams;
+    allfileusages: ApiActionPurgeGeneratorQueryAllFileUsagesParams;
+    allimages: ApiActionPurgeGeneratorAllImagesParams;
+    alllinks: ApiActionPurgeGeneratorAllLinksParams;
+    allpages: ApiActionPurgeGeneratorAllPagesParams;
+    allredirects: ApiActionPurgeGeneratorQueryAllRedirectsParams;
+    allrevisions: ApiActionPurgeGeneratorAllRevisionsParams;
+    alltransclusions: ApiActionPurgeGeneratorQueryAllTransclusionsParams;
+    automatictranslationdenselanguages: ApiActionPurgeGeneratorAutomaticTranslationDenseLanguagesParams;
+    backlinks: ApiActionPurgeGeneratorBacklinksParams;
+    categories: ApiActionPurgeGeneratorCategoriesParams;
+    categorymembers: ApiActionPurgeGeneratorCategoryMembersParams;
+    contenttranslation: ApiActionPurgeGeneratorContentTranslationParams;
+    contenttranslationsuggestions: ApiActionPurgeGeneratorContentTranslationSuggestionsParams;
+    deletedrevisions: ApiActionPurgeGeneratorDeletedRevisionsParams;
+    duplicatefiles: ApiActionPurgeGeneratorDuplicateFilesParams;
+    embeddedin: ApiActionPurgeGeneratorQueryEmbeddedInParams;
+    exturlusage: ApiActionPurgeGeneratorExturlusageParams;
+    fileusage: ApiActionPurgeGeneratorQueryFileUsageParams;
+    geosearch: ApiActionPurgeGeneratorGeoSearchParams;
+    growthtasks: ApiActionPurgeGeneratorGrowthTasksParams;
+    images: ApiActionPurgeGeneratorImagesParams;
+    imageusage: ApiActionPurgeGeneratorQueryImageUsageParams;
+    iwbacklinks: ApiActionPurgeGeneratorIWBacklinksParams;
+    langbacklinks: ApiActionPurgeGeneratorLangBacklinksParams;
+    links: ApiActionPurgeGeneratorLinksParams;
+    linkshere: ApiActionPurgeGeneratorQueryLinksHereParams;
+    mostviewed: ApiActionPurgeGeneratorMostViewedParams;
+    oldreviewedpages: ApiActionPurgeGeneratorOldreviewedpagesParams;
+    pageswithprop: ApiActionPurgeGeneratorPagesWithPropParams;
+    prefixsearch: ApiActionPurgeGeneratorPrefixSearchParams;
+    projectpages: ApiActionPurgeGeneratorProjectPagesParams;
+    protectedtitles: ApiActionPurgeGeneratorProtectedTitlesParams;
+    querypage: ApiActionPurgeGeneratorQueryPageParams;
+    random: ApiActionPurgeGeneratorRandomParams;
+    readinglistentries: ApiActionPurgeGeneratorReadingListEntriesParams;
+    recentchanges: ApiActionPurgeGeneratorRecentChangesParams;
+    redirects: ApiActionPurgeGeneratorQueryRedirectsParams;
+    revisions: ApiActionPurgeGeneratorRevisionsParams;
+    search: ApiActionPurgeGeneratorSearchParams;
+    templates: ApiActionPurgeGeneratorQueryTemplatesParams;
+    transcludedin: ApiActionPurgeGeneratorQueryTranscludedInParams;
+    watchlist: ApiActionPurgeGeneratorWatchlistParams;
+    watchlistraw: ApiActionPurgeGeneratorWatchlistRawParams;
+    wblistentityusage: ApiActionPurgeGeneratorWblistentityusageParams;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allcategories}
+ */
+export interface ApiActionPurgeGeneratorAllCategoriesParams extends ApiActionPurgeParams {
+    generator?: "allcategories";
+    gacfrom?: string;
+    gaccontinue?: string;
+    gacto?: string;
+    gacprefix?: string;
+    gacdir?: "ascending" | "descending";
+    gacmin?: number;
+    gacmax?: number;
+    gaclimit?: limit;
+    gacprop?: OneOrMore<"hidden" | "size">;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alldeletedrevisions}
+ */
+export interface ApiActionPurgeGeneratorAllDeletedRevisionsParams extends ApiActionPurgeParams {
+    generator?: "alldeletedrevisions";
+    gadrprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
         | "tags"
-        | "usercontribs"
-        | "users"
-        | "watchlist"
-        | "watchlistraw"
-        | "wblistentityusage"
-        | "wikisets"
-        | "deletedrevs"
-        | "growthtasks"
-        | "readinglistentries"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
     >;
-    meta?: OneOrMore<
-        | "allmessages"
-        | "authmanagerinfo"
-        | "babel"
-        | "featureusage"
-        | "filerepoinfo"
-        | "globalpreferences"
-        | "globalrenamestatus"
-        | "globaluserinfo"
-        | "growthmenteestatus"
-        | "growthmentorstatus"
-        | "languageinfo"
-        | "linterstats"
-        | "notifications"
-        | "ores"
-        | "siteinfo"
-        | "siteviews"
-        | "tokens"
-        | "unreadnotificationpages"
-        | "userinfo"
-        | "wikibase"
-        | "cxdeletedtranslations"
-        | "growthnextsuggestedtasktype"
-        | "oath"
-        | "readinglists"
+    gadrslots?: string | string[];
+    [k: `gadrcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gadrlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gadrexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrparse?: boolean;
+    gadrsection?: string;
+    /**
+     * @deprecated
+     */
+    gadrdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gadruser?: string;
+    gadrnamespace?: namespace | namespace[];
+    gadrstart?: timestamp;
+    gadrend?: timestamp;
+    gadrdir?: "newer" | "older";
+    gadrfrom?: string;
+    gadrto?: string;
+    gadrprefix?: string;
+    gadrexcludeuser?: string;
+    gadrtag?: string;
+    gadrcontinue?: string;
+    gadrgeneratetitles?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
+ */
+export interface ApiActionPurgeGeneratorQueryAllFileUsagesParams extends ApiActionPurgeParams {
+    generator?: "allfileusages";
+    gafcontinue?: string;
+    gaffrom?: string;
+    gafto?: string;
+    gafprefix?: string;
+    gafunique?: boolean;
+    gafprop?: OneOrMore<"ids" | "title">;
+    gaflimit?: limit;
+    gafdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allimages}
+ */
+export interface ApiActionPurgeGeneratorAllImagesParams extends ApiActionPurgeParams {
+    generator?: "allimages";
+    gaisort?: "name" | "timestamp";
+    gaidir?: "ascending" | "descending" | "newer" | "older";
+    gaifrom?: string;
+    gaito?: string;
+    gaicontinue?: string;
+    gaistart?: timestamp;
+    gaiend?: timestamp;
+    gaiprop?: OneOrMore<
+        | "badfile"
+        | "bitdepth"
+        | "canonicaltitle"
+        | "comment"
+        | "commonmetadata"
+        | "dimensions"
+        | "extmetadata"
+        | "mediatype"
+        | "metadata"
+        | "mime"
+        | "parsedcomment"
+        | "sha1"
+        | "size"
+        | "timestamp"
+        | "url"
+        | "user"
+        | "userid"
     >;
+    gaiprefix?: string;
+    gaiminsize?: number;
+    gaimaxsize?: number;
+    gaisha1?: string;
+    gaisha1base36?: string;
+    gaiuser?: string;
+    gaifilterbots?: "all" | "bots" | "nobots";
+    gaimime?: string | string[];
+    gailimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alllinks}
+ */
+export interface ApiActionPurgeGeneratorAllLinksParams extends ApiActionPurgeParams {
+    generator?: "alllinks";
+    galcontinue?: string;
+    galfrom?: string;
+    galto?: string;
+    galprefix?: string;
+    galunique?: boolean;
+    galprop?: OneOrMore<"ids" | "title">;
+    galnamespace?: namespace;
+    gallimit?: limit;
+    galdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allpages}
+ */
+export interface ApiActionPurgeGeneratorAllPagesParams extends ApiActionPurgeParams {
+    generator?: "allpages";
+    gapfrom?: string;
+    gapcontinue?: string;
+    gapto?: string;
+    gapprefix?: string;
+    gapnamespace?: namespace;
+    gapfilterredir?: "all" | "nonredirects" | "redirects";
+    gapfilterlanglinks?: "all" | "withlanglinks" | "withoutlanglinks";
+    gapminsize?: number;
+    gapmaxsize?: number;
+    gapprtype?: OneOrMore<"edit" | "move" | "upload">;
+    gapprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gapprfiltercascade?: "all" | "cascading" | "noncascading";
+    gapprexpiry?: "all" | "definite" | "indefinite";
+    gaplimit?: limit;
+    gapdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
+ */
+export interface ApiActionPurgeGeneratorQueryAllRedirectsParams extends ApiActionPurgeParams {
+    generator?: "allredirects";
+    garcontinue?: string;
+    garfrom?: string;
+    garto?: string;
+    garprefix?: string;
+    garunique?: boolean;
+    garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
+    garnamespace?: namespace;
+    garlimit?: limit;
+    gardir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allrevisions}
+ */
+export interface ApiActionPurgeGeneratorAllRevisionsParams extends ApiActionPurgeParams {
+    generator?: "allrevisions";
+    garvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "oresscores"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    garvslots?: string | string[];
+    [k: `garvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    garvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    garvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    garvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    garvparse?: boolean;
+    garvsection?: string;
+    /**
+     * @deprecated
+     */
+    garvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    garvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    garvuser?: string;
+    garvnamespace?: namespace | namespace[];
+    garvstart?: timestamp;
+    garvend?: timestamp;
+    garvdir?: "newer" | "older";
+    garvexcludeuser?: string;
+    garvcontinue?: string;
+    garvgeneratetitles?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
+ */
+export interface ApiActionPurgeGeneratorQueryAllTransclusionsParams extends ApiActionPurgeParams {
+    generator?: "alltransclusions";
+    gatcontinue?: string;
+    gatfrom?: string;
+    gatto?: string;
+    gatprefix?: string;
+    gatunique?: boolean;
+    gatprop?: OneOrMore<"ids" | "title">;
+    gatnamespace?: namespace;
+    gatlimit?: limit;
+    gatdir?: "ascending" | "descending";
+}
+
+export interface ApiActionPurgeGeneratorAutomaticTranslationDenseLanguagesParams
+    extends ApiActionPurgeParams {
+    "generator"?: "automatictranslationdenselanguages";
+    "gqid": string;
+    "gsection-titles"?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Backlinks}
+ */
+export interface ApiActionPurgeGeneratorBacklinksParams extends ApiActionPurgeParams {
+    generator?: "backlinks";
+    gbltitle?: string;
+    gblpageid?: number;
+    gblcontinue?: string;
+    gblnamespace?: namespace | namespace[];
+    gbldir?: "ascending" | "descending";
+    gblfilterredir?: "all" | "nonredirects" | "redirects";
+    gbllimit?: limit;
+    gblredirect?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categories}
+ */
+export interface ApiActionPurgeGeneratorCategoriesParams extends ApiActionPurgeParams {
+    generator?: "categories";
+    gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
+    gclshow?: OneOrMore<"!hidden" | "hidden">;
+    gcllimit?: limit;
+    gclcontinue?: string;
+    gclcategories?: string | string[];
+    gcldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categorymembers}
+ */
+export interface ApiActionPurgeGeneratorCategoryMembersParams extends ApiActionPurgeParams {
+    generator?: "categorymembers";
+    gcmtitle?: string;
+    gcmpageid?: number;
+    gcmprop?: OneOrMore<"ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type">;
+    gcmnamespace?: namespace | namespace[];
+    gcmtype?: OneOrMore<"file" | "page" | "subcat">;
+    gcmcontinue?: string;
+    gcmlimit?: limit;
+    gcmsort?: "sortkey" | "timestamp";
+    gcmdir?: "asc" | "ascending" | "desc" | "descending" | "newer" | "older";
+    gcmstart?: timestamp;
+    gcmend?: timestamp;
+    gcmstarthexsortkey?: string;
+    gcmendhexsortkey?: string;
+    gcmstartsortkeyprefix?: string;
+    gcmendsortkeyprefix?: string;
+    /**
+     * @deprecated
+     */
+    gcmstartsortkey?: string;
+    /**
+     * @deprecated
+     */
+    gcmendsortkey?: string;
+}
+
+export interface ApiActionPurgeGeneratorContentTranslationParams extends ApiActionPurgeParams {
+    generator?: "contenttranslation";
+    gtranslationid?: string;
+    gfrom?: string;
+    gto?: string;
+    gsourcetitle?: string;
+    gsourcesectiontitle?: string;
+    glimit?: limit;
+    goffset?: string;
+    gtype?: "draft" | "published";
+    gusecase?: "desktop-editor-draft" | "translation-corpora-units" | "unified-dashboard";
+}
+
+export interface ApiActionPurgeGeneratorContentTranslationSuggestionsParams
+    extends ApiActionPurgeParams {
+    generator?: "contenttranslationsuggestions";
+    gfrom?: string;
+    gto?: string;
+    glistid?: string;
+    glimit?: limit;
+    goffset?: string;
+    gseed?: number;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Deletedrevisions}
+ */
+export interface ApiActionPurgeGeneratorDeletedRevisionsParams extends ApiActionPurgeParams {
+    generator?: "deletedrevisions";
+    gdrvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    gdrvslots?: string | string[];
+    [k: `gdrvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gdrvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvparse?: boolean;
+    gdrvsection?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvstart?: timestamp;
+    gdrvend?: timestamp;
+    gdrvdir?: "newer" | "older";
+    gdrvtag?: string;
+    gdrvuser?: string;
+    gdrvexcludeuser?: string;
+    gdrvcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Duplicatefiles}
+ */
+export interface ApiActionPurgeGeneratorDuplicateFilesParams extends ApiActionPurgeParams {
+    generator?: "duplicatefiles";
+    gdflimit?: limit;
+    gdfcontinue?: string;
+    gdfdir?: "ascending" | "descending";
+    gdflocalonly?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
+ */
+export interface ApiActionPurgeGeneratorQueryEmbeddedInParams extends ApiActionPurgeParams {
+    generator?: "embeddedin";
+    geititle?: string;
+    geipageid?: number;
+    geicontinue?: string;
+    geinamespace?: namespace | namespace[];
+    geidir?: "ascending" | "descending";
+    geifilterredir?: "all" | "nonredirects" | "redirects";
+    geilimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
+ */
+export interface ApiActionPurgeGeneratorExturlusageParams extends ApiActionPurgeParams {
+    generator?: "exturlusage";
+    geuprop?: OneOrMore<"ids" | "title" | "url">;
+    geucontinue?: string;
+    geuprotocol?:
+        | ""
+        | "bitcoin"
+        | "ftp"
+        | "ftps"
+        | "geo"
+        | "git"
+        | "gopher"
+        | "http"
+        | "https"
+        | "irc"
+        | "ircs"
+        | "magnet"
+        | "mailto"
+        | "matrix"
+        | "mms"
+        | "news"
+        | "nntp"
+        | "redis"
+        | "sftp"
+        | "sip"
+        | "sips"
+        | "sms"
+        | "ssh"
+        | "svn"
+        | "tel"
+        | "telnet"
+        | "urn"
+        | "worldwind"
+        | "xmpp";
+    geuquery?: string;
+    geunamespace?: namespace | namespace[];
+    geulimit?: limit;
+    /**
+     * @deprecated
+     */
+    geuexpandurl?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
+ */
+export interface ApiActionPurgeGeneratorQueryFileUsageParams extends ApiActionPurgeParams {
+    generator?: "fileusage";
+    gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gfunamespace?: namespace | namespace[];
+    gfushow?: OneOrMore<"!redirect" | "redirect">;
+    gfulimit?: limit;
+    gfucontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GeoData#list.3Dgeosearch}
+ */
+export interface ApiActionPurgeGeneratorGeoSearchParams extends ApiActionPurgeParams {
+    generator?: "geosearch";
+    ggscoord?: string;
+    ggspage?: string;
+    ggsbbox?: string;
+    ggsradius?: number;
+    ggsmaxdim?: number;
+    ggssort?: "distance" | "relevance";
+    ggslimit?: limit;
+    ggsglobe?: "earth";
+    ggsnamespace?: namespace | namespace[];
+    ggsprop?: OneOrMore<"country" | "dim" | "globe" | "name" | "region" | "type">;
+    ggsprimary?: "all" | "primary" | "secondary";
+    ggsdebug?: boolean;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GrowthExperiments#API}
+ */
+export interface ApiActionPurgeGeneratorGrowthTasksParams extends ApiActionPurgeParams {
+    generator?: "growthtasks";
+    ggttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    ggttopics?: OneOrMore<
+        | "africa"
+        | "architecture"
+        | "art"
+        | "asia"
+        | "biography"
+        | "biology"
+        | "business-and-economics"
+        | "central-america"
+        | "chemistry"
+        | "comics-and-anime"
+        | "computers-and-internet"
+        | "earth-and-environment"
+        | "education"
+        | "engineering"
+        | "entertainment"
+        | "europe"
+        | "fashion"
+        | "food-and-drink"
+        | "general-science"
+        | "history"
+        | "literature"
+        | "mathematics"
+        | "medicine-and-health"
+        | "military-and-warfare"
+        | "music"
+        | "north-america"
+        | "oceania"
+        | "performing-arts"
+        | "philosophy-and-religion"
+        | "physics"
+        | "politics-and-government"
+        | "society"
+        | "south-america"
+        | "sports"
+        | "technology"
+        | "transportation"
+        | "tv-and-film"
+        | "video-games"
+        | "women"
+    >;
+    ggttopicsmode?: "AND" | "OR";
+    ggtlimit?: limit;
+    ggtoffset?: number;
+    ggtdebug?: boolean;
+    ggtexcludepageids?: number | number[];
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Images}
+ */
+export interface ApiActionPurgeGeneratorImagesParams extends ApiActionPurgeParams {
+    generator?: "images";
+    gimlimit?: limit;
+    gimcontinue?: string;
+    gimimages?: string | string[];
+    gimdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
+ */
+export interface ApiActionPurgeGeneratorQueryImageUsageParams extends ApiActionPurgeParams {
+    generator?: "imageusage";
+    giutitle?: string;
+    giupageid?: number;
+    giucontinue?: string;
+    giunamespace?: namespace | namespace[];
+    giudir?: "ascending" | "descending";
+    giufilterredir?: "all" | "nonredirects" | "redirects";
+    giulimit?: limit;
+    giuredirect?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Iwbacklinks}
+ */
+export interface ApiActionPurgeGeneratorIWBacklinksParams extends ApiActionPurgeParams {
+    generator?: "iwbacklinks";
+    giwblprefix?: string;
+    giwbltitle?: string;
+    giwblcontinue?: string;
+    giwbllimit?: limit;
+    giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
+    giwbldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Langbacklinks}
+ */
+export interface ApiActionPurgeGeneratorLangBacklinksParams extends ApiActionPurgeParams {
+    generator?: "langbacklinks";
+    glbllang?: string;
+    glbltitle?: string;
+    glblcontinue?: string;
+    glbllimit?: limit;
+    glblprop?: OneOrMore<"lllang" | "lltitle">;
+    glbldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Links}
+ */
+export interface ApiActionPurgeGeneratorLinksParams extends ApiActionPurgeParams {
+    generator?: "links";
+    gplnamespace?: namespace | namespace[];
+    gpllimit?: limit;
+    gplcontinue?: string;
+    gpltitles?: string | string[];
+    gpldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
+ */
+export interface ApiActionPurgeGeneratorQueryLinksHereParams extends ApiActionPurgeParams {
+    generator?: "linkshere";
+    glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    glhnamespace?: namespace | namespace[];
+    glhshow?: OneOrMore<"!redirect" | "redirect">;
+    glhlimit?: limit;
+    glhcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
+ */
+export interface ApiActionPurgeGeneratorMostViewedParams extends ApiActionPurgeParams {
+    generator?: "mostviewed";
+    gpvimmetric?: "pageviews";
+    gpvimlimit?: limit;
+    gpvimoffset?: number;
+}
+
+export interface ApiActionPurgeGeneratorOldreviewedpagesParams extends ApiActionPurgeParams {
+    generator?: "oldreviewedpages";
+    gorstart?: timestamp;
+    gorend?: timestamp;
+    gordir?: "newer" | "older";
+    gormaxsize?: number;
+    gorfilterwatched?: "all" | "watched";
+    gornamespace?: namespace | namespace[];
+    gorcategory?: string;
+    gorfilterredir?: "all" | "nonredirects" | "redirects";
+    gorlimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Pageswithprop}
+ */
+export interface ApiActionPurgeGeneratorPagesWithPropParams extends ApiActionPurgeParams {
+    generator?: "pageswithprop";
+    gpwppropname: string;
+    gpwpprop?: OneOrMore<"ids" | "title" | "value">;
+    gpwpcontinue?: string;
+    gpwplimit?: limit;
+    gpwpdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch}
+ */
+export interface ApiActionPurgeGeneratorPrefixSearchParams extends ApiActionPurgeParams {
+    generator?: "prefixsearch";
+    gpssearch: string;
+    gpsnamespace?: namespace | namespace[];
+    gpslimit?: limit;
+    gpsoffset?: number;
+    gpsprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageAssessments}
+ */
+export interface ApiActionPurgeGeneratorProjectPagesParams extends ApiActionPurgeParams {
+    generator?: "projectpages";
+    gwppassessments?: boolean;
+    gwppprojects: string | string[];
+    gwpplimit?: limit;
+    gwppcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
+ */
+export interface ApiActionPurgeGeneratorProtectedTitlesParams extends ApiActionPurgeParams {
+    generator?: "protectedtitles";
+    gptnamespace?: namespace | namespace[];
+    gptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gptlimit?: limit;
+    gptdir?: "newer" | "older";
+    gptstart?: timestamp;
+    gptend?: timestamp;
+    gptprop?: OneOrMore<
+        "comment" | "expiry" | "level" | "parsedcomment" | "timestamp" | "user" | "userid"
+    >;
+    gptcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Querypage}
+ */
+export interface ApiActionPurgeGeneratorQueryPageParams extends ApiActionPurgeParams {
+    generator?: "querypage";
+    gqppage:
+        | "Ancientpages"
+        | "BrokenRedirects"
+        | "Deadendpages"
+        | "DisambiguationPageLinks"
+        | "DisambiguationPages"
+        | "DoubleRedirects"
+        | "Fewestrevisions"
+        | "GadgetUsage"
+        | "GloballyWantedFiles"
+        | "ListDuplicatedFiles"
+        | "Listredirects"
+        | "Lonelypages"
+        | "Longpages"
+        | "MediaStatistics"
+        | "MostGloballyLinkedFiles"
+        | "Mostcategories"
+        | "Mostimages"
+        | "Mostinterwikis"
+        | "Mostlinked"
+        | "Mostlinkedcategories"
+        | "Mostlinkedtemplates"
+        | "Mostrevisions"
+        | "OrphanedTimedText"
+        | "Shortpages"
+        | "Uncategorizedcategories"
+        | "Uncategorizedimages"
+        | "Uncategorizedpages"
+        | "Uncategorizedtemplates"
+        | "UnconnectedPages"
+        | "Unusedcategories"
+        | "Unusedimages"
+        | "Unusedtemplates"
+        | "Unwatchedpages"
+        | "Wantedcategories"
+        | "Wantedfiles"
+        | "Wantedpages"
+        | "Wantedtemplates"
+        | "Withoutinterwiki";
+    gqpoffset?: number;
+    gqplimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Random}
+ */
+export interface ApiActionPurgeGeneratorRandomParams extends ApiActionPurgeParams {
+    generator?: "random";
+    grnnamespace?: namespace | namespace[];
+    grnfilterredir?: "all" | "nonredirects" | "redirects";
+    /**
+     * @deprecated
+     */
+    grnredirect?: boolean;
+    grnlimit?: limit;
+    grncontinue?: string;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionPurgeGeneratorReadingListEntriesParams extends ApiActionPurgeParams {
+    generator?: "readinglistentries";
+    grlelists?: number | number[];
+    grlechangedsince?: timestamp;
+    grlesort?: "name" | "updated";
+    grledir?: "ascending" | "descending";
+    grlelimit?: limit;
+    grlecontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Recentchanges}
+ */
+export interface ApiActionPurgeGeneratorRecentChangesParams extends ApiActionPurgeParams {
+    generator?: "recentchanges";
+    grcstart?: timestamp;
+    grcend?: timestamp;
+    grcdir?: "newer" | "older";
+    grcnamespace?: namespace | namespace[];
+    grcuser?: string;
+    grcexcludeuser?: string;
+    grctag?: string;
+    grcprop?: OneOrMore<
+        | "comment"
+        | "flags"
+        | "ids"
+        | "loginfo"
+        | "oresscores"
+        | "parsedcomment"
+        | "patrolled"
+        | "redirect"
+        | "sha1"
+        | "sizes"
+        | "tags"
+        | "timestamp"
+        | "title"
+        | "user"
+        | "userid"
+    >;
+    grcshow?: OneOrMore<
+        | "!anon"
+        | "!autopatrolled"
+        | "!bot"
+        | "!minor"
+        | "!oresreview"
+        | "!patrolled"
+        | "!redirect"
+        | "anon"
+        | "autopatrolled"
+        | "bot"
+        | "minor"
+        | "oresreview"
+        | "patrolled"
+        | "redirect"
+        | "unpatrolled"
+    >;
+    grclimit?: limit;
+    grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    grctoponly?: boolean;
+    grctitle?: string;
+    grccontinue?: string;
+    grcgeneraterevisions?: boolean;
+    grcslot?: "main";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
+ */
+export interface ApiActionPurgeGeneratorQueryRedirectsParams extends ApiActionPurgeParams {
+    generator?: "redirects";
+    grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
+    grdnamespace?: namespace | namespace[];
+    grdshow?: OneOrMore<"!fragment" | "fragment">;
+    grdlimit?: limit;
+    grdcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisions}
+ */
+export interface ApiActionPurgeGeneratorRevisionsParams extends ApiActionPurgeParams {
+    generator?: "revisions";
+    grvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flagged"
+        | "flags"
+        | "ids"
+        | "oresscores"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    grvslots?: string | string[];
+    [k: `grvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    grvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    grvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    grvparse?: boolean;
+    grvsection?: string;
+    /**
+     * @deprecated
+     */
+    grvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    grvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvstartid?: number;
+    grvendid?: number;
+    grvstart?: timestamp;
+    grvend?: timestamp;
+    grvdir?: "newer" | "older";
+    grvuser?: string;
+    grvexcludeuser?: string;
+    grvtag?: string;
+    grvcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Search}
+ */
+export interface ApiActionPurgeGeneratorSearchParams extends ApiActionPurgeParams {
+    generator?: "search";
+    gsrsearch: string;
+    gsrnamespace?: namespace | namespace[];
+    gsrlimit?: limit;
+    gsroffset?: number;
+    gsrqiprofile?:
+        | "classic"
+        | "classic_noboostlinks"
+        | "empty"
+        | "engine_autoselect"
+        | "growth_underlinked"
+        | "mlr-1024rs"
+        | "popular_inclinks"
+        | "popular_inclinks_pv"
+        | "wsum_inclinks"
+        | "wsum_inclinks_pv";
+    gsrwhat?: "nearmatch" | "text" | "title";
+    gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
+    gsrprop?: OneOrMore<
+        | "categorysnippet"
+        | "extensiondata"
+        | "isfilematch"
+        | "redirectsnippet"
+        | "redirecttitle"
+        | "sectionsnippet"
+        | "sectiontitle"
+        | "size"
+        | "snippet"
+        | "timestamp"
+        | "titlesnippet"
+        | "wordcount"
+        | "hasrelated"
+        | "score"
+    >;
+    gsrinterwiki?: boolean;
+    gsrenablerewrites?: boolean;
+    gsrsort?:
+        | "create_timestamp_asc"
+        | "create_timestamp_desc"
+        | "incoming_links_asc"
+        | "incoming_links_desc"
+        | "just_match"
+        | "last_edit_asc"
+        | "last_edit_desc"
+        | "none"
+        | "random"
+        | "relevance"
+        | "user_random";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
+ */
+export interface ApiActionPurgeGeneratorQueryTemplatesParams extends ApiActionPurgeParams {
+    generator?: "templates";
+    gtlnamespace?: namespace | namespace[];
+    gtllimit?: limit;
+    gtlcontinue?: string;
+    gtltemplates?: string | string[];
+    gtldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
+ */
+export interface ApiActionPurgeGeneratorQueryTranscludedInParams extends ApiActionPurgeParams {
+    generator?: "transcludedin";
+    gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gtinamespace?: namespace | namespace[];
+    gtishow?: OneOrMore<"!redirect" | "redirect">;
+    gtilimit?: limit;
+    gticontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlist}
+ */
+export interface ApiActionPurgeGeneratorWatchlistParams extends ApiActionPurgeParams {
+    generator?: "watchlist";
+    gwlallrev?: boolean;
+    gwlstart?: timestamp;
+    gwlend?: timestamp;
+    gwlnamespace?: namespace | namespace[];
+    gwluser?: string;
+    gwlexcludeuser?: string;
+    gwldir?: "newer" | "older";
+    gwllimit?: limit;
+    gwlprop?: OneOrMore<
+        | "comment"
+        | "expiry"
+        | "flags"
+        | "ids"
+        | "loginfo"
+        | "notificationtimestamp"
+        | "oresscores"
+        | "parsedcomment"
+        | "patrol"
+        | "sizes"
+        | "tags"
+        | "timestamp"
+        | "title"
+        | "user"
+        | "userid"
+    >;
+    gwlshow?: OneOrMore<
+        | "!anon"
+        | "!autopatrolled"
+        | "!bot"
+        | "!minor"
+        | "!oresreview"
+        | "!patrolled"
+        | "!unread"
+        | "anon"
+        | "autopatrolled"
+        | "bot"
+        | "minor"
+        | "oresreview"
+        | "patrolled"
+        | "unread"
+    >;
+    gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    gwlowner?: string;
+    gwltoken?: string;
+    gwlcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlistraw}
+ */
+export interface ApiActionPurgeGeneratorWatchlistRawParams extends ApiActionPurgeParams {
+    generator?: "watchlistraw";
+    gwrcontinue?: string;
+    gwrnamespace?: namespace | namespace[];
+    gwrlimit?: limit;
+    gwrprop?: OneOrMore<"changed">;
+    gwrshow?: OneOrMore<"!changed" | "changed">;
+    gwrowner?: string;
+    gwrtoken?: string;
+    gwrdir?: "ascending" | "descending";
+    gwrfromtitle?: string;
+    gwrtotitle?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
+ */
+export interface ApiActionPurgeGeneratorWblistentityusageParams extends ApiActionPurgeParams {
+    generator?: "wblistentityusage";
+    gwbleuprop?: OneOrMore<"url">;
+    gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
+    gwbleuentities: string | string[];
+    gwbleulimit?: limit;
+    gwbleucontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Query}
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Meta}
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Properties}
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Lists}
+ */
+export interface ApiActionQueryParams extends ApiParams {
+    action?: "query";
+    prop?: OneOrMore<ApiActionQueryParamsProp>;
+    list?: OneOrMore<ApiActionQueryParamsList>;
+    meta?: OneOrMore<ApiActionQueryParamsMeta>;
     indexpageids?: boolean;
     export?: boolean;
     exportnowrap?: boolean;
@@ -2026,61 +3460,1904 @@ export interface ApiQueryParams extends ApiParams {
     titles?: string | string[];
     pageids?: number | number[];
     revids?: number | number[];
-    generator?:
-        | "allcategories"
-        | "alldeletedrevisions"
-        | "allfileusages"
-        | "allimages"
-        | "alllinks"
-        | "allpages"
-        | "allredirects"
-        | "allrevisions"
-        | "alltransclusions"
-        | "backlinks"
-        | "categories"
-        | "categorymembers"
-        | "contenttranslation"
-        | "contenttranslationsuggestions"
-        | "deletedrevisions"
-        | "duplicatefiles"
-        | "embeddedin"
-        | "exturlusage"
-        | "fileusage"
-        | "geosearch"
-        | "images"
-        | "imageusage"
-        | "iwbacklinks"
-        | "langbacklinks"
-        | "links"
-        | "linkshere"
-        | "mostviewed"
-        | "oldreviewedpages"
-        | "pageswithprop"
-        | "prefixsearch"
-        | "projectpages"
-        | "protectedtitles"
-        | "querypage"
-        | "random"
-        | "recentchanges"
-        | "redirects"
-        | "revisions"
-        | "search"
-        | "templates"
-        | "transcludedin"
-        | "watchlist"
-        | "watchlistraw"
-        | "wblistentityusage"
-        | "growthtasks"
-        | "readinglistentries";
+    generator?: ApiActionQueryParamsGenerator;
     redirects?: boolean;
     converttitles?: boolean;
 }
 
-export interface AbuseFilterApiQueryAbuseFiltersParams extends ApiQueryParams {
+type ApiActionQueryParamsProp = keyof ApiActionQueryParamsPropMap;
+
+interface ApiActionQueryParamsPropMap {
+    categories: ApiActionQueryPropCategoriesParams;
+    categoryinfo: ApiActionQueryPropCategoryInfoParams;
+    cirrusbuilddoc: ApiActionQueryPropCirrusBuildDocParams;
+    cirruscompsuggestbuilddoc: ApiActionQueryPropCirrusCompSuggestBuildDocParams;
+    cirrusdoc: ApiActionQueryPropCirrusDocParams;
+    contributors: ApiActionQueryPropContributorsParams;
+    coordinates: ApiActionQueryPropCoordinatesParams;
+    deletedrevisions: ApiActionQueryPropDeletedRevisionsParams;
+    description: ApiActionQueryPropDescriptionParams;
+    duplicatefiles: ApiActionQueryPropDuplicateFilesParams;
+    extlinks: ApiActionQueryPropExtlinksParams;
+    extracts: ApiActionQueryPropExtractsParams;
+    fileusage: ApiActionQueryPropQueryFileUsageParams;
+    flagged: ApiActionQueryPropFlaggedParams;
+    globalusage: ApiActionQueryPropGlobalUsageParams;
+    growthimagesuggestiondata: ApiActionQueryPropGrowthImageSuggestionDataParams;
+    imageinfo: ApiActionQueryPropImageInfoParams;
+    images: ApiActionQueryPropImagesParams;
+    info: ApiActionQueryPropInfoParams;
+    isreviewed: ApiActionQueryPropIsReviewedParams;
+    iwlinks: ApiActionQueryPropIWLinksParams;
+    langlinks: ApiActionQueryPropLangLinksParams;
+    langlinkscount: ApiActionQueryPropLangLinksCountParams;
+    links: ApiActionQueryPropLinksParams;
+    linkshere: ApiActionQueryPropQueryLinksHereParams;
+    mapdata: ApiActionQueryPropMapDataParams;
+    mmcontent: ApiActionQueryPropMMContentParams;
+    pageassessments: ApiActionQueryPropPageAssessmentsParams;
+    pageimages: ApiActionQueryPropPageImagesParams;
+    pageprops: ApiActionQueryPropPagePropsParams;
+    pageterms: ApiActionQueryPropPageTermsParams;
+    pageviews: ApiActionQueryPropPageViewsParams;
+    redirects: ApiActionQueryPropQueryRedirectsParams;
+    revisions: ApiActionQueryPropRevisionsParams;
+    stashimageinfo: ApiActionQueryPropStashImageInfoParams;
+    templates: ApiActionQueryPropQueryTemplatesParams;
+    transcludedin: ApiActionQueryPropQueryTranscludedInParams;
+    transcodestatus: ApiActionQueryPropTranscodeStatusParams;
+    videoinfo: ApiActionQueryPropVideoInfoParams;
+    wbentityusage: ApiActionQueryPropWbentityusageParams;
+}
+
+type ApiActionQueryParamsList = keyof ApiActionQueryParamsListMap;
+
+interface ApiActionQueryParamsListMap {
+    abusefilters: ApiActionQueryListAbuseFiltersParams;
+    abuselog: ApiActionQueryListAbuseLogParams;
+    allcategories: ApiActionQueryListAllCategoriesParams;
+    alldeletedrevisions: ApiActionQueryListAllDeletedRevisionsParams;
+    allfileusages: ApiActionQueryListQueryAllFileUsagesParams;
+    allimages: ApiActionQueryListAllImagesParams;
+    alllinks: ApiActionQueryListAllLinksParams;
+    allpages: ApiActionQueryListAllPagesParams;
+    allredirects: ApiActionQueryListQueryAllRedirectsParams;
+    allrevisions: ApiActionQueryListAllRevisionsParams;
+    alltransclusions: ApiActionQueryListQueryAllTransclusionsParams;
+    allusers: ApiActionQueryListAllUsersParams;
+    automatictranslationdenselanguages: ApiActionQueryListAutomaticTranslationDenseLanguagesParams;
+    backlinks: ApiActionQueryListBacklinksParams;
+    betafeatures: ApiActionQueryListBetaFeaturesParams;
+    blocks: ApiActionQueryListBlocksParams;
+    categorymembers: ApiActionQueryListCategoryMembersParams;
+    centralnoticeactivecampaigns: ApiActionQueryListCentralNoticeActiveCampaignsParams;
+    centralnoticelogs: ApiActionQueryListCentralNoticeLogsParams;
+    checkuser: ApiActionQueryListCheckUserParams;
+    checkuserlog: ApiActionQueryListCheckUserLogParams;
+    contenttranslation: ApiActionQueryListContentTranslationParams;
+    contenttranslationcorpora: ApiActionQueryListContentTranslationCorporaParams;
+    contenttranslationlangtrend: ApiActionQueryListContenttranslationlangtrendParams;
+    contenttranslationstats: ApiActionQueryListContentTranslationStatsParams;
+    contenttranslationsuggestions: ApiActionQueryListContentTranslationSuggestionsParams;
+    cxpublishedtranslations: ApiActionQueryListCxpublishedtranslationsParams;
+    cxtranslatorstats: ApiActionQueryListCxtranslatorstatsParams;
+    deletedrevs: ApiActionQueryListDeletedrevsParams;
+    embeddedin: ApiActionQueryListQueryEmbeddedInParams;
+    exturlusage: ApiActionQueryListExturlusageParams;
+    filearchive: ApiActionQueryListFilearchiveParams;
+    gadgetcategories: ApiActionQueryListGadgetCategoriesParams;
+    gadgets: ApiActionQueryListGadgetsParams;
+    geosearch: ApiActionQueryListGeoSearchParams;
+    globalallusers: ApiActionQueryListGlobalAllUsersParams;
+    globalblocks: ApiActionQueryListGlobalBlocksParams;
+    globalgroups: ApiActionQueryListGlobalGroupsParams;
+    growthmentorlist: ApiActionQueryListGrowthMentorListParams;
+    growthmentormentee: ApiActionQueryListGrowthMentorMenteeParams;
+    growthstarredmentees: ApiActionQueryListGrowthStarredMenteesParams;
+    growthtasks: ApiActionQueryListGrowthTasksParams;
+    imageusage: ApiActionQueryListQueryImageUsageParams;
+    iwbacklinks: ApiActionQueryListIWBacklinksParams;
+    langbacklinks: ApiActionQueryListLangBacklinksParams;
+    linterrors: ApiActionQueryListLinterrorsParams;
+    logevents: ApiActionQueryListLogEventsParams;
+    mostviewed: ApiActionQueryListMostViewedParams;
+    mystashedfiles: ApiActionQueryListMyStashedFilesParams;
+    oldreviewedpages: ApiActionQueryListOldreviewedpagesParams;
+    pagepropnames: ApiActionQueryListPagePropNamesParams;
+    pageswithprop: ApiActionQueryListPagesWithPropParams;
+    prefixsearch: ApiActionQueryListPrefixSearchParams;
+    projectpages: ApiActionQueryListProjectPagesParams;
+    projects: ApiActionQueryListProjectsParams;
+    protectedtitles: ApiActionQueryListProtectedTitlesParams;
+    querypage: ApiActionQueryListQueryPageParams;
+    random: ApiActionQueryListRandomParams;
+    readinglistentries: ApiActionQueryListReadingListEntriesParams;
+    recentchanges: ApiActionQueryListRecentChangesParams;
+    search: ApiActionQueryListSearchParams;
+    tags: ApiActionQueryListTagsParams;
+    usercontribs: ApiActionQueryListUserContribsParams;
+    users: ApiActionQueryListUsersParams;
+    watchlist: ApiActionQueryListWatchlistParams;
+    watchlistraw: ApiActionQueryListWatchlistRawParams;
+    wblistentityusage: ApiActionQueryListWblistentityusageParams;
+    wikisets: ApiActionQueryListWikiSetsParams;
+}
+
+type ApiActionQueryParamsMeta = keyof ApiActionQueryParamsMetaMap;
+
+interface ApiActionQueryParamsMetaMap {
+    allmessages: ApiActionQueryMetaAllMessagesParams;
+    authmanagerinfo: ApiActionQueryMetaAuthManagerInfoParams;
+    babel: ApiActionQueryMetaBabelParams;
+    communityconfiguration: ApiActionQueryMetaCommunityConfigurationParams;
+    cxdeletedtranslations: ApiActionQueryMetaCxdeletedtranslationsParams;
+    featureusage: ApiActionQueryMetaFeatureUsageParams;
+    filerepoinfo: ApiActionQueryMetaFileRepoInfoParams;
+    globalpreferences: ApiActionQueryMetaGlobalPreferencesParams;
+    globalrenamestatus: ApiActionQueryMetaGlobalRenameStatusParams;
+    globaluserinfo: ApiActionQueryMetaGlobalUserInfoParams;
+    growthmenteestatus: ApiActionQueryMetaGrowthMenteeStatusParams;
+    growthmentorstatus: ApiActionQueryMetaGrowthMentorStatusParams;
+    growthnextsuggestedtasktype: ApiActionQueryMetaGrowthNextSuggestedTaskTypeParams;
+    languageinfo: ApiActionQueryMetaLanguageinfoParams;
+    linterstats: ApiActionQueryMetaLinterStatsParams;
+    notifications: ApiActionQueryMetaNotificationsParams;
+    oath: ApiActionQueryMetaOATHParams;
+    ores: ApiActionQueryMetaORESParams;
+    readinglists: ApiActionQueryMetaReadingListsParams;
+    siteinfo: ApiActionQueryMetaSiteinfoParams;
+    siteviews: ApiActionQueryMetaSiteViewsParams;
+    tokens: ApiActionQueryMetaTokensParams;
+    unreadnotificationpages: ApiActionQueryMetaUnreadNotificationPagesParams;
+    userinfo: ApiActionQueryMetaUserInfoParams;
+    wikibase: ApiActionQueryMetaWikibaseParams;
+}
+
+type ApiActionQueryParamsGenerator = keyof ApiActionQueryParamsGeneratorMap;
+
+interface ApiActionQueryParamsGeneratorMap {
+    allcategories: ApiActionQueryGeneratorAllCategoriesParams;
+    alldeletedrevisions: ApiActionQueryGeneratorAllDeletedRevisionsParams;
+    allfileusages: ApiActionQueryGeneratorQueryAllFileUsagesParams;
+    allimages: ApiActionQueryGeneratorAllImagesParams;
+    alllinks: ApiActionQueryGeneratorAllLinksParams;
+    allpages: ApiActionQueryGeneratorAllPagesParams;
+    allredirects: ApiActionQueryGeneratorQueryAllRedirectsParams;
+    allrevisions: ApiActionQueryGeneratorAllRevisionsParams;
+    alltransclusions: ApiActionQueryGeneratorQueryAllTransclusionsParams;
+    automatictranslationdenselanguages: ApiActionQueryGeneratorAutomaticTranslationDenseLanguagesParams;
+    backlinks: ApiActionQueryGeneratorBacklinksParams;
+    categories: ApiActionQueryGeneratorCategoriesParams;
+    categorymembers: ApiActionQueryGeneratorCategoryMembersParams;
+    contenttranslation: ApiActionQueryGeneratorContentTranslationParams;
+    contenttranslationsuggestions: ApiActionQueryGeneratorContentTranslationSuggestionsParams;
+    deletedrevisions: ApiActionQueryGeneratorDeletedRevisionsParams;
+    duplicatefiles: ApiActionQueryGeneratorDuplicateFilesParams;
+    embeddedin: ApiActionQueryGeneratorQueryEmbeddedInParams;
+    exturlusage: ApiActionQueryGeneratorExturlusageParams;
+    fileusage: ApiActionQueryGeneratorQueryFileUsageParams;
+    geosearch: ApiActionQueryGeneratorGeoSearchParams;
+    growthtasks: ApiActionQueryGeneratorGrowthTasksParams;
+    images: ApiActionQueryGeneratorImagesParams;
+    imageusage: ApiActionQueryGeneratorQueryImageUsageParams;
+    iwbacklinks: ApiActionQueryGeneratorIWBacklinksParams;
+    langbacklinks: ApiActionQueryGeneratorLangBacklinksParams;
+    links: ApiActionQueryGeneratorLinksParams;
+    linkshere: ApiActionQueryGeneratorQueryLinksHereParams;
+    mostviewed: ApiActionQueryGeneratorMostViewedParams;
+    oldreviewedpages: ApiActionQueryGeneratorOldreviewedpagesParams;
+    pageswithprop: ApiActionQueryGeneratorPagesWithPropParams;
+    prefixsearch: ApiActionQueryGeneratorPrefixSearchParams;
+    projectpages: ApiActionQueryGeneratorProjectPagesParams;
+    protectedtitles: ApiActionQueryGeneratorProtectedTitlesParams;
+    querypage: ApiActionQueryGeneratorQueryPageParams;
+    random: ApiActionQueryGeneratorRandomParams;
+    readinglistentries: ApiActionQueryGeneratorReadingListEntriesParams;
+    recentchanges: ApiActionQueryGeneratorRecentChangesParams;
+    redirects: ApiActionQueryGeneratorQueryRedirectsParams;
+    revisions: ApiActionQueryGeneratorRevisionsParams;
+    search: ApiActionQueryGeneratorSearchParams;
+    templates: ApiActionQueryGeneratorQueryTemplatesParams;
+    transcludedin: ApiActionQueryGeneratorQueryTranscludedInParams;
+    watchlist: ApiActionQueryGeneratorWatchlistParams;
+    watchlistraw: ApiActionQueryGeneratorWatchlistRawParams;
+    wblistentityusage: ApiActionQueryGeneratorWblistentityusageParams;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categories}
+ */
+export interface ApiActionQueryPropCategoriesParams extends ApiActionQueryParams {
+    gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
+    gclshow?: OneOrMore<"!hidden" | "hidden">;
+    gcllimit?: limit;
+    gclcontinue?: string;
+    gclcategories?: string | string[];
+    gcldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categoryinfo}
+ */
+export interface ApiActionQueryPropCategoryInfoParams extends ApiActionQueryParams {
+    cicontinue?: string;
+}
+
+export interface ApiActionQueryPropCirrusBuildDocParams extends ApiActionQueryParams {
+    cbbuilders?: OneOrMore<"content" | "links">;
+    cblimiterprofile?: string;
+}
+
+export interface ApiActionQueryPropCirrusCompSuggestBuildDocParams extends ApiActionQueryParams {
+    csbmethod?: string;
+}
+
+export interface ApiActionQueryPropCirrusDocParams extends ApiActionQueryParams {
+    cdincludes?: string | string[];
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Contributors}
+ */
+export interface ApiActionQueryPropContributorsParams extends ApiActionQueryParams {
+    pcgroup?: OneOrMore<
+        | "abusefilter"
+        | "abusefilter-helper"
+        | "accountcreator"
+        | "autoreviewer"
+        | "bot"
+        | "bureaucrat"
+        | "checkuser"
+        | "checkuser-temporary-account-viewer"
+        | "confirmed"
+        | "copyviobot"
+        | "eventcoordinator"
+        | "extendedconfirmed"
+        | "extendedmover"
+        | "filemover"
+        | "founder"
+        | "import"
+        | "interface-admin"
+        | "ipblock-exempt"
+        | "massmessage-sender"
+        | "no-ipinfo"
+        | "patroller"
+        | "push-subscription-manager"
+        | "researcher"
+        | "reviewer"
+        | "rollbacker"
+        | "steward"
+        | "suppress"
+        | "sysop"
+        | "templateeditor"
+        | "transwiki"
+    >;
+    pcexcludegroup?: OneOrMore<
+        | "abusefilter"
+        | "abusefilter-helper"
+        | "accountcreator"
+        | "autoreviewer"
+        | "bot"
+        | "bureaucrat"
+        | "checkuser"
+        | "checkuser-temporary-account-viewer"
+        | "confirmed"
+        | "copyviobot"
+        | "eventcoordinator"
+        | "extendedconfirmed"
+        | "extendedmover"
+        | "filemover"
+        | "founder"
+        | "import"
+        | "interface-admin"
+        | "ipblock-exempt"
+        | "massmessage-sender"
+        | "no-ipinfo"
+        | "patroller"
+        | "push-subscription-manager"
+        | "researcher"
+        | "reviewer"
+        | "rollbacker"
+        | "steward"
+        | "suppress"
+        | "sysop"
+        | "templateeditor"
+        | "transwiki"
+    >;
+    pcrights?: OneOrMore<
+        | "abusefilter-access-protected-vars"
+        | "abusefilter-bypass-blocked-external-domains"
+        | "abusefilter-hidden-log"
+        | "abusefilter-hide-log"
+        | "abusefilter-log"
+        | "abusefilter-log-detail"
+        | "abusefilter-log-private"
+        | "abusefilter-modify"
+        | "abusefilter-modify-blocked-external-domains"
+        | "abusefilter-modify-global"
+        | "abusefilter-modify-restricted"
+        | "abusefilter-privatedetails"
+        | "abusefilter-privatedetails-log"
+        | "abusefilter-revert"
+        | "abusefilter-view"
+        | "abusefilter-view-private"
+        | "apihighlimits"
+        | "applychangetags"
+        | "autoconfirmed"
+        | "autocreateaccount"
+        | "autopatrol"
+        | "autoreview"
+        | "autoreviewrestore"
+        | "bigdelete"
+        | "block"
+        | "blockemail"
+        | "bot"
+        | "browsearchive"
+        | "centralauth-createlocal"
+        | "centralauth-lock"
+        | "centralauth-merge"
+        | "centralauth-rename"
+        | "centralauth-suppress"
+        | "centralauth-unmerge"
+        | "changetags"
+        | "checkuser"
+        | "checkuser-log"
+        | "checkuser-temporary-account"
+        | "checkuser-temporary-account-log"
+        | "checkuser-temporary-account-no-preference"
+        | "collectionsaveascommunitypage"
+        | "collectionsaveasuserpage"
+        | "createaccount"
+        | "createpage"
+        | "createpagemainns"
+        | "createtalk"
+        | "delete"
+        | "delete-redirect"
+        | "deletechangetags"
+        | "deletedhistory"
+        | "deletedtext"
+        | "deletelogentry"
+        | "deleterevision"
+        | "echo-create"
+        | "edit"
+        | "editautopatrolprotected"
+        | "editautoreviewprotected"
+        | "editcontentmodel"
+        | "editeditorprotected"
+        | "editextendedsemiprotected"
+        | "editinterface"
+        | "editmyoptions"
+        | "editmyprivateinfo"
+        | "editmyusercss"
+        | "editmyuserjs"
+        | "editmyuserjson"
+        | "editmyuserjsredirect"
+        | "editmywatchlist"
+        | "editprotected"
+        | "editsemiprotected"
+        | "editsitecss"
+        | "editsitejs"
+        | "editsitejson"
+        | "edittrustedprotected"
+        | "editusercss"
+        | "edituserjs"
+        | "edituserjson"
+        | "enrollasmentor"
+        | "extendedconfirmed"
+        | "flow-create-board"
+        | "flow-delete"
+        | "flow-edit-post"
+        | "flow-hide"
+        | "flow-suppress"
+        | "globalblock"
+        | "globalblock-exempt"
+        | "globalblock-whitelist"
+        | "globalgroupmembership"
+        | "globalgrouppermissions"
+        | "hideuser"
+        | "import"
+        | "importupload"
+        | "ipblock-exempt"
+        | "ipinfo"
+        | "ipinfo-view-basic"
+        | "ipinfo-view-full"
+        | "ipinfo-view-log"
+        | "manage-all-push-subscriptions"
+        | "managechangetags"
+        | "managementors"
+        | "markbotedits"
+        | "massmessage"
+        | "mergehistory"
+        | "minoredit"
+        | "move"
+        | "move-categorypages"
+        | "move-rootuserpages"
+        | "move-subpages"
+        | "movefile"
+        | "movestable"
+        | "mwoauthmanageconsumer"
+        | "mwoauthmanagemygrants"
+        | "mwoauthproposeconsumer"
+        | "mwoauthsuppress"
+        | "mwoauthupdateownconsumer"
+        | "mwoauthviewprivate"
+        | "mwoauthviewsuppressed"
+        | "newsletter-create"
+        | "newsletter-delete"
+        | "newsletter-manage"
+        | "newsletter-restore"
+        | "nominornewtalk"
+        | "noratelimit"
+        | "nuke"
+        | "oathauth-api-all"
+        | "oathauth-disable-for-user"
+        | "oathauth-enable"
+        | "oathauth-verify-user"
+        | "oathauth-view-log"
+        | "override-antispoof"
+        | "override-export-depth"
+        | "pagelang"
+        | "pagetriage-copyvio"
+        | "patrol"
+        | "patrolmarks"
+        | "protect"
+        | "read"
+        | "renameuser"
+        | "reupload"
+        | "reupload-own"
+        | "reupload-shared"
+        | "review"
+        | "rollback"
+        | "sboverride"
+        | "securepoll-create-poll"
+        | "securepoll-view-voter-pii"
+        | "sendemail"
+        | "setmentor"
+        | "sfsblock-bypass"
+        | "siteadmin"
+        | "skipcaptcha"
+        | "spamblacklistlog"
+        | "stablesettings"
+        | "suppressionlog"
+        | "suppressredirect"
+        | "suppressrevision"
+        | "tboverride"
+        | "tboverride-account"
+        | "templateeditor"
+        | "titleblacklistlog"
+        | "torunblocked"
+        | "transcode-reset"
+        | "transcode-status"
+        | "unblockself"
+        | "undelete"
+        | "unreviewedpages"
+        | "unwatchedpages"
+        | "upload"
+        | "upload_by_url"
+        | "urlshortener-create-url"
+        | "urlshortener-manage-url"
+        | "urlshortener-view-log"
+        | "userrights"
+        | "userrights-interwiki"
+        | "validate"
+        | "viewdeletedfile"
+        | "viewmyprivateinfo"
+        | "viewmywatchlist"
+        | "viewsuppressed"
+        | "vipsscaler-test"
+    >;
+    pcexcluderights?: OneOrMore<
+        | "abusefilter-access-protected-vars"
+        | "abusefilter-bypass-blocked-external-domains"
+        | "abusefilter-hidden-log"
+        | "abusefilter-hide-log"
+        | "abusefilter-log"
+        | "abusefilter-log-detail"
+        | "abusefilter-log-private"
+        | "abusefilter-modify"
+        | "abusefilter-modify-blocked-external-domains"
+        | "abusefilter-modify-global"
+        | "abusefilter-modify-restricted"
+        | "abusefilter-privatedetails"
+        | "abusefilter-privatedetails-log"
+        | "abusefilter-revert"
+        | "abusefilter-view"
+        | "abusefilter-view-private"
+        | "apihighlimits"
+        | "applychangetags"
+        | "autoconfirmed"
+        | "autocreateaccount"
+        | "autopatrol"
+        | "autoreview"
+        | "autoreviewrestore"
+        | "bigdelete"
+        | "block"
+        | "blockemail"
+        | "bot"
+        | "browsearchive"
+        | "centralauth-createlocal"
+        | "centralauth-lock"
+        | "centralauth-merge"
+        | "centralauth-rename"
+        | "centralauth-suppress"
+        | "centralauth-unmerge"
+        | "changetags"
+        | "checkuser"
+        | "checkuser-log"
+        | "checkuser-temporary-account"
+        | "checkuser-temporary-account-log"
+        | "checkuser-temporary-account-no-preference"
+        | "collectionsaveascommunitypage"
+        | "collectionsaveasuserpage"
+        | "createaccount"
+        | "createpage"
+        | "createpagemainns"
+        | "createtalk"
+        | "delete"
+        | "delete-redirect"
+        | "deletechangetags"
+        | "deletedhistory"
+        | "deletedtext"
+        | "deletelogentry"
+        | "deleterevision"
+        | "echo-create"
+        | "edit"
+        | "editautopatrolprotected"
+        | "editautoreviewprotected"
+        | "editcontentmodel"
+        | "editeditorprotected"
+        | "editextendedsemiprotected"
+        | "editinterface"
+        | "editmyoptions"
+        | "editmyprivateinfo"
+        | "editmyusercss"
+        | "editmyuserjs"
+        | "editmyuserjson"
+        | "editmyuserjsredirect"
+        | "editmywatchlist"
+        | "editprotected"
+        | "editsemiprotected"
+        | "editsitecss"
+        | "editsitejs"
+        | "editsitejson"
+        | "edittrustedprotected"
+        | "editusercss"
+        | "edituserjs"
+        | "edituserjson"
+        | "enrollasmentor"
+        | "extendedconfirmed"
+        | "flow-create-board"
+        | "flow-delete"
+        | "flow-edit-post"
+        | "flow-hide"
+        | "flow-suppress"
+        | "globalblock"
+        | "globalblock-exempt"
+        | "globalblock-whitelist"
+        | "globalgroupmembership"
+        | "globalgrouppermissions"
+        | "hideuser"
+        | "import"
+        | "importupload"
+        | "ipblock-exempt"
+        | "ipinfo"
+        | "ipinfo-view-basic"
+        | "ipinfo-view-full"
+        | "ipinfo-view-log"
+        | "manage-all-push-subscriptions"
+        | "managechangetags"
+        | "managementors"
+        | "markbotedits"
+        | "massmessage"
+        | "mergehistory"
+        | "minoredit"
+        | "move"
+        | "move-categorypages"
+        | "move-rootuserpages"
+        | "move-subpages"
+        | "movefile"
+        | "movestable"
+        | "mwoauthmanageconsumer"
+        | "mwoauthmanagemygrants"
+        | "mwoauthproposeconsumer"
+        | "mwoauthsuppress"
+        | "mwoauthupdateownconsumer"
+        | "mwoauthviewprivate"
+        | "mwoauthviewsuppressed"
+        | "newsletter-create"
+        | "newsletter-delete"
+        | "newsletter-manage"
+        | "newsletter-restore"
+        | "nominornewtalk"
+        | "noratelimit"
+        | "nuke"
+        | "oathauth-api-all"
+        | "oathauth-disable-for-user"
+        | "oathauth-enable"
+        | "oathauth-verify-user"
+        | "oathauth-view-log"
+        | "override-antispoof"
+        | "override-export-depth"
+        | "pagelang"
+        | "pagetriage-copyvio"
+        | "patrol"
+        | "patrolmarks"
+        | "protect"
+        | "read"
+        | "renameuser"
+        | "reupload"
+        | "reupload-own"
+        | "reupload-shared"
+        | "review"
+        | "rollback"
+        | "sboverride"
+        | "securepoll-create-poll"
+        | "securepoll-view-voter-pii"
+        | "sendemail"
+        | "setmentor"
+        | "sfsblock-bypass"
+        | "siteadmin"
+        | "skipcaptcha"
+        | "spamblacklistlog"
+        | "stablesettings"
+        | "suppressionlog"
+        | "suppressredirect"
+        | "suppressrevision"
+        | "tboverride"
+        | "tboverride-account"
+        | "templateeditor"
+        | "titleblacklistlog"
+        | "torunblocked"
+        | "transcode-reset"
+        | "transcode-status"
+        | "unblockself"
+        | "undelete"
+        | "unreviewedpages"
+        | "unwatchedpages"
+        | "upload"
+        | "upload_by_url"
+        | "urlshortener-create-url"
+        | "urlshortener-manage-url"
+        | "urlshortener-view-log"
+        | "userrights"
+        | "userrights-interwiki"
+        | "validate"
+        | "viewdeletedfile"
+        | "viewmyprivateinfo"
+        | "viewmywatchlist"
+        | "viewsuppressed"
+        | "vipsscaler-test"
+    >;
+    pclimit?: limit;
+    pccontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GeoData#prop.3Dcoordinates}
+ */
+export interface ApiActionQueryPropCoordinatesParams extends ApiActionQueryParams {
+    colimit?: limit;
+    cocontinue?: string;
+    coprop?: OneOrMore<"country" | "dim" | "globe" | "name" | "region" | "type">;
+    coprimary?: "all" | "primary" | "secondary";
+    codistancefrompoint?: string;
+    codistancefrompage?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Deletedrevisions}
+ */
+export interface ApiActionQueryPropDeletedRevisionsParams extends ApiActionQueryParams {
+    gdrvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    gdrvslots?: string | string[];
+    [k: `gdrvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gdrvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvparse?: boolean;
+    gdrvsection?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvstart?: timestamp;
+    gdrvend?: timestamp;
+    gdrvdir?: "newer" | "older";
+    gdrvtag?: string;
+    gdrvuser?: string;
+    gdrvexcludeuser?: string;
+    gdrvcontinue?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionQueryPropDescriptionParams extends ApiActionQueryParams {
+    desccontinue?: number;
+    descprefersource?: "central" | "local";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Duplicatefiles}
+ */
+export interface ApiActionQueryPropDuplicateFilesParams extends ApiActionQueryParams {
+    gdflimit?: limit;
+    gdfcontinue?: string;
+    gdfdir?: "ascending" | "descending";
+    gdflocalonly?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Extlinks}
+ */
+export interface ApiActionQueryPropExtlinksParams extends ApiActionQueryParams {
+    ellimit?: limit;
+    elcontinue?: string;
+    elprotocol?:
+        | ""
+        | "bitcoin"
+        | "ftp"
+        | "ftps"
+        | "geo"
+        | "git"
+        | "gopher"
+        | "http"
+        | "https"
+        | "irc"
+        | "ircs"
+        | "magnet"
+        | "mailto"
+        | "matrix"
+        | "mms"
+        | "news"
+        | "nntp"
+        | "redis"
+        | "sftp"
+        | "sip"
+        | "sips"
+        | "sms"
+        | "ssh"
+        | "svn"
+        | "tel"
+        | "telnet"
+        | "urn"
+        | "worldwind"
+        | "xmpp";
+    elquery?: string;
+    /**
+     * @deprecated
+     */
+    elexpandurl?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TextExtracts#API}
+ */
+export interface ApiActionQueryPropExtractsParams extends ApiActionQueryParams {
+    exchars?: number;
+    exsentences?: number;
+    exlimit?: limit;
+    exintro?: boolean;
+    explaintext?: boolean;
+    exsectionformat?: "plain" | "raw" | "wiki";
+    excontinue?: number;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
+ */
+export interface ApiActionQueryPropQueryFileUsageParams extends ApiActionQueryParams {
+    gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gfunamespace?: namespace | namespace[];
+    gfushow?: OneOrMore<"!redirect" | "redirect">;
+    gfulimit?: limit;
+    gfucontinue?: string;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryPropFlaggedParams extends ApiActionQueryParams {}
+
+export interface ApiActionQueryPropGlobalUsageParams extends ApiActionQueryParams {
+    guprop?: OneOrMore<"namespace" | "pageid" | "url">;
+    gulimit?: limit;
+    gunamespace?: namespace | namespace[];
+    gusite?: string | string[];
+    gucontinue?: string;
+    gufilterlocal?: boolean;
+}
+
+export interface ApiActionQueryPropGrowthImageSuggestionDataParams extends ApiActionQueryParams {
+    gisdtasktype?: "image-recommendation" | "section-image-recommendation";
+    gisdcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageinfo}
+ */
+export interface ApiActionQueryPropImageInfoParams extends ApiActionQueryParams {
+    iiprop?: OneOrMore<
+        | "archivename"
+        | "badfile"
+        | "bitdepth"
+        | "canonicaltitle"
+        | "comment"
+        | "commonmetadata"
+        | "dimensions"
+        | "extmetadata"
+        | "mediatype"
+        | "metadata"
+        | "mime"
+        | "parsedcomment"
+        | "sha1"
+        | "size"
+        | "thumbmime"
+        | "timestamp"
+        | "uploadwarning"
+        | "url"
+        | "user"
+        | "userid"
+    >;
+    iilimit?: limit;
+    iistart?: timestamp;
+    iiend?: timestamp;
+    iiurlwidth?: number;
+    iiurlheight?: number;
+    iimetadataversion?: string;
+    iiextmetadatalanguage?: string;
+    iiextmetadatamultilang?: boolean;
+    iiextmetadatafilter?: string | string[];
+    iiurlparam?: string;
+    iibadfilecontexttitle?: string;
+    iicontinue?: string;
+    iilocalonly?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Images}
+ */
+export interface ApiActionQueryPropImagesParams extends ApiActionQueryParams {
+    gimlimit?: limit;
+    gimcontinue?: string;
+    gimimages?: string | string[];
+    gimdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Info}
+ */
+export interface ApiActionQueryPropInfoParams extends ApiActionQueryParams {
+    inprop?: OneOrMore<
+        | "associatedpage"
+        | "displaytitle"
+        | "editintro"
+        | "linkclasses"
+        | "notificationtimestamp"
+        | "preloadcontent"
+        | "protection"
+        | "subjectid"
+        | "talkid"
+        | "url"
+        | "varianttitles"
+        | "visitingwatchers"
+        | "watched"
+        | "watchers"
+        | "preload"
+        | "readable"
+    >;
+    inlinkcontext?: string;
+    intestactions?: string | string[];
+    intestactionsdetail?: "boolean" | "full" | "quick";
+    intestactionsautocreate?: boolean;
+    inpreloadcustom?: string;
+    inpreloadparams?: string | string[];
+    inpreloadnewsection?: boolean;
+    ineditintrostyle?: "lessframes" | "moreframes";
+    ineditintroskip?: string | string[];
+    ineditintrocustom?: string;
+    incontinue?: string;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryPropIsReviewedParams extends ApiActionQueryParams {}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Iwlinks}
+ */
+export interface ApiActionQueryPropIWLinksParams extends ApiActionQueryParams {
+    iwprop?: OneOrMore<"url">;
+    iwprefix?: string;
+    iwtitle?: string;
+    iwdir?: "ascending" | "descending";
+    iwlimit?: limit;
+    iwcontinue?: string;
+    /**
+     * @deprecated
+     */
+    iwurl?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Langlinks}
+ */
+export interface ApiActionQueryPropLangLinksParams extends ApiActionQueryParams {
+    llprop?: OneOrMore<"autonym" | "langname" | "url">;
+    lllang?: string;
+    lltitle?: string;
+    lldir?: "ascending" | "descending";
+    llinlanguagecode?: string;
+    lllimit?: limit;
+    llcontinue?: string;
+    /**
+     * @deprecated
+     */
+    llurl?: boolean;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryPropLangLinksCountParams extends ApiActionQueryParams {}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Links}
+ */
+export interface ApiActionQueryPropLinksParams extends ApiActionQueryParams {
+    gplnamespace?: namespace | namespace[];
+    gpllimit?: limit;
+    gplcontinue?: string;
+    gpltitles?: string | string[];
+    gpldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
+ */
+export interface ApiActionQueryPropQueryLinksHereParams extends ApiActionQueryParams {
+    glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    glhnamespace?: namespace | namespace[];
+    glhshow?: OneOrMore<"!redirect" | "redirect">;
+    glhlimit?: limit;
+    glhcontinue?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionQueryPropMapDataParams extends ApiActionQueryParams {
+    mpdgroups?: string;
+    mpdlimit?: limit;
+    mpdcontinue?: number;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryPropMMContentParams extends ApiActionQueryParams {}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageAssessments}
+ */
+export interface ApiActionQueryPropPageAssessmentsParams extends ApiActionQueryParams {
+    pacontinue?: string;
+    palimit?: limit;
+    pasubprojects?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageImages#API}
+ */
+export interface ApiActionQueryPropPageImagesParams extends ApiActionQueryParams {
+    piprop?: OneOrMore<"name" | "original" | "thumbnail">;
+    pithumbsize?: number;
+    pilimit?: limit;
+    pilicense?: "any" | "free";
+    picontinue?: number;
+    pilangcode?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Pageprops}
+ */
+export interface ApiActionQueryPropPagePropsParams extends ApiActionQueryParams {
+    ppcontinue?: string;
+    ppprop?: string | string[];
+}
+
+export interface ApiActionQueryPropPageTermsParams extends ApiActionQueryParams {
+    wbptcontinue?: number;
+    wbptlanguage?:
+        | "aa"
+        | "aae"
+        | "ab"
+        | "abs"
+        | "ace"
+        | "acf"
+        | "acm"
+        | "ady"
+        | "ady-cyrl"
+        | "aeb"
+        | "aeb-arab"
+        | "aeb-latn"
+        | "af"
+        | "agq"
+        | "aln"
+        | "als"
+        | "alt"
+        | "am"
+        | "ami"
+        | "an"
+        | "ang"
+        | "ann"
+        | "anp"
+        | "apc"
+        | "ar"
+        | "arc"
+        | "arn"
+        | "arq"
+        | "ary"
+        | "arz"
+        | "as"
+        | "ase"
+        | "ast"
+        | "atj"
+        | "av"
+        | "avk"
+        | "awa"
+        | "ay"
+        | "az"
+        | "azb"
+        | "ba"
+        | "bag"
+        | "ban"
+        | "ban-bali"
+        | "bar"
+        | "bas"
+        | "bat-smg"
+        | "bax"
+        | "bbc"
+        | "bbc-latn"
+        | "bbj"
+        | "bcc"
+        | "bci"
+        | "bcl"
+        | "bdr"
+        | "be"
+        | "be-tarask"
+        | "be-x-old"
+        | "bew"
+        | "bfd"
+        | "bg"
+        | "bgc"
+        | "bgn"
+        | "bh"
+        | "bho"
+        | "bi"
+        | "bjn"
+        | "bkc"
+        | "bkh"
+        | "bkm"
+        | "blk"
+        | "bm"
+        | "bn"
+        | "bo"
+        | "bpy"
+        | "bqi"
+        | "bqz"
+        | "br"
+        | "brh"
+        | "bs"
+        | "btm"
+        | "bto"
+        | "bug"
+        | "bxr"
+        | "byv"
+        | "ca"
+        | "cak"
+        | "cal"
+        | "cbk-zam"
+        | "ccp"
+        | "cdo"
+        | "ce"
+        | "ceb"
+        | "ch"
+        | "chn"
+        | "cho"
+        | "chr"
+        | "chy"
+        | "ckb"
+        | "cnh"
+        | "co"
+        | "cps"
+        | "cpx"
+        | "cpx-hans"
+        | "cpx-hant"
+        | "cpx-latn"
+        | "cr"
+        | "crh"
+        | "crh-cyrl"
+        | "crh-latn"
+        | "crh-ro"
+        | "cs"
+        | "csb"
+        | "cu"
+        | "cv"
+        | "cy"
+        | "da"
+        | "dag"
+        | "de"
+        | "de-at"
+        | "de-ch"
+        | "de-formal"
+        | "dga"
+        | "din"
+        | "diq"
+        | "dsb"
+        | "dtp"
+        | "dty"
+        | "dua"
+        | "dv"
+        | "dz"
+        | "ee"
+        | "efi"
+        | "egl"
+        | "el"
+        | "eml"
+        | "en"
+        | "en-ca"
+        | "en-gb"
+        | "en-us"
+        | "eo"
+        | "es"
+        | "es-419"
+        | "es-formal"
+        | "et"
+        | "eto"
+        | "etu"
+        | "eu"
+        | "ewo"
+        | "ext"
+        | "fa"
+        | "fat"
+        | "ff"
+        | "fi"
+        | "fit"
+        | "fiu-vro"
+        | "fj"
+        | "fkv"
+        | "fmp"
+        | "fo"
+        | "fon"
+        | "fr"
+        | "frc"
+        | "frp"
+        | "frr"
+        | "fur"
+        | "fy"
+        | "ga"
+        | "gaa"
+        | "gag"
+        | "gan"
+        | "gan-hans"
+        | "gan-hant"
+        | "gcf"
+        | "gcr"
+        | "gd"
+        | "gl"
+        | "gld"
+        | "glk"
+        | "gn"
+        | "gom"
+        | "gom-deva"
+        | "gom-latn"
+        | "gor"
+        | "got"
+        | "gpe"
+        | "grc"
+        | "gsw"
+        | "gu"
+        | "guc"
+        | "gur"
+        | "guw"
+        | "gv"
+        | "gya"
+        | "ha"
+        | "hak"
+        | "hak-hans"
+        | "hak-hant"
+        | "hak-latn"
+        | "haw"
+        | "he"
+        | "hi"
+        | "hif"
+        | "hif-latn"
+        | "hil"
+        | "hno"
+        | "ho"
+        | "hr"
+        | "hrx"
+        | "hsb"
+        | "hsn"
+        | "ht"
+        | "hu"
+        | "hu-formal"
+        | "hy"
+        | "hyw"
+        | "hz"
+        | "ia"
+        | "iba"
+        | "ibb"
+        | "id"
+        | "ie"
+        | "ig"
+        | "igl"
+        | "ii"
+        | "ik"
+        | "ike-cans"
+        | "ike-latn"
+        | "ilo"
+        | "inh"
+        | "io"
+        | "is"
+        | "isu"
+        | "isv-cyrl"
+        | "isv-latn"
+        | "it"
+        | "iu"
+        | "ja"
+        | "jam"
+        | "jbo"
+        | "jut"
+        | "jv"
+        | "ka"
+        | "kaa"
+        | "kab"
+        | "kai"
+        | "kbd"
+        | "kbd-cyrl"
+        | "kbp"
+        | "kcg"
+        | "kea"
+        | "ker"
+        | "kg"
+        | "kge"
+        | "khw"
+        | "ki"
+        | "kiu"
+        | "kj"
+        | "kjh"
+        | "kjp"
+        | "kk"
+        | "kk-arab"
+        | "kk-cn"
+        | "kk-cyrl"
+        | "kk-kz"
+        | "kk-latn"
+        | "kk-tr"
+        | "kl"
+        | "km"
+        | "kn"
+        | "ko"
+        | "ko-kp"
+        | "koi"
+        | "kr"
+        | "krc"
+        | "kri"
+        | "krj"
+        | "krl"
+        | "ks"
+        | "ks-arab"
+        | "ks-deva"
+        | "ksf"
+        | "ksh"
+        | "ksw"
+        | "ku"
+        | "ku-arab"
+        | "ku-latn"
+        | "kum"
+        | "kus"
+        | "kv"
+        | "kw"
+        | "ky"
+        | "la"
+        | "lad"
+        | "lb"
+        | "lbe"
+        | "lem"
+        | "lez"
+        | "lfn"
+        | "lg"
+        | "li"
+        | "lij"
+        | "liv"
+        | "lki"
+        | "lld"
+        | "lmo"
+        | "ln"
+        | "lns"
+        | "lo"
+        | "loz"
+        | "lrc"
+        | "lt"
+        | "ltg"
+        | "lua"
+        | "lus"
+        | "luz"
+        | "lv"
+        | "lzh"
+        | "lzz"
+        | "mad"
+        | "mag"
+        | "mai"
+        | "map-bms"
+        | "mcn"
+        | "mcp"
+        | "mdf"
+        | "mg"
+        | "mh"
+        | "mhr"
+        | "mi"
+        | "min"
+        | "mk"
+        | "ml"
+        | "mn"
+        | "mnc"
+        | "mnc-latn"
+        | "mnc-mong"
+        | "mni"
+        | "mnw"
+        | "mo"
+        | "mos"
+        | "mr"
+        | "mrh"
+        | "mrj"
+        | "ms"
+        | "ms-arab"
+        | "mt"
+        | "mua"
+        | "mui"
+        | "mul"
+        | "mus"
+        | "mwl"
+        | "my"
+        | "myv"
+        | "mzn"
+        | "na"
+        | "nah"
+        | "nan"
+        | "nan-hani"
+        | "nan-hant"
+        | "nan-latn-pehoeji"
+        | "nan-latn-tailo"
+        | "nap"
+        | "nb"
+        | "nds"
+        | "nds-nl"
+        | "ne"
+        | "new"
+        | "ng"
+        | "nge"
+        | "nia"
+        | "nit"
+        | "niu"
+        | "nl"
+        | "nl-informal"
+        | "nla"
+        | "nmg"
+        | "nmz"
+        | "nn"
+        | "nnh"
+        | "nnz"
+        | "no"
+        | "nod"
+        | "nog"
+        | "nov"
+        | "nqo"
+        | "nr"
+        | "nrm"
+        | "nso"
+        | "nup"
+        | "nv"
+        | "ny"
+        | "nyn"
+        | "nyo"
+        | "nys"
+        | "oc"
+        | "ojb"
+        | "olo"
+        | "om"
+        | "or"
+        | "os"
+        | "osa-latn"
+        | "ota"
+        | "pa"
+        | "pag"
+        | "pam"
+        | "pap"
+        | "pap-aw"
+        | "pcd"
+        | "pcm"
+        | "pdc"
+        | "pdt"
+        | "pfl"
+        | "pi"
+        | "pih"
+        | "pl"
+        | "pms"
+        | "pnb"
+        | "pnt"
+        | "prg"
+        | "ps"
+        | "pt"
+        | "pt-br"
+        | "pwn"
+        | "qu"
+        | "quc"
+        | "qug"
+        | "rgn"
+        | "rif"
+        | "rki"
+        | "rm"
+        | "rmc"
+        | "rmf"
+        | "rmy"
+        | "rn"
+        | "ro"
+        | "roa-rup"
+        | "roa-tara"
+        | "rsk"
+        | "ru"
+        | "rue"
+        | "rup"
+        | "ruq"
+        | "ruq-cyrl"
+        | "ruq-latn"
+        | "rut"
+        | "rw"
+        | "rwr"
+        | "ryu"
+        | "sa"
+        | "sah"
+        | "sat"
+        | "sc"
+        | "scn"
+        | "sco"
+        | "sd"
+        | "sdc"
+        | "sdh"
+        | "se"
+        | "se-fi"
+        | "se-no"
+        | "se-se"
+        | "sei"
+        | "ses"
+        | "sg"
+        | "sgs"
+        | "sh"
+        | "sh-cyrl"
+        | "sh-latn"
+        | "shi"
+        | "shi-latn"
+        | "shi-tfng"
+        | "shn"
+        | "shy"
+        | "shy-latn"
+        | "si"
+        | "simple"
+        | "sjd"
+        | "sje"
+        | "sju"
+        | "sk"
+        | "skr"
+        | "skr-arab"
+        | "sl"
+        | "sli"
+        | "sm"
+        | "sma"
+        | "smj"
+        | "smn"
+        | "sms"
+        | "sn"
+        | "so"
+        | "sq"
+        | "sr"
+        | "sr-ec"
+        | "sr-el"
+        | "srn"
+        | "sro"
+        | "srq"
+        | "ss"
+        | "st"
+        | "stq"
+        | "sty"
+        | "su"
+        | "sv"
+        | "sw"
+        | "syl"
+        | "szl"
+        | "szy"
+        | "ta"
+        | "tay"
+        | "tcy"
+        | "tdd"
+        | "te"
+        | "tet"
+        | "tg"
+        | "tg-cyrl"
+        | "tg-latn"
+        | "th"
+        | "ti"
+        | "tig"
+        | "tk"
+        | "tl"
+        | "tly"
+        | "tly-cyrl"
+        | "tn"
+        | "to"
+        | "tok"
+        | "tpi"
+        | "tpv"
+        | "tr"
+        | "tru"
+        | "trv"
+        | "ts"
+        | "tt"
+        | "tt-cyrl"
+        | "tt-latn"
+        | "ttj"
+        | "tum"
+        | "tvu"
+        | "tw"
+        | "ty"
+        | "tyv"
+        | "tzm"
+        | "udm"
+        | "ug"
+        | "ug-arab"
+        | "ug-latn"
+        | "uk"
+        | "ur"
+        | "uselang"
+        | "uz"
+        | "uz-cyrl"
+        | "uz-latn"
+        | "ve"
+        | "vec"
+        | "vep"
+        | "vi"
+        | "vls"
+        | "vmf"
+        | "vmw"
+        | "vo"
+        | "vot"
+        | "vro"
+        | "vut"
+        | "wa"
+        | "wal"
+        | "war"
+        | "wes"
+        | "wls"
+        | "wo"
+        | "wuu"
+        | "wuu-hans"
+        | "wuu-hant"
+        | "wya"
+        | "xal"
+        | "xh"
+        | "xmf"
+        | "xsy"
+        | "yas"
+        | "yat"
+        | "yav"
+        | "ybb"
+        | "yi"
+        | "yo"
+        | "yrl"
+        | "yue"
+        | "yue-hans"
+        | "yue-hant"
+        | "za"
+        | "zea"
+        | "zgh"
+        | "zgh-latn"
+        | "zh"
+        | "zh-classical"
+        | "zh-cn"
+        | "zh-hans"
+        | "zh-hant"
+        | "zh-hk"
+        | "zh-min-nan"
+        | "zh-mo"
+        | "zh-my"
+        | "zh-sg"
+        | "zh-tw"
+        | "zh-yue"
+        | "zu";
+    wbptterms?: OneOrMore<"alias" | "description" | "label">;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
+ */
+export interface ApiActionQueryPropPageViewsParams extends ApiActionQueryParams {
+    pvipmetric?: "pageviews";
+    pvipdays?: number;
+    pvipcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
+ */
+export interface ApiActionQueryPropQueryRedirectsParams extends ApiActionQueryParams {
+    grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
+    grdnamespace?: namespace | namespace[];
+    grdshow?: OneOrMore<"!fragment" | "fragment">;
+    grdlimit?: limit;
+    grdcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisions}
+ */
+export interface ApiActionQueryPropRevisionsParams extends ApiActionQueryParams {
+    grvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flagged"
+        | "flags"
+        | "ids"
+        | "oresscores"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    grvslots?: string | string[];
+    [k: `grvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    grvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    grvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    grvparse?: boolean;
+    grvsection?: string;
+    /**
+     * @deprecated
+     */
+    grvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    grvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvstartid?: number;
+    grvendid?: number;
+    grvstart?: timestamp;
+    grvend?: timestamp;
+    grvdir?: "newer" | "older";
+    grvuser?: string;
+    grvexcludeuser?: string;
+    grvtag?: string;
+    grvcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Stashimageinfo}
+ */
+export interface ApiActionQueryPropStashImageInfoParams extends ApiActionQueryParams {
+    siifilekey?: string | string[];
+    /**
+     * @deprecated
+     */
+    siisessionkey?: string | string[];
+    siiprop?: OneOrMore<
+        | "badfile"
+        | "bitdepth"
+        | "canonicaltitle"
+        | "commonmetadata"
+        | "dimensions"
+        | "extmetadata"
+        | "metadata"
+        | "mime"
+        | "sha1"
+        | "size"
+        | "thumbmime"
+        | "timestamp"
+        | "url"
+    >;
+    siiurlwidth?: number;
+    siiurlheight?: number;
+    siiurlparam?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
+ */
+export interface ApiActionQueryPropQueryTemplatesParams extends ApiActionQueryParams {
+    gtlnamespace?: namespace | namespace[];
+    gtllimit?: limit;
+    gtlcontinue?: string;
+    gtltemplates?: string | string[];
+    gtldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
+ */
+export interface ApiActionQueryPropQueryTranscludedInParams extends ApiActionQueryParams {
+    gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gtinamespace?: namespace | namespace[];
+    gtishow?: OneOrMore<"!redirect" | "redirect">;
+    gtilimit?: limit;
+    gticontinue?: string;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryPropTranscodeStatusParams extends ApiActionQueryParams {}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Videoinfo}
+ */
+export interface ApiActionQueryPropVideoInfoParams extends ApiActionQueryParams {
+    viprop?: OneOrMore<
+        | "archivename"
+        | "badfile"
+        | "bitdepth"
+        | "canonicaltitle"
+        | "comment"
+        | "commonmetadata"
+        | "derivatives"
+        | "dimensions"
+        | "extmetadata"
+        | "mediatype"
+        | "metadata"
+        | "mime"
+        | "parsedcomment"
+        | "sha1"
+        | "size"
+        | "thumbmime"
+        | "timedtext"
+        | "timestamp"
+        | "uploadwarning"
+        | "url"
+        | "user"
+        | "userid"
+    >;
+    vilimit?: limit;
+    vistart?: timestamp;
+    viend?: timestamp;
+    viurlwidth?: number;
+    viurlheight?: number;
+    vimetadataversion?: string;
+    viextmetadatalanguage?: string;
+    viextmetadatamultilang?: boolean;
+    viextmetadatafilter?: string | string[];
+    viurlparam?: string;
+    vibadfilecontexttitle?: string;
+    vicontinue?: string;
+    vilocalonly?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API#wbentityusage}
+ */
+export interface ApiActionQueryPropWbentityusageParams extends ApiActionQueryParams {
+    wbeuprop?: OneOrMore<"url">;
+    wbeuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
+    wbeuentities?: string | string[];
+    wbeulimit?: limit;
+    wbeucontinue?: string;
+}
+
+export interface ApiActionQueryListAbuseFiltersParams extends ApiActionQueryParams {
     abfstartid?: number;
     abfendid?: number;
     abfdir?: "newer" | "older";
-    abfshow?: OneOrMore<"!deleted" | "!enabled" | "!private" | "deleted" | "enabled" | "private">;
+    abfshow?: OneOrMore<
+        | "!deleted"
+        | "!enabled"
+        | "!private"
+        | "!protected"
+        | "deleted"
+        | "enabled"
+        | "private"
+        | "protected"
+    >;
     abflimit?: limit;
     abfprop?: OneOrMore<
         | "actions"
@@ -2092,11 +5369,12 @@ export interface AbuseFilterApiQueryAbuseFiltersParams extends ApiQueryParams {
         | "lastedittime"
         | "pattern"
         | "private"
+        | "protected"
         | "status"
     >;
 }
 
-export interface AbuseFilterApiQueryAbuseLogParams extends ApiQueryParams {
+export interface ApiActionQueryListAbuseLogParams extends ApiActionQueryParams {
     afllogid?: number;
     aflstart?: timestamp;
     aflend?: timestamp;
@@ -2119,20 +5397,26 @@ export interface AbuseFilterApiQueryAbuseLogParams extends ApiQueryParams {
     >;
 }
 
-export interface ApiQueryAllCategoriesParams extends ApiQueryParams {
-    acfrom?: string;
-    accontinue?: string;
-    acto?: string;
-    acprefix?: string;
-    acdir?: "ascending" | "descending";
-    acmin?: number;
-    acmax?: number;
-    aclimit?: limit;
-    acprop?: OneOrMore<"hidden" | "size">;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allcategories}
+ */
+export interface ApiActionQueryListAllCategoriesParams extends ApiActionQueryParams {
+    gacfrom?: string;
+    gaccontinue?: string;
+    gacto?: string;
+    gacprefix?: string;
+    gacdir?: "ascending" | "descending";
+    gacmin?: number;
+    gacmax?: number;
+    gaclimit?: limit;
+    gacprop?: OneOrMore<"hidden" | "size">;
 }
 
-export interface ApiQueryAllDeletedRevisionsParams extends ApiQueryParams {
-    adrprop?: OneOrMore<
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alldeletedrevisions}
+ */
+export interface ApiActionQueryListAllDeletedRevisionsParams extends ApiActionQueryParams {
+    gadrprop?: OneOrMore<
         | "comment"
         | "content"
         | "contentmodel"
@@ -2150,16 +5434,8 @@ export interface ApiQueryAllDeletedRevisionsParams extends ApiQueryParams {
         | "userid"
         | "parsetree"
     >;
-    adrslots?: OneOrMore<"main">;
-    adrlimit?: limit;
-    adrexpandtemplates?: boolean;
-    adrgeneratexml?: boolean;
-    adrparse?: boolean;
-    adrsection?: string;
-    adrdiffto?: string;
-    adrdifftotext?: string;
-    adrdifftotextpst?: boolean;
-    adrcontentformat?:
+    gadrslots?: string | string[];
+    [k: `gadrcontentformat-${string}`]:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
@@ -2170,40 +5446,86 @@ export interface ApiQueryAllDeletedRevisionsParams extends ApiQueryParams {
         | "text/unknown"
         | "text/x-wiki"
         | "unknown/unknown";
-    adruser?: string;
-    adrnamespace?: namespace | namespace[];
-    adrstart?: timestamp;
-    adrend?: timestamp;
-    adrdir?: "newer" | "older";
-    adrfrom?: string;
-    adrto?: string;
-    adrprefix?: string;
-    adrexcludeuser?: string;
-    adrtag?: string;
-    adrcontinue?: string;
-    adrgeneratetitles?: boolean;
+    gadrlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gadrexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrparse?: boolean;
+    gadrsection?: string;
+    /**
+     * @deprecated
+     */
+    gadrdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gadruser?: string;
+    gadrnamespace?: namespace | namespace[];
+    gadrstart?: timestamp;
+    gadrend?: timestamp;
+    gadrdir?: "newer" | "older";
+    gadrfrom?: string;
+    gadrto?: string;
+    gadrprefix?: string;
+    gadrexcludeuser?: string;
+    gadrtag?: string;
+    gadrcontinue?: string;
+    gadrgeneratetitles?: boolean;
 }
 
-export interface ApiQueryAllFileUsagesParams extends ApiQueryParams {
-    afcontinue?: string;
-    affrom?: string;
-    afto?: string;
-    afprefix?: string;
-    afunique?: boolean;
-    afprop?: OneOrMore<"ids" | "title">;
-    aflimit?: limit;
-    afdir?: "ascending" | "descending";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
+ */
+export interface ApiActionQueryListQueryAllFileUsagesParams extends ApiActionQueryParams {
+    gafcontinue?: string;
+    gaffrom?: string;
+    gafto?: string;
+    gafprefix?: string;
+    gafunique?: boolean;
+    gafprop?: OneOrMore<"ids" | "title">;
+    gaflimit?: limit;
+    gafdir?: "ascending" | "descending";
 }
 
-export interface ApiQueryAllImagesParams extends ApiQueryParams {
-    aisort?: "name" | "timestamp";
-    aidir?: "ascending" | "descending" | "newer" | "older";
-    aifrom?: string;
-    aito?: string;
-    aicontinue?: string;
-    aistart?: timestamp;
-    aiend?: timestamp;
-    aiprop?: OneOrMore<
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allimages}
+ */
+export interface ApiActionQueryListAllImagesParams extends ApiActionQueryParams {
+    gaisort?: "name" | "timestamp";
+    gaidir?: "ascending" | "descending" | "newer" | "older";
+    gaifrom?: string;
+    gaito?: string;
+    gaicontinue?: string;
+    gaistart?: timestamp;
+    gaiend?: timestamp;
+    gaiprop?: OneOrMore<
         | "badfile"
         | "bitdepth"
         | "canonicaltitle"
@@ -2222,77 +5544,73 @@ export interface ApiQueryAllImagesParams extends ApiQueryParams {
         | "user"
         | "userid"
     >;
-    aiprefix?: string;
-    aiminsize?: number;
-    aimaxsize?: number;
-    aisha1?: string;
-    aisha1base36?: string;
-    aiuser?: string;
-    aifilterbots?: "all" | "bots" | "nobots";
-    aimime?: string | string[];
-    ailimit?: limit;
+    gaiprefix?: string;
+    gaiminsize?: number;
+    gaimaxsize?: number;
+    gaisha1?: string;
+    gaisha1base36?: string;
+    gaiuser?: string;
+    gaifilterbots?: "all" | "bots" | "nobots";
+    gaimime?: string | string[];
+    gailimit?: limit;
 }
 
-export interface ApiQueryAllLinksParams extends ApiQueryParams {
-    alcontinue?: string;
-    alfrom?: string;
-    alto?: string;
-    alprefix?: string;
-    alunique?: boolean;
-    alprop?: OneOrMore<"ids" | "title">;
-    alnamespace?: namespace;
-    allimit?: limit;
-    aldir?: "ascending" | "descending";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alllinks}
+ */
+export interface ApiActionQueryListAllLinksParams extends ApiActionQueryParams {
+    galcontinue?: string;
+    galfrom?: string;
+    galto?: string;
+    galprefix?: string;
+    galunique?: boolean;
+    galprop?: OneOrMore<"ids" | "title">;
+    galnamespace?: namespace;
+    gallimit?: limit;
+    galdir?: "ascending" | "descending";
 }
 
-export interface ApiQueryAllMessagesParams extends ApiQueryParams {
-    ammessages?: string | string[];
-    amprop?: OneOrMore<"default">;
-    amenableparser?: boolean;
-    amnocontent?: boolean;
-    amincludelocal?: boolean;
-    amargs?: string | string[];
-    amfilter?: string;
-    amcustomised?: "all" | "modified" | "unmodified";
-    amlang?: string;
-    amfrom?: string;
-    amto?: string;
-    amtitle?: string;
-    amprefix?: string;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allpages}
+ */
+export interface ApiActionQueryListAllPagesParams extends ApiActionQueryParams {
+    gapfrom?: string;
+    gapcontinue?: string;
+    gapto?: string;
+    gapprefix?: string;
+    gapnamespace?: namespace;
+    gapfilterredir?: "all" | "nonredirects" | "redirects";
+    gapfilterlanglinks?: "all" | "withlanglinks" | "withoutlanglinks";
+    gapminsize?: number;
+    gapmaxsize?: number;
+    gapprtype?: OneOrMore<"edit" | "move" | "upload">;
+    gapprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gapprfiltercascade?: "all" | "cascading" | "noncascading";
+    gapprexpiry?: "all" | "definite" | "indefinite";
+    gaplimit?: limit;
+    gapdir?: "ascending" | "descending";
 }
 
-export interface ApiQueryAllPagesParams extends ApiQueryParams {
-    apfrom?: string;
-    apcontinue?: string;
-    apto?: string;
-    apprefix?: string;
-    apnamespace?: namespace;
-    apfilterredir?: "all" | "nonredirects" | "redirects";
-    apfilterlanglinks?: "all" | "withlanglinks" | "withoutlanglinks";
-    apminsize?: number;
-    apmaxsize?: number;
-    apprtype?: OneOrMore<"edit" | "move" | "upload">;
-    apprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
-    apprfiltercascade?: "all" | "cascading" | "noncascading";
-    apprexpiry?: "all" | "definite" | "indefinite";
-    aplimit?: limit;
-    apdir?: "ascending" | "descending";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
+ */
+export interface ApiActionQueryListQueryAllRedirectsParams extends ApiActionQueryParams {
+    garcontinue?: string;
+    garfrom?: string;
+    garto?: string;
+    garprefix?: string;
+    garunique?: boolean;
+    garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
+    garnamespace?: namespace;
+    garlimit?: limit;
+    gardir?: "ascending" | "descending";
 }
 
-export interface ApiQueryAllRedirectsParams extends ApiQueryParams {
-    arcontinue?: string;
-    arfrom?: string;
-    arto?: string;
-    arprefix?: string;
-    arunique?: boolean;
-    arprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
-    arnamespace?: namespace;
-    arlimit?: limit;
-    ardir?: "ascending" | "descending";
-}
-
-export interface ApiQueryAllRevisionsParams extends ApiQueryParams {
-    arvprop?: OneOrMore<
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allrevisions}
+ */
+export interface ApiActionQueryListAllRevisionsParams extends ApiActionQueryParams {
+    garvprop?: OneOrMore<
         | "comment"
         | "content"
         | "contentmodel"
@@ -2311,16 +5629,8 @@ export interface ApiQueryAllRevisionsParams extends ApiQueryParams {
         | "userid"
         | "parsetree"
     >;
-    arvslots?: OneOrMore<"main">;
-    arvlimit?: limit;
-    arvexpandtemplates?: boolean;
-    arvgeneratexml?: boolean;
-    arvparse?: boolean;
-    arvsection?: string;
-    arvdiffto?: string;
-    arvdifftotext?: string;
-    arvdifftotextpst?: boolean;
-    arvcontentformat?:
+    garvslots?: string | string[];
+    [k: `garvcontentformat-${string}`]:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
@@ -2331,29 +5641,75 @@ export interface ApiQueryAllRevisionsParams extends ApiQueryParams {
         | "text/unknown"
         | "text/x-wiki"
         | "unknown/unknown";
-    arvuser?: string;
-    arvnamespace?: namespace | namespace[];
-    arvstart?: timestamp;
-    arvend?: timestamp;
-    arvdir?: "newer" | "older";
-    arvexcludeuser?: string;
-    arvcontinue?: string;
-    arvgeneratetitles?: boolean;
+    garvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    garvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    garvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    garvparse?: boolean;
+    garvsection?: string;
+    /**
+     * @deprecated
+     */
+    garvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    garvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    garvuser?: string;
+    garvnamespace?: namespace | namespace[];
+    garvstart?: timestamp;
+    garvend?: timestamp;
+    garvdir?: "newer" | "older";
+    garvexcludeuser?: string;
+    garvcontinue?: string;
+    garvgeneratetitles?: boolean;
 }
 
-export interface ApiQueryAllTransclusionsParams extends ApiQueryParams {
-    atcontinue?: string;
-    atfrom?: string;
-    atto?: string;
-    atprefix?: string;
-    atunique?: boolean;
-    atprop?: OneOrMore<"ids" | "title">;
-    atnamespace?: namespace;
-    atlimit?: limit;
-    atdir?: "ascending" | "descending";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
+ */
+export interface ApiActionQueryListQueryAllTransclusionsParams extends ApiActionQueryParams {
+    gatcontinue?: string;
+    gatfrom?: string;
+    gatto?: string;
+    gatprefix?: string;
+    gatunique?: boolean;
+    gatprop?: OneOrMore<"ids" | "title">;
+    gatnamespace?: namespace;
+    gatlimit?: limit;
+    gatdir?: "ascending" | "descending";
 }
 
-export interface ApiQueryAllUsersParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allusers}
+ */
+export interface ApiActionQueryListAllUsersParams extends ApiActionQueryParams {
     aufrom?: string;
     auto?: string;
     auprefix?: string;
@@ -2366,6 +5722,7 @@ export interface ApiQueryAllUsersParams extends ApiQueryParams {
         | "bot"
         | "bureaucrat"
         | "checkuser"
+        | "checkuser-temporary-account-viewer"
         | "confirmed"
         | "copyviobot"
         | "eventcoordinator"
@@ -2397,6 +5754,7 @@ export interface ApiQueryAllUsersParams extends ApiQueryParams {
         | "bot"
         | "bureaucrat"
         | "checkuser"
+        | "checkuser-temporary-account-viewer"
         | "confirmed"
         | "copyviobot"
         | "eventcoordinator"
@@ -2421,6 +5779,7 @@ export interface ApiQueryAllUsersParams extends ApiQueryParams {
         | "transwiki"
     >;
     aurights?: OneOrMore<
+        | "abusefilter-access-protected-vars"
         | "abusefilter-bypass-blocked-external-domains"
         | "abusefilter-hidden-log"
         | "abusefilter-hide-log"
@@ -2477,6 +5836,7 @@ export interface ApiQueryAllUsersParams extends ApiQueryParams {
         | "deletedtext"
         | "deletelogentry"
         | "deleterevision"
+        | "echo-create"
         | "edit"
         | "editautopatrolprotected"
         | "editautoreviewprotected"
@@ -2617,7 +5977,6 @@ export interface ApiQueryAllUsersParams extends ApiQueryParams {
         | "viewmywatchlist"
         | "viewsuppressed"
         | "vipsscaler-test"
-        | "writeapi"
     >;
     auprop?: OneOrMore<
         | "blockinfo"
@@ -2632,44 +5991,41 @@ export interface ApiQueryAllUsersParams extends ApiQueryParams {
     auwitheditsonly?: boolean;
     auactiveusers?: boolean;
     auattachedwiki?: string;
+    auexcludenamed?: boolean;
+    auexcludetemp?: boolean;
 }
 
-export interface ApiQueryAuthManagerInfoParams extends ApiQueryParams {
-    amisecuritysensitiveoperation?: string;
-    amirequestsfor?:
-        | "change"
-        | "create"
-        | "create-continue"
-        | "link"
-        | "link-continue"
-        | "login"
-        | "login-continue"
-        | "remove"
-        | "unlink";
-    amimergerequestfields?: boolean;
-    amimessageformat?: "html" | "none" | "raw" | "wikitext";
+export interface ApiActionQueryListAutomaticTranslationDenseLanguagesParams
+    extends ApiActionQueryParams {
+    "gqid": string;
+    "gsection-titles"?: boolean;
 }
 
-export interface MediaWikiBabelApiQueryBabelParams extends ApiQueryParams {
-    babuser: string;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Backlinks}
+ */
+export interface ApiActionQueryListBacklinksParams extends ApiActionQueryParams {
+    gbltitle?: string;
+    gblpageid?: number;
+    gblcontinue?: string;
+    gblnamespace?: namespace | namespace[];
+    gbldir?: "ascending" | "descending";
+    gblfilterredir?: "all" | "nonredirects" | "redirects";
+    gbllimit?: limit;
+    gblredirect?: boolean;
 }
 
-export interface ApiQueryBacklinksParams extends ApiQueryParams {
-    bltitle?: string;
-    blpageid?: number;
-    blcontinue?: string;
-    blnamespace?: namespace | namespace[];
-    bldir?: "ascending" | "descending";
-    blfilterredir?: "all" | "nonredirects" | "redirects";
-    bllimit?: limit;
-    blredirect?: boolean;
-}
-
-export interface BetaFeaturesApiQueryBetaFeaturesParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:BetaFeatures}
+ */
+export interface ApiActionQueryListBetaFeaturesParams extends ApiActionQueryParams {
     bfcounts?: string;
 }
 
-export interface ApiQueryBlocksParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Blocks}
+ */
+export interface ApiActionQueryListBlocksParams extends ApiActionQueryParams {
     bkstart?: timestamp;
     bkend?: timestamp;
     bkdir?: "newer" | "older";
@@ -2696,44 +6052,40 @@ export interface ApiQueryBlocksParams extends ApiQueryParams {
     bkcontinue?: string;
 }
 
-export interface ApiQueryCategoriesParams extends ApiQueryParams {
-    clprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
-    clshow?: OneOrMore<"!hidden" | "hidden">;
-    cllimit?: limit;
-    clcontinue?: string;
-    clcategories?: string | string[];
-    cldir?: "ascending" | "descending";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categorymembers}
+ */
+export interface ApiActionQueryListCategoryMembersParams extends ApiActionQueryParams {
+    gcmtitle?: string;
+    gcmpageid?: number;
+    gcmprop?: OneOrMore<"ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type">;
+    gcmnamespace?: namespace | namespace[];
+    gcmtype?: OneOrMore<"file" | "page" | "subcat">;
+    gcmcontinue?: string;
+    gcmlimit?: limit;
+    gcmsort?: "sortkey" | "timestamp";
+    gcmdir?: "asc" | "ascending" | "desc" | "descending" | "newer" | "older";
+    gcmstart?: timestamp;
+    gcmend?: timestamp;
+    gcmstarthexsortkey?: string;
+    gcmendhexsortkey?: string;
+    gcmstartsortkeyprefix?: string;
+    gcmendsortkeyprefix?: string;
+    /**
+     * @deprecated
+     */
+    gcmstartsortkey?: string;
+    /**
+     * @deprecated
+     */
+    gcmendsortkey?: string;
 }
 
-export interface ApiQueryCategoryInfoParams extends ApiQueryParams {
-    cicontinue?: string;
-}
-
-export interface ApiQueryCategoryMembersParams extends ApiQueryParams {
-    cmtitle?: string;
-    cmpageid?: number;
-    cmprop?: OneOrMore<"ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type">;
-    cmnamespace?: namespace | namespace[];
-    cmtype?: OneOrMore<"file" | "page" | "subcat">;
-    cmcontinue?: string;
-    cmlimit?: limit;
-    cmsort?: "sortkey" | "timestamp";
-    cmdir?: "asc" | "ascending" | "desc" | "descending" | "newer" | "older";
-    cmstart?: timestamp;
-    cmend?: timestamp;
-    cmstarthexsortkey?: string;
-    cmendhexsortkey?: string;
-    cmstartsortkeyprefix?: string;
-    cmendsortkeyprefix?: string;
-    cmstartsortkey?: string;
-    cmendsortkey?: string;
-}
-
-export interface ApiCentralNoticeQueryActiveCampaignsParams extends ApiQueryParams {
+export interface ApiActionQueryListCentralNoticeActiveCampaignsParams extends ApiActionQueryParams {
     cnacincludefuture?: boolean;
 }
 
-export interface ApiCentralNoticeLogsParams extends ApiQueryParams {
+export interface ApiActionQueryListCentralNoticeLogsParams extends ApiActionQueryParams {
     campaign?: string;
     user?: string;
     limit?: limit;
@@ -2742,17 +6094,23 @@ export interface ApiCentralNoticeLogsParams extends ApiQueryParams {
     end?: timestamp;
 }
 
-export interface MediaWikiCheckUserApiQueryCheckUserParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CheckUser#API}
+ */
+export interface ApiActionQueryListCheckUserParams extends ApiActionQueryParams {
     curequest: "actions" | "ipusers" | "userips" | "edits";
     cutarget: string;
-    cureason?: string;
+    cureason: string;
     culimit?: limit;
     cutimecond?: string;
     cuxff?: string;
     cutoken?: string;
 }
 
-export interface MediaWikiCheckUserApiQueryCheckUserLogParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:CheckUser#API}
+ */
+export interface ApiActionQueryListCheckUserLogParams extends ApiActionQueryParams {
     culuser?: string;
     cultarget?: string;
     culreason?: string;
@@ -2763,563 +6121,59 @@ export interface MediaWikiCheckUserApiQueryCheckUserLogParams extends ApiQueryPa
     culcontinue?: string;
 }
 
-export interface CirrusSearchApiQueryBuildDocumentParams extends ApiQueryParams {
-    cbbuilders?: OneOrMore<"content" | "links">;
-    cblimiterprofile?: string;
+export interface ApiActionQueryListContentTranslationParams extends ApiActionQueryParams {
+    gtranslationid?: string;
+    gfrom?: string;
+    gto?: string;
+    gsourcetitle?: string;
+    gsourcesectiontitle?: string;
+    glimit?: limit;
+    goffset?: string;
+    gtype?: "draft" | "published";
+    gusecase?: "desktop-editor-draft" | "translation-corpora-units" | "unified-dashboard";
 }
 
-export interface CirrusSearchApiQueryCompSuggestBuildDocParams extends ApiQueryParams {
-    csbmethod?: string;
-}
-
-export interface CirrusSearchApiQueryCirrusDocParams extends ApiQueryParams {
-    cdincludes?: string | string[];
-}
-
-export interface ContentTranslationActionApiQueryContentTranslationParams extends ApiQueryParams {
-    translationid?: string;
-    from?: string;
-    to?: string;
-    sourcetitle?: string;
-    sourcesectiontitle?: string;
-    limit?: limit;
-    offset?: string;
-    type?: "draft" | "published";
-    usecase?: "desktop-editor-draft" | "translation-corpora-units" | "unified-dashboard";
-}
-
-export interface ContentTranslationActionApiQueryContentTranslationCorporaParams
-    extends ApiQueryParams {
+export interface ApiActionQueryListContentTranslationCorporaParams extends ApiActionQueryParams {
     translationid: number;
     striphtml?: boolean;
     types?: OneOrMore<"mt" | "source" | "user">;
 }
 
-export interface ContentTranslationActionApiQueryContentTranslationLanguageTrendParams
-    extends ApiQueryParams {
+export interface ApiActionQueryListContenttranslationlangtrendParams extends ApiActionQueryParams {
     source?: string;
     target?: string;
     interval?: "month" | "week";
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface ContentTranslationActionApiQueryContentTranslationStatsParams
-    extends ApiQueryParams {}
+export interface ApiActionQueryListContentTranslationStatsParams extends ApiActionQueryParams {}
 
-export interface ContentTranslationActionApiQueryContentTranslationSuggestionsParams
-    extends ApiQueryParams {
-    from?: string;
-    to?: string;
-    listid?: string;
-    limit?: limit;
-    offset?: string;
-    seed?: number;
+export interface ApiActionQueryListContentTranslationSuggestionsParams
+    extends ApiActionQueryParams {
+    gfrom?: string;
+    gto?: string;
+    glistid?: string;
+    glimit?: limit;
+    goffset?: string;
+    gseed?: number;
 }
 
-export interface ApiQueryContributorsParams extends ApiQueryParams {
-    pcgroup?: OneOrMore<
-        | "abusefilter"
-        | "abusefilter-helper"
-        | "accountcreator"
-        | "autoreviewer"
-        | "bot"
-        | "bureaucrat"
-        | "checkuser"
-        | "confirmed"
-        | "copyviobot"
-        | "eventcoordinator"
-        | "extendedconfirmed"
-        | "extendedmover"
-        | "filemover"
-        | "founder"
-        | "import"
-        | "interface-admin"
-        | "ipblock-exempt"
-        | "massmessage-sender"
-        | "no-ipinfo"
-        | "patroller"
-        | "push-subscription-manager"
-        | "researcher"
-        | "reviewer"
-        | "rollbacker"
-        | "steward"
-        | "suppress"
-        | "sysop"
-        | "templateeditor"
-        | "transwiki"
-    >;
-    pcexcludegroup?: OneOrMore<
-        | "abusefilter"
-        | "abusefilter-helper"
-        | "accountcreator"
-        | "autoreviewer"
-        | "bot"
-        | "bureaucrat"
-        | "checkuser"
-        | "confirmed"
-        | "copyviobot"
-        | "eventcoordinator"
-        | "extendedconfirmed"
-        | "extendedmover"
-        | "filemover"
-        | "founder"
-        | "import"
-        | "interface-admin"
-        | "ipblock-exempt"
-        | "massmessage-sender"
-        | "no-ipinfo"
-        | "patroller"
-        | "push-subscription-manager"
-        | "researcher"
-        | "reviewer"
-        | "rollbacker"
-        | "steward"
-        | "suppress"
-        | "sysop"
-        | "templateeditor"
-        | "transwiki"
-    >;
-    pcrights?: OneOrMore<
-        | "abusefilter-bypass-blocked-external-domains"
-        | "abusefilter-hidden-log"
-        | "abusefilter-hide-log"
-        | "abusefilter-log"
-        | "abusefilter-log-detail"
-        | "abusefilter-log-private"
-        | "abusefilter-modify"
-        | "abusefilter-modify-blocked-external-domains"
-        | "abusefilter-modify-global"
-        | "abusefilter-modify-restricted"
-        | "abusefilter-privatedetails"
-        | "abusefilter-privatedetails-log"
-        | "abusefilter-revert"
-        | "abusefilter-view"
-        | "abusefilter-view-private"
-        | "apihighlimits"
-        | "applychangetags"
-        | "autoconfirmed"
-        | "autocreateaccount"
-        | "autopatrol"
-        | "autoreview"
-        | "autoreviewrestore"
-        | "bigdelete"
-        | "block"
-        | "blockemail"
-        | "bot"
-        | "browsearchive"
-        | "centralauth-createlocal"
-        | "centralauth-lock"
-        | "centralauth-merge"
-        | "centralauth-rename"
-        | "centralauth-suppress"
-        | "centralauth-unmerge"
-        | "changetags"
-        | "checkuser"
-        | "checkuser-log"
-        | "checkuser-temporary-account"
-        | "checkuser-temporary-account-log"
-        | "checkuser-temporary-account-no-preference"
-        | "collectionsaveascommunitypage"
-        | "collectionsaveasuserpage"
-        | "createaccount"
-        | "createpage"
-        | "createpagemainns"
-        | "createtalk"
-        | "delete"
-        | "delete-redirect"
-        | "deletechangetags"
-        | "deletedhistory"
-        | "deletedtext"
-        | "deletelogentry"
-        | "deleterevision"
-        | "edit"
-        | "editautopatrolprotected"
-        | "editautoreviewprotected"
-        | "editcontentmodel"
-        | "editeditorprotected"
-        | "editextendedsemiprotected"
-        | "editinterface"
-        | "editmyoptions"
-        | "editmyprivateinfo"
-        | "editmyusercss"
-        | "editmyuserjs"
-        | "editmyuserjson"
-        | "editmyuserjsredirect"
-        | "editmywatchlist"
-        | "editprotected"
-        | "editsemiprotected"
-        | "editsitecss"
-        | "editsitejs"
-        | "editsitejson"
-        | "edittrustedprotected"
-        | "editusercss"
-        | "edituserjs"
-        | "edituserjson"
-        | "enrollasmentor"
-        | "extendedconfirmed"
-        | "flow-create-board"
-        | "flow-delete"
-        | "flow-edit-post"
-        | "flow-hide"
-        | "flow-suppress"
-        | "globalblock"
-        | "globalblock-exempt"
-        | "globalblock-whitelist"
-        | "globalgroupmembership"
-        | "globalgrouppermissions"
-        | "hideuser"
-        | "import"
-        | "importupload"
-        | "ipblock-exempt"
-        | "ipinfo"
-        | "ipinfo-view-basic"
-        | "ipinfo-view-full"
-        | "ipinfo-view-log"
-        | "manage-all-push-subscriptions"
-        | "managechangetags"
-        | "managementors"
-        | "markbotedits"
-        | "massmessage"
-        | "mergehistory"
-        | "minoredit"
-        | "move"
-        | "move-categorypages"
-        | "move-rootuserpages"
-        | "move-subpages"
-        | "movefile"
-        | "movestable"
-        | "mwoauthmanageconsumer"
-        | "mwoauthmanagemygrants"
-        | "mwoauthproposeconsumer"
-        | "mwoauthsuppress"
-        | "mwoauthupdateownconsumer"
-        | "mwoauthviewprivate"
-        | "mwoauthviewsuppressed"
-        | "newsletter-create"
-        | "newsletter-delete"
-        | "newsletter-manage"
-        | "newsletter-restore"
-        | "nominornewtalk"
-        | "noratelimit"
-        | "nuke"
-        | "oathauth-api-all"
-        | "oathauth-disable-for-user"
-        | "oathauth-enable"
-        | "oathauth-verify-user"
-        | "oathauth-view-log"
-        | "override-antispoof"
-        | "override-export-depth"
-        | "pagelang"
-        | "pagetriage-copyvio"
-        | "patrol"
-        | "patrolmarks"
-        | "protect"
-        | "read"
-        | "renameuser"
-        | "reupload"
-        | "reupload-own"
-        | "reupload-shared"
-        | "review"
-        | "rollback"
-        | "sboverride"
-        | "securepoll-create-poll"
-        | "securepoll-view-voter-pii"
-        | "sendemail"
-        | "setmentor"
-        | "sfsblock-bypass"
-        | "siteadmin"
-        | "skipcaptcha"
-        | "spamblacklistlog"
-        | "stablesettings"
-        | "suppressionlog"
-        | "suppressredirect"
-        | "suppressrevision"
-        | "tboverride"
-        | "tboverride-account"
-        | "templateeditor"
-        | "titleblacklistlog"
-        | "torunblocked"
-        | "transcode-reset"
-        | "transcode-status"
-        | "unblockself"
-        | "undelete"
-        | "unreviewedpages"
-        | "unwatchedpages"
-        | "upload"
-        | "upload_by_url"
-        | "urlshortener-create-url"
-        | "urlshortener-manage-url"
-        | "urlshortener-view-log"
-        | "userrights"
-        | "userrights-interwiki"
-        | "validate"
-        | "viewdeletedfile"
-        | "viewmyprivateinfo"
-        | "viewmywatchlist"
-        | "viewsuppressed"
-        | "vipsscaler-test"
-        | "writeapi"
-    >;
-    pcexcluderights?: OneOrMore<
-        | "abusefilter-bypass-blocked-external-domains"
-        | "abusefilter-hidden-log"
-        | "abusefilter-hide-log"
-        | "abusefilter-log"
-        | "abusefilter-log-detail"
-        | "abusefilter-log-private"
-        | "abusefilter-modify"
-        | "abusefilter-modify-blocked-external-domains"
-        | "abusefilter-modify-global"
-        | "abusefilter-modify-restricted"
-        | "abusefilter-privatedetails"
-        | "abusefilter-privatedetails-log"
-        | "abusefilter-revert"
-        | "abusefilter-view"
-        | "abusefilter-view-private"
-        | "apihighlimits"
-        | "applychangetags"
-        | "autoconfirmed"
-        | "autocreateaccount"
-        | "autopatrol"
-        | "autoreview"
-        | "autoreviewrestore"
-        | "bigdelete"
-        | "block"
-        | "blockemail"
-        | "bot"
-        | "browsearchive"
-        | "centralauth-createlocal"
-        | "centralauth-lock"
-        | "centralauth-merge"
-        | "centralauth-rename"
-        | "centralauth-suppress"
-        | "centralauth-unmerge"
-        | "changetags"
-        | "checkuser"
-        | "checkuser-log"
-        | "checkuser-temporary-account"
-        | "checkuser-temporary-account-log"
-        | "checkuser-temporary-account-no-preference"
-        | "collectionsaveascommunitypage"
-        | "collectionsaveasuserpage"
-        | "createaccount"
-        | "createpage"
-        | "createpagemainns"
-        | "createtalk"
-        | "delete"
-        | "delete-redirect"
-        | "deletechangetags"
-        | "deletedhistory"
-        | "deletedtext"
-        | "deletelogentry"
-        | "deleterevision"
-        | "edit"
-        | "editautopatrolprotected"
-        | "editautoreviewprotected"
-        | "editcontentmodel"
-        | "editeditorprotected"
-        | "editextendedsemiprotected"
-        | "editinterface"
-        | "editmyoptions"
-        | "editmyprivateinfo"
-        | "editmyusercss"
-        | "editmyuserjs"
-        | "editmyuserjson"
-        | "editmyuserjsredirect"
-        | "editmywatchlist"
-        | "editprotected"
-        | "editsemiprotected"
-        | "editsitecss"
-        | "editsitejs"
-        | "editsitejson"
-        | "edittrustedprotected"
-        | "editusercss"
-        | "edituserjs"
-        | "edituserjson"
-        | "enrollasmentor"
-        | "extendedconfirmed"
-        | "flow-create-board"
-        | "flow-delete"
-        | "flow-edit-post"
-        | "flow-hide"
-        | "flow-suppress"
-        | "globalblock"
-        | "globalblock-exempt"
-        | "globalblock-whitelist"
-        | "globalgroupmembership"
-        | "globalgrouppermissions"
-        | "hideuser"
-        | "import"
-        | "importupload"
-        | "ipblock-exempt"
-        | "ipinfo"
-        | "ipinfo-view-basic"
-        | "ipinfo-view-full"
-        | "ipinfo-view-log"
-        | "manage-all-push-subscriptions"
-        | "managechangetags"
-        | "managementors"
-        | "markbotedits"
-        | "massmessage"
-        | "mergehistory"
-        | "minoredit"
-        | "move"
-        | "move-categorypages"
-        | "move-rootuserpages"
-        | "move-subpages"
-        | "movefile"
-        | "movestable"
-        | "mwoauthmanageconsumer"
-        | "mwoauthmanagemygrants"
-        | "mwoauthproposeconsumer"
-        | "mwoauthsuppress"
-        | "mwoauthupdateownconsumer"
-        | "mwoauthviewprivate"
-        | "mwoauthviewsuppressed"
-        | "newsletter-create"
-        | "newsletter-delete"
-        | "newsletter-manage"
-        | "newsletter-restore"
-        | "nominornewtalk"
-        | "noratelimit"
-        | "nuke"
-        | "oathauth-api-all"
-        | "oathauth-disable-for-user"
-        | "oathauth-enable"
-        | "oathauth-verify-user"
-        | "oathauth-view-log"
-        | "override-antispoof"
-        | "override-export-depth"
-        | "pagelang"
-        | "pagetriage-copyvio"
-        | "patrol"
-        | "patrolmarks"
-        | "protect"
-        | "read"
-        | "renameuser"
-        | "reupload"
-        | "reupload-own"
-        | "reupload-shared"
-        | "review"
-        | "rollback"
-        | "sboverride"
-        | "securepoll-create-poll"
-        | "securepoll-view-voter-pii"
-        | "sendemail"
-        | "setmentor"
-        | "sfsblock-bypass"
-        | "siteadmin"
-        | "skipcaptcha"
-        | "spamblacklistlog"
-        | "stablesettings"
-        | "suppressionlog"
-        | "suppressredirect"
-        | "suppressrevision"
-        | "tboverride"
-        | "tboverride-account"
-        | "templateeditor"
-        | "titleblacklistlog"
-        | "torunblocked"
-        | "transcode-reset"
-        | "transcode-status"
-        | "unblockself"
-        | "undelete"
-        | "unreviewedpages"
-        | "unwatchedpages"
-        | "upload"
-        | "upload_by_url"
-        | "urlshortener-create-url"
-        | "urlshortener-manage-url"
-        | "urlshortener-view-log"
-        | "userrights"
-        | "userrights-interwiki"
-        | "validate"
-        | "viewdeletedfile"
-        | "viewmyprivateinfo"
-        | "viewmywatchlist"
-        | "viewsuppressed"
-        | "vipsscaler-test"
-        | "writeapi"
-    >;
-    pclimit?: limit;
-    pccontinue?: string;
-}
-
-export interface GeoDataApiQueryCoordinatesParams extends ApiQueryParams {
-    colimit?: limit;
-    cocontinue?: string;
-    coprop?: OneOrMore<"country" | "dim" | "globe" | "name" | "region" | "type">;
-    coprimary?: "all" | "primary" | "secondary";
-    codistancefrompoint?: string;
-    codistancefrompage?: string;
-}
-
-export interface ContentTranslationActionApiQueryDeletedTranslationsParams extends ApiQueryParams {
-    dtafter?: timestamp;
-    dtnamespace?: namespace;
-}
-
-export interface ContentTranslationActionApiQueryPublishedTranslationsParams
-    extends ApiQueryParams {
+export interface ApiActionQueryListCxpublishedtranslationsParams extends ApiActionQueryParams {
     from?: string;
     to?: string;
     limit?: limit;
     offset?: string;
 }
 
-export interface ContentTranslationActionApiQueryTranslatorStatsParams extends ApiQueryParams {
+export interface ApiActionQueryListCxtranslatorstatsParams extends ApiActionQueryParams {
     translator?: string;
 }
 
-export interface ApiQueryDeletedRevisionsParams extends ApiQueryParams {
-    drvprop?: OneOrMore<
-        | "comment"
-        | "content"
-        | "contentmodel"
-        | "flags"
-        | "ids"
-        | "parsedcomment"
-        | "roles"
-        | "sha1"
-        | "size"
-        | "slotsha1"
-        | "slotsize"
-        | "tags"
-        | "timestamp"
-        | "user"
-        | "userid"
-        | "parsetree"
-    >;
-    drvslots?: OneOrMore<"main">;
-    drvlimit?: limit;
-    drvexpandtemplates?: boolean;
-    drvgeneratexml?: boolean;
-    drvparse?: boolean;
-    drvsection?: string;
-    drvdiffto?: string;
-    drvdifftotext?: string;
-    drvdifftotextpst?: boolean;
-    drvcontentformat?:
-        | "application/json"
-        | "application/octet-stream"
-        | "application/unknown"
-        | "application/x-binary"
-        | "text/css"
-        | "text/javascript"
-        | "text/plain"
-        | "text/unknown"
-        | "text/x-wiki"
-        | "unknown/unknown";
-    drvstart?: timestamp;
-    drvend?: timestamp;
-    drvdir?: "newer" | "older";
-    drvtag?: string;
-    drvuser?: string;
-    drvexcludeuser?: string;
-    drvcontinue?: string;
-}
-
-export interface ApiQueryDeletedrevsParams extends ApiQueryParams {
+/**
+ * @deprecated
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Deletedrevs}
+ */
+export interface ApiActionQueryListDeletedrevsParams extends ApiActionQueryParams {
     drstart?: timestamp;
     drend?: timestamp;
     drdir?: "newer" | "older";
@@ -3349,32 +6203,26 @@ export interface ApiQueryDeletedrevsParams extends ApiQueryParams {
     drcontinue?: string;
 }
 
-export interface WikibaseClientApiDescriptionParams extends ApiQueryParams {
-    desccontinue?: number;
-    descprefersource?: "central" | "local";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
+ */
+export interface ApiActionQueryListQueryEmbeddedInParams extends ApiActionQueryParams {
+    geititle?: string;
+    geipageid?: number;
+    geicontinue?: string;
+    geinamespace?: namespace | namespace[];
+    geidir?: "ascending" | "descending";
+    geifilterredir?: "all" | "nonredirects" | "redirects";
+    geilimit?: limit;
 }
 
-export interface ApiQueryDuplicateFilesParams extends ApiQueryParams {
-    dflimit?: limit;
-    dfcontinue?: string;
-    dfdir?: "ascending" | "descending";
-    dflocalonly?: boolean;
-}
-
-export interface ApiQueryEmbeddedInParams extends ApiQueryParams {
-    eititle?: string;
-    eipageid?: number;
-    eicontinue?: string;
-    einamespace?: namespace | namespace[];
-    eidir?: "ascending" | "descending";
-    eifilterredir?: "all" | "nonredirects" | "redirects";
-    eilimit?: limit;
-}
-
-export interface ApiQueryExternalLinksParams extends ApiQueryParams {
-    ellimit?: limit;
-    elcontinue?: string;
-    elprotocol?:
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
+ */
+export interface ApiActionQueryListExturlusageParams extends ApiActionQueryParams {
+    geuprop?: OneOrMore<"ids" | "title" | "url">;
+    geucontinue?: string;
+    geuprotocol?:
         | ""
         | "bitcoin"
         | "ftp"
@@ -3404,67 +6252,19 @@ export interface ApiQueryExternalLinksParams extends ApiQueryParams {
         | "urn"
         | "worldwind"
         | "xmpp";
-    elquery?: string;
-    elexpandurl?: boolean;
+    geuquery?: string;
+    geunamespace?: namespace | namespace[];
+    geulimit?: limit;
+    /**
+     * @deprecated
+     */
+    geuexpandurl?: boolean;
 }
 
-export interface TextExtractsApiQueryExtractsParams extends ApiQueryParams {
-    exchars?: number;
-    exsentences?: number;
-    exlimit?: limit;
-    exintro?: boolean;
-    explaintext?: boolean;
-    exsectionformat?: "plain" | "raw" | "wiki";
-    excontinue?: number;
-}
-
-export interface ApiQueryExtLinksUsageParams extends ApiQueryParams {
-    euprop?: OneOrMore<"ids" | "title" | "url">;
-    eucontinue?: string;
-    euprotocol?:
-        | ""
-        | "bitcoin"
-        | "ftp"
-        | "ftps"
-        | "geo"
-        | "git"
-        | "gopher"
-        | "http"
-        | "https"
-        | "irc"
-        | "ircs"
-        | "magnet"
-        | "mailto"
-        | "matrix"
-        | "mms"
-        | "news"
-        | "nntp"
-        | "redis"
-        | "sftp"
-        | "sip"
-        | "sips"
-        | "sms"
-        | "ssh"
-        | "svn"
-        | "tel"
-        | "telnet"
-        | "urn"
-        | "worldwind"
-        | "xmpp";
-    euquery?: string;
-    eunamespace?: namespace | namespace[];
-    eulimit?: limit;
-    euexpandurl?: boolean;
-}
-
-export interface ApiFeatureUsageApiQueryFeatureUsageParams extends ApiQueryParams {
-    afustart?: timestamp;
-    afuend?: timestamp;
-    afuagent?: string;
-    afufeatures?: string | string[];
-}
-
-export interface ApiQueryFilearchiveParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Filearchive}
+ */
+export interface ApiActionQueryListFilearchiveParams extends ApiActionQueryParams {
     fafrom?: string;
     fato?: string;
     faprefix?: string;
@@ -3489,41 +6289,12 @@ export interface ApiQueryFilearchiveParams extends ApiQueryParams {
     facontinue?: string;
 }
 
-export interface ApiQueryFileRepoInfoParams extends ApiQueryParams {
-    friprop?: OneOrMore<
-        | "canUpload"
-        | "descBaseUrl"
-        | "descriptionCacheExpiry"
-        | "displayname"
-        | "favicon"
-        | "fetchDescription"
-        | "initialCapital"
-        | "local"
-        | "name"
-        | "rootUrl"
-        | "scriptDirUrl"
-        | "thumbUrl"
-        | "url"
-    >;
-}
-
-export interface ApiQueryFileUsageParams extends ApiQueryParams {
-    fuprop?: OneOrMore<"pageid" | "redirect" | "title">;
-    funamespace?: namespace | namespace[];
-    fushow?: OneOrMore<"!redirect" | "redirect">;
-    fulimit?: limit;
-    fucontinue?: string;
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface ApiQueryFlaggedParams extends ApiQueryParams {}
-
-export interface GadgetsApiQueryGadgetCategoriesParams extends ApiQueryParams {
+export interface ApiActionQueryListGadgetCategoriesParams extends ApiActionQueryParams {
     gcprop?: OneOrMore<"members" | "name" | "title">;
     gcnames?: string | string[];
 }
 
-export interface GadgetsApiQueryGadgetsParams extends ApiQueryParams {
+export interface ApiActionQueryListGadgetsParams extends ApiActionQueryParams {
     gaprop?: OneOrMore<"desc" | "id" | "metadata">;
     gacategories?: string | string[];
     gaids?: string | string[];
@@ -3531,22 +6302,25 @@ export interface GadgetsApiQueryGadgetsParams extends ApiQueryParams {
     gaenabledonly?: boolean;
 }
 
-export interface GeoDataApiQueryGeoSearchElasticParams extends ApiQueryParams {
-    gscoord?: string;
-    gspage?: string;
-    gsbbox?: string;
-    gsradius?: number;
-    gsmaxdim?: number;
-    gssort?: "distance" | "relevance";
-    gslimit?: limit;
-    gsglobe?: "earth";
-    gsnamespace?: namespace | namespace[];
-    gsprop?: OneOrMore<"country" | "dim" | "globe" | "name" | "region" | "type">;
-    gsprimary?: "all" | "primary" | "secondary";
-    gsdebug?: boolean;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GeoData#list.3Dgeosearch}
+ */
+export interface ApiActionQueryListGeoSearchParams extends ApiActionQueryParams {
+    ggscoord?: string;
+    ggspage?: string;
+    ggsbbox?: string;
+    ggsradius?: number;
+    ggsmaxdim?: number;
+    ggssort?: "distance" | "relevance";
+    ggslimit?: limit;
+    ggsglobe?: "earth";
+    ggsnamespace?: namespace | namespace[];
+    ggsprop?: OneOrMore<"country" | "dim" | "globe" | "name" | "region" | "type">;
+    ggsprimary?: "all" | "primary" | "secondary";
+    ggsdebug?: boolean;
 }
 
-export interface CentralAuthApiQueryGlobalAllUsersParams extends ApiQueryParams {
+export interface ApiActionQueryListGlobalAllUsersParams extends ApiActionQueryParams {
     agufrom?: string;
     aguto?: string;
     aguprefix?: string;
@@ -3564,6 +6338,7 @@ export interface CentralAuthApiQueryGlobalAllUsersParams extends ApiQueryParams 
         | "global-ipblock-exempt"
         | "global-rollbacker"
         | "global-sysop"
+        | "global-temporary-account-viewer"
         | "new-wikis-importer"
         | "oathauth-tester"
         | "ombuds"
@@ -3588,6 +6363,7 @@ export interface CentralAuthApiQueryGlobalAllUsersParams extends ApiQueryParams 
         | "global-ipblock-exempt"
         | "global-rollbacker"
         | "global-sysop"
+        | "global-temporary-account-viewer"
         | "new-wikis-importer"
         | "oathauth-tester"
         | "ombuds"
@@ -3601,74 +6377,48 @@ export interface CentralAuthApiQueryGlobalAllUsersParams extends ApiQueryParams 
     >;
     aguprop?: OneOrMore<"existslocally" | "groups" | "lockinfo">;
     agulimit?: limit;
+    aguexcludenamed?: boolean;
+    aguexcludetemp?: boolean;
 }
 
-export interface GlobalBlockingApiQueryGlobalBlocksParams extends ApiQueryParams {
+export interface ApiActionQueryListGlobalBlocksParams extends ApiActionQueryParams {
     bgstart?: timestamp;
     bgend?: timestamp;
     bgdir?: "newer" | "older";
     bgids?: number | number[];
+    /**
+     * @deprecated
+     */
     bgaddresses?: string | string[];
+    bgtargets?: string | string[];
     bgip?: string;
     bglimit?: limit;
-    bgprop?: OneOrMore<"address" | "by" | "expiry" | "id" | "range" | "reason" | "timestamp">;
+    bgprop?: OneOrMore<
+        "by" | "expiry" | "id" | "range" | "reason" | "target" | "timestamp" | "address"
+    >;
 }
 
-export interface CentralAuthApiQueryGlobalGroupsParams extends ApiQueryParams {
+export interface ApiActionQueryListGlobalGroupsParams extends ApiActionQueryParams {
     ggpprop?: OneOrMore<"rights">;
 }
 
-export interface GlobalPreferencesApiQueryGlobalPreferencesParams extends ApiQueryParams {
-    gprprop?: OneOrMore<"localoverrides" | "preferences">;
-}
-
-export interface CentralAuthApiQueryGlobalRenameStatusParams extends ApiQueryParams {
-    grsuser?: string;
-}
-
-export interface GlobalUsageApiQueryGlobalUsageParams extends ApiQueryParams {
-    guprop?: OneOrMore<"namespace" | "pageid" | "url">;
-    gulimit?: limit;
-    gunamespace?: namespace | namespace[];
-    gusite?: string | string[];
-    gucontinue?: string;
-    gufilterlocal?: boolean;
-}
-
-export interface CentralAuthApiQueryGlobalUserInfoParams extends ApiQueryParams {
-    guiuser?: string;
-    guiid?: number;
-    guiprop?: OneOrMore<"editcount" | "groups" | "merged" | "rights" | "unattached">;
-}
-
-export interface GrowthExperimentsApiQueryImageSuggestionDataParams extends ApiQueryParams {
-    gisdtasktype?: "image-recommendation" | "section-image-recommendation";
-    gisdcontinue?: string;
-}
-
 // tslint:disable-next-line:no-empty-interface
-export interface GrowthExperimentsApiQueryMenteeStatusParams extends ApiQueryParams {}
+export interface ApiActionQueryListGrowthMentorListParams extends ApiActionQueryParams {}
 
-// tslint:disable-next-line:no-empty-interface
-export interface GrowthExperimentsApiQueryMentorListParams extends ApiQueryParams {}
-
-export interface GrowthExperimentsApiQueryMentorMenteeParams extends ApiQueryParams {
+export interface ApiActionQueryListGrowthMentorMenteeParams extends ApiActionQueryParams {
     gemmmentor: string;
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface GrowthExperimentsApiQueryMentorStatusParams extends ApiQueryParams {}
+export interface ApiActionQueryListGrowthStarredMenteesParams extends ApiActionQueryParams {}
 
-export interface GrowthExperimentsApiQueryNextSuggestedTaskTypeParams extends ApiQueryParams {
-    gnsttactivetasktype: "copyedit" | "expand" | "links" | "references" | "update";
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface GrowthExperimentsApiQueryStarredMenteesParams extends ApiQueryParams {}
-
-export interface GrowthExperimentsApiQueryGrowthTasksParams extends ApiQueryParams {
-    gttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
-    gttopics?: OneOrMore<
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GrowthExperiments#API}
+ */
+export interface ApiActionQueryListGrowthTasksParams extends ApiActionQueryParams {
+    ggttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    ggttopics?: OneOrMore<
         | "africa"
         | "architecture"
         | "art"
@@ -3709,176 +6459,60 @@ export interface GrowthExperimentsApiQueryGrowthTasksParams extends ApiQueryPara
         | "video-games"
         | "women"
     >;
-    gttopicsmode?: "AND" | "OR";
-    gtlimit?: limit;
-    gtoffset?: number;
-    gtdebug?: boolean;
-    gtexcludepageids?: number | number[];
+    ggttopicsmode?: "AND" | "OR";
+    ggtlimit?: limit;
+    ggtoffset?: number;
+    ggtdebug?: boolean;
+    ggtexcludepageids?: number | number[];
 }
 
-export interface ApiQueryImageInfoParams extends ApiQueryParams {
-    iiprop?: OneOrMore<
-        | "archivename"
-        | "badfile"
-        | "bitdepth"
-        | "canonicaltitle"
-        | "comment"
-        | "commonmetadata"
-        | "dimensions"
-        | "extmetadata"
-        | "mediatype"
-        | "metadata"
-        | "mime"
-        | "parsedcomment"
-        | "sha1"
-        | "size"
-        | "thumbmime"
-        | "timestamp"
-        | "uploadwarning"
-        | "url"
-        | "user"
-        | "userid"
-    >;
-    iilimit?: limit;
-    iistart?: timestamp;
-    iiend?: timestamp;
-    iiurlwidth?: number;
-    iiurlheight?: number;
-    iimetadataversion?: string;
-    iiextmetadatalanguage?: string;
-    iiextmetadatamultilang?: boolean;
-    iiextmetadatafilter?: string | string[];
-    iiurlparam?: string;
-    iibadfilecontexttitle?: string;
-    iicontinue?: string;
-    iilocalonly?: boolean;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
+ */
+export interface ApiActionQueryListQueryImageUsageParams extends ApiActionQueryParams {
+    giutitle?: string;
+    giupageid?: number;
+    giucontinue?: string;
+    giunamespace?: namespace | namespace[];
+    giudir?: "ascending" | "descending";
+    giufilterredir?: "all" | "nonredirects" | "redirects";
+    giulimit?: limit;
+    giuredirect?: boolean;
 }
 
-export interface ApiQueryImagesParams extends ApiQueryParams {
-    imlimit?: limit;
-    imcontinue?: string;
-    imimages?: string | string[];
-    imdir?: "ascending" | "descending";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Iwbacklinks}
+ */
+export interface ApiActionQueryListIWBacklinksParams extends ApiActionQueryParams {
+    giwblprefix?: string;
+    giwbltitle?: string;
+    giwblcontinue?: string;
+    giwbllimit?: limit;
+    giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
+    giwbldir?: "ascending" | "descending";
 }
 
-export interface ApiQueryImageUsageParams extends ApiQueryParams {
-    iutitle?: string;
-    iupageid?: number;
-    iucontinue?: string;
-    iunamespace?: namespace | namespace[];
-    iudir?: "ascending" | "descending";
-    iufilterredir?: "all" | "nonredirects" | "redirects";
-    iulimit?: limit;
-    iuredirect?: boolean;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Langbacklinks}
+ */
+export interface ApiActionQueryListLangBacklinksParams extends ApiActionQueryParams {
+    glbllang?: string;
+    glbltitle?: string;
+    glblcontinue?: string;
+    glbllimit?: limit;
+    glblprop?: OneOrMore<"lllang" | "lltitle">;
+    glbldir?: "ascending" | "descending";
 }
 
-export interface ApiQueryInfoParams extends ApiQueryParams {
-    inprop?: OneOrMore<
-        | "associatedpage"
-        | "displaytitle"
-        | "editintro"
-        | "linkclasses"
-        | "notificationtimestamp"
-        | "preloadcontent"
-        | "protection"
-        | "subjectid"
-        | "talkid"
-        | "url"
-        | "varianttitles"
-        | "visitingwatchers"
-        | "watched"
-        | "watchers"
-        | "preload"
-        | "readable"
-    >;
-    inlinkcontext?: string;
-    intestactions?: string | string[];
-    intestactionsdetail?: "boolean" | "full" | "quick";
-    intestactionsautocreate?: boolean;
-    inpreloadcustom?: string;
-    inpreloadparams?: string | string[];
-    inpreloadnewsection?: boolean;
-    ineditintrostyle?: "lessframes" | "moreframes";
-    ineditintroskip?: string | string[];
-    ineditintrocustom?: string;
-    incontinue?: string;
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface PageTriageApiIsReviewedParams extends ApiQueryParams {}
-
-export interface ApiQueryIWBacklinksParams extends ApiQueryParams {
-    iwblprefix?: string;
-    iwbltitle?: string;
-    iwblcontinue?: string;
-    iwbllimit?: limit;
-    iwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
-    iwbldir?: "ascending" | "descending";
-}
-
-export interface ApiQueryIWLinksParams extends ApiQueryParams {
-    iwprop?: OneOrMore<"url">;
-    iwprefix?: string;
-    iwtitle?: string;
-    iwdir?: "ascending" | "descending";
-    iwlimit?: limit;
-    iwcontinue?: string;
-    iwurl?: boolean;
-}
-
-export interface ApiQueryLangBacklinksParams extends ApiQueryParams {
-    lbllang?: string;
-    lbltitle?: string;
-    lblcontinue?: string;
-    lbllimit?: limit;
-    lblprop?: OneOrMore<"lllang" | "lltitle">;
-    lbldir?: "ascending" | "descending";
-}
-
-export interface ApiQueryLangLinksParams extends ApiQueryParams {
-    llprop?: OneOrMore<"autonym" | "langname" | "url">;
-    lllang?: string;
-    lltitle?: string;
-    lldir?: "ascending" | "descending";
-    llinlanguagecode?: string;
-    lllimit?: limit;
-    llcontinue?: string;
-    llurl?: boolean;
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface ContentTranslationActionApiQueryLangLinksCountParams extends ApiQueryParams {}
-
-export interface ApiQueryLanguageinfoParams extends ApiQueryParams {
-    liprop?: OneOrMore<
-        "autonym" | "bcp47" | "code" | "dir" | "fallbacks" | "name" | "variantnames" | "variants"
-    >;
-    licode?: string | string[];
-    licontinue?: string;
-}
-
-export interface ApiQueryLinksParams extends ApiQueryParams {
-    plnamespace?: namespace | namespace[];
-    pllimit?: limit;
-    plcontinue?: string;
-    pltitles?: string | string[];
-    pldir?: "ascending" | "descending";
-}
-
-export interface ApiQueryLinksHereParams extends ApiQueryParams {
-    lhprop?: OneOrMore<"pageid" | "redirect" | "title">;
-    lhnamespace?: namespace | namespace[];
-    lhshow?: OneOrMore<"!redirect" | "redirect">;
-    lhlimit?: limit;
-    lhcontinue?: string;
-}
-
-export interface MediaWikiLinterApiQueryLintErrorsParams extends ApiQueryParams {
-    "lntcategories"?: OneOrMore<
+export interface ApiActionQueryListLinterrorsParams extends ApiActionQueryParams {
+    lntcategories?: OneOrMore<
         | "bogus-image-options"
         | "deletable-table-tag"
+        | "duplicate-ids"
         | "fostered"
+        | "fostered-transparent"
         | "html5-misnesting"
+        | "large-tables"
         | "misc-tidy-replacement-issues"
         | "misnested-tag"
         | "missing-end-tag"
@@ -3886,6 +6520,7 @@ export interface MediaWikiLinterApiQueryLintErrorsParams extends ApiQueryParams 
         | "multi-colon-escape"
         | "multiline-html-table-in-list"
         | "multiple-unclosed-formatting-tags"
+        | "night-mode-unaware-background-color"
         | "obsolete-tag"
         | "pwrap-bug-workaround"
         | "self-closed-tag"
@@ -3895,18 +6530,17 @@ export interface MediaWikiLinterApiQueryLintErrorsParams extends ApiQueryParams 
         | "unclosed-quotes-in-heading"
         | "wikilink-in-extlink"
     >;
-    "lntinvisible-categories"?: OneOrMore<"large-tables" | "night-mode-unaware-background-color">;
-    "lntlimit"?: limit;
-    "lntnamespace"?: namespace | namespace[];
-    "lntpageid"?: number | number[];
-    "lnttitle"?: string;
-    "lntfrom"?: number;
+    lntlimit?: limit;
+    lntnamespace?: namespace | namespace[];
+    lntpageid?: number | number[];
+    lnttitle?: string;
+    lntfrom?: number;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface MediaWikiLinterApiQueryLinterStatsParams extends ApiQueryParams {}
-
-export interface ApiQueryLogEventsParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Logevents}
+ */
+export interface ApiActionQueryListLogEventsParams extends ApiActionQueryParams {
     leprop?: OneOrMore<
         | "comment"
         | "details"
@@ -3922,6 +6556,7 @@ export interface ApiQueryLogEventsParams extends ApiQueryParams {
     letype?:
         | ""
         | "abusefilter"
+        | "abusefilter-protected-vars"
         | "abusefilterblockeddomainhit"
         | "abusefilterprivatedetails"
         | "block"
@@ -3960,6 +6595,7 @@ export interface ApiQueryLogEventsParams extends ApiQueryParams {
         | "urlshortener"
         | "usermerge";
     leaction?:
+        | "abusefilter-protected-vars/*"
         | "abusefilter/create"
         | "abusefilter/hit"
         | "abusefilter/modify"
@@ -4050,16 +6686,7 @@ export interface ApiQueryLogEventsParams extends ApiQueryParams {
         | "protect/protect"
         | "protect/unprotect"
         | "renameuser/renameuser"
-        | "review/approve"
-        | "review/approve-a"
-        | "review/approve-i"
-        | "review/approve-ia"
-        | "review/approve2"
-        | "review/approve2-a"
-        | "review/approve2-i"
-        | "review/approve2-ia"
-        | "review/unapprove"
-        | "review/unapprove2"
+        | "review/*"
         | "rights/autopromote"
         | "rights/blockautopromote"
         | "rights/erevoke"
@@ -4100,732 +6727,104 @@ export interface ApiQueryLogEventsParams extends ApiQueryParams {
     lecontinue?: string;
 }
 
-export interface KartographerApiQueryMapDataParams extends ApiQueryParams {
-    mpdgroups?: string;
-    mpdlimit?: limit;
-    mpdcontinue?: number;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
+ */
+export interface ApiActionQueryListMostViewedParams extends ApiActionQueryParams {
+    gpvimmetric?: "pageviews";
+    gpvimlimit?: limit;
+    gpvimoffset?: number;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface MediaWikiMassMessageApiQueryMMContentParams extends ApiQueryParams {}
-
-export interface PageViewInfoApiQueryMostViewedParams extends ApiQueryParams {
-    pvimmetric?: "pageviews";
-    pvimlimit?: limit;
-    pvimoffset?: number;
-}
-
-export interface ApiQueryMyStashedFilesParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:mystashedfiles}
+ */
+export interface ApiActionQueryListMyStashedFilesParams extends ApiActionQueryParams {
     msfprop?: OneOrMore<"size" | "type">;
     msflimit?: limit;
     msfcontinue?: string;
 }
 
-export interface NotificationsApiEchoNotificationsParams extends ApiQueryParams {
-    notwikis?: string | string[];
-    notfilter?: OneOrMore<"!read" | "read">;
-    notprop?: OneOrMore<"count" | "list" | "seenTime">;
-    notsections?: OneOrMore<"alert" | "message">;
-    notgroupbysection?: boolean;
-    notformat?: "flyout" | "html" | "model" | "special";
-    notlimit?: limit;
-    notcontinue?: string;
-    notunreadfirst?: boolean;
-    nottitles?: string | string[];
-    notbundle?: boolean;
-    notnotifiertypes?: OneOrMore<"email" | "push" | "web">;
-    notalertcontinue?: string;
-    notalertunreadfirst?: boolean;
-    notmessagecontinue?: string;
-    notmessageunreadfirst?: boolean;
-    notcrosswikisummary?: boolean;
+export interface ApiActionQueryListOldreviewedpagesParams extends ApiActionQueryParams {
+    gorstart?: timestamp;
+    gorend?: timestamp;
+    gordir?: "newer" | "older";
+    gormaxsize?: number;
+    gorfilterwatched?: "all" | "watched";
+    gornamespace?: namespace | namespace[];
+    gorcategory?: string;
+    gorfilterredir?: "all" | "nonredirects" | "redirects";
+    gorlimit?: limit;
 }
 
-export interface OATHAuthApiModuleApiQueryOATHParams extends ApiQueryParams {
-    oathuser?: string;
-    oathreason?: string;
-}
-
-export interface ApiQueryOldreviewedpagesParams extends ApiQueryParams {
-    orstart?: timestamp;
-    orend?: timestamp;
-    ordir?: "newer" | "older";
-    ormaxsize?: number;
-    orfilterwatched?: "all" | "watched";
-    ornamespace?: namespace | namespace[];
-    orcategory?: string;
-    orfilterredir?: "all" | "nonredirects" | "redirects";
-    orlimit?: limit;
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface ORESHooksApiQueryORESParams extends ApiQueryParams {}
-
-export interface PageAssessmentsApiQueryPageAssessmentsParams extends ApiQueryParams {
-    pacontinue?: string;
-    palimit?: limit;
-    pasubprojects?: boolean;
-}
-
-export interface PageImagesApiQueryPageImagesParams extends ApiQueryParams {
-    piprop?: OneOrMore<"name" | "original" | "thumbnail">;
-    pithumbsize?: number;
-    pilimit?: limit;
-    pilicense?: "any" | "free";
-    picontinue?: number;
-    pilangcode?: string;
-}
-
-export interface ApiQueryPagePropNamesParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Pagepropnames}
+ */
+export interface ApiActionQueryListPagePropNamesParams extends ApiActionQueryParams {
     ppncontinue?: string;
     ppnlimit?: limit;
 }
 
-export interface ApiQueryPagePropsParams extends ApiQueryParams {
-    ppcontinue?: string;
-    ppprop?: string | string[];
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Pageswithprop}
+ */
+export interface ApiActionQueryListPagesWithPropParams extends ApiActionQueryParams {
+    gpwppropname: string;
+    gpwpprop?: OneOrMore<"ids" | "title" | "value">;
+    gpwpcontinue?: string;
+    gpwplimit?: limit;
+    gpwpdir?: "ascending" | "descending";
 }
 
-export interface ApiQueryPagesWithPropParams extends ApiQueryParams {
-    pwppropname: string;
-    pwpprop?: OneOrMore<"ids" | "title" | "value">;
-    pwpcontinue?: string;
-    pwplimit?: limit;
-    pwpdir?: "ascending" | "descending";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch}
+ */
+export interface ApiActionQueryListPrefixSearchParams extends ApiActionQueryParams {
+    gpssearch: string;
+    gpsnamespace?: namespace | namespace[];
+    gpslimit?: limit;
+    gpsoffset?: number;
+    gpsprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
 }
 
-export interface WikibaseClientApiPageTermsParams extends ApiQueryParams {
-    wbptcontinue?: number;
-    wbptlanguage?:
-        | "aa"
-        | "aae"
-        | "ab"
-        | "abs"
-        | "ace"
-        | "acm"
-        | "ady"
-        | "ady-cyrl"
-        | "aeb"
-        | "aeb-arab"
-        | "aeb-latn"
-        | "af"
-        | "agq"
-        | "aln"
-        | "als"
-        | "alt"
-        | "am"
-        | "ami"
-        | "an"
-        | "ang"
-        | "ann"
-        | "anp"
-        | "ar"
-        | "arc"
-        | "arn"
-        | "arq"
-        | "ary"
-        | "arz"
-        | "as"
-        | "ase"
-        | "ast"
-        | "atj"
-        | "av"
-        | "avk"
-        | "awa"
-        | "ay"
-        | "az"
-        | "azb"
-        | "ba"
-        | "bag"
-        | "ban"
-        | "ban-bali"
-        | "bar"
-        | "bas"
-        | "bat-smg"
-        | "bax"
-        | "bbc"
-        | "bbc-latn"
-        | "bbj"
-        | "bcc"
-        | "bci"
-        | "bcl"
-        | "bdr"
-        | "be"
-        | "be-tarask"
-        | "be-x-old"
-        | "bew"
-        | "bfd"
-        | "bg"
-        | "bgn"
-        | "bh"
-        | "bho"
-        | "bi"
-        | "bjn"
-        | "bkc"
-        | "bkh"
-        | "bkm"
-        | "blk"
-        | "bm"
-        | "bn"
-        | "bo"
-        | "bpy"
-        | "bqi"
-        | "bqz"
-        | "br"
-        | "brh"
-        | "bs"
-        | "btm"
-        | "bto"
-        | "bug"
-        | "bxr"
-        | "byv"
-        | "ca"
-        | "cak"
-        | "cal"
-        | "cbk-zam"
-        | "cdo"
-        | "ce"
-        | "ceb"
-        | "ch"
-        | "chn"
-        | "cho"
-        | "chr"
-        | "chy"
-        | "ckb"
-        | "cnh"
-        | "co"
-        | "cps"
-        | "cpx"
-        | "cpx-hans"
-        | "cpx-hant"
-        | "cpx-latn"
-        | "cr"
-        | "crh"
-        | "crh-cyrl"
-        | "crh-latn"
-        | "crh-ro"
-        | "cs"
-        | "csb"
-        | "cu"
-        | "cv"
-        | "cy"
-        | "da"
-        | "dag"
-        | "de"
-        | "de-at"
-        | "de-ch"
-        | "de-formal"
-        | "dga"
-        | "din"
-        | "diq"
-        | "dsb"
-        | "dtp"
-        | "dty"
-        | "dua"
-        | "dv"
-        | "dz"
-        | "ee"
-        | "efi"
-        | "egl"
-        | "el"
-        | "eml"
-        | "en"
-        | "en-ca"
-        | "en-gb"
-        | "en-us"
-        | "eo"
-        | "es"
-        | "es-419"
-        | "es-formal"
-        | "et"
-        | "eto"
-        | "etu"
-        | "eu"
-        | "ewo"
-        | "ext"
-        | "fa"
-        | "fat"
-        | "ff"
-        | "fi"
-        | "fit"
-        | "fiu-vro"
-        | "fj"
-        | "fkv"
-        | "fmp"
-        | "fo"
-        | "fon"
-        | "fr"
-        | "frc"
-        | "frp"
-        | "frr"
-        | "fur"
-        | "fy"
-        | "ga"
-        | "gaa"
-        | "gag"
-        | "gan"
-        | "gan-hans"
-        | "gan-hant"
-        | "gcf"
-        | "gcr"
-        | "gd"
-        | "gl"
-        | "gld"
-        | "glk"
-        | "gn"
-        | "gom"
-        | "gom-deva"
-        | "gom-latn"
-        | "gor"
-        | "got"
-        | "gpe"
-        | "grc"
-        | "gsw"
-        | "gu"
-        | "guc"
-        | "gur"
-        | "guw"
-        | "gv"
-        | "gya"
-        | "ha"
-        | "hak"
-        | "haw"
-        | "he"
-        | "hi"
-        | "hif"
-        | "hif-latn"
-        | "hil"
-        | "hno"
-        | "ho"
-        | "hr"
-        | "hrx"
-        | "hsb"
-        | "hsn"
-        | "ht"
-        | "hu"
-        | "hu-formal"
-        | "hy"
-        | "hyw"
-        | "hz"
-        | "ia"
-        | "ibb"
-        | "id"
-        | "ie"
-        | "ig"
-        | "igl"
-        | "ii"
-        | "ik"
-        | "ike-cans"
-        | "ike-latn"
-        | "ilo"
-        | "inh"
-        | "io"
-        | "is"
-        | "isu"
-        | "it"
-        | "iu"
-        | "ja"
-        | "jam"
-        | "jbo"
-        | "jut"
-        | "jv"
-        | "ka"
-        | "kaa"
-        | "kab"
-        | "kai"
-        | "kbd"
-        | "kbd-cyrl"
-        | "kbp"
-        | "kcg"
-        | "kea"
-        | "ker"
-        | "kg"
-        | "kge"
-        | "khw"
-        | "ki"
-        | "kiu"
-        | "kj"
-        | "kjh"
-        | "kjp"
-        | "kk"
-        | "kk-arab"
-        | "kk-cn"
-        | "kk-cyrl"
-        | "kk-kz"
-        | "kk-latn"
-        | "kk-tr"
-        | "kl"
-        | "km"
-        | "kn"
-        | "ko"
-        | "ko-kp"
-        | "koi"
-        | "kr"
-        | "krc"
-        | "kri"
-        | "krj"
-        | "krl"
-        | "ks"
-        | "ks-arab"
-        | "ks-deva"
-        | "ksf"
-        | "ksh"
-        | "ksw"
-        | "ku"
-        | "ku-arab"
-        | "ku-latn"
-        | "kum"
-        | "kus"
-        | "kv"
-        | "kw"
-        | "ky"
-        | "la"
-        | "lad"
-        | "lb"
-        | "lbe"
-        | "lem"
-        | "lez"
-        | "lfn"
-        | "lg"
-        | "li"
-        | "lij"
-        | "liv"
-        | "lki"
-        | "lld"
-        | "lmo"
-        | "ln"
-        | "lns"
-        | "lo"
-        | "loz"
-        | "lrc"
-        | "lt"
-        | "ltg"
-        | "lus"
-        | "luz"
-        | "lv"
-        | "lzh"
-        | "lzz"
-        | "mad"
-        | "mag"
-        | "mai"
-        | "map-bms"
-        | "mcn"
-        | "mcp"
-        | "mdf"
-        | "mg"
-        | "mh"
-        | "mhr"
-        | "mi"
-        | "min"
-        | "mk"
-        | "ml"
-        | "mn"
-        | "mnc"
-        | "mnc-latn"
-        | "mnc-mong"
-        | "mni"
-        | "mnw"
-        | "mo"
-        | "mos"
-        | "mr"
-        | "mrh"
-        | "mrj"
-        | "ms"
-        | "ms-arab"
-        | "mt"
-        | "mua"
-        | "mus"
-        | "mwl"
-        | "my"
-        | "myv"
-        | "mzn"
-        | "na"
-        | "nah"
-        | "nan"
-        | "nan-hani"
-        | "nap"
-        | "nb"
-        | "nds"
-        | "nds-nl"
-        | "ne"
-        | "new"
-        | "ng"
-        | "nge"
-        | "nia"
-        | "nit"
-        | "niu"
-        | "nl"
-        | "nl-informal"
-        | "nla"
-        | "nmg"
-        | "nmz"
-        | "nn"
-        | "nnh"
-        | "nnz"
-        | "no"
-        | "nod"
-        | "nog"
-        | "nov"
-        | "nqo"
-        | "nrm"
-        | "nso"
-        | "nv"
-        | "ny"
-        | "nyn"
-        | "nyo"
-        | "nys"
-        | "oc"
-        | "ojb"
-        | "olo"
-        | "om"
-        | "or"
-        | "os"
-        | "osa-latn"
-        | "ota"
-        | "pa"
-        | "pag"
-        | "pam"
-        | "pap"
-        | "pap-aw"
-        | "pcd"
-        | "pcm"
-        | "pdc"
-        | "pdt"
-        | "pfl"
-        | "pi"
-        | "pih"
-        | "pl"
-        | "pms"
-        | "pnb"
-        | "pnt"
-        | "prg"
-        | "ps"
-        | "pt"
-        | "pt-br"
-        | "pwn"
-        | "qu"
-        | "quc"
-        | "qug"
-        | "rgn"
-        | "rif"
-        | "rki"
-        | "rm"
-        | "rmc"
-        | "rmf"
-        | "rmy"
-        | "rn"
-        | "ro"
-        | "roa-rup"
-        | "roa-tara"
-        | "rsk"
-        | "ru"
-        | "rue"
-        | "rup"
-        | "ruq"
-        | "ruq-cyrl"
-        | "ruq-latn"
-        | "rut"
-        | "rw"
-        | "rwr"
-        | "ryu"
-        | "sa"
-        | "sah"
-        | "sat"
-        | "sc"
-        | "scn"
-        | "sco"
-        | "sd"
-        | "sdc"
-        | "sdh"
-        | "se"
-        | "se-fi"
-        | "se-no"
-        | "se-se"
-        | "sei"
-        | "ses"
-        | "sg"
-        | "sgs"
-        | "sh"
-        | "sh-cyrl"
-        | "sh-latn"
-        | "shi"
-        | "shi-latn"
-        | "shi-tfng"
-        | "shn"
-        | "shy"
-        | "shy-latn"
-        | "si"
-        | "simple"
-        | "sjd"
-        | "sje"
-        | "sju"
-        | "sk"
-        | "skr"
-        | "skr-arab"
-        | "sl"
-        | "sli"
-        | "sm"
-        | "sma"
-        | "smj"
-        | "smn"
-        | "sms"
-        | "sn"
-        | "so"
-        | "sq"
-        | "sr"
-        | "sr-ec"
-        | "sr-el"
-        | "srn"
-        | "sro"
-        | "srq"
-        | "ss"
-        | "st"
-        | "stq"
-        | "sty"
-        | "su"
-        | "sv"
-        | "sw"
-        | "syl"
-        | "szl"
-        | "szy"
-        | "ta"
-        | "tay"
-        | "tcy"
-        | "tdd"
-        | "te"
-        | "tet"
-        | "tg"
-        | "tg-cyrl"
-        | "tg-latn"
-        | "th"
-        | "ti"
-        | "tk"
-        | "tl"
-        | "tly"
-        | "tly-cyrl"
-        | "tn"
-        | "to"
-        | "tok"
-        | "tpi"
-        | "tpv"
-        | "tr"
-        | "tru"
-        | "trv"
-        | "ts"
-        | "tt"
-        | "tt-cyrl"
-        | "tt-latn"
-        | "ttj"
-        | "tum"
-        | "tvu"
-        | "tw"
-        | "ty"
-        | "tyv"
-        | "tzm"
-        | "udm"
-        | "ug"
-        | "ug-arab"
-        | "ug-latn"
-        | "uk"
-        | "ur"
-        | "uselang"
-        | "uz"
-        | "uz-cyrl"
-        | "uz-latn"
-        | "ve"
-        | "vec"
-        | "vep"
-        | "vi"
-        | "vls"
-        | "vmf"
-        | "vmw"
-        | "vo"
-        | "vot"
-        | "vro"
-        | "vut"
-        | "wa"
-        | "wal"
-        | "war"
-        | "wes"
-        | "wls"
-        | "wo"
-        | "wuu"
-        | "wuu-hans"
-        | "wuu-hant"
-        | "wya"
-        | "xal"
-        | "xh"
-        | "xmf"
-        | "xsy"
-        | "yas"
-        | "yat"
-        | "yav"
-        | "ybb"
-        | "yi"
-        | "yo"
-        | "yrl"
-        | "yue"
-        | "yue-hans"
-        | "yue-hant"
-        | "za"
-        | "zea"
-        | "zgh"
-        | "zh"
-        | "zh-classical"
-        | "zh-cn"
-        | "zh-hans"
-        | "zh-hant"
-        | "zh-hk"
-        | "zh-min-nan"
-        | "zh-mo"
-        | "zh-my"
-        | "zh-sg"
-        | "zh-tw"
-        | "zh-yue"
-        | "zu";
-    wbptterms?: OneOrMore<"alias" | "description" | "label">;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageAssessments}
+ */
+export interface ApiActionQueryListProjectPagesParams extends ApiActionQueryParams {
+    gwppassessments?: boolean;
+    gwppprojects: string | string[];
+    gwpplimit?: limit;
+    gwppcontinue?: string;
 }
 
-export interface PageViewInfoApiQueryPageViewsParams extends ApiQueryParams {
-    pvipmetric?: "pageviews";
-    pvipdays?: number;
-    pvipcontinue?: string;
-}
-
-export interface ApiQueryPrefixSearchParams extends ApiQueryParams {
-    pssearch: string;
-    psnamespace?: namespace | namespace[];
-    pslimit?: limit;
-    psoffset?: number;
-    psprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
-}
-
-export interface PageAssessmentsApiQueryProjectPagesParams extends ApiQueryParams {
-    wppassessments?: boolean;
-    wppprojects: string | string[];
-    wpplimit?: limit;
-    wppcontinue?: string;
-}
-
-export interface PageAssessmentsApiQueryProjectsParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageAssessments}
+ */
+export interface ApiActionQueryListProjectsParams extends ApiActionQueryParams {
     pjsubprojects?: boolean;
 }
 
-export interface ApiQueryProtectedTitlesParams extends ApiQueryParams {
-    ptnamespace?: namespace | namespace[];
-    ptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
-    ptlimit?: limit;
-    ptdir?: "newer" | "older";
-    ptstart?: timestamp;
-    ptend?: timestamp;
-    ptprop?: OneOrMore<
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
+ */
+export interface ApiActionQueryListProtectedTitlesParams extends ApiActionQueryParams {
+    gptnamespace?: namespace | namespace[];
+    gptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gptlimit?: limit;
+    gptdir?: "newer" | "older";
+    gptstart?: timestamp;
+    gptend?: timestamp;
+    gptprop?: OneOrMore<
         "comment" | "expiry" | "level" | "parsedcomment" | "timestamp" | "user" | "userid"
     >;
-    ptcontinue?: string;
+    gptcontinue?: string;
 }
 
-export interface ApiQueryQueryPageParams extends ApiQueryParams {
-    qppage:
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Querypage}
+ */
+export interface ApiActionQueryListQueryPageParams extends ApiActionQueryParams {
+    gqppage:
         | "Ancientpages"
         | "BrokenRedirects"
         | "Deadendpages"
@@ -4864,47 +6863,49 @@ export interface ApiQueryQueryPageParams extends ApiQueryParams {
         | "Wantedpages"
         | "Wantedtemplates"
         | "Withoutinterwiki";
-    qpoffset?: number;
-    qplimit?: limit;
+    gqpoffset?: number;
+    gqplimit?: limit;
 }
 
-export interface ApiQueryRandomParams extends ApiQueryParams {
-    rnnamespace?: namespace | namespace[];
-    rnfilterredir?: "all" | "nonredirects" | "redirects";
-    rnredirect?: boolean;
-    rnlimit?: limit;
-    rncontinue?: string;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Random}
+ */
+export interface ApiActionQueryListRandomParams extends ApiActionQueryParams {
+    grnnamespace?: namespace | namespace[];
+    grnfilterredir?: "all" | "nonredirects" | "redirects";
+    /**
+     * @deprecated
+     */
+    grnredirect?: boolean;
+    grnlimit?: limit;
+    grncontinue?: string;
 }
 
-export interface ReadingListsApiQueryReadingListEntriesParams extends ApiQueryParams {
-    rlelists?: number | number[];
-    rlechangedsince?: timestamp;
-    rlesort?: "name" | "updated";
-    rledir?: "ascending" | "descending";
-    rlelimit?: limit;
-    rlecontinue?: string;
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionQueryListReadingListEntriesParams extends ApiActionQueryParams {
+    grlelists?: number | number[];
+    grlechangedsince?: timestamp;
+    grlesort?: "name" | "updated";
+    grledir?: "ascending" | "descending";
+    grlelimit?: limit;
+    grlecontinue?: string;
 }
 
-export interface ReadingListsApiQueryReadingListsParams extends ApiQueryParams {
-    rllist?: number;
-    rlproject?: string;
-    rltitle?: string;
-    rlchangedsince?: timestamp;
-    rlsort?: "name" | "updated";
-    rldir?: "ascending" | "descending";
-    rllimit?: limit;
-    rlcontinue?: string;
-}
-
-export interface ApiQueryRecentChangesParams extends ApiQueryParams {
-    rcstart?: timestamp;
-    rcend?: timestamp;
-    rcdir?: "newer" | "older";
-    rcnamespace?: namespace | namespace[];
-    rcuser?: string;
-    rcexcludeuser?: string;
-    rctag?: string;
-    rcprop?: OneOrMore<
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Recentchanges}
+ */
+export interface ApiActionQueryListRecentChangesParams extends ApiActionQueryParams {
+    grcstart?: timestamp;
+    grcend?: timestamp;
+    grcdir?: "newer" | "older";
+    grcnamespace?: namespace | namespace[];
+    grcuser?: string;
+    grcexcludeuser?: string;
+    grctag?: string;
+    grcprop?: OneOrMore<
         | "comment"
         | "flags"
         | "ids"
@@ -4921,7 +6922,7 @@ export interface ApiQueryRecentChangesParams extends ApiQueryParams {
         | "user"
         | "userid"
     >;
-    rcshow?: OneOrMore<
+    grcshow?: OneOrMore<
         | "!anon"
         | "!autopatrolled"
         | "!bot"
@@ -4938,81 +6939,24 @@ export interface ApiQueryRecentChangesParams extends ApiQueryParams {
         | "redirect"
         | "unpatrolled"
     >;
-    rclimit?: limit;
-    rctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
-    rctoponly?: boolean;
-    rctitle?: string;
-    rccontinue?: string;
-    rcgeneraterevisions?: boolean;
-    rcslot?: "main";
+    grclimit?: limit;
+    grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    grctoponly?: boolean;
+    grctitle?: string;
+    grccontinue?: string;
+    grcgeneraterevisions?: boolean;
+    grcslot?: "main";
 }
 
-export interface ApiQueryRedirectsParams extends ApiQueryParams {
-    rdprop?: OneOrMore<"fragment" | "pageid" | "title">;
-    rdnamespace?: namespace | namespace[];
-    rdshow?: OneOrMore<"!fragment" | "fragment">;
-    rdlimit?: limit;
-    rdcontinue?: string;
-}
-
-export interface ApiQueryRevisionsParams extends ApiQueryParams {
-    rvprop?: OneOrMore<
-        | "comment"
-        | "content"
-        | "contentmodel"
-        | "flagged"
-        | "flags"
-        | "ids"
-        | "oresscores"
-        | "parsedcomment"
-        | "roles"
-        | "sha1"
-        | "size"
-        | "slotsha1"
-        | "slotsize"
-        | "tags"
-        | "timestamp"
-        | "user"
-        | "userid"
-        | "parsetree"
-    >;
-    rvslots?: OneOrMore<"main">;
-    rvlimit?: limit;
-    rvexpandtemplates?: boolean;
-    rvgeneratexml?: boolean;
-    rvparse?: boolean;
-    rvsection?: string;
-    rvdiffto?: string;
-    rvdifftotext?: string;
-    rvdifftotextpst?: boolean;
-    rvcontentformat?:
-        | "application/json"
-        | "application/octet-stream"
-        | "application/unknown"
-        | "application/x-binary"
-        | "text/css"
-        | "text/javascript"
-        | "text/plain"
-        | "text/unknown"
-        | "text/x-wiki"
-        | "unknown/unknown";
-    rvstartid?: number;
-    rvendid?: number;
-    rvstart?: timestamp;
-    rvend?: timestamp;
-    rvdir?: "newer" | "older";
-    rvuser?: string;
-    rvexcludeuser?: string;
-    rvtag?: string;
-    rvcontinue?: string;
-}
-
-export interface ApiQuerySearchParams extends ApiQueryParams {
-    srsearch: string;
-    srnamespace?: namespace | namespace[];
-    srlimit?: limit;
-    sroffset?: number;
-    srqiprofile?:
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Search}
+ */
+export interface ApiActionQueryListSearchParams extends ApiActionQueryParams {
+    gsrsearch: string;
+    gsrnamespace?: namespace | namespace[];
+    gsrlimit?: limit;
+    gsroffset?: number;
+    gsrqiprofile?:
         | "classic"
         | "classic_noboostlinks"
         | "empty"
@@ -5023,9 +6967,9 @@ export interface ApiQuerySearchParams extends ApiQueryParams {
         | "popular_inclinks_pv"
         | "wsum_inclinks"
         | "wsum_inclinks_pv";
-    srwhat?: "nearmatch" | "text" | "title";
-    srinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
-    srprop?: OneOrMore<
+    gsrwhat?: "nearmatch" | "text" | "title";
+    gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
+    gsrprop?: OneOrMore<
         | "categorysnippet"
         | "extensiondata"
         | "isfilematch"
@@ -5041,9 +6985,9 @@ export interface ApiQuerySearchParams extends ApiQueryParams {
         | "hasrelated"
         | "score"
     >;
-    srinterwiki?: boolean;
-    srenablerewrites?: boolean;
-    srsort?:
+    gsrinterwiki?: boolean;
+    gsrenablerewrites?: boolean;
+    gsrsort?:
         | "create_timestamp_asc"
         | "create_timestamp_desc"
         | "incoming_links_asc"
@@ -5057,72 +7001,10 @@ export interface ApiQuerySearchParams extends ApiQueryParams {
         | "user_random";
 }
 
-export interface ApiQuerySiteinfoParams extends ApiQueryParams {
-    siprop?: OneOrMore<
-        | "autocreatetempuser"
-        | "autopromote"
-        | "autopromoteonce"
-        | "clientlibraries"
-        | "dbrepllag"
-        | "defaultoptions"
-        | "extensions"
-        | "extensiontags"
-        | "fileextensions"
-        | "functionhooks"
-        | "general"
-        | "interwikimap"
-        | "languages"
-        | "languagevariants"
-        | "libraries"
-        | "magicwords"
-        | "namespacealiases"
-        | "namespaces"
-        | "protocols"
-        | "restrictions"
-        | "rightsinfo"
-        | "showhooks"
-        | "skins"
-        | "specialpagealiases"
-        | "statistics"
-        | "uploaddialog"
-        | "usergroups"
-        | "variables"
-    >;
-    sifilteriw?: "!local" | "local";
-    sishowalldb?: boolean;
-    sinumberingroup?: boolean;
-    siinlanguagecode?: string;
-}
-
-export interface PageViewInfoApiQuerySiteViewsParams extends ApiQueryParams {
-    pvismetric?: "pageviews" | "uniques";
-    pvisdays?: number;
-}
-
-export interface ApiQueryStashImageInfoParams extends ApiQueryParams {
-    siifilekey?: string | string[];
-    siisessionkey?: string | string[];
-    siiprop?: OneOrMore<
-        | "badfile"
-        | "bitdepth"
-        | "canonicaltitle"
-        | "commonmetadata"
-        | "dimensions"
-        | "extmetadata"
-        | "metadata"
-        | "mime"
-        | "sha1"
-        | "size"
-        | "thumbmime"
-        | "timestamp"
-        | "url"
-    >;
-    siiurlwidth?: number;
-    siiurlheight?: number;
-    siiurlparam?: string;
-}
-
-export interface ApiQueryTagsParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Tags}
+ */
+export interface ApiActionQueryListTagsParams extends ApiActionQueryParams {
     tgcontinue?: string;
     tglimit?: limit;
     tgprop?: OneOrMore<
@@ -5130,46 +7012,10 @@ export interface ApiQueryTagsParams extends ApiQueryParams {
     >;
 }
 
-export interface ApiQueryTemplatesParams extends ApiQueryParams {
-    tlnamespace?: namespace | namespace[];
-    tllimit?: limit;
-    tlcontinue?: string;
-    tltemplates?: string | string[];
-    tldir?: "ascending" | "descending";
-}
-
-export interface ApiQueryTokensParams extends ApiQueryParams {
-    type?: OneOrMore<
-        | "createaccount"
-        | "csrf"
-        | "deleteglobalaccount"
-        | "login"
-        | "patrol"
-        | "rollback"
-        | "setglobalaccountstatus"
-        | "userrights"
-        | "watch"
-    >;
-}
-
-export interface ApiQueryTranscludedInParams extends ApiQueryParams {
-    tiprop?: OneOrMore<"pageid" | "redirect" | "title">;
-    tinamespace?: namespace | namespace[];
-    tishow?: OneOrMore<"!redirect" | "redirect">;
-    tilimit?: limit;
-    ticontinue?: string;
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface MediaWikiTimedMediaHandlerApiTranscodeStatusParams extends ApiQueryParams {}
-
-export interface NotificationsApiEchoUnreadNotificationPagesParams extends ApiQueryParams {
-    unpwikis?: string | string[];
-    unpgrouppages?: boolean;
-    unplimit?: limit;
-}
-
-export interface ApiQueryUserContribsParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Usercontribs}
+ */
+export interface ApiActionQueryListUserContribsParams extends ApiActionQueryParams {
     uclimit?: limit;
     ucstart?: timestamp;
     ucend?: timestamp;
@@ -5208,10 +7054,466 @@ export interface ApiQueryUserContribsParams extends ApiQueryParams {
         | "top"
     >;
     uctag?: string;
+    /**
+     * @deprecated
+     */
     uctoponly?: boolean;
 }
 
-export interface ApiQueryUserInfoParams extends ApiQueryParams {
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Users}
+ */
+export interface ApiActionQueryListUsersParams extends ApiActionQueryParams {
+    usprop?: OneOrMore<
+        | "blockinfo"
+        | "cancreate"
+        | "centralids"
+        | "editcount"
+        | "emailable"
+        | "gender"
+        | "groupmemberships"
+        | "groups"
+        | "implicitgroups"
+        | "registration"
+        | "rights"
+    >;
+    usattachedwiki?: string;
+    ususers?: string | string[];
+    ususerids?: number | number[];
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlist}
+ */
+export interface ApiActionQueryListWatchlistParams extends ApiActionQueryParams {
+    gwlallrev?: boolean;
+    gwlstart?: timestamp;
+    gwlend?: timestamp;
+    gwlnamespace?: namespace | namespace[];
+    gwluser?: string;
+    gwlexcludeuser?: string;
+    gwldir?: "newer" | "older";
+    gwllimit?: limit;
+    gwlprop?: OneOrMore<
+        | "comment"
+        | "expiry"
+        | "flags"
+        | "ids"
+        | "loginfo"
+        | "notificationtimestamp"
+        | "oresscores"
+        | "parsedcomment"
+        | "patrol"
+        | "sizes"
+        | "tags"
+        | "timestamp"
+        | "title"
+        | "user"
+        | "userid"
+    >;
+    gwlshow?: OneOrMore<
+        | "!anon"
+        | "!autopatrolled"
+        | "!bot"
+        | "!minor"
+        | "!oresreview"
+        | "!patrolled"
+        | "!unread"
+        | "anon"
+        | "autopatrolled"
+        | "bot"
+        | "minor"
+        | "oresreview"
+        | "patrolled"
+        | "unread"
+    >;
+    gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    gwlowner?: string;
+    gwltoken?: string;
+    gwlcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlistraw}
+ */
+export interface ApiActionQueryListWatchlistRawParams extends ApiActionQueryParams {
+    gwrcontinue?: string;
+    gwrnamespace?: namespace | namespace[];
+    gwrlimit?: limit;
+    gwrprop?: OneOrMore<"changed">;
+    gwrshow?: OneOrMore<"!changed" | "changed">;
+    gwrowner?: string;
+    gwrtoken?: string;
+    gwrdir?: "ascending" | "descending";
+    gwrfromtitle?: string;
+    gwrtotitle?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
+ */
+export interface ApiActionQueryListWblistentityusageParams extends ApiActionQueryParams {
+    gwbleuprop?: OneOrMore<"url">;
+    gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
+    gwbleuentities: string | string[];
+    gwbleulimit?: limit;
+    gwbleucontinue?: string;
+}
+
+export interface ApiActionQueryListWikiSetsParams extends ApiActionQueryParams {
+    wsfrom?: string;
+    wsprop?: OneOrMore<"type" | "wikisincluded" | "wikisnotincluded">;
+    wslimit?: limit;
+    wsorderbyname?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allmessages}
+ */
+export interface ApiActionQueryMetaAllMessagesParams extends ApiActionQueryParams {
+    ammessages?: string | string[];
+    amprop?: OneOrMore<"default">;
+    amenableparser?: boolean;
+    amnocontent?: boolean;
+    amincludelocal?: boolean;
+    amargs?: string | string[];
+    amfilter?: string;
+    amcustomised?: "all" | "modified" | "unmodified";
+    amlang?: string;
+    amfrom?: string;
+    amto?: string;
+    amtitle?: string;
+    amprefix?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Authmanagerinfo}
+ */
+export interface ApiActionQueryMetaAuthManagerInfoParams extends ApiActionQueryParams {
+    amisecuritysensitiveoperation?: string;
+    amirequestsfor?:
+        | "change"
+        | "create"
+        | "create-continue"
+        | "link"
+        | "link-continue"
+        | "login"
+        | "login-continue"
+        | "remove"
+        | "unlink";
+    amimergerequestfields?: boolean;
+    amimessageformat?: "html" | "none" | "raw" | "wikitext";
+}
+
+export interface ApiActionQueryMetaBabelParams extends ApiActionQueryParams {
+    babuser: string;
+}
+
+export interface ApiActionQueryMetaCommunityConfigurationParams extends ApiActionQueryParams {
+    ccrprovider:
+        | "GrowthHomepage"
+        | "GrowthMentorList"
+        | "GrowthSuggestedEdits"
+        | "HelpPanel"
+        | "Mentorship";
+    ccrassertversion?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionQueryMetaCxdeletedtranslationsParams extends ApiActionQueryParams {
+    dtafter?: timestamp;
+    dtnamespace?: namespace;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ApiFeatureUsage}
+ */
+export interface ApiActionQueryMetaFeatureUsageParams extends ApiActionQueryParams {
+    afustart?: timestamp;
+    afuend?: timestamp;
+    afuagent?: string;
+    afufeatures?: string | string[];
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Filerepoinfo}
+ */
+export interface ApiActionQueryMetaFileRepoInfoParams extends ApiActionQueryParams {
+    friprop?: OneOrMore<
+        | "canUpload"
+        | "descBaseUrl"
+        | "descriptionCacheExpiry"
+        | "displayname"
+        | "favicon"
+        | "fetchDescription"
+        | "initialCapital"
+        | "local"
+        | "name"
+        | "rootUrl"
+        | "scriptDirUrl"
+        | "thumbUrl"
+        | "url"
+    >;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Globalpreferences}
+ */
+export interface ApiActionQueryMetaGlobalPreferencesParams extends ApiActionQueryParams {
+    prop?: OneOrMore<"localoverrides" | "preferences">;
+}
+
+export interface ApiActionQueryMetaGlobalRenameStatusParams extends ApiActionQueryParams {
+    grsuser?: string;
+}
+
+export interface ApiActionQueryMetaGlobalUserInfoParams extends ApiActionQueryParams {
+    guiuser?: string;
+    guiid?: number;
+    guiprop?: OneOrMore<"editcount" | "groups" | "merged" | "rights" | "unattached">;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryMetaGrowthMenteeStatusParams extends ApiActionQueryParams {}
+
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryMetaGrowthMentorStatusParams extends ApiActionQueryParams {}
+
+/**
+ * @private
+ */
+export interface ApiActionQueryMetaGrowthNextSuggestedTaskTypeParams extends ApiActionQueryParams {
+    gnsttactivetasktype: "copyedit" | "expand" | "links" | "references" | "update";
+}
+
+export interface ApiActionQueryMetaLanguageinfoParams extends ApiActionQueryParams {
+    liprop?: OneOrMore<
+        "autonym" | "bcp47" | "code" | "dir" | "fallbacks" | "name" | "variantnames" | "variants"
+    >;
+    licode?: string | string[];
+    licontinue?: string;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryMetaLinterStatsParams extends ApiActionQueryParams {}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Echo_(Notifications)/API}
+ */
+export interface ApiActionQueryMetaNotificationsParams extends ApiActionQueryParams {
+    notwikis?: string | string[];
+    notfilter?: OneOrMore<"!read" | "read">;
+    notprop?: OneOrMore<"count" | "list" | "seenTime">;
+    notsections?: OneOrMore<"alert" | "message">;
+    notgroupbysection?: boolean;
+    notformat?: "flyout" | "html" | "model" | "special";
+    notlimit?: limit;
+    notcontinue?: string;
+    notunreadfirst?: boolean;
+    nottitles?: string | string[];
+    notbundle?: boolean;
+    notnotifiertypes?: OneOrMore<"email" | "push" | "web">;
+    notalertcontinue?: string;
+    notalertunreadfirst?: boolean;
+    notmessagecontinue?: string;
+    notmessageunreadfirst?: boolean;
+    notcrosswikisummary?: boolean;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionQueryMetaOATHParams extends ApiActionQueryParams {
+    oathuser?: string;
+    oathreason?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ORES}
+ */
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryMetaORESParams extends ApiActionQueryParams {}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionQueryMetaReadingListsParams extends ApiActionQueryParams {
+    rlcommand: ApiActionQueryMetaReadingListsParamsCommand;
+    rltoken?: string;
+}
+
+type ApiActionQueryMetaReadingListsParamsCommand = keyof ApiActionQueryMetaReadingListsParamsCommandMap;
+
+interface ApiActionQueryMetaReadingListsParamsCommandMap {
+    create: ApiActionQueryMetaReadingListsCommandCreateParams;
+    createentry: ApiActionQueryMetaReadingListsCommandCreateEntryParams;
+    delete: ApiActionQueryMetaReadingListsCommandDeleteParams;
+    deleteentry: ApiActionQueryMetaReadingListsCommandDeleteEntryParams;
+    setup: ApiActionQueryMetaReadingListsCommandSetupParams;
+    teardown: ApiActionQueryMetaReadingListsCommandTeardownParams;
+    update: ApiActionQueryMetaReadingListsCommandUpdateParams;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionQueryMetaReadingListsCommandCreateParams
+    extends ApiActionQueryMetaReadingListsParams {
+    rlcommand: "create";
+    rlname?: string;
+    rldescription?: string;
+    rlbatch?: string;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionQueryMetaReadingListsCommandCreateEntryParams
+    extends ApiActionQueryMetaReadingListsParams {
+    rlcommand: "createentry";
+    rllist: number;
+    rlproject?: string;
+    rltitle?: string;
+    rlbatch?: string;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionQueryMetaReadingListsCommandDeleteParams
+    extends ApiActionQueryMetaReadingListsParams {
+    rlcommand: "delete";
+    rllist?: number;
+    rlbatch?: string;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionQueryMetaReadingListsCommandDeleteEntryParams
+    extends ApiActionQueryMetaReadingListsParams {
+    rlcommand: "deleteentry";
+    rlentry?: number;
+    rlbatch?: string;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionQueryMetaReadingListsCommandSetupParams
+    extends ApiActionQueryMetaReadingListsParams {
+    rlcommand: "setup";
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionQueryMetaReadingListsCommandTeardownParams
+    extends ApiActionQueryMetaReadingListsParams {
+    rlcommand: "teardown";
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionQueryMetaReadingListsCommandUpdateParams
+    extends ApiActionQueryMetaReadingListsParams {
+    rlcommand: "update";
+    rllist?: number;
+    rlname?: string;
+    rldescription?: string;
+    rlbatch?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Siteinfo}
+ */
+export interface ApiActionQueryMetaSiteinfoParams extends ApiActionQueryParams {
+    siprop?: OneOrMore<
+        | "autocreatetempuser"
+        | "autopromote"
+        | "autopromoteonce"
+        | "clientlibraries"
+        | "dbrepllag"
+        | "defaultoptions"
+        | "extensions"
+        | "extensiontags"
+        | "fileextensions"
+        | "functionhooks"
+        | "general"
+        | "interwikimap"
+        | "languages"
+        | "languagevariants"
+        | "libraries"
+        | "magicwords"
+        | "namespacealiases"
+        | "namespaces"
+        | "protocols"
+        | "restrictions"
+        | "rightsinfo"
+        | "showhooks"
+        | "skins"
+        | "specialpagealiases"
+        | "statistics"
+        | "uploaddialog"
+        | "usergroups"
+        | "variables"
+    >;
+    sifilteriw?: "!local" | "local";
+    sishowalldb?: boolean;
+    sinumberingroup?: boolean;
+    siinlanguagecode?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
+ */
+export interface ApiActionQueryMetaSiteViewsParams extends ApiActionQueryParams {
+    pvismetric?: "pageviews" | "uniques";
+    pvisdays?: number;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Tokens}
+ */
+export interface ApiActionQueryMetaTokensParams extends ApiActionQueryParams {
+    type?: OneOrMore<
+        | "createaccount"
+        | "csrf"
+        | "deleteglobalaccount"
+        | "login"
+        | "patrol"
+        | "rollback"
+        | "setglobalaccountstatus"
+        | "userrights"
+        | "watch"
+        | "*"
+    >;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Echo_(Notifications)/API}
+ */
+export interface ApiActionQueryMetaUnreadNotificationPagesParams extends ApiActionQueryParams {
+    unpwikis?: string | string[];
+    unpgrouppages?: boolean;
+    unplimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Userinfo}
+ */
+export interface ApiActionQueryMetaUserInfoParams extends ApiActionQueryParams {
     uiprop?: OneOrMore<
         | "acceptlang"
         | "blockinfo"
@@ -5232,38 +7534,153 @@ export interface ApiQueryUserInfoParams extends ApiQueryParams {
         | "rights"
         | "theoreticalratelimits"
         | "unreadcount"
+        | "*"
     >;
     uiattachedwiki?: string;
 }
 
-export interface ApiQueryUsersParams extends ApiQueryParams {
-    usprop?: OneOrMore<
-        | "blockinfo"
-        | "cancreate"
-        | "centralids"
-        | "editcount"
-        | "emailable"
-        | "gender"
-        | "groupmemberships"
-        | "groups"
-        | "implicitgroups"
-        | "registration"
-        | "rights"
-    >;
-    usattachedwiki?: string;
-    ususers?: string | string[];
-    ususerids?: number | number[];
+export interface ApiActionQueryMetaWikibaseParams extends ApiActionQueryParams {
+    wbprop?: OneOrMore<"siteid" | "url">;
 }
 
-export interface MediaWikiTimedMediaHandlerApiQueryVideoInfoParams extends ApiQueryParams {
-    viprop?: OneOrMore<
-        | "archivename"
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allcategories}
+ */
+export interface ApiActionQueryGeneratorAllCategoriesParams extends ApiActionQueryParams {
+    generator?: "allcategories";
+    gacfrom?: string;
+    gaccontinue?: string;
+    gacto?: string;
+    gacprefix?: string;
+    gacdir?: "ascending" | "descending";
+    gacmin?: number;
+    gacmax?: number;
+    gaclimit?: limit;
+    gacprop?: OneOrMore<"hidden" | "size">;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alldeletedrevisions}
+ */
+export interface ApiActionQueryGeneratorAllDeletedRevisionsParams extends ApiActionQueryParams {
+    generator?: "alldeletedrevisions";
+    gadrprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    gadrslots?: string | string[];
+    [k: `gadrcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gadrlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gadrexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrparse?: boolean;
+    gadrsection?: string;
+    /**
+     * @deprecated
+     */
+    gadrdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gadruser?: string;
+    gadrnamespace?: namespace | namespace[];
+    gadrstart?: timestamp;
+    gadrend?: timestamp;
+    gadrdir?: "newer" | "older";
+    gadrfrom?: string;
+    gadrto?: string;
+    gadrprefix?: string;
+    gadrexcludeuser?: string;
+    gadrtag?: string;
+    gadrcontinue?: string;
+    gadrgeneratetitles?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
+ */
+export interface ApiActionQueryGeneratorQueryAllFileUsagesParams extends ApiActionQueryParams {
+    generator?: "allfileusages";
+    gafcontinue?: string;
+    gaffrom?: string;
+    gafto?: string;
+    gafprefix?: string;
+    gafunique?: boolean;
+    gafprop?: OneOrMore<"ids" | "title">;
+    gaflimit?: limit;
+    gafdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allimages}
+ */
+export interface ApiActionQueryGeneratorAllImagesParams extends ApiActionQueryParams {
+    generator?: "allimages";
+    gaisort?: "name" | "timestamp";
+    gaidir?: "ascending" | "descending" | "newer" | "older";
+    gaifrom?: string;
+    gaito?: string;
+    gaicontinue?: string;
+    gaistart?: timestamp;
+    gaiend?: timestamp;
+    gaiprop?: OneOrMore<
         | "badfile"
         | "bitdepth"
         | "canonicaltitle"
         | "comment"
         | "commonmetadata"
-        | "derivatives"
         | "dimensions"
         | "extmetadata"
         | "mediatype"
@@ -5272,39 +7689,983 @@ export interface MediaWikiTimedMediaHandlerApiQueryVideoInfoParams extends ApiQu
         | "parsedcomment"
         | "sha1"
         | "size"
-        | "thumbmime"
-        | "timedtext"
         | "timestamp"
-        | "uploadwarning"
         | "url"
         | "user"
         | "userid"
     >;
-    vilimit?: limit;
-    vistart?: timestamp;
-    viend?: timestamp;
-    viurlwidth?: number;
-    viurlheight?: number;
-    vimetadataversion?: string;
-    viextmetadatalanguage?: string;
-    viextmetadatamultilang?: boolean;
-    viextmetadatafilter?: string | string[];
-    viurlparam?: string;
-    vibadfilecontexttitle?: string;
-    vicontinue?: string;
-    vilocalonly?: boolean;
+    gaiprefix?: string;
+    gaiminsize?: number;
+    gaimaxsize?: number;
+    gaisha1?: string;
+    gaisha1base36?: string;
+    gaiuser?: string;
+    gaifilterbots?: "all" | "bots" | "nobots";
+    gaimime?: string | string[];
+    gailimit?: limit;
 }
 
-export interface ApiQueryWatchlistParams extends ApiQueryParams {
-    wlallrev?: boolean;
-    wlstart?: timestamp;
-    wlend?: timestamp;
-    wlnamespace?: namespace | namespace[];
-    wluser?: string;
-    wlexcludeuser?: string;
-    wldir?: "newer" | "older";
-    wllimit?: limit;
-    wlprop?: OneOrMore<
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alllinks}
+ */
+export interface ApiActionQueryGeneratorAllLinksParams extends ApiActionQueryParams {
+    generator?: "alllinks";
+    galcontinue?: string;
+    galfrom?: string;
+    galto?: string;
+    galprefix?: string;
+    galunique?: boolean;
+    galprop?: OneOrMore<"ids" | "title">;
+    galnamespace?: namespace;
+    gallimit?: limit;
+    galdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allpages}
+ */
+export interface ApiActionQueryGeneratorAllPagesParams extends ApiActionQueryParams {
+    generator?: "allpages";
+    gapfrom?: string;
+    gapcontinue?: string;
+    gapto?: string;
+    gapprefix?: string;
+    gapnamespace?: namespace;
+    gapfilterredir?: "all" | "nonredirects" | "redirects";
+    gapfilterlanglinks?: "all" | "withlanglinks" | "withoutlanglinks";
+    gapminsize?: number;
+    gapmaxsize?: number;
+    gapprtype?: OneOrMore<"edit" | "move" | "upload">;
+    gapprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gapprfiltercascade?: "all" | "cascading" | "noncascading";
+    gapprexpiry?: "all" | "definite" | "indefinite";
+    gaplimit?: limit;
+    gapdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
+ */
+export interface ApiActionQueryGeneratorQueryAllRedirectsParams extends ApiActionQueryParams {
+    generator?: "allredirects";
+    garcontinue?: string;
+    garfrom?: string;
+    garto?: string;
+    garprefix?: string;
+    garunique?: boolean;
+    garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
+    garnamespace?: namespace;
+    garlimit?: limit;
+    gardir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allrevisions}
+ */
+export interface ApiActionQueryGeneratorAllRevisionsParams extends ApiActionQueryParams {
+    generator?: "allrevisions";
+    garvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "oresscores"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    garvslots?: string | string[];
+    [k: `garvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    garvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    garvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    garvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    garvparse?: boolean;
+    garvsection?: string;
+    /**
+     * @deprecated
+     */
+    garvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    garvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    garvuser?: string;
+    garvnamespace?: namespace | namespace[];
+    garvstart?: timestamp;
+    garvend?: timestamp;
+    garvdir?: "newer" | "older";
+    garvexcludeuser?: string;
+    garvcontinue?: string;
+    garvgeneratetitles?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
+ */
+export interface ApiActionQueryGeneratorQueryAllTransclusionsParams extends ApiActionQueryParams {
+    generator?: "alltransclusions";
+    gatcontinue?: string;
+    gatfrom?: string;
+    gatto?: string;
+    gatprefix?: string;
+    gatunique?: boolean;
+    gatprop?: OneOrMore<"ids" | "title">;
+    gatnamespace?: namespace;
+    gatlimit?: limit;
+    gatdir?: "ascending" | "descending";
+}
+
+export interface ApiActionQueryGeneratorAutomaticTranslationDenseLanguagesParams
+    extends ApiActionQueryParams {
+    "generator"?: "automatictranslationdenselanguages";
+    "gqid": string;
+    "gsection-titles"?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Backlinks}
+ */
+export interface ApiActionQueryGeneratorBacklinksParams extends ApiActionQueryParams {
+    generator?: "backlinks";
+    gbltitle?: string;
+    gblpageid?: number;
+    gblcontinue?: string;
+    gblnamespace?: namespace | namespace[];
+    gbldir?: "ascending" | "descending";
+    gblfilterredir?: "all" | "nonredirects" | "redirects";
+    gbllimit?: limit;
+    gblredirect?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categories}
+ */
+export interface ApiActionQueryGeneratorCategoriesParams extends ApiActionQueryParams {
+    generator?: "categories";
+    gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
+    gclshow?: OneOrMore<"!hidden" | "hidden">;
+    gcllimit?: limit;
+    gclcontinue?: string;
+    gclcategories?: string | string[];
+    gcldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categorymembers}
+ */
+export interface ApiActionQueryGeneratorCategoryMembersParams extends ApiActionQueryParams {
+    generator?: "categorymembers";
+    gcmtitle?: string;
+    gcmpageid?: number;
+    gcmprop?: OneOrMore<"ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type">;
+    gcmnamespace?: namespace | namespace[];
+    gcmtype?: OneOrMore<"file" | "page" | "subcat">;
+    gcmcontinue?: string;
+    gcmlimit?: limit;
+    gcmsort?: "sortkey" | "timestamp";
+    gcmdir?: "asc" | "ascending" | "desc" | "descending" | "newer" | "older";
+    gcmstart?: timestamp;
+    gcmend?: timestamp;
+    gcmstarthexsortkey?: string;
+    gcmendhexsortkey?: string;
+    gcmstartsortkeyprefix?: string;
+    gcmendsortkeyprefix?: string;
+    /**
+     * @deprecated
+     */
+    gcmstartsortkey?: string;
+    /**
+     * @deprecated
+     */
+    gcmendsortkey?: string;
+}
+
+export interface ApiActionQueryGeneratorContentTranslationParams extends ApiActionQueryParams {
+    generator?: "contenttranslation";
+    gtranslationid?: string;
+    gfrom?: string;
+    gto?: string;
+    gsourcetitle?: string;
+    gsourcesectiontitle?: string;
+    glimit?: limit;
+    goffset?: string;
+    gtype?: "draft" | "published";
+    gusecase?: "desktop-editor-draft" | "translation-corpora-units" | "unified-dashboard";
+}
+
+export interface ApiActionQueryGeneratorContentTranslationSuggestionsParams
+    extends ApiActionQueryParams {
+    generator?: "contenttranslationsuggestions";
+    gfrom?: string;
+    gto?: string;
+    glistid?: string;
+    glimit?: limit;
+    goffset?: string;
+    gseed?: number;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Deletedrevisions}
+ */
+export interface ApiActionQueryGeneratorDeletedRevisionsParams extends ApiActionQueryParams {
+    generator?: "deletedrevisions";
+    gdrvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    gdrvslots?: string | string[];
+    [k: `gdrvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gdrvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvparse?: boolean;
+    gdrvsection?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvstart?: timestamp;
+    gdrvend?: timestamp;
+    gdrvdir?: "newer" | "older";
+    gdrvtag?: string;
+    gdrvuser?: string;
+    gdrvexcludeuser?: string;
+    gdrvcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Duplicatefiles}
+ */
+export interface ApiActionQueryGeneratorDuplicateFilesParams extends ApiActionQueryParams {
+    generator?: "duplicatefiles";
+    gdflimit?: limit;
+    gdfcontinue?: string;
+    gdfdir?: "ascending" | "descending";
+    gdflocalonly?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
+ */
+export interface ApiActionQueryGeneratorQueryEmbeddedInParams extends ApiActionQueryParams {
+    generator?: "embeddedin";
+    geititle?: string;
+    geipageid?: number;
+    geicontinue?: string;
+    geinamespace?: namespace | namespace[];
+    geidir?: "ascending" | "descending";
+    geifilterredir?: "all" | "nonredirects" | "redirects";
+    geilimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
+ */
+export interface ApiActionQueryGeneratorExturlusageParams extends ApiActionQueryParams {
+    generator?: "exturlusage";
+    geuprop?: OneOrMore<"ids" | "title" | "url">;
+    geucontinue?: string;
+    geuprotocol?:
+        | ""
+        | "bitcoin"
+        | "ftp"
+        | "ftps"
+        | "geo"
+        | "git"
+        | "gopher"
+        | "http"
+        | "https"
+        | "irc"
+        | "ircs"
+        | "magnet"
+        | "mailto"
+        | "matrix"
+        | "mms"
+        | "news"
+        | "nntp"
+        | "redis"
+        | "sftp"
+        | "sip"
+        | "sips"
+        | "sms"
+        | "ssh"
+        | "svn"
+        | "tel"
+        | "telnet"
+        | "urn"
+        | "worldwind"
+        | "xmpp";
+    geuquery?: string;
+    geunamespace?: namespace | namespace[];
+    geulimit?: limit;
+    /**
+     * @deprecated
+     */
+    geuexpandurl?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
+ */
+export interface ApiActionQueryGeneratorQueryFileUsageParams extends ApiActionQueryParams {
+    generator?: "fileusage";
+    gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gfunamespace?: namespace | namespace[];
+    gfushow?: OneOrMore<"!redirect" | "redirect">;
+    gfulimit?: limit;
+    gfucontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GeoData#list.3Dgeosearch}
+ */
+export interface ApiActionQueryGeneratorGeoSearchParams extends ApiActionQueryParams {
+    generator?: "geosearch";
+    ggscoord?: string;
+    ggspage?: string;
+    ggsbbox?: string;
+    ggsradius?: number;
+    ggsmaxdim?: number;
+    ggssort?: "distance" | "relevance";
+    ggslimit?: limit;
+    ggsglobe?: "earth";
+    ggsnamespace?: namespace | namespace[];
+    ggsprop?: OneOrMore<"country" | "dim" | "globe" | "name" | "region" | "type">;
+    ggsprimary?: "all" | "primary" | "secondary";
+    ggsdebug?: boolean;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GrowthExperiments#API}
+ */
+export interface ApiActionQueryGeneratorGrowthTasksParams extends ApiActionQueryParams {
+    generator?: "growthtasks";
+    ggttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    ggttopics?: OneOrMore<
+        | "africa"
+        | "architecture"
+        | "art"
+        | "asia"
+        | "biography"
+        | "biology"
+        | "business-and-economics"
+        | "central-america"
+        | "chemistry"
+        | "comics-and-anime"
+        | "computers-and-internet"
+        | "earth-and-environment"
+        | "education"
+        | "engineering"
+        | "entertainment"
+        | "europe"
+        | "fashion"
+        | "food-and-drink"
+        | "general-science"
+        | "history"
+        | "literature"
+        | "mathematics"
+        | "medicine-and-health"
+        | "military-and-warfare"
+        | "music"
+        | "north-america"
+        | "oceania"
+        | "performing-arts"
+        | "philosophy-and-religion"
+        | "physics"
+        | "politics-and-government"
+        | "society"
+        | "south-america"
+        | "sports"
+        | "technology"
+        | "transportation"
+        | "tv-and-film"
+        | "video-games"
+        | "women"
+    >;
+    ggttopicsmode?: "AND" | "OR";
+    ggtlimit?: limit;
+    ggtoffset?: number;
+    ggtdebug?: boolean;
+    ggtexcludepageids?: number | number[];
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Images}
+ */
+export interface ApiActionQueryGeneratorImagesParams extends ApiActionQueryParams {
+    generator?: "images";
+    gimlimit?: limit;
+    gimcontinue?: string;
+    gimimages?: string | string[];
+    gimdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
+ */
+export interface ApiActionQueryGeneratorQueryImageUsageParams extends ApiActionQueryParams {
+    generator?: "imageusage";
+    giutitle?: string;
+    giupageid?: number;
+    giucontinue?: string;
+    giunamespace?: namespace | namespace[];
+    giudir?: "ascending" | "descending";
+    giufilterredir?: "all" | "nonredirects" | "redirects";
+    giulimit?: limit;
+    giuredirect?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Iwbacklinks}
+ */
+export interface ApiActionQueryGeneratorIWBacklinksParams extends ApiActionQueryParams {
+    generator?: "iwbacklinks";
+    giwblprefix?: string;
+    giwbltitle?: string;
+    giwblcontinue?: string;
+    giwbllimit?: limit;
+    giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
+    giwbldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Langbacklinks}
+ */
+export interface ApiActionQueryGeneratorLangBacklinksParams extends ApiActionQueryParams {
+    generator?: "langbacklinks";
+    glbllang?: string;
+    glbltitle?: string;
+    glblcontinue?: string;
+    glbllimit?: limit;
+    glblprop?: OneOrMore<"lllang" | "lltitle">;
+    glbldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Links}
+ */
+export interface ApiActionQueryGeneratorLinksParams extends ApiActionQueryParams {
+    generator?: "links";
+    gplnamespace?: namespace | namespace[];
+    gpllimit?: limit;
+    gplcontinue?: string;
+    gpltitles?: string | string[];
+    gpldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
+ */
+export interface ApiActionQueryGeneratorQueryLinksHereParams extends ApiActionQueryParams {
+    generator?: "linkshere";
+    glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    glhnamespace?: namespace | namespace[];
+    glhshow?: OneOrMore<"!redirect" | "redirect">;
+    glhlimit?: limit;
+    glhcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
+ */
+export interface ApiActionQueryGeneratorMostViewedParams extends ApiActionQueryParams {
+    generator?: "mostviewed";
+    gpvimmetric?: "pageviews";
+    gpvimlimit?: limit;
+    gpvimoffset?: number;
+}
+
+export interface ApiActionQueryGeneratorOldreviewedpagesParams extends ApiActionQueryParams {
+    generator?: "oldreviewedpages";
+    gorstart?: timestamp;
+    gorend?: timestamp;
+    gordir?: "newer" | "older";
+    gormaxsize?: number;
+    gorfilterwatched?: "all" | "watched";
+    gornamespace?: namespace | namespace[];
+    gorcategory?: string;
+    gorfilterredir?: "all" | "nonredirects" | "redirects";
+    gorlimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Pageswithprop}
+ */
+export interface ApiActionQueryGeneratorPagesWithPropParams extends ApiActionQueryParams {
+    generator?: "pageswithprop";
+    gpwppropname: string;
+    gpwpprop?: OneOrMore<"ids" | "title" | "value">;
+    gpwpcontinue?: string;
+    gpwplimit?: limit;
+    gpwpdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch}
+ */
+export interface ApiActionQueryGeneratorPrefixSearchParams extends ApiActionQueryParams {
+    generator?: "prefixsearch";
+    gpssearch: string;
+    gpsnamespace?: namespace | namespace[];
+    gpslimit?: limit;
+    gpsoffset?: number;
+    gpsprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageAssessments}
+ */
+export interface ApiActionQueryGeneratorProjectPagesParams extends ApiActionQueryParams {
+    generator?: "projectpages";
+    gwppassessments?: boolean;
+    gwppprojects: string | string[];
+    gwpplimit?: limit;
+    gwppcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
+ */
+export interface ApiActionQueryGeneratorProtectedTitlesParams extends ApiActionQueryParams {
+    generator?: "protectedtitles";
+    gptnamespace?: namespace | namespace[];
+    gptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gptlimit?: limit;
+    gptdir?: "newer" | "older";
+    gptstart?: timestamp;
+    gptend?: timestamp;
+    gptprop?: OneOrMore<
+        "comment" | "expiry" | "level" | "parsedcomment" | "timestamp" | "user" | "userid"
+    >;
+    gptcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Querypage}
+ */
+export interface ApiActionQueryGeneratorQueryPageParams extends ApiActionQueryParams {
+    generator?: "querypage";
+    gqppage:
+        | "Ancientpages"
+        | "BrokenRedirects"
+        | "Deadendpages"
+        | "DisambiguationPageLinks"
+        | "DisambiguationPages"
+        | "DoubleRedirects"
+        | "Fewestrevisions"
+        | "GadgetUsage"
+        | "GloballyWantedFiles"
+        | "ListDuplicatedFiles"
+        | "Listredirects"
+        | "Lonelypages"
+        | "Longpages"
+        | "MediaStatistics"
+        | "MostGloballyLinkedFiles"
+        | "Mostcategories"
+        | "Mostimages"
+        | "Mostinterwikis"
+        | "Mostlinked"
+        | "Mostlinkedcategories"
+        | "Mostlinkedtemplates"
+        | "Mostrevisions"
+        | "OrphanedTimedText"
+        | "Shortpages"
+        | "Uncategorizedcategories"
+        | "Uncategorizedimages"
+        | "Uncategorizedpages"
+        | "Uncategorizedtemplates"
+        | "UnconnectedPages"
+        | "Unusedcategories"
+        | "Unusedimages"
+        | "Unusedtemplates"
+        | "Unwatchedpages"
+        | "Wantedcategories"
+        | "Wantedfiles"
+        | "Wantedpages"
+        | "Wantedtemplates"
+        | "Withoutinterwiki";
+    gqpoffset?: number;
+    gqplimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Random}
+ */
+export interface ApiActionQueryGeneratorRandomParams extends ApiActionQueryParams {
+    generator?: "random";
+    grnnamespace?: namespace | namespace[];
+    grnfilterredir?: "all" | "nonredirects" | "redirects";
+    /**
+     * @deprecated
+     */
+    grnredirect?: boolean;
+    grnlimit?: limit;
+    grncontinue?: string;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionQueryGeneratorReadingListEntriesParams extends ApiActionQueryParams {
+    generator?: "readinglistentries";
+    grlelists?: number | number[];
+    grlechangedsince?: timestamp;
+    grlesort?: "name" | "updated";
+    grledir?: "ascending" | "descending";
+    grlelimit?: limit;
+    grlecontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Recentchanges}
+ */
+export interface ApiActionQueryGeneratorRecentChangesParams extends ApiActionQueryParams {
+    generator?: "recentchanges";
+    grcstart?: timestamp;
+    grcend?: timestamp;
+    grcdir?: "newer" | "older";
+    grcnamespace?: namespace | namespace[];
+    grcuser?: string;
+    grcexcludeuser?: string;
+    grctag?: string;
+    grcprop?: OneOrMore<
+        | "comment"
+        | "flags"
+        | "ids"
+        | "loginfo"
+        | "oresscores"
+        | "parsedcomment"
+        | "patrolled"
+        | "redirect"
+        | "sha1"
+        | "sizes"
+        | "tags"
+        | "timestamp"
+        | "title"
+        | "user"
+        | "userid"
+    >;
+    grcshow?: OneOrMore<
+        | "!anon"
+        | "!autopatrolled"
+        | "!bot"
+        | "!minor"
+        | "!oresreview"
+        | "!patrolled"
+        | "!redirect"
+        | "anon"
+        | "autopatrolled"
+        | "bot"
+        | "minor"
+        | "oresreview"
+        | "patrolled"
+        | "redirect"
+        | "unpatrolled"
+    >;
+    grclimit?: limit;
+    grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    grctoponly?: boolean;
+    grctitle?: string;
+    grccontinue?: string;
+    grcgeneraterevisions?: boolean;
+    grcslot?: "main";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
+ */
+export interface ApiActionQueryGeneratorQueryRedirectsParams extends ApiActionQueryParams {
+    generator?: "redirects";
+    grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
+    grdnamespace?: namespace | namespace[];
+    grdshow?: OneOrMore<"!fragment" | "fragment">;
+    grdlimit?: limit;
+    grdcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisions}
+ */
+export interface ApiActionQueryGeneratorRevisionsParams extends ApiActionQueryParams {
+    generator?: "revisions";
+    grvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flagged"
+        | "flags"
+        | "ids"
+        | "oresscores"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    grvslots?: string | string[];
+    [k: `grvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    grvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    grvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    grvparse?: boolean;
+    grvsection?: string;
+    /**
+     * @deprecated
+     */
+    grvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    grvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvstartid?: number;
+    grvendid?: number;
+    grvstart?: timestamp;
+    grvend?: timestamp;
+    grvdir?: "newer" | "older";
+    grvuser?: string;
+    grvexcludeuser?: string;
+    grvtag?: string;
+    grvcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Search}
+ */
+export interface ApiActionQueryGeneratorSearchParams extends ApiActionQueryParams {
+    generator?: "search";
+    gsrsearch: string;
+    gsrnamespace?: namespace | namespace[];
+    gsrlimit?: limit;
+    gsroffset?: number;
+    gsrqiprofile?:
+        | "classic"
+        | "classic_noboostlinks"
+        | "empty"
+        | "engine_autoselect"
+        | "growth_underlinked"
+        | "mlr-1024rs"
+        | "popular_inclinks"
+        | "popular_inclinks_pv"
+        | "wsum_inclinks"
+        | "wsum_inclinks_pv";
+    gsrwhat?: "nearmatch" | "text" | "title";
+    gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
+    gsrprop?: OneOrMore<
+        | "categorysnippet"
+        | "extensiondata"
+        | "isfilematch"
+        | "redirectsnippet"
+        | "redirecttitle"
+        | "sectionsnippet"
+        | "sectiontitle"
+        | "size"
+        | "snippet"
+        | "timestamp"
+        | "titlesnippet"
+        | "wordcount"
+        | "hasrelated"
+        | "score"
+    >;
+    gsrinterwiki?: boolean;
+    gsrenablerewrites?: boolean;
+    gsrsort?:
+        | "create_timestamp_asc"
+        | "create_timestamp_desc"
+        | "incoming_links_asc"
+        | "incoming_links_desc"
+        | "just_match"
+        | "last_edit_asc"
+        | "last_edit_desc"
+        | "none"
+        | "random"
+        | "relevance"
+        | "user_random";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
+ */
+export interface ApiActionQueryGeneratorQueryTemplatesParams extends ApiActionQueryParams {
+    generator?: "templates";
+    gtlnamespace?: namespace | namespace[];
+    gtllimit?: limit;
+    gtlcontinue?: string;
+    gtltemplates?: string | string[];
+    gtldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
+ */
+export interface ApiActionQueryGeneratorQueryTranscludedInParams extends ApiActionQueryParams {
+    generator?: "transcludedin";
+    gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gtinamespace?: namespace | namespace[];
+    gtishow?: OneOrMore<"!redirect" | "redirect">;
+    gtilimit?: limit;
+    gticontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlist}
+ */
+export interface ApiActionQueryGeneratorWatchlistParams extends ApiActionQueryParams {
+    generator?: "watchlist";
+    gwlallrev?: boolean;
+    gwlstart?: timestamp;
+    gwlend?: timestamp;
+    gwlnamespace?: namespace | namespace[];
+    gwluser?: string;
+    gwlexcludeuser?: string;
+    gwldir?: "newer" | "older";
+    gwllimit?: limit;
+    gwlprop?: OneOrMore<
         | "comment"
         | "expiry"
         | "flags"
@@ -5321,7 +8682,7 @@ export interface ApiQueryWatchlistParams extends ApiQueryParams {
         | "user"
         | "userid"
     >;
-    wlshow?: OneOrMore<
+    gwlshow?: OneOrMore<
         | "!anon"
         | "!autopatrolled"
         | "!bot"
@@ -5337,136 +8698,166 @@ export interface ApiQueryWatchlistParams extends ApiQueryParams {
         | "patrolled"
         | "unread"
     >;
-    wltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
-    wlowner?: string;
-    wltoken?: string;
-    wlcontinue?: string;
+    gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    gwlowner?: string;
+    gwltoken?: string;
+    gwlcontinue?: string;
 }
 
-export interface ApiQueryWatchlistRawParams extends ApiQueryParams {
-    wrcontinue?: string;
-    wrnamespace?: namespace | namespace[];
-    wrlimit?: limit;
-    wrprop?: OneOrMore<"changed">;
-    wrshow?: OneOrMore<"!changed" | "changed">;
-    wrowner?: string;
-    wrtoken?: string;
-    wrdir?: "ascending" | "descending";
-    wrfromtitle?: string;
-    wrtotitle?: string;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlistraw}
+ */
+export interface ApiActionQueryGeneratorWatchlistRawParams extends ApiActionQueryParams {
+    generator?: "watchlistraw";
+    gwrcontinue?: string;
+    gwrnamespace?: namespace | namespace[];
+    gwrlimit?: limit;
+    gwrprop?: OneOrMore<"changed">;
+    gwrshow?: OneOrMore<"!changed" | "changed">;
+    gwrowner?: string;
+    gwrtoken?: string;
+    gwrdir?: "ascending" | "descending";
+    gwrfromtitle?: string;
+    gwrtotitle?: string;
 }
 
-export interface WikibaseClientApiPropsEntityUsageParams extends ApiQueryParams {
-    wbeuprop?: OneOrMore<"url">;
-    wbeuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
-    wbeuentities?: string | string[];
-    wbeulimit?: limit;
-    wbeucontinue?: string;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
+ */
+export interface ApiActionQueryGeneratorWblistentityusageParams extends ApiActionQueryParams {
+    generator?: "wblistentityusage";
+    gwbleuprop?: OneOrMore<"url">;
+    gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
+    gwbleuentities: string | string[];
+    gwbleulimit?: limit;
+    gwbleucontinue?: string;
 }
 
-export interface WikibaseClientApiListEntityUsageParams extends ApiQueryParams {
-    wbleuprop?: OneOrMore<"url">;
-    wbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
-    wbleuentities: string | string[];
-    wbleulimit?: limit;
-    wbleucontinue?: string;
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionReadingListsParams extends ApiParams {
+    action?: "readinglists";
+    rlcommand: ApiActionReadingListsParamsCommand;
+    rltoken?: string;
 }
 
-export interface WikibaseClientApiClientInfoParams extends ApiQueryParams {
-    wbprop?: OneOrMore<"siteid" | "url">;
+type ApiActionReadingListsParamsCommand = keyof ApiActionReadingListsParamsCommandMap;
+
+interface ApiActionReadingListsParamsCommandMap {
+    create: ApiActionReadingListsCommandCreateParams;
+    createentry: ApiActionReadingListsCommandCreateEntryParams;
+    delete: ApiActionReadingListsCommandDeleteParams;
+    deleteentry: ApiActionReadingListsCommandDeleteEntryParams;
+    setup: ApiActionReadingListsCommandSetupParams;
+    teardown: ApiActionReadingListsCommandTeardownParams;
+    update: ApiActionReadingListsCommandUpdateParams;
 }
 
-export interface CentralAuthApiQueryWikiSetsParams extends ApiQueryParams {
-    wsfrom?: string;
-    wsprop?: OneOrMore<"type" | "wikisincluded" | "wikisnotincluded">;
-    wslimit?: limit;
-    wsorderbyname?: boolean;
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionReadingListsCommandCreateParams extends ApiActionReadingListsParams {
+    rlcommand: "create";
+    rlname?: string;
+    rldescription?: string;
+    rlbatch?: string;
 }
 
-export interface ApiFormatRawFMParams extends ApiParams {
-    format: "rawfm";
-    wrappedhtml?: boolean;
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionReadingListsCommandCreateEntryParams extends ApiActionReadingListsParams {
+    rlcommand: "createentry";
+    rllist: number;
+    rlproject?: string;
+    rltitle?: string;
+    rlbatch?: string;
 }
 
-export interface ReadingListsApiReadingListsParams extends ApiParams {
-    action: "readinglists";
-    command: "create" | "createentry" | "delete" | "deleteentry" | "setup" | "teardown" | "update";
-    token?: string;
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionReadingListsCommandDeleteParams extends ApiActionReadingListsParams {
+    rlcommand: "delete";
+    rllist?: number;
+    rlbatch?: string;
 }
 
-export interface ReadingListsApiReadingListsCreateParams
-    extends ReadingListsApiQueryReadingListsParams {
-    command: "create";
-    name?: string;
-    description?: string;
-    batch?: string;
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionReadingListsCommandDeleteEntryParams extends ApiActionReadingListsParams {
+    rlcommand: "deleteentry";
+    rlentry?: number;
+    rlbatch?: string;
 }
 
-export interface ReadingListsApiReadingListsCreateEntryParams
-    extends ReadingListsApiQueryReadingListsParams {
-    command: "createentry";
-    list: number;
-    project?: string;
-    title?: string;
-    batch?: string;
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionReadingListsCommandSetupParams extends ApiActionReadingListsParams {
+    rlcommand: "setup";
 }
 
-export interface ReadingListsApiReadingListsDeleteParams
-    extends ReadingListsApiQueryReadingListsParams {
-    command: "delete";
-    list?: number;
-    batch?: string;
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionReadingListsCommandTeardownParams extends ApiActionReadingListsParams {
+    rlcommand: "teardown";
 }
 
-export interface ReadingListsApiReadingListsDeleteEntryParams
-    extends ReadingListsApiQueryReadingListsParams {
-    command: "deleteentry";
-    entry?: number;
-    batch?: string;
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionReadingListsCommandUpdateParams extends ApiActionReadingListsParams {
+    rlcommand: "update";
+    rllist?: number;
+    rlname?: string;
+    rldescription?: string;
+    rlbatch?: string;
 }
 
-export interface ReadingListsApiReadingListsSetupParams
-    extends ReadingListsApiQueryReadingListsParams {
-    command: "setup";
-}
-
-export interface ReadingListsApiReadingListsTeardownParams
-    extends ReadingListsApiQueryReadingListsParams {
-    command: "teardown";
-}
-
-export interface ReadingListsApiReadingListsUpdateParams
-    extends ReadingListsApiQueryReadingListsParams {
-    command: "update";
-    list?: number;
-    name?: string;
-    description?: string;
-    batch?: string;
-}
-
-export interface ApiRemoveAuthenticationDataParams extends ApiParams {
-    action: "removeauthenticationdata";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Manage_authentication_data}
+ */
+export interface ApiActionRemoveAuthenticationDataParams extends ApiParams {
+    action?: "removeauthenticationdata";
     request: string;
     token?: string;
 }
 
-export interface ApiResetPasswordParams extends ApiParams {
-    action: "resetpassword";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Manage_authentication_data}
+ */
+export interface ApiActionResetPasswordParams extends ApiParams {
+    action?: "resetpassword";
     user?: string;
     email?: string;
     token?: string;
 }
 
-export interface ApiReviewParams extends ApiParams {
-    action: "review";
+export interface ApiActionReviewParams extends ApiParams {
+    action?: "review";
     revid?: string;
     comment?: string;
     unapprove?: boolean;
     token?: string;
 }
 
-export interface ApiRevisionDeleteParams extends ApiParams {
-    action: "revisiondelete";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisiondelete}
+ */
+export interface ApiActionRevisionDeleteParams extends ApiParams {
+    action?: "revisiondelete";
     type: "archive" | "filearchive" | "logging" | "oldimage" | "revision";
     target?: string;
     ids: string | string[];
@@ -5478,8 +8869,11 @@ export interface ApiRevisionDeleteParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiRollbackParams extends ApiParams {
-    action: "rollback";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Rollback}
+ */
+export interface ApiActionRollbackParams extends ApiParams {
+    action?: "rollback";
     title?: string;
     pageid?: number;
     tags?: string | string[];
@@ -5491,18 +8885,27 @@ export interface ApiRollbackParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiRsdParams extends ApiParams {
-    action: "rsd";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Rsd}
+ */
+export interface ApiActionRsdParams extends ApiParams {
+    action?: "rsd";
 }
 
-export interface KartographerApiSanitizeMapDataParams extends ApiParams {
-    action: "sanitize-mapdata";
+/**
+ * @private
+ */
+export interface ApiActionSanitizeMapDataParams extends ApiParams {
+    action?: "sanitize-mapdata";
     title?: string;
     text: string;
 }
 
-export interface ScribuntoApiScribuntoConsoleParams extends ApiParams {
-    action: "scribunto-console";
+/**
+ * @private
+ */
+export interface ApiActionScribuntoConsoleParams extends ApiParams {
+    action?: "scribunto-console";
     title?: string;
     content?: string;
     session?: number;
@@ -5511,14 +8914,17 @@ export interface ScribuntoApiScribuntoConsoleParams extends ApiParams {
     token?: string;
 }
 
-export interface SecurePollApiSecurePollAuthParams extends ApiParams {
-    action: "securepollauth";
-    token?: string;
+/**
+ * @private
+ */
+export interface ApiActionSecurePollAuthParams extends ApiParams {
+    action?: "securepollauth";
+    token: string;
     id: number;
 }
 
-export interface CentralAuthApiSetGlobalAccountStatusParams extends ApiParams {
-    action: "setglobalaccountstatus";
+export interface ApiActionSetGlobalAccountStatusParams extends ApiParams {
+    action?: "setglobalaccountstatus";
     user: string;
     locked?: "" | "lock" | "unlock";
     hidden?: "" | "lists" | "suppressed";
@@ -5527,8 +8933,11 @@ export interface CentralAuthApiSetGlobalAccountStatusParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiSetNotificationTimestampParams extends ApiParams {
-    action: "setnotificationtimestamp";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:SetNotificationTimestamp}
+ */
+export interface ApiActionSetNotificationTimestampParams extends ApiParams {
+    action?: "setnotificationtimestamp";
     entirewatchlist?: boolean;
     timestamp?: timestamp;
     torevid?: number;
@@ -5537,59 +8946,1302 @@ export interface ApiSetNotificationTimestampParams extends ApiParams {
     titles?: string | string[];
     pageids?: number | number[];
     revids?: number | number[];
-    generator?:
-        | "allcategories"
-        | "alldeletedrevisions"
-        | "allfileusages"
-        | "allimages"
-        | "alllinks"
-        | "allpages"
-        | "allredirects"
-        | "allrevisions"
-        | "alltransclusions"
-        | "backlinks"
-        | "categories"
-        | "categorymembers"
-        | "contenttranslation"
-        | "contenttranslationsuggestions"
-        | "deletedrevisions"
-        | "duplicatefiles"
-        | "embeddedin"
-        | "exturlusage"
-        | "fileusage"
-        | "geosearch"
-        | "images"
-        | "imageusage"
-        | "iwbacklinks"
-        | "langbacklinks"
-        | "links"
-        | "linkshere"
-        | "mostviewed"
-        | "oldreviewedpages"
-        | "pageswithprop"
-        | "prefixsearch"
-        | "projectpages"
-        | "protectedtitles"
-        | "querypage"
-        | "random"
-        | "recentchanges"
-        | "redirects"
-        | "revisions"
-        | "search"
-        | "templates"
-        | "transcludedin"
-        | "watchlist"
-        | "watchlistraw"
-        | "wblistentityusage"
-        | "growthtasks"
-        | "readinglistentries";
+    generator?: ApiActionSetNotificationTimestampParamsGenerator;
     redirects?: boolean;
     converttitles?: boolean;
     token?: string;
 }
 
-export interface ApiSetPageLanguageParams extends ApiParams {
-    action: "setpagelanguage";
+type ApiActionSetNotificationTimestampParamsGenerator = keyof ApiActionSetNotificationTimestampParamsGeneratorMap;
+
+interface ApiActionSetNotificationTimestampParamsGeneratorMap {
+    allcategories: ApiActionSetNotificationTimestampGeneratorAllCategoriesParams;
+    alldeletedrevisions: ApiActionSetNotificationTimestampGeneratorAllDeletedRevisionsParams;
+    allfileusages: ApiActionSetNotificationTimestampGeneratorQueryAllFileUsagesParams;
+    allimages: ApiActionSetNotificationTimestampGeneratorAllImagesParams;
+    alllinks: ApiActionSetNotificationTimestampGeneratorAllLinksParams;
+    allpages: ApiActionSetNotificationTimestampGeneratorAllPagesParams;
+    allredirects: ApiActionSetNotificationTimestampGeneratorQueryAllRedirectsParams;
+    allrevisions: ApiActionSetNotificationTimestampGeneratorAllRevisionsParams;
+    alltransclusions: ApiActionSetNotificationTimestampGeneratorQueryAllTransclusionsParams;
+    automatictranslationdenselanguages: ApiActionSetNotificationTimestampGeneratorAutomaticTranslationDenseLanguagesParams;
+    backlinks: ApiActionSetNotificationTimestampGeneratorBacklinksParams;
+    categories: ApiActionSetNotificationTimestampGeneratorCategoriesParams;
+    categorymembers: ApiActionSetNotificationTimestampGeneratorCategoryMembersParams;
+    contenttranslation: ApiActionSetNotificationTimestampGeneratorContentTranslationParams;
+    contenttranslationsuggestions: ApiActionSetNotificationTimestampGeneratorContentTranslationSuggestionsParams;
+    deletedrevisions: ApiActionSetNotificationTimestampGeneratorDeletedRevisionsParams;
+    duplicatefiles: ApiActionSetNotificationTimestampGeneratorDuplicateFilesParams;
+    embeddedin: ApiActionSetNotificationTimestampGeneratorQueryEmbeddedInParams;
+    exturlusage: ApiActionSetNotificationTimestampGeneratorExturlusageParams;
+    fileusage: ApiActionSetNotificationTimestampGeneratorQueryFileUsageParams;
+    geosearch: ApiActionSetNotificationTimestampGeneratorGeoSearchParams;
+    growthtasks: ApiActionSetNotificationTimestampGeneratorGrowthTasksParams;
+    images: ApiActionSetNotificationTimestampGeneratorImagesParams;
+    imageusage: ApiActionSetNotificationTimestampGeneratorQueryImageUsageParams;
+    iwbacklinks: ApiActionSetNotificationTimestampGeneratorIWBacklinksParams;
+    langbacklinks: ApiActionSetNotificationTimestampGeneratorLangBacklinksParams;
+    links: ApiActionSetNotificationTimestampGeneratorLinksParams;
+    linkshere: ApiActionSetNotificationTimestampGeneratorQueryLinksHereParams;
+    mostviewed: ApiActionSetNotificationTimestampGeneratorMostViewedParams;
+    oldreviewedpages: ApiActionSetNotificationTimestampGeneratorOldreviewedpagesParams;
+    pageswithprop: ApiActionSetNotificationTimestampGeneratorPagesWithPropParams;
+    prefixsearch: ApiActionSetNotificationTimestampGeneratorPrefixSearchParams;
+    projectpages: ApiActionSetNotificationTimestampGeneratorProjectPagesParams;
+    protectedtitles: ApiActionSetNotificationTimestampGeneratorProtectedTitlesParams;
+    querypage: ApiActionSetNotificationTimestampGeneratorQueryPageParams;
+    random: ApiActionSetNotificationTimestampGeneratorRandomParams;
+    readinglistentries: ApiActionSetNotificationTimestampGeneratorReadingListEntriesParams;
+    recentchanges: ApiActionSetNotificationTimestampGeneratorRecentChangesParams;
+    redirects: ApiActionSetNotificationTimestampGeneratorQueryRedirectsParams;
+    revisions: ApiActionSetNotificationTimestampGeneratorRevisionsParams;
+    search: ApiActionSetNotificationTimestampGeneratorSearchParams;
+    templates: ApiActionSetNotificationTimestampGeneratorQueryTemplatesParams;
+    transcludedin: ApiActionSetNotificationTimestampGeneratorQueryTranscludedInParams;
+    watchlist: ApiActionSetNotificationTimestampGeneratorWatchlistParams;
+    watchlistraw: ApiActionSetNotificationTimestampGeneratorWatchlistRawParams;
+    wblistentityusage: ApiActionSetNotificationTimestampGeneratorWblistentityusageParams;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allcategories}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorAllCategoriesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "allcategories";
+    gacfrom?: string;
+    gaccontinue?: string;
+    gacto?: string;
+    gacprefix?: string;
+    gacdir?: "ascending" | "descending";
+    gacmin?: number;
+    gacmax?: number;
+    gaclimit?: limit;
+    gacprop?: OneOrMore<"hidden" | "size">;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alldeletedrevisions}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorAllDeletedRevisionsParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "alldeletedrevisions";
+    gadrprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    gadrslots?: string | string[];
+    [k: `gadrcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gadrlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gadrexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrparse?: boolean;
+    gadrsection?: string;
+    /**
+     * @deprecated
+     */
+    gadrdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gadruser?: string;
+    gadrnamespace?: namespace | namespace[];
+    gadrstart?: timestamp;
+    gadrend?: timestamp;
+    gadrdir?: "newer" | "older";
+    gadrfrom?: string;
+    gadrto?: string;
+    gadrprefix?: string;
+    gadrexcludeuser?: string;
+    gadrtag?: string;
+    gadrcontinue?: string;
+    gadrgeneratetitles?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorQueryAllFileUsagesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "allfileusages";
+    gafcontinue?: string;
+    gaffrom?: string;
+    gafto?: string;
+    gafprefix?: string;
+    gafunique?: boolean;
+    gafprop?: OneOrMore<"ids" | "title">;
+    gaflimit?: limit;
+    gafdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allimages}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorAllImagesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "allimages";
+    gaisort?: "name" | "timestamp";
+    gaidir?: "ascending" | "descending" | "newer" | "older";
+    gaifrom?: string;
+    gaito?: string;
+    gaicontinue?: string;
+    gaistart?: timestamp;
+    gaiend?: timestamp;
+    gaiprop?: OneOrMore<
+        | "badfile"
+        | "bitdepth"
+        | "canonicaltitle"
+        | "comment"
+        | "commonmetadata"
+        | "dimensions"
+        | "extmetadata"
+        | "mediatype"
+        | "metadata"
+        | "mime"
+        | "parsedcomment"
+        | "sha1"
+        | "size"
+        | "timestamp"
+        | "url"
+        | "user"
+        | "userid"
+    >;
+    gaiprefix?: string;
+    gaiminsize?: number;
+    gaimaxsize?: number;
+    gaisha1?: string;
+    gaisha1base36?: string;
+    gaiuser?: string;
+    gaifilterbots?: "all" | "bots" | "nobots";
+    gaimime?: string | string[];
+    gailimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alllinks}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorAllLinksParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "alllinks";
+    galcontinue?: string;
+    galfrom?: string;
+    galto?: string;
+    galprefix?: string;
+    galunique?: boolean;
+    galprop?: OneOrMore<"ids" | "title">;
+    galnamespace?: namespace;
+    gallimit?: limit;
+    galdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allpages}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorAllPagesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "allpages";
+    gapfrom?: string;
+    gapcontinue?: string;
+    gapto?: string;
+    gapprefix?: string;
+    gapnamespace?: namespace;
+    gapfilterredir?: "all" | "nonredirects" | "redirects";
+    gapfilterlanglinks?: "all" | "withlanglinks" | "withoutlanglinks";
+    gapminsize?: number;
+    gapmaxsize?: number;
+    gapprtype?: OneOrMore<"edit" | "move" | "upload">;
+    gapprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gapprfiltercascade?: "all" | "cascading" | "noncascading";
+    gapprexpiry?: "all" | "definite" | "indefinite";
+    gaplimit?: limit;
+    gapdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorQueryAllRedirectsParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "allredirects";
+    garcontinue?: string;
+    garfrom?: string;
+    garto?: string;
+    garprefix?: string;
+    garunique?: boolean;
+    garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
+    garnamespace?: namespace;
+    garlimit?: limit;
+    gardir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allrevisions}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorAllRevisionsParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "allrevisions";
+    garvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "oresscores"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    garvslots?: string | string[];
+    [k: `garvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    garvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    garvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    garvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    garvparse?: boolean;
+    garvsection?: string;
+    /**
+     * @deprecated
+     */
+    garvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    garvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    garvuser?: string;
+    garvnamespace?: namespace | namespace[];
+    garvstart?: timestamp;
+    garvend?: timestamp;
+    garvdir?: "newer" | "older";
+    garvexcludeuser?: string;
+    garvcontinue?: string;
+    garvgeneratetitles?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorQueryAllTransclusionsParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "alltransclusions";
+    gatcontinue?: string;
+    gatfrom?: string;
+    gatto?: string;
+    gatprefix?: string;
+    gatunique?: boolean;
+    gatprop?: OneOrMore<"ids" | "title">;
+    gatnamespace?: namespace;
+    gatlimit?: limit;
+    gatdir?: "ascending" | "descending";
+}
+
+export interface ApiActionSetNotificationTimestampGeneratorAutomaticTranslationDenseLanguagesParams
+    extends ApiActionSetNotificationTimestampParams {
+    "generator"?: "automatictranslationdenselanguages";
+    "gqid": string;
+    "gsection-titles"?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Backlinks}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorBacklinksParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "backlinks";
+    gbltitle?: string;
+    gblpageid?: number;
+    gblcontinue?: string;
+    gblnamespace?: namespace | namespace[];
+    gbldir?: "ascending" | "descending";
+    gblfilterredir?: "all" | "nonredirects" | "redirects";
+    gbllimit?: limit;
+    gblredirect?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categories}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorCategoriesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "categories";
+    gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
+    gclshow?: OneOrMore<"!hidden" | "hidden">;
+    gcllimit?: limit;
+    gclcontinue?: string;
+    gclcategories?: string | string[];
+    gcldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categorymembers}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorCategoryMembersParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "categorymembers";
+    gcmtitle?: string;
+    gcmpageid?: number;
+    gcmprop?: OneOrMore<"ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type">;
+    gcmnamespace?: namespace | namespace[];
+    gcmtype?: OneOrMore<"file" | "page" | "subcat">;
+    gcmcontinue?: string;
+    gcmlimit?: limit;
+    gcmsort?: "sortkey" | "timestamp";
+    gcmdir?: "asc" | "ascending" | "desc" | "descending" | "newer" | "older";
+    gcmstart?: timestamp;
+    gcmend?: timestamp;
+    gcmstarthexsortkey?: string;
+    gcmendhexsortkey?: string;
+    gcmstartsortkeyprefix?: string;
+    gcmendsortkeyprefix?: string;
+    /**
+     * @deprecated
+     */
+    gcmstartsortkey?: string;
+    /**
+     * @deprecated
+     */
+    gcmendsortkey?: string;
+}
+
+export interface ApiActionSetNotificationTimestampGeneratorContentTranslationParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "contenttranslation";
+    gtranslationid?: string;
+    gfrom?: string;
+    gto?: string;
+    gsourcetitle?: string;
+    gsourcesectiontitle?: string;
+    glimit?: limit;
+    goffset?: string;
+    gtype?: "draft" | "published";
+    gusecase?: "desktop-editor-draft" | "translation-corpora-units" | "unified-dashboard";
+}
+
+export interface ApiActionSetNotificationTimestampGeneratorContentTranslationSuggestionsParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "contenttranslationsuggestions";
+    gfrom?: string;
+    gto?: string;
+    glistid?: string;
+    glimit?: limit;
+    goffset?: string;
+    gseed?: number;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Deletedrevisions}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorDeletedRevisionsParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "deletedrevisions";
+    gdrvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    gdrvslots?: string | string[];
+    [k: `gdrvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gdrvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvparse?: boolean;
+    gdrvsection?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvstart?: timestamp;
+    gdrvend?: timestamp;
+    gdrvdir?: "newer" | "older";
+    gdrvtag?: string;
+    gdrvuser?: string;
+    gdrvexcludeuser?: string;
+    gdrvcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Duplicatefiles}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorDuplicateFilesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "duplicatefiles";
+    gdflimit?: limit;
+    gdfcontinue?: string;
+    gdfdir?: "ascending" | "descending";
+    gdflocalonly?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorQueryEmbeddedInParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "embeddedin";
+    geititle?: string;
+    geipageid?: number;
+    geicontinue?: string;
+    geinamespace?: namespace | namespace[];
+    geidir?: "ascending" | "descending";
+    geifilterredir?: "all" | "nonredirects" | "redirects";
+    geilimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorExturlusageParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "exturlusage";
+    geuprop?: OneOrMore<"ids" | "title" | "url">;
+    geucontinue?: string;
+    geuprotocol?:
+        | ""
+        | "bitcoin"
+        | "ftp"
+        | "ftps"
+        | "geo"
+        | "git"
+        | "gopher"
+        | "http"
+        | "https"
+        | "irc"
+        | "ircs"
+        | "magnet"
+        | "mailto"
+        | "matrix"
+        | "mms"
+        | "news"
+        | "nntp"
+        | "redis"
+        | "sftp"
+        | "sip"
+        | "sips"
+        | "sms"
+        | "ssh"
+        | "svn"
+        | "tel"
+        | "telnet"
+        | "urn"
+        | "worldwind"
+        | "xmpp";
+    geuquery?: string;
+    geunamespace?: namespace | namespace[];
+    geulimit?: limit;
+    /**
+     * @deprecated
+     */
+    geuexpandurl?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorQueryFileUsageParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "fileusage";
+    gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gfunamespace?: namespace | namespace[];
+    gfushow?: OneOrMore<"!redirect" | "redirect">;
+    gfulimit?: limit;
+    gfucontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GeoData#list.3Dgeosearch}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorGeoSearchParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "geosearch";
+    ggscoord?: string;
+    ggspage?: string;
+    ggsbbox?: string;
+    ggsradius?: number;
+    ggsmaxdim?: number;
+    ggssort?: "distance" | "relevance";
+    ggslimit?: limit;
+    ggsglobe?: "earth";
+    ggsnamespace?: namespace | namespace[];
+    ggsprop?: OneOrMore<"country" | "dim" | "globe" | "name" | "region" | "type">;
+    ggsprimary?: "all" | "primary" | "secondary";
+    ggsdebug?: boolean;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GrowthExperiments#API}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorGrowthTasksParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "growthtasks";
+    ggttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    ggttopics?: OneOrMore<
+        | "africa"
+        | "architecture"
+        | "art"
+        | "asia"
+        | "biography"
+        | "biology"
+        | "business-and-economics"
+        | "central-america"
+        | "chemistry"
+        | "comics-and-anime"
+        | "computers-and-internet"
+        | "earth-and-environment"
+        | "education"
+        | "engineering"
+        | "entertainment"
+        | "europe"
+        | "fashion"
+        | "food-and-drink"
+        | "general-science"
+        | "history"
+        | "literature"
+        | "mathematics"
+        | "medicine-and-health"
+        | "military-and-warfare"
+        | "music"
+        | "north-america"
+        | "oceania"
+        | "performing-arts"
+        | "philosophy-and-religion"
+        | "physics"
+        | "politics-and-government"
+        | "society"
+        | "south-america"
+        | "sports"
+        | "technology"
+        | "transportation"
+        | "tv-and-film"
+        | "video-games"
+        | "women"
+    >;
+    ggttopicsmode?: "AND" | "OR";
+    ggtlimit?: limit;
+    ggtoffset?: number;
+    ggtdebug?: boolean;
+    ggtexcludepageids?: number | number[];
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Images}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorImagesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "images";
+    gimlimit?: limit;
+    gimcontinue?: string;
+    gimimages?: string | string[];
+    gimdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorQueryImageUsageParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "imageusage";
+    giutitle?: string;
+    giupageid?: number;
+    giucontinue?: string;
+    giunamespace?: namespace | namespace[];
+    giudir?: "ascending" | "descending";
+    giufilterredir?: "all" | "nonredirects" | "redirects";
+    giulimit?: limit;
+    giuredirect?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Iwbacklinks}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorIWBacklinksParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "iwbacklinks";
+    giwblprefix?: string;
+    giwbltitle?: string;
+    giwblcontinue?: string;
+    giwbllimit?: limit;
+    giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
+    giwbldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Langbacklinks}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorLangBacklinksParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "langbacklinks";
+    glbllang?: string;
+    glbltitle?: string;
+    glblcontinue?: string;
+    glbllimit?: limit;
+    glblprop?: OneOrMore<"lllang" | "lltitle">;
+    glbldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Links}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorLinksParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "links";
+    gplnamespace?: namespace | namespace[];
+    gpllimit?: limit;
+    gplcontinue?: string;
+    gpltitles?: string | string[];
+    gpldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorQueryLinksHereParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "linkshere";
+    glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    glhnamespace?: namespace | namespace[];
+    glhshow?: OneOrMore<"!redirect" | "redirect">;
+    glhlimit?: limit;
+    glhcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorMostViewedParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "mostviewed";
+    gpvimmetric?: "pageviews";
+    gpvimlimit?: limit;
+    gpvimoffset?: number;
+}
+
+export interface ApiActionSetNotificationTimestampGeneratorOldreviewedpagesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "oldreviewedpages";
+    gorstart?: timestamp;
+    gorend?: timestamp;
+    gordir?: "newer" | "older";
+    gormaxsize?: number;
+    gorfilterwatched?: "all" | "watched";
+    gornamespace?: namespace | namespace[];
+    gorcategory?: string;
+    gorfilterredir?: "all" | "nonredirects" | "redirects";
+    gorlimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Pageswithprop}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorPagesWithPropParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "pageswithprop";
+    gpwppropname: string;
+    gpwpprop?: OneOrMore<"ids" | "title" | "value">;
+    gpwpcontinue?: string;
+    gpwplimit?: limit;
+    gpwpdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorPrefixSearchParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "prefixsearch";
+    gpssearch: string;
+    gpsnamespace?: namespace | namespace[];
+    gpslimit?: limit;
+    gpsoffset?: number;
+    gpsprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageAssessments}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorProjectPagesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "projectpages";
+    gwppassessments?: boolean;
+    gwppprojects: string | string[];
+    gwpplimit?: limit;
+    gwppcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorProtectedTitlesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "protectedtitles";
+    gptnamespace?: namespace | namespace[];
+    gptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gptlimit?: limit;
+    gptdir?: "newer" | "older";
+    gptstart?: timestamp;
+    gptend?: timestamp;
+    gptprop?: OneOrMore<
+        "comment" | "expiry" | "level" | "parsedcomment" | "timestamp" | "user" | "userid"
+    >;
+    gptcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Querypage}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorQueryPageParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "querypage";
+    gqppage:
+        | "Ancientpages"
+        | "BrokenRedirects"
+        | "Deadendpages"
+        | "DisambiguationPageLinks"
+        | "DisambiguationPages"
+        | "DoubleRedirects"
+        | "Fewestrevisions"
+        | "GadgetUsage"
+        | "GloballyWantedFiles"
+        | "ListDuplicatedFiles"
+        | "Listredirects"
+        | "Lonelypages"
+        | "Longpages"
+        | "MediaStatistics"
+        | "MostGloballyLinkedFiles"
+        | "Mostcategories"
+        | "Mostimages"
+        | "Mostinterwikis"
+        | "Mostlinked"
+        | "Mostlinkedcategories"
+        | "Mostlinkedtemplates"
+        | "Mostrevisions"
+        | "OrphanedTimedText"
+        | "Shortpages"
+        | "Uncategorizedcategories"
+        | "Uncategorizedimages"
+        | "Uncategorizedpages"
+        | "Uncategorizedtemplates"
+        | "UnconnectedPages"
+        | "Unusedcategories"
+        | "Unusedimages"
+        | "Unusedtemplates"
+        | "Unwatchedpages"
+        | "Wantedcategories"
+        | "Wantedfiles"
+        | "Wantedpages"
+        | "Wantedtemplates"
+        | "Withoutinterwiki";
+    gqpoffset?: number;
+    gqplimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Random}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorRandomParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "random";
+    grnnamespace?: namespace | namespace[];
+    grnfilterredir?: "all" | "nonredirects" | "redirects";
+    /**
+     * @deprecated
+     */
+    grnredirect?: boolean;
+    grnlimit?: limit;
+    grncontinue?: string;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorReadingListEntriesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "readinglistentries";
+    grlelists?: number | number[];
+    grlechangedsince?: timestamp;
+    grlesort?: "name" | "updated";
+    grledir?: "ascending" | "descending";
+    grlelimit?: limit;
+    grlecontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Recentchanges}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorRecentChangesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "recentchanges";
+    grcstart?: timestamp;
+    grcend?: timestamp;
+    grcdir?: "newer" | "older";
+    grcnamespace?: namespace | namespace[];
+    grcuser?: string;
+    grcexcludeuser?: string;
+    grctag?: string;
+    grcprop?: OneOrMore<
+        | "comment"
+        | "flags"
+        | "ids"
+        | "loginfo"
+        | "oresscores"
+        | "parsedcomment"
+        | "patrolled"
+        | "redirect"
+        | "sha1"
+        | "sizes"
+        | "tags"
+        | "timestamp"
+        | "title"
+        | "user"
+        | "userid"
+    >;
+    grcshow?: OneOrMore<
+        | "!anon"
+        | "!autopatrolled"
+        | "!bot"
+        | "!minor"
+        | "!oresreview"
+        | "!patrolled"
+        | "!redirect"
+        | "anon"
+        | "autopatrolled"
+        | "bot"
+        | "minor"
+        | "oresreview"
+        | "patrolled"
+        | "redirect"
+        | "unpatrolled"
+    >;
+    grclimit?: limit;
+    grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    grctoponly?: boolean;
+    grctitle?: string;
+    grccontinue?: string;
+    grcgeneraterevisions?: boolean;
+    grcslot?: "main";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorQueryRedirectsParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "redirects";
+    grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
+    grdnamespace?: namespace | namespace[];
+    grdshow?: OneOrMore<"!fragment" | "fragment">;
+    grdlimit?: limit;
+    grdcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisions}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorRevisionsParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "revisions";
+    grvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flagged"
+        | "flags"
+        | "ids"
+        | "oresscores"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    grvslots?: string | string[];
+    [k: `grvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    grvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    grvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    grvparse?: boolean;
+    grvsection?: string;
+    /**
+     * @deprecated
+     */
+    grvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    grvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvstartid?: number;
+    grvendid?: number;
+    grvstart?: timestamp;
+    grvend?: timestamp;
+    grvdir?: "newer" | "older";
+    grvuser?: string;
+    grvexcludeuser?: string;
+    grvtag?: string;
+    grvcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Search}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorSearchParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "search";
+    gsrsearch: string;
+    gsrnamespace?: namespace | namespace[];
+    gsrlimit?: limit;
+    gsroffset?: number;
+    gsrqiprofile?:
+        | "classic"
+        | "classic_noboostlinks"
+        | "empty"
+        | "engine_autoselect"
+        | "growth_underlinked"
+        | "mlr-1024rs"
+        | "popular_inclinks"
+        | "popular_inclinks_pv"
+        | "wsum_inclinks"
+        | "wsum_inclinks_pv";
+    gsrwhat?: "nearmatch" | "text" | "title";
+    gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
+    gsrprop?: OneOrMore<
+        | "categorysnippet"
+        | "extensiondata"
+        | "isfilematch"
+        | "redirectsnippet"
+        | "redirecttitle"
+        | "sectionsnippet"
+        | "sectiontitle"
+        | "size"
+        | "snippet"
+        | "timestamp"
+        | "titlesnippet"
+        | "wordcount"
+        | "hasrelated"
+        | "score"
+    >;
+    gsrinterwiki?: boolean;
+    gsrenablerewrites?: boolean;
+    gsrsort?:
+        | "create_timestamp_asc"
+        | "create_timestamp_desc"
+        | "incoming_links_asc"
+        | "incoming_links_desc"
+        | "just_match"
+        | "last_edit_asc"
+        | "last_edit_desc"
+        | "none"
+        | "random"
+        | "relevance"
+        | "user_random";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorQueryTemplatesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "templates";
+    gtlnamespace?: namespace | namespace[];
+    gtllimit?: limit;
+    gtlcontinue?: string;
+    gtltemplates?: string | string[];
+    gtldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorQueryTranscludedInParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "transcludedin";
+    gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gtinamespace?: namespace | namespace[];
+    gtishow?: OneOrMore<"!redirect" | "redirect">;
+    gtilimit?: limit;
+    gticontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlist}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorWatchlistParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "watchlist";
+    gwlallrev?: boolean;
+    gwlstart?: timestamp;
+    gwlend?: timestamp;
+    gwlnamespace?: namespace | namespace[];
+    gwluser?: string;
+    gwlexcludeuser?: string;
+    gwldir?: "newer" | "older";
+    gwllimit?: limit;
+    gwlprop?: OneOrMore<
+        | "comment"
+        | "expiry"
+        | "flags"
+        | "ids"
+        | "loginfo"
+        | "notificationtimestamp"
+        | "oresscores"
+        | "parsedcomment"
+        | "patrol"
+        | "sizes"
+        | "tags"
+        | "timestamp"
+        | "title"
+        | "user"
+        | "userid"
+    >;
+    gwlshow?: OneOrMore<
+        | "!anon"
+        | "!autopatrolled"
+        | "!bot"
+        | "!minor"
+        | "!oresreview"
+        | "!patrolled"
+        | "!unread"
+        | "anon"
+        | "autopatrolled"
+        | "bot"
+        | "minor"
+        | "oresreview"
+        | "patrolled"
+        | "unread"
+    >;
+    gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    gwlowner?: string;
+    gwltoken?: string;
+    gwlcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlistraw}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorWatchlistRawParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "watchlistraw";
+    gwrcontinue?: string;
+    gwrnamespace?: namespace | namespace[];
+    gwrlimit?: limit;
+    gwrprop?: OneOrMore<"changed">;
+    gwrshow?: OneOrMore<"!changed" | "changed">;
+    gwrowner?: string;
+    gwrtoken?: string;
+    gwrdir?: "ascending" | "descending";
+    gwrfromtitle?: string;
+    gwrtotitle?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorWblistentityusageParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "wblistentityusage";
+    gwbleuprop?: OneOrMore<"url">;
+    gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
+    gwbleuentities: string | string[];
+    gwbleulimit?: limit;
+    gwbleucontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:SetPageLanguage}
+ */
+export interface ApiActionSetPageLanguageParams extends ApiParams {
+    action?: "setpagelanguage";
     title?: string;
     pageid?: number;
     lang:
@@ -5597,6 +10249,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "ab"
         | "abs"
         | "ace"
+        | "acf"
         | "acm"
         | "ady"
         | "ady-cyrl"
@@ -5612,6 +10265,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "ang"
         | "ann"
         | "anp"
+        | "apc"
         | "ar"
         | "arc"
         | "arn"
@@ -5642,6 +10296,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "be-tarask"
         | "bew"
         | "bg"
+        | "bgc"
         | "bgn"
         | "bh"
         | "bho"
@@ -5662,6 +10317,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "bxr"
         | "ca"
         | "cbk-zam"
+        | "ccp"
         | "cdo"
         | "ce"
         | "ceb"
@@ -5698,6 +10354,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "dsb"
         | "dtp"
         | "dty"
+        | "dua"
         | "dv"
         | "dz"
         | "ee"
@@ -5773,6 +10430,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "hy"
         | "hyw"
         | "ia"
+        | "iba"
         | "ibb"
         | "id"
         | "ie"
@@ -5786,6 +10444,8 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "inh"
         | "io"
         | "is"
+        | "isv-cyrl"
+        | "isv-latn"
         | "it"
         | "iu"
         | "ja"
@@ -5859,6 +10519,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "lrc"
         | "lt"
         | "ltg"
+        | "lua"
         | "lus"
         | "luz"
         | "lv"
@@ -5877,6 +10538,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "ml"
         | "mn"
         | "mnc"
+        | "mnc-latn"
         | "mnc-mong"
         | "mni"
         | "mnw"
@@ -5888,6 +10550,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "ms"
         | "ms-arab"
         | "mt"
+        | "mui"
         | "mwl"
         | "my"
         | "myv"
@@ -5895,6 +10558,9 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "na"
         | "nah"
         | "nan"
+        | "nan-hant"
+        | "nan-latn-pehoeji"
+        | "nan-latn-tailo"
         | "nap"
         | "nb"
         | "nds"
@@ -5912,8 +10578,10 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "nog"
         | "nov"
         | "nqo"
+        | "nr"
         | "nrm"
         | "nso"
+        | "nup"
         | "nv"
         | "ny"
         | "nyn"
@@ -6031,6 +10699,7 @@ export interface ApiSetPageLanguageParams extends ApiParams {
         | "tg-latn"
         | "th"
         | "ti"
+        | "tig"
         | "tk"
         | "tl"
         | "tly"
@@ -6104,14 +10773,17 @@ export interface ApiSetPageLanguageParams extends ApiParams {
     token?: string;
 }
 
-export interface UrlShortenerApiShortenUrlParams extends ApiParams {
-    action: "shortenurl";
+export interface ApiActionShortenUrlParams extends ApiParams {
+    action?: "shortenurl";
     url: string;
     qrcode?: boolean;
 }
 
-export interface SiteMatrixApiSiteMatrixParams extends ApiParams {
-    action: "sitematrix";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Sitematrix}
+ */
+export interface ApiActionSiteMatrixParams extends ApiParams {
+    action?: "sitematrix";
     smtype?: OneOrMore<"language" | "special">;
     smstate?: OneOrMore<"all" | "closed" | "fishbowl" | "nonglobal" | "private">;
     smlangprop?: OneOrMore<"code" | "dir" | "localname" | "name" | "site">;
@@ -6120,13 +10792,16 @@ export interface SiteMatrixApiSiteMatrixParams extends ApiParams {
     smcontinue?: string;
 }
 
-export interface SpamBlacklistApiSpamBlacklistParams extends ApiParams {
-    action: "spamblacklist";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:SpamBlacklist/API}
+ */
+export interface ApiActionSpamBlacklistParams extends ApiParams {
+    action?: "spamblacklist";
     url: string | string[];
 }
 
-export interface ApiStabilizeProtectParams extends ApiParams {
-    action: "stabilize";
+export interface ApiActionStabilizeParams extends ApiParams {
+    action?: "stabilize";
     protectlevel?: "autoconfirmed" | "none";
     expiry?: string;
     reason?: string;
@@ -6134,8 +10809,12 @@ export interface ApiStabilizeProtectParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiStashEditParams extends ApiParams {
-    action: "stashedit";
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Stashedit}
+ */
+export interface ApiActionStashEditParams extends ApiParams {
+    action?: "stashedit";
     title: string;
     section?: string;
     sectiontitle?: string;
@@ -6170,31 +10849,40 @@ export interface ApiStashEditParams extends ApiParams {
     token?: string;
 }
 
-export interface EventStreamConfigApiStreamConfigsParams extends ApiParams {
-    action: "streamconfigs";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:EventStreamConfig}
+ */
+export interface ApiActionStreamConfigSParams extends ApiParams {
+    action?: "streamconfigs";
     streams?: string | string[];
     constraints?: string | string[];
+    /**
+     * @deprecated
+     */
     all_settings?: boolean;
 }
 
-export interface SecurePollApiStrikeVoteParams extends ApiParams {
-    action: "strikevote";
+export interface ApiActionStrikeVoteParams extends ApiParams {
+    action?: "strikevote";
     option: "strike" | "unstrike";
     reason: string;
     voteid: number;
     token?: string;
 }
 
-export interface ContentTranslationActionApiSectionTranslationDeleteParams extends ApiParams {
-    action: "sxdelete";
+export interface ApiActionSxdeleteParams extends ApiParams {
+    action?: "sxdelete";
     sectiontranslationid: number;
     translationid: number;
     sectionid: string;
     token?: string;
 }
 
-export interface ContentTranslationActionApiSectionTranslationSaveParams extends ApiParams {
-    action: "sxsave";
+/**
+ * @private
+ */
+export interface ApiActionSxsaveParams extends ApiParams {
+    action?: "sxsave";
     sourcelanguage: string;
     targetlanguage: string;
     sourcetitle: string;
@@ -6209,8 +10897,11 @@ export interface ContentTranslationActionApiSectionTranslationSaveParams extends
     token?: string;
 }
 
-export interface ApiTagParams extends ApiParams {
-    action: "tag";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Tag}
+ */
+export interface ApiActionTagParams extends ApiParams {
+    action?: "tag";
     rcid?: number | number[];
     revid?: number | number[];
     logid?: number | number[];
@@ -6231,9 +10922,11 @@ export interface ApiTagParams extends ApiParams {
         | "editProtectedHelper"
         | "fixed lint errors"
         | "huggle"
+        | "invalid-timedtext-edit"
         | "large non-free file"
         | "moveToDraft"
         | "new user moving page out of userspace"
+        | "pageswap"
         | "possible birth or death date change"
         | "pronoun-change"
         | "self-published-blog"
@@ -6248,114 +10941,1367 @@ export interface ApiTagParams extends ApiParams {
     token?: string;
 }
 
-export interface TemplateDataApiTemplateDataParams extends ApiParams {
-    action: "templatedata";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TemplateData}
+ */
+export interface ApiActionTemplateDataParams extends ApiParams {
+    action?: "templatedata";
     includeMissingTitles?: boolean;
+    /**
+     * @deprecated
+     */
     doNotIgnoreMissingTitles?: boolean;
     lang?: string;
     titles?: string | string[];
     pageids?: number | number[];
     revids?: number | number[];
-    generator?:
-        | "allcategories"
-        | "alldeletedrevisions"
-        | "allfileusages"
-        | "allimages"
-        | "alllinks"
-        | "allpages"
-        | "allredirects"
-        | "allrevisions"
-        | "alltransclusions"
-        | "backlinks"
-        | "categories"
-        | "categorymembers"
-        | "contenttranslation"
-        | "contenttranslationsuggestions"
-        | "deletedrevisions"
-        | "duplicatefiles"
-        | "embeddedin"
-        | "exturlusage"
-        | "fileusage"
-        | "geosearch"
-        | "images"
-        | "imageusage"
-        | "iwbacklinks"
-        | "langbacklinks"
-        | "links"
-        | "linkshere"
-        | "mostviewed"
-        | "oldreviewedpages"
-        | "pageswithprop"
-        | "prefixsearch"
-        | "projectpages"
-        | "protectedtitles"
-        | "querypage"
-        | "random"
-        | "recentchanges"
-        | "redirects"
-        | "revisions"
-        | "search"
-        | "templates"
-        | "transcludedin"
-        | "watchlist"
-        | "watchlistraw"
-        | "wblistentityusage"
-        | "growthtasks"
-        | "readinglistentries";
+    generator?: ApiActionTemplateDataParamsGenerator;
     redirects?: boolean;
     converttitles?: boolean;
 }
 
-export interface ThanksApiCoreThankParams extends ApiParams {
-    action: "thank";
+type ApiActionTemplateDataParamsGenerator = keyof ApiActionTemplateDataParamsGeneratorMap;
+
+interface ApiActionTemplateDataParamsGeneratorMap {
+    allcategories: ApiActionTemplateDataGeneratorAllCategoriesParams;
+    alldeletedrevisions: ApiActionTemplateDataGeneratorAllDeletedRevisionsParams;
+    allfileusages: ApiActionTemplateDataGeneratorQueryAllFileUsagesParams;
+    allimages: ApiActionTemplateDataGeneratorAllImagesParams;
+    alllinks: ApiActionTemplateDataGeneratorAllLinksParams;
+    allpages: ApiActionTemplateDataGeneratorAllPagesParams;
+    allredirects: ApiActionTemplateDataGeneratorQueryAllRedirectsParams;
+    allrevisions: ApiActionTemplateDataGeneratorAllRevisionsParams;
+    alltransclusions: ApiActionTemplateDataGeneratorQueryAllTransclusionsParams;
+    automatictranslationdenselanguages: ApiActionTemplateDataGeneratorAutomaticTranslationDenseLanguagesParams;
+    backlinks: ApiActionTemplateDataGeneratorBacklinksParams;
+    categories: ApiActionTemplateDataGeneratorCategoriesParams;
+    categorymembers: ApiActionTemplateDataGeneratorCategoryMembersParams;
+    contenttranslation: ApiActionTemplateDataGeneratorContentTranslationParams;
+    contenttranslationsuggestions: ApiActionTemplateDataGeneratorContentTranslationSuggestionsParams;
+    deletedrevisions: ApiActionTemplateDataGeneratorDeletedRevisionsParams;
+    duplicatefiles: ApiActionTemplateDataGeneratorDuplicateFilesParams;
+    embeddedin: ApiActionTemplateDataGeneratorQueryEmbeddedInParams;
+    exturlusage: ApiActionTemplateDataGeneratorExturlusageParams;
+    fileusage: ApiActionTemplateDataGeneratorQueryFileUsageParams;
+    geosearch: ApiActionTemplateDataGeneratorGeoSearchParams;
+    growthtasks: ApiActionTemplateDataGeneratorGrowthTasksParams;
+    images: ApiActionTemplateDataGeneratorImagesParams;
+    imageusage: ApiActionTemplateDataGeneratorQueryImageUsageParams;
+    iwbacklinks: ApiActionTemplateDataGeneratorIWBacklinksParams;
+    langbacklinks: ApiActionTemplateDataGeneratorLangBacklinksParams;
+    links: ApiActionTemplateDataGeneratorLinksParams;
+    linkshere: ApiActionTemplateDataGeneratorQueryLinksHereParams;
+    mostviewed: ApiActionTemplateDataGeneratorMostViewedParams;
+    oldreviewedpages: ApiActionTemplateDataGeneratorOldreviewedpagesParams;
+    pageswithprop: ApiActionTemplateDataGeneratorPagesWithPropParams;
+    prefixsearch: ApiActionTemplateDataGeneratorPrefixSearchParams;
+    projectpages: ApiActionTemplateDataGeneratorProjectPagesParams;
+    protectedtitles: ApiActionTemplateDataGeneratorProtectedTitlesParams;
+    querypage: ApiActionTemplateDataGeneratorQueryPageParams;
+    random: ApiActionTemplateDataGeneratorRandomParams;
+    readinglistentries: ApiActionTemplateDataGeneratorReadingListEntriesParams;
+    recentchanges: ApiActionTemplateDataGeneratorRecentChangesParams;
+    redirects: ApiActionTemplateDataGeneratorQueryRedirectsParams;
+    revisions: ApiActionTemplateDataGeneratorRevisionsParams;
+    search: ApiActionTemplateDataGeneratorSearchParams;
+    templates: ApiActionTemplateDataGeneratorQueryTemplatesParams;
+    transcludedin: ApiActionTemplateDataGeneratorQueryTranscludedInParams;
+    watchlist: ApiActionTemplateDataGeneratorWatchlistParams;
+    watchlistraw: ApiActionTemplateDataGeneratorWatchlistRawParams;
+    wblistentityusage: ApiActionTemplateDataGeneratorWblistentityusageParams;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allcategories}
+ */
+export interface ApiActionTemplateDataGeneratorAllCategoriesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "allcategories";
+    gacfrom?: string;
+    gaccontinue?: string;
+    gacto?: string;
+    gacprefix?: string;
+    gacdir?: "ascending" | "descending";
+    gacmin?: number;
+    gacmax?: number;
+    gaclimit?: limit;
+    gacprop?: OneOrMore<"hidden" | "size">;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alldeletedrevisions}
+ */
+export interface ApiActionTemplateDataGeneratorAllDeletedRevisionsParams
+    extends ApiActionTemplateDataParams {
+    generator?: "alldeletedrevisions";
+    gadrprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    gadrslots?: string | string[];
+    [k: `gadrcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gadrlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gadrexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrparse?: boolean;
+    gadrsection?: string;
+    /**
+     * @deprecated
+     */
+    gadrdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gadruser?: string;
+    gadrnamespace?: namespace | namespace[];
+    gadrstart?: timestamp;
+    gadrend?: timestamp;
+    gadrdir?: "newer" | "older";
+    gadrfrom?: string;
+    gadrto?: string;
+    gadrprefix?: string;
+    gadrexcludeuser?: string;
+    gadrtag?: string;
+    gadrcontinue?: string;
+    gadrgeneratetitles?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
+ */
+export interface ApiActionTemplateDataGeneratorQueryAllFileUsagesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "allfileusages";
+    gafcontinue?: string;
+    gaffrom?: string;
+    gafto?: string;
+    gafprefix?: string;
+    gafunique?: boolean;
+    gafprop?: OneOrMore<"ids" | "title">;
+    gaflimit?: limit;
+    gafdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allimages}
+ */
+export interface ApiActionTemplateDataGeneratorAllImagesParams extends ApiActionTemplateDataParams {
+    generator?: "allimages";
+    gaisort?: "name" | "timestamp";
+    gaidir?: "ascending" | "descending" | "newer" | "older";
+    gaifrom?: string;
+    gaito?: string;
+    gaicontinue?: string;
+    gaistart?: timestamp;
+    gaiend?: timestamp;
+    gaiprop?: OneOrMore<
+        | "badfile"
+        | "bitdepth"
+        | "canonicaltitle"
+        | "comment"
+        | "commonmetadata"
+        | "dimensions"
+        | "extmetadata"
+        | "mediatype"
+        | "metadata"
+        | "mime"
+        | "parsedcomment"
+        | "sha1"
+        | "size"
+        | "timestamp"
+        | "url"
+        | "user"
+        | "userid"
+    >;
+    gaiprefix?: string;
+    gaiminsize?: number;
+    gaimaxsize?: number;
+    gaisha1?: string;
+    gaisha1base36?: string;
+    gaiuser?: string;
+    gaifilterbots?: "all" | "bots" | "nobots";
+    gaimime?: string | string[];
+    gailimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alllinks}
+ */
+export interface ApiActionTemplateDataGeneratorAllLinksParams extends ApiActionTemplateDataParams {
+    generator?: "alllinks";
+    galcontinue?: string;
+    galfrom?: string;
+    galto?: string;
+    galprefix?: string;
+    galunique?: boolean;
+    galprop?: OneOrMore<"ids" | "title">;
+    galnamespace?: namespace;
+    gallimit?: limit;
+    galdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allpages}
+ */
+export interface ApiActionTemplateDataGeneratorAllPagesParams extends ApiActionTemplateDataParams {
+    generator?: "allpages";
+    gapfrom?: string;
+    gapcontinue?: string;
+    gapto?: string;
+    gapprefix?: string;
+    gapnamespace?: namespace;
+    gapfilterredir?: "all" | "nonredirects" | "redirects";
+    gapfilterlanglinks?: "all" | "withlanglinks" | "withoutlanglinks";
+    gapminsize?: number;
+    gapmaxsize?: number;
+    gapprtype?: OneOrMore<"edit" | "move" | "upload">;
+    gapprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gapprfiltercascade?: "all" | "cascading" | "noncascading";
+    gapprexpiry?: "all" | "definite" | "indefinite";
+    gaplimit?: limit;
+    gapdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
+ */
+export interface ApiActionTemplateDataGeneratorQueryAllRedirectsParams
+    extends ApiActionTemplateDataParams {
+    generator?: "allredirects";
+    garcontinue?: string;
+    garfrom?: string;
+    garto?: string;
+    garprefix?: string;
+    garunique?: boolean;
+    garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
+    garnamespace?: namespace;
+    garlimit?: limit;
+    gardir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allrevisions}
+ */
+export interface ApiActionTemplateDataGeneratorAllRevisionsParams
+    extends ApiActionTemplateDataParams {
+    generator?: "allrevisions";
+    garvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "oresscores"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    garvslots?: string | string[];
+    [k: `garvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    garvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    garvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    garvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    garvparse?: boolean;
+    garvsection?: string;
+    /**
+     * @deprecated
+     */
+    garvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    garvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    garvuser?: string;
+    garvnamespace?: namespace | namespace[];
+    garvstart?: timestamp;
+    garvend?: timestamp;
+    garvdir?: "newer" | "older";
+    garvexcludeuser?: string;
+    garvcontinue?: string;
+    garvgeneratetitles?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
+ */
+export interface ApiActionTemplateDataGeneratorQueryAllTransclusionsParams
+    extends ApiActionTemplateDataParams {
+    generator?: "alltransclusions";
+    gatcontinue?: string;
+    gatfrom?: string;
+    gatto?: string;
+    gatprefix?: string;
+    gatunique?: boolean;
+    gatprop?: OneOrMore<"ids" | "title">;
+    gatnamespace?: namespace;
+    gatlimit?: limit;
+    gatdir?: "ascending" | "descending";
+}
+
+export interface ApiActionTemplateDataGeneratorAutomaticTranslationDenseLanguagesParams
+    extends ApiActionTemplateDataParams {
+    "generator"?: "automatictranslationdenselanguages";
+    "gqid": string;
+    "gsection-titles"?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Backlinks}
+ */
+export interface ApiActionTemplateDataGeneratorBacklinksParams extends ApiActionTemplateDataParams {
+    generator?: "backlinks";
+    gbltitle?: string;
+    gblpageid?: number;
+    gblcontinue?: string;
+    gblnamespace?: namespace | namespace[];
+    gbldir?: "ascending" | "descending";
+    gblfilterredir?: "all" | "nonredirects" | "redirects";
+    gbllimit?: limit;
+    gblredirect?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categories}
+ */
+export interface ApiActionTemplateDataGeneratorCategoriesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "categories";
+    gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
+    gclshow?: OneOrMore<"!hidden" | "hidden">;
+    gcllimit?: limit;
+    gclcontinue?: string;
+    gclcategories?: string | string[];
+    gcldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categorymembers}
+ */
+export interface ApiActionTemplateDataGeneratorCategoryMembersParams
+    extends ApiActionTemplateDataParams {
+    generator?: "categorymembers";
+    gcmtitle?: string;
+    gcmpageid?: number;
+    gcmprop?: OneOrMore<"ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type">;
+    gcmnamespace?: namespace | namespace[];
+    gcmtype?: OneOrMore<"file" | "page" | "subcat">;
+    gcmcontinue?: string;
+    gcmlimit?: limit;
+    gcmsort?: "sortkey" | "timestamp";
+    gcmdir?: "asc" | "ascending" | "desc" | "descending" | "newer" | "older";
+    gcmstart?: timestamp;
+    gcmend?: timestamp;
+    gcmstarthexsortkey?: string;
+    gcmendhexsortkey?: string;
+    gcmstartsortkeyprefix?: string;
+    gcmendsortkeyprefix?: string;
+    /**
+     * @deprecated
+     */
+    gcmstartsortkey?: string;
+    /**
+     * @deprecated
+     */
+    gcmendsortkey?: string;
+}
+
+export interface ApiActionTemplateDataGeneratorContentTranslationParams
+    extends ApiActionTemplateDataParams {
+    generator?: "contenttranslation";
+    gtranslationid?: string;
+    gfrom?: string;
+    gto?: string;
+    gsourcetitle?: string;
+    gsourcesectiontitle?: string;
+    glimit?: limit;
+    goffset?: string;
+    gtype?: "draft" | "published";
+    gusecase?: "desktop-editor-draft" | "translation-corpora-units" | "unified-dashboard";
+}
+
+export interface ApiActionTemplateDataGeneratorContentTranslationSuggestionsParams
+    extends ApiActionTemplateDataParams {
+    generator?: "contenttranslationsuggestions";
+    gfrom?: string;
+    gto?: string;
+    glistid?: string;
+    glimit?: limit;
+    goffset?: string;
+    gseed?: number;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Deletedrevisions}
+ */
+export interface ApiActionTemplateDataGeneratorDeletedRevisionsParams
+    extends ApiActionTemplateDataParams {
+    generator?: "deletedrevisions";
+    gdrvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    gdrvslots?: string | string[];
+    [k: `gdrvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gdrvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvparse?: boolean;
+    gdrvsection?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvstart?: timestamp;
+    gdrvend?: timestamp;
+    gdrvdir?: "newer" | "older";
+    gdrvtag?: string;
+    gdrvuser?: string;
+    gdrvexcludeuser?: string;
+    gdrvcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Duplicatefiles}
+ */
+export interface ApiActionTemplateDataGeneratorDuplicateFilesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "duplicatefiles";
+    gdflimit?: limit;
+    gdfcontinue?: string;
+    gdfdir?: "ascending" | "descending";
+    gdflocalonly?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
+ */
+export interface ApiActionTemplateDataGeneratorQueryEmbeddedInParams
+    extends ApiActionTemplateDataParams {
+    generator?: "embeddedin";
+    geititle?: string;
+    geipageid?: number;
+    geicontinue?: string;
+    geinamespace?: namespace | namespace[];
+    geidir?: "ascending" | "descending";
+    geifilterredir?: "all" | "nonredirects" | "redirects";
+    geilimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
+ */
+export interface ApiActionTemplateDataGeneratorExturlusageParams
+    extends ApiActionTemplateDataParams {
+    generator?: "exturlusage";
+    geuprop?: OneOrMore<"ids" | "title" | "url">;
+    geucontinue?: string;
+    geuprotocol?:
+        | ""
+        | "bitcoin"
+        | "ftp"
+        | "ftps"
+        | "geo"
+        | "git"
+        | "gopher"
+        | "http"
+        | "https"
+        | "irc"
+        | "ircs"
+        | "magnet"
+        | "mailto"
+        | "matrix"
+        | "mms"
+        | "news"
+        | "nntp"
+        | "redis"
+        | "sftp"
+        | "sip"
+        | "sips"
+        | "sms"
+        | "ssh"
+        | "svn"
+        | "tel"
+        | "telnet"
+        | "urn"
+        | "worldwind"
+        | "xmpp";
+    geuquery?: string;
+    geunamespace?: namespace | namespace[];
+    geulimit?: limit;
+    /**
+     * @deprecated
+     */
+    geuexpandurl?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
+ */
+export interface ApiActionTemplateDataGeneratorQueryFileUsageParams
+    extends ApiActionTemplateDataParams {
+    generator?: "fileusage";
+    gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gfunamespace?: namespace | namespace[];
+    gfushow?: OneOrMore<"!redirect" | "redirect">;
+    gfulimit?: limit;
+    gfucontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GeoData#list.3Dgeosearch}
+ */
+export interface ApiActionTemplateDataGeneratorGeoSearchParams extends ApiActionTemplateDataParams {
+    generator?: "geosearch";
+    ggscoord?: string;
+    ggspage?: string;
+    ggsbbox?: string;
+    ggsradius?: number;
+    ggsmaxdim?: number;
+    ggssort?: "distance" | "relevance";
+    ggslimit?: limit;
+    ggsglobe?: "earth";
+    ggsnamespace?: namespace | namespace[];
+    ggsprop?: OneOrMore<"country" | "dim" | "globe" | "name" | "region" | "type">;
+    ggsprimary?: "all" | "primary" | "secondary";
+    ggsdebug?: boolean;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GrowthExperiments#API}
+ */
+export interface ApiActionTemplateDataGeneratorGrowthTasksParams
+    extends ApiActionTemplateDataParams {
+    generator?: "growthtasks";
+    ggttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    ggttopics?: OneOrMore<
+        | "africa"
+        | "architecture"
+        | "art"
+        | "asia"
+        | "biography"
+        | "biology"
+        | "business-and-economics"
+        | "central-america"
+        | "chemistry"
+        | "comics-and-anime"
+        | "computers-and-internet"
+        | "earth-and-environment"
+        | "education"
+        | "engineering"
+        | "entertainment"
+        | "europe"
+        | "fashion"
+        | "food-and-drink"
+        | "general-science"
+        | "history"
+        | "literature"
+        | "mathematics"
+        | "medicine-and-health"
+        | "military-and-warfare"
+        | "music"
+        | "north-america"
+        | "oceania"
+        | "performing-arts"
+        | "philosophy-and-religion"
+        | "physics"
+        | "politics-and-government"
+        | "society"
+        | "south-america"
+        | "sports"
+        | "technology"
+        | "transportation"
+        | "tv-and-film"
+        | "video-games"
+        | "women"
+    >;
+    ggttopicsmode?: "AND" | "OR";
+    ggtlimit?: limit;
+    ggtoffset?: number;
+    ggtdebug?: boolean;
+    ggtexcludepageids?: number | number[];
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Images}
+ */
+export interface ApiActionTemplateDataGeneratorImagesParams extends ApiActionTemplateDataParams {
+    generator?: "images";
+    gimlimit?: limit;
+    gimcontinue?: string;
+    gimimages?: string | string[];
+    gimdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
+ */
+export interface ApiActionTemplateDataGeneratorQueryImageUsageParams
+    extends ApiActionTemplateDataParams {
+    generator?: "imageusage";
+    giutitle?: string;
+    giupageid?: number;
+    giucontinue?: string;
+    giunamespace?: namespace | namespace[];
+    giudir?: "ascending" | "descending";
+    giufilterredir?: "all" | "nonredirects" | "redirects";
+    giulimit?: limit;
+    giuredirect?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Iwbacklinks}
+ */
+export interface ApiActionTemplateDataGeneratorIWBacklinksParams
+    extends ApiActionTemplateDataParams {
+    generator?: "iwbacklinks";
+    giwblprefix?: string;
+    giwbltitle?: string;
+    giwblcontinue?: string;
+    giwbllimit?: limit;
+    giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
+    giwbldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Langbacklinks}
+ */
+export interface ApiActionTemplateDataGeneratorLangBacklinksParams
+    extends ApiActionTemplateDataParams {
+    generator?: "langbacklinks";
+    glbllang?: string;
+    glbltitle?: string;
+    glblcontinue?: string;
+    glbllimit?: limit;
+    glblprop?: OneOrMore<"lllang" | "lltitle">;
+    glbldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Links}
+ */
+export interface ApiActionTemplateDataGeneratorLinksParams extends ApiActionTemplateDataParams {
+    generator?: "links";
+    gplnamespace?: namespace | namespace[];
+    gpllimit?: limit;
+    gplcontinue?: string;
+    gpltitles?: string | string[];
+    gpldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
+ */
+export interface ApiActionTemplateDataGeneratorQueryLinksHereParams
+    extends ApiActionTemplateDataParams {
+    generator?: "linkshere";
+    glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    glhnamespace?: namespace | namespace[];
+    glhshow?: OneOrMore<"!redirect" | "redirect">;
+    glhlimit?: limit;
+    glhcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
+ */
+export interface ApiActionTemplateDataGeneratorMostViewedParams
+    extends ApiActionTemplateDataParams {
+    generator?: "mostviewed";
+    gpvimmetric?: "pageviews";
+    gpvimlimit?: limit;
+    gpvimoffset?: number;
+}
+
+export interface ApiActionTemplateDataGeneratorOldreviewedpagesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "oldreviewedpages";
+    gorstart?: timestamp;
+    gorend?: timestamp;
+    gordir?: "newer" | "older";
+    gormaxsize?: number;
+    gorfilterwatched?: "all" | "watched";
+    gornamespace?: namespace | namespace[];
+    gorcategory?: string;
+    gorfilterredir?: "all" | "nonredirects" | "redirects";
+    gorlimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Pageswithprop}
+ */
+export interface ApiActionTemplateDataGeneratorPagesWithPropParams
+    extends ApiActionTemplateDataParams {
+    generator?: "pageswithprop";
+    gpwppropname: string;
+    gpwpprop?: OneOrMore<"ids" | "title" | "value">;
+    gpwpcontinue?: string;
+    gpwplimit?: limit;
+    gpwpdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch}
+ */
+export interface ApiActionTemplateDataGeneratorPrefixSearchParams
+    extends ApiActionTemplateDataParams {
+    generator?: "prefixsearch";
+    gpssearch: string;
+    gpsnamespace?: namespace | namespace[];
+    gpslimit?: limit;
+    gpsoffset?: number;
+    gpsprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageAssessments}
+ */
+export interface ApiActionTemplateDataGeneratorProjectPagesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "projectpages";
+    gwppassessments?: boolean;
+    gwppprojects: string | string[];
+    gwpplimit?: limit;
+    gwppcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
+ */
+export interface ApiActionTemplateDataGeneratorProtectedTitlesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "protectedtitles";
+    gptnamespace?: namespace | namespace[];
+    gptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gptlimit?: limit;
+    gptdir?: "newer" | "older";
+    gptstart?: timestamp;
+    gptend?: timestamp;
+    gptprop?: OneOrMore<
+        "comment" | "expiry" | "level" | "parsedcomment" | "timestamp" | "user" | "userid"
+    >;
+    gptcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Querypage}
+ */
+export interface ApiActionTemplateDataGeneratorQueryPageParams extends ApiActionTemplateDataParams {
+    generator?: "querypage";
+    gqppage:
+        | "Ancientpages"
+        | "BrokenRedirects"
+        | "Deadendpages"
+        | "DisambiguationPageLinks"
+        | "DisambiguationPages"
+        | "DoubleRedirects"
+        | "Fewestrevisions"
+        | "GadgetUsage"
+        | "GloballyWantedFiles"
+        | "ListDuplicatedFiles"
+        | "Listredirects"
+        | "Lonelypages"
+        | "Longpages"
+        | "MediaStatistics"
+        | "MostGloballyLinkedFiles"
+        | "Mostcategories"
+        | "Mostimages"
+        | "Mostinterwikis"
+        | "Mostlinked"
+        | "Mostlinkedcategories"
+        | "Mostlinkedtemplates"
+        | "Mostrevisions"
+        | "OrphanedTimedText"
+        | "Shortpages"
+        | "Uncategorizedcategories"
+        | "Uncategorizedimages"
+        | "Uncategorizedpages"
+        | "Uncategorizedtemplates"
+        | "UnconnectedPages"
+        | "Unusedcategories"
+        | "Unusedimages"
+        | "Unusedtemplates"
+        | "Unwatchedpages"
+        | "Wantedcategories"
+        | "Wantedfiles"
+        | "Wantedpages"
+        | "Wantedtemplates"
+        | "Withoutinterwiki";
+    gqpoffset?: number;
+    gqplimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Random}
+ */
+export interface ApiActionTemplateDataGeneratorRandomParams extends ApiActionTemplateDataParams {
+    generator?: "random";
+    grnnamespace?: namespace | namespace[];
+    grnfilterredir?: "all" | "nonredirects" | "redirects";
+    /**
+     * @deprecated
+     */
+    grnredirect?: boolean;
+    grnlimit?: limit;
+    grncontinue?: string;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionTemplateDataGeneratorReadingListEntriesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "readinglistentries";
+    grlelists?: number | number[];
+    grlechangedsince?: timestamp;
+    grlesort?: "name" | "updated";
+    grledir?: "ascending" | "descending";
+    grlelimit?: limit;
+    grlecontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Recentchanges}
+ */
+export interface ApiActionTemplateDataGeneratorRecentChangesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "recentchanges";
+    grcstart?: timestamp;
+    grcend?: timestamp;
+    grcdir?: "newer" | "older";
+    grcnamespace?: namespace | namespace[];
+    grcuser?: string;
+    grcexcludeuser?: string;
+    grctag?: string;
+    grcprop?: OneOrMore<
+        | "comment"
+        | "flags"
+        | "ids"
+        | "loginfo"
+        | "oresscores"
+        | "parsedcomment"
+        | "patrolled"
+        | "redirect"
+        | "sha1"
+        | "sizes"
+        | "tags"
+        | "timestamp"
+        | "title"
+        | "user"
+        | "userid"
+    >;
+    grcshow?: OneOrMore<
+        | "!anon"
+        | "!autopatrolled"
+        | "!bot"
+        | "!minor"
+        | "!oresreview"
+        | "!patrolled"
+        | "!redirect"
+        | "anon"
+        | "autopatrolled"
+        | "bot"
+        | "minor"
+        | "oresreview"
+        | "patrolled"
+        | "redirect"
+        | "unpatrolled"
+    >;
+    grclimit?: limit;
+    grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    grctoponly?: boolean;
+    grctitle?: string;
+    grccontinue?: string;
+    grcgeneraterevisions?: boolean;
+    grcslot?: "main";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
+ */
+export interface ApiActionTemplateDataGeneratorQueryRedirectsParams
+    extends ApiActionTemplateDataParams {
+    generator?: "redirects";
+    grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
+    grdnamespace?: namespace | namespace[];
+    grdshow?: OneOrMore<"!fragment" | "fragment">;
+    grdlimit?: limit;
+    grdcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisions}
+ */
+export interface ApiActionTemplateDataGeneratorRevisionsParams extends ApiActionTemplateDataParams {
+    generator?: "revisions";
+    grvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flagged"
+        | "flags"
+        | "ids"
+        | "oresscores"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    grvslots?: string | string[];
+    [k: `grvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    grvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    grvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    grvparse?: boolean;
+    grvsection?: string;
+    /**
+     * @deprecated
+     */
+    grvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    grvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvstartid?: number;
+    grvendid?: number;
+    grvstart?: timestamp;
+    grvend?: timestamp;
+    grvdir?: "newer" | "older";
+    grvuser?: string;
+    grvexcludeuser?: string;
+    grvtag?: string;
+    grvcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Search}
+ */
+export interface ApiActionTemplateDataGeneratorSearchParams extends ApiActionTemplateDataParams {
+    generator?: "search";
+    gsrsearch: string;
+    gsrnamespace?: namespace | namespace[];
+    gsrlimit?: limit;
+    gsroffset?: number;
+    gsrqiprofile?:
+        | "classic"
+        | "classic_noboostlinks"
+        | "empty"
+        | "engine_autoselect"
+        | "growth_underlinked"
+        | "mlr-1024rs"
+        | "popular_inclinks"
+        | "popular_inclinks_pv"
+        | "wsum_inclinks"
+        | "wsum_inclinks_pv";
+    gsrwhat?: "nearmatch" | "text" | "title";
+    gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
+    gsrprop?: OneOrMore<
+        | "categorysnippet"
+        | "extensiondata"
+        | "isfilematch"
+        | "redirectsnippet"
+        | "redirecttitle"
+        | "sectionsnippet"
+        | "sectiontitle"
+        | "size"
+        | "snippet"
+        | "timestamp"
+        | "titlesnippet"
+        | "wordcount"
+        | "hasrelated"
+        | "score"
+    >;
+    gsrinterwiki?: boolean;
+    gsrenablerewrites?: boolean;
+    gsrsort?:
+        | "create_timestamp_asc"
+        | "create_timestamp_desc"
+        | "incoming_links_asc"
+        | "incoming_links_desc"
+        | "just_match"
+        | "last_edit_asc"
+        | "last_edit_desc"
+        | "none"
+        | "random"
+        | "relevance"
+        | "user_random";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
+ */
+export interface ApiActionTemplateDataGeneratorQueryTemplatesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "templates";
+    gtlnamespace?: namespace | namespace[];
+    gtllimit?: limit;
+    gtlcontinue?: string;
+    gtltemplates?: string | string[];
+    gtldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
+ */
+export interface ApiActionTemplateDataGeneratorQueryTranscludedInParams
+    extends ApiActionTemplateDataParams {
+    generator?: "transcludedin";
+    gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gtinamespace?: namespace | namespace[];
+    gtishow?: OneOrMore<"!redirect" | "redirect">;
+    gtilimit?: limit;
+    gticontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlist}
+ */
+export interface ApiActionTemplateDataGeneratorWatchlistParams extends ApiActionTemplateDataParams {
+    generator?: "watchlist";
+    gwlallrev?: boolean;
+    gwlstart?: timestamp;
+    gwlend?: timestamp;
+    gwlnamespace?: namespace | namespace[];
+    gwluser?: string;
+    gwlexcludeuser?: string;
+    gwldir?: "newer" | "older";
+    gwllimit?: limit;
+    gwlprop?: OneOrMore<
+        | "comment"
+        | "expiry"
+        | "flags"
+        | "ids"
+        | "loginfo"
+        | "notificationtimestamp"
+        | "oresscores"
+        | "parsedcomment"
+        | "patrol"
+        | "sizes"
+        | "tags"
+        | "timestamp"
+        | "title"
+        | "user"
+        | "userid"
+    >;
+    gwlshow?: OneOrMore<
+        | "!anon"
+        | "!autopatrolled"
+        | "!bot"
+        | "!minor"
+        | "!oresreview"
+        | "!patrolled"
+        | "!unread"
+        | "anon"
+        | "autopatrolled"
+        | "bot"
+        | "minor"
+        | "oresreview"
+        | "patrolled"
+        | "unread"
+    >;
+    gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    gwlowner?: string;
+    gwltoken?: string;
+    gwlcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlistraw}
+ */
+export interface ApiActionTemplateDataGeneratorWatchlistRawParams
+    extends ApiActionTemplateDataParams {
+    generator?: "watchlistraw";
+    gwrcontinue?: string;
+    gwrnamespace?: namespace | namespace[];
+    gwrlimit?: limit;
+    gwrprop?: OneOrMore<"changed">;
+    gwrshow?: OneOrMore<"!changed" | "changed">;
+    gwrowner?: string;
+    gwrtoken?: string;
+    gwrdir?: "ascending" | "descending";
+    gwrfromtitle?: string;
+    gwrtotitle?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
+ */
+export interface ApiActionTemplateDataGeneratorWblistentityusageParams
+    extends ApiActionTemplateDataParams {
+    generator?: "wblistentityusage";
+    gwbleuprop?: OneOrMore<"url">;
+    gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
+    gwbleuentities: string | string[];
+    gwbleulimit?: limit;
+    gwbleucontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Thanks#API_Documentation}
+ */
+export interface ApiActionThankParams extends ApiParams {
+    action?: "thank";
     rev?: number;
     log?: number;
     token?: string;
     source?: string;
 }
 
-export interface MediaWikiTimedMediaHandlerApiTimedTextParams extends ApiParams {
-    action: "timedtext";
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TimedMediaHandler}
+ */
+export interface ApiActionTimedTextParams extends ApiParams {
+    action?: "timedtext";
     title?: string;
     pageid?: number;
     trackformat: "srt" | "vtt";
     lang?: string;
 }
 
-export interface TitleBlacklistApiTitleBlacklistParams extends ApiParams {
-    action: "titleblacklist";
+export interface ApiActionTitleBlacklistParams extends ApiParams {
+    action?: "titleblacklist";
     tbtitle: string;
     tbaction?: "create" | "createpage" | "createtalk" | "edit" | "move" | "new-account" | "upload";
     tbnooverride?: boolean;
 }
 
-export interface TorBlockApiTorBlockParams extends ApiParams {
-    action: "torblock";
+export interface ApiActionTorBlockParams extends ApiParams {
+    action?: "torblock";
     ip: string;
 }
 
-export interface MediaWikiTimedMediaHandlerApiTranscodeResetParams extends ApiParams {
-    action: "transcodereset";
+export interface ApiActionTranscodeResetParams extends ApiParams {
+    action?: "transcodereset";
     title: string;
     transcodekey?: string;
     token?: string;
 }
 
-export interface UniversalLanguageSelectorApiULSLocalizationParams extends ApiParams {
-    action: "ulslocalization";
+/**
+ * @private
+ */
+export interface ApiActionULSLocalizationParams extends ApiParams {
+    action?: "ulslocalization";
     language: string;
 }
 
-export interface UniversalLanguageSelectorApiULSSetLanguageParams extends ApiParams {
-    action: "ulssetlang";
+/**
+ * @private
+ */
+export interface ApiActionULSSetLangParams extends ApiParams {
+    action?: "ulssetlang";
     languagecode: string;
     token?: string;
 }
 
-export interface ApiUnblockParams extends ApiParams {
-    action: "unblock";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Block}
+ */
+export interface ApiActionUnblockParams extends ApiParams {
+    action?: "unblock";
     id?: number;
     user?: string;
+    /**
+     * @deprecated
+     */
     userid?: number;
     reason?: string;
     tags?: string | string[];
@@ -6364,8 +12310,11 @@ export interface ApiUnblockParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiUndeleteParams extends ApiParams {
-    action: "undelete";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Undelete}
+ */
+export interface ApiActionUndeleteParams extends ApiParams {
+    action?: "undelete";
     title: string;
     reason?: string;
     tags?: string | string[];
@@ -6377,18 +12326,27 @@ export interface ApiUndeleteParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiQueryUnlinkAccountParams extends ApiParams {
-    action: "unlinkaccount";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Manage_authentication_data}
+ */
+export interface ApiActionQueryUnlinkAccountParams extends ApiParams {
+    action?: "unlinkaccount";
     request: string;
     token?: string;
 }
 
-export interface ApiUploadParams extends ApiParams {
-    action: "upload";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Upload}
+ */
+export interface ApiActionUploadParams extends ApiParams {
+    action?: "upload";
     filename?: string;
     comment?: string;
     tags?: string | string[];
     text?: string;
+    /**
+     * @deprecated
+     */
     watch?: boolean;
     watchlist?: "nochange" | "preferences" | "watch";
     watchlistexpiry?: expiry;
@@ -6396,6 +12354,9 @@ export interface ApiUploadParams extends ApiParams {
     file?: upload;
     url?: string;
     filekey?: string;
+    /**
+     * @deprecated
+     */
     sessionkey?: string;
     stash?: boolean;
     filesize?: number;
@@ -6406,9 +12367,15 @@ export interface ApiUploadParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiUserrightsParams extends ApiParams {
-    action: "userrights";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:User_group_membership}
+ */
+export interface ApiActionUserrightsParams extends ApiParams {
+    action?: "userrights";
     user?: string;
+    /**
+     * @deprecated
+     */
     userid?: number;
     add?: OneOrMore<
         | "abusefilter"
@@ -6418,6 +12385,7 @@ export interface ApiUserrightsParams extends ApiParams {
         | "bot"
         | "bureaucrat"
         | "checkuser"
+        | "checkuser-temporary-account-viewer"
         | "confirmed"
         | "copyviobot"
         | "eventcoordinator"
@@ -6450,6 +12418,7 @@ export interface ApiUserrightsParams extends ApiParams {
         | "bot"
         | "bureaucrat"
         | "checkuser"
+        | "checkuser-temporary-account-viewer"
         | "confirmed"
         | "copyviobot"
         | "eventcoordinator"
@@ -6480,16 +12449,22 @@ export interface ApiUserrightsParams extends ApiParams {
     watchlistexpiry?: expiry;
 }
 
-export interface ApiValidatePasswordParams extends ApiParams {
-    action: "validatepassword";
-    password: password;
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Validatepassword}
+ */
+export interface ApiActionValidatePasswordParams extends ApiParams {
+    action?: "validatepassword";
+    password?: password;
     user?: string;
     email?: string;
     realname?: string;
 }
 
-export interface VisualEditorApiVisualEditorParams extends ApiParams {
-    action: "visualeditor";
+/**
+ * @private
+ */
+export interface ApiActionVisualEditorParams extends ApiParams {
+    action?: "visualeditor";
     page: string;
     badetag?: string;
     format?: "json" | "jsonfm";
@@ -6504,8 +12479,11 @@ export interface VisualEditorApiVisualEditorParams extends ApiParams {
     preloadparams?: string | string[];
 }
 
-export interface VisualEditorApiVisualEditorEditParams extends ApiParams {
-    action: "visualeditoredit";
+/**
+ * @private
+ */
+export interface ApiActionVisualEditorEditParams extends ApiParams {
+    action?: "visualeditoredit";
     paction: "diff" | "save" | "serialize" | "serializeforcache";
     page: string;
     token?: string;
@@ -6529,9 +12507,11 @@ export interface VisualEditorApiVisualEditorEditParams extends ApiParams {
     returntoanchor?: string;
     useskin?:
         | "apioutput"
+        | "authentication-popup"
         | "cologneblue"
         | "contenttranslation"
         | "fallback"
+        | "json"
         | "minerva"
         | "modern"
         | "monobook"
@@ -6540,11 +12520,18 @@ export interface VisualEditorApiVisualEditorEditParams extends ApiParams {
         | "vector-2022";
     tags?: string | string[];
     plugins?: string | string[];
+    [k: `data-${string}`]: string;
     mobileformat?: boolean;
 }
 
-export interface ApiWatchParams extends ApiParams {
-    action: "watch";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watch}
+ */
+export interface ApiActionWatchParams extends ApiParams {
+    action?: "watch";
+    /**
+     * @deprecated
+     */
     title?: string;
     expiry?: expiry;
     unwatch?: boolean;
@@ -6552,68 +12539,1264 @@ export interface ApiWatchParams extends ApiParams {
     titles?: string | string[];
     pageids?: number | number[];
     revids?: number | number[];
-    generator?:
-        | "allcategories"
-        | "alldeletedrevisions"
-        | "allfileusages"
-        | "allimages"
-        | "alllinks"
-        | "allpages"
-        | "allredirects"
-        | "allrevisions"
-        | "alltransclusions"
-        | "backlinks"
-        | "categories"
-        | "categorymembers"
-        | "contenttranslation"
-        | "contenttranslationsuggestions"
-        | "deletedrevisions"
-        | "duplicatefiles"
-        | "embeddedin"
-        | "exturlusage"
-        | "fileusage"
-        | "geosearch"
-        | "images"
-        | "imageusage"
-        | "iwbacklinks"
-        | "langbacklinks"
-        | "links"
-        | "linkshere"
-        | "mostviewed"
-        | "oldreviewedpages"
-        | "pageswithprop"
-        | "prefixsearch"
-        | "projectpages"
-        | "protectedtitles"
-        | "querypage"
-        | "random"
-        | "recentchanges"
-        | "redirects"
-        | "revisions"
-        | "search"
-        | "templates"
-        | "transcludedin"
-        | "watchlist"
-        | "watchlistraw"
-        | "wblistentityusage"
-        | "growthtasks"
-        | "readinglistentries";
+    generator?: ApiActionWatchParamsGenerator;
     redirects?: boolean;
     converttitles?: boolean;
     token?: string;
 }
 
-export interface MobileFrontendApiWebappManifestParams extends ApiParams {
-    action: "webapp-manifest";
+type ApiActionWatchParamsGenerator = keyof ApiActionWatchParamsGeneratorMap;
+
+interface ApiActionWatchParamsGeneratorMap {
+    allcategories: ApiActionWatchGeneratorAllCategoriesParams;
+    alldeletedrevisions: ApiActionWatchGeneratorAllDeletedRevisionsParams;
+    allfileusages: ApiActionWatchGeneratorQueryAllFileUsagesParams;
+    allimages: ApiActionWatchGeneratorAllImagesParams;
+    alllinks: ApiActionWatchGeneratorAllLinksParams;
+    allpages: ApiActionWatchGeneratorAllPagesParams;
+    allredirects: ApiActionWatchGeneratorQueryAllRedirectsParams;
+    allrevisions: ApiActionWatchGeneratorAllRevisionsParams;
+    alltransclusions: ApiActionWatchGeneratorQueryAllTransclusionsParams;
+    automatictranslationdenselanguages: ApiActionWatchGeneratorAutomaticTranslationDenseLanguagesParams;
+    backlinks: ApiActionWatchGeneratorBacklinksParams;
+    categories: ApiActionWatchGeneratorCategoriesParams;
+    categorymembers: ApiActionWatchGeneratorCategoryMembersParams;
+    contenttranslation: ApiActionWatchGeneratorContentTranslationParams;
+    contenttranslationsuggestions: ApiActionWatchGeneratorContentTranslationSuggestionsParams;
+    deletedrevisions: ApiActionWatchGeneratorDeletedRevisionsParams;
+    duplicatefiles: ApiActionWatchGeneratorDuplicateFilesParams;
+    embeddedin: ApiActionWatchGeneratorQueryEmbeddedInParams;
+    exturlusage: ApiActionWatchGeneratorExturlusageParams;
+    fileusage: ApiActionWatchGeneratorQueryFileUsageParams;
+    geosearch: ApiActionWatchGeneratorGeoSearchParams;
+    growthtasks: ApiActionWatchGeneratorGrowthTasksParams;
+    images: ApiActionWatchGeneratorImagesParams;
+    imageusage: ApiActionWatchGeneratorQueryImageUsageParams;
+    iwbacklinks: ApiActionWatchGeneratorIWBacklinksParams;
+    langbacklinks: ApiActionWatchGeneratorLangBacklinksParams;
+    links: ApiActionWatchGeneratorLinksParams;
+    linkshere: ApiActionWatchGeneratorQueryLinksHereParams;
+    mostviewed: ApiActionWatchGeneratorMostViewedParams;
+    oldreviewedpages: ApiActionWatchGeneratorOldreviewedpagesParams;
+    pageswithprop: ApiActionWatchGeneratorPagesWithPropParams;
+    prefixsearch: ApiActionWatchGeneratorPrefixSearchParams;
+    projectpages: ApiActionWatchGeneratorProjectPagesParams;
+    protectedtitles: ApiActionWatchGeneratorProtectedTitlesParams;
+    querypage: ApiActionWatchGeneratorQueryPageParams;
+    random: ApiActionWatchGeneratorRandomParams;
+    readinglistentries: ApiActionWatchGeneratorReadingListEntriesParams;
+    recentchanges: ApiActionWatchGeneratorRecentChangesParams;
+    redirects: ApiActionWatchGeneratorQueryRedirectsParams;
+    revisions: ApiActionWatchGeneratorRevisionsParams;
+    search: ApiActionWatchGeneratorSearchParams;
+    templates: ApiActionWatchGeneratorQueryTemplatesParams;
+    transcludedin: ApiActionWatchGeneratorQueryTranscludedInParams;
+    watchlist: ApiActionWatchGeneratorWatchlistParams;
+    watchlistraw: ApiActionWatchGeneratorWatchlistRawParams;
+    wblistentityusage: ApiActionWatchGeneratorWblistentityusageParams;
 }
 
-export interface WebAuthnApiWebAuthnParams extends ApiParams {
-    action: "webauthn";
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allcategories}
+ */
+export interface ApiActionWatchGeneratorAllCategoriesParams extends ApiActionWatchParams {
+    generator?: "allcategories";
+    gacfrom?: string;
+    gaccontinue?: string;
+    gacto?: string;
+    gacprefix?: string;
+    gacdir?: "ascending" | "descending";
+    gacmin?: number;
+    gacmax?: number;
+    gaclimit?: limit;
+    gacprop?: OneOrMore<"hidden" | "size">;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alldeletedrevisions}
+ */
+export interface ApiActionWatchGeneratorAllDeletedRevisionsParams extends ApiActionWatchParams {
+    generator?: "alldeletedrevisions";
+    gadrprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    gadrslots?: string | string[];
+    [k: `gadrcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gadrlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gadrexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrparse?: boolean;
+    gadrsection?: string;
+    /**
+     * @deprecated
+     */
+    gadrdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gadrdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gadrcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gadruser?: string;
+    gadrnamespace?: namespace | namespace[];
+    gadrstart?: timestamp;
+    gadrend?: timestamp;
+    gadrdir?: "newer" | "older";
+    gadrfrom?: string;
+    gadrto?: string;
+    gadrprefix?: string;
+    gadrexcludeuser?: string;
+    gadrtag?: string;
+    gadrcontinue?: string;
+    gadrgeneratetitles?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
+ */
+export interface ApiActionWatchGeneratorQueryAllFileUsagesParams extends ApiActionWatchParams {
+    generator?: "allfileusages";
+    gafcontinue?: string;
+    gaffrom?: string;
+    gafto?: string;
+    gafprefix?: string;
+    gafunique?: boolean;
+    gafprop?: OneOrMore<"ids" | "title">;
+    gaflimit?: limit;
+    gafdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allimages}
+ */
+export interface ApiActionWatchGeneratorAllImagesParams extends ApiActionWatchParams {
+    generator?: "allimages";
+    gaisort?: "name" | "timestamp";
+    gaidir?: "ascending" | "descending" | "newer" | "older";
+    gaifrom?: string;
+    gaito?: string;
+    gaicontinue?: string;
+    gaistart?: timestamp;
+    gaiend?: timestamp;
+    gaiprop?: OneOrMore<
+        | "badfile"
+        | "bitdepth"
+        | "canonicaltitle"
+        | "comment"
+        | "commonmetadata"
+        | "dimensions"
+        | "extmetadata"
+        | "mediatype"
+        | "metadata"
+        | "mime"
+        | "parsedcomment"
+        | "sha1"
+        | "size"
+        | "timestamp"
+        | "url"
+        | "user"
+        | "userid"
+    >;
+    gaiprefix?: string;
+    gaiminsize?: number;
+    gaimaxsize?: number;
+    gaisha1?: string;
+    gaisha1base36?: string;
+    gaiuser?: string;
+    gaifilterbots?: "all" | "bots" | "nobots";
+    gaimime?: string | string[];
+    gailimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alllinks}
+ */
+export interface ApiActionWatchGeneratorAllLinksParams extends ApiActionWatchParams {
+    generator?: "alllinks";
+    galcontinue?: string;
+    galfrom?: string;
+    galto?: string;
+    galprefix?: string;
+    galunique?: boolean;
+    galprop?: OneOrMore<"ids" | "title">;
+    galnamespace?: namespace;
+    gallimit?: limit;
+    galdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allpages}
+ */
+export interface ApiActionWatchGeneratorAllPagesParams extends ApiActionWatchParams {
+    generator?: "allpages";
+    gapfrom?: string;
+    gapcontinue?: string;
+    gapto?: string;
+    gapprefix?: string;
+    gapnamespace?: namespace;
+    gapfilterredir?: "all" | "nonredirects" | "redirects";
+    gapfilterlanglinks?: "all" | "withlanglinks" | "withoutlanglinks";
+    gapminsize?: number;
+    gapmaxsize?: number;
+    gapprtype?: OneOrMore<"edit" | "move" | "upload">;
+    gapprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gapprfiltercascade?: "all" | "cascading" | "noncascading";
+    gapprexpiry?: "all" | "definite" | "indefinite";
+    gaplimit?: limit;
+    gapdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
+ */
+export interface ApiActionWatchGeneratorQueryAllRedirectsParams extends ApiActionWatchParams {
+    generator?: "allredirects";
+    garcontinue?: string;
+    garfrom?: string;
+    garto?: string;
+    garprefix?: string;
+    garunique?: boolean;
+    garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
+    garnamespace?: namespace;
+    garlimit?: limit;
+    gardir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allrevisions}
+ */
+export interface ApiActionWatchGeneratorAllRevisionsParams extends ApiActionWatchParams {
+    generator?: "allrevisions";
+    garvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "oresscores"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    garvslots?: string | string[];
+    [k: `garvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    garvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    garvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    garvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    garvparse?: boolean;
+    garvsection?: string;
+    /**
+     * @deprecated
+     */
+    garvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    garvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    garvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    garvuser?: string;
+    garvnamespace?: namespace | namespace[];
+    garvstart?: timestamp;
+    garvend?: timestamp;
+    garvdir?: "newer" | "older";
+    garvexcludeuser?: string;
+    garvcontinue?: string;
+    garvgeneratetitles?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
+ */
+export interface ApiActionWatchGeneratorQueryAllTransclusionsParams extends ApiActionWatchParams {
+    generator?: "alltransclusions";
+    gatcontinue?: string;
+    gatfrom?: string;
+    gatto?: string;
+    gatprefix?: string;
+    gatunique?: boolean;
+    gatprop?: OneOrMore<"ids" | "title">;
+    gatnamespace?: namespace;
+    gatlimit?: limit;
+    gatdir?: "ascending" | "descending";
+}
+
+export interface ApiActionWatchGeneratorAutomaticTranslationDenseLanguagesParams
+    extends ApiActionWatchParams {
+    "generator"?: "automatictranslationdenselanguages";
+    "gqid": string;
+    "gsection-titles"?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Backlinks}
+ */
+export interface ApiActionWatchGeneratorBacklinksParams extends ApiActionWatchParams {
+    generator?: "backlinks";
+    gbltitle?: string;
+    gblpageid?: number;
+    gblcontinue?: string;
+    gblnamespace?: namespace | namespace[];
+    gbldir?: "ascending" | "descending";
+    gblfilterredir?: "all" | "nonredirects" | "redirects";
+    gbllimit?: limit;
+    gblredirect?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categories}
+ */
+export interface ApiActionWatchGeneratorCategoriesParams extends ApiActionWatchParams {
+    generator?: "categories";
+    gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
+    gclshow?: OneOrMore<"!hidden" | "hidden">;
+    gcllimit?: limit;
+    gclcontinue?: string;
+    gclcategories?: string | string[];
+    gcldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categorymembers}
+ */
+export interface ApiActionWatchGeneratorCategoryMembersParams extends ApiActionWatchParams {
+    generator?: "categorymembers";
+    gcmtitle?: string;
+    gcmpageid?: number;
+    gcmprop?: OneOrMore<"ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type">;
+    gcmnamespace?: namespace | namespace[];
+    gcmtype?: OneOrMore<"file" | "page" | "subcat">;
+    gcmcontinue?: string;
+    gcmlimit?: limit;
+    gcmsort?: "sortkey" | "timestamp";
+    gcmdir?: "asc" | "ascending" | "desc" | "descending" | "newer" | "older";
+    gcmstart?: timestamp;
+    gcmend?: timestamp;
+    gcmstarthexsortkey?: string;
+    gcmendhexsortkey?: string;
+    gcmstartsortkeyprefix?: string;
+    gcmendsortkeyprefix?: string;
+    /**
+     * @deprecated
+     */
+    gcmstartsortkey?: string;
+    /**
+     * @deprecated
+     */
+    gcmendsortkey?: string;
+}
+
+export interface ApiActionWatchGeneratorContentTranslationParams extends ApiActionWatchParams {
+    generator?: "contenttranslation";
+    gtranslationid?: string;
+    gfrom?: string;
+    gto?: string;
+    gsourcetitle?: string;
+    gsourcesectiontitle?: string;
+    glimit?: limit;
+    goffset?: string;
+    gtype?: "draft" | "published";
+    gusecase?: "desktop-editor-draft" | "translation-corpora-units" | "unified-dashboard";
+}
+
+export interface ApiActionWatchGeneratorContentTranslationSuggestionsParams
+    extends ApiActionWatchParams {
+    generator?: "contenttranslationsuggestions";
+    gfrom?: string;
+    gto?: string;
+    glistid?: string;
+    glimit?: limit;
+    goffset?: string;
+    gseed?: number;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Deletedrevisions}
+ */
+export interface ApiActionWatchGeneratorDeletedRevisionsParams extends ApiActionWatchParams {
+    generator?: "deletedrevisions";
+    gdrvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flags"
+        | "ids"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    gdrvslots?: string | string[];
+    [k: `gdrvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    gdrvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvparse?: boolean;
+    gdrvsection?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    gdrvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    gdrvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    gdrvstart?: timestamp;
+    gdrvend?: timestamp;
+    gdrvdir?: "newer" | "older";
+    gdrvtag?: string;
+    gdrvuser?: string;
+    gdrvexcludeuser?: string;
+    gdrvcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Duplicatefiles}
+ */
+export interface ApiActionWatchGeneratorDuplicateFilesParams extends ApiActionWatchParams {
+    generator?: "duplicatefiles";
+    gdflimit?: limit;
+    gdfcontinue?: string;
+    gdfdir?: "ascending" | "descending";
+    gdflocalonly?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
+ */
+export interface ApiActionWatchGeneratorQueryEmbeddedInParams extends ApiActionWatchParams {
+    generator?: "embeddedin";
+    geititle?: string;
+    geipageid?: number;
+    geicontinue?: string;
+    geinamespace?: namespace | namespace[];
+    geidir?: "ascending" | "descending";
+    geifilterredir?: "all" | "nonredirects" | "redirects";
+    geilimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
+ */
+export interface ApiActionWatchGeneratorExturlusageParams extends ApiActionWatchParams {
+    generator?: "exturlusage";
+    geuprop?: OneOrMore<"ids" | "title" | "url">;
+    geucontinue?: string;
+    geuprotocol?:
+        | ""
+        | "bitcoin"
+        | "ftp"
+        | "ftps"
+        | "geo"
+        | "git"
+        | "gopher"
+        | "http"
+        | "https"
+        | "irc"
+        | "ircs"
+        | "magnet"
+        | "mailto"
+        | "matrix"
+        | "mms"
+        | "news"
+        | "nntp"
+        | "redis"
+        | "sftp"
+        | "sip"
+        | "sips"
+        | "sms"
+        | "ssh"
+        | "svn"
+        | "tel"
+        | "telnet"
+        | "urn"
+        | "worldwind"
+        | "xmpp";
+    geuquery?: string;
+    geunamespace?: namespace | namespace[];
+    geulimit?: limit;
+    /**
+     * @deprecated
+     */
+    geuexpandurl?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
+ */
+export interface ApiActionWatchGeneratorQueryFileUsageParams extends ApiActionWatchParams {
+    generator?: "fileusage";
+    gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gfunamespace?: namespace | namespace[];
+    gfushow?: OneOrMore<"!redirect" | "redirect">;
+    gfulimit?: limit;
+    gfucontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GeoData#list.3Dgeosearch}
+ */
+export interface ApiActionWatchGeneratorGeoSearchParams extends ApiActionWatchParams {
+    generator?: "geosearch";
+    ggscoord?: string;
+    ggspage?: string;
+    ggsbbox?: string;
+    ggsradius?: number;
+    ggsmaxdim?: number;
+    ggssort?: "distance" | "relevance";
+    ggslimit?: limit;
+    ggsglobe?: "earth";
+    ggsnamespace?: namespace | namespace[];
+    ggsprop?: OneOrMore<"country" | "dim" | "globe" | "name" | "region" | "type">;
+    ggsprimary?: "all" | "primary" | "secondary";
+    ggsdebug?: boolean;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GrowthExperiments#API}
+ */
+export interface ApiActionWatchGeneratorGrowthTasksParams extends ApiActionWatchParams {
+    generator?: "growthtasks";
+    ggttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    ggttopics?: OneOrMore<
+        | "africa"
+        | "architecture"
+        | "art"
+        | "asia"
+        | "biography"
+        | "biology"
+        | "business-and-economics"
+        | "central-america"
+        | "chemistry"
+        | "comics-and-anime"
+        | "computers-and-internet"
+        | "earth-and-environment"
+        | "education"
+        | "engineering"
+        | "entertainment"
+        | "europe"
+        | "fashion"
+        | "food-and-drink"
+        | "general-science"
+        | "history"
+        | "literature"
+        | "mathematics"
+        | "medicine-and-health"
+        | "military-and-warfare"
+        | "music"
+        | "north-america"
+        | "oceania"
+        | "performing-arts"
+        | "philosophy-and-religion"
+        | "physics"
+        | "politics-and-government"
+        | "society"
+        | "south-america"
+        | "sports"
+        | "technology"
+        | "transportation"
+        | "tv-and-film"
+        | "video-games"
+        | "women"
+    >;
+    ggttopicsmode?: "AND" | "OR";
+    ggtlimit?: limit;
+    ggtoffset?: number;
+    ggtdebug?: boolean;
+    ggtexcludepageids?: number | number[];
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Images}
+ */
+export interface ApiActionWatchGeneratorImagesParams extends ApiActionWatchParams {
+    generator?: "images";
+    gimlimit?: limit;
+    gimcontinue?: string;
+    gimimages?: string | string[];
+    gimdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
+ */
+export interface ApiActionWatchGeneratorQueryImageUsageParams extends ApiActionWatchParams {
+    generator?: "imageusage";
+    giutitle?: string;
+    giupageid?: number;
+    giucontinue?: string;
+    giunamespace?: namespace | namespace[];
+    giudir?: "ascending" | "descending";
+    giufilterredir?: "all" | "nonredirects" | "redirects";
+    giulimit?: limit;
+    giuredirect?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Iwbacklinks}
+ */
+export interface ApiActionWatchGeneratorIWBacklinksParams extends ApiActionWatchParams {
+    generator?: "iwbacklinks";
+    giwblprefix?: string;
+    giwbltitle?: string;
+    giwblcontinue?: string;
+    giwbllimit?: limit;
+    giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
+    giwbldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Langbacklinks}
+ */
+export interface ApiActionWatchGeneratorLangBacklinksParams extends ApiActionWatchParams {
+    generator?: "langbacklinks";
+    glbllang?: string;
+    glbltitle?: string;
+    glblcontinue?: string;
+    glbllimit?: limit;
+    glblprop?: OneOrMore<"lllang" | "lltitle">;
+    glbldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Links}
+ */
+export interface ApiActionWatchGeneratorLinksParams extends ApiActionWatchParams {
+    generator?: "links";
+    gplnamespace?: namespace | namespace[];
+    gpllimit?: limit;
+    gplcontinue?: string;
+    gpltitles?: string | string[];
+    gpldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
+ */
+export interface ApiActionWatchGeneratorQueryLinksHereParams extends ApiActionWatchParams {
+    generator?: "linkshere";
+    glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    glhnamespace?: namespace | namespace[];
+    glhshow?: OneOrMore<"!redirect" | "redirect">;
+    glhlimit?: limit;
+    glhcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
+ */
+export interface ApiActionWatchGeneratorMostViewedParams extends ApiActionWatchParams {
+    generator?: "mostviewed";
+    gpvimmetric?: "pageviews";
+    gpvimlimit?: limit;
+    gpvimoffset?: number;
+}
+
+export interface ApiActionWatchGeneratorOldreviewedpagesParams extends ApiActionWatchParams {
+    generator?: "oldreviewedpages";
+    gorstart?: timestamp;
+    gorend?: timestamp;
+    gordir?: "newer" | "older";
+    gormaxsize?: number;
+    gorfilterwatched?: "all" | "watched";
+    gornamespace?: namespace | namespace[];
+    gorcategory?: string;
+    gorfilterredir?: "all" | "nonredirects" | "redirects";
+    gorlimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Pageswithprop}
+ */
+export interface ApiActionWatchGeneratorPagesWithPropParams extends ApiActionWatchParams {
+    generator?: "pageswithprop";
+    gpwppropname: string;
+    gpwpprop?: OneOrMore<"ids" | "title" | "value">;
+    gpwpcontinue?: string;
+    gpwplimit?: limit;
+    gpwpdir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch}
+ */
+export interface ApiActionWatchGeneratorPrefixSearchParams extends ApiActionWatchParams {
+    generator?: "prefixsearch";
+    gpssearch: string;
+    gpsnamespace?: namespace | namespace[];
+    gpslimit?: limit;
+    gpsoffset?: number;
+    gpsprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageAssessments}
+ */
+export interface ApiActionWatchGeneratorProjectPagesParams extends ApiActionWatchParams {
+    generator?: "projectpages";
+    gwppassessments?: boolean;
+    gwppprojects: string | string[];
+    gwpplimit?: limit;
+    gwppcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
+ */
+export interface ApiActionWatchGeneratorProtectedTitlesParams extends ApiActionWatchParams {
+    generator?: "protectedtitles";
+    gptnamespace?: namespace | namespace[];
+    gptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gptlimit?: limit;
+    gptdir?: "newer" | "older";
+    gptstart?: timestamp;
+    gptend?: timestamp;
+    gptprop?: OneOrMore<
+        "comment" | "expiry" | "level" | "parsedcomment" | "timestamp" | "user" | "userid"
+    >;
+    gptcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Querypage}
+ */
+export interface ApiActionWatchGeneratorQueryPageParams extends ApiActionWatchParams {
+    generator?: "querypage";
+    gqppage:
+        | "Ancientpages"
+        | "BrokenRedirects"
+        | "Deadendpages"
+        | "DisambiguationPageLinks"
+        | "DisambiguationPages"
+        | "DoubleRedirects"
+        | "Fewestrevisions"
+        | "GadgetUsage"
+        | "GloballyWantedFiles"
+        | "ListDuplicatedFiles"
+        | "Listredirects"
+        | "Lonelypages"
+        | "Longpages"
+        | "MediaStatistics"
+        | "MostGloballyLinkedFiles"
+        | "Mostcategories"
+        | "Mostimages"
+        | "Mostinterwikis"
+        | "Mostlinked"
+        | "Mostlinkedcategories"
+        | "Mostlinkedtemplates"
+        | "Mostrevisions"
+        | "OrphanedTimedText"
+        | "Shortpages"
+        | "Uncategorizedcategories"
+        | "Uncategorizedimages"
+        | "Uncategorizedpages"
+        | "Uncategorizedtemplates"
+        | "UnconnectedPages"
+        | "Unusedcategories"
+        | "Unusedimages"
+        | "Unusedtemplates"
+        | "Unwatchedpages"
+        | "Wantedcategories"
+        | "Wantedfiles"
+        | "Wantedpages"
+        | "Wantedtemplates"
+        | "Withoutinterwiki";
+    gqpoffset?: number;
+    gqplimit?: limit;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Random}
+ */
+export interface ApiActionWatchGeneratorRandomParams extends ApiActionWatchParams {
+    generator?: "random";
+    grnnamespace?: namespace | namespace[];
+    grnfilterredir?: "all" | "nonredirects" | "redirects";
+    /**
+     * @deprecated
+     */
+    grnredirect?: boolean;
+    grnlimit?: limit;
+    grncontinue?: string;
+}
+
+/**
+ * @private
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API}
+ */
+export interface ApiActionWatchGeneratorReadingListEntriesParams extends ApiActionWatchParams {
+    generator?: "readinglistentries";
+    grlelists?: number | number[];
+    grlechangedsince?: timestamp;
+    grlesort?: "name" | "updated";
+    grledir?: "ascending" | "descending";
+    grlelimit?: limit;
+    grlecontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Recentchanges}
+ */
+export interface ApiActionWatchGeneratorRecentChangesParams extends ApiActionWatchParams {
+    generator?: "recentchanges";
+    grcstart?: timestamp;
+    grcend?: timestamp;
+    grcdir?: "newer" | "older";
+    grcnamespace?: namespace | namespace[];
+    grcuser?: string;
+    grcexcludeuser?: string;
+    grctag?: string;
+    grcprop?: OneOrMore<
+        | "comment"
+        | "flags"
+        | "ids"
+        | "loginfo"
+        | "oresscores"
+        | "parsedcomment"
+        | "patrolled"
+        | "redirect"
+        | "sha1"
+        | "sizes"
+        | "tags"
+        | "timestamp"
+        | "title"
+        | "user"
+        | "userid"
+    >;
+    grcshow?: OneOrMore<
+        | "!anon"
+        | "!autopatrolled"
+        | "!bot"
+        | "!minor"
+        | "!oresreview"
+        | "!patrolled"
+        | "!redirect"
+        | "anon"
+        | "autopatrolled"
+        | "bot"
+        | "minor"
+        | "oresreview"
+        | "patrolled"
+        | "redirect"
+        | "unpatrolled"
+    >;
+    grclimit?: limit;
+    grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    grctoponly?: boolean;
+    grctitle?: string;
+    grccontinue?: string;
+    grcgeneraterevisions?: boolean;
+    grcslot?: "main";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
+ */
+export interface ApiActionWatchGeneratorQueryRedirectsParams extends ApiActionWatchParams {
+    generator?: "redirects";
+    grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
+    grdnamespace?: namespace | namespace[];
+    grdshow?: OneOrMore<"!fragment" | "fragment">;
+    grdlimit?: limit;
+    grdcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisions}
+ */
+export interface ApiActionWatchGeneratorRevisionsParams extends ApiActionWatchParams {
+    generator?: "revisions";
+    grvprop?: OneOrMore<
+        | "comment"
+        | "content"
+        | "contentmodel"
+        | "flagged"
+        | "flags"
+        | "ids"
+        | "oresscores"
+        | "parsedcomment"
+        | "roles"
+        | "sha1"
+        | "size"
+        | "slotsha1"
+        | "slotsize"
+        | "tags"
+        | "timestamp"
+        | "user"
+        | "userid"
+        | "parsetree"
+    >;
+    grvslots?: string | string[];
+    [k: `grvcontentformat-${string}`]:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvlimit?: limit;
+    /**
+     * @deprecated
+     */
+    grvexpandtemplates?: boolean;
+    /**
+     * @deprecated
+     */
+    grvgeneratexml?: boolean;
+    /**
+     * @deprecated
+     */
+    grvparse?: boolean;
+    grvsection?: string;
+    /**
+     * @deprecated
+     */
+    grvdiffto?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotext?: string;
+    /**
+     * @deprecated
+     */
+    grvdifftotextpst?: boolean;
+    /**
+     * @deprecated
+     */
+    grvcontentformat?:
+        | "application/json"
+        | "application/octet-stream"
+        | "application/unknown"
+        | "application/x-binary"
+        | "text/css"
+        | "text/javascript"
+        | "text/plain"
+        | "text/unknown"
+        | "text/x-wiki"
+        | "unknown/unknown";
+    grvstartid?: number;
+    grvendid?: number;
+    grvstart?: timestamp;
+    grvend?: timestamp;
+    grvdir?: "newer" | "older";
+    grvuser?: string;
+    grvexcludeuser?: string;
+    grvtag?: string;
+    grvcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Search}
+ */
+export interface ApiActionWatchGeneratorSearchParams extends ApiActionWatchParams {
+    generator?: "search";
+    gsrsearch: string;
+    gsrnamespace?: namespace | namespace[];
+    gsrlimit?: limit;
+    gsroffset?: number;
+    gsrqiprofile?:
+        | "classic"
+        | "classic_noboostlinks"
+        | "empty"
+        | "engine_autoselect"
+        | "growth_underlinked"
+        | "mlr-1024rs"
+        | "popular_inclinks"
+        | "popular_inclinks_pv"
+        | "wsum_inclinks"
+        | "wsum_inclinks_pv";
+    gsrwhat?: "nearmatch" | "text" | "title";
+    gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
+    gsrprop?: OneOrMore<
+        | "categorysnippet"
+        | "extensiondata"
+        | "isfilematch"
+        | "redirectsnippet"
+        | "redirecttitle"
+        | "sectionsnippet"
+        | "sectiontitle"
+        | "size"
+        | "snippet"
+        | "timestamp"
+        | "titlesnippet"
+        | "wordcount"
+        | "hasrelated"
+        | "score"
+    >;
+    gsrinterwiki?: boolean;
+    gsrenablerewrites?: boolean;
+    gsrsort?:
+        | "create_timestamp_asc"
+        | "create_timestamp_desc"
+        | "incoming_links_asc"
+        | "incoming_links_desc"
+        | "just_match"
+        | "last_edit_asc"
+        | "last_edit_desc"
+        | "none"
+        | "random"
+        | "relevance"
+        | "user_random";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
+ */
+export interface ApiActionWatchGeneratorQueryTemplatesParams extends ApiActionWatchParams {
+    generator?: "templates";
+    gtlnamespace?: namespace | namespace[];
+    gtllimit?: limit;
+    gtlcontinue?: string;
+    gtltemplates?: string | string[];
+    gtldir?: "ascending" | "descending";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
+ */
+export interface ApiActionWatchGeneratorQueryTranscludedInParams extends ApiActionWatchParams {
+    generator?: "transcludedin";
+    gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
+    gtinamespace?: namespace | namespace[];
+    gtishow?: OneOrMore<"!redirect" | "redirect">;
+    gtilimit?: limit;
+    gticontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlist}
+ */
+export interface ApiActionWatchGeneratorWatchlistParams extends ApiActionWatchParams {
+    generator?: "watchlist";
+    gwlallrev?: boolean;
+    gwlstart?: timestamp;
+    gwlend?: timestamp;
+    gwlnamespace?: namespace | namespace[];
+    gwluser?: string;
+    gwlexcludeuser?: string;
+    gwldir?: "newer" | "older";
+    gwllimit?: limit;
+    gwlprop?: OneOrMore<
+        | "comment"
+        | "expiry"
+        | "flags"
+        | "ids"
+        | "loginfo"
+        | "notificationtimestamp"
+        | "oresscores"
+        | "parsedcomment"
+        | "patrol"
+        | "sizes"
+        | "tags"
+        | "timestamp"
+        | "title"
+        | "user"
+        | "userid"
+    >;
+    gwlshow?: OneOrMore<
+        | "!anon"
+        | "!autopatrolled"
+        | "!bot"
+        | "!minor"
+        | "!oresreview"
+        | "!patrolled"
+        | "!unread"
+        | "anon"
+        | "autopatrolled"
+        | "bot"
+        | "minor"
+        | "oresreview"
+        | "patrolled"
+        | "unread"
+    >;
+    gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+    gwlowner?: string;
+    gwltoken?: string;
+    gwlcontinue?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlistraw}
+ */
+export interface ApiActionWatchGeneratorWatchlistRawParams extends ApiActionWatchParams {
+    generator?: "watchlistraw";
+    gwrcontinue?: string;
+    gwrnamespace?: namespace | namespace[];
+    gwrlimit?: limit;
+    gwrprop?: OneOrMore<"changed">;
+    gwrshow?: OneOrMore<"!changed" | "changed">;
+    gwrowner?: string;
+    gwrtoken?: string;
+    gwrdir?: "ascending" | "descending";
+    gwrfromtitle?: string;
+    gwrtotitle?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
+ */
+export interface ApiActionWatchGeneratorWblistentityusageParams extends ApiActionWatchParams {
+    generator?: "wblistentityusage";
+    gwbleuprop?: OneOrMore<"url">;
+    gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
+    gwbleuentities: string | string[];
+    gwbleulimit?: limit;
+    gwbleucontinue?: string;
+}
+
+export interface ApiActionWebappManifestParams extends ApiParams {
+    action?: "webapp-manifest";
+}
+
+export interface ApiActionWebAuthnParams extends ApiParams {
+    action?: "webauthn";
     func: "getAuthInfo" | "getRegisterInfo";
 }
 
-export interface WikiLoveApiWikiLoveParams extends ApiParams {
-    action: "wikilove";
+export interface ApiActionWikiLoveParams extends ApiParams {
+    action?: "wikilove";
     title: string;
     text: string;
     message?: string;
@@ -6624,21 +13807,85 @@ export interface WikiLoveApiWikiLoveParams extends ApiParams {
     tags?: string | string[];
 }
 
-export interface WikimediaEventsApiWikimediaEventsBlockedEditParams extends ApiParams {
-    action: "wikimediaeventsblockededit";
+/**
+ * @private
+ */
+export interface ApiActionWikimediaEventsBlockedEditParams extends ApiParams {
+    action?: "wikimediaeventsblockededit";
     page: string;
     interface: "discussiontools" | "mobilefrontend" | "other" | "visualeditor" | "wikieditor";
     platform: "desktop" | "mobile";
 }
 
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Data_formats}
+ */
+export interface ApiFormatJsonParams extends ApiParams {
+    format?: "json";
+    callback?: string;
+    utf8?: boolean;
+    ascii?: boolean;
+    formatversion?: "1" | "2" | "latest";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Data_formats}
+ */
+export interface ApiFormatJsonFMParams extends ApiParams {
+    format?: "jsonfm";
+    wrappedhtml?: boolean;
+    callback?: string;
+    utf8?: boolean;
+    ascii?: boolean;
+    formatversion?: "1" | "2" | "latest";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Data_formats}
+ */
+export interface ApiFormatNoneParams extends ApiParams {
+    format?: "none";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Data_formats}
+ */
+export interface ApiFormatPhpParams extends ApiParams {
+    format?: "php";
+    formatversion?: "1" | "2" | "latest";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Data_formats}
+ */
+export interface ApiFormatPhpFMParams extends ApiParams {
+    format?: "phpfm";
+    wrappedhtml?: boolean;
+    formatversion?: "1" | "2" | "latest";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Data_formats}
+ */
+export interface ApiFormatRawFMParams extends ApiParams {
+    format?: "rawfm";
+    wrappedhtml?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Data_formats}
+ */
 export interface ApiFormatXmlParams extends ApiParams {
-    format: "xml";
+    format?: "xml";
     xslt?: string;
     includexmlnamespace?: boolean;
 }
 
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Data_formats}
+ */
 export interface ApiFormatXmlFMParams extends ApiParams {
-    format: "xmlfm";
+    format?: "xmlfm";
     wrappedhtml?: boolean;
     xslt?: string;
     includexmlnamespace?: boolean;
