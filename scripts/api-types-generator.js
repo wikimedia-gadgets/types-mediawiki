@@ -100,7 +100,7 @@ const REQUIRED_PARAMS_MAP = {
  * @property {boolean} [deprecated]
  * @property {boolean} [generator]
  * @property {string[]} helpurls
- * @property {Array<[RawModule, RawModule.Param]>} [parentmodules]
+ * @property {RawModule.Param[]} [parentparameter]
  * @property {RawModule.Param[]} parameters
  * @property {RawModule.Param.Template[]} templatedparameters
  * @property {boolean} [dynamicparameters]
@@ -177,8 +177,8 @@ class ModuleLoader {
                 const submodulePromise = this.getModules(paths).then((submoduleData) => {
                     for (const [key, path] of Object.entries(submodules)) {
                         const submodule = submoduleData[path];
-                        submodule.parentmodules ??= [];
-                        submodule.parentmodules.push([module, parameter]);
+                        submodule.parentparameter ??= [];
+                        submodule.parentparameter.push(parameter);
                         submodules[key] = submodule;
                     }
                     return submoduleData;
@@ -314,11 +314,6 @@ function firstToUppercase(s) {
  */
 
 class ModuleParser {
-    /**
-     * @type {Map<string, Map<string, ModuleData>>}
-     */
-    modules = new Map();
-
     /**
      * Try to find a suitable module name for TS formatting.
      *
@@ -495,33 +490,16 @@ class ModuleParser {
 
         const { name, source } = this.findModuleName(rawModule);
 
-        let sourceModules = this.modules.get(source);
-        if (sourceModules === undefined) {
-            sourceModules = new Map();
-            this.modules.set(source, sourceModules);
-        }
-
-        let module = sourceModules.get(name);
-        if (!module) {
-            module = {
-                path: rawModule.path,
-                source,
-                name,
-                parents: [],
-                parameters: [],
-                prefix: `${prefix ?? ""}${rawModule.prefix}`,
-                jsdoc,
-            };
-        } else if (module.path !== rawModule.path || module.name !== rawModule.name) {
-            console.error(
-                `Module name "${name}"${source ? ` from "${source}"` : ""} is used by both "${
-                    module.path
-                }" and ` + `"${rawModule.path}" API modules.`,
-                "Add an entry to NAME_PATH_MAP to manually set the path of one of these."
-            );
-        }
-
-        sourceModules.set(name, module);
+        /** @type {ModuleData} */
+        const module = {
+            path: rawModule.path,
+            source,
+            name,
+            parents: [],
+            parameters: [],
+            prefix: `${prefix ?? ""}${rawModule.prefix}`,
+            jsdoc,
+        };
 
         if (parent) {
             module.parents.push(parent);
@@ -606,16 +584,9 @@ class ModuleFormatter {
     }
 
     /**
-     * @param {ModuleData|ParameterData|ParentPath} source
+     * @param {ModuleData} source
      */
     formatParameterPrefix(source) {
-        if ("parameter" in source) {
-            source = source.parameter;
-        }
-        if ("module" in source) {
-            source = source.module;
-        }
-
         const modules = [...this.pathStack.map((p) => p.parameter.module), source];
         return modules.map((m) => m.prefix).join("");
     }
@@ -865,16 +836,10 @@ class ModuleFormatter {
 
     /**
      * Format some module interface data as a TS declaration file.
-     * @param {Map<string, Map<string, ModuleData>>} modules Formatted module data, per source
+     * @param {ModuleData} rootModule Formatted module data
      * @returns {string[]}
      */
-    formatContent(modules) {
-        const rootModule = modules.get("")?.get("");
-        if (rootModule === undefined) {
-            console.error("Could not find the root module.");
-            return [];
-        }
-
+    formatContent(rootModule) {
         return this.flatWithLine([
             "// AUTOMATICALLY GENERATED (see scripts/api-types-generator.js)",
             [
@@ -900,8 +865,8 @@ const parser = new ModuleParser();
 const formatter = new ModuleFormatter();
 
 const rawRootModule = await loader.getRootModule();
-parser.processModule(rawRootModule);
-console.log(formatter.formatContent(parser.modules).join("\n"));
+const rootModule = parser.processModule(rawRootModule);
+console.log(formatter.formatContent(rootModule).join("\n"));
 // Object.values(await getModules())
 //     .map((m) => `${m.source}\t${m.path}`)
 //     .sort()
