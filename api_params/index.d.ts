@@ -89,6 +89,17 @@ export interface ApiActionAcquireTempUserNameParams extends ApiParams {
     action?: "acquiretempusername";
 }
 
+export interface ApiActionAggregateGroupsParams extends ApiParams {
+    action?: "aggregategroups";
+    do: "add" | "associate" | "dissociate" | "remove" | "update";
+    aggregategroup?: string;
+    group?: string;
+    groupname?: string;
+    groupdescription?: string;
+    groupsourcelanguagecode?: string;
+    token?: string;
+}
+
 export interface ApiActionAntiSpoofParams extends ApiParams {
     action?: "antispoof";
     username: string;
@@ -181,18 +192,7 @@ export interface ApiActionChangeContentModelParams extends ApiParams {
     pageid?: number;
     summary?: string;
     tags?: string | string[];
-    model:
-        | "GadgetDefinition"
-        | "JsonSchema"
-        | "MassMessageListContent"
-        | "Scribunto"
-        | "SecurePoll"
-        | "css"
-        | "javascript"
-        | "json"
-        | "sanitized-css"
-        | "text"
-        | "wikitext";
+    model: string;
     bot?: boolean;
     token?: string;
 }
@@ -371,6 +371,8 @@ export interface ApiActionCollectionSubmoduleSuggestUndoArticleActionParams
 export interface ApiActionCommunityConfigurationEditParams extends ApiParams {
     action?: "communityconfigurationedit";
     provider:
+        | "AutoModerator"
+        | "CommunityUpdates"
         | "GrowthHomepage"
         | "GrowthMentorList"
         | "GrowthSuggestedEdits"
@@ -396,6 +398,7 @@ export interface ApiActionCompareParams extends ApiParams {
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -403,19 +406,7 @@ export interface ApiActionCompareParams extends ApiParams {
         | "text/unknown"
         | "text/x-wiki"
         | "unknown/unknown";
-    [k: `fromcontentmodel-${string}`]:
-        | "GadgetDefinition"
-        | "JsonSchema"
-        | "MassMessageListContent"
-        | "Scribunto"
-        | "SecurePoll"
-        | "css"
-        | "javascript"
-        | "json"
-        | "sanitized-css"
-        | "text"
-        | "unknown"
-        | "wikitext";
+    [k: `fromcontentmodel-${string}`]: string;
     frompst?: boolean;
     /**
      * @deprecated
@@ -428,6 +419,7 @@ export interface ApiActionCompareParams extends ApiParams {
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -438,19 +430,7 @@ export interface ApiActionCompareParams extends ApiParams {
     /**
      * @deprecated
      */
-    fromcontentmodel?:
-        | "GadgetDefinition"
-        | "JsonSchema"
-        | "MassMessageListContent"
-        | "Scribunto"
-        | "SecurePoll"
-        | "css"
-        | "javascript"
-        | "json"
-        | "sanitized-css"
-        | "text"
-        | "unknown"
-        | "wikitext";
+    fromcontentmodel?: string;
     /**
      * @deprecated
      */
@@ -466,6 +446,7 @@ export interface ApiActionCompareParams extends ApiParams {
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -473,19 +454,7 @@ export interface ApiActionCompareParams extends ApiParams {
         | "text/unknown"
         | "text/x-wiki"
         | "unknown/unknown";
-    [k: `tocontentmodel-${string}`]:
-        | "GadgetDefinition"
-        | "JsonSchema"
-        | "MassMessageListContent"
-        | "Scribunto"
-        | "SecurePoll"
-        | "css"
-        | "javascript"
-        | "json"
-        | "sanitized-css"
-        | "text"
-        | "unknown"
-        | "wikitext";
+    [k: `tocontentmodel-${string}`]: string;
     topst?: boolean;
     /**
      * @deprecated
@@ -498,6 +467,7 @@ export interface ApiActionCompareParams extends ApiParams {
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -508,19 +478,7 @@ export interface ApiActionCompareParams extends ApiParams {
     /**
      * @deprecated
      */
-    tocontentmodel?:
-        | "GadgetDefinition"
-        | "JsonSchema"
-        | "MassMessageListContent"
-        | "Scribunto"
-        | "SecurePoll"
-        | "css"
-        | "javascript"
-        | "json"
-        | "sanitized-css"
-        | "text"
-        | "unknown"
-        | "wikitext";
+    tocontentmodel?: string;
     /**
      * @deprecated
      */
@@ -537,7 +495,7 @@ export interface ApiActionCompareParams extends ApiParams {
         | "title"
         | "user"
     >;
-    slots?: OneOrMore<"main" | "*">;
+    slots?: OneOrMore<"main" | "mediainfo" | "*">;
     difftype?: "inline" | "table" | "unified";
 }
 
@@ -722,19 +680,7 @@ export interface ApiActionDiscussionToolsEditParams extends ApiParams {
     summary?: string;
     sectiontitle?: string;
     allownosectiontitle?: boolean;
-    useskin?:
-        | "apioutput"
-        | "authentication-popup"
-        | "cologneblue"
-        | "contenttranslation"
-        | "fallback"
-        | "json"
-        | "minerva"
-        | "modern"
-        | "monobook"
-        | "timeless"
-        | "vector"
-        | "vector-2022";
+    useskin?: string;
     watchlist?: string;
     captchaid?: string;
     captchaword?: string;
@@ -778,19 +724,7 @@ export interface ApiActionDiscussionToolsPreviewParams extends ApiParams {
     page: string;
     wikitext: string;
     sectiontitle?: string;
-    useskin?:
-        | "apioutput"
-        | "authentication-popup"
-        | "cologneblue"
-        | "contenttranslation"
-        | "fallback"
-        | "json"
-        | "minerva"
-        | "modern"
-        | "monobook"
-        | "timeless"
-        | "vector"
-        | "vector-2022";
+    useskin?: string;
     mobileformat?: boolean;
 }
 
@@ -924,6 +858,7 @@ export interface ApiActionEditParams extends ApiParams {
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -931,19 +866,7 @@ export interface ApiActionEditParams extends ApiParams {
         | "text/unknown"
         | "text/x-wiki"
         | "unknown/unknown";
-    contentmodel?:
-        | "GadgetDefinition"
-        | "JsonSchema"
-        | "MassMessageListContent"
-        | "Scribunto"
-        | "SecurePoll"
-        | "css"
-        | "javascript"
-        | "json"
-        | "sanitized-css"
-        | "text"
-        | "unknown"
-        | "wikitext";
+    contentmodel?: string;
     token?: string;
     returnto?: string;
     returntoquery?: string;
@@ -1014,23 +937,12 @@ export interface ApiActionExpandTemplatesParams extends ApiParams {
     templatesandboxprefix?: string | string[];
     templatesandboxtitle?: string;
     templatesandboxtext?: string;
-    templatesandboxcontentmodel?:
-        | "GadgetDefinition"
-        | "JsonSchema"
-        | "MassMessageListContent"
-        | "Scribunto"
-        | "SecurePoll"
-        | "css"
-        | "javascript"
-        | "json"
-        | "sanitized-css"
-        | "text"
-        | "unknown"
-        | "wikitext";
+    templatesandboxcontentmodel?: string;
     templatesandboxcontentformat?:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -1049,8 +961,8 @@ export interface ApiActionFancyCaptchaReloadParams extends ApiParams {
 
 export interface ApiActionFeaturedFeedParams extends ApiParams {
     action?: "featuredfeed";
-    feedformat?: "atom" | "rss";
-    feed: "featured" | "onthisday" | "potd";
+    feedformat?: "atom" | "rss" | "sitemap";
+    feed: string;
     language?: string;
 }
 
@@ -1059,7 +971,7 @@ export interface ApiActionFeaturedFeedParams extends ApiParams {
  */
 export interface ApiActionFeedContributionsParams extends ApiParams {
     action?: "feedcontributions";
-    feedformat?: "atom" | "rss";
+    feedformat?: "atom" | "rss" | "sitemap";
     user: string;
     namespace?: namespace;
     year?: number;
@@ -1077,7 +989,7 @@ export interface ApiActionFeedContributionsParams extends ApiParams {
  */
 export interface ApiActionFeedRecentChangesParams extends ApiParams {
     action?: "feedrecentchanges";
-    feedformat?: "atom" | "rss";
+    feedformat?: "atom" | "rss" | "sitemap";
     namespace?: namespace;
     invert?: boolean;
     associated?: boolean;
@@ -1097,12 +1009,21 @@ export interface ApiActionFeedRecentChangesParams extends ApiParams {
     showlinkedto?: boolean;
 }
 
+export interface ApiActionFeedthreadsParams extends ApiParams {
+    action?: "feedthreads";
+    feedformat?: "atom" | "rss" | "sitemap";
+    days?: number;
+    type?: OneOrMore<"newthreads" | "replies">;
+    talkpage?: string | string[];
+    thread?: string | string[];
+}
+
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlist_feed}
  */
 export interface ApiActionFeedWatchlistParams extends ApiParams {
     action?: "feedwatchlist";
-    feedformat?: "atom" | "rss";
+    feedformat?: "atom" | "rss" | "sitemap";
     hours?: number;
     linktosections?: boolean;
     allrev?: boolean;
@@ -1139,6 +1060,256 @@ export interface ApiActionFileRevertParams extends ApiParams {
 
 export interface ApiActionFlagConfigParams extends ApiParams {
     action?: "flagconfig";
+}
+
+export interface ApiActionFlickrBlacklistParams extends ApiParams {
+    action?: "flickrblacklist";
+    url?: string;
+    list?: boolean;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API}
+ */
+export interface ApiActionFlowParams extends ApiParams {
+    action?: "flow";
+    submodule: string;
+    page?: string;
+    token?: string;
+}
+
+/**
+ * @deprecated
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#lock-topic}
+ */
+export interface ApiActionFlowSubmoduleCloseOpenTopicParams extends ApiActionFlowParams {
+    submodule: "close-open-topic";
+    cotmoderationState: "close" | "lock" | "reopen" | "unlock";
+    cotreason: string;
+    cottoken?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#edit-header}
+ */
+export interface ApiActionFlowSubmoduleEditHeaderParams extends ApiActionFlowParams {
+    submodule: "edit-header";
+    ehprev_revision?: string;
+    ehcontent: string;
+    ehformat?: "html" | "wikitext";
+    ehtoken?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#edit-post}
+ */
+export interface ApiActionFlowSubmoduleEditPostParams extends ApiActionFlowParams {
+    submodule: "edit-post";
+    eppostId: string;
+    epprev_revision: string;
+    epcontent: string;
+    epformat?: "html" | "wikitext";
+    eptoken?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#edit-title}
+ */
+export interface ApiActionFlowSubmoduleEditTitleParams extends ApiActionFlowParams {
+    submodule: "edit-title";
+    etprev_revision: string;
+    etcontent: string;
+    ettoken?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#edit-topic-summary}
+ */
+export interface ApiActionFlowSubmoduleEditTopicSummaryParams extends ApiActionFlowParams {
+    submodule: "edit-topic-summary";
+    etsprev_revision?: string;
+    etssummary: string;
+    etsformat?: "html" | "wikitext";
+    etstoken?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#lock-topic}
+ */
+export interface ApiActionFlowSubmoduleLockTopicParams extends ApiActionFlowParams {
+    submodule: "lock-topic";
+    cotmoderationState: "close" | "lock" | "reopen" | "unlock";
+    cotreason: string;
+    cottoken?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#moderate-post}
+ */
+export interface ApiActionFlowSubmoduleModeratePostParams extends ApiActionFlowParams {
+    submodule: "moderate-post";
+    mpmoderationState:
+        | ""
+        | "delete"
+        | "hide"
+        | "restore"
+        | "suppress"
+        | "undelete"
+        | "unhide"
+        | "unsuppress";
+    mpreason: string;
+    mppostId: string;
+    mptoken?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#moderate-topic}
+ */
+export interface ApiActionFlowSubmoduleModerateTopicParams extends ApiActionFlowParams {
+    submodule: "moderate-topic";
+    mtmoderationState:
+        | ""
+        | "delete"
+        | "hide"
+        | "restore"
+        | "suppress"
+        | "undelete"
+        | "unhide"
+        | "unsuppress";
+    mtreason: string;
+    mttoken?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#new-topic}
+ */
+export interface ApiActionFlowSubmoduleNewTopicParams extends ApiActionFlowParams {
+    submodule: "new-topic";
+    nttopic: string;
+    ntcontent: string;
+    ntformat?: "html" | "wikitext";
+    nttoken?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#reply}
+ */
+export interface ApiActionFlowSubmoduleReplyParams extends ApiActionFlowParams {
+    submodule: "reply";
+    repreplyTo: string;
+    repcontent: string;
+    repformat?: "html" | "wikitext";
+    reptoken?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#undo-edit-header}
+ */
+export interface ApiActionFlowSubmoduleUndoEditHeaderParams extends ApiActionFlowParams {
+    submodule: "undo-edit-header";
+    uehstartId: string;
+    uehendId: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#undo-edit-post}
+ */
+export interface ApiActionFlowSubmoduleUndoEditPostParams extends ApiActionFlowParams {
+    submodule: "undo-edit-post";
+    uepstartId: string;
+    uependId: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#undo-edit-topic-summary}
+ */
+export interface ApiActionFlowSubmoduleUndoEditTopicSummaryParams extends ApiActionFlowParams {
+    submodule: "undo-edit-topic-summary";
+    uetsstartId: string;
+    uetsendId: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#view-header}
+ */
+export interface ApiActionFlowSubmoduleViewHeaderParams extends ApiActionFlowParams {
+    submodule: "view-header";
+    vhformat?: "fixed-html" | "html" | "wikitext";
+    vhrevId?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#view-post}
+ */
+export interface ApiActionFlowSubmoduleViewPostParams extends ApiActionFlowParams {
+    submodule: "view-post";
+    vppostId: string;
+    vpformat?: "fixed-html" | "html" | "wikitext";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#view-post-history}
+ */
+export interface ApiActionFlowSubmoduleViewPostHistoryParams extends ApiActionFlowParams {
+    submodule: "view-post-history";
+    vphpostId: string;
+    vphformat?: "fixed-html" | "html" | "wikitext";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#view-topic}
+ */
+export interface ApiActionFlowSubmoduleViewTopicParams extends ApiActionFlowParams {
+    submodule: "view-topic";
+    vtformat?: "fixed-html" | "html" | "wikitext";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#view-topic-history}
+ */
+export interface ApiActionFlowSubmoduleViewTopicHistoryParams extends ApiActionFlowParams {
+    submodule: "view-topic-history";
+    vthformat?: "fixed-html" | "html" | "wikitext";
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#view-topic-summary}
+ */
+export interface ApiActionFlowSubmoduleViewTopicSummaryParams extends ApiActionFlowParams {
+    submodule: "view-topic-summary";
+    vtsformat?: "fixed-html" | "html" | "wikitext";
+    vtsrevId?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Extension:Flow/API#view-topiclist}
+ */
+export interface ApiActionFlowSubmoduleViewTopicListParams extends ApiActionFlowParams {
+    "submodule": "view-topiclist";
+    "vtloffset-dir"?: "fwd" | "rev";
+    "vtlsortby"?: "newest" | "updated" | "user";
+    "vtlsavesortby"?: boolean;
+    "vtloffset-id"?: string;
+    "vtloffset"?: string;
+    "vtlinclude-offset"?: boolean;
+    "vtllimit"?: limit;
+    "vtltoconly"?: boolean;
+    "vtlformat"?: "fixed-html" | "html" | "wikitext";
+}
+
+export interface ApiActionFlowParsoidUtilsParams extends ApiParams {
+    action?: "flow-parsoid-utils";
+    from: "html" | "wikitext";
+    to: "html" | "wikitext";
+    content: string;
+    title?: string;
+    pageid?: number;
+}
+
+export interface ApiActionFlowThankParams extends ApiParams {
+    action?: "flowthank";
+    postid: string;
+    token?: string;
 }
 
 export interface ApiActionGlobalBlockParams extends ApiParams {
@@ -1266,6 +1437,14 @@ export interface ApiActionGlobalUserRightsParams extends ApiParams {
     tags?: string | string[];
 }
 
+export interface ApiActionGroupReviewParams extends ApiParams {
+    action?: "groupreview";
+    group: string;
+    language?: string;
+    state: string;
+    token?: string;
+}
+
 /**
  * @private
  */
@@ -1375,17 +1554,7 @@ export interface ApiActionImportParams extends ApiParams {
     summary?: string;
     xml?: upload;
     interwikiprefix?: string;
-    interwikisource?:
-        | "commons"
-        | "de"
-        | "es"
-        | "fr"
-        | "it"
-        | "meta"
-        | "nost"
-        | "outreachwiki"
-        | "pl"
-        | "test2wiki";
+    interwikisource?: string;
     interwikipage?: string;
     fullhistory?: boolean;
     templates?: boolean;
@@ -1410,6 +1579,12 @@ export interface ApiActionJsonConfigParams extends ApiParams {
 export interface ApiActionJsonDataParams extends ApiParams {
     action?: "jsondata";
     title: string;
+}
+
+export interface ApiActionJsonSchemaParams extends ApiParams {
+    action?: "jsonschema";
+    revid?: number;
+    title?: string;
 }
 
 /**
@@ -1454,6 +1629,31 @@ export interface ApiActionLogoutParams extends ApiParams {
 }
 
 /**
+ * @private
+ */
+export interface ApiActionManageGroupSynchronizationCacheParams extends ApiParams {
+    action?: "managegroupsynchronizationcache";
+    operation: "resolveGroup" | "resolveMessage";
+    title?: string;
+    group: string;
+    token?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionManageMessageGroupsParams extends ApiParams {
+    action?: "managemessagegroups";
+    groupId: string;
+    renameMessageKey?: string;
+    messageKey: string;
+    operation: "new" | "rename";
+    changesetName?: string;
+    changesetModified: number;
+    token?: string;
+}
+
+/**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Tag_management}
  */
 export interface ApiActionManageTagsParams extends ApiParams {
@@ -1463,6 +1663,22 @@ export interface ApiActionManageTagsParams extends ApiParams {
     reason?: string;
     ignorewarnings?: boolean;
     tags?: string | string[];
+    token?: string;
+}
+
+export interface ApiActionMarkForTranslationParams extends ApiParams {
+    action?: "markfortranslation";
+    title?: string;
+    pageid?: number;
+    revid?: number;
+    translatetitle?: "no" | "yes";
+    prioritylanguages?: string | string[];
+    forcepriority?: boolean;
+    priorityreason?: string;
+    nofuzzyunits?: string | string[];
+    fuzzyunits?: string | string[];
+    forcelatestsyntaxversion?: boolean;
+    transclusion?: "no" | "yes";
     token?: string;
 }
 
@@ -1478,6 +1694,12 @@ export interface ApiActionMassMessageParams extends ApiParams {
     "token"?: string;
 }
 
+export interface ApiActionMediaDetectionParams extends ApiParams {
+    action?: "mediadetection";
+    filename?: string;
+    filekey?: string;
+}
+
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Mergehistory}
  */
@@ -1489,6 +1711,16 @@ export interface ApiActionMergeHistoryParams extends ApiParams {
     toid?: number;
     timestamp?: timestamp;
     reason?: string;
+    token?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionMessageGroupSubscriptionParams extends ApiParams {
+    action?: "messagegroupsubscription";
+    groupId: string;
+    operation: "subscribe" | "unsubscribe";
     token?: string;
 }
 
@@ -1511,6 +1743,13 @@ export interface ApiActionMoveParams extends ApiParams {
     token?: string;
 }
 
+export interface ApiActionNewsletterSubscribeParams extends ApiParams {
+    action?: "newslettersubscribe";
+    id: number;
+    do: "subscribe" | "unsubscribe";
+    token?: string;
+}
+
 /**
  * @private
  */
@@ -1529,7 +1768,15 @@ export interface ApiActionOpenSearchParams extends ApiParams {
     search: string;
     namespace?: namespace | namespace[];
     limit?: limit;
-    profile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+    profile?:
+        | "classic"
+        | "engine_autoselect"
+        | "fast-fuzzy"
+        | "fuzzy"
+        | "fuzzy-subphrases"
+        | "normal"
+        | "normal-subphrases"
+        | "strict";
     /**
      * @deprecated
      */
@@ -1672,141 +1919,7 @@ export interface ApiActionParamInfoParams extends ApiParams {
     /**
      * @deprecated
      */
-    querymodules?: OneOrMore<
-        | "abusefilters"
-        | "abuselog"
-        | "allcategories"
-        | "alldeletedrevisions"
-        | "allfileusages"
-        | "allimages"
-        | "alllinks"
-        | "allmessages"
-        | "allpages"
-        | "allredirects"
-        | "allrevisions"
-        | "alltransclusions"
-        | "allusers"
-        | "authmanagerinfo"
-        | "automatictranslationdenselanguages"
-        | "babel"
-        | "backlinks"
-        | "betafeatures"
-        | "blocks"
-        | "categories"
-        | "categoryinfo"
-        | "categorymembers"
-        | "centralnoticeactivecampaigns"
-        | "centralnoticelogs"
-        | "checkuser"
-        | "checkuserlog"
-        | "cirrusbuilddoc"
-        | "cirruscompsuggestbuilddoc"
-        | "cirrusdoc"
-        | "communityconfiguration"
-        | "contenttranslation"
-        | "contenttranslationcorpora"
-        | "contenttranslationlangtrend"
-        | "contenttranslationstats"
-        | "contenttranslationsuggestions"
-        | "contributors"
-        | "coordinates"
-        | "cxdeletedtranslations"
-        | "cxpublishedtranslations"
-        | "cxtranslatorstats"
-        | "deletedrevisions"
-        | "deletedrevs"
-        | "description"
-        | "duplicatefiles"
-        | "embeddedin"
-        | "extlinks"
-        | "extracts"
-        | "exturlusage"
-        | "featureusage"
-        | "filearchive"
-        | "filerepoinfo"
-        | "fileusage"
-        | "flagged"
-        | "gadgetcategories"
-        | "gadgets"
-        | "geosearch"
-        | "globalallusers"
-        | "globalblocks"
-        | "globalgroups"
-        | "globalpreferences"
-        | "globalrenamestatus"
-        | "globalusage"
-        | "globaluserinfo"
-        | "growthimagesuggestiondata"
-        | "growthmenteestatus"
-        | "growthmentorlist"
-        | "growthmentormentee"
-        | "growthmentorstatus"
-        | "growthnextsuggestedtasktype"
-        | "growthstarredmentees"
-        | "growthtasks"
-        | "imageinfo"
-        | "images"
-        | "imageusage"
-        | "info"
-        | "isreviewed"
-        | "iwbacklinks"
-        | "iwlinks"
-        | "langbacklinks"
-        | "langlinks"
-        | "langlinkscount"
-        | "languageinfo"
-        | "links"
-        | "linkshere"
-        | "linterrors"
-        | "linterstats"
-        | "logevents"
-        | "mapdata"
-        | "mmcontent"
-        | "mostviewed"
-        | "mystashedfiles"
-        | "notifications"
-        | "oath"
-        | "oldreviewedpages"
-        | "ores"
-        | "pageassessments"
-        | "pageimages"
-        | "pagepropnames"
-        | "pageprops"
-        | "pageswithprop"
-        | "pageterms"
-        | "pageviews"
-        | "prefixsearch"
-        | "projectpages"
-        | "projects"
-        | "protectedtitles"
-        | "querypage"
-        | "random"
-        | "readinglistentries"
-        | "readinglists"
-        | "recentchanges"
-        | "redirects"
-        | "revisions"
-        | "search"
-        | "siteinfo"
-        | "siteviews"
-        | "stashimageinfo"
-        | "tags"
-        | "templates"
-        | "tokens"
-        | "transcludedin"
-        | "transcodestatus"
-        | "unreadnotificationpages"
-        | "usercontribs"
-        | "userinfo"
-        | "users"
-        | "videoinfo"
-        | "watchlist"
-        | "watchlistraw"
-        | "wbentityusage"
-        | "wblistentityusage"
-        | "wikibase"
-        | "wikisets"
-    >;
+    querymodules?: string | string[];
     /**
      * @deprecated
      */
@@ -1890,23 +2003,12 @@ export interface ApiActionParseParams extends ApiParams {
     preview?: boolean;
     sectionpreview?: boolean;
     disabletoc?: boolean;
-    useskin?:
-        | "apioutput"
-        | "authentication-popup"
-        | "cologneblue"
-        | "contenttranslation"
-        | "fallback"
-        | "json"
-        | "minerva"
-        | "modern"
-        | "monobook"
-        | "timeless"
-        | "vector"
-        | "vector-2022";
+    useskin?: string;
     contentformat?:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -1914,40 +2016,17 @@ export interface ApiActionParseParams extends ApiParams {
         | "text/unknown"
         | "text/x-wiki"
         | "unknown/unknown";
-    contentmodel?:
-        | "GadgetDefinition"
-        | "JsonSchema"
-        | "MassMessageListContent"
-        | "Scribunto"
-        | "SecurePoll"
-        | "css"
-        | "javascript"
-        | "json"
-        | "sanitized-css"
-        | "text"
-        | "unknown"
-        | "wikitext";
+    contentmodel?: string;
     mobileformat?: boolean;
     templatesandboxprefix?: string | string[];
     templatesandboxtitle?: string;
     templatesandboxtext?: string;
-    templatesandboxcontentmodel?:
-        | "GadgetDefinition"
-        | "JsonSchema"
-        | "MassMessageListContent"
-        | "Scribunto"
-        | "SecurePoll"
-        | "css"
-        | "javascript"
-        | "json"
-        | "sanitized-css"
-        | "text"
-        | "unknown"
-        | "wikitext";
+    templatesandboxcontentmodel?: string;
     templatesandboxcontentformat?:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -2059,6 +2138,7 @@ export interface ApiActionPurgeGeneratorAllDeletedRevisionsParams extends ApiAct
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -2099,6 +2179,7 @@ export interface ApiActionPurgeGeneratorAllDeletedRevisionsParams extends ApiAct
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -2208,7 +2289,7 @@ export interface ApiActionPurgeGeneratorAllPagesParams extends ApiActionPurgePar
     gapminsize?: number;
     gapmaxsize?: number;
     gapprtype?: OneOrMore<"edit" | "move" | "upload">;
-    gapprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gapprlevel?: string | string[];
     gapprfiltercascade?: "all" | "cascading" | "noncascading";
     gapprexpiry?: "all" | "definite" | "indefinite";
     gaplimit?: limit;
@@ -2260,6 +2341,7 @@ export interface ApiActionPurgeGeneratorAllRevisionsParams extends ApiActionPurg
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -2300,6 +2382,7 @@ export interface ApiActionPurgeGeneratorAllRevisionsParams extends ApiActionPurg
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -2398,6 +2481,17 @@ export interface ApiActionPurgeGeneratorCategoryMembersParams extends ApiActionP
     gcmendsortkey?: string;
 }
 
+export interface ApiActionPurgeGeneratorConfiguredpagesParams extends ApiActionPurgeParams {
+    generator?: "configuredpages";
+    gcpstart?: number;
+    gcpend?: number;
+    gcpdir?: "newer" | "older";
+    gcpnamespace?: namespace | namespace[];
+    gcpdefault?: "latest" | "stable";
+    gcpautoreview?: "none" | "sysop";
+    gcplimit?: limit;
+}
+
 export interface ApiActionPurgeGeneratorContentTranslationParams extends ApiActionPurgeParams {
     generator?: "contenttranslation";
     gtranslationid?: string;
@@ -2450,6 +2544,7 @@ export interface ApiActionPurgeGeneratorDeletedRevisionsParams extends ApiAction
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -2490,6 +2585,7 @@ export interface ApiActionPurgeGeneratorDeletedRevisionsParams extends ApiAction
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -2614,7 +2710,16 @@ export interface ApiActionPurgeGeneratorGeoSearchParams extends ApiActionPurgePa
  */
 export interface ApiActionPurgeGeneratorGrowthTasksParams extends ApiActionPurgeParams {
     generator?: "growthtasks";
-    ggttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    ggttasktypes?: OneOrMore<
+        | "copyedit"
+        | "expand"
+        | "image-recommendation"
+        | "link-recommendation"
+        | "links"
+        | "references"
+        | "section-image-recommendation"
+        | "update"
+    >;
     ggttopics?: OneOrMore<
         | "africa"
         | "architecture"
@@ -2739,6 +2844,16 @@ export interface ApiActionPurgeGeneratorQueryLinksHereParams extends ApiActionPu
     glhcontinue?: string;
 }
 
+export interface ApiActionPurgeGeneratorMessageCollectionParams extends ApiActionPurgeParams {
+    generator?: "messagecollection";
+    gmcgroup: string;
+    gmclanguage?: string;
+    gmclimit?: limit;
+    gmcoffset?: string;
+    gmcfilter?: string | string[];
+    gmcprop?: OneOrMore<"definition" | "properties" | "tags" | "translation" | "revision">;
+}
+
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
  */
@@ -2783,7 +2898,15 @@ export interface ApiActionPurgeGeneratorPrefixSearchParams extends ApiActionPurg
     gpsnamespace?: namespace | namespace[];
     gpslimit?: limit;
     gpsoffset?: number;
-    gpsprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+    gpsprofile?:
+        | "classic"
+        | "engine_autoselect"
+        | "fast-fuzzy"
+        | "fuzzy"
+        | "fuzzy-subphrases"
+        | "normal"
+        | "normal-subphrases"
+        | "strict";
 }
 
 /**
@@ -2798,12 +2921,22 @@ export interface ApiActionPurgeGeneratorProjectPagesParams extends ApiActionPurg
 }
 
 /**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ProofreadPage/Index pagination API}
+ */
+export interface ApiActionPurgeGeneratorProofreadPagesInIndexParams extends ApiActionPurgeParams {
+    generator?: "proofreadpagesinindex";
+    gprppiiprop?: OneOrMore<"formattedpagenumber" | "ids" | "title" | "formattedPageNumber">;
+    gprppiititle?: string;
+    gprppiipageid?: number;
+}
+
+/**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
  */
 export interface ApiActionPurgeGeneratorProtectedTitlesParams extends ApiActionPurgeParams {
     generator?: "protectedtitles";
     gptnamespace?: namespace | namespace[];
-    gptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gptlevel?: string | string[];
     gptlimit?: limit;
     gptdir?: "newer" | "older";
     gptstart?: timestamp;
@@ -2819,45 +2952,7 @@ export interface ApiActionPurgeGeneratorProtectedTitlesParams extends ApiActionP
  */
 export interface ApiActionPurgeGeneratorQueryPageParams extends ApiActionPurgeParams {
     generator?: "querypage";
-    gqppage:
-        | "Ancientpages"
-        | "BrokenRedirects"
-        | "Deadendpages"
-        | "DisambiguationPageLinks"
-        | "DisambiguationPages"
-        | "DoubleRedirects"
-        | "Fewestrevisions"
-        | "GadgetUsage"
-        | "GloballyWantedFiles"
-        | "ListDuplicatedFiles"
-        | "Listredirects"
-        | "Lonelypages"
-        | "Longpages"
-        | "MediaStatistics"
-        | "MostGloballyLinkedFiles"
-        | "Mostcategories"
-        | "Mostimages"
-        | "Mostinterwikis"
-        | "Mostlinked"
-        | "Mostlinkedcategories"
-        | "Mostlinkedtemplates"
-        | "Mostrevisions"
-        | "OrphanedTimedText"
-        | "Shortpages"
-        | "Uncategorizedcategories"
-        | "Uncategorizedimages"
-        | "Uncategorizedpages"
-        | "Uncategorizedtemplates"
-        | "UnconnectedPages"
-        | "Unusedcategories"
-        | "Unusedimages"
-        | "Unusedtemplates"
-        | "Unwatchedpages"
-        | "Wantedcategories"
-        | "Wantedfiles"
-        | "Wantedpages"
-        | "Wantedtemplates"
-        | "Withoutinterwiki";
+    gqppage: string;
     gqpoffset?: number;
     gqplimit?: limit;
 }
@@ -2943,7 +3038,7 @@ export interface ApiActionPurgeGeneratorRecentChangesParams extends ApiActionPur
     grctitle?: string;
     grccontinue?: string;
     grcgeneraterevisions?: boolean;
-    grcslot?: "main";
+    grcslot?: "main" | "mediainfo";
 }
 
 /**
@@ -2963,31 +3058,13 @@ export interface ApiActionPurgeGeneratorQueryRedirectsParams extends ApiActionPu
  */
 export interface ApiActionPurgeGeneratorRevisionsParams extends ApiActionPurgeParams {
     generator?: "revisions";
-    grvprop?: OneOrMore<
-        | "comment"
-        | "content"
-        | "contentmodel"
-        | "flagged"
-        | "flags"
-        | "ids"
-        | "oresscores"
-        | "parsedcomment"
-        | "roles"
-        | "sha1"
-        | "size"
-        | "slotsha1"
-        | "slotsize"
-        | "tags"
-        | "timestamp"
-        | "user"
-        | "userid"
-        | "parsetree"
-    >;
+    grvprop?: string | string[];
     grvslots?: string | string[];
     [k: `grvcontentformat-${string}`]:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -3028,6 +3105,7 @@ export interface ApiActionPurgeGeneratorRevisionsParams extends ApiActionPurgePa
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -3055,17 +3133,7 @@ export interface ApiActionPurgeGeneratorSearchParams extends ApiActionPurgeParam
     gsrnamespace?: namespace | namespace[];
     gsrlimit?: limit;
     gsroffset?: number;
-    gsrqiprofile?:
-        | "classic"
-        | "classic_noboostlinks"
-        | "empty"
-        | "engine_autoselect"
-        | "growth_underlinked"
-        | "mlr-1024rs"
-        | "popular_inclinks"
-        | "popular_inclinks_pv"
-        | "wsum_inclinks"
-        | "wsum_inclinks_pv";
+    gsrqiprofile?: string;
     gsrwhat?: "nearmatch" | "text" | "title";
     gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
     gsrprop?: OneOrMore<
@@ -3122,6 +3190,17 @@ export interface ApiActionPurgeGeneratorQueryTranscludedInParams extends ApiActi
     gtishow?: OneOrMore<"!redirect" | "redirect">;
     gtilimit?: limit;
     gticontinue?: string;
+}
+
+export interface ApiActionPurgeGeneratorUnreviewedpagesParams extends ApiActionPurgeParams {
+    generator?: "unreviewedpages";
+    gurstart?: string;
+    gurend?: string;
+    gurdir?: "ascending" | "descending";
+    gurnamespace?: namespace | namespace[];
+    gurfilterredir?: "all" | "nonredirects" | "redirects";
+    gurfilterlevel?: number;
+    gurlimit?: limit;
 }
 
 /**
@@ -3206,6 +3285,48 @@ export interface ApiActionPurgeGeneratorWblistentityusageParams extends ApiActio
 }
 
 /**
+ * @private
+ */
+export interface ApiActionPurgeGeneratorWbsearchParams extends ApiActionPurgeParams {
+    generator?: "wbsearch";
+    gwbssearch: string;
+    gwbslanguage?: string;
+    gwbsstrictlanguage?: boolean;
+    gwbstype?: string;
+    gwbslimit?: limit;
+    gwbsprofile?: "default" | "language";
+}
+
+export interface ApiActionPurgeGeneratorWikilambdafn_searchParams extends ApiActionPurgeParams {
+    generator?: "wikilambdafn_search";
+    gwikilambdafn_zfunction_id?: string;
+    gwikilambdafn_type?: string;
+    gwikilambdafn_limit?: limit;
+    gwikilambdafn_continue?: string;
+}
+
+export interface ApiActionPurgeGeneratorWikilambdaload_zobjectsParams extends ApiActionPurgeParams {
+    generator?: "wikilambdaload_zobjects";
+    gwikilambdaload_zids: string | string[];
+    gwikilambdaload_revisions?: string | string[];
+    gwikilambdaload_language?: string;
+    gwikilambdaload_get_dependencies?: boolean;
+}
+
+export interface ApiActionPurgeGeneratorWikilambdasearch_labelsParams extends ApiActionPurgeParams {
+    generator?: "wikilambdasearch_labels";
+    gwikilambdasearch_search?: string;
+    gwikilambdasearch_language: string;
+    gwikilambdasearch_nofallback?: boolean;
+    gwikilambdasearch_exact?: boolean;
+    gwikilambdasearch_type?: string;
+    gwikilambdasearch_return_type?: string;
+    gwikilambdasearch_strict_return_type?: boolean;
+    gwikilambdasearch_limit?: limit;
+    gwikilambdasearch_continue?: string;
+}
+
+/**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Query}
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Meta}
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Properties}
@@ -3267,434 +3388,10 @@ export interface ApiActionQueryPropCirrusDocParams extends ApiActionQueryParams 
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Contributors}
  */
 export interface ApiActionQueryPropContributorsParams extends ApiActionQueryParams {
-    pcgroup?: OneOrMore<
-        | "abusefilter"
-        | "abusefilter-helper"
-        | "accountcreator"
-        | "autoreviewer"
-        | "bot"
-        | "bureaucrat"
-        | "checkuser"
-        | "checkuser-temporary-account-viewer"
-        | "confirmed"
-        | "copyviobot"
-        | "eventcoordinator"
-        | "extendedconfirmed"
-        | "extendedmover"
-        | "filemover"
-        | "founder"
-        | "import"
-        | "interface-admin"
-        | "ipblock-exempt"
-        | "massmessage-sender"
-        | "no-ipinfo"
-        | "patroller"
-        | "push-subscription-manager"
-        | "researcher"
-        | "reviewer"
-        | "rollbacker"
-        | "steward"
-        | "suppress"
-        | "sysop"
-        | "templateeditor"
-        | "transwiki"
-    >;
-    pcexcludegroup?: OneOrMore<
-        | "abusefilter"
-        | "abusefilter-helper"
-        | "accountcreator"
-        | "autoreviewer"
-        | "bot"
-        | "bureaucrat"
-        | "checkuser"
-        | "checkuser-temporary-account-viewer"
-        | "confirmed"
-        | "copyviobot"
-        | "eventcoordinator"
-        | "extendedconfirmed"
-        | "extendedmover"
-        | "filemover"
-        | "founder"
-        | "import"
-        | "interface-admin"
-        | "ipblock-exempt"
-        | "massmessage-sender"
-        | "no-ipinfo"
-        | "patroller"
-        | "push-subscription-manager"
-        | "researcher"
-        | "reviewer"
-        | "rollbacker"
-        | "steward"
-        | "suppress"
-        | "sysop"
-        | "templateeditor"
-        | "transwiki"
-    >;
-    pcrights?: OneOrMore<
-        | "abusefilter-access-protected-vars"
-        | "abusefilter-bypass-blocked-external-domains"
-        | "abusefilter-hidden-log"
-        | "abusefilter-hide-log"
-        | "abusefilter-log"
-        | "abusefilter-log-detail"
-        | "abusefilter-log-private"
-        | "abusefilter-modify"
-        | "abusefilter-modify-blocked-external-domains"
-        | "abusefilter-modify-global"
-        | "abusefilter-modify-restricted"
-        | "abusefilter-privatedetails"
-        | "abusefilter-privatedetails-log"
-        | "abusefilter-revert"
-        | "abusefilter-view"
-        | "abusefilter-view-private"
-        | "apihighlimits"
-        | "applychangetags"
-        | "autoconfirmed"
-        | "autocreateaccount"
-        | "autopatrol"
-        | "autoreview"
-        | "autoreviewrestore"
-        | "bigdelete"
-        | "block"
-        | "blockemail"
-        | "bot"
-        | "browsearchive"
-        | "centralauth-createlocal"
-        | "centralauth-lock"
-        | "centralauth-merge"
-        | "centralauth-rename"
-        | "centralauth-suppress"
-        | "centralauth-unmerge"
-        | "changetags"
-        | "checkuser"
-        | "checkuser-log"
-        | "checkuser-temporary-account"
-        | "checkuser-temporary-account-log"
-        | "checkuser-temporary-account-no-preference"
-        | "collectionsaveascommunitypage"
-        | "collectionsaveasuserpage"
-        | "createaccount"
-        | "createpage"
-        | "createpagemainns"
-        | "createtalk"
-        | "delete"
-        | "delete-redirect"
-        | "deletechangetags"
-        | "deletedhistory"
-        | "deletedtext"
-        | "deletelogentry"
-        | "deleterevision"
-        | "echo-create"
-        | "edit"
-        | "editautopatrolprotected"
-        | "editautoreviewprotected"
-        | "editcontentmodel"
-        | "editeditorprotected"
-        | "editextendedsemiprotected"
-        | "editinterface"
-        | "editmyoptions"
-        | "editmyprivateinfo"
-        | "editmyusercss"
-        | "editmyuserjs"
-        | "editmyuserjson"
-        | "editmyuserjsredirect"
-        | "editmywatchlist"
-        | "editprotected"
-        | "editsemiprotected"
-        | "editsitecss"
-        | "editsitejs"
-        | "editsitejson"
-        | "edittrustedprotected"
-        | "editusercss"
-        | "edituserjs"
-        | "edituserjson"
-        | "enrollasmentor"
-        | "extendedconfirmed"
-        | "flow-create-board"
-        | "flow-delete"
-        | "flow-edit-post"
-        | "flow-hide"
-        | "flow-suppress"
-        | "globalblock"
-        | "globalblock-exempt"
-        | "globalblock-whitelist"
-        | "globalgroupmembership"
-        | "globalgrouppermissions"
-        | "hideuser"
-        | "import"
-        | "importupload"
-        | "ipblock-exempt"
-        | "ipinfo"
-        | "ipinfo-view-basic"
-        | "ipinfo-view-full"
-        | "ipinfo-view-log"
-        | "manage-all-push-subscriptions"
-        | "managechangetags"
-        | "managementors"
-        | "markbotedits"
-        | "massmessage"
-        | "mergehistory"
-        | "minoredit"
-        | "move"
-        | "move-categorypages"
-        | "move-rootuserpages"
-        | "move-subpages"
-        | "movefile"
-        | "movestable"
-        | "mwoauthmanageconsumer"
-        | "mwoauthmanagemygrants"
-        | "mwoauthproposeconsumer"
-        | "mwoauthsuppress"
-        | "mwoauthupdateownconsumer"
-        | "mwoauthviewprivate"
-        | "mwoauthviewsuppressed"
-        | "newsletter-create"
-        | "newsletter-delete"
-        | "newsletter-manage"
-        | "newsletter-restore"
-        | "nominornewtalk"
-        | "noratelimit"
-        | "nuke"
-        | "oathauth-api-all"
-        | "oathauth-disable-for-user"
-        | "oathauth-enable"
-        | "oathauth-verify-user"
-        | "oathauth-view-log"
-        | "override-antispoof"
-        | "override-export-depth"
-        | "pagelang"
-        | "pagetriage-copyvio"
-        | "patrol"
-        | "patrolmarks"
-        | "protect"
-        | "read"
-        | "renameuser"
-        | "reupload"
-        | "reupload-own"
-        | "reupload-shared"
-        | "review"
-        | "rollback"
-        | "sboverride"
-        | "securepoll-create-poll"
-        | "securepoll-view-voter-pii"
-        | "sendemail"
-        | "setmentor"
-        | "sfsblock-bypass"
-        | "siteadmin"
-        | "skipcaptcha"
-        | "spamblacklistlog"
-        | "stablesettings"
-        | "suppressionlog"
-        | "suppressredirect"
-        | "suppressrevision"
-        | "tboverride"
-        | "tboverride-account"
-        | "templateeditor"
-        | "titleblacklistlog"
-        | "torunblocked"
-        | "transcode-reset"
-        | "transcode-status"
-        | "unblockself"
-        | "undelete"
-        | "unreviewedpages"
-        | "unwatchedpages"
-        | "upload"
-        | "upload_by_url"
-        | "urlshortener-create-url"
-        | "urlshortener-manage-url"
-        | "urlshortener-view-log"
-        | "userrights"
-        | "userrights-interwiki"
-        | "validate"
-        | "viewdeletedfile"
-        | "viewmyprivateinfo"
-        | "viewmywatchlist"
-        | "viewsuppressed"
-        | "vipsscaler-test"
-    >;
-    pcexcluderights?: OneOrMore<
-        | "abusefilter-access-protected-vars"
-        | "abusefilter-bypass-blocked-external-domains"
-        | "abusefilter-hidden-log"
-        | "abusefilter-hide-log"
-        | "abusefilter-log"
-        | "abusefilter-log-detail"
-        | "abusefilter-log-private"
-        | "abusefilter-modify"
-        | "abusefilter-modify-blocked-external-domains"
-        | "abusefilter-modify-global"
-        | "abusefilter-modify-restricted"
-        | "abusefilter-privatedetails"
-        | "abusefilter-privatedetails-log"
-        | "abusefilter-revert"
-        | "abusefilter-view"
-        | "abusefilter-view-private"
-        | "apihighlimits"
-        | "applychangetags"
-        | "autoconfirmed"
-        | "autocreateaccount"
-        | "autopatrol"
-        | "autoreview"
-        | "autoreviewrestore"
-        | "bigdelete"
-        | "block"
-        | "blockemail"
-        | "bot"
-        | "browsearchive"
-        | "centralauth-createlocal"
-        | "centralauth-lock"
-        | "centralauth-merge"
-        | "centralauth-rename"
-        | "centralauth-suppress"
-        | "centralauth-unmerge"
-        | "changetags"
-        | "checkuser"
-        | "checkuser-log"
-        | "checkuser-temporary-account"
-        | "checkuser-temporary-account-log"
-        | "checkuser-temporary-account-no-preference"
-        | "collectionsaveascommunitypage"
-        | "collectionsaveasuserpage"
-        | "createaccount"
-        | "createpage"
-        | "createpagemainns"
-        | "createtalk"
-        | "delete"
-        | "delete-redirect"
-        | "deletechangetags"
-        | "deletedhistory"
-        | "deletedtext"
-        | "deletelogentry"
-        | "deleterevision"
-        | "echo-create"
-        | "edit"
-        | "editautopatrolprotected"
-        | "editautoreviewprotected"
-        | "editcontentmodel"
-        | "editeditorprotected"
-        | "editextendedsemiprotected"
-        | "editinterface"
-        | "editmyoptions"
-        | "editmyprivateinfo"
-        | "editmyusercss"
-        | "editmyuserjs"
-        | "editmyuserjson"
-        | "editmyuserjsredirect"
-        | "editmywatchlist"
-        | "editprotected"
-        | "editsemiprotected"
-        | "editsitecss"
-        | "editsitejs"
-        | "editsitejson"
-        | "edittrustedprotected"
-        | "editusercss"
-        | "edituserjs"
-        | "edituserjson"
-        | "enrollasmentor"
-        | "extendedconfirmed"
-        | "flow-create-board"
-        | "flow-delete"
-        | "flow-edit-post"
-        | "flow-hide"
-        | "flow-suppress"
-        | "globalblock"
-        | "globalblock-exempt"
-        | "globalblock-whitelist"
-        | "globalgroupmembership"
-        | "globalgrouppermissions"
-        | "hideuser"
-        | "import"
-        | "importupload"
-        | "ipblock-exempt"
-        | "ipinfo"
-        | "ipinfo-view-basic"
-        | "ipinfo-view-full"
-        | "ipinfo-view-log"
-        | "manage-all-push-subscriptions"
-        | "managechangetags"
-        | "managementors"
-        | "markbotedits"
-        | "massmessage"
-        | "mergehistory"
-        | "minoredit"
-        | "move"
-        | "move-categorypages"
-        | "move-rootuserpages"
-        | "move-subpages"
-        | "movefile"
-        | "movestable"
-        | "mwoauthmanageconsumer"
-        | "mwoauthmanagemygrants"
-        | "mwoauthproposeconsumer"
-        | "mwoauthsuppress"
-        | "mwoauthupdateownconsumer"
-        | "mwoauthviewprivate"
-        | "mwoauthviewsuppressed"
-        | "newsletter-create"
-        | "newsletter-delete"
-        | "newsletter-manage"
-        | "newsletter-restore"
-        | "nominornewtalk"
-        | "noratelimit"
-        | "nuke"
-        | "oathauth-api-all"
-        | "oathauth-disable-for-user"
-        | "oathauth-enable"
-        | "oathauth-verify-user"
-        | "oathauth-view-log"
-        | "override-antispoof"
-        | "override-export-depth"
-        | "pagelang"
-        | "pagetriage-copyvio"
-        | "patrol"
-        | "patrolmarks"
-        | "protect"
-        | "read"
-        | "renameuser"
-        | "reupload"
-        | "reupload-own"
-        | "reupload-shared"
-        | "review"
-        | "rollback"
-        | "sboverride"
-        | "securepoll-create-poll"
-        | "securepoll-view-voter-pii"
-        | "sendemail"
-        | "setmentor"
-        | "sfsblock-bypass"
-        | "siteadmin"
-        | "skipcaptcha"
-        | "spamblacklistlog"
-        | "stablesettings"
-        | "suppressionlog"
-        | "suppressredirect"
-        | "suppressrevision"
-        | "tboverride"
-        | "tboverride-account"
-        | "templateeditor"
-        | "titleblacklistlog"
-        | "torunblocked"
-        | "transcode-reset"
-        | "transcode-status"
-        | "unblockself"
-        | "undelete"
-        | "unreviewedpages"
-        | "unwatchedpages"
-        | "upload"
-        | "upload_by_url"
-        | "urlshortener-create-url"
-        | "urlshortener-manage-url"
-        | "urlshortener-view-log"
-        | "userrights"
-        | "userrights-interwiki"
-        | "validate"
-        | "viewdeletedfile"
-        | "viewmyprivateinfo"
-        | "viewmywatchlist"
-        | "viewsuppressed"
-        | "vipsscaler-test"
-    >;
+    pcgroup?: string | string[];
+    pcexcludegroup?: string | string[];
+    pcrights?: string | string[];
+    pcexcluderights?: string | string[];
     pclimit?: limit;
     pccontinue?: string;
 }
@@ -3710,6 +3407,12 @@ export interface ApiActionQueryPropCoordinatesParams extends ApiActionQueryParam
     codistancefrompoint?: string;
     codistancefrompage?: string;
 }
+
+/**
+ * @private
+ */
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryPropDefaultContentForPageParams extends ApiActionQueryParams {}
 
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Deletedrevisions}
@@ -3738,6 +3441,7 @@ export interface ApiActionQueryPropDeletedRevisionsParams extends ApiActionQuery
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -3778,6 +3482,7 @@ export interface ApiActionQueryPropDeletedRevisionsParams extends ApiActionQuery
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -3810,6 +3515,12 @@ export interface ApiActionQueryPropDuplicateFilesParams extends ApiActionQueryPa
     dfcontinue?: string;
     dfdir?: "ascending" | "descending";
     dflocalonly?: boolean;
+}
+
+export interface ApiActionQueryPropEntityTermsParams extends ApiActionQueryParams {
+    wbetcontinue?: number;
+    wbetlanguage?: string;
+    wbetterms?: OneOrMore<"alias" | "description" | "label">;
 }
 
 /**
@@ -3882,6 +3593,13 @@ export interface ApiActionQueryPropQueryFileUsageParams extends ApiActionQueryPa
 // tslint:disable-next-line:no-empty-interface
 export interface ApiActionQueryPropFlaggedParams extends ApiActionQueryParams {}
 
+/**
+ * @deprecated
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Flow/API#action.3Dquery.26prop.3Dflowinfo}
+ */
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryPropFlowInfoParams extends ApiActionQueryParams {}
+
 export interface ApiActionQueryPropGlobalUsageParams extends ApiActionQueryParams {
     guprop?: OneOrMore<"namespace" | "pageid" | "url">;
     gulimit?: limit;
@@ -3894,6 +3612,10 @@ export interface ApiActionQueryPropGlobalUsageParams extends ApiActionQueryParam
 export interface ApiActionQueryPropGrowthImageSuggestionDataParams extends ApiActionQueryParams {
     gisdtasktype?: "image-recommendation" | "section-image-recommendation";
     gisdcontinue?: string;
+}
+
+export interface ApiActionQueryPropImageForPageParams extends ApiActionQueryParams {
+    prppifpprop?: OneOrMore<"filename" | "fullsize" | "responsiveimages" | "size">;
 }
 
 /**
@@ -4086,613 +3808,7 @@ export interface ApiActionQueryPropPagePropsParams extends ApiActionQueryParams 
 
 export interface ApiActionQueryPropPageTermsParams extends ApiActionQueryParams {
     wbptcontinue?: number;
-    wbptlanguage?:
-        | "aa"
-        | "aae"
-        | "ab"
-        | "abs"
-        | "ace"
-        | "acf"
-        | "acm"
-        | "ady"
-        | "ady-cyrl"
-        | "aeb"
-        | "aeb-arab"
-        | "aeb-latn"
-        | "af"
-        | "agq"
-        | "aln"
-        | "als"
-        | "alt"
-        | "am"
-        | "ami"
-        | "an"
-        | "ang"
-        | "ann"
-        | "anp"
-        | "apc"
-        | "ar"
-        | "arc"
-        | "arn"
-        | "arq"
-        | "ary"
-        | "arz"
-        | "as"
-        | "ase"
-        | "ast"
-        | "atj"
-        | "av"
-        | "avk"
-        | "awa"
-        | "ay"
-        | "az"
-        | "azb"
-        | "ba"
-        | "bag"
-        | "ban"
-        | "ban-bali"
-        | "bar"
-        | "bas"
-        | "bat-smg"
-        | "bax"
-        | "bbc"
-        | "bbc-latn"
-        | "bbj"
-        | "bcc"
-        | "bci"
-        | "bcl"
-        | "bdr"
-        | "be"
-        | "be-tarask"
-        | "be-x-old"
-        | "bew"
-        | "bfd"
-        | "bg"
-        | "bgc"
-        | "bgn"
-        | "bh"
-        | "bho"
-        | "bi"
-        | "bjn"
-        | "bkc"
-        | "bkh"
-        | "bkm"
-        | "blk"
-        | "bm"
-        | "bn"
-        | "bo"
-        | "bpy"
-        | "bqi"
-        | "bqz"
-        | "br"
-        | "brh"
-        | "bs"
-        | "btm"
-        | "bto"
-        | "bug"
-        | "bxr"
-        | "byv"
-        | "ca"
-        | "cak"
-        | "cal"
-        | "cbk-zam"
-        | "ccp"
-        | "cdo"
-        | "ce"
-        | "ceb"
-        | "ch"
-        | "chn"
-        | "cho"
-        | "chr"
-        | "chy"
-        | "ckb"
-        | "cnh"
-        | "co"
-        | "cps"
-        | "cpx"
-        | "cpx-hans"
-        | "cpx-hant"
-        | "cpx-latn"
-        | "cr"
-        | "crh"
-        | "crh-cyrl"
-        | "crh-latn"
-        | "crh-ro"
-        | "cs"
-        | "csb"
-        | "cu"
-        | "cv"
-        | "cy"
-        | "da"
-        | "dag"
-        | "de"
-        | "de-at"
-        | "de-ch"
-        | "de-formal"
-        | "dga"
-        | "din"
-        | "diq"
-        | "dsb"
-        | "dtp"
-        | "dty"
-        | "dua"
-        | "dv"
-        | "dz"
-        | "ee"
-        | "efi"
-        | "egl"
-        | "el"
-        | "eml"
-        | "en"
-        | "en-ca"
-        | "en-gb"
-        | "en-us"
-        | "eo"
-        | "es"
-        | "es-419"
-        | "es-formal"
-        | "et"
-        | "eto"
-        | "etu"
-        | "eu"
-        | "ewo"
-        | "ext"
-        | "fa"
-        | "fat"
-        | "ff"
-        | "fi"
-        | "fit"
-        | "fiu-vro"
-        | "fj"
-        | "fkv"
-        | "fmp"
-        | "fo"
-        | "fon"
-        | "fr"
-        | "frc"
-        | "frp"
-        | "frr"
-        | "fur"
-        | "fy"
-        | "ga"
-        | "gaa"
-        | "gag"
-        | "gan"
-        | "gan-hans"
-        | "gan-hant"
-        | "gcf"
-        | "gcr"
-        | "gd"
-        | "gl"
-        | "gld"
-        | "glk"
-        | "gn"
-        | "gom"
-        | "gom-deva"
-        | "gom-latn"
-        | "gor"
-        | "got"
-        | "gpe"
-        | "grc"
-        | "gsw"
-        | "gu"
-        | "guc"
-        | "gur"
-        | "guw"
-        | "gv"
-        | "gya"
-        | "ha"
-        | "hak"
-        | "hak-hans"
-        | "hak-hant"
-        | "hak-latn"
-        | "haw"
-        | "he"
-        | "hi"
-        | "hif"
-        | "hif-latn"
-        | "hil"
-        | "hno"
-        | "ho"
-        | "hr"
-        | "hrx"
-        | "hsb"
-        | "hsn"
-        | "ht"
-        | "hu"
-        | "hu-formal"
-        | "hy"
-        | "hyw"
-        | "hz"
-        | "ia"
-        | "iba"
-        | "ibb"
-        | "id"
-        | "ie"
-        | "ig"
-        | "igl"
-        | "ii"
-        | "ik"
-        | "ike-cans"
-        | "ike-latn"
-        | "ilo"
-        | "inh"
-        | "io"
-        | "is"
-        | "isu"
-        | "isv-cyrl"
-        | "isv-latn"
-        | "it"
-        | "iu"
-        | "ja"
-        | "jam"
-        | "jbo"
-        | "jut"
-        | "jv"
-        | "ka"
-        | "kaa"
-        | "kab"
-        | "kai"
-        | "kbd"
-        | "kbd-cyrl"
-        | "kbp"
-        | "kcg"
-        | "kea"
-        | "ker"
-        | "kg"
-        | "kge"
-        | "khw"
-        | "ki"
-        | "kiu"
-        | "kj"
-        | "kjh"
-        | "kjp"
-        | "kk"
-        | "kk-arab"
-        | "kk-cn"
-        | "kk-cyrl"
-        | "kk-kz"
-        | "kk-latn"
-        | "kk-tr"
-        | "kl"
-        | "km"
-        | "kn"
-        | "ko"
-        | "ko-kp"
-        | "koi"
-        | "kr"
-        | "krc"
-        | "kri"
-        | "krj"
-        | "krl"
-        | "ks"
-        | "ks-arab"
-        | "ks-deva"
-        | "ksf"
-        | "ksh"
-        | "ksw"
-        | "ku"
-        | "ku-arab"
-        | "ku-latn"
-        | "kum"
-        | "kus"
-        | "kv"
-        | "kw"
-        | "ky"
-        | "la"
-        | "lad"
-        | "lb"
-        | "lbe"
-        | "lem"
-        | "lez"
-        | "lfn"
-        | "lg"
-        | "li"
-        | "lij"
-        | "liv"
-        | "lki"
-        | "lld"
-        | "lmo"
-        | "ln"
-        | "lns"
-        | "lo"
-        | "loz"
-        | "lrc"
-        | "lt"
-        | "ltg"
-        | "lua"
-        | "lus"
-        | "luz"
-        | "lv"
-        | "lzh"
-        | "lzz"
-        | "mad"
-        | "mag"
-        | "mai"
-        | "map-bms"
-        | "mcn"
-        | "mcp"
-        | "mdf"
-        | "mg"
-        | "mh"
-        | "mhr"
-        | "mi"
-        | "min"
-        | "mk"
-        | "ml"
-        | "mn"
-        | "mnc"
-        | "mnc-latn"
-        | "mnc-mong"
-        | "mni"
-        | "mnw"
-        | "mo"
-        | "mos"
-        | "mr"
-        | "mrh"
-        | "mrj"
-        | "ms"
-        | "ms-arab"
-        | "mt"
-        | "mua"
-        | "mui"
-        | "mul"
-        | "mus"
-        | "mwl"
-        | "my"
-        | "myv"
-        | "mzn"
-        | "na"
-        | "nah"
-        | "nan"
-        | "nan-hani"
-        | "nan-hant"
-        | "nan-latn-pehoeji"
-        | "nan-latn-tailo"
-        | "nap"
-        | "nb"
-        | "nds"
-        | "nds-nl"
-        | "ne"
-        | "new"
-        | "ng"
-        | "nge"
-        | "nia"
-        | "nit"
-        | "niu"
-        | "nl"
-        | "nl-informal"
-        | "nla"
-        | "nmg"
-        | "nmz"
-        | "nn"
-        | "nnh"
-        | "nnz"
-        | "no"
-        | "nod"
-        | "nog"
-        | "nov"
-        | "nqo"
-        | "nr"
-        | "nrm"
-        | "nso"
-        | "nup"
-        | "nv"
-        | "ny"
-        | "nyn"
-        | "nyo"
-        | "nys"
-        | "oc"
-        | "ojb"
-        | "olo"
-        | "om"
-        | "or"
-        | "os"
-        | "osa-latn"
-        | "ota"
-        | "pa"
-        | "pag"
-        | "pam"
-        | "pap"
-        | "pap-aw"
-        | "pcd"
-        | "pcm"
-        | "pdc"
-        | "pdt"
-        | "pfl"
-        | "pi"
-        | "pih"
-        | "pl"
-        | "pms"
-        | "pnb"
-        | "pnt"
-        | "prg"
-        | "ps"
-        | "pt"
-        | "pt-br"
-        | "pwn"
-        | "qu"
-        | "quc"
-        | "qug"
-        | "rgn"
-        | "rif"
-        | "rki"
-        | "rm"
-        | "rmc"
-        | "rmf"
-        | "rmy"
-        | "rn"
-        | "ro"
-        | "roa-rup"
-        | "roa-tara"
-        | "rsk"
-        | "ru"
-        | "rue"
-        | "rup"
-        | "ruq"
-        | "ruq-cyrl"
-        | "ruq-latn"
-        | "rut"
-        | "rw"
-        | "rwr"
-        | "ryu"
-        | "sa"
-        | "sah"
-        | "sat"
-        | "sc"
-        | "scn"
-        | "sco"
-        | "sd"
-        | "sdc"
-        | "sdh"
-        | "se"
-        | "se-fi"
-        | "se-no"
-        | "se-se"
-        | "sei"
-        | "ses"
-        | "sg"
-        | "sgs"
-        | "sh"
-        | "sh-cyrl"
-        | "sh-latn"
-        | "shi"
-        | "shi-latn"
-        | "shi-tfng"
-        | "shn"
-        | "shy"
-        | "shy-latn"
-        | "si"
-        | "simple"
-        | "sjd"
-        | "sje"
-        | "sju"
-        | "sk"
-        | "skr"
-        | "skr-arab"
-        | "sl"
-        | "sli"
-        | "sm"
-        | "sma"
-        | "smj"
-        | "smn"
-        | "sms"
-        | "sn"
-        | "so"
-        | "sq"
-        | "sr"
-        | "sr-ec"
-        | "sr-el"
-        | "srn"
-        | "sro"
-        | "srq"
-        | "ss"
-        | "st"
-        | "stq"
-        | "sty"
-        | "su"
-        | "sv"
-        | "sw"
-        | "syl"
-        | "szl"
-        | "szy"
-        | "ta"
-        | "tay"
-        | "tcy"
-        | "tdd"
-        | "te"
-        | "tet"
-        | "tg"
-        | "tg-cyrl"
-        | "tg-latn"
-        | "th"
-        | "ti"
-        | "tig"
-        | "tk"
-        | "tl"
-        | "tly"
-        | "tly-cyrl"
-        | "tn"
-        | "to"
-        | "tok"
-        | "tpi"
-        | "tpv"
-        | "tr"
-        | "tru"
-        | "trv"
-        | "ts"
-        | "tt"
-        | "tt-cyrl"
-        | "tt-latn"
-        | "ttj"
-        | "tum"
-        | "tvu"
-        | "tw"
-        | "ty"
-        | "tyv"
-        | "tzm"
-        | "udm"
-        | "ug"
-        | "ug-arab"
-        | "ug-latn"
-        | "uk"
-        | "ur"
-        | "uselang"
-        | "uz"
-        | "uz-cyrl"
-        | "uz-latn"
-        | "ve"
-        | "vec"
-        | "vep"
-        | "vi"
-        | "vls"
-        | "vmf"
-        | "vmw"
-        | "vo"
-        | "vot"
-        | "vro"
-        | "vut"
-        | "wa"
-        | "wal"
-        | "war"
-        | "wes"
-        | "wls"
-        | "wo"
-        | "wuu"
-        | "wuu-hans"
-        | "wuu-hant"
-        | "wya"
-        | "xal"
-        | "xh"
-        | "xmf"
-        | "xsy"
-        | "yas"
-        | "yat"
-        | "yav"
-        | "ybb"
-        | "yi"
-        | "yo"
-        | "yrl"
-        | "yue"
-        | "yue-hans"
-        | "yue-hant"
-        | "za"
-        | "zea"
-        | "zgh"
-        | "zgh-latn"
-        | "zh"
-        | "zh-classical"
-        | "zh-cn"
-        | "zh-hans"
-        | "zh-hant"
-        | "zh-hk"
-        | "zh-min-nan"
-        | "zh-mo"
-        | "zh-my"
-        | "zh-sg"
-        | "zh-tw"
-        | "zh-yue"
-        | "zu";
+    wbptlanguage?: string;
     wbptterms?: OneOrMore<"alias" | "description" | "label">;
 }
 
@@ -4704,6 +3820,9 @@ export interface ApiActionQueryPropPageViewsParams extends ApiActionQueryParams 
     pvipdays?: number;
     pvipcontinue?: string;
 }
+
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryPropProofreadParams extends ApiActionQueryParams {}
 
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
@@ -4720,31 +3839,13 @@ export interface ApiActionQueryPropQueryRedirectsParams extends ApiActionQueryPa
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisions}
  */
 export interface ApiActionQueryPropRevisionsParams extends ApiActionQueryParams {
-    rvprop?: OneOrMore<
-        | "comment"
-        | "content"
-        | "contentmodel"
-        | "flagged"
-        | "flags"
-        | "ids"
-        | "oresscores"
-        | "parsedcomment"
-        | "roles"
-        | "sha1"
-        | "size"
-        | "slotsha1"
-        | "slotsize"
-        | "tags"
-        | "timestamp"
-        | "user"
-        | "userid"
-        | "parsetree"
-    >;
+    rvprop?: string | string[];
     rvslots?: string | string[];
     [k: `rvcontentformat-${string}`]:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -4785,6 +3886,7 @@ export interface ApiActionQueryPropRevisionsParams extends ApiActionQueryParams 
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -4961,7 +4063,18 @@ export interface ApiActionQueryListAbuseLogParams extends ApiActionQueryParams {
         | "timestamp"
         | "title"
         | "user"
+        | "wiki"
     >;
+    aflwiki?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:UploadWizard}
+ */
+export interface ApiActionQueryListAllCampaignsParams extends ApiActionQueryParams {
+    uwcenabledonly?: boolean;
+    uwclimit?: limit;
+    uwccontinue?: string;
 }
 
 /**
@@ -5006,6 +4119,7 @@ export interface ApiActionQueryListAllDeletedRevisionsParams extends ApiActionQu
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -5046,6 +4160,7 @@ export interface ApiActionQueryListAllDeletedRevisionsParams extends ApiActionQu
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -5151,7 +4266,7 @@ export interface ApiActionQueryListAllPagesParams extends ApiActionQueryParams {
     apminsize?: number;
     apmaxsize?: number;
     apprtype?: OneOrMore<"edit" | "move" | "upload">;
-    apprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    apprlevel?: string | string[];
     apprfiltercascade?: "all" | "cascading" | "noncascading";
     apprexpiry?: "all" | "definite" | "indefinite";
     aplimit?: limit;
@@ -5201,6 +4316,7 @@ export interface ApiActionQueryListAllRevisionsParams extends ApiActionQueryPara
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -5241,6 +4357,7 @@ export interface ApiActionQueryListAllRevisionsParams extends ApiActionQueryPara
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -5281,270 +4398,9 @@ export interface ApiActionQueryListAllUsersParams extends ApiActionQueryParams {
     auto?: string;
     auprefix?: string;
     audir?: "ascending" | "descending";
-    augroup?: OneOrMore<
-        | "abusefilter"
-        | "abusefilter-helper"
-        | "accountcreator"
-        | "autoreviewer"
-        | "bot"
-        | "bureaucrat"
-        | "checkuser"
-        | "checkuser-temporary-account-viewer"
-        | "confirmed"
-        | "copyviobot"
-        | "eventcoordinator"
-        | "extendedconfirmed"
-        | "extendedmover"
-        | "filemover"
-        | "founder"
-        | "import"
-        | "interface-admin"
-        | "ipblock-exempt"
-        | "massmessage-sender"
-        | "no-ipinfo"
-        | "patroller"
-        | "push-subscription-manager"
-        | "researcher"
-        | "reviewer"
-        | "rollbacker"
-        | "steward"
-        | "suppress"
-        | "sysop"
-        | "templateeditor"
-        | "transwiki"
-    >;
-    auexcludegroup?: OneOrMore<
-        | "abusefilter"
-        | "abusefilter-helper"
-        | "accountcreator"
-        | "autoreviewer"
-        | "bot"
-        | "bureaucrat"
-        | "checkuser"
-        | "checkuser-temporary-account-viewer"
-        | "confirmed"
-        | "copyviobot"
-        | "eventcoordinator"
-        | "extendedconfirmed"
-        | "extendedmover"
-        | "filemover"
-        | "founder"
-        | "import"
-        | "interface-admin"
-        | "ipblock-exempt"
-        | "massmessage-sender"
-        | "no-ipinfo"
-        | "patroller"
-        | "push-subscription-manager"
-        | "researcher"
-        | "reviewer"
-        | "rollbacker"
-        | "steward"
-        | "suppress"
-        | "sysop"
-        | "templateeditor"
-        | "transwiki"
-    >;
-    aurights?: OneOrMore<
-        | "abusefilter-access-protected-vars"
-        | "abusefilter-bypass-blocked-external-domains"
-        | "abusefilter-hidden-log"
-        | "abusefilter-hide-log"
-        | "abusefilter-log"
-        | "abusefilter-log-detail"
-        | "abusefilter-log-private"
-        | "abusefilter-modify"
-        | "abusefilter-modify-blocked-external-domains"
-        | "abusefilter-modify-global"
-        | "abusefilter-modify-restricted"
-        | "abusefilter-privatedetails"
-        | "abusefilter-privatedetails-log"
-        | "abusefilter-revert"
-        | "abusefilter-view"
-        | "abusefilter-view-private"
-        | "apihighlimits"
-        | "applychangetags"
-        | "autoconfirmed"
-        | "autocreateaccount"
-        | "autopatrol"
-        | "autoreview"
-        | "autoreviewrestore"
-        | "badcaptcha"
-        | "badoath"
-        | "bigdelete"
-        | "block"
-        | "blockemail"
-        | "bot"
-        | "browsearchive"
-        | "centralauth-createlocal"
-        | "centralauth-lock"
-        | "centralauth-merge"
-        | "centralauth-rename"
-        | "centralauth-suppress"
-        | "centralauth-unmerge"
-        | "changeemail"
-        | "changetags"
-        | "checkuser"
-        | "checkuser-log"
-        | "checkuser-temporary-account"
-        | "checkuser-temporary-account-log"
-        | "checkuser-temporary-account-no-preference"
-        | "collectionsaveascommunitypage"
-        | "collectionsaveasuserpage"
-        | "confirmemail"
-        | "createaccount"
-        | "createpage"
-        | "createpagemainns"
-        | "createtalk"
-        | "delete"
-        | "delete-redirect"
-        | "deletechangetags"
-        | "deletedhistory"
-        | "deletedtext"
-        | "deletelogentry"
-        | "deleterevision"
-        | "echo-create"
-        | "edit"
-        | "editautopatrolprotected"
-        | "editautoreviewprotected"
-        | "editcontentmodel"
-        | "editeditorprotected"
-        | "editextendedsemiprotected"
-        | "editinterface"
-        | "editmyoptions"
-        | "editmyprivateinfo"
-        | "editmyusercss"
-        | "editmyuserjs"
-        | "editmyuserjson"
-        | "editmyuserjsredirect"
-        | "editmywatchlist"
-        | "editprotected"
-        | "editsemiprotected"
-        | "editsitecss"
-        | "editsitejs"
-        | "editsitejson"
-        | "edittrustedprotected"
-        | "editusercss"
-        | "edituserjs"
-        | "edituserjson"
-        | "enrollasmentor"
-        | "extendedconfirmed"
-        | "flow-create-board"
-        | "flow-delete"
-        | "flow-edit-post"
-        | "flow-hide"
-        | "flow-suppress"
-        | "globalblock"
-        | "globalblock-exempt"
-        | "globalblock-whitelist"
-        | "globalgroupmembership"
-        | "globalgrouppermissions"
-        | "growthexperiments-apiqueryimagesuggestiondata"
-        | "growthexperimentsuserimpacthandler"
-        | "growthmentordashboardupdatedata"
-        | "hideuser"
-        | "import"
-        | "importupload"
-        | "ipblock-exempt"
-        | "ipinfo"
-        | "ipinfo-view-basic"
-        | "ipinfo-view-full"
-        | "ipinfo-view-log"
-        | "linkpurge"
-        | "mailpassword"
-        | "manage-all-push-subscriptions"
-        | "managechangetags"
-        | "managementors"
-        | "markbotedits"
-        | "massmessage"
-        | "mergehistory"
-        | "minoredit"
-        | "move"
-        | "move-categorypages"
-        | "move-rootuserpages"
-        | "move-subpages"
-        | "movefile"
-        | "movestable"
-        | "mwoauthmanageconsumer"
-        | "mwoauthmanagemygrants"
-        | "mwoauthproposeconsumer"
-        | "mwoauthsuppress"
-        | "mwoauthupdateownconsumer"
-        | "mwoauthviewprivate"
-        | "mwoauthviewsuppressed"
-        | "newsletter-create"
-        | "newsletter-delete"
-        | "newsletter-manage"
-        | "newsletter-restore"
-        | "nominornewtalk"
-        | "noratelimit"
-        | "nuke"
-        | "oathauth-api-all"
-        | "oathauth-disable-for-user"
-        | "oathauth-enable"
-        | "oathauth-verify-user"
-        | "oathauth-view-log"
-        | "override-antispoof"
-        | "override-export-depth"
-        | "pagelang"
-        | "pagetriage-copyvio"
-        | "pagetriage-mark-action"
-        | "pagetriage-tagging-action"
-        | "patrol"
-        | "patrolmarks"
-        | "protect"
-        | "purge"
-        | "read"
-        | "renameuser"
-        | "renderfile"
-        | "renderfile-nonstandard"
-        | "reupload"
-        | "reupload-own"
-        | "reupload-shared"
-        | "review"
-        | "rollback"
-        | "sboverride"
-        | "securepoll-create-poll"
-        | "securepoll-view-voter-pii"
-        | "sendemail"
-        | "setmentor"
-        | "sfsblock-bypass"
-        | "siteadmin"
-        | "skipcaptcha"
-        | "spamblacklistlog"
-        | "stablesettings"
-        | "stashbasehtml"
-        | "stashedit"
-        | "suppressionlog"
-        | "suppressredirect"
-        | "suppressrevision"
-        | "tboverride"
-        | "tboverride-account"
-        | "templateeditor"
-        | "thanks-notification"
-        | "titleblacklistlog"
-        | "torunblocked"
-        | "transcode-reset"
-        | "transcode-status"
-        | "unblockself"
-        | "undelete"
-        | "unreviewedpages"
-        | "unwatchedpages"
-        | "upload"
-        | "upload_by_url"
-        | "urlshortcode"
-        | "urlshortener-create-url"
-        | "urlshortener-manage-url"
-        | "urlshortener-view-log"
-        | "userrights"
-        | "userrights-interwiki"
-        | "validate"
-        | "viewdeletedfile"
-        | "viewmyprivateinfo"
-        | "viewmywatchlist"
-        | "viewsuppressed"
-        | "vipsscaler-test"
-    >;
+    augroup?: string | string[];
+    auexcludegroup?: string | string[];
+    aurights?: string | string[];
     auprop?: OneOrMore<
         | "blockinfo"
         | "centralids"
@@ -5688,6 +4544,16 @@ export interface ApiActionQueryListCheckUserLogParams extends ApiActionQueryPara
     culcontinue?: string;
 }
 
+export interface ApiActionQueryListConfiguredpagesParams extends ApiActionQueryParams {
+    cpstart?: number;
+    cpend?: number;
+    cpdir?: "newer" | "older";
+    cpnamespace?: namespace | namespace[];
+    cpdefault?: "latest" | "stable";
+    cpautoreview?: "none" | "sysop";
+    cplimit?: limit;
+}
+
 export interface ApiActionQueryListContentTranslationParams extends ApiActionQueryParams {
     translationid?: string;
     from?: string;
@@ -5782,6 +4648,71 @@ export interface ApiActionQueryListQueryEmbeddedInParams extends ApiActionQueryP
     eifilterredir?: "all" | "nonredirects" | "redirects";
     eilimit?: limit;
 }
+
+/**
+ * @private
+ */
+export interface ApiActionQueryListExtDistBranchesParams extends ApiActionQueryParams {
+    edbexts?: string | string[];
+    edbskins?: OneOrMore<
+        | "2018"
+        | "Aether"
+        | "Amethyst"
+        | "Anisa"
+        | "BlueSky"
+        | "BlueSpiceCalumma"
+        | "BlueSpiceDiscovery"
+        | "Bouquet"
+        | "Cavendish"
+        | "CologneBlue"
+        | "Cosmos"
+        | "DeskMessMirrored"
+        | "Dusk"
+        | "DuskToDawn"
+        | "Empty"
+        | "Example"
+        | "Foreground"
+        | "Freo"
+        | "Gamepress"
+        | "GreyStuff"
+        | "GuMaxDD"
+        | "HasSomeColours"
+        | "Mask"
+        | "Material"
+        | "MediaWikiWordpressThemes"
+        | "Metrolook"
+        | "MinervaNeue"
+        | "Mirage"
+        | "Modern"
+        | "MonoBook"
+        | "Nimbus"
+        | "Nostalgia"
+        | "Pivot"
+        | "Poncho"
+        | "Reflection"
+        | "Refreshed"
+        | "Schulenburg"
+        | "Splash"
+        | "Tempo"
+        | "Timeless"
+        | "Truglass"
+        | "TuleapSkin"
+        | "Vector"
+        | "WMAU"
+        | "WPtouch"
+        | "WikimediaApiPortal"
+        | "WoOgLeShades"
+        | "apex"
+        | "erudite"
+        | "mediawiki-strapping"
+        | "p2wiki"
+        | "shared"
+        | "webplatform"
+    >;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryListExtDistReposParams extends ApiActionQueryParams {}
 
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
@@ -5984,7 +4915,16 @@ export interface ApiActionQueryListGrowthStarredMenteesParams extends ApiActionQ
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:GrowthExperiments#API}
  */
 export interface ApiActionQueryListGrowthTasksParams extends ApiActionQueryParams {
-    gttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    gttasktypes?: OneOrMore<
+        | "copyedit"
+        | "expand"
+        | "image-recommendation"
+        | "link-recommendation"
+        | "links"
+        | "references"
+        | "section-image-recommendation"
+        | "update"
+    >;
     gttopics?: OneOrMore<
         | "africa"
         | "architecture"
@@ -6120,168 +5060,8 @@ export interface ApiActionQueryListLogEventsParams extends ApiActionQueryParams 
         | "user"
         | "userid"
     >;
-    letype?:
-        | ""
-        | "abusefilter"
-        | "abusefilter-protected-vars"
-        | "abusefilterblockeddomainhit"
-        | "abusefilterprivatedetails"
-        | "block"
-        | "checkuser-temporary-account"
-        | "contentmodel"
-        | "create"
-        | "delete"
-        | "gblblock"
-        | "gblrename"
-        | "gblrights"
-        | "globalauth"
-        | "growthexperiments"
-        | "import"
-        | "ipinfo"
-        | "managetags"
-        | "massmessage"
-        | "merge"
-        | "move"
-        | "newusers"
-        | "oath"
-        | "pagetriage-copyvio"
-        | "pagetriage-curation"
-        | "patrol"
-        | "protect"
-        | "renameuser"
-        | "review"
-        | "rights"
-        | "spamblacklist"
-        | "stable"
-        | "suppress"
-        | "tag"
-        | "thanks"
-        | "timedmediahandler"
-        | "titleblacklist"
-        | "upload"
-        | "urlshortener"
-        | "usermerge";
-    leaction?:
-        | "abusefilter-protected-vars/*"
-        | "abusefilter/create"
-        | "abusefilter/hit"
-        | "abusefilter/modify"
-        | "abusefilterblockeddomainhit/*"
-        | "abusefilterprivatedetails/access"
-        | "block/block"
-        | "block/reblock"
-        | "block/unblock"
-        | "checkuser-private-event/*"
-        | "checkuser-temporary-account/*"
-        | "contentmodel/change"
-        | "contentmodel/new"
-        | "create/create"
-        | "delete/delete"
-        | "delete/delete_redir"
-        | "delete/delete_redir2"
-        | "delete/event"
-        | "delete/restore"
-        | "delete/revision"
-        | "gblblock/*"
-        | "gblblock/gunblock"
-        | "gblrename/merge"
-        | "gblrename/promote"
-        | "gblrename/rename"
-        | "gblrights/deleteset"
-        | "gblrights/groupperms"
-        | "gblrights/groupprms2"
-        | "gblrights/groupprms3"
-        | "gblrights/grouprename"
-        | "gblrights/newset"
-        | "gblrights/setchange"
-        | "gblrights/setnewtype"
-        | "gblrights/setrename"
-        | "gblrights/usergroups"
-        | "globalauth/delete"
-        | "globalauth/hide"
-        | "globalauth/lock"
-        | "globalauth/lockandhid"
-        | "globalauth/setstatus"
-        | "globalauth/unhide"
-        | "globalauth/unlock"
-        | "growthexperiments/addimage"
-        | "growthexperiments/addlink"
-        | "growthexperiments/addsectionimage"
-        | "growthexperiments/claimmentee"
-        | "growthexperiments/claimmentee-no-previous-mentor"
-        | "growthexperiments/setmentor"
-        | "growthexperiments/setmentor-no-previous-mentor"
-        | "import/interwiki"
-        | "import/upload"
-        | "interwiki/*"
-        | "ipinfo/*"
-        | "managetags/activate"
-        | "managetags/create"
-        | "managetags/deactivate"
-        | "managetags/delete"
-        | "massmessage/*"
-        | "massmessage/failure"
-        | "massmessage/send"
-        | "massmessage/skipbadns"
-        | "massmessage/skipnouser"
-        | "massmessage/skipoptout"
-        | "merge/merge"
-        | "move/move"
-        | "move/move_redir"
-        | "newusers/autocreate"
-        | "newusers/byemail"
-        | "newusers/create"
-        | "newusers/create2"
-        | "newusers/forcecreatelocal"
-        | "newusers/newusers"
-        | "oath/*"
-        | "pagetriage-copyvio/delete"
-        | "pagetriage-copyvio/insert"
-        | "pagetriage-curation/delete"
-        | "pagetriage-curation/enqueue"
-        | "pagetriage-curation/reviewed"
-        | "pagetriage-curation/reviewed-article"
-        | "pagetriage-curation/reviewed-redirect"
-        | "pagetriage-curation/tag"
-        | "pagetriage-curation/unreviewed"
-        | "pagetriage-curation/unreviewed-article"
-        | "pagetriage-curation/unreviewed-redirect"
-        | "patrol/autopatrol"
-        | "patrol/patrol"
-        | "protect/modify"
-        | "protect/move_prot"
-        | "protect/protect"
-        | "protect/unprotect"
-        | "renameuser/renameuser"
-        | "review/*"
-        | "rights/autopromote"
-        | "rights/blockautopromote"
-        | "rights/erevoke"
-        | "rights/restoreautopromote"
-        | "rights/rights"
-        | "spamblacklist/*"
-        | "stable/config"
-        | "stable/modify"
-        | "stable/move_stable"
-        | "stable/reset"
-        | "suppress/block"
-        | "suppress/cadelete"
-        | "suppress/delete"
-        | "suppress/event"
-        | "suppress/hide-afl"
-        | "suppress/reblock"
-        | "suppress/revision"
-        | "suppress/setstatus"
-        | "suppress/unhide-afl"
-        | "tag/update"
-        | "thanks/*"
-        | "timedmediahandler/resettranscode"
-        | "titleblacklist/*"
-        | "upload/overwrite"
-        | "upload/revert"
-        | "upload/upload"
-        | "urlshortener/*"
-        | "usermerge/*";
+    letype?: string;
+    leaction?: string;
     lestart?: timestamp;
     leend?: timestamp;
     ledir?: "newer" | "older";
@@ -6293,6 +5073,21 @@ export interface ApiActionQueryListLogEventsParams extends ApiActionQueryParams 
     lelimit?: limit;
     lecontinue?: string;
 }
+
+export interface ApiActionQueryListMessageCollectionParams extends ApiActionQueryParams {
+    mcgroup: string;
+    mclanguage?: string;
+    mclimit?: limit;
+    mcoffset?: string;
+    mcfilter?: string | string[];
+    mcprop?: OneOrMore<"definition" | "properties" | "tags" | "translation" | "revision">;
+}
+
+/**
+ * @private
+ */
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryListMessageGroupSubscriptionParams extends ApiActionQueryParams {}
 
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
@@ -6351,7 +5146,15 @@ export interface ApiActionQueryListPrefixSearchParams extends ApiActionQueryPara
     psnamespace?: namespace | namespace[];
     pslimit?: limit;
     psoffset?: number;
-    psprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+    psprofile?:
+        | "classic"
+        | "engine_autoselect"
+        | "fast-fuzzy"
+        | "fuzzy"
+        | "fuzzy-subphrases"
+        | "normal"
+        | "normal-subphrases"
+        | "strict";
 }
 
 /**
@@ -6372,11 +5175,20 @@ export interface ApiActionQueryListProjectsParams extends ApiActionQueryParams {
 }
 
 /**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ProofreadPage/Index pagination API}
+ */
+export interface ApiActionQueryListProofreadPagesInIndexParams extends ApiActionQueryParams {
+    prppiiprop?: OneOrMore<"formattedpagenumber" | "ids" | "title" | "formattedPageNumber">;
+    prppiititle?: string;
+    prppiipageid?: number;
+}
+
+/**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
  */
 export interface ApiActionQueryListProtectedTitlesParams extends ApiActionQueryParams {
     ptnamespace?: namespace | namespace[];
-    ptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    ptlevel?: string | string[];
     ptlimit?: limit;
     ptdir?: "newer" | "older";
     ptstart?: timestamp;
@@ -6391,45 +5203,7 @@ export interface ApiActionQueryListProtectedTitlesParams extends ApiActionQueryP
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Querypage}
  */
 export interface ApiActionQueryListQueryPageParams extends ApiActionQueryParams {
-    qppage:
-        | "Ancientpages"
-        | "BrokenRedirects"
-        | "Deadendpages"
-        | "DisambiguationPageLinks"
-        | "DisambiguationPages"
-        | "DoubleRedirects"
-        | "Fewestrevisions"
-        | "GadgetUsage"
-        | "GloballyWantedFiles"
-        | "ListDuplicatedFiles"
-        | "Listredirects"
-        | "Lonelypages"
-        | "Longpages"
-        | "MediaStatistics"
-        | "MostGloballyLinkedFiles"
-        | "Mostcategories"
-        | "Mostimages"
-        | "Mostinterwikis"
-        | "Mostlinked"
-        | "Mostlinkedcategories"
-        | "Mostlinkedtemplates"
-        | "Mostrevisions"
-        | "OrphanedTimedText"
-        | "Shortpages"
-        | "Uncategorizedcategories"
-        | "Uncategorizedimages"
-        | "Uncategorizedpages"
-        | "Uncategorizedtemplates"
-        | "UnconnectedPages"
-        | "Unusedcategories"
-        | "Unusedimages"
-        | "Unusedtemplates"
-        | "Unwatchedpages"
-        | "Wantedcategories"
-        | "Wantedfiles"
-        | "Wantedpages"
-        | "Wantedtemplates"
-        | "Withoutinterwiki";
+    qppage: string;
     qpoffset?: number;
     qplimit?: limit;
 }
@@ -6512,7 +5286,7 @@ export interface ApiActionQueryListRecentChangesParams extends ApiActionQueryPar
     rctitle?: string;
     rccontinue?: string;
     rcgeneraterevisions?: boolean;
-    rcslot?: "main";
+    rcslot?: "main" | "mediainfo";
 }
 
 /**
@@ -6523,17 +5297,7 @@ export interface ApiActionQueryListSearchParams extends ApiActionQueryParams {
     srnamespace?: namespace | namespace[];
     srlimit?: limit;
     sroffset?: number;
-    srqiprofile?:
-        | "classic"
-        | "classic_noboostlinks"
-        | "empty"
-        | "engine_autoselect"
-        | "growth_underlinked"
-        | "mlr-1024rs"
-        | "popular_inclinks"
-        | "popular_inclinks_pv"
-        | "wsum_inclinks"
-        | "wsum_inclinks_pv";
+    srqiprofile?: string;
     srwhat?: "nearmatch" | "text" | "title";
     srinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
     srprop?: OneOrMore<
@@ -6577,6 +5341,52 @@ export interface ApiActionQueryListTagsParams extends ApiActionQueryParams {
     tgprop?: OneOrMore<
         "active" | "defined" | "description" | "displayname" | "hitcount" | "source"
     >;
+}
+
+export interface ApiActionQueryListThreadsParams extends ApiActionQueryParams {
+    thstartid?: number;
+    thendid?: number;
+    thdir?: "newer" | "older";
+    thshowdeleted?: boolean;
+    thlimit?: limit;
+    thprop?: OneOrMore<
+        | "ancestor"
+        | "author"
+        | "created"
+        | "id"
+        | "modified"
+        | "page"
+        | "parent"
+        | "reactions"
+        | "replies"
+        | "rootid"
+        | "signature"
+        | "subject"
+        | "summaryid"
+        | "type"
+    >;
+    thpage?: string | string[];
+    thauthor?: string | string[];
+    throot?: string | string[];
+    thsummary?: string | string[];
+    thid?: string | string[];
+    thrender?: boolean;
+    threnderlevel?: number;
+    threnderthreadpos?: number;
+    threnderthreadcount?: number;
+    threndermaxthreadcount?: string;
+    threndermaxdepth?: string;
+    threnderstartrepliesat?: string;
+}
+
+export interface ApiActionQueryListUnreviewedpagesParams extends ApiActionQueryParams {
+    urstart?: string;
+    urend?: string;
+    urdir?: "ascending" | "descending";
+    urnamespace?: namespace | namespace[];
+    urfilterredir?: "all" | "nonredirects" | "redirects";
+    urfilterlevel?: number;
+    urlimit?: limit;
 }
 
 /**
@@ -6727,6 +5537,51 @@ export interface ApiActionQueryListWblistentityusageParams extends ApiActionQuer
     wbleucontinue?: string;
 }
 
+/**
+ * @private
+ */
+export interface ApiActionQueryListWbsearchParams extends ApiActionQueryParams {
+    wbssearch: string;
+    wbslanguage?: string;
+    wbsstrictlanguage?: boolean;
+    wbstype?: string;
+    wbslimit?: limit;
+    wbsprofile?: "default" | "language";
+}
+
+export interface ApiActionQueryListWbsubscribersParams extends ApiActionQueryParams {
+    wblsentities: string | string[];
+    wblsprop?: OneOrMore<"url">;
+    wblslimit?: limit;
+    wblscontinue?: string;
+}
+
+export interface ApiActionQueryListWikilambdafn_searchParams extends ApiActionQueryParams {
+    wikilambdafn_zfunction_id?: string;
+    wikilambdafn_type?: string;
+    wikilambdafn_limit?: limit;
+    wikilambdafn_continue?: string;
+}
+
+export interface ApiActionQueryListWikilambdaload_zobjectsParams extends ApiActionQueryParams {
+    wikilambdaload_zids: string | string[];
+    wikilambdaload_revisions?: string | string[];
+    wikilambdaload_language?: string;
+    wikilambdaload_get_dependencies?: boolean;
+}
+
+export interface ApiActionQueryListWikilambdasearch_labelsParams extends ApiActionQueryParams {
+    wikilambdasearch_search?: string;
+    wikilambdasearch_language: string;
+    wikilambdasearch_nofallback?: boolean;
+    wikilambdasearch_exact?: boolean;
+    wikilambdasearch_type?: string;
+    wikilambdasearch_return_type?: string;
+    wikilambdasearch_strict_return_type?: boolean;
+    wikilambdasearch_limit?: limit;
+    wikilambdasearch_continue?: string;
+}
+
 export interface ApiActionQueryListWikiSetsParams extends ApiActionQueryParams {
     wsfrom?: string;
     wsprop?: OneOrMore<"type" | "wikisincluded" | "wikisnotincluded">;
@@ -6778,6 +5633,8 @@ export interface ApiActionQueryMetaBabelParams extends ApiActionQueryParams {
 
 export interface ApiActionQueryMetaCommunityConfigurationParams extends ApiActionQueryParams {
     ccrprovider:
+        | "AutoModerator"
+        | "CommunityUpdates"
         | "GrowthHomepage"
         | "GrowthMentorList"
         | "GrowthSuggestedEdits"
@@ -6852,7 +5709,15 @@ export interface ApiActionQueryMetaGrowthMentorStatusParams extends ApiActionQue
  * @private
  */
 export interface ApiActionQueryMetaGrowthNextSuggestedTaskTypeParams extends ApiActionQueryParams {
-    gnsttactivetasktype: "copyedit" | "expand" | "links" | "references" | "update";
+    gnsttactivetasktype:
+        | "copyedit"
+        | "expand"
+        | "image-recommendation"
+        | "link-recommendation"
+        | "links"
+        | "references"
+        | "section-image-recommendation"
+        | "update";
 }
 
 export interface ApiActionQueryMetaLanguageinfoParams extends ApiActionQueryParams {
@@ -6863,8 +5728,56 @@ export interface ApiActionQueryMetaLanguageinfoParams extends ApiActionQueryPara
     licontinue?: string;
 }
 
+export interface ApiActionQueryMetaLanguageStatsParams extends ApiActionQueryParams {
+    lsoffset?: string;
+    lslanguage: string;
+    lsgroup?: string;
+}
+
 // tslint:disable-next-line:no-empty-interface
 export interface ApiActionQueryMetaLinterStatsParams extends ApiActionQueryParams {}
+
+export interface ApiActionQueryMetaManageMessageGroupsParams extends ApiActionQueryParams {
+    mmggroupId: string;
+    mmgmessageKey: string;
+    mmgchangesetName?: string;
+}
+
+export interface ApiActionQueryMetaMessageGroupsParams extends ApiActionQueryParams {
+    mgdepth?: number;
+    mgfilter?: string | string[];
+    mgformat?: "flat" | "tree";
+    mgiconsize?: number;
+    mgprop?: OneOrMore<
+        | "class"
+        | "description"
+        | "exists"
+        | "icon"
+        | "id"
+        | "label"
+        | "namespace"
+        | "priority"
+        | "priorityforce"
+        | "prioritylangs"
+        | "sourcelanguage"
+        | "subscription"
+        | "workflowstates"
+    >;
+    mgroot?: string;
+    mglanguageFilter?: string;
+}
+
+export interface ApiActionQueryMetaMessageGroupStatsParams extends ApiActionQueryParams {
+    mgsoffset?: string;
+    mgsgroup: string;
+    mgssuppresscomplete?: boolean;
+    mgssuppressempty?: boolean;
+}
+
+export interface ApiActionQueryMetaMessageTranslationsParams extends ApiActionQueryParams {
+    mttitle: string;
+    mtoffset?: number;
+}
 
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Echo_(Notifications)/API}
@@ -6902,6 +5815,10 @@ export interface ApiActionQueryMetaOATHParams extends ApiActionQueryParams {
  */
 // tslint:disable-next-line:no-empty-interface
 export interface ApiActionQueryMetaORESParams extends ApiActionQueryParams {}
+
+export interface ApiActionQueryMetaProofreadInfoParams extends ApiActionQueryParams {
+    prpiprop?: OneOrMore<"namespaces" | "qualitylevels">;
+}
 
 /**
  * @private
@@ -7022,9 +5939,26 @@ export interface ApiActionQueryMetaUserInfoParams extends ApiActionQueryParams {
     uiattachedwiki?: string;
 }
 
+export interface ApiActionQueryMetaWbcontentlanguagesParams extends ApiActionQueryParams {
+    wbclcontext?: "monolingualtext" | "term" | "term-lexicographical";
+    wbclprop?: OneOrMore<"autonym" | "code" | "name">;
+}
+
+/**
+ * @private
+ */
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryMetaWbdatabridgeconfigParams extends ApiActionQueryParams {}
+
 export interface ApiActionQueryMetaWikibaseParams extends ApiActionQueryParams {
     wbprop?: OneOrMore<"siteid" | "url">;
 }
+
+/**
+ * @private
+ */
+// tslint:disable-next-line:no-empty-interface
+export interface ApiActionQueryMetaWikimediaEditorTasksCountsParams extends ApiActionQueryParams {}
 
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allcategories}
@@ -7070,6 +6004,7 @@ export interface ApiActionQueryGeneratorAllDeletedRevisionsParams extends ApiAct
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -7110,6 +6045,7 @@ export interface ApiActionQueryGeneratorAllDeletedRevisionsParams extends ApiAct
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -7219,7 +6155,7 @@ export interface ApiActionQueryGeneratorAllPagesParams extends ApiActionQueryPar
     gapminsize?: number;
     gapmaxsize?: number;
     gapprtype?: OneOrMore<"edit" | "move" | "upload">;
-    gapprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gapprlevel?: string | string[];
     gapprfiltercascade?: "all" | "cascading" | "noncascading";
     gapprexpiry?: "all" | "definite" | "indefinite";
     gaplimit?: limit;
@@ -7271,6 +6207,7 @@ export interface ApiActionQueryGeneratorAllRevisionsParams extends ApiActionQuer
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -7311,6 +6248,7 @@ export interface ApiActionQueryGeneratorAllRevisionsParams extends ApiActionQuer
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -7409,6 +6347,17 @@ export interface ApiActionQueryGeneratorCategoryMembersParams extends ApiActionQ
     gcmendsortkey?: string;
 }
 
+export interface ApiActionQueryGeneratorConfiguredpagesParams extends ApiActionQueryParams {
+    generator?: "configuredpages";
+    gcpstart?: number;
+    gcpend?: number;
+    gcpdir?: "newer" | "older";
+    gcpnamespace?: namespace | namespace[];
+    gcpdefault?: "latest" | "stable";
+    gcpautoreview?: "none" | "sysop";
+    gcplimit?: limit;
+}
+
 export interface ApiActionQueryGeneratorContentTranslationParams extends ApiActionQueryParams {
     generator?: "contenttranslation";
     gtranslationid?: string;
@@ -7461,6 +6410,7 @@ export interface ApiActionQueryGeneratorDeletedRevisionsParams extends ApiAction
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -7501,6 +6451,7 @@ export interface ApiActionQueryGeneratorDeletedRevisionsParams extends ApiAction
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -7625,7 +6576,16 @@ export interface ApiActionQueryGeneratorGeoSearchParams extends ApiActionQueryPa
  */
 export interface ApiActionQueryGeneratorGrowthTasksParams extends ApiActionQueryParams {
     generator?: "growthtasks";
-    ggttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    ggttasktypes?: OneOrMore<
+        | "copyedit"
+        | "expand"
+        | "image-recommendation"
+        | "link-recommendation"
+        | "links"
+        | "references"
+        | "section-image-recommendation"
+        | "update"
+    >;
     ggttopics?: OneOrMore<
         | "africa"
         | "architecture"
@@ -7750,6 +6710,16 @@ export interface ApiActionQueryGeneratorQueryLinksHereParams extends ApiActionQu
     glhcontinue?: string;
 }
 
+export interface ApiActionQueryGeneratorMessageCollectionParams extends ApiActionQueryParams {
+    generator?: "messagecollection";
+    gmcgroup: string;
+    gmclanguage?: string;
+    gmclimit?: limit;
+    gmcoffset?: string;
+    gmcfilter?: string | string[];
+    gmcprop?: OneOrMore<"definition" | "properties" | "tags" | "translation" | "revision">;
+}
+
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
  */
@@ -7794,7 +6764,15 @@ export interface ApiActionQueryGeneratorPrefixSearchParams extends ApiActionQuer
     gpsnamespace?: namespace | namespace[];
     gpslimit?: limit;
     gpsoffset?: number;
-    gpsprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+    gpsprofile?:
+        | "classic"
+        | "engine_autoselect"
+        | "fast-fuzzy"
+        | "fuzzy"
+        | "fuzzy-subphrases"
+        | "normal"
+        | "normal-subphrases"
+        | "strict";
 }
 
 /**
@@ -7809,12 +6787,22 @@ export interface ApiActionQueryGeneratorProjectPagesParams extends ApiActionQuer
 }
 
 /**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ProofreadPage/Index pagination API}
+ */
+export interface ApiActionQueryGeneratorProofreadPagesInIndexParams extends ApiActionQueryParams {
+    generator?: "proofreadpagesinindex";
+    gprppiiprop?: OneOrMore<"formattedpagenumber" | "ids" | "title" | "formattedPageNumber">;
+    gprppiititle?: string;
+    gprppiipageid?: number;
+}
+
+/**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
  */
 export interface ApiActionQueryGeneratorProtectedTitlesParams extends ApiActionQueryParams {
     generator?: "protectedtitles";
     gptnamespace?: namespace | namespace[];
-    gptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gptlevel?: string | string[];
     gptlimit?: limit;
     gptdir?: "newer" | "older";
     gptstart?: timestamp;
@@ -7830,45 +6818,7 @@ export interface ApiActionQueryGeneratorProtectedTitlesParams extends ApiActionQ
  */
 export interface ApiActionQueryGeneratorQueryPageParams extends ApiActionQueryParams {
     generator?: "querypage";
-    gqppage:
-        | "Ancientpages"
-        | "BrokenRedirects"
-        | "Deadendpages"
-        | "DisambiguationPageLinks"
-        | "DisambiguationPages"
-        | "DoubleRedirects"
-        | "Fewestrevisions"
-        | "GadgetUsage"
-        | "GloballyWantedFiles"
-        | "ListDuplicatedFiles"
-        | "Listredirects"
-        | "Lonelypages"
-        | "Longpages"
-        | "MediaStatistics"
-        | "MostGloballyLinkedFiles"
-        | "Mostcategories"
-        | "Mostimages"
-        | "Mostinterwikis"
-        | "Mostlinked"
-        | "Mostlinkedcategories"
-        | "Mostlinkedtemplates"
-        | "Mostrevisions"
-        | "OrphanedTimedText"
-        | "Shortpages"
-        | "Uncategorizedcategories"
-        | "Uncategorizedimages"
-        | "Uncategorizedpages"
-        | "Uncategorizedtemplates"
-        | "UnconnectedPages"
-        | "Unusedcategories"
-        | "Unusedimages"
-        | "Unusedtemplates"
-        | "Unwatchedpages"
-        | "Wantedcategories"
-        | "Wantedfiles"
-        | "Wantedpages"
-        | "Wantedtemplates"
-        | "Withoutinterwiki";
+    gqppage: string;
     gqpoffset?: number;
     gqplimit?: limit;
 }
@@ -7954,7 +6904,7 @@ export interface ApiActionQueryGeneratorRecentChangesParams extends ApiActionQue
     grctitle?: string;
     grccontinue?: string;
     grcgeneraterevisions?: boolean;
-    grcslot?: "main";
+    grcslot?: "main" | "mediainfo";
 }
 
 /**
@@ -7974,31 +6924,13 @@ export interface ApiActionQueryGeneratorQueryRedirectsParams extends ApiActionQu
  */
 export interface ApiActionQueryGeneratorRevisionsParams extends ApiActionQueryParams {
     generator?: "revisions";
-    grvprop?: OneOrMore<
-        | "comment"
-        | "content"
-        | "contentmodel"
-        | "flagged"
-        | "flags"
-        | "ids"
-        | "oresscores"
-        | "parsedcomment"
-        | "roles"
-        | "sha1"
-        | "size"
-        | "slotsha1"
-        | "slotsize"
-        | "tags"
-        | "timestamp"
-        | "user"
-        | "userid"
-        | "parsetree"
-    >;
+    grvprop?: string | string[];
     grvslots?: string | string[];
     [k: `grvcontentformat-${string}`]:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -8039,6 +6971,7 @@ export interface ApiActionQueryGeneratorRevisionsParams extends ApiActionQueryPa
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -8066,17 +6999,7 @@ export interface ApiActionQueryGeneratorSearchParams extends ApiActionQueryParam
     gsrnamespace?: namespace | namespace[];
     gsrlimit?: limit;
     gsroffset?: number;
-    gsrqiprofile?:
-        | "classic"
-        | "classic_noboostlinks"
-        | "empty"
-        | "engine_autoselect"
-        | "growth_underlinked"
-        | "mlr-1024rs"
-        | "popular_inclinks"
-        | "popular_inclinks_pv"
-        | "wsum_inclinks"
-        | "wsum_inclinks_pv";
+    gsrqiprofile?: string;
     gsrwhat?: "nearmatch" | "text" | "title";
     gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
     gsrprop?: OneOrMore<
@@ -8133,6 +7056,17 @@ export interface ApiActionQueryGeneratorQueryTranscludedInParams extends ApiActi
     gtishow?: OneOrMore<"!redirect" | "redirect">;
     gtilimit?: limit;
     gticontinue?: string;
+}
+
+export interface ApiActionQueryGeneratorUnreviewedpagesParams extends ApiActionQueryParams {
+    generator?: "unreviewedpages";
+    gurstart?: string;
+    gurend?: string;
+    gurdir?: "ascending" | "descending";
+    gurnamespace?: namespace | namespace[];
+    gurfilterredir?: "all" | "nonredirects" | "redirects";
+    gurfilterlevel?: number;
+    gurlimit?: limit;
 }
 
 /**
@@ -8214,6 +7148,48 @@ export interface ApiActionQueryGeneratorWblistentityusageParams extends ApiActio
     gwbleuentities: string | string[];
     gwbleulimit?: limit;
     gwbleucontinue?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionQueryGeneratorWbsearchParams extends ApiActionQueryParams {
+    generator?: "wbsearch";
+    gwbssearch: string;
+    gwbslanguage?: string;
+    gwbsstrictlanguage?: boolean;
+    gwbstype?: string;
+    gwbslimit?: limit;
+    gwbsprofile?: "default" | "language";
+}
+
+export interface ApiActionQueryGeneratorWikilambdafn_searchParams extends ApiActionQueryParams {
+    generator?: "wikilambdafn_search";
+    gwikilambdafn_zfunction_id?: string;
+    gwikilambdafn_type?: string;
+    gwikilambdafn_limit?: limit;
+    gwikilambdafn_continue?: string;
+}
+
+export interface ApiActionQueryGeneratorWikilambdaload_zobjectsParams extends ApiActionQueryParams {
+    generator?: "wikilambdaload_zobjects";
+    gwikilambdaload_zids: string | string[];
+    gwikilambdaload_revisions?: string | string[];
+    gwikilambdaload_language?: string;
+    gwikilambdaload_get_dependencies?: boolean;
+}
+
+export interface ApiActionQueryGeneratorWikilambdasearch_labelsParams extends ApiActionQueryParams {
+    generator?: "wikilambdasearch_labels";
+    gwikilambdasearch_search?: string;
+    gwikilambdasearch_language: string;
+    gwikilambdasearch_nofallback?: boolean;
+    gwikilambdasearch_exact?: boolean;
+    gwikilambdasearch_type?: string;
+    gwikilambdasearch_return_type?: string;
+    gwikilambdasearch_strict_return_type?: boolean;
+    gwikilambdasearch_limit?: limit;
+    gwikilambdasearch_continue?: string;
 }
 
 /**
@@ -8321,6 +7297,8 @@ export interface ApiActionReviewParams extends ApiParams {
     revid?: string;
     comment?: string;
     unapprove?: boolean;
+    flag_value?: "0" | "1" | "2" | "3";
+    flag_accuracy?: "0" | "1" | "2";
     token?: string;
 }
 
@@ -8383,6 +7361,20 @@ export interface ApiActionScribuntoConsoleParams extends ApiParams {
     question: string;
     clear?: boolean;
     token?: string;
+}
+
+export interface ApiActionSearchTranslationsParams extends ApiParams {
+    action?: "searchtranslations";
+    service?: "codfw" | "default" | "eqiad";
+    query: string;
+    sourcelanguage?: string;
+    language?: string;
+    group?: string;
+    filter?: "" | "fuzzy" | "translated" | "untranslated";
+    match?: string;
+    case?: string;
+    offset?: number;
+    limit?: limit;
 }
 
 /**
@@ -8469,6 +7461,7 @@ export interface ApiActionSetNotificationTimestampGeneratorAllDeletedRevisionsPa
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -8509,6 +7502,7 @@ export interface ApiActionSetNotificationTimestampGeneratorAllDeletedRevisionsPa
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -8622,7 +7616,7 @@ export interface ApiActionSetNotificationTimestampGeneratorAllPagesParams
     gapminsize?: number;
     gapmaxsize?: number;
     gapprtype?: OneOrMore<"edit" | "move" | "upload">;
-    gapprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gapprlevel?: string | string[];
     gapprfiltercascade?: "all" | "cascading" | "noncascading";
     gapprexpiry?: "all" | "definite" | "indefinite";
     gaplimit?: limit;
@@ -8676,6 +7670,7 @@ export interface ApiActionSetNotificationTimestampGeneratorAllRevisionsParams
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -8716,6 +7711,7 @@ export interface ApiActionSetNotificationTimestampGeneratorAllRevisionsParams
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -8818,6 +7814,18 @@ export interface ApiActionSetNotificationTimestampGeneratorCategoryMembersParams
     gcmendsortkey?: string;
 }
 
+export interface ApiActionSetNotificationTimestampGeneratorConfiguredpagesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "configuredpages";
+    gcpstart?: number;
+    gcpend?: number;
+    gcpdir?: "newer" | "older";
+    gcpnamespace?: namespace | namespace[];
+    gcpdefault?: "latest" | "stable";
+    gcpautoreview?: "none" | "sysop";
+    gcplimit?: limit;
+}
+
 export interface ApiActionSetNotificationTimestampGeneratorContentTranslationParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "contenttranslation";
@@ -8872,6 +7880,7 @@ export interface ApiActionSetNotificationTimestampGeneratorDeletedRevisionsParam
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -8912,6 +7921,7 @@ export interface ApiActionSetNotificationTimestampGeneratorDeletedRevisionsParam
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -9042,7 +8052,16 @@ export interface ApiActionSetNotificationTimestampGeneratorGeoSearchParams
 export interface ApiActionSetNotificationTimestampGeneratorGrowthTasksParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "growthtasks";
-    ggttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    ggttasktypes?: OneOrMore<
+        | "copyedit"
+        | "expand"
+        | "image-recommendation"
+        | "link-recommendation"
+        | "links"
+        | "references"
+        | "section-image-recommendation"
+        | "update"
+    >;
     ggttopics?: OneOrMore<
         | "africa"
         | "architecture"
@@ -9173,6 +8192,17 @@ export interface ApiActionSetNotificationTimestampGeneratorQueryLinksHereParams
     glhcontinue?: string;
 }
 
+export interface ApiActionSetNotificationTimestampGeneratorMessageCollectionParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "messagecollection";
+    gmcgroup: string;
+    gmclanguage?: string;
+    gmclimit?: limit;
+    gmcoffset?: string;
+    gmcfilter?: string | string[];
+    gmcprop?: OneOrMore<"definition" | "properties" | "tags" | "translation" | "revision">;
+}
+
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
  */
@@ -9221,7 +8251,15 @@ export interface ApiActionSetNotificationTimestampGeneratorPrefixSearchParams
     gpsnamespace?: namespace | namespace[];
     gpslimit?: limit;
     gpsoffset?: number;
-    gpsprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+    gpsprofile?:
+        | "classic"
+        | "engine_autoselect"
+        | "fast-fuzzy"
+        | "fuzzy"
+        | "fuzzy-subphrases"
+        | "normal"
+        | "normal-subphrases"
+        | "strict";
 }
 
 /**
@@ -9237,13 +8275,24 @@ export interface ApiActionSetNotificationTimestampGeneratorProjectPagesParams
 }
 
 /**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ProofreadPage/Index pagination API}
+ */
+export interface ApiActionSetNotificationTimestampGeneratorProofreadPagesInIndexParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "proofreadpagesinindex";
+    gprppiiprop?: OneOrMore<"formattedpagenumber" | "ids" | "title" | "formattedPageNumber">;
+    gprppiititle?: string;
+    gprppiipageid?: number;
+}
+
+/**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
  */
 export interface ApiActionSetNotificationTimestampGeneratorProtectedTitlesParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "protectedtitles";
     gptnamespace?: namespace | namespace[];
-    gptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gptlevel?: string | string[];
     gptlimit?: limit;
     gptdir?: "newer" | "older";
     gptstart?: timestamp;
@@ -9260,45 +8309,7 @@ export interface ApiActionSetNotificationTimestampGeneratorProtectedTitlesParams
 export interface ApiActionSetNotificationTimestampGeneratorQueryPageParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "querypage";
-    gqppage:
-        | "Ancientpages"
-        | "BrokenRedirects"
-        | "Deadendpages"
-        | "DisambiguationPageLinks"
-        | "DisambiguationPages"
-        | "DoubleRedirects"
-        | "Fewestrevisions"
-        | "GadgetUsage"
-        | "GloballyWantedFiles"
-        | "ListDuplicatedFiles"
-        | "Listredirects"
-        | "Lonelypages"
-        | "Longpages"
-        | "MediaStatistics"
-        | "MostGloballyLinkedFiles"
-        | "Mostcategories"
-        | "Mostimages"
-        | "Mostinterwikis"
-        | "Mostlinked"
-        | "Mostlinkedcategories"
-        | "Mostlinkedtemplates"
-        | "Mostrevisions"
-        | "OrphanedTimedText"
-        | "Shortpages"
-        | "Uncategorizedcategories"
-        | "Uncategorizedimages"
-        | "Uncategorizedpages"
-        | "Uncategorizedtemplates"
-        | "UnconnectedPages"
-        | "Unusedcategories"
-        | "Unusedimages"
-        | "Unusedtemplates"
-        | "Unwatchedpages"
-        | "Wantedcategories"
-        | "Wantedfiles"
-        | "Wantedpages"
-        | "Wantedtemplates"
-        | "Withoutinterwiki";
+    gqppage: string;
     gqpoffset?: number;
     gqplimit?: limit;
 }
@@ -9387,7 +8398,7 @@ export interface ApiActionSetNotificationTimestampGeneratorRecentChangesParams
     grctitle?: string;
     grccontinue?: string;
     grcgeneraterevisions?: boolean;
-    grcslot?: "main";
+    grcslot?: "main" | "mediainfo";
 }
 
 /**
@@ -9409,31 +8420,13 @@ export interface ApiActionSetNotificationTimestampGeneratorQueryRedirectsParams
 export interface ApiActionSetNotificationTimestampGeneratorRevisionsParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "revisions";
-    grvprop?: OneOrMore<
-        | "comment"
-        | "content"
-        | "contentmodel"
-        | "flagged"
-        | "flags"
-        | "ids"
-        | "oresscores"
-        | "parsedcomment"
-        | "roles"
-        | "sha1"
-        | "size"
-        | "slotsha1"
-        | "slotsize"
-        | "tags"
-        | "timestamp"
-        | "user"
-        | "userid"
-        | "parsetree"
-    >;
+    grvprop?: string | string[];
     grvslots?: string | string[];
     [k: `grvcontentformat-${string}`]:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -9474,6 +8467,7 @@ export interface ApiActionSetNotificationTimestampGeneratorRevisionsParams
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -9502,17 +8496,7 @@ export interface ApiActionSetNotificationTimestampGeneratorSearchParams
     gsrnamespace?: namespace | namespace[];
     gsrlimit?: limit;
     gsroffset?: number;
-    gsrqiprofile?:
-        | "classic"
-        | "classic_noboostlinks"
-        | "empty"
-        | "engine_autoselect"
-        | "growth_underlinked"
-        | "mlr-1024rs"
-        | "popular_inclinks"
-        | "popular_inclinks_pv"
-        | "wsum_inclinks"
-        | "wsum_inclinks_pv";
+    gsrqiprofile?: string;
     gsrwhat?: "nearmatch" | "text" | "title";
     gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
     gsrprop?: OneOrMore<
@@ -9571,6 +8555,18 @@ export interface ApiActionSetNotificationTimestampGeneratorQueryTranscludedInPar
     gtishow?: OneOrMore<"!redirect" | "redirect">;
     gtilimit?: limit;
     gticontinue?: string;
+}
+
+export interface ApiActionSetNotificationTimestampGeneratorUnreviewedpagesParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "unreviewedpages";
+    gurstart?: string;
+    gurend?: string;
+    gurdir?: "ascending" | "descending";
+    gurnamespace?: namespace | namespace[];
+    gurfilterredir?: "all" | "nonredirects" | "redirects";
+    gurfilterlevel?: number;
+    gurlimit?: limit;
 }
 
 /**
@@ -9658,536 +8654,59 @@ export interface ApiActionSetNotificationTimestampGeneratorWblistentityusagePara
 }
 
 /**
+ * @private
+ */
+export interface ApiActionSetNotificationTimestampGeneratorWbsearchParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "wbsearch";
+    gwbssearch: string;
+    gwbslanguage?: string;
+    gwbsstrictlanguage?: boolean;
+    gwbstype?: string;
+    gwbslimit?: limit;
+    gwbsprofile?: "default" | "language";
+}
+
+export interface ApiActionSetNotificationTimestampGeneratorWikilambdafn_searchParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "wikilambdafn_search";
+    gwikilambdafn_zfunction_id?: string;
+    gwikilambdafn_type?: string;
+    gwikilambdafn_limit?: limit;
+    gwikilambdafn_continue?: string;
+}
+
+export interface ApiActionSetNotificationTimestampGeneratorWikilambdaload_zobjectsParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "wikilambdaload_zobjects";
+    gwikilambdaload_zids: string | string[];
+    gwikilambdaload_revisions?: string | string[];
+    gwikilambdaload_language?: string;
+    gwikilambdaload_get_dependencies?: boolean;
+}
+
+export interface ApiActionSetNotificationTimestampGeneratorWikilambdasearch_labelsParams
+    extends ApiActionSetNotificationTimestampParams {
+    generator?: "wikilambdasearch_labels";
+    gwikilambdasearch_search?: string;
+    gwikilambdasearch_language: string;
+    gwikilambdasearch_nofallback?: boolean;
+    gwikilambdasearch_exact?: boolean;
+    gwikilambdasearch_type?: string;
+    gwikilambdasearch_return_type?: string;
+    gwikilambdasearch_strict_return_type?: boolean;
+    gwikilambdasearch_limit?: limit;
+    gwikilambdasearch_continue?: string;
+}
+
+/**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:SetPageLanguage}
  */
 export interface ApiActionSetPageLanguageParams extends ApiParams {
     action?: "setpagelanguage";
     title?: string;
     pageid?: number;
-    lang:
-        | "aae"
-        | "ab"
-        | "abs"
-        | "ace"
-        | "acf"
-        | "acm"
-        | "ady"
-        | "ady-cyrl"
-        | "aeb"
-        | "aeb-arab"
-        | "aeb-latn"
-        | "af"
-        | "aln"
-        | "alt"
-        | "am"
-        | "ami"
-        | "an"
-        | "ang"
-        | "ann"
-        | "anp"
-        | "apc"
-        | "ar"
-        | "arc"
-        | "arn"
-        | "arq"
-        | "ary"
-        | "arz"
-        | "as"
-        | "ase"
-        | "ast"
-        | "atj"
-        | "av"
-        | "avk"
-        | "awa"
-        | "ay"
-        | "az"
-        | "azb"
-        | "ba"
-        | "ban"
-        | "ban-bali"
-        | "bar"
-        | "bbc"
-        | "bbc-latn"
-        | "bcc"
-        | "bci"
-        | "bcl"
-        | "bdr"
-        | "be"
-        | "be-tarask"
-        | "bew"
-        | "bg"
-        | "bgc"
-        | "bgn"
-        | "bh"
-        | "bho"
-        | "bi"
-        | "bjn"
-        | "blk"
-        | "bm"
-        | "bn"
-        | "bo"
-        | "bpy"
-        | "bqi"
-        | "br"
-        | "brh"
-        | "bs"
-        | "btm"
-        | "bto"
-        | "bug"
-        | "bxr"
-        | "ca"
-        | "cbk-zam"
-        | "ccp"
-        | "cdo"
-        | "ce"
-        | "ceb"
-        | "ch"
-        | "chn"
-        | "chr"
-        | "chy"
-        | "ckb"
-        | "co"
-        | "cps"
-        | "cpx"
-        | "cpx-hans"
-        | "cpx-hant"
-        | "cr"
-        | "crh"
-        | "crh-cyrl"
-        | "crh-latn"
-        | "crh-ro"
-        | "cs"
-        | "csb"
-        | "cu"
-        | "cv"
-        | "cy"
-        | "da"
-        | "dag"
-        | "de"
-        | "de-at"
-        | "de-ch"
-        | "de-formal"
-        | "default"
-        | "dga"
-        | "din"
-        | "diq"
-        | "dsb"
-        | "dtp"
-        | "dty"
-        | "dua"
-        | "dv"
-        | "dz"
-        | "ee"
-        | "efi"
-        | "egl"
-        | "el"
-        | "eml"
-        | "en"
-        | "en-ca"
-        | "en-gb"
-        | "eo"
-        | "es"
-        | "es-formal"
-        | "et"
-        | "eu"
-        | "ext"
-        | "fa"
-        | "fat"
-        | "ff"
-        | "fi"
-        | "fit"
-        | "fj"
-        | "fo"
-        | "fon"
-        | "fr"
-        | "frc"
-        | "frp"
-        | "frr"
-        | "fur"
-        | "fy"
-        | "ga"
-        | "gaa"
-        | "gag"
-        | "gan"
-        | "gan-hans"
-        | "gan-hant"
-        | "gcf"
-        | "gcr"
-        | "gd"
-        | "gl"
-        | "gld"
-        | "glk"
-        | "gn"
-        | "gom"
-        | "gom-deva"
-        | "gom-latn"
-        | "gor"
-        | "got"
-        | "gpe"
-        | "grc"
-        | "gsw"
-        | "gu"
-        | "guc"
-        | "gur"
-        | "guw"
-        | "gv"
-        | "ha"
-        | "hak"
-        | "haw"
-        | "he"
-        | "hi"
-        | "hif"
-        | "hif-latn"
-        | "hil"
-        | "hno"
-        | "hr"
-        | "hrx"
-        | "hsb"
-        | "hsn"
-        | "ht"
-        | "hu"
-        | "hu-formal"
-        | "hy"
-        | "hyw"
-        | "ia"
-        | "iba"
-        | "ibb"
-        | "id"
-        | "ie"
-        | "ig"
-        | "igl"
-        | "ii"
-        | "ik"
-        | "ike-cans"
-        | "ike-latn"
-        | "ilo"
-        | "inh"
-        | "io"
-        | "is"
-        | "isv-cyrl"
-        | "isv-latn"
-        | "it"
-        | "iu"
-        | "ja"
-        | "jam"
-        | "jbo"
-        | "jut"
-        | "jv"
-        | "ka"
-        | "kaa"
-        | "kab"
-        | "kai"
-        | "kbd"
-        | "kbd-cyrl"
-        | "kbp"
-        | "kcg"
-        | "kea"
-        | "kg"
-        | "kge"
-        | "khw"
-        | "ki"
-        | "kiu"
-        | "kjh"
-        | "kjp"
-        | "kk"
-        | "kk-arab"
-        | "kk-cn"
-        | "kk-cyrl"
-        | "kk-kz"
-        | "kk-latn"
-        | "kk-tr"
-        | "kl"
-        | "km"
-        | "kn"
-        | "ko"
-        | "ko-kp"
-        | "koi"
-        | "kr"
-        | "krc"
-        | "kri"
-        | "krj"
-        | "krl"
-        | "ks"
-        | "ks-arab"
-        | "ks-deva"
-        | "ksh"
-        | "ksw"
-        | "ku"
-        | "ku-arab"
-        | "ku-latn"
-        | "kum"
-        | "kus"
-        | "kv"
-        | "kw"
-        | "ky"
-        | "la"
-        | "lad"
-        | "lb"
-        | "lbe"
-        | "lez"
-        | "lfn"
-        | "lg"
-        | "li"
-        | "lij"
-        | "liv"
-        | "lki"
-        | "lld"
-        | "lmo"
-        | "ln"
-        | "lo"
-        | "loz"
-        | "lrc"
-        | "lt"
-        | "ltg"
-        | "lua"
-        | "lus"
-        | "luz"
-        | "lv"
-        | "lzh"
-        | "lzz"
-        | "mad"
-        | "mag"
-        | "mai"
-        | "map-bms"
-        | "mdf"
-        | "mg"
-        | "mhr"
-        | "mi"
-        | "min"
-        | "mk"
-        | "ml"
-        | "mn"
-        | "mnc"
-        | "mnc-latn"
-        | "mnc-mong"
-        | "mni"
-        | "mnw"
-        | "mo"
-        | "mos"
-        | "mr"
-        | "mrh"
-        | "mrj"
-        | "ms"
-        | "ms-arab"
-        | "mt"
-        | "mui"
-        | "mwl"
-        | "my"
-        | "myv"
-        | "mzn"
-        | "na"
-        | "nah"
-        | "nan"
-        | "nan-hant"
-        | "nan-latn-pehoeji"
-        | "nan-latn-tailo"
-        | "nap"
-        | "nb"
-        | "nds"
-        | "nds-nl"
-        | "ne"
-        | "new"
-        | "nia"
-        | "nit"
-        | "niu"
-        | "nl"
-        | "nl-informal"
-        | "nmz"
-        | "nn"
-        | "nod"
-        | "nog"
-        | "nov"
-        | "nqo"
-        | "nr"
-        | "nrm"
-        | "nso"
-        | "nup"
-        | "nv"
-        | "ny"
-        | "nyn"
-        | "nyo"
-        | "nys"
-        | "oc"
-        | "ojb"
-        | "olo"
-        | "om"
-        | "or"
-        | "os"
-        | "pa"
-        | "pag"
-        | "pam"
-        | "pap"
-        | "pcd"
-        | "pcm"
-        | "pdc"
-        | "pdt"
-        | "pfl"
-        | "pi"
-        | "pih"
-        | "pl"
-        | "pms"
-        | "pnb"
-        | "pnt"
-        | "prg"
-        | "ps"
-        | "pt"
-        | "pt-br"
-        | "pwn"
-        | "qu"
-        | "qug"
-        | "rgn"
-        | "rif"
-        | "rki"
-        | "rm"
-        | "rmc"
-        | "rmy"
-        | "rn"
-        | "ro"
-        | "roa-tara"
-        | "rsk"
-        | "ru"
-        | "rue"
-        | "rup"
-        | "ruq"
-        | "ruq-cyrl"
-        | "ruq-latn"
-        | "rut"
-        | "rw"
-        | "ryu"
-        | "sa"
-        | "sah"
-        | "sat"
-        | "sc"
-        | "scn"
-        | "sco"
-        | "sd"
-        | "sdc"
-        | "sdh"
-        | "se"
-        | "se-fi"
-        | "se-no"
-        | "se-se"
-        | "sei"
-        | "ses"
-        | "sg"
-        | "sgs"
-        | "sh"
-        | "sh-cyrl"
-        | "sh-latn"
-        | "shi"
-        | "shn"
-        | "shy"
-        | "shy-latn"
-        | "si"
-        | "sjd"
-        | "sje"
-        | "sk"
-        | "skr"
-        | "skr-arab"
-        | "sl"
-        | "sli"
-        | "sm"
-        | "sma"
-        | "smn"
-        | "sms"
-        | "sn"
-        | "so"
-        | "sq"
-        | "sr"
-        | "sr-ec"
-        | "sr-el"
-        | "srn"
-        | "sro"
-        | "ss"
-        | "st"
-        | "stq"
-        | "sty"
-        | "su"
-        | "sv"
-        | "sw"
-        | "syl"
-        | "szl"
-        | "szy"
-        | "ta"
-        | "tay"
-        | "tcy"
-        | "tdd"
-        | "te"
-        | "tet"
-        | "tg"
-        | "tg-cyrl"
-        | "tg-latn"
-        | "th"
-        | "ti"
-        | "tig"
-        | "tk"
-        | "tl"
-        | "tly"
-        | "tn"
-        | "to"
-        | "tok"
-        | "tpi"
-        | "tr"
-        | "tru"
-        | "trv"
-        | "ts"
-        | "tt"
-        | "tt-cyrl"
-        | "tt-latn"
-        | "ttj"
-        | "tum"
-        | "tw"
-        | "ty"
-        | "tyv"
-        | "tzm"
-        | "udm"
-        | "ug"
-        | "ug-arab"
-        | "ug-latn"
-        | "uk"
-        | "ur"
-        | "uz"
-        | "ve"
-        | "vec"
-        | "vep"
-        | "vi"
-        | "vls"
-        | "vmf"
-        | "vmw"
-        | "vo"
-        | "vot"
-        | "vro"
-        | "wa"
-        | "wal"
-        | "war"
-        | "wls"
-        | "wo"
-        | "wuu"
-        | "wuu-hans"
-        | "wuu-hant"
-        | "xal"
-        | "xh"
-        | "xmf"
-        | "xsy"
-        | "yi"
-        | "yo"
-        | "yrl"
-        | "yue"
-        | "yue-hans"
-        | "yue-hant"
-        | "za"
-        | "zea"
-        | "zgh"
-        | "zh"
-        | "zh-cn"
-        | "zh-hans"
-        | "zh-hant"
-        | "zh-hk"
-        | "zh-mo"
-        | "zh-my"
-        | "zh-sg"
-        | "zh-tw"
-        | "zu";
+    lang: string;
     reason?: string;
     tags?: string | string[];
     token?: string;
@@ -10222,9 +8741,12 @@ export interface ApiActionSpamBlacklistParams extends ApiParams {
 
 export interface ApiActionStabilizeParams extends ApiParams {
     action?: "stabilize";
+    default: "latest" | "stable";
+    autoreview?: "none" | "sysop";
     protectlevel?: "autoconfirmed" | "none";
     expiry?: string;
     reason?: string;
+    review?: boolean;
     title: string;
     token?: string;
 }
@@ -10241,23 +8763,12 @@ export interface ApiActionStashEditParams extends ApiParams {
     text?: string;
     stashedtexthash?: string;
     summary?: string;
-    contentmodel:
-        | "GadgetDefinition"
-        | "JsonSchema"
-        | "MassMessageListContent"
-        | "Scribunto"
-        | "SecurePoll"
-        | "css"
-        | "javascript"
-        | "json"
-        | "sanitized-css"
-        | "text"
-        | "unknown"
-        | "wikitext";
+    contentmodel: string;
     contentformat:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -10325,36 +8836,7 @@ export interface ApiActionTagParams extends ApiParams {
     rcid?: number | number[];
     revid?: number | number[];
     logid?: number | number[];
-    add?: OneOrMore<
-        | "AWB"
-        | "AntiVandal script"
-        | "Deputy"
-        | "Newcomer task"
-        | "ProveIt edit"
-        | "RedWarn"
-        | "STiki"
-        | "Single use"
-        | "Ultraviolet"
-        | "WPCleaner"
-        | "WikiLoop Battlefield"
-        | "bot trial"
-        | "convenient-discussions"
-        | "editProtectedHelper"
-        | "fixed lint errors"
-        | "huggle"
-        | "invalid-timedtext-edit"
-        | "large non-free file"
-        | "moveToDraft"
-        | "new user moving page out of userspace"
-        | "pageswap"
-        | "possible birth or death date change"
-        | "pronoun-change"
-        | "self-published-blog"
-        | "self-published source"
-        | "shortdesc helper"
-        | "talk banner shell conversion"
-        | "twinkle"
-    >;
+    add?: string | string[];
     remove?: string | string[];
     reason?: string;
     tags?: string | string[];
@@ -10426,6 +8908,7 @@ export interface ApiActionTemplateDataGeneratorAllDeletedRevisionsParams
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -10466,6 +8949,7 @@ export interface ApiActionTemplateDataGeneratorAllDeletedRevisionsParams
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -10576,7 +9060,7 @@ export interface ApiActionTemplateDataGeneratorAllPagesParams extends ApiActionT
     gapminsize?: number;
     gapmaxsize?: number;
     gapprtype?: OneOrMore<"edit" | "move" | "upload">;
-    gapprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gapprlevel?: string | string[];
     gapprfiltercascade?: "all" | "cascading" | "noncascading";
     gapprexpiry?: "all" | "definite" | "indefinite";
     gaplimit?: limit;
@@ -10630,6 +9114,7 @@ export interface ApiActionTemplateDataGeneratorAllRevisionsParams
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -10670,6 +9155,7 @@ export interface ApiActionTemplateDataGeneratorAllRevisionsParams
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -10771,6 +9257,18 @@ export interface ApiActionTemplateDataGeneratorCategoryMembersParams
     gcmendsortkey?: string;
 }
 
+export interface ApiActionTemplateDataGeneratorConfiguredpagesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "configuredpages";
+    gcpstart?: number;
+    gcpend?: number;
+    gcpdir?: "newer" | "older";
+    gcpnamespace?: namespace | namespace[];
+    gcpdefault?: "latest" | "stable";
+    gcpautoreview?: "none" | "sysop";
+    gcplimit?: limit;
+}
+
 export interface ApiActionTemplateDataGeneratorContentTranslationParams
     extends ApiActionTemplateDataParams {
     generator?: "contenttranslation";
@@ -10825,6 +9323,7 @@ export interface ApiActionTemplateDataGeneratorDeletedRevisionsParams
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -10865,6 +9364,7 @@ export interface ApiActionTemplateDataGeneratorDeletedRevisionsParams
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -10994,7 +9494,16 @@ export interface ApiActionTemplateDataGeneratorGeoSearchParams extends ApiAction
 export interface ApiActionTemplateDataGeneratorGrowthTasksParams
     extends ApiActionTemplateDataParams {
     generator?: "growthtasks";
-    ggttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    ggttasktypes?: OneOrMore<
+        | "copyedit"
+        | "expand"
+        | "image-recommendation"
+        | "link-recommendation"
+        | "links"
+        | "references"
+        | "section-image-recommendation"
+        | "update"
+    >;
     ggttopics?: OneOrMore<
         | "africa"
         | "architecture"
@@ -11123,6 +9632,17 @@ export interface ApiActionTemplateDataGeneratorQueryLinksHereParams
     glhcontinue?: string;
 }
 
+export interface ApiActionTemplateDataGeneratorMessageCollectionParams
+    extends ApiActionTemplateDataParams {
+    generator?: "messagecollection";
+    gmcgroup: string;
+    gmclanguage?: string;
+    gmclimit?: limit;
+    gmcoffset?: string;
+    gmcfilter?: string | string[];
+    gmcprop?: OneOrMore<"definition" | "properties" | "tags" | "translation" | "revision">;
+}
+
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
  */
@@ -11171,7 +9691,15 @@ export interface ApiActionTemplateDataGeneratorPrefixSearchParams
     gpsnamespace?: namespace | namespace[];
     gpslimit?: limit;
     gpsoffset?: number;
-    gpsprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+    gpsprofile?:
+        | "classic"
+        | "engine_autoselect"
+        | "fast-fuzzy"
+        | "fuzzy"
+        | "fuzzy-subphrases"
+        | "normal"
+        | "normal-subphrases"
+        | "strict";
 }
 
 /**
@@ -11187,13 +9715,24 @@ export interface ApiActionTemplateDataGeneratorProjectPagesParams
 }
 
 /**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ProofreadPage/Index pagination API}
+ */
+export interface ApiActionTemplateDataGeneratorProofreadPagesInIndexParams
+    extends ApiActionTemplateDataParams {
+    generator?: "proofreadpagesinindex";
+    gprppiiprop?: OneOrMore<"formattedpagenumber" | "ids" | "title" | "formattedPageNumber">;
+    gprppiititle?: string;
+    gprppiipageid?: number;
+}
+
+/**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
  */
 export interface ApiActionTemplateDataGeneratorProtectedTitlesParams
     extends ApiActionTemplateDataParams {
     generator?: "protectedtitles";
     gptnamespace?: namespace | namespace[];
-    gptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gptlevel?: string | string[];
     gptlimit?: limit;
     gptdir?: "newer" | "older";
     gptstart?: timestamp;
@@ -11209,45 +9748,7 @@ export interface ApiActionTemplateDataGeneratorProtectedTitlesParams
  */
 export interface ApiActionTemplateDataGeneratorQueryPageParams extends ApiActionTemplateDataParams {
     generator?: "querypage";
-    gqppage:
-        | "Ancientpages"
-        | "BrokenRedirects"
-        | "Deadendpages"
-        | "DisambiguationPageLinks"
-        | "DisambiguationPages"
-        | "DoubleRedirects"
-        | "Fewestrevisions"
-        | "GadgetUsage"
-        | "GloballyWantedFiles"
-        | "ListDuplicatedFiles"
-        | "Listredirects"
-        | "Lonelypages"
-        | "Longpages"
-        | "MediaStatistics"
-        | "MostGloballyLinkedFiles"
-        | "Mostcategories"
-        | "Mostimages"
-        | "Mostinterwikis"
-        | "Mostlinked"
-        | "Mostlinkedcategories"
-        | "Mostlinkedtemplates"
-        | "Mostrevisions"
-        | "OrphanedTimedText"
-        | "Shortpages"
-        | "Uncategorizedcategories"
-        | "Uncategorizedimages"
-        | "Uncategorizedpages"
-        | "Uncategorizedtemplates"
-        | "UnconnectedPages"
-        | "Unusedcategories"
-        | "Unusedimages"
-        | "Unusedtemplates"
-        | "Unwatchedpages"
-        | "Wantedcategories"
-        | "Wantedfiles"
-        | "Wantedpages"
-        | "Wantedtemplates"
-        | "Withoutinterwiki";
+    gqppage: string;
     gqpoffset?: number;
     gqplimit?: limit;
 }
@@ -11335,7 +9836,7 @@ export interface ApiActionTemplateDataGeneratorRecentChangesParams
     grctitle?: string;
     grccontinue?: string;
     grcgeneraterevisions?: boolean;
-    grcslot?: "main";
+    grcslot?: "main" | "mediainfo";
 }
 
 /**
@@ -11356,31 +9857,13 @@ export interface ApiActionTemplateDataGeneratorQueryRedirectsParams
  */
 export interface ApiActionTemplateDataGeneratorRevisionsParams extends ApiActionTemplateDataParams {
     generator?: "revisions";
-    grvprop?: OneOrMore<
-        | "comment"
-        | "content"
-        | "contentmodel"
-        | "flagged"
-        | "flags"
-        | "ids"
-        | "oresscores"
-        | "parsedcomment"
-        | "roles"
-        | "sha1"
-        | "size"
-        | "slotsha1"
-        | "slotsize"
-        | "tags"
-        | "timestamp"
-        | "user"
-        | "userid"
-        | "parsetree"
-    >;
+    grvprop?: string | string[];
     grvslots?: string | string[];
     [k: `grvcontentformat-${string}`]:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -11421,6 +9904,7 @@ export interface ApiActionTemplateDataGeneratorRevisionsParams extends ApiAction
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -11448,17 +9932,7 @@ export interface ApiActionTemplateDataGeneratorSearchParams extends ApiActionTem
     gsrnamespace?: namespace | namespace[];
     gsrlimit?: limit;
     gsroffset?: number;
-    gsrqiprofile?:
-        | "classic"
-        | "classic_noboostlinks"
-        | "empty"
-        | "engine_autoselect"
-        | "growth_underlinked"
-        | "mlr-1024rs"
-        | "popular_inclinks"
-        | "popular_inclinks_pv"
-        | "wsum_inclinks"
-        | "wsum_inclinks_pv";
+    gsrqiprofile?: string;
     gsrwhat?: "nearmatch" | "text" | "title";
     gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
     gsrprop?: OneOrMore<
@@ -11517,6 +9991,18 @@ export interface ApiActionTemplateDataGeneratorQueryTranscludedInParams
     gtishow?: OneOrMore<"!redirect" | "redirect">;
     gtilimit?: limit;
     gticontinue?: string;
+}
+
+export interface ApiActionTemplateDataGeneratorUnreviewedpagesParams
+    extends ApiActionTemplateDataParams {
+    generator?: "unreviewedpages";
+    gurstart?: string;
+    gurend?: string;
+    gurdir?: "ascending" | "descending";
+    gurnamespace?: namespace | namespace[];
+    gurfilterredir?: "all" | "nonredirects" | "redirects";
+    gurfilterlevel?: number;
+    gurlimit?: limit;
 }
 
 /**
@@ -11603,6 +10089,51 @@ export interface ApiActionTemplateDataGeneratorWblistentityusageParams
 }
 
 /**
+ * @private
+ */
+export interface ApiActionTemplateDataGeneratorWbsearchParams extends ApiActionTemplateDataParams {
+    generator?: "wbsearch";
+    gwbssearch: string;
+    gwbslanguage?: string;
+    gwbsstrictlanguage?: boolean;
+    gwbstype?: string;
+    gwbslimit?: limit;
+    gwbsprofile?: "default" | "language";
+}
+
+export interface ApiActionTemplateDataGeneratorWikilambdafn_searchParams
+    extends ApiActionTemplateDataParams {
+    generator?: "wikilambdafn_search";
+    gwikilambdafn_zfunction_id?: string;
+    gwikilambdafn_type?: string;
+    gwikilambdafn_limit?: limit;
+    gwikilambdafn_continue?: string;
+}
+
+export interface ApiActionTemplateDataGeneratorWikilambdaload_zobjectsParams
+    extends ApiActionTemplateDataParams {
+    generator?: "wikilambdaload_zobjects";
+    gwikilambdaload_zids: string | string[];
+    gwikilambdaload_revisions?: string | string[];
+    gwikilambdaload_language?: string;
+    gwikilambdaload_get_dependencies?: boolean;
+}
+
+export interface ApiActionTemplateDataGeneratorWikilambdasearch_labelsParams
+    extends ApiActionTemplateDataParams {
+    generator?: "wikilambdasearch_labels";
+    gwikilambdasearch_search?: string;
+    gwikilambdasearch_language: string;
+    gwikilambdasearch_nofallback?: boolean;
+    gwikilambdasearch_exact?: boolean;
+    gwikilambdasearch_type?: string;
+    gwikilambdasearch_return_type?: string;
+    gwikilambdasearch_strict_return_type?: boolean;
+    gwikilambdasearch_limit?: limit;
+    gwikilambdasearch_continue?: string;
+}
+
+/**
  * @see {@link https://www.mediawiki.org/wiki/Extension:Thanks#API_Documentation}
  */
 export interface ApiActionThankParams extends ApiParams {
@@ -11611,6 +10142,43 @@ export interface ApiActionThankParams extends ApiParams {
     log?: number;
     token?: string;
     source?: string;
+}
+
+/**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Threadaction}
+ */
+export interface ApiActionThreadActionParams extends ApiParams {
+    action?: "threadaction";
+    thread?: string | string[];
+    talkpage?: string;
+    threadaction:
+        | "addreaction"
+        | "deletereaction"
+        | "edit"
+        | "inlineeditform"
+        | "markread"
+        | "markunread"
+        | "merge"
+        | "newthread"
+        | "reply"
+        | "setsortkey"
+        | "setsubject"
+        | "split";
+    token?: string;
+    subject?: string;
+    reason?: string;
+    newparent?: string;
+    text?: string;
+    render?: string;
+    bump?: string;
+    sortkey?: string;
+    signature?: string;
+    type?: string;
+    value?: string;
+    method?: string;
+    operand?: string;
+    captchaword?: string;
+    captchaid?: string;
 }
 
 /**
@@ -11642,6 +10210,70 @@ export interface ApiActionTranscodeResetParams extends ApiParams {
     title: string;
     transcodekey?: string;
     token?: string;
+}
+
+export interface ApiActionTranslationAidsParams extends ApiParams {
+    action?: "translationaids";
+    title: string;
+    group?: string;
+    prop?: OneOrMore<
+        | "definition"
+        | "definitiondiff"
+        | "documentation"
+        | "editsummaries"
+        | "gettext"
+        | "groups"
+        | "inotherlanguages"
+        | "insertables"
+        | "mt"
+        | "support"
+        | "translation"
+        | "ttmserver"
+    >;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionTranslationcheckParams extends ApiParams {
+    action?: "translationcheck";
+    title: string;
+    translation: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionTranslationEntitySearchParams extends ApiParams {
+    action?: "translationentitysearch";
+    entitytype?: OneOrMore<"groups" | "messages">;
+    query?: string;
+    limit?: limit;
+    grouptypes?: OneOrMore<"aggregate-groups" | "message-bundles" | "translatable-pages">;
+}
+
+export interface ApiActionTranslationreviewParams extends ApiParams {
+    action?: "translationreview";
+    revision: number;
+    token?: string;
+}
+
+export interface ApiActionTranslationStatsParams extends ApiParams {
+    action?: "translationstats";
+    count: "edits" | "reviewers" | "reviews" | "users";
+    days: number;
+    group?: string | string[];
+    language?: string | string[];
+    scale?: "days" | "hours" | "months" | "weeks" | "years";
+    start?: timestamp;
+}
+
+export interface ApiActionTtmServerParams extends ApiParams {
+    action?: "ttmserver";
+    service?: never;
+    sourcelanguage: string;
+    targetlanguage: string;
+    text: string;
 }
 
 /**
@@ -11746,71 +10378,9 @@ export interface ApiActionUserrightsParams extends ApiParams {
      * @deprecated
      */
     userid?: number;
-    add?: OneOrMore<
-        | "abusefilter"
-        | "abusefilter-helper"
-        | "accountcreator"
-        | "autoreviewer"
-        | "bot"
-        | "bureaucrat"
-        | "checkuser"
-        | "checkuser-temporary-account-viewer"
-        | "confirmed"
-        | "copyviobot"
-        | "eventcoordinator"
-        | "extendedconfirmed"
-        | "extendedmover"
-        | "filemover"
-        | "founder"
-        | "import"
-        | "interface-admin"
-        | "ipblock-exempt"
-        | "massmessage-sender"
-        | "no-ipinfo"
-        | "patroller"
-        | "push-subscription-manager"
-        | "researcher"
-        | "reviewer"
-        | "rollbacker"
-        | "steward"
-        | "suppress"
-        | "sysop"
-        | "templateeditor"
-        | "transwiki"
-    >;
+    add?: string | string[];
     expiry?: string | string[];
-    remove?: OneOrMore<
-        | "abusefilter"
-        | "abusefilter-helper"
-        | "accountcreator"
-        | "autoreviewer"
-        | "bot"
-        | "bureaucrat"
-        | "checkuser"
-        | "checkuser-temporary-account-viewer"
-        | "confirmed"
-        | "copyviobot"
-        | "eventcoordinator"
-        | "extendedconfirmed"
-        | "extendedmover"
-        | "filemover"
-        | "founder"
-        | "import"
-        | "interface-admin"
-        | "ipblock-exempt"
-        | "massmessage-sender"
-        | "no-ipinfo"
-        | "patroller"
-        | "push-subscription-manager"
-        | "researcher"
-        | "reviewer"
-        | "rollbacker"
-        | "steward"
-        | "suppress"
-        | "sysop"
-        | "templateeditor"
-        | "transwiki"
-    >;
+    remove?: string | string[];
     reason?: string;
     token?: string;
     tags?: string | string[];
@@ -11874,19 +10444,7 @@ export interface ApiActionVisualEditorEditParams extends ApiParams {
     returnto?: string;
     returntoquery?: string;
     returntoanchor?: string;
-    useskin?:
-        | "apioutput"
-        | "authentication-popup"
-        | "cologneblue"
-        | "contenttranslation"
-        | "fallback"
-        | "json"
-        | "minerva"
-        | "modern"
-        | "monobook"
-        | "timeless"
-        | "vector"
-        | "vector-2022";
+    useskin?: string;
     tags?: string | string[];
     plugins?: string | string[];
     [k: `data-${string}`]: string;
@@ -11958,6 +10516,7 @@ export interface ApiActionWatchGeneratorAllDeletedRevisionsParams extends ApiAct
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -11998,6 +10557,7 @@ export interface ApiActionWatchGeneratorAllDeletedRevisionsParams extends ApiAct
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -12107,7 +10667,7 @@ export interface ApiActionWatchGeneratorAllPagesParams extends ApiActionWatchPar
     gapminsize?: number;
     gapmaxsize?: number;
     gapprtype?: OneOrMore<"edit" | "move" | "upload">;
-    gapprlevel?: OneOrMore<"" | "autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gapprlevel?: string | string[];
     gapprfiltercascade?: "all" | "cascading" | "noncascading";
     gapprexpiry?: "all" | "definite" | "indefinite";
     gaplimit?: limit;
@@ -12159,6 +10719,7 @@ export interface ApiActionWatchGeneratorAllRevisionsParams extends ApiActionWatc
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -12199,6 +10760,7 @@ export interface ApiActionWatchGeneratorAllRevisionsParams extends ApiActionWatc
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -12297,6 +10859,17 @@ export interface ApiActionWatchGeneratorCategoryMembersParams extends ApiActionW
     gcmendsortkey?: string;
 }
 
+export interface ApiActionWatchGeneratorConfiguredpagesParams extends ApiActionWatchParams {
+    generator?: "configuredpages";
+    gcpstart?: number;
+    gcpend?: number;
+    gcpdir?: "newer" | "older";
+    gcpnamespace?: namespace | namespace[];
+    gcpdefault?: "latest" | "stable";
+    gcpautoreview?: "none" | "sysop";
+    gcplimit?: limit;
+}
+
 export interface ApiActionWatchGeneratorContentTranslationParams extends ApiActionWatchParams {
     generator?: "contenttranslation";
     gtranslationid?: string;
@@ -12349,6 +10922,7 @@ export interface ApiActionWatchGeneratorDeletedRevisionsParams extends ApiAction
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -12389,6 +10963,7 @@ export interface ApiActionWatchGeneratorDeletedRevisionsParams extends ApiAction
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -12513,7 +11088,16 @@ export interface ApiActionWatchGeneratorGeoSearchParams extends ApiActionWatchPa
  */
 export interface ApiActionWatchGeneratorGrowthTasksParams extends ApiActionWatchParams {
     generator?: "growthtasks";
-    ggttasktypes?: OneOrMore<"copyedit" | "expand" | "links" | "references" | "update">;
+    ggttasktypes?: OneOrMore<
+        | "copyedit"
+        | "expand"
+        | "image-recommendation"
+        | "link-recommendation"
+        | "links"
+        | "references"
+        | "section-image-recommendation"
+        | "update"
+    >;
     ggttopics?: OneOrMore<
         | "africa"
         | "architecture"
@@ -12638,6 +11222,16 @@ export interface ApiActionWatchGeneratorQueryLinksHereParams extends ApiActionWa
     glhcontinue?: string;
 }
 
+export interface ApiActionWatchGeneratorMessageCollectionParams extends ApiActionWatchParams {
+    generator?: "messagecollection";
+    gmcgroup: string;
+    gmclanguage?: string;
+    gmclimit?: limit;
+    gmcoffset?: string;
+    gmcfilter?: string | string[];
+    gmcprop?: OneOrMore<"definition" | "properties" | "tags" | "translation" | "revision">;
+}
+
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo}
  */
@@ -12682,7 +11276,15 @@ export interface ApiActionWatchGeneratorPrefixSearchParams extends ApiActionWatc
     gpsnamespace?: namespace | namespace[];
     gpslimit?: limit;
     gpsoffset?: number;
-    gpsprofile?: "classic" | "engine_autoselect" | "fast-fuzzy" | "fuzzy" | "normal" | "strict";
+    gpsprofile?:
+        | "classic"
+        | "engine_autoselect"
+        | "fast-fuzzy"
+        | "fuzzy"
+        | "fuzzy-subphrases"
+        | "normal"
+        | "normal-subphrases"
+        | "strict";
 }
 
 /**
@@ -12697,12 +11299,22 @@ export interface ApiActionWatchGeneratorProjectPagesParams extends ApiActionWatc
 }
 
 /**
+ * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ProofreadPage/Index pagination API}
+ */
+export interface ApiActionWatchGeneratorProofreadPagesInIndexParams extends ApiActionWatchParams {
+    generator?: "proofreadpagesinindex";
+    gprppiiprop?: OneOrMore<"formattedpagenumber" | "ids" | "title" | "formattedPageNumber">;
+    gprppiititle?: string;
+    gprppiipageid?: number;
+}
+
+/**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles}
  */
 export interface ApiActionWatchGeneratorProtectedTitlesParams extends ApiActionWatchParams {
     generator?: "protectedtitles";
     gptnamespace?: namespace | namespace[];
-    gptlevel?: OneOrMore<"autoconfirmed" | "extendedconfirmed" | "sysop" | "templateeditor">;
+    gptlevel?: string | string[];
     gptlimit?: limit;
     gptdir?: "newer" | "older";
     gptstart?: timestamp;
@@ -12718,45 +11330,7 @@ export interface ApiActionWatchGeneratorProtectedTitlesParams extends ApiActionW
  */
 export interface ApiActionWatchGeneratorQueryPageParams extends ApiActionWatchParams {
     generator?: "querypage";
-    gqppage:
-        | "Ancientpages"
-        | "BrokenRedirects"
-        | "Deadendpages"
-        | "DisambiguationPageLinks"
-        | "DisambiguationPages"
-        | "DoubleRedirects"
-        | "Fewestrevisions"
-        | "GadgetUsage"
-        | "GloballyWantedFiles"
-        | "ListDuplicatedFiles"
-        | "Listredirects"
-        | "Lonelypages"
-        | "Longpages"
-        | "MediaStatistics"
-        | "MostGloballyLinkedFiles"
-        | "Mostcategories"
-        | "Mostimages"
-        | "Mostinterwikis"
-        | "Mostlinked"
-        | "Mostlinkedcategories"
-        | "Mostlinkedtemplates"
-        | "Mostrevisions"
-        | "OrphanedTimedText"
-        | "Shortpages"
-        | "Uncategorizedcategories"
-        | "Uncategorizedimages"
-        | "Uncategorizedpages"
-        | "Uncategorizedtemplates"
-        | "UnconnectedPages"
-        | "Unusedcategories"
-        | "Unusedimages"
-        | "Unusedtemplates"
-        | "Unwatchedpages"
-        | "Wantedcategories"
-        | "Wantedfiles"
-        | "Wantedpages"
-        | "Wantedtemplates"
-        | "Withoutinterwiki";
+    gqppage: string;
     gqpoffset?: number;
     gqplimit?: limit;
 }
@@ -12842,7 +11416,7 @@ export interface ApiActionWatchGeneratorRecentChangesParams extends ApiActionWat
     grctitle?: string;
     grccontinue?: string;
     grcgeneraterevisions?: boolean;
-    grcslot?: "main";
+    grcslot?: "main" | "mediainfo";
 }
 
 /**
@@ -12862,31 +11436,13 @@ export interface ApiActionWatchGeneratorQueryRedirectsParams extends ApiActionWa
  */
 export interface ApiActionWatchGeneratorRevisionsParams extends ApiActionWatchParams {
     generator?: "revisions";
-    grvprop?: OneOrMore<
-        | "comment"
-        | "content"
-        | "contentmodel"
-        | "flagged"
-        | "flags"
-        | "ids"
-        | "oresscores"
-        | "parsedcomment"
-        | "roles"
-        | "sha1"
-        | "size"
-        | "slotsha1"
-        | "slotsize"
-        | "tags"
-        | "timestamp"
-        | "user"
-        | "userid"
-        | "parsetree"
-    >;
+    grvprop?: string | string[];
     grvslots?: string | string[];
     [k: `grvcontentformat-${string}`]:
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -12927,6 +11483,7 @@ export interface ApiActionWatchGeneratorRevisionsParams extends ApiActionWatchPa
         | "application/json"
         | "application/octet-stream"
         | "application/unknown"
+        | "application/vnd.php.serialized"
         | "application/x-binary"
         | "text/css"
         | "text/javascript"
@@ -12954,17 +11511,7 @@ export interface ApiActionWatchGeneratorSearchParams extends ApiActionWatchParam
     gsrnamespace?: namespace | namespace[];
     gsrlimit?: limit;
     gsroffset?: number;
-    gsrqiprofile?:
-        | "classic"
-        | "classic_noboostlinks"
-        | "empty"
-        | "engine_autoselect"
-        | "growth_underlinked"
-        | "mlr-1024rs"
-        | "popular_inclinks"
-        | "popular_inclinks_pv"
-        | "wsum_inclinks"
-        | "wsum_inclinks_pv";
+    gsrqiprofile?: string;
     gsrwhat?: "nearmatch" | "text" | "title";
     gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
     gsrprop?: OneOrMore<
@@ -13021,6 +11568,17 @@ export interface ApiActionWatchGeneratorQueryTranscludedInParams extends ApiActi
     gtishow?: OneOrMore<"!redirect" | "redirect">;
     gtilimit?: limit;
     gticontinue?: string;
+}
+
+export interface ApiActionWatchGeneratorUnreviewedpagesParams extends ApiActionWatchParams {
+    generator?: "unreviewedpages";
+    gurstart?: string;
+    gurend?: string;
+    gurdir?: "ascending" | "descending";
+    gurnamespace?: namespace | namespace[];
+    gurfilterredir?: "all" | "nonredirects" | "redirects";
+    gurfilterlevel?: number;
+    gurlimit?: limit;
 }
 
 /**
@@ -13104,6 +11662,592 @@ export interface ApiActionWatchGeneratorWblistentityusageParams extends ApiActio
     gwbleucontinue?: string;
 }
 
+/**
+ * @private
+ */
+export interface ApiActionWatchGeneratorWbsearchParams extends ApiActionWatchParams {
+    generator?: "wbsearch";
+    gwbssearch: string;
+    gwbslanguage?: string;
+    gwbsstrictlanguage?: boolean;
+    gwbstype?: string;
+    gwbslimit?: limit;
+    gwbsprofile?: "default" | "language";
+}
+
+export interface ApiActionWatchGeneratorWikilambdafn_searchParams extends ApiActionWatchParams {
+    generator?: "wikilambdafn_search";
+    gwikilambdafn_zfunction_id?: string;
+    gwikilambdafn_type?: string;
+    gwikilambdafn_limit?: limit;
+    gwikilambdafn_continue?: string;
+}
+
+export interface ApiActionWatchGeneratorWikilambdaload_zobjectsParams extends ApiActionWatchParams {
+    generator?: "wikilambdaload_zobjects";
+    gwikilambdaload_zids: string | string[];
+    gwikilambdaload_revisions?: string | string[];
+    gwikilambdaload_language?: string;
+    gwikilambdaload_get_dependencies?: boolean;
+}
+
+export interface ApiActionWatchGeneratorWikilambdasearch_labelsParams extends ApiActionWatchParams {
+    generator?: "wikilambdasearch_labels";
+    gwikilambdasearch_search?: string;
+    gwikilambdasearch_language: string;
+    gwikilambdasearch_nofallback?: boolean;
+    gwikilambdasearch_exact?: boolean;
+    gwikilambdasearch_type?: string;
+    gwikilambdasearch_return_type?: string;
+    gwikilambdasearch_strict_return_type?: boolean;
+    gwikilambdasearch_limit?: limit;
+    gwikilambdasearch_continue?: string;
+}
+
+export interface ApiActionWbavailablebadgesParams extends ApiParams {
+    action?: "wbavailablebadges";
+}
+
+export interface ApiActionWbcheckconstraintparametersParams extends ApiParams {
+    action?: "wbcheckconstraintparameters";
+    propertyid?: string | string[];
+    constraintid?: string | string[];
+}
+
+export interface ApiActionWbcheckconstraintsParams extends ApiParams {
+    action?: "wbcheckconstraints";
+    id?: string | string[];
+    claimid?: string | string[];
+    constraintid?: string | string[];
+    status?: OneOrMore<
+        | "bad-parameters"
+        | "compliance"
+        | "deprecated"
+        | "exception"
+        | "not-in-scope"
+        | "suggestion"
+        | "todo"
+        | "violation"
+        | "warning"
+        | "*"
+    >;
+}
+
+export interface ApiActionWbcreateclaimParams extends ApiParams {
+    action?: "wbcreateclaim";
+    entity: string;
+    snaktype: "novalue" | "somevalue" | "value";
+    property: string;
+    value?: string;
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    baserevid?: number;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+}
+
+export interface ApiActionWbcreateredirectParams extends ApiParams {
+    action?: "wbcreateredirect";
+    from: string;
+    to: string;
+    token?: string;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+}
+
+export interface ApiActionWbeditentityParams extends ApiParams {
+    action?: "wbeditentity";
+    id?: string;
+    new?: string;
+    site?: string;
+    title?: string;
+    baserevid?: number;
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    data: string;
+    clear?: boolean;
+}
+
+export interface ApiActionWbformatentitiesParams extends ApiParams {
+    action?: "wbformatentities";
+    ids?: string | string[];
+}
+
+/**
+ * @private
+ */
+export interface ApiActionWbformatreferenceParams extends ApiParams {
+    action?: "wbformatreference";
+    reference: string;
+    style: "internal-data-bridge";
+    outputformat: "html";
+}
+
+export interface ApiActionWbformatvalueParams extends ApiParams {
+    action?: "wbformatvalue";
+    generate?:
+        | "text/html"
+        | "text/html; disposition=verbose"
+        | "text/html; disposition=verbose-preview"
+        | "text/plain"
+        | "text/x-wiki";
+    datavalue: string;
+    datatype?:
+        | "commonsMedia"
+        | "entity-schema"
+        | "external-id"
+        | "geo-shape"
+        | "globe-coordinate"
+        | "math"
+        | "monolingualtext"
+        | "musical-notation"
+        | "quantity"
+        | "string"
+        | "tabular-data"
+        | "time"
+        | "url"
+        | "wikibase-form"
+        | "wikibase-item"
+        | "wikibase-lexeme"
+        | "wikibase-property"
+        | "wikibase-sense";
+    property?: string;
+    options?: string;
+}
+
+export interface ApiActionWbgetclaimsParams extends ApiParams {
+    action?: "wbgetclaims";
+    entity?: string;
+    property?: string;
+    claim?: string;
+    rank?: "deprecated" | "normal" | "preferred";
+    props?: OneOrMore<"references">;
+}
+
+export interface ApiActionWbgetentitiesParams extends ApiParams {
+    action?: "wbgetentities";
+    ids?: string | string[];
+    sites?: string | string[];
+    titles?: string | string[];
+    redirects?: "no" | "yes";
+    props?: OneOrMore<
+        | "aliases"
+        | "claims"
+        | "datatype"
+        | "descriptions"
+        | "info"
+        | "labels"
+        | "sitelinks"
+        | "sitelinks/urls"
+    >;
+    languages?: string | string[];
+    languagefallback?: boolean;
+    normalize?: boolean;
+    sitefilter?: string | string[];
+}
+
+/**
+ * @private
+ */
+export interface ApiActionWbladdformParams extends ApiParams {
+    action?: "wbladdform";
+    lexemeId: string;
+    data: string;
+    baserevid?: number;
+    tags?: string | string[];
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    token?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionWbladdsenseParams extends ApiParams {
+    action?: "wbladdsense";
+    lexemeId: string;
+    data: string;
+    baserevid?: number;
+    tags?: string | string[];
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    token?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionWbleditformelementsParams extends ApiParams {
+    action?: "wbleditformelements";
+    formId: string;
+    data: string;
+    baserevid?: number;
+    tags?: string | string[];
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    token?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionWbleditsenseelementsParams extends ApiParams {
+    action?: "wbleditsenseelements";
+    senseId: string;
+    data: string;
+    baserevid?: number;
+    tags?: string | string[];
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    token?: string;
+}
+
+export interface ApiActionWblinktitlesParams extends ApiParams {
+    action?: "wblinktitles";
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    tosite: string;
+    totitle: string;
+    fromsite: string;
+    fromtitle: string;
+    token?: string;
+    bot?: boolean;
+}
+
+export interface ApiActionWblmergelexemesParams extends ApiParams {
+    action?: "wblmergelexemes";
+    source: string;
+    target: string;
+    summary?: string;
+    tags?: string | string[];
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    token?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionWblremoveformParams extends ApiParams {
+    action?: "wblremoveform";
+    id: string;
+    tags?: string | string[];
+    bot?: boolean;
+    baserevid?: number;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    token?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionWblremovesenseParams extends ApiParams {
+    action?: "wblremovesense";
+    id: string;
+    baserevid?: number;
+    tags?: string | string[];
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    token?: string;
+}
+
+export interface ApiActionWbmergeitemsParams extends ApiParams {
+    action?: "wbmergeitems";
+    fromid: string;
+    toid: string;
+    ignoreconflicts?: OneOrMore<"description" | "sitelink" | "statement">;
+    summary?: string;
+    tags?: string | string[];
+    bot?: boolean;
+    token?: string;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+}
+
+export interface ApiActionWbparsevalueParams extends ApiParams {
+    action?: "wbparsevalue";
+    datatype?:
+        | "commonsMedia"
+        | "entity-schema"
+        | "external-id"
+        | "geo-shape"
+        | "globe-coordinate"
+        | "math"
+        | "monolingualtext"
+        | "musical-notation"
+        | "quantity"
+        | "string"
+        | "tabular-data"
+        | "time"
+        | "url"
+        | "wikibase-form"
+        | "wikibase-item"
+        | "wikibase-lexeme"
+        | "wikibase-property"
+        | "wikibase-sense";
+    property?: string;
+    /**
+     * @deprecated
+     */
+    parser?:
+        | "commonsMedia"
+        | "entity-schema"
+        | "external-id"
+        | "geo-shape"
+        | "globe-coordinate"
+        | "globecoordinate"
+        | "math"
+        | "monolingualtext"
+        | "musical-notation"
+        | "null"
+        | "quantity"
+        | "string"
+        | "tabular-data"
+        | "time"
+        | "url"
+        | "wikibase-entityid"
+        | "wikibase-form"
+        | "wikibase-item"
+        | "wikibase-lexeme"
+        | "wikibase-property"
+        | "wikibase-sense";
+    values: string | string[];
+    options?: string;
+    validate?: boolean;
+}
+
+export interface ApiActionWbremoveclaimsParams extends ApiParams {
+    action?: "wbremoveclaims";
+    claim: string | string[];
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    baserevid?: number;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+}
+
+export interface ApiActionWbremovequalifiersParams extends ApiParams {
+    action?: "wbremovequalifiers";
+    claim: string;
+    qualifiers: string | string[];
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    baserevid?: number;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+}
+
+export interface ApiActionWbremovereferencesParams extends ApiParams {
+    action?: "wbremovereferences";
+    statement: string;
+    references: string | string[];
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    baserevid?: number;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+}
+
+export interface ApiActionWbsearchentitiesParams extends ApiParams {
+    action?: "wbsearchentities";
+    search: string;
+    language: string;
+    strictlanguage?: boolean;
+    type?: "entity-schema" | "form" | "item" | "lexeme" | "property" | "sense";
+    limit?: limit;
+    continue?: number;
+    props?: OneOrMore<"url">;
+    profile?: "default" | "language";
+}
+
+export interface ApiActionWbsetaliasesParams extends ApiParams {
+    action?: "wbsetaliases";
+    id?: string;
+    new?: "item" | "property";
+    site?: string;
+    title?: string;
+    baserevid?: number;
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    add?: string | string[];
+    remove?: string | string[];
+    set?: string | string[];
+    language: string;
+}
+
+export interface ApiActionWbsetclaimParams extends ApiParams {
+    action?: "wbsetclaim";
+    claim: string;
+    index?: number;
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    baserevid?: number;
+    bot?: boolean;
+    ignoreduplicatemainsnak?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+}
+
+export interface ApiActionWbsetclaimvalueParams extends ApiParams {
+    action?: "wbsetclaimvalue";
+    claim: string;
+    value?: string;
+    snaktype: "novalue" | "somevalue" | "value";
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    baserevid?: number;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+}
+
+export interface ApiActionWbsetdescriptionParams extends ApiParams {
+    action?: "wbsetdescription";
+    id?: string;
+    new?: string;
+    site?: string;
+    title?: string;
+    baserevid?: number;
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    language: string;
+    value?: string;
+}
+
+export interface ApiActionWbsetlabelParams extends ApiParams {
+    action?: "wbsetlabel";
+    id?: string;
+    new?: string;
+    site?: string;
+    title?: string;
+    baserevid?: number;
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    language: string;
+    value?: string;
+}
+
+export interface ApiActionWbsetqualifierParams extends ApiParams {
+    action?: "wbsetqualifier";
+    claim: string;
+    property?: string;
+    value?: string;
+    snaktype?: "novalue" | "somevalue" | "value";
+    snakhash?: string;
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    baserevid?: number;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+}
+
+export interface ApiActionWbsetreferenceParams extends ApiParams {
+    "action"?: "wbsetreference";
+    "statement": string;
+    "snaks": string;
+    "snaks-order"?: string;
+    "reference"?: string;
+    "index"?: number;
+    "summary"?: string;
+    "tags"?: string | string[];
+    "token"?: string;
+    "baserevid"?: number;
+    "bot"?: boolean;
+    "returnto"?: string;
+    "returntoquery"?: string;
+    "returntoanchor"?: string;
+}
+
+export interface ApiActionWbsetsitelinkParams extends ApiParams {
+    action?: "wbsetsitelink";
+    id?: string;
+    new?: string;
+    site?: string;
+    title?: string;
+    baserevid?: number;
+    summary?: string;
+    tags?: string | string[];
+    token?: string;
+    bot?: boolean;
+    returnto?: string;
+    returntoquery?: string;
+    returntoanchor?: string;
+    linksite: string;
+    linktitle?: string;
+    badges?: string | string[];
+}
+
+export interface ApiActionWbsgetsuggestionsParams extends ApiParams {
+    action?: "wbsgetsuggestions";
+    entity?: string;
+    properties?: string | string[];
+    types?: string | string[];
+    limit?: limit;
+    continue?: number;
+    language?: string;
+    context?: "item" | "qualifier" | "reference";
+    include?: "" | "all";
+    search?: string;
+    event?: string;
+}
+
 export interface ApiActionWebappManifestParams extends ApiParams {
     action?: "webapp-manifest";
 }
@@ -13111,6 +12255,54 @@ export interface ApiActionWebappManifestParams extends ApiParams {
 export interface ApiActionWebAuthnParams extends ApiParams {
     action?: "webauthn";
     func: "getAuthInfo" | "getRegisterInfo";
+}
+
+export interface ApiActionWikifunctions_runParams extends ApiParams {
+    action?: "wikifunctions_run";
+    function_call: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionWikilambda_editParams extends ApiParams {
+    action?: "wikilambda_edit";
+    summary?: string;
+    zid?: string;
+    zobject: string;
+    token?: string;
+}
+
+export interface ApiActionWikilambda_fetchParams extends ApiParams {
+    action?: "wikilambda_fetch";
+    zids: string | string[];
+    revisions?: string | string[];
+    language?: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionWikilambda_function_callParams extends ApiParams {
+    action?: "wikilambda_function_call";
+    wikilambda_function_call_zobject: string;
+}
+
+/**
+ * @private
+ */
+export interface ApiActionWikilambda_perform_testParams extends ApiParams {
+    action?: "wikilambda_perform_test";
+    wikilambda_perform_test_zfunction: string;
+    wikilambda_perform_test_zimplementations?: string | string[];
+    wikilambda_perform_test_ztesters?: string | string[];
+}
+
+/**
+ * @private
+ */
+export interface ApiActionWikilambda_supported_programming_languagesParams extends ApiParams {
+    action?: "wikilambda_supported_programming_languages";
 }
 
 export interface ApiActionWikiLoveParams extends ApiParams {

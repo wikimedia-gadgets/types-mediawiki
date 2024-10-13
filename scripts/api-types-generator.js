@@ -1,24 +1,27 @@
 // Paste this into the browser console
 // and copy the console log output
 
-/** @type {import("..")} */
-/** @type {import("../api_params")} */
-
 /**
- * Where to look API types from.
+ * Where to look API types from. If there is an ambiguity, the first ones are given priority.
  * @type {Record<string, string>}
  */
 const SOURCES = {
     "mediawiki": "https://www.mediawiki.org/w/api.php",
-    "translatewiki": "https://translatewiki.net/w/api.php",
     "wikibooks-en": "https://en.wikibooks.org/w/api.php",
     "wikidata": "https://www.wikidata.org/w/api.php",
+    "wikidata-test": "https://test.wikidata.org/w/api.php",
     "wikifunctions": "https://www.wikifunctions.org/w/api.php",
+    "wikimedia-api": "https://api.wikimedia.org/w/api.php",
     "wikimedia-commons": "https://commons.wikimedia.org/w/api.php",
-    "wikipedia-en": "https://en.wikipedia.org/w/api.php",
     "wikimedia-meta": "https://meta.wikimedia.org/w/api.php",
+    "wikinews-en": "https://en.wikinews.org/w/api.php",
+    "wikipedia-en": "https://en.wikipedia.org/w/api.php",
     "wikipedia-test": "https://test.wikipedia.org/w/api.php",
+    "wikiquote-en": "https://en.wikiquote.org/w/api.php",
     "wikisource-en": "https://en.wikisource.org/w/api.php",
+    "wikiversity-en": "https://en.wikiversity.org/w/api.php",
+    "wikivoyage-en": "https://en.wikivoyage.org/w/api.php",
+    "wiktionary-en": "https://en.wiktionary.org/w/api.php",
 };
 
 /**
@@ -100,9 +103,7 @@ const REQUIRED_PARAMS_MAP = {
  * @property {boolean} [deprecated]
  * @property {boolean} [generator]
  * @property {string[]} helpurls
- * @property {RawModule.Param[]} [parentparameter]
  * @property {RawModule.Param[]} parameters
- * @property {RawModule.Param.Template[]} templatedparameters
  * @property {boolean} [dynamicparameters]
  */
 /**
@@ -128,13 +129,7 @@ const REQUIRED_PARAMS_MAP = {
  * @property {string} [submoduleparamprefix]
  * @property {string[]} [internalvalues]
  * @property {string} [tokentype]
- */
-/**
- * @typedef {RawModule.Param & RawModule.Param.Template._} RawModule.Param.Template
- */
-/**
- * @typedef RawModule.Param.Template._
- * @property {Record<string, string>} templatevars
+ * @property {Record<string, string>} [templatevars]
  */
 /** @typedef {Record<string, RawModule>} APIModuleDict */
 
@@ -147,7 +142,7 @@ class ModuleLoader {
      * @param {string|mw.Api} api
      */
     constructor(api) {
-        this.loadSubmodules = this.loadSubmodules.bind(this);
+        this.processAndLoadSubmodules = this.processAndLoadSubmodules.bind(this);
 
         if (typeof api === "string") {
             this.api = new mw.ForeignApi(api);
@@ -160,10 +155,28 @@ class ModuleLoader {
      * @param {any} module
      * @returns {Promise<APIModuleDict>}
      */
-    async loadSubmodules(module) {
+    async processAndLoadSubmodules(module) {
         /** @type {Array<Promise<APIModuleDict>>} */
         const promises = [];
 
+        // Merge parameters with templated parameters.
+        // We do not care about having 2 distinct parameter lists, since a
+        // templated parameter can still be distinguished using templatevars.
+        const parameters = [];
+        let i = 0,
+            j = 0;
+        while (i < module.parameters.length && j < module.templatedparameters.length) {
+            parameters.push(
+                module.parameters[i].index < module.templatedparameters[j].index
+                    ? module.parameters[i++]
+                    : module.templatedparameters[j++]
+            );
+        }
+        parameters.push(...module.parameters.slice(i), ...module.templatedparameters.slice(j));
+        module.parameters = parameters;
+        delete module.templatedparameters;
+
+        // Retrieve sub-modules
         for (const parameter of module.parameters) {
             parameter.module = module;
 
@@ -177,18 +190,12 @@ class ModuleLoader {
                 const submodulePromise = this.getModules(paths).then((submoduleData) => {
                     for (const [key, path] of Object.entries(submodules)) {
                         const submodule = submoduleData[path];
-                        submodule.parentparameter ??= [];
-                        submodule.parentparameter.push(parameter);
                         submodules[key] = submodule;
                     }
                     return submoduleData;
                 });
                 promises.unshift(submodulePromise);
             }
-        }
-
-        for (const parameter of module.templatedparameters) {
-            parameter.module = module;
         }
 
         return Object.assign({}, ...(await Promise.all(promises)));
@@ -201,16 +208,17 @@ class ModuleLoader {
     queryModules(paths) {
         this.logger("Querying module data...", paths);
 
-        const apiRequest = this.api.get({
+        /** @type {import("../api_params").ApiActionParamInfoParams & import("../api_params").ApiFormatJsonParams} */
+        const params = {
             action: "paraminfo",
             format: "json",
             modules: paths,
             formatversion: 2,
-        });
+        };
 
-        return new Promise((resolve, reject) => {
-            apiRequest.then((response) => resolve(response.paraminfo.modules), reject);
-        });
+        const { promise, resolve, reject } = Promise.withResolvers();
+        this.api.get(params).then((response) => resolve(response.paraminfo.modules), reject);
+        return promise;
     }
 
     /**
@@ -225,7 +233,7 @@ class ModuleLoader {
         const pathsToQuery = [];
 
         for (const path of paths) {
-            if (!path.includes("*") && Object.hasOwn(this.cache, path)) {
+            if (!path.includes("*") && path in this.cache) {
                 promises.push(this.cache[path].then((data) => ({ [path]: data[path] })));
             } else {
                 pathsToQuery.push(path);
@@ -238,7 +246,9 @@ class ModuleLoader {
                 const moduleData = Object.fromEntries(
                     modules.map((module) => [module.path, module])
                 );
-                const submoduleData = await Promise.all(modules.flatMap(this.loadSubmodules));
+                const submoduleData = await Promise.all(
+                    modules.flatMap(this.processAndLoadSubmodules)
+                );
                 return Object.assign(moduleData, ...submoduleData);
             });
 
@@ -257,6 +267,288 @@ class ModuleLoader {
     async getRootModule() {
         const modules = await this.getModules(["main"]);
         return modules["main"];
+    }
+}
+
+class ModuleMerger {
+    constructor() {
+        this.extract = this.extract.bind(this);
+        this.expectSame = this.expectSame.bind(this);
+        this.expectSameSizeArray = this.expectSameSizeArray.bind(this);
+        this.mergeMin = this.mergeMin.bind(this);
+        this.mergeMax = this.mergeMax.bind(this);
+        this.mergeKeyArray = this.mergeKeyArray.bind(this);
+        this.mergeParameterType = this.mergeParameterType.bind(this);
+        this.mergeParameterArray = this.mergeParameterArray.bind(this);
+        this.mergeParameter = this.mergeParameter.bind(this);
+        this.mergeModule = this.mergeModule.bind(this);
+        this.merge = this.merge.bind(this);
+    }
+
+    /**
+     * @template {{}} T
+     * @template {string & keyof T} K
+     * @template {unknown[]} U
+     * @param {K} property
+     * @param {T} o
+     * @param {T} o1
+     * @param {T} o2
+     * @param {string} path
+     * @param {(v1: Required<T>[K], v2: Required<T>[K], path: string, ...args: U) => Required<T>[K]} [merge]
+     * @param {U} args
+     */
+    extract(property, o, o1, o2, path, merge, ...args) {
+        if (property in o1 && property in o2) {
+            o[property] = merge
+                ? merge(o1[property], o2[property], `${path}.${property}`, ...args)
+                : o1[property];
+        } else if (property in o1 || property in o2) {
+            throw `Found a missing property "${property}" for "${path}".`;
+        }
+        return o[property];
+    }
+
+    /**
+     * @template T
+     * @param {T} v1
+     * @param {T} v2
+     * @param {string} path
+     * @param {T} [def]
+     */
+    expectSame(v1, v2, path, def) {
+        if (v1 === v2) {
+            return v1;
+        }
+        if (def !== undefined) {
+            return def;
+        }
+        throw `Found different values ("${v1}" and "${v2}") for "${path}".`;
+    }
+
+    /**
+     * @template T
+     * @template {unknown[]} U
+     * @param {T[]} a1
+     * @param {T[]} a2
+     * @param {string} path
+     * @param {(v1: T, v2: T, path: string, ...args: U) => T} [merge]
+     * @param {U} args
+     */
+    expectSameSizeArray(a1, a2, path, merge, ...args) {
+        if (a1.length !== a2.length) {
+            throw `Found arrays of different lengths ("${a1.length}" and "${a2.length}") for "${path}".`;
+        }
+        return merge ? a1.map((v1, i) => merge(v1, a2[i], `${path}[${i}]`, ...args)) : [...a1];
+    }
+
+    /**
+     * @param {number} v1
+     * @param {number} v2
+     * @param {string} _
+     */
+    mergeMin(v1, v2, _) {
+        return Math.min(v1, v2);
+    }
+
+    /**
+     * @param {number} v1
+     * @param {number} v2
+     * @param {string} _
+     */
+    mergeMax(v1, v2, _) {
+        return Math.max(v1, v2);
+    }
+
+    /**
+     * @template T
+     * @param {T[]} a1
+     * @param {T[]} a2
+     * @param {string} _
+     */
+    mergeKeyArray(a1, a2, _) {
+        return new Set([...a1, ...a2]).values().toArray();
+    }
+
+    /**
+     * @template T
+     * @template {unknown[]} U
+     * @param {Record<string, T>} o1
+     * @param {Record<string, T>} o2
+     * @param {string} path
+     * @param {(v1: T, v2: T, path: string, ...args: U) => T} [merge]
+     * @param {U} args
+     */
+    mergeObject(o1, o2, path, merge, ...args) {
+        const o = { ...o1 };
+        for (const k in o2) {
+            if (k in o) {
+                if (merge) {
+                    o[k] = merge(o[k], o2[k], `${path}.${k}`, ...args);
+                }
+            } else {
+                o[k] = o2[k];
+            }
+        }
+        return o;
+    }
+
+    /**
+     * @param {string | string[]} t1
+     * @param {string | string[]} t2
+     * @param {string} path
+     */
+    mergeParameterType(t1, t2, path) {
+        if (typeof t1 === "string" && typeof t2 === "string") {
+            return this.expectSame(t1, t2, path);
+        }
+        if (typeof t1 === "string") {
+            return t1;
+        }
+        if (typeof t2 === "string") {
+            return t2;
+        }
+
+        // If one type is a subset of the other, just take the more generalized one.
+        if (t2.every(t1.includes, t1)) {
+            return t1;
+        }
+        if (t1.every(t2.includes, t2)) {
+            return t2;
+        }
+
+        // If types are incompatible enumerations, we assume values are wiki-dependent,
+        // so we generalize it back to a string.
+        try {
+            return this.expectSameSizeArray(t1, t2, path, this.expectSame);
+        } catch {
+            return "string";
+        }
+    }
+
+    /**
+     * @param {RawModule.Param} p1
+     * @param {RawModule.Param} p2
+     * @param {string} path
+     */
+    mergeParameter(p1, p2, path) {
+        /** @type {RawModule.Param} */
+        // @ts-ignore
+        const p = {};
+        this.extract("name", p, p1, p2, path, this.expectSame);
+        this.extract(
+            "type",
+            p,
+            p1,
+            p2,
+            path,
+            p1.submodules ? this.mergeKeyArray : this.mergeParameterType
+        );
+        this.extract("default", p, p1, p2, path, this.expectSame, "string");
+        this.extract("multi", p, p1, p2, path, this.expectSame);
+        this.extract("lowlimit", p, p1, p2, path, this.mergeMin);
+        this.extract("highlimit", p, p1, p2, path, this.mergeMax);
+        this.extract("limit", p, p1, p2, path, this.mergeMax);
+        this.extract("min", p, p1, p2, path, this.mergeMin);
+        this.extract("max", p, p1, p2, path, this.mergeMax);
+        this.extract("mustExist", p, p1, p2, path, this.expectSame);
+        this.extract("required", p, p1, p2, path, this.expectSame);
+        this.extract("sensitive", p, p1, p2, path, this.expectSame);
+        this.extract("deprecated", p, p1, p2, path, this.expectSame);
+        this.extract("allspecifier", p, p1, p2, path, this.expectSame);
+        this.extract("subtypes", p, p1, p2, path, this.expectSameSizeArray, this.expectSame);
+        this.extract("submodules", p, p1, p2, path, this.mergeObject, this.mergeModule);
+        this.extract("submoduleparamprefix", p, p1, p2, path, this.expectSame);
+        this.extract("internalvalues", p, p1, p2, path, this.mergeKeyArray);
+        this.extract("tokentype", p, p1, p2, path, this.expectSame);
+        this.extract("templatevars", p, p1, p2, path);
+        return p;
+    }
+
+    /**
+     * @param {RawModule.Param[]} a1
+     * @param {RawModule.Param[]} a2
+     * @param {string} path
+     */
+    mergeParameterArray(a1, a2, path) {
+        const a = [];
+        let i1 = 0,
+            i2 = 0;
+
+        while (i1 < a1.length && i2 < a2.length) {
+            const p1 = a1[i1],
+                p2 = a2[i2];
+            if (p1.name === p2.name) {
+                a.push(this.mergeParameter(p1, p2, `${path}[${i1}]`));
+                ++i1, ++i2;
+                continue;
+            }
+
+            let i1Next = a1.findIndex((p) => p.name === p2.name),
+                i2Next = a2.findIndex((p) => p.name === p1.name);
+            if (i2Next > 0 && i1Next > 0) {
+                throw `Inconsistent parameter order for "${path}".`;
+            }
+
+            if (i1Next > 0) {
+                a.push(...a1.slice(i1, i1Next));
+                i1 = i1Next;
+            } else if (i2Next > 0) {
+                a.push(...a2.slice(i2, i2Next));
+                i2 = i2Next;
+            } else {
+                a.push(p1);
+                ++i1;
+            }
+        }
+
+        a.push(...a1.slice(i1), ...a2.slice(i2));
+
+        a.forEach((p, i) => (p.index = i));
+        return a;
+    }
+
+    /**
+     * @param {RawModule} m1
+     * @param {RawModule} m2
+     * @param {string} path
+     */
+    mergeModule(m1, m2, path) {
+        /** @type {RawModule} */
+        // @ts-ignore
+        const m = {};
+        this.extract("name", m, m1, m2, path, this.expectSame);
+        this.extract("classname", m, m1, m2, path);
+        this.extract("path", m, m1, m2, path, this.expectSame);
+        this.extract("group", m, m1, m2, path, this.expectSame);
+        this.extract("prefix", m, m1, m2, path, this.expectSame);
+        this.extract("source", m, m1, m2, path, this.expectSame);
+        this.extract("sourcename", m, m1, m2, path);
+        this.extract("licensetag", m, m1, m2, path, this.expectSame);
+        this.extract("licenselink", m, m1, m2, path);
+        this.extract("internal", m, m1, m2, path, this.expectSame);
+        this.extract("readrights", m, m1, m2, path, this.expectSame);
+        this.extract("writerights", m, m1, m2, path, this.expectSame);
+        this.extract("mustbeposted", m, m1, m2, path, this.expectSame);
+        this.extract("deprecated", m, m1, m2, path, this.expectSame);
+        this.extract("generator", m, m1, m2, path, this.expectSame);
+        this.extract("helpurls", m, m1, m2, path, this.expectSameSizeArray);
+        this.extract("parameters", m, m1, m2, path, this.mergeParameterArray);
+        m.parameters.forEach((p) => (p.module = m));
+        this.extract("dynamicparameters", m, m1, m2, path, this.expectSame);
+        return m;
+    }
+
+    /**
+     * @param {RawModule} m1
+     * @param {RawModule} m2
+     */
+    merge(m1, m2) {
+        try {
+            return this.mergeModule(m1, m2, m1.path);
+        } catch (e) {
+            console.error(e);
+            return m1;
+        }
     }
 }
 
@@ -384,7 +676,7 @@ class ModuleParser {
     /**
      * Get some data about a module parameter.
      * @param {ModuleData} module Formatted module data
-     * @param {RawModule.Param|RawModule.Param.Template} rawParameter API parameter data
+     * @param {RawModule.Param} rawParameter API parameter data
      */
     processParameter(module, rawParameter) {
         const rawModule = rawParameter.module;
@@ -403,14 +695,18 @@ class ModuleParser {
         };
 
         if (Array.isArray(rawParameter.type)) {
-            const isUsedAsTemplateVariable = rawModule.templatedparameters.some((p) =>
-                Object.values(p.templatevars).includes(rawParameter.name)
+            const isUsedAsTemplateVariable = rawModule.parameters.some((p) =>
+                Object.values(p.templatevars ?? {}).includes(rawParameter.name)
             );
 
             // we do not have a generic way to detect which parameters may get unspecified new values,
             // so for now we generalize all parameter types referenced in templated parameters
             // to be sure we are not being too specific
-            if (NAME_TYPE_GENERALIZE.includes(rawParameter.name) || isUsedAsTemplateVariable) {
+            if (
+                NAME_TYPE_GENERALIZE.includes(rawParameter.name) ||
+                isUsedAsTemplateVariable ||
+                (!rawParameter.submodules && rawParameter.type.length > 100)
+            ) {
                 parameter.type = "string";
             } else {
                 parameter.type = [...rawParameter.type];
@@ -438,14 +734,12 @@ class ModuleParser {
             parameter.default = rawParameter.default;
         }
 
-        if ("templatevars" in rawParameter) {
-            const varPattern = new RegExp(
-                `\\{(${Object.keys(rawParameter.templatevars).join("|")})\\}`,
-                "g"
-            );
+        const templatevars = rawParameter.templatevars;
+        if (templatevars) {
+            const varPattern = new RegExp(`\\{(${Object.keys(templatevars).join("|")})\\}`, "g");
             parameter.template = true;
             parameter.key = parameter.key.replaceAll(varPattern, (_, varName) => {
-                const varParam = rawParameter.templatevars[varName];
+                const varParam = templatevars[varName];
                 const varType = rawModule.parameters.find((p) => p.name === varParam)?.type;
                 if (Array.isArray(varType)) {
                     return `\${string}`;
@@ -505,8 +799,7 @@ class ModuleParser {
             module.parents.push(parent);
         }
 
-        const rawParameters = [...rawModule.parameters, ...rawModule.templatedparameters];
-        rawParameters.sort((p1, p2) => p1.index - p2.index);
+        const rawParameters = rawModule.parameters.toSorted((p1, p2) => p1.index - p2.index);
 
         module.parameters = rawParameters.map((rawParameter) =>
             this.processParameter(module, rawParameter)
@@ -672,7 +965,7 @@ class ModuleFormatter {
         }
 
         if (Array.isArray(type)) {
-            type = type.map(this.quote).join(" | ");
+            type = type.length > 0 ? type.map(this.quote).join(" | ") : "never";
         } else if (typeof type === "object") {
             type = "string";
         }
@@ -815,11 +1108,13 @@ class ModuleFormatter {
     }
 }
 
-const loader = new ModuleLoader("https://en.wikipedia.org/w/api.php");
+const loaders = Object.values(SOURCES).map((s) => new ModuleLoader(s));
+const merger = new ModuleMerger();
 const parser = new ModuleParser();
 const formatter = new ModuleFormatter();
 
-const rawRootModule = await loader.getRootModule();
+const rawRootModules = await Promise.all(loaders.map((l) => l.getRootModule()));
+const rawRootModule = rawRootModules.reduce(merger.merge);
 const rootModule = parser.processModule(rawRootModule);
 console.log(formatter.formatContent(rootModule).join("\n"));
 // Object.values(await getModules())
