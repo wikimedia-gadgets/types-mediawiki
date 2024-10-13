@@ -532,11 +532,11 @@ export interface ApiActionCSPReportParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionCxcheckunreviewedParams extends ApiParams {
+export interface ApiActionCXCheckUnreviewedParams extends ApiParams {
     action?: "cxcheckunreviewed";
 }
 
-export interface ApiActionCxdeleteParams extends ApiParams {
+export interface ApiActionCXDeleteParams extends ApiParams {
     action?: "cxdelete";
     from: string;
     to: string;
@@ -547,7 +547,7 @@ export interface ApiActionCxdeleteParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionCxpublishParams extends ApiParams {
+export interface ApiActionCXPublishParams extends ApiParams {
     action?: "cxpublish";
     title: string;
     html: string;
@@ -565,7 +565,7 @@ export interface ApiActionCxpublishParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionCxpublishsectionParams extends ApiParams {
+export interface ApiActionCXPublishSectionParams extends ApiParams {
     action?: "cxpublishsection";
     title: string;
     html: string;
@@ -585,7 +585,7 @@ export interface ApiActionCxpublishsectionParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionCxsaveParams extends ApiParams {
+export interface ApiActionCXSaveParams extends ApiParams {
     action?: "cxsave";
     from: string;
     to: string;
@@ -603,13 +603,13 @@ export interface ApiActionCxsaveParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionCxsplitParams extends ApiParams {
+export interface ApiActionCXSplitParams extends ApiParams {
     action?: "cxsplit";
     translationid: number;
     token?: string;
 }
 
-export interface ApiActionCxsuggestionlistParams extends ApiParams {
+export interface ApiActionCXSuggestionListParams extends ApiParams {
     action?: "cxsuggestionlist";
     listname: string;
     listaction: "add" | "remove" | "view";
@@ -619,7 +619,7 @@ export interface ApiActionCxsuggestionlistParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiActionCxtokenParams extends ApiParams {
+export interface ApiActionCXTokenParams extends ApiParams {
     action?: "cxtoken";
     token?: string;
 }
@@ -1009,7 +1009,7 @@ export interface ApiActionFeedRecentChangesParams extends ApiParams {
     showlinkedto?: boolean;
 }
 
-export interface ApiActionFeedthreadsParams extends ApiParams {
+export interface ApiActionFeedThreadsParams extends ApiParams {
     action?: "feedthreads";
     feedformat?: "atom" | "rss" | "sitemap";
     days?: number;
@@ -1524,7 +1524,7 @@ export interface ApiActionHelpParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionHelppanelquestionposterParams extends ApiParams {
+export interface ApiActionHelpPanelQuestionPosterParams extends ApiParams {
     action?: "helppanelquestionposter";
     body: string;
     source?:
@@ -1537,12 +1537,12 @@ export interface ApiActionHelppanelquestionposterParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiActionHomepagequestionstoreParams extends ApiParams {
+export interface ApiActionHomePageQuestionStoreParams extends ApiParams {
     action?: "homepagequestionstore";
     storage: "growthexperiments-helppanel-questions" | "growthexperiments-mentor-questions";
 }
 
-export interface ApiActionImagerotateParams extends ApiParams {
+export interface ApiActionImageRotateParams extends ApiParams {
     action?: "imagerotate";
 }
 
@@ -1610,6 +1610,7 @@ export interface ApiActionLinkAccountParams extends ApiParams {
 }
 
 /**
+ * @deprecated
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Login}
  */
 export interface ApiActionLoginParams extends ApiParams {
@@ -2204,7 +2205,7 @@ export interface ApiActionPurgeGeneratorAllDeletedRevisionsParams extends ApiAct
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
  */
-export interface ApiActionPurgeGeneratorQueryAllFileUsagesParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorAllFileUsagesParams extends ApiActionPurgeParams {
     generator?: "allfileusages";
     gafcontinue?: string;
     gaffrom?: string;
@@ -2299,7 +2300,7 @@ export interface ApiActionPurgeGeneratorAllPagesParams extends ApiActionPurgePar
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
  */
-export interface ApiActionPurgeGeneratorQueryAllRedirectsParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorAllRedirectsParams extends ApiActionPurgeParams {
     generator?: "allredirects";
     garcontinue?: string;
     garfrom?: string;
@@ -2403,7 +2404,7 @@ export interface ApiActionPurgeGeneratorAllRevisionsParams extends ApiActionPurg
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
  */
-export interface ApiActionPurgeGeneratorQueryAllTransclusionsParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorAllTransclusionsParams extends ApiActionPurgeParams {
     generator?: "alltransclusions";
     gatcontinue?: string;
     gatfrom?: string;
@@ -2616,7 +2617,7 @@ export interface ApiActionPurgeGeneratorDuplicateFilesParams extends ApiActionPu
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
  */
-export interface ApiActionPurgeGeneratorQueryEmbeddedInParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorEmbeddedinParams extends ApiActionPurgeParams {
     generator?: "embeddedin";
     geititle?: string;
     geipageid?: number;
@@ -2630,7 +2631,7 @@ export interface ApiActionPurgeGeneratorQueryEmbeddedInParams extends ApiActionP
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
  */
-export interface ApiActionPurgeGeneratorExturlusageParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorExtUrlUsageParams extends ApiActionPurgeParams {
     generator?: "exturlusage";
     geuprop?: OneOrMore<"ids" | "title" | "url">;
     geucontinue?: string;
@@ -2676,7 +2677,7 @@ export interface ApiActionPurgeGeneratorExturlusageParams extends ApiActionPurge
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
  */
-export interface ApiActionPurgeGeneratorQueryFileUsageParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorFileUsageParams extends ApiActionPurgeParams {
     generator?: "fileusage";
     gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
     gfunamespace?: namespace | namespace[];
@@ -2782,7 +2783,7 @@ export interface ApiActionPurgeGeneratorImagesParams extends ApiActionPurgeParam
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
  */
-export interface ApiActionPurgeGeneratorQueryImageUsageParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorImageUsageParams extends ApiActionPurgeParams {
     generator?: "imageusage";
     giutitle?: string;
     giupageid?: number;
@@ -2835,7 +2836,7 @@ export interface ApiActionPurgeGeneratorLinksParams extends ApiActionPurgeParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
  */
-export interface ApiActionPurgeGeneratorQueryLinksHereParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorLinksHereParams extends ApiActionPurgeParams {
     generator?: "linkshere";
     glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
     glhnamespace?: namespace | namespace[];
@@ -3044,7 +3045,7 @@ export interface ApiActionPurgeGeneratorRecentChangesParams extends ApiActionPur
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
  */
-export interface ApiActionPurgeGeneratorQueryRedirectsParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorRedirectsParams extends ApiActionPurgeParams {
     generator?: "redirects";
     grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
     grdnamespace?: namespace | namespace[];
@@ -3171,7 +3172,7 @@ export interface ApiActionPurgeGeneratorSearchParams extends ApiActionPurgeParam
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
  */
-export interface ApiActionPurgeGeneratorQueryTemplatesParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorTemplatesParams extends ApiActionPurgeParams {
     generator?: "templates";
     gtlnamespace?: namespace | namespace[];
     gtllimit?: limit;
@@ -3183,7 +3184,7 @@ export interface ApiActionPurgeGeneratorQueryTemplatesParams extends ApiActionPu
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
  */
-export interface ApiActionPurgeGeneratorQueryTranscludedInParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorTranscludedinParams extends ApiActionPurgeParams {
     generator?: "transcludedin";
     gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
     gtinamespace?: namespace | namespace[];
@@ -3275,7 +3276,7 @@ export interface ApiActionPurgeGeneratorWatchlistRawParams extends ApiActionPurg
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
  */
-export interface ApiActionPurgeGeneratorWblistentityusageParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorWBListEntityUsageParams extends ApiActionPurgeParams {
     generator?: "wblistentityusage";
     gwbleuprop?: OneOrMore<"url">;
     gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
@@ -3287,7 +3288,7 @@ export interface ApiActionPurgeGeneratorWblistentityusageParams extends ApiActio
 /**
  * @private
  */
-export interface ApiActionPurgeGeneratorWbsearchParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorWBSearchParams extends ApiActionPurgeParams {
     generator?: "wbsearch";
     gwbssearch: string;
     gwbslanguage?: string;
@@ -3297,7 +3298,7 @@ export interface ApiActionPurgeGeneratorWbsearchParams extends ApiActionPurgePar
     gwbsprofile?: "default" | "language";
 }
 
-export interface ApiActionPurgeGeneratorWikilambdafn_searchParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorWikiLambdaFnSearchParams extends ApiActionPurgeParams {
     generator?: "wikilambdafn_search";
     gwikilambdafn_zfunction_id?: string;
     gwikilambdafn_type?: string;
@@ -3305,7 +3306,7 @@ export interface ApiActionPurgeGeneratorWikilambdafn_searchParams extends ApiAct
     gwikilambdafn_continue?: string;
 }
 
-export interface ApiActionPurgeGeneratorWikilambdaload_zobjectsParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorWikiLambdaLoadZObjectsParams extends ApiActionPurgeParams {
     generator?: "wikilambdaload_zobjects";
     gwikilambdaload_zids: string | string[];
     gwikilambdaload_revisions?: string | string[];
@@ -3313,7 +3314,7 @@ export interface ApiActionPurgeGeneratorWikilambdaload_zobjectsParams extends Ap
     gwikilambdaload_get_dependencies?: boolean;
 }
 
-export interface ApiActionPurgeGeneratorWikilambdasearch_labelsParams extends ApiActionPurgeParams {
+export interface ApiActionPurgeGeneratorWikiLambdaSearchLabelsParams extends ApiActionPurgeParams {
     generator?: "wikilambdasearch_labels";
     gwikilambdasearch_search?: string;
     gwikilambdasearch_language: string;
@@ -3526,7 +3527,7 @@ export interface ApiActionQueryPropEntityTermsParams extends ApiActionQueryParam
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Extlinks}
  */
-export interface ApiActionQueryPropExtlinksParams extends ApiActionQueryParams {
+export interface ApiActionQueryPropExtLinksParams extends ApiActionQueryParams {
     ellimit?: limit;
     elcontinue?: string;
     elprotocol?:
@@ -3582,7 +3583,7 @@ export interface ApiActionQueryPropExtractsParams extends ApiActionQueryParams {
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
  */
-export interface ApiActionQueryPropQueryFileUsageParams extends ApiActionQueryParams {
+export interface ApiActionQueryPropFileUsageParams extends ApiActionQueryParams {
     fuprop?: OneOrMore<"pageid" | "redirect" | "title">;
     funamespace?: namespace | namespace[];
     fushow?: OneOrMore<"!redirect" | "redirect">;
@@ -3757,7 +3758,7 @@ export interface ApiActionQueryPropLinksParams extends ApiActionQueryParams {
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
  */
-export interface ApiActionQueryPropQueryLinksHereParams extends ApiActionQueryParams {
+export interface ApiActionQueryPropLinksHereParams extends ApiActionQueryParams {
     lhprop?: OneOrMore<"pageid" | "redirect" | "title">;
     lhnamespace?: namespace | namespace[];
     lhshow?: OneOrMore<"!redirect" | "redirect">;
@@ -3827,7 +3828,7 @@ export interface ApiActionQueryPropProofreadParams extends ApiActionQueryParams 
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
  */
-export interface ApiActionQueryPropQueryRedirectsParams extends ApiActionQueryParams {
+export interface ApiActionQueryPropRedirectsParams extends ApiActionQueryParams {
     rdprop?: OneOrMore<"fragment" | "pageid" | "title">;
     rdnamespace?: namespace | namespace[];
     rdshow?: OneOrMore<"!fragment" | "fragment">;
@@ -3937,7 +3938,7 @@ export interface ApiActionQueryPropStashImageInfoParams extends ApiActionQueryPa
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
  */
-export interface ApiActionQueryPropQueryTemplatesParams extends ApiActionQueryParams {
+export interface ApiActionQueryPropTemplatesParams extends ApiActionQueryParams {
     tlnamespace?: namespace | namespace[];
     tllimit?: limit;
     tlcontinue?: string;
@@ -3948,7 +3949,7 @@ export interface ApiActionQueryPropQueryTemplatesParams extends ApiActionQueryPa
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
  */
-export interface ApiActionQueryPropQueryTranscludedInParams extends ApiActionQueryParams {
+export interface ApiActionQueryPropTranscludedinParams extends ApiActionQueryParams {
     tiprop?: OneOrMore<"pageid" | "redirect" | "title">;
     tinamespace?: namespace | namespace[];
     tishow?: OneOrMore<"!redirect" | "redirect">;
@@ -4005,7 +4006,7 @@ export interface ApiActionQueryPropVideoInfoParams extends ApiActionQueryParams 
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API#wbentityusage}
  */
-export interface ApiActionQueryPropWbentityusageParams extends ApiActionQueryParams {
+export interface ApiActionQueryPropWBEntityUsageParams extends ApiActionQueryParams {
     wbeuprop?: OneOrMore<"url">;
     wbeuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
     wbeuentities?: string | string[];
@@ -4185,7 +4186,7 @@ export interface ApiActionQueryListAllDeletedRevisionsParams extends ApiActionQu
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
  */
-export interface ApiActionQueryListQueryAllFileUsagesParams extends ApiActionQueryParams {
+export interface ApiActionQueryListAllFileUsagesParams extends ApiActionQueryParams {
     afcontinue?: string;
     affrom?: string;
     afto?: string;
@@ -4276,7 +4277,7 @@ export interface ApiActionQueryListAllPagesParams extends ApiActionQueryParams {
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
  */
-export interface ApiActionQueryListQueryAllRedirectsParams extends ApiActionQueryParams {
+export interface ApiActionQueryListAllRedirectsParams extends ApiActionQueryParams {
     arcontinue?: string;
     arfrom?: string;
     arto?: string;
@@ -4378,7 +4379,7 @@ export interface ApiActionQueryListAllRevisionsParams extends ApiActionQueryPara
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
  */
-export interface ApiActionQueryListQueryAllTransclusionsParams extends ApiActionQueryParams {
+export interface ApiActionQueryListAllTransclusionsParams extends ApiActionQueryParams {
     atcontinue?: string;
     atfrom?: string;
     atto?: string;
@@ -4572,7 +4573,7 @@ export interface ApiActionQueryListContentTranslationCorporaParams extends ApiAc
     types?: OneOrMore<"mt" | "source" | "user">;
 }
 
-export interface ApiActionQueryListContenttranslationlangtrendParams extends ApiActionQueryParams {
+export interface ApiActionQueryListContentTranslationLangTrendParams extends ApiActionQueryParams {
     source?: string;
     target?: string;
     interval?: "month" | "week";
@@ -4591,14 +4592,14 @@ export interface ApiActionQueryListContentTranslationSuggestionsParams
     seed?: number;
 }
 
-export interface ApiActionQueryListCxpublishedtranslationsParams extends ApiActionQueryParams {
+export interface ApiActionQueryListCXPublishedTranslationsParams extends ApiActionQueryParams {
     from?: string;
     to?: string;
     limit?: limit;
     offset?: string;
 }
 
-export interface ApiActionQueryListCxtranslatorstatsParams extends ApiActionQueryParams {
+export interface ApiActionQueryListCXTranslatorStatsParams extends ApiActionQueryParams {
     translator?: string;
 }
 
@@ -4639,7 +4640,7 @@ export interface ApiActionQueryListDeletedrevsParams extends ApiActionQueryParam
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
  */
-export interface ApiActionQueryListQueryEmbeddedInParams extends ApiActionQueryParams {
+export interface ApiActionQueryListEmbeddedinParams extends ApiActionQueryParams {
     eititle?: string;
     eipageid?: number;
     eicontinue?: string;
@@ -4717,7 +4718,7 @@ export interface ApiActionQueryListExtDistReposParams extends ApiActionQueryPara
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
  */
-export interface ApiActionQueryListExturlusageParams extends ApiActionQueryParams {
+export interface ApiActionQueryListExtUrlUsageParams extends ApiActionQueryParams {
     euprop?: OneOrMore<"ids" | "title" | "url">;
     eucontinue?: string;
     euprotocol?:
@@ -4976,7 +4977,7 @@ export interface ApiActionQueryListGrowthTasksParams extends ApiActionQueryParam
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
  */
-export interface ApiActionQueryListQueryImageUsageParams extends ApiActionQueryParams {
+export interface ApiActionQueryListImageUsageParams extends ApiActionQueryParams {
     iutitle?: string;
     iupageid?: number;
     iucontinue?: string;
@@ -5011,7 +5012,7 @@ export interface ApiActionQueryListLangBacklinksParams extends ApiActionQueryPar
     lbldir?: "ascending" | "descending";
 }
 
-export interface ApiActionQueryListLinterrorsParams extends ApiActionQueryParams {
+export interface ApiActionQueryListLintErrorsParams extends ApiActionQueryParams {
     lntcategories?: OneOrMore<
         | "bogus-image-options"
         | "deletable-table-tag"
@@ -5529,7 +5530,7 @@ export interface ApiActionQueryListWatchlistRawParams extends ApiActionQueryPara
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
  */
-export interface ApiActionQueryListWblistentityusageParams extends ApiActionQueryParams {
+export interface ApiActionQueryListWBListEntityUsageParams extends ApiActionQueryParams {
     wbleuprop?: OneOrMore<"url">;
     wbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
     wbleuentities: string | string[];
@@ -5540,7 +5541,7 @@ export interface ApiActionQueryListWblistentityusageParams extends ApiActionQuer
 /**
  * @private
  */
-export interface ApiActionQueryListWbsearchParams extends ApiActionQueryParams {
+export interface ApiActionQueryListWBSearchParams extends ApiActionQueryParams {
     wbssearch: string;
     wbslanguage?: string;
     wbsstrictlanguage?: boolean;
@@ -5549,28 +5550,28 @@ export interface ApiActionQueryListWbsearchParams extends ApiActionQueryParams {
     wbsprofile?: "default" | "language";
 }
 
-export interface ApiActionQueryListWbsubscribersParams extends ApiActionQueryParams {
+export interface ApiActionQueryListWBSubscribersParams extends ApiActionQueryParams {
     wblsentities: string | string[];
     wblsprop?: OneOrMore<"url">;
     wblslimit?: limit;
     wblscontinue?: string;
 }
 
-export interface ApiActionQueryListWikilambdafn_searchParams extends ApiActionQueryParams {
+export interface ApiActionQueryListWikiLambdaFnSearchParams extends ApiActionQueryParams {
     wikilambdafn_zfunction_id?: string;
     wikilambdafn_type?: string;
     wikilambdafn_limit?: limit;
     wikilambdafn_continue?: string;
 }
 
-export interface ApiActionQueryListWikilambdaload_zobjectsParams extends ApiActionQueryParams {
+export interface ApiActionQueryListWikiLambdaLoadZObjectsParams extends ApiActionQueryParams {
     wikilambdaload_zids: string | string[];
     wikilambdaload_revisions?: string | string[];
     wikilambdaload_language?: string;
     wikilambdaload_get_dependencies?: boolean;
 }
 
-export interface ApiActionQueryListWikilambdasearch_labelsParams extends ApiActionQueryParams {
+export interface ApiActionQueryListWikiLambdaSearchLabelsParams extends ApiActionQueryParams {
     wikilambdasearch_search?: string;
     wikilambdasearch_language: string;
     wikilambdasearch_nofallback?: boolean;
@@ -5646,7 +5647,7 @@ export interface ApiActionQueryMetaCommunityConfigurationParams extends ApiActio
 /**
  * @private
  */
-export interface ApiActionQueryMetaCxdeletedtranslationsParams extends ApiActionQueryParams {
+export interface ApiActionQueryMetaCXDeletedTranslationsParams extends ApiActionQueryParams {
     dtafter?: timestamp;
     dtnamespace?: namespace;
 }
@@ -5665,21 +5666,7 @@ export interface ApiActionQueryMetaFeatureUsageParams extends ApiActionQueryPara
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Filerepoinfo}
  */
 export interface ApiActionQueryMetaFileRepoInfoParams extends ApiActionQueryParams {
-    friprop?: OneOrMore<
-        | "canUpload"
-        | "descBaseUrl"
-        | "descriptionCacheExpiry"
-        | "displayname"
-        | "favicon"
-        | "fetchDescription"
-        | "initialCapital"
-        | "local"
-        | "name"
-        | "rootUrl"
-        | "scriptDirUrl"
-        | "thumbUrl"
-        | "url"
-    >;
+    friprop?: string | string[];
 }
 
 /**
@@ -5939,7 +5926,7 @@ export interface ApiActionQueryMetaUserInfoParams extends ApiActionQueryParams {
     uiattachedwiki?: string;
 }
 
-export interface ApiActionQueryMetaWbcontentlanguagesParams extends ApiActionQueryParams {
+export interface ApiActionQueryMetaWBContentLanguagesParams extends ApiActionQueryParams {
     wbclcontext?: "monolingualtext" | "term" | "term-lexicographical";
     wbclprop?: OneOrMore<"autonym" | "code" | "name">;
 }
@@ -5948,7 +5935,7 @@ export interface ApiActionQueryMetaWbcontentlanguagesParams extends ApiActionQue
  * @private
  */
 // tslint:disable-next-line:no-empty-interface
-export interface ApiActionQueryMetaWbdatabridgeconfigParams extends ApiActionQueryParams {}
+export interface ApiActionQueryMetaWBDataBridgeConfigParams extends ApiActionQueryParams {}
 
 export interface ApiActionQueryMetaWikibaseParams extends ApiActionQueryParams {
     wbprop?: OneOrMore<"siteid" | "url">;
@@ -6070,7 +6057,7 @@ export interface ApiActionQueryGeneratorAllDeletedRevisionsParams extends ApiAct
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
  */
-export interface ApiActionQueryGeneratorQueryAllFileUsagesParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorAllFileUsagesParams extends ApiActionQueryParams {
     generator?: "allfileusages";
     gafcontinue?: string;
     gaffrom?: string;
@@ -6165,7 +6152,7 @@ export interface ApiActionQueryGeneratorAllPagesParams extends ApiActionQueryPar
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
  */
-export interface ApiActionQueryGeneratorQueryAllRedirectsParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorAllRedirectsParams extends ApiActionQueryParams {
     generator?: "allredirects";
     garcontinue?: string;
     garfrom?: string;
@@ -6269,7 +6256,7 @@ export interface ApiActionQueryGeneratorAllRevisionsParams extends ApiActionQuer
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
  */
-export interface ApiActionQueryGeneratorQueryAllTransclusionsParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorAllTransclusionsParams extends ApiActionQueryParams {
     generator?: "alltransclusions";
     gatcontinue?: string;
     gatfrom?: string;
@@ -6482,7 +6469,7 @@ export interface ApiActionQueryGeneratorDuplicateFilesParams extends ApiActionQu
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
  */
-export interface ApiActionQueryGeneratorQueryEmbeddedInParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorEmbeddedinParams extends ApiActionQueryParams {
     generator?: "embeddedin";
     geititle?: string;
     geipageid?: number;
@@ -6496,7 +6483,7 @@ export interface ApiActionQueryGeneratorQueryEmbeddedInParams extends ApiActionQ
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
  */
-export interface ApiActionQueryGeneratorExturlusageParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorExtUrlUsageParams extends ApiActionQueryParams {
     generator?: "exturlusage";
     geuprop?: OneOrMore<"ids" | "title" | "url">;
     geucontinue?: string;
@@ -6542,7 +6529,7 @@ export interface ApiActionQueryGeneratorExturlusageParams extends ApiActionQuery
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
  */
-export interface ApiActionQueryGeneratorQueryFileUsageParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorFileUsageParams extends ApiActionQueryParams {
     generator?: "fileusage";
     gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
     gfunamespace?: namespace | namespace[];
@@ -6648,7 +6635,7 @@ export interface ApiActionQueryGeneratorImagesParams extends ApiActionQueryParam
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
  */
-export interface ApiActionQueryGeneratorQueryImageUsageParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorImageUsageParams extends ApiActionQueryParams {
     generator?: "imageusage";
     giutitle?: string;
     giupageid?: number;
@@ -6701,7 +6688,7 @@ export interface ApiActionQueryGeneratorLinksParams extends ApiActionQueryParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
  */
-export interface ApiActionQueryGeneratorQueryLinksHereParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorLinksHereParams extends ApiActionQueryParams {
     generator?: "linkshere";
     glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
     glhnamespace?: namespace | namespace[];
@@ -6910,7 +6897,7 @@ export interface ApiActionQueryGeneratorRecentChangesParams extends ApiActionQue
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
  */
-export interface ApiActionQueryGeneratorQueryRedirectsParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorRedirectsParams extends ApiActionQueryParams {
     generator?: "redirects";
     grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
     grdnamespace?: namespace | namespace[];
@@ -7037,7 +7024,7 @@ export interface ApiActionQueryGeneratorSearchParams extends ApiActionQueryParam
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
  */
-export interface ApiActionQueryGeneratorQueryTemplatesParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorTemplatesParams extends ApiActionQueryParams {
     generator?: "templates";
     gtlnamespace?: namespace | namespace[];
     gtllimit?: limit;
@@ -7049,7 +7036,7 @@ export interface ApiActionQueryGeneratorQueryTemplatesParams extends ApiActionQu
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
  */
-export interface ApiActionQueryGeneratorQueryTranscludedInParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorTranscludedinParams extends ApiActionQueryParams {
     generator?: "transcludedin";
     gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
     gtinamespace?: namespace | namespace[];
@@ -7141,7 +7128,7 @@ export interface ApiActionQueryGeneratorWatchlistRawParams extends ApiActionQuer
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
  */
-export interface ApiActionQueryGeneratorWblistentityusageParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorWBListEntityUsageParams extends ApiActionQueryParams {
     generator?: "wblistentityusage";
     gwbleuprop?: OneOrMore<"url">;
     gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
@@ -7153,7 +7140,7 @@ export interface ApiActionQueryGeneratorWblistentityusageParams extends ApiActio
 /**
  * @private
  */
-export interface ApiActionQueryGeneratorWbsearchParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorWBSearchParams extends ApiActionQueryParams {
     generator?: "wbsearch";
     gwbssearch: string;
     gwbslanguage?: string;
@@ -7163,7 +7150,7 @@ export interface ApiActionQueryGeneratorWbsearchParams extends ApiActionQueryPar
     gwbsprofile?: "default" | "language";
 }
 
-export interface ApiActionQueryGeneratorWikilambdafn_searchParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorWikiLambdaFnSearchParams extends ApiActionQueryParams {
     generator?: "wikilambdafn_search";
     gwikilambdafn_zfunction_id?: string;
     gwikilambdafn_type?: string;
@@ -7171,7 +7158,7 @@ export interface ApiActionQueryGeneratorWikilambdafn_searchParams extends ApiAct
     gwikilambdafn_continue?: string;
 }
 
-export interface ApiActionQueryGeneratorWikilambdaload_zobjectsParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorWikiLambdaLoadZObjectsParams extends ApiActionQueryParams {
     generator?: "wikilambdaload_zobjects";
     gwikilambdaload_zids: string | string[];
     gwikilambdaload_revisions?: string | string[];
@@ -7179,7 +7166,7 @@ export interface ApiActionQueryGeneratorWikilambdaload_zobjectsParams extends Ap
     gwikilambdaload_get_dependencies?: boolean;
 }
 
-export interface ApiActionQueryGeneratorWikilambdasearch_labelsParams extends ApiActionQueryParams {
+export interface ApiActionQueryGeneratorWikiLambdaSearchLabelsParams extends ApiActionQueryParams {
     generator?: "wikilambdasearch_labels";
     gwikilambdasearch_search?: string;
     gwikilambdasearch_language: string;
@@ -7527,7 +7514,7 @@ export interface ApiActionSetNotificationTimestampGeneratorAllDeletedRevisionsPa
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
  */
-export interface ApiActionSetNotificationTimestampGeneratorQueryAllFileUsagesParams
+export interface ApiActionSetNotificationTimestampGeneratorAllFileUsagesParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "allfileusages";
     gafcontinue?: string;
@@ -7626,7 +7613,7 @@ export interface ApiActionSetNotificationTimestampGeneratorAllPagesParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
  */
-export interface ApiActionSetNotificationTimestampGeneratorQueryAllRedirectsParams
+export interface ApiActionSetNotificationTimestampGeneratorAllRedirectsParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "allredirects";
     garcontinue?: string;
@@ -7732,7 +7719,7 @@ export interface ApiActionSetNotificationTimestampGeneratorAllRevisionsParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
  */
-export interface ApiActionSetNotificationTimestampGeneratorQueryAllTransclusionsParams
+export interface ApiActionSetNotificationTimestampGeneratorAllTransclusionsParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "alltransclusions";
     gatcontinue?: string;
@@ -7953,7 +7940,7 @@ export interface ApiActionSetNotificationTimestampGeneratorDuplicateFilesParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
  */
-export interface ApiActionSetNotificationTimestampGeneratorQueryEmbeddedInParams
+export interface ApiActionSetNotificationTimestampGeneratorEmbeddedinParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "embeddedin";
     geititle?: string;
@@ -7968,7 +7955,7 @@ export interface ApiActionSetNotificationTimestampGeneratorQueryEmbeddedInParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
  */
-export interface ApiActionSetNotificationTimestampGeneratorExturlusageParams
+export interface ApiActionSetNotificationTimestampGeneratorExtUrlUsageParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "exturlusage";
     geuprop?: OneOrMore<"ids" | "title" | "url">;
@@ -8015,7 +8002,7 @@ export interface ApiActionSetNotificationTimestampGeneratorExturlusageParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
  */
-export interface ApiActionSetNotificationTimestampGeneratorQueryFileUsageParams
+export interface ApiActionSetNotificationTimestampGeneratorFileUsageParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "fileusage";
     gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
@@ -8125,7 +8112,7 @@ export interface ApiActionSetNotificationTimestampGeneratorImagesParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
  */
-export interface ApiActionSetNotificationTimestampGeneratorQueryImageUsageParams
+export interface ApiActionSetNotificationTimestampGeneratorImageUsageParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "imageusage";
     giutitle?: string;
@@ -8182,7 +8169,7 @@ export interface ApiActionSetNotificationTimestampGeneratorLinksParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
  */
-export interface ApiActionSetNotificationTimestampGeneratorQueryLinksHereParams
+export interface ApiActionSetNotificationTimestampGeneratorLinksHereParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "linkshere";
     glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
@@ -8404,7 +8391,7 @@ export interface ApiActionSetNotificationTimestampGeneratorRecentChangesParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
  */
-export interface ApiActionSetNotificationTimestampGeneratorQueryRedirectsParams
+export interface ApiActionSetNotificationTimestampGeneratorRedirectsParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "redirects";
     grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
@@ -8534,7 +8521,7 @@ export interface ApiActionSetNotificationTimestampGeneratorSearchParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
  */
-export interface ApiActionSetNotificationTimestampGeneratorQueryTemplatesParams
+export interface ApiActionSetNotificationTimestampGeneratorTemplatesParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "templates";
     gtlnamespace?: namespace | namespace[];
@@ -8547,7 +8534,7 @@ export interface ApiActionSetNotificationTimestampGeneratorQueryTemplatesParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
  */
-export interface ApiActionSetNotificationTimestampGeneratorQueryTranscludedInParams
+export interface ApiActionSetNotificationTimestampGeneratorTranscludedinParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "transcludedin";
     gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
@@ -8643,7 +8630,7 @@ export interface ApiActionSetNotificationTimestampGeneratorWatchlistRawParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
  */
-export interface ApiActionSetNotificationTimestampGeneratorWblistentityusageParams
+export interface ApiActionSetNotificationTimestampGeneratorWBListEntityUsageParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "wblistentityusage";
     gwbleuprop?: OneOrMore<"url">;
@@ -8656,7 +8643,7 @@ export interface ApiActionSetNotificationTimestampGeneratorWblistentityusagePara
 /**
  * @private
  */
-export interface ApiActionSetNotificationTimestampGeneratorWbsearchParams
+export interface ApiActionSetNotificationTimestampGeneratorWBSearchParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "wbsearch";
     gwbssearch: string;
@@ -8667,7 +8654,7 @@ export interface ApiActionSetNotificationTimestampGeneratorWbsearchParams
     gwbsprofile?: "default" | "language";
 }
 
-export interface ApiActionSetNotificationTimestampGeneratorWikilambdafn_searchParams
+export interface ApiActionSetNotificationTimestampGeneratorWikiLambdaFnSearchParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "wikilambdafn_search";
     gwikilambdafn_zfunction_id?: string;
@@ -8676,7 +8663,7 @@ export interface ApiActionSetNotificationTimestampGeneratorWikilambdafn_searchPa
     gwikilambdafn_continue?: string;
 }
 
-export interface ApiActionSetNotificationTimestampGeneratorWikilambdaload_zobjectsParams
+export interface ApiActionSetNotificationTimestampGeneratorWikiLambdaLoadZObjectsParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "wikilambdaload_zobjects";
     gwikilambdaload_zids: string | string[];
@@ -8685,7 +8672,7 @@ export interface ApiActionSetNotificationTimestampGeneratorWikilambdaload_zobjec
     gwikilambdaload_get_dependencies?: boolean;
 }
 
-export interface ApiActionSetNotificationTimestampGeneratorWikilambdasearch_labelsParams
+export interface ApiActionSetNotificationTimestampGeneratorWikiLambdaSearchLabelsParams
     extends ApiActionSetNotificationTimestampParams {
     generator?: "wikilambdasearch_labels";
     gwikilambdasearch_search?: string;
@@ -8801,7 +8788,7 @@ export interface ApiActionStrikeVoteParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiActionSxdeleteParams extends ApiParams {
+export interface ApiActionSXDeleteParams extends ApiParams {
     action?: "sxdelete";
     sectiontranslationid: number;
     translationid: number;
@@ -8812,7 +8799,7 @@ export interface ApiActionSxdeleteParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionSxsaveParams extends ApiParams {
+export interface ApiActionSXSaveParams extends ApiParams {
     action?: "sxsave";
     sourcelanguage: string;
     targetlanguage: string;
@@ -8974,7 +8961,7 @@ export interface ApiActionTemplateDataGeneratorAllDeletedRevisionsParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
  */
-export interface ApiActionTemplateDataGeneratorQueryAllFileUsagesParams
+export interface ApiActionTemplateDataGeneratorAllFileUsagesParams
     extends ApiActionTemplateDataParams {
     generator?: "allfileusages";
     gafcontinue?: string;
@@ -9070,7 +9057,7 @@ export interface ApiActionTemplateDataGeneratorAllPagesParams extends ApiActionT
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
  */
-export interface ApiActionTemplateDataGeneratorQueryAllRedirectsParams
+export interface ApiActionTemplateDataGeneratorAllRedirectsParams
     extends ApiActionTemplateDataParams {
     generator?: "allredirects";
     garcontinue?: string;
@@ -9176,7 +9163,7 @@ export interface ApiActionTemplateDataGeneratorAllRevisionsParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
  */
-export interface ApiActionTemplateDataGeneratorQueryAllTransclusionsParams
+export interface ApiActionTemplateDataGeneratorAllTransclusionsParams
     extends ApiActionTemplateDataParams {
     generator?: "alltransclusions";
     gatcontinue?: string;
@@ -9396,7 +9383,7 @@ export interface ApiActionTemplateDataGeneratorDuplicateFilesParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
  */
-export interface ApiActionTemplateDataGeneratorQueryEmbeddedInParams
+export interface ApiActionTemplateDataGeneratorEmbeddedinParams
     extends ApiActionTemplateDataParams {
     generator?: "embeddedin";
     geititle?: string;
@@ -9411,7 +9398,7 @@ export interface ApiActionTemplateDataGeneratorQueryEmbeddedInParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
  */
-export interface ApiActionTemplateDataGeneratorExturlusageParams
+export interface ApiActionTemplateDataGeneratorExtUrlUsageParams
     extends ApiActionTemplateDataParams {
     generator?: "exturlusage";
     geuprop?: OneOrMore<"ids" | "title" | "url">;
@@ -9458,8 +9445,7 @@ export interface ApiActionTemplateDataGeneratorExturlusageParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
  */
-export interface ApiActionTemplateDataGeneratorQueryFileUsageParams
-    extends ApiActionTemplateDataParams {
+export interface ApiActionTemplateDataGeneratorFileUsageParams extends ApiActionTemplateDataParams {
     generator?: "fileusage";
     gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
     gfunamespace?: namespace | namespace[];
@@ -9566,7 +9552,7 @@ export interface ApiActionTemplateDataGeneratorImagesParams extends ApiActionTem
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
  */
-export interface ApiActionTemplateDataGeneratorQueryImageUsageParams
+export interface ApiActionTemplateDataGeneratorImageUsageParams
     extends ApiActionTemplateDataParams {
     generator?: "imageusage";
     giutitle?: string;
@@ -9622,8 +9608,7 @@ export interface ApiActionTemplateDataGeneratorLinksParams extends ApiActionTemp
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
  */
-export interface ApiActionTemplateDataGeneratorQueryLinksHereParams
-    extends ApiActionTemplateDataParams {
+export interface ApiActionTemplateDataGeneratorLinksHereParams extends ApiActionTemplateDataParams {
     generator?: "linkshere";
     glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
     glhnamespace?: namespace | namespace[];
@@ -9842,8 +9827,7 @@ export interface ApiActionTemplateDataGeneratorRecentChangesParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
  */
-export interface ApiActionTemplateDataGeneratorQueryRedirectsParams
-    extends ApiActionTemplateDataParams {
+export interface ApiActionTemplateDataGeneratorRedirectsParams extends ApiActionTemplateDataParams {
     generator?: "redirects";
     grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
     grdnamespace?: namespace | namespace[];
@@ -9970,8 +9954,7 @@ export interface ApiActionTemplateDataGeneratorSearchParams extends ApiActionTem
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
  */
-export interface ApiActionTemplateDataGeneratorQueryTemplatesParams
-    extends ApiActionTemplateDataParams {
+export interface ApiActionTemplateDataGeneratorTemplatesParams extends ApiActionTemplateDataParams {
     generator?: "templates";
     gtlnamespace?: namespace | namespace[];
     gtllimit?: limit;
@@ -9983,7 +9966,7 @@ export interface ApiActionTemplateDataGeneratorQueryTemplatesParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
  */
-export interface ApiActionTemplateDataGeneratorQueryTranscludedInParams
+export interface ApiActionTemplateDataGeneratorTranscludedinParams
     extends ApiActionTemplateDataParams {
     generator?: "transcludedin";
     gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
@@ -10078,7 +10061,7 @@ export interface ApiActionTemplateDataGeneratorWatchlistRawParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
  */
-export interface ApiActionTemplateDataGeneratorWblistentityusageParams
+export interface ApiActionTemplateDataGeneratorWBListEntityUsageParams
     extends ApiActionTemplateDataParams {
     generator?: "wblistentityusage";
     gwbleuprop?: OneOrMore<"url">;
@@ -10091,7 +10074,7 @@ export interface ApiActionTemplateDataGeneratorWblistentityusageParams
 /**
  * @private
  */
-export interface ApiActionTemplateDataGeneratorWbsearchParams extends ApiActionTemplateDataParams {
+export interface ApiActionTemplateDataGeneratorWBSearchParams extends ApiActionTemplateDataParams {
     generator?: "wbsearch";
     gwbssearch: string;
     gwbslanguage?: string;
@@ -10101,7 +10084,7 @@ export interface ApiActionTemplateDataGeneratorWbsearchParams extends ApiActionT
     gwbsprofile?: "default" | "language";
 }
 
-export interface ApiActionTemplateDataGeneratorWikilambdafn_searchParams
+export interface ApiActionTemplateDataGeneratorWikiLambdaFnSearchParams
     extends ApiActionTemplateDataParams {
     generator?: "wikilambdafn_search";
     gwikilambdafn_zfunction_id?: string;
@@ -10110,7 +10093,7 @@ export interface ApiActionTemplateDataGeneratorWikilambdafn_searchParams
     gwikilambdafn_continue?: string;
 }
 
-export interface ApiActionTemplateDataGeneratorWikilambdaload_zobjectsParams
+export interface ApiActionTemplateDataGeneratorWikiLambdaLoadZObjectsParams
     extends ApiActionTemplateDataParams {
     generator?: "wikilambdaload_zobjects";
     gwikilambdaload_zids: string | string[];
@@ -10119,7 +10102,7 @@ export interface ApiActionTemplateDataGeneratorWikilambdaload_zobjectsParams
     gwikilambdaload_get_dependencies?: boolean;
 }
 
-export interface ApiActionTemplateDataGeneratorWikilambdasearch_labelsParams
+export interface ApiActionTemplateDataGeneratorWikiLambdaSearchLabelsParams
     extends ApiActionTemplateDataParams {
     generator?: "wikilambdasearch_labels";
     gwikilambdasearch_search?: string;
@@ -10235,7 +10218,7 @@ export interface ApiActionTranslationAidsParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionTranslationcheckParams extends ApiParams {
+export interface ApiActionTranslationCheckParams extends ApiParams {
     action?: "translationcheck";
     title: string;
     translation: string;
@@ -10252,7 +10235,7 @@ export interface ApiActionTranslationEntitySearchParams extends ApiParams {
     grouptypes?: OneOrMore<"aggregate-groups" | "message-bundles" | "translatable-pages">;
 }
 
-export interface ApiActionTranslationreviewParams extends ApiParams {
+export interface ApiActionTranslationReviewParams extends ApiParams {
     action?: "translationreview";
     revision: number;
     token?: string;
@@ -10330,7 +10313,7 @@ export interface ApiActionUndeleteParams extends ApiParams {
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Manage_authentication_data}
  */
-export interface ApiActionQueryUnlinkAccountParams extends ApiParams {
+export interface ApiActionUnlinkAccountParams extends ApiParams {
     action?: "unlinkaccount";
     request: string;
     token?: string;
@@ -10582,7 +10565,7 @@ export interface ApiActionWatchGeneratorAllDeletedRevisionsParams extends ApiAct
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages}
  */
-export interface ApiActionWatchGeneratorQueryAllFileUsagesParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorAllFileUsagesParams extends ApiActionWatchParams {
     generator?: "allfileusages";
     gafcontinue?: string;
     gaffrom?: string;
@@ -10677,7 +10660,7 @@ export interface ApiActionWatchGeneratorAllPagesParams extends ApiActionWatchPar
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects}
  */
-export interface ApiActionWatchGeneratorQueryAllRedirectsParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorAllRedirectsParams extends ApiActionWatchParams {
     generator?: "allredirects";
     garcontinue?: string;
     garfrom?: string;
@@ -10781,7 +10764,7 @@ export interface ApiActionWatchGeneratorAllRevisionsParams extends ApiActionWatc
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions}
  */
-export interface ApiActionWatchGeneratorQueryAllTransclusionsParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorAllTransclusionsParams extends ApiActionWatchParams {
     generator?: "alltransclusions";
     gatcontinue?: string;
     gatfrom?: string;
@@ -10994,7 +10977,7 @@ export interface ApiActionWatchGeneratorDuplicateFilesParams extends ApiActionWa
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin}
  */
-export interface ApiActionWatchGeneratorQueryEmbeddedInParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorEmbeddedinParams extends ApiActionWatchParams {
     generator?: "embeddedin";
     geititle?: string;
     geipageid?: number;
@@ -11008,7 +10991,7 @@ export interface ApiActionWatchGeneratorQueryEmbeddedInParams extends ApiActionW
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage}
  */
-export interface ApiActionWatchGeneratorExturlusageParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorExtUrlUsageParams extends ApiActionWatchParams {
     generator?: "exturlusage";
     geuprop?: OneOrMore<"ids" | "title" | "url">;
     geucontinue?: string;
@@ -11054,7 +11037,7 @@ export interface ApiActionWatchGeneratorExturlusageParams extends ApiActionWatch
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage}
  */
-export interface ApiActionWatchGeneratorQueryFileUsageParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorFileUsageParams extends ApiActionWatchParams {
     generator?: "fileusage";
     gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
     gfunamespace?: namespace | namespace[];
@@ -11160,7 +11143,7 @@ export interface ApiActionWatchGeneratorImagesParams extends ApiActionWatchParam
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage}
  */
-export interface ApiActionWatchGeneratorQueryImageUsageParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorImageUsageParams extends ApiActionWatchParams {
     generator?: "imageusage";
     giutitle?: string;
     giupageid?: number;
@@ -11213,7 +11196,7 @@ export interface ApiActionWatchGeneratorLinksParams extends ApiActionWatchParams
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere}
  */
-export interface ApiActionWatchGeneratorQueryLinksHereParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorLinksHereParams extends ApiActionWatchParams {
     generator?: "linkshere";
     glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
     glhnamespace?: namespace | namespace[];
@@ -11422,7 +11405,7 @@ export interface ApiActionWatchGeneratorRecentChangesParams extends ApiActionWat
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects}
  */
-export interface ApiActionWatchGeneratorQueryRedirectsParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorRedirectsParams extends ApiActionWatchParams {
     generator?: "redirects";
     grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
     grdnamespace?: namespace | namespace[];
@@ -11549,7 +11532,7 @@ export interface ApiActionWatchGeneratorSearchParams extends ApiActionWatchParam
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates}
  */
-export interface ApiActionWatchGeneratorQueryTemplatesParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorTemplatesParams extends ApiActionWatchParams {
     generator?: "templates";
     gtlnamespace?: namespace | namespace[];
     gtllimit?: limit;
@@ -11561,7 +11544,7 @@ export interface ApiActionWatchGeneratorQueryTemplatesParams extends ApiActionWa
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin}
  */
-export interface ApiActionWatchGeneratorQueryTranscludedInParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorTranscludedinParams extends ApiActionWatchParams {
     generator?: "transcludedin";
     gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
     gtinamespace?: namespace | namespace[];
@@ -11653,7 +11636,7 @@ export interface ApiActionWatchGeneratorWatchlistRawParams extends ApiActionWatc
 /**
  * @see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/API}
  */
-export interface ApiActionWatchGeneratorWblistentityusageParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorWBListEntityUsageParams extends ApiActionWatchParams {
     generator?: "wblistentityusage";
     gwbleuprop?: OneOrMore<"url">;
     gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
@@ -11665,7 +11648,7 @@ export interface ApiActionWatchGeneratorWblistentityusageParams extends ApiActio
 /**
  * @private
  */
-export interface ApiActionWatchGeneratorWbsearchParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorWBSearchParams extends ApiActionWatchParams {
     generator?: "wbsearch";
     gwbssearch: string;
     gwbslanguage?: string;
@@ -11675,7 +11658,7 @@ export interface ApiActionWatchGeneratorWbsearchParams extends ApiActionWatchPar
     gwbsprofile?: "default" | "language";
 }
 
-export interface ApiActionWatchGeneratorWikilambdafn_searchParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorWikiLambdaFnSearchParams extends ApiActionWatchParams {
     generator?: "wikilambdafn_search";
     gwikilambdafn_zfunction_id?: string;
     gwikilambdafn_type?: string;
@@ -11683,7 +11666,7 @@ export interface ApiActionWatchGeneratorWikilambdafn_searchParams extends ApiAct
     gwikilambdafn_continue?: string;
 }
 
-export interface ApiActionWatchGeneratorWikilambdaload_zobjectsParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorWikiLambdaLoadZObjectsParams extends ApiActionWatchParams {
     generator?: "wikilambdaload_zobjects";
     gwikilambdaload_zids: string | string[];
     gwikilambdaload_revisions?: string | string[];
@@ -11691,7 +11674,7 @@ export interface ApiActionWatchGeneratorWikilambdaload_zobjectsParams extends Ap
     gwikilambdaload_get_dependencies?: boolean;
 }
 
-export interface ApiActionWatchGeneratorWikilambdasearch_labelsParams extends ApiActionWatchParams {
+export interface ApiActionWatchGeneratorWikiLambdaSearchLabelsParams extends ApiActionWatchParams {
     generator?: "wikilambdasearch_labels";
     gwikilambdasearch_search?: string;
     gwikilambdasearch_language: string;
@@ -11704,17 +11687,17 @@ export interface ApiActionWatchGeneratorWikilambdasearch_labelsParams extends Ap
     gwikilambdasearch_continue?: string;
 }
 
-export interface ApiActionWbavailablebadgesParams extends ApiParams {
+export interface ApiActionWBAvailableBadgesParams extends ApiParams {
     action?: "wbavailablebadges";
 }
 
-export interface ApiActionWbcheckconstraintparametersParams extends ApiParams {
+export interface ApiActionWBCheckConstraintParametersParams extends ApiParams {
     action?: "wbcheckconstraintparameters";
     propertyid?: string | string[];
     constraintid?: string | string[];
 }
 
-export interface ApiActionWbcheckconstraintsParams extends ApiParams {
+export interface ApiActionWBCheckConstraintsParams extends ApiParams {
     action?: "wbcheckconstraints";
     id?: string | string[];
     claimid?: string | string[];
@@ -11733,7 +11716,7 @@ export interface ApiActionWbcheckconstraintsParams extends ApiParams {
     >;
 }
 
-export interface ApiActionWbcreateclaimParams extends ApiParams {
+export interface ApiActionWBCreateClaimParams extends ApiParams {
     action?: "wbcreateclaim";
     entity: string;
     snaktype: "novalue" | "somevalue" | "value";
@@ -11749,7 +11732,7 @@ export interface ApiActionWbcreateclaimParams extends ApiParams {
     returntoanchor?: string;
 }
 
-export interface ApiActionWbcreateredirectParams extends ApiParams {
+export interface ApiActionWBCreateRedirectParams extends ApiParams {
     action?: "wbcreateredirect";
     from: string;
     to: string;
@@ -11760,7 +11743,7 @@ export interface ApiActionWbcreateredirectParams extends ApiParams {
     returntoanchor?: string;
 }
 
-export interface ApiActionWbeditentityParams extends ApiParams {
+export interface ApiActionWBEditEntityParams extends ApiParams {
     action?: "wbeditentity";
     id?: string;
     new?: string;
@@ -11778,7 +11761,7 @@ export interface ApiActionWbeditentityParams extends ApiParams {
     clear?: boolean;
 }
 
-export interface ApiActionWbformatentitiesParams extends ApiParams {
+export interface ApiActionWBFormatEntitiesParams extends ApiParams {
     action?: "wbformatentities";
     ids?: string | string[];
 }
@@ -11786,14 +11769,14 @@ export interface ApiActionWbformatentitiesParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionWbformatreferenceParams extends ApiParams {
+export interface ApiActionWBFormatReferenceParams extends ApiParams {
     action?: "wbformatreference";
     reference: string;
     style: "internal-data-bridge";
     outputformat: "html";
 }
 
-export interface ApiActionWbformatvalueParams extends ApiParams {
+export interface ApiActionWBFormatValueParams extends ApiParams {
     action?: "wbformatvalue";
     generate?:
         | "text/html"
@@ -11825,7 +11808,7 @@ export interface ApiActionWbformatvalueParams extends ApiParams {
     options?: string;
 }
 
-export interface ApiActionWbgetclaimsParams extends ApiParams {
+export interface ApiActionWBGetClaimsParams extends ApiParams {
     action?: "wbgetclaims";
     entity?: string;
     property?: string;
@@ -11834,7 +11817,7 @@ export interface ApiActionWbgetclaimsParams extends ApiParams {
     props?: OneOrMore<"references">;
 }
 
-export interface ApiActionWbgetentitiesParams extends ApiParams {
+export interface ApiActionWBGetEntitiesParams extends ApiParams {
     action?: "wbgetentities";
     ids?: string | string[];
     sites?: string | string[];
@@ -11859,7 +11842,7 @@ export interface ApiActionWbgetentitiesParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionWbladdformParams extends ApiParams {
+export interface ApiActionWBLAddFormParams extends ApiParams {
     action?: "wbladdform";
     lexemeId: string;
     data: string;
@@ -11875,7 +11858,7 @@ export interface ApiActionWbladdformParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionWbladdsenseParams extends ApiParams {
+export interface ApiActionWBLAddSenseParams extends ApiParams {
     action?: "wbladdsense";
     lexemeId: string;
     data: string;
@@ -11891,7 +11874,7 @@ export interface ApiActionWbladdsenseParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionWbleditformelementsParams extends ApiParams {
+export interface ApiActionWBLEditFormElementsParams extends ApiParams {
     action?: "wbleditformelements";
     formId: string;
     data: string;
@@ -11907,7 +11890,7 @@ export interface ApiActionWbleditformelementsParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionWbleditsenseelementsParams extends ApiParams {
+export interface ApiActionWBLEditSenseElementsParams extends ApiParams {
     action?: "wbleditsenseelements";
     senseId: string;
     data: string;
@@ -11920,7 +11903,7 @@ export interface ApiActionWbleditsenseelementsParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiActionWblinktitlesParams extends ApiParams {
+export interface ApiActionWBLinkTitlesParams extends ApiParams {
     action?: "wblinktitles";
     returnto?: string;
     returntoquery?: string;
@@ -11933,7 +11916,7 @@ export interface ApiActionWblinktitlesParams extends ApiParams {
     bot?: boolean;
 }
 
-export interface ApiActionWblmergelexemesParams extends ApiParams {
+export interface ApiActionWBLMergeLexemesParams extends ApiParams {
     action?: "wblmergelexemes";
     source: string;
     target: string;
@@ -11949,7 +11932,7 @@ export interface ApiActionWblmergelexemesParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionWblremoveformParams extends ApiParams {
+export interface ApiActionWBLRemoveFormParams extends ApiParams {
     action?: "wblremoveform";
     id: string;
     tags?: string | string[];
@@ -11964,7 +11947,7 @@ export interface ApiActionWblremoveformParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionWblremovesenseParams extends ApiParams {
+export interface ApiActionWBLRemoveSenseParams extends ApiParams {
     action?: "wblremovesense";
     id: string;
     baserevid?: number;
@@ -11976,7 +11959,7 @@ export interface ApiActionWblremovesenseParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiActionWbmergeitemsParams extends ApiParams {
+export interface ApiActionWBMergeItemsParams extends ApiParams {
     action?: "wbmergeitems";
     fromid: string;
     toid: string;
@@ -11990,7 +11973,7 @@ export interface ApiActionWbmergeitemsParams extends ApiParams {
     returntoanchor?: string;
 }
 
-export interface ApiActionWbparsevalueParams extends ApiParams {
+export interface ApiActionWBParseValueParams extends ApiParams {
     action?: "wbparsevalue";
     datatype?:
         | "commonsMedia"
@@ -12042,7 +12025,7 @@ export interface ApiActionWbparsevalueParams extends ApiParams {
     validate?: boolean;
 }
 
-export interface ApiActionWbremoveclaimsParams extends ApiParams {
+export interface ApiActionWBRemoveClaimsParams extends ApiParams {
     action?: "wbremoveclaims";
     claim: string | string[];
     summary?: string;
@@ -12055,7 +12038,7 @@ export interface ApiActionWbremoveclaimsParams extends ApiParams {
     returntoanchor?: string;
 }
 
-export interface ApiActionWbremovequalifiersParams extends ApiParams {
+export interface ApiActionWBRemoveQualifiersParams extends ApiParams {
     action?: "wbremovequalifiers";
     claim: string;
     qualifiers: string | string[];
@@ -12069,7 +12052,7 @@ export interface ApiActionWbremovequalifiersParams extends ApiParams {
     returntoanchor?: string;
 }
 
-export interface ApiActionWbremovereferencesParams extends ApiParams {
+export interface ApiActionWBRemoveReferencesParams extends ApiParams {
     action?: "wbremovereferences";
     statement: string;
     references: string | string[];
@@ -12083,7 +12066,7 @@ export interface ApiActionWbremovereferencesParams extends ApiParams {
     returntoanchor?: string;
 }
 
-export interface ApiActionWbsearchentitiesParams extends ApiParams {
+export interface ApiActionWBSearchEntitiesParams extends ApiParams {
     action?: "wbsearchentities";
     search: string;
     language: string;
@@ -12095,7 +12078,7 @@ export interface ApiActionWbsearchentitiesParams extends ApiParams {
     profile?: "default" | "language";
 }
 
-export interface ApiActionWbsetaliasesParams extends ApiParams {
+export interface ApiActionWBSetAliasesParams extends ApiParams {
     action?: "wbsetaliases";
     id?: string;
     new?: "item" | "property";
@@ -12115,7 +12098,7 @@ export interface ApiActionWbsetaliasesParams extends ApiParams {
     language: string;
 }
 
-export interface ApiActionWbsetclaimParams extends ApiParams {
+export interface ApiActionWBSetClaimParams extends ApiParams {
     action?: "wbsetclaim";
     claim: string;
     index?: number;
@@ -12130,7 +12113,7 @@ export interface ApiActionWbsetclaimParams extends ApiParams {
     returntoanchor?: string;
 }
 
-export interface ApiActionWbsetclaimvalueParams extends ApiParams {
+export interface ApiActionWBSetClaimValueParams extends ApiParams {
     action?: "wbsetclaimvalue";
     claim: string;
     value?: string;
@@ -12145,7 +12128,7 @@ export interface ApiActionWbsetclaimvalueParams extends ApiParams {
     returntoanchor?: string;
 }
 
-export interface ApiActionWbsetdescriptionParams extends ApiParams {
+export interface ApiActionWBSetDescriptionParams extends ApiParams {
     action?: "wbsetdescription";
     id?: string;
     new?: string;
@@ -12163,7 +12146,7 @@ export interface ApiActionWbsetdescriptionParams extends ApiParams {
     value?: string;
 }
 
-export interface ApiActionWbsetlabelParams extends ApiParams {
+export interface ApiActionWBSetLabelParams extends ApiParams {
     action?: "wbsetlabel";
     id?: string;
     new?: string;
@@ -12181,7 +12164,7 @@ export interface ApiActionWbsetlabelParams extends ApiParams {
     value?: string;
 }
 
-export interface ApiActionWbsetqualifierParams extends ApiParams {
+export interface ApiActionWBSetQualifierParams extends ApiParams {
     action?: "wbsetqualifier";
     claim: string;
     property?: string;
@@ -12198,7 +12181,7 @@ export interface ApiActionWbsetqualifierParams extends ApiParams {
     returntoanchor?: string;
 }
 
-export interface ApiActionWbsetreferenceParams extends ApiParams {
+export interface ApiActionWBSetReferenceParams extends ApiParams {
     "action"?: "wbsetreference";
     "statement": string;
     "snaks": string;
@@ -12215,7 +12198,7 @@ export interface ApiActionWbsetreferenceParams extends ApiParams {
     "returntoanchor"?: string;
 }
 
-export interface ApiActionWbsetsitelinkParams extends ApiParams {
+export interface ApiActionWBSetSiteLinkParams extends ApiParams {
     action?: "wbsetsitelink";
     id?: string;
     new?: string;
@@ -12234,7 +12217,7 @@ export interface ApiActionWbsetsitelinkParams extends ApiParams {
     badges?: string | string[];
 }
 
-export interface ApiActionWbsgetsuggestionsParams extends ApiParams {
+export interface ApiActionWBSGetSuggestionsParams extends ApiParams {
     action?: "wbsgetsuggestions";
     entity?: string;
     properties?: string | string[];
@@ -12257,7 +12240,7 @@ export interface ApiActionWebAuthnParams extends ApiParams {
     func: "getAuthInfo" | "getRegisterInfo";
 }
 
-export interface ApiActionWikifunctions_runParams extends ApiParams {
+export interface ApiActionWikiFunctionsRunParams extends ApiParams {
     action?: "wikifunctions_run";
     function_call: string;
 }
@@ -12265,7 +12248,7 @@ export interface ApiActionWikifunctions_runParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionWikilambda_editParams extends ApiParams {
+export interface ApiActionWikiLambdaEditParams extends ApiParams {
     action?: "wikilambda_edit";
     summary?: string;
     zid?: string;
@@ -12273,7 +12256,7 @@ export interface ApiActionWikilambda_editParams extends ApiParams {
     token?: string;
 }
 
-export interface ApiActionWikilambda_fetchParams extends ApiParams {
+export interface ApiActionWikiLambdaFetchParams extends ApiParams {
     action?: "wikilambda_fetch";
     zids: string | string[];
     revisions?: string | string[];
@@ -12283,7 +12266,7 @@ export interface ApiActionWikilambda_fetchParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionWikilambda_function_callParams extends ApiParams {
+export interface ApiActionWikiLambdaFunctionCallParams extends ApiParams {
     action?: "wikilambda_function_call";
     wikilambda_function_call_zobject: string;
 }
@@ -12291,7 +12274,7 @@ export interface ApiActionWikilambda_function_callParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionWikilambda_perform_testParams extends ApiParams {
+export interface ApiActionWikiLambdaPerformTestParams extends ApiParams {
     action?: "wikilambda_perform_test";
     wikilambda_perform_test_zfunction: string;
     wikilambda_perform_test_zimplementations?: string | string[];
@@ -12301,7 +12284,7 @@ export interface ApiActionWikilambda_perform_testParams extends ApiParams {
 /**
  * @private
  */
-export interface ApiActionWikilambda_supported_programming_languagesParams extends ApiParams {
+export interface ApiActionWikiLambdaSupportedProgrammingLanguagesParams extends ApiParams {
     action?: "wikilambda_supported_programming_languages";
 }
 

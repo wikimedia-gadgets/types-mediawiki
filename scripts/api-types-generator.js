@@ -13,10 +13,13 @@ const SOURCES = {
     "wikifunctions": "https://www.wikifunctions.org/w/api.php",
     "wikimedia-api": "https://api.wikimedia.org/w/api.php",
     "wikimedia-commons": "https://commons.wikimedia.org/w/api.php",
+    "wikimedia-commons-test": "https://test-commons.wikimedia.org/w/api.php",
+    "wikimedia-labtestwikitech": "https://labtestwikitech.wikimedia.org/w/api.php",
     "wikimedia-meta": "https://meta.wikimedia.org/w/api.php",
     "wikinews-en": "https://en.wikinews.org/w/api.php",
     "wikipedia-en": "https://en.wikipedia.org/w/api.php",
     "wikipedia-test": "https://test.wikipedia.org/w/api.php",
+    "wikipedia-test2": "https://test2.wikipedia.org/w/api.php",
     "wikiquote-en": "https://en.wikiquote.org/w/api.php",
     "wikisource-en": "https://en.wikisource.org/w/api.php",
     "wikiversity-en": "https://en.wikiversity.org/w/api.php",
@@ -40,29 +43,41 @@ const TYPE_MAP = {
  * An enum parameter with this name with get generalized back to a string.
  * @type {string[]}
  */
-const NAME_TYPE_GENERALIZE = [
-    "site", // gusite used by ApiQueryGlobalUsage
-    "tags",
-    "tagfilter", // edit tags, used in core
-    "wikis", // used by Extension:Echo APIs
-];
+const NAME_TYPE_GENERALIZE = [];
 
 /**
  * An API module with this name will have its interface name overriden.
  * @type {Record<string, string>}
  */
 const NAME_PATH_MAP = {
-    allfileusages: "QueryAllFileUsages",
-    allredirects: "QueryAllRedirects",
-    alltransclusions: "QueryAllTransclusions",
-    embeddedin: "QueryEmbeddedIn",
-    fileusage: "QueryFileUsage",
-    imageusage: "QueryImageUsage",
-    linkshere: "QueryLinksHere",
-    redirects: "QueryRedirects",
-    templates: "QueryTemplates",
-    transcludedin: "QueryTranscludedIn",
-    unlinkaccount: "QueryUnlinkAccount",
+    account: "Account",
+    all: "All",
+    call: "Call",
+    check: "Check",
+    embedded: "Embedded",
+    file: "File",
+    help: "Help",
+    homepage: "HomePage",
+    image: "Image",
+    lang: "Lang",
+    links: "Links",
+    objects: "Objects",
+    panel: "Panel",
+    question: "Question",
+    section: "Section",
+    transcluded: "Transcluded",
+    translation: "Translation",
+    url: "Url",
+    usage: "Usage",
+    usages: "Usages",
+    value: "Value",
+
+    cx: "CX",
+    fm: "FM",
+    sx: "SX",
+    wb: "WB",
+    wbl: "WBL",
+    wbs: "WBS",
 };
 
 /**
@@ -272,7 +287,6 @@ class ModuleLoader {
 
 class ModuleMerger {
     constructor() {
-        this.extract = this.extract.bind(this);
         this.expectSame = this.expectSame.bind(this);
         this.expectSameSizeArray = this.expectSameSizeArray.bind(this);
         this.mergeMin = this.mergeMin.bind(this);
@@ -289,23 +303,25 @@ class ModuleMerger {
      * @template {{}} T
      * @template {string & keyof T} K
      * @template {unknown[]} U
-     * @param {K} property
+     * @param {K} key
      * @param {T} o
      * @param {T} o1
      * @param {T} o2
      * @param {string} path
-     * @param {(v1: Required<T>[K], v2: Required<T>[K], path: string, ...args: U) => Required<T>[K]} [merge]
+     * @param {(v1: T[K], v2: T[K], path: string, ...args: U) => T[K] | undefined} [merge]
      * @param {U} args
      */
-    extract(property, o, o1, o2, path, merge, ...args) {
-        if (property in o1 && property in o2) {
-            o[property] = merge
-                ? merge(o1[property], o2[property], `${path}.${property}`, ...args)
-                : o1[property];
-        } else if (property in o1 || property in o2) {
-            throw `Found a missing property "${property}" for "${path}".`;
+    extract(key, o, o1, o2, path, merge, ...args) {
+        if (key in o1 && key in o2 && merge) {
+            const v = merge(o1[key], o2[key], `${path}.${key}`, ...args);
+            if (v !== undefined) {
+                o[key] = v;
+            }
+        } else if (key in o1) {
+            o[key] = o1[key];
+        } else if (key in o2) {
+            o[key] = o2[key];
         }
-        return o[property];
     }
 
     /**
@@ -328,57 +344,80 @@ class ModuleMerger {
     /**
      * @template T
      * @template {unknown[]} U
-     * @param {T[]} a1
-     * @param {T[]} a2
+     * @param {T[] | undefined} a1
+     * @param {T[] | undefined} a2
      * @param {string} path
      * @param {(v1: T, v2: T, path: string, ...args: U) => T} [merge]
      * @param {U} args
      */
     expectSameSizeArray(a1, a2, path, merge, ...args) {
-        if (a1.length !== a2.length) {
-            throw `Found arrays of different lengths ("${a1.length}" and "${a2.length}") for "${path}".`;
+        if (a1 === undefined && a1 === undefined) {
+            return undefined;
+        }
+        if (a1 === undefined || a2 === undefined || a1.length !== a2.length) {
+            throw `Found arrays of different lengths ("${a1?.length ?? 0}" and "${
+                a2?.length ?? 0
+            }") for "${path}".`;
         }
         return merge ? a1.map((v1, i) => merge(v1, a2[i], `${path}[${i}]`, ...args)) : [...a1];
     }
 
     /**
-     * @param {number} v1
-     * @param {number} v2
+     * @param {number | undefined} v1
+     * @param {number | undefined} v2
      * @param {string} _
      */
     mergeMin(v1, v2, _) {
+        if (v1 === undefined || v2 === undefined) {
+            return undefined;
+        }
         return Math.min(v1, v2);
     }
 
     /**
-     * @param {number} v1
-     * @param {number} v2
+     * @param {number | undefined} v1
+     * @param {number | undefined} v2
      * @param {string} _
      */
     mergeMax(v1, v2, _) {
+        if (v1 === undefined || v2 === undefined) {
+            return undefined;
+        }
         return Math.max(v1, v2);
     }
 
     /**
      * @template T
-     * @param {T[]} a1
-     * @param {T[]} a2
+     * @param {T[] | undefined} a1
+     * @param {T[] | undefined} a2
      * @param {string} _
      */
     mergeKeyArray(a1, a2, _) {
+        if (a1 === undefined) {
+            return a2;
+        }
+        if (a2 === undefined) {
+            return a1;
+        }
         return new Set([...a1, ...a2]).values().toArray();
     }
 
     /**
      * @template T
      * @template {unknown[]} U
-     * @param {Record<string, T>} o1
-     * @param {Record<string, T>} o2
+     * @param {Record<string, T> | undefined} o1
+     * @param {Record<string, T> | undefined} o2
      * @param {string} path
      * @param {(v1: T, v2: T, path: string, ...args: U) => T} [merge]
      * @param {U} args
      */
     mergeObject(o1, o2, path, merge, ...args) {
+        if (o1 === undefined) {
+            return o2;
+        }
+        if (o2 === undefined) {
+            return o1;
+        }
         const o = { ...o1 };
         for (const k in o2) {
             if (k in o) {
@@ -435,14 +474,11 @@ class ModuleMerger {
         // @ts-ignore
         const p = {};
         this.extract("name", p, p1, p2, path, this.expectSame);
-        this.extract(
-            "type",
-            p,
-            p1,
-            p2,
-            path,
-            p1.submodules ? this.mergeKeyArray : this.mergeParameterType
-        );
+        if (p1.submodules) {
+            this.extract("type", p, p1, p2, path, this.mergeKeyArray);
+        } else {
+            this.extract("type", p, p1, p2, path, this.mergeParameterType);
+        }
         this.extract("default", p, p1, p2, path, this.expectSame, "string");
         this.extract("multi", p, p1, p2, path, this.expectSame);
         this.extract("lowlimit", p, p1, p2, path, this.mergeMin);
@@ -618,51 +654,91 @@ class ModuleParser {
             source: rawModule.source === "MediaWiki" ? "" : rawModule.source.replace(/[\s-]/g, ""),
         };
 
-        if (result.name in NAME_PATH_MAP) {
-            result.name = NAME_PATH_MAP[result.name];
-            return result;
-        }
-
-        // main module
+        // Main module.
         if (!rawModule.group) {
             result.name = "";
             return result;
         }
 
-        // "format" module
-        if (rawModule.group === "format") {
-            result.name = firstToUppercase(result.name).replace("fm", "FM");
-            return result;
-        }
+        // Try to properly capitalize the module name.
 
-        // try to find the module name in the source or classname for proper capitalization
-        let formatted = "";
-        let toFormat = result.name.replace(/-/g, "");
-        if (result.source) {
-            for (const word of Array.from(result.source.matchAll(/[A-Z][^A-Z]*/g), (m) => m[0])) {
-                const wordIndex = toFormat.indexOf(word.toLowerCase());
-                if (wordIndex === 0) {
-                    formatted += word;
-                    toFormat = toFormat.substring(word.length);
+        // We generate patterns from the source, presets, and class name, then we try to find the
+        // best combination to match the full name. Not that we test all possible combinations, but
+        // only keep the ones with maximized pattern lengths.
+
+        result.name = result.name.split(/[-_]/g).map(firstToUppercase).join("");
+
+        const plainClassName = rawModule.classname.replace(/Api|Extensions?|\\/g, "") + "s",
+            possibleReplacements = Object.entries({
+                ...Object.fromEntries(
+                    result.source.matchAll(/[A-Z][^A-Z]*/g).map((m) => [m[0].toLowerCase(), m[0]])
+                ),
+                ...NAME_PATH_MAP,
+            });
+        possibleReplacements.sort(([p1], [p2]) => p2.length - p1.length);
+
+        /**
+         * @param {string} name
+         * @returns {{name:string,optimal:boolean}}
+         */
+        function findBestReplacement(name) {
+            const nameIndex = plainClassName.toLowerCase().indexOf(name.toLowerCase());
+            if (nameIndex >= 0) {
+                return {
+                    name: plainClassName.substring(nameIndex, nameIndex + name.length),
+                    optimal: true,
+                };
+            }
+
+            let bestReplacement = firstToUppercase(name),
+                bestRemainingLength = name.length;
+            for (const [p, v] of possibleReplacements) {
+                const remainingLength = name.length - p.length;
+                if (remainingLength < 0) {
+                    continue;
+                }
+
+                if (name.toLowerCase().startsWith(p)) {
+                    const repl = findBestReplacement(name.substring(p.length));
+                    repl.name = `${v}${repl.name}`;
+                    if (repl.optimal) {
+                        return repl;
+                    }
+                    if (remainingLength < bestRemainingLength) {
+                        bestReplacement = repl.name;
+                        bestRemainingLength = remainingLength;
+                    }
+                }
+
+                if (name.toLowerCase().endsWith(p)) {
+                    const repl = findBestReplacement(name.substring(0, remainingLength));
+                    repl.name = `${repl.name}${v}`;
+                    if (repl.optimal) {
+                        return repl;
+                    }
+                    if (remainingLength < bestRemainingLength) {
+                        bestReplacement = repl.name;
+                        bestRemainingLength = remainingLength;
+                    }
                 }
             }
-        }
-        const plainClassName = rawModule.classname.replace(/Api|Extensions?|\\/g, "") + "s";
-        const nameIndex = plainClassName.toLowerCase().indexOf(toFormat);
-        if (nameIndex >= 0) {
-            result.name =
-                formatted + plainClassName.substring(nameIndex, nameIndex + toFormat.length);
-            return result;
+
+            return {
+                name: bestReplacement,
+                optimal: false,
+            };
         }
 
-        // otherwise, just uppercase the 1st letter
-        result.name = result.name
-            .split("-")
-            .map((v) => v[0].toUpperCase() + v.slice(1))
-            .join("");
-        console.warn(
-            `Could not find a proper name capitalization for module "${rawModule.name}", using "${result.name}".`
+        const bestRepl = findBestReplacement(
+            result.name.split(/[-_]/g).map(firstToUppercase).join("")
         );
+        result.name = bestRepl.name;
+        if (!bestRepl.optimal) {
+            console.warn(
+                `Could not find a proper name capitalization for module "${rawModule.name}", using "${result.name}".`
+            );
+        }
+
         return result;
     }
 
