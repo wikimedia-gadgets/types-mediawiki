@@ -1,8 +1,29 @@
-// Paste this into the browser console
-// and copy the console log output
+// This generates the content of `api_params/index.d.ts`, by extracting online MediaWiki API module information.
+// Go to a Wikimedia site, paste this into the browser console, and copy the log output.
+//
+// This process is done in 4 steps:
+//
+//                                  main
+//                                  └── action=                                                                       namespace Params {
+//   https://w1/api.php  ══[ML]══>      ├── query   ═══╗          main                      Params                     namespace Action {
+//                                      └── block      ║          └── action=               └── Action                  interface Query {}
+//                                                     ╠══[MM]══>     ├── query   ══[MP]══>     ├── Query   ══[MF]══>   interface Block {}
+//                                  main               ║              ├── block                 ├── Block               interface WBSearch {}
+//                                  └── action=        ║              └── wbsearch              └── WBSearch           }
+//   https://w2/api.php  ══[ML]══>      ├── query     ═╝                                                              }
+//                                      └── wbsearch
+//
+// [ML] ModuleLoader: load module data from all APIs.
+// [MM] ModuleMerger: merge module data into a single hierarchy.
+// [MP] ModuleParser: process module data to deduce API parameter types.
+// [MF] ModuleFormatter: format module data into TS type declarations.
+
+/** @type {import("./api-types-generator-types")} */
 
 /**
- * Where to look API types from. If there is an ambiguity, the first ones are given priority.
+ * Entry points of MediaWiki sites from which API types are loaded.
+ * If there is an ambiguity, the first ones are given priority.
+ *
  * @type {Record<string, string>}
  */
 const SOURCES = {
@@ -28,7 +49,8 @@ const SOURCES = {
 };
 
 /**
- * An API type with this name will be replaced with its associated TS type.
+ * Mapping of API module parameter types to TS types.
+ *
  * @type {Record<string, string>}
  */
 const TYPE_MAP = {
@@ -40,13 +62,10 @@ const TYPE_MAP = {
 };
 
 /**
- * An enum parameter with this name with get generalized back to a string.
- * @type {string[]}
- */
-const NAME_TYPE_GENERALIZE = [];
-
-/**
- * An API module with this name will have its interface name overriden.
+ * Patterns used to properly capitalize TS type names.
+ * By default, PHP namespaces and class name are used to find proper capitalizations, this can be used to
+ * override bad deductions or when there is not enough information for the script to capitalize anything.
+ *
  * @type {Record<string, string>}
  */
 const NAME_PATH_MAP = {
@@ -81,96 +100,44 @@ const NAME_PATH_MAP = {
 };
 
 /**
- * A parameter with this name will always be optional.
+ * Hardcoded list of (unprefixed) parameter names that should always be optional.
+ * Used with any module.
+ *
  * @type {string[]}
  */
 const FORCE_OPTIONAL_PARAMS = [];
 
 /**
- * An API module with this name will have the given parameters be required or optional, as specified.
+ * Hardcoded list of (unprefixed) parameter names that should be required or optional.
+ * Only applies to the specified module.
+ *
  * @type {Record<string, Record<string, boolean>>}
  */
 const REQUIRED_PARAMS_MAP = {
     // e.g. allfileusages: { somerequiredparam: true, someoptionalparam: false },
 };
 
-/**
- * @template {number} [N=0]
- * @template {null[]} [_A=[]]
- * @typedef {_A["length"] extends N ? string : Array<string | LineBlock<N, [null, ..._A]>>} LineBlock
- */
-
-/**
- * @typedef RawModule
- * @property {string} name
- * @property {string} classname
- * @property {string} path
- * @property {string} [group]
- * @property {string} prefix
- * @property {string} source
- * @property {string} sourcename
- * @property {string} licensetag
- * @property {string} licenselink
- * @property {boolean} [internal]
- * @property {boolean} [readrights]
- * @property {boolean} [writerights]
- * @property {boolean} [mustbeposted]
- * @property {boolean} [deprecated]
- * @property {boolean} [generator]
- * @property {string[]} helpurls
- * @property {RawModule.Param[]} parameters
- * @property {boolean} [dynamicparameters]
- */
-/**
- * @typedef RawModule.Param
- * @property {number} index
- * @property {RawModule} module
- * @property {string} name
- * @property {string|string[]} type
- * @property {unknown} [default]
- * @property {boolean} [multi]
- * @property {number} [lowlimit]
- * @property {number} [highlimit]
- * @property {number} [limit]
- * @property {number} [min]
- * @property {number} [max]
- * @property {boolean} [mustExist]
- * @property {boolean} [required]
- * @property {boolean} [sensitive]
- * @property {boolean} [deprecated]
- * @property {string} [allspecifier]
- * @property {string[]} [subtypes]
- * @property {Record<string, RawModule>} [submodules]
- * @property {string} [submoduleparamprefix]
- * @property {string[]} [internalvalues]
- * @property {string} [tokentype]
- * @property {Record<string, string>} [templatevars]
- */
-/** @typedef {Record<string, RawModule>} APIModuleDict */
+const log = mw.log;
+const logError = mw.log.error;
 
 class ModuleLoader {
-    logger = console.log;
     /** @type {Record<string, Promise<APIModuleDict>>} */
     cache = {};
 
     /**
-     * @param {string|mw.Api} api
+     * Creates a module loader.
+     *
+     * @param {string} api URI to the foreign API.
      */
     constructor(api) {
-        this.processAndLoadSubmodules = this.processAndLoadSubmodules.bind(this);
-
-        if (typeof api === "string") {
-            this.api = new mw.ForeignApi(api);
-        } else {
-            this.api = api;
-        }
+        this.api = new mw.ForeignApi(api);
     }
 
     /**
      * @param {any} module
      * @returns {Promise<APIModuleDict>}
      */
-    async processAndLoadSubmodules(module) {
+    processAndLoadSubmodules = async (module) => {
         /** @type {Array<Promise<APIModuleDict>>} */
         const promises = [];
 
@@ -214,16 +181,16 @@ class ModuleLoader {
         }
 
         return Object.assign({}, ...(await Promise.all(promises)));
-    }
+    };
 
     /**
      * @param {string[]} paths Module paths
      * @returns {Promise<RawModule[]>} Module data
      */
-    queryModules(paths) {
-        this.logger("Querying module data...", paths);
+    queryModules = (paths) => {
+        log("Querying module data...", paths);
 
-        /** @type {import("../api_params").ApiActionParamInfoParams & import("../api_params").ApiFormatJsonParams} */
+        /** @type {mw.Api.Params.Action.ParamInfo & mw.Api.Params.Format.Json} */
         const params = {
             action: "paraminfo",
             format: "json",
@@ -234,14 +201,14 @@ class ModuleLoader {
         const { promise, resolve, reject } = Promise.withResolvers();
         this.api.get(params).then((response) => resolve(response.paraminfo.modules), reject);
         return promise;
-    }
+    };
 
     /**
      * Get module data from the API.
      * @param {string[]} paths Module paths
      * @returns {Promise<APIModuleDict>} Module data
      */
-    async getModules(paths) {
+    getModules = async (paths) => {
         /** @type {Array<Promise<APIModuleDict>>} */
         const promises = [];
         /** @type {string[]} */
@@ -274,31 +241,12 @@ class ModuleLoader {
         }
 
         return Object.assign({}, ...(await Promise.all(promises)));
-    }
+    };
 
-    /**
-     * @returns {Promise<RawModule>}
-     */
-    async getRootModule() {
-        const modules = await this.getModules(["main"]);
-        return modules["main"];
-    }
+    load = () => this.getModules(["main"]).then((m) => m["main"]);
 }
 
 class ModuleMerger {
-    constructor() {
-        this.expectSame = this.expectSame.bind(this);
-        this.expectSameSizeArray = this.expectSameSizeArray.bind(this);
-        this.mergeMin = this.mergeMin.bind(this);
-        this.mergeMax = this.mergeMax.bind(this);
-        this.mergeKeyArray = this.mergeKeyArray.bind(this);
-        this.mergeParameterType = this.mergeParameterType.bind(this);
-        this.mergeParameterArray = this.mergeParameterArray.bind(this);
-        this.mergeParameter = this.mergeParameter.bind(this);
-        this.mergeModule = this.mergeModule.bind(this);
-        this.merge = this.merge.bind(this);
-    }
-
     /**
      * @template {{}} T
      * @template {string & keyof T} K
@@ -311,7 +259,7 @@ class ModuleMerger {
      * @param {(v1: T[K], v2: T[K], path: string, ...args: U) => T[K] | undefined} [merge]
      * @param {U} args
      */
-    extract(key, o, o1, o2, path, merge, ...args) {
+    extract = (key, o, o1, o2, path, merge, ...args) => {
         if (key in o1 && key in o2 && merge) {
             const v = merge(o1[key], o2[key], `${path}.${key}`, ...args);
             if (v !== undefined) {
@@ -322,7 +270,7 @@ class ModuleMerger {
         } else if (key in o2) {
             o[key] = o2[key];
         }
-    }
+    };
 
     /**
      * @template T
@@ -331,7 +279,7 @@ class ModuleMerger {
      * @param {string} path
      * @param {T} [def]
      */
-    expectSame(v1, v2, path, def) {
+    expectSame = (v1, v2, path, def) => {
         if (v1 === v2) {
             return v1;
         }
@@ -339,7 +287,7 @@ class ModuleMerger {
             return def;
         }
         throw `Found different values ("${v1}" and "${v2}") for "${path}".`;
-    }
+    };
 
     /**
      * @template T
@@ -350,7 +298,7 @@ class ModuleMerger {
      * @param {(v1: T, v2: T, path: string, ...args: U) => T} [merge]
      * @param {U} args
      */
-    expectSameSizeArray(a1, a2, path, merge, ...args) {
+    expectSameSizeArray = (a1, a2, path, merge, ...args) => {
         if (a1 === undefined && a1 === undefined) {
             return undefined;
         }
@@ -360,31 +308,43 @@ class ModuleMerger {
             }") for "${path}".`;
         }
         return merge ? a1.map((v1, i) => merge(v1, a2[i], `${path}[${i}]`, ...args)) : [...a1];
-    }
+    };
+
+    /**
+     * @param {boolean | undefined} v1
+     * @param {boolean | undefined} v2
+     * @param {string} _
+     */
+    mergeRequired = (v1, v2, _) => {
+        if (v1 === undefined || v2 === undefined) {
+            return undefined;
+        }
+        return v1 && v2;
+    };
 
     /**
      * @param {number | undefined} v1
      * @param {number | undefined} v2
      * @param {string} _
      */
-    mergeMin(v1, v2, _) {
+    mergeMin = (v1, v2, _) => {
         if (v1 === undefined || v2 === undefined) {
             return undefined;
         }
         return Math.min(v1, v2);
-    }
+    };
 
     /**
      * @param {number | undefined} v1
      * @param {number | undefined} v2
      * @param {string} _
      */
-    mergeMax(v1, v2, _) {
+    mergeMax = (v1, v2, _) => {
         if (v1 === undefined || v2 === undefined) {
             return undefined;
         }
         return Math.max(v1, v2);
-    }
+    };
 
     /**
      * @template T
@@ -392,7 +352,7 @@ class ModuleMerger {
      * @param {T[] | undefined} a2
      * @param {string} _
      */
-    mergeKeyArray(a1, a2, _) {
+    mergeKeyArray = (a1, a2, _) => {
         if (a1 === undefined) {
             return a2;
         }
@@ -400,7 +360,7 @@ class ModuleMerger {
             return a1;
         }
         return new Set([...a1, ...a2]).values().toArray();
-    }
+    };
 
     /**
      * @template T
@@ -411,7 +371,7 @@ class ModuleMerger {
      * @param {(v1: T, v2: T, path: string, ...args: U) => T} [merge]
      * @param {U} args
      */
-    mergeObject(o1, o2, path, merge, ...args) {
+    mergeObject = (o1, o2, path, merge, ...args) => {
         if (o1 === undefined) {
             return o2;
         }
@@ -429,14 +389,14 @@ class ModuleMerger {
             }
         }
         return o;
-    }
+    };
 
     /**
      * @param {string | string[]} t1
      * @param {string | string[]} t2
      * @param {string} path
      */
-    mergeParameterType(t1, t2, path) {
+    mergeParameterType = (t1, t2, path) => {
         if (typeof t1 === "string" && typeof t2 === "string") {
             return this.expectSame(t1, t2, path);
         }
@@ -462,15 +422,15 @@ class ModuleMerger {
         } catch {
             return "string";
         }
-    }
+    };
 
     /**
-     * @param {RawModule.Param} p1
-     * @param {RawModule.Param} p2
+     * @param {RawModuleParam} p1
+     * @param {RawModuleParam} p2
      * @param {string} path
      */
-    mergeParameter(p1, p2, path) {
-        /** @type {RawModule.Param} */
+    mergeParameter = (p1, p2, path) => {
+        /** @type {RawModuleParam} */
         // @ts-ignore
         const p = {};
         this.extract("name", p, p1, p2, path, this.expectSame);
@@ -487,7 +447,7 @@ class ModuleMerger {
         this.extract("min", p, p1, p2, path, this.mergeMin);
         this.extract("max", p, p1, p2, path, this.mergeMax);
         this.extract("mustExist", p, p1, p2, path, this.expectSame);
-        this.extract("required", p, p1, p2, path, this.expectSame);
+        this.extract("required", p, p1, p2, path, this.mergeRequired);
         this.extract("sensitive", p, p1, p2, path, this.expectSame);
         this.extract("deprecated", p, p1, p2, path, this.expectSame);
         this.extract("allspecifier", p, p1, p2, path, this.expectSame);
@@ -498,14 +458,14 @@ class ModuleMerger {
         this.extract("tokentype", p, p1, p2, path, this.expectSame);
         this.extract("templatevars", p, p1, p2, path);
         return p;
-    }
+    };
 
     /**
-     * @param {RawModule.Param[]} a1
-     * @param {RawModule.Param[]} a2
+     * @param {RawModuleParam[]} a1
+     * @param {RawModuleParam[]} a2
      * @param {string} path
      */
-    mergeParameterArray(a1, a2, path) {
+    mergeParameterArray = (a1, a2, path) => {
         const a = [];
         let i1 = 0,
             i2 = 0;
@@ -541,14 +501,14 @@ class ModuleMerger {
 
         a.forEach((p, i) => (p.index = i));
         return a;
-    }
+    };
 
     /**
      * @param {RawModule} m1
      * @param {RawModule} m2
      * @param {string} path
      */
-    mergeModule(m1, m2, path) {
+    mergeModule = (m1, m2, path) => {
         /** @type {RawModule} */
         // @ts-ignore
         const m = {};
@@ -572,20 +532,20 @@ class ModuleMerger {
         m.parameters.forEach((p) => (p.module = m));
         this.extract("dynamicparameters", m, m1, m2, path, this.expectSame);
         return m;
-    }
+    };
 
     /**
      * @param {RawModule} m1
      * @param {RawModule} m2
      */
-    merge(m1, m2) {
+    merge = (m1, m2) => {
         try {
             return this.mergeModule(m1, m2, m1.path);
         } catch (e) {
-            console.error(e);
+            logError(e);
             return m1;
         }
-    }
+    };
 }
 
 /**
@@ -595,60 +555,35 @@ function firstToUppercase(s) {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-/**
- * @typedef ModuleData
- * Pre-processed API module data.
- *
- * @property {string} path API module path
- * @property {string} source Formatted extension name
- * @property {string} name Formatted module name
- * @property {ParentPath[]} parents Interfaces to inherit from
- * @property {ParameterData[]} parameters Sorted list of properties
- * @property {string} prefix
- * @property {JSdocData} [jsdoc]
- */
-
-/**
- * @typedef ParentPath
- * If it is not an API root module, indicates a parameter and associated value providing this module as a sub-module.
- *
- * @property {ParameterData} parameter
- * @property {string} value
- */
-
-/**
- * @typedef ParameterData
- * Pre-processed API parameter data.
- *
- * @property {string} key Property name
- * @property {string} name Formatted parameter name
- * @property {ModuleData} module Interface data
- * @property {boolean} [template] Whether the type name is a string template or litteral
- * @property {string|string[]|Record<string, ModuleData>} type Type, list of possible values, or map of submodules
- * @property {boolean} [multi] Whether multiple values can be specified as a list
- * @property {boolean} required Whether the parameter is required or optional
- * @property {unknown} [default] Default parameter value
- * @property {JSdocData} [jsdoc]
- */
-
-/**
- * @typedef JSdocData
- * Some additional information about an API module or parameter.
- *
- * @property {string|string[]} [description]
- * @property {boolean} [private]
- * @property {string|boolean} [deprecated]
- * @property {string[]} [seelinks]
- */
-
 class ModuleParser {
+    /**
+     * Try to find a suitable module name for TS formatting.
+     * Name generation used before PR #41, used in type aliases for compatibility.
+     *
+     * @param {RawModule} rawModule API module data.
+     * @returns Formatted module name, `false` if the module did not have an interface.
+     */
+    findOldModuleName = (rawModule) => {
+        if (rawModule.path.includes("+") && !rawModule.path.startsWith("query+")) {
+            return false;
+        }
+
+        return (
+            rawModule.classname
+                .replace(/\\/g, "")
+                .replace(/^MediaWikiApi/g, "Api")
+                .replace(/^MediaWikiExtensions?/g, "")
+                .replace(/ApiApi/g, "Api") + "Params"
+        );
+    };
+
     /**
      * Try to find a suitable module name for TS formatting.
      *
      * @param {RawModule} rawModule API module data
      * @returns Formatted module name (and source if not from MediaWiki)
      */
-    findModuleName(rawModule) {
+    findModuleName = (rawModule) => {
         const result = {
             name: rawModule.name,
             source: rawModule.source === "MediaWiki" ? "" : rawModule.source.replace(/[\s-]/g, ""),
@@ -656,7 +591,7 @@ class ModuleParser {
 
         // Main module.
         if (!rawModule.group) {
-            result.name = "";
+            result.name = "Params";
             return result;
         }
 
@@ -678,8 +613,10 @@ class ModuleParser {
         possibleReplacements.sort(([p1], [p2]) => p2.length - p1.length);
 
         /**
+         * Recursively replace prefixes and suffixes of the module name.
+         *
          * @param {string} name
-         * @returns {{name:string,optimal:boolean}}
+         * @returns {{ name: string, optimal: boolean }}
          */
         function findBestReplacement(name) {
             const nameIndex = plainClassName.toLowerCase().indexOf(name.toLowerCase());
@@ -734,27 +671,27 @@ class ModuleParser {
         );
         result.name = bestRepl.name;
         if (!bestRepl.optimal) {
-            console.warn(
+            log(
                 `Could not find a proper name capitalization for module "${rawModule.name}", using "${result.name}".`
             );
         }
 
         return result;
-    }
+    };
 
     /**
-     * @param {RawModule.Param} rawParameter
+     * @param {RawModuleParam} rawParameter
      */
-    findParameterName(rawParameter) {
+    findParameterName = (rawParameter) => {
         return firstToUppercase(rawParameter.name);
-    }
+    };
 
     /**
      * Get some data about a module parameter.
      * @param {ModuleData} module Formatted module data
-     * @param {RawModule.Param} rawParameter API parameter data
+     * @param {RawModuleParam} rawParameter API parameter data
      */
-    processParameter(module, rawParameter) {
+    processParameter = (module, rawParameter) => {
         const rawModule = rawParameter.module;
 
         /** @type {JSdocData} */
@@ -779,7 +716,6 @@ class ModuleParser {
             // so for now we generalize all parameter types referenced in templated parameters
             // to be sure we are not being too specific
             if (
-                NAME_TYPE_GENERALIZE.includes(rawParameter.name) ||
                 isUsedAsTemplateVariable ||
                 (!rawParameter.submodules && rawParameter.type.length > 100)
             ) {
@@ -841,7 +777,7 @@ class ModuleParser {
         }
 
         return parameter;
-    }
+    };
 
     /**
      * Get some data about a module interface.
@@ -850,7 +786,7 @@ class ModuleParser {
      * @param {ParentPath} [parent] API data of the module this one is an extension of
      * @returns {ModuleData}
      */
-    processModule(rawModule, prefix, parent) {
+    processModule = (rawModule, prefix, parent) => {
         /** @type {JSdocData} */
         const jsdoc = {
             private: !!rawModule.internal,
@@ -871,6 +807,11 @@ class ModuleParser {
             jsdoc,
         };
 
+        const oldName = this.findOldModuleName(rawModule);
+        if (oldName !== false) {
+            module.oldName = oldName;
+        }
+
         if (parent) {
             module.parents.push(parent);
         }
@@ -882,52 +823,37 @@ class ModuleParser {
         );
 
         return module;
-    }
+    };
 }
-
-/**
- * @typedef InterfaceOptions
- * @property {string} [parent]
- * @property {boolean} [exported]
- */
-/**
- * @typedef {Omit<ParameterData, "module" | "name">} PropertyData
- */
 
 class ModuleFormatter {
     /**
-     * @type {ParentPath[]}
+     * @type {Record<string, string[]>};
      */
-    pathStack = [];
-
-    constructor() {
-        this.quote = this.quote.bind(this);
-        this.indent = this.indent.bind(this);
-        this.formatProperty = this.formatProperty.bind(this);
-    }
+    deprecatedAliases = {};
 
     /**
      * @param {string} s
      */
-    quote(s) {
+    quote = (s) => {
         return `"${s}"`;
-    }
+    };
 
     /**
      * @param {string} s
      */
-    indent(s) {
+    indent = (s) => {
         if (s !== "") {
             s = " ".repeat(4) + s;
         }
         return s;
-    }
+    };
 
     /**
      * @template T
      * @param {Array<string|T>} block
      */
-    flatWithLine(block) {
+    flatWithLine = (block) => {
         if (!block.length) {
             return [];
         }
@@ -938,52 +864,40 @@ class ModuleFormatter {
         }
 
         return newBlock.flat(1);
-    }
-
-    /**
-     * @param {ModuleData} module
-     */
-    formatModuleName(module) {
-        const nameParts = [
-            ...this.pathStack.flatMap((p) => [p.parameter.module, p.parameter]),
-            module,
-        ];
-        return `Api${nameParts.map((o) => o.name).join("")}`;
-    }
+    };
 
     /**
      * @param {ModuleData} source
+     * @param {ModuleFormatter.ParentStack} parentStack
      */
-    formatParameterPrefix(source) {
-        const modules = [...this.pathStack.map((p) => p.parameter.module), source];
-        return modules.map((m) => m.prefix).join("");
-    }
+    formatParameterPrefix = (source, parentStack) => {
+        let prefix = source.prefix;
+        for (let parent = parentStack; parent !== null; parent = parent.next) {
+            prefix = `${parent.path.parameter.module.prefix}${prefix}`;
+        }
+        return prefix;
+    };
 
     /**
      * Disable a linter rule for the next line.
      * @param {string} name Rule name
      * @returns TS string line
      */
-    disableRule(name) {
+    disableRule = (name) => {
         return `// tslint:disable-next-line:${name}`;
-    }
+    };
 
     /**
      * @param {JSdocData|undefined} jsdoc
-     * @param {string|string[]} [typeLines]
      */
-    addJsdoc(jsdoc, typeLines) {
-        if (typeof typeLines === "string") {
-            typeLines = [typeLines];
-        }
-
+    formatJSdoc = (jsdoc) => {
         jsdoc ??= {};
 
-        /** @type {LineBlock<2>} */
-        let lineBlocks = [];
+        /** @type {LineBlock} */
+        const lineBlock = [];
 
-        if (jsdoc.description?.length) {
-            lineBlocks.push(jsdoc.description);
+        if (jsdoc.description !== undefined) {
+            lineBlock.push(jsdoc.description);
         }
 
         /** @type {string[]} */
@@ -1000,32 +914,44 @@ class ModuleFormatter {
         }
 
         if (jsdoc.seelinks?.length) {
-            tags.push(...jsdoc.seelinks.map((l) => `@see {@link ${l}}`));
+            tags.push(...jsdoc.seelinks.map((l) => `@see ${l}`));
         }
 
         if (tags.length) {
-            lineBlocks.push(tags);
+            lineBlock.push(tags);
         }
 
-        /** @type {string[]} */
-        const lines = [];
-        if (lineBlocks.length) {
-            lines.push("/**", ...this.flatWithLine(lineBlocks).map((l) => ` * ${l}`), " */");
-        }
+        return lineBlock.length
+            ? ["/**", ...this.flatWithLine(lineBlock).map((l) => ` * ${l}`), " */"]
+            : [];
+    };
 
-        if (typeLines) {
-            lines.push(...typeLines);
-        }
+    /**
+     * @param {LineBlock} content
+     */
+    formatGlobal = (content) => {
+        return ["declare global {", ...this.flatWithLine(content).map(this.indent), "}"];
+    };
 
-        return lines;
-    }
+    /**
+     * @param {string} name
+     * @param {LineBlock} content
+     * @param {ModuleFormatter.DeclarationModifier} [modifier]
+     */
+    formatNamespace = (name, content, modifier) => {
+        return [
+            `${modifier ? `${modifier} ` : ""}namespace ${name} {`,
+            ...this.flatWithLine(content).map(this.indent),
+            "}",
+        ];
+    };
 
     /**
      * Format an interface parameter as a TS string.
      * @param {PropertyData} prop Interface parameter data
      * @returns {string[]}
      */
-    formatProperty(prop) {
+    formatProperty = (prop) => {
         let { key, type } = prop;
 
         if (prop.template) {
@@ -1054,8 +980,8 @@ class ModuleFormatter {
             }
         }
 
-        return this.addJsdoc(prop.jsdoc, `${key}: ${type};`);
-    }
+        return [...this.formatJSdoc(prop.jsdoc), `${key}: ${type};`];
+    };
 
     /**
      * @param {string} name
@@ -1063,7 +989,7 @@ class ModuleFormatter {
      * @param {InterfaceOptions} [options]
      * @returns {string[]}
      */
-    formatInterface(name, properties, options) {
+    formatInterface = (name, properties, options) => {
         options ??= {};
         /** @type {string[]} */
         const lines = [];
@@ -1092,16 +1018,16 @@ class ModuleFormatter {
         }
 
         return lines;
-    }
+    };
 
     /**
      * Format a module interface as a TS string.
      * @param {ModuleData} module Module interface data
-     * @returns {string[]}
+     * @param {ModuleFormatter.ParentStack} parentStack
+     * @returns {LineBlock}
      */
-    formatModule(module) {
-        const interfaceName = `${this.formatModuleName(module)}Params`;
-        const parameterPrefix = this.formatParameterPrefix(module);
+    formatModule = (module, parentStack) => {
+        const parameterPrefix = this.formatParameterPrefix(module, parentStack);
 
         /** @type {ParameterData[]} */
         const prefixedParameters = module.parameters.map((parameter) => ({
@@ -1121,49 +1047,84 @@ class ModuleFormatter {
         });
 
         /** @type {InterfaceOptions} */
-        const options = { exported: true };
+        const options = {};
 
         // Set parent interface, and overload parameter from parent interface
-        const parentPath = this.pathStack.pop();
-        if (parentPath) {
-            const parameter = parentPath.parameter;
-            options.parent = `${this.formatModuleName(parameter.module)}Params`;
-            this.pathStack.push(parentPath);
+        if (parentStack !== null) {
+            const parameter = parentStack.path.parameter;
+            options.parent = parameter.module.name;
             if (!parameter.multi) {
                 prefixedParameters.unshift({
                     ...parameter,
-                    type: [parentPath.value],
+                    type: [parentStack.path.value],
                     // required: false,
                 });
             }
         }
 
-        /** @type {LineBlock<2>} */
-        const types = [
-            this.addJsdoc(
-                module.jsdoc,
-                this.formatInterface(interfaceName, prefixedParameters, options)
-            ),
-        ];
+        /** @type {LineBlock} */
+        const types = [];
 
+        types.push([
+            ...this.formatJSdoc(module.jsdoc),
+            ...this.formatInterface(module.name, prefixedParameters, options),
+        ]);
+
+        /** @type {[string, LineBlock][]} */
+        const submoduleBlocks = [];
         for (const submoduleSet of submoduleSets) {
             const parameter = submoduleSet.parameter;
+            /** @type {LineBlock} */
+            const submoduleBlock = [];
+
             for (const [value, submodule] of submoduleSet.values) {
-                this.pathStack.push({ parameter, value });
-                types.push(this.formatModule(submodule));
-                this.pathStack.pop();
+                const path = { parameter, value };
+                submoduleBlock.push(...this.formatModule(submodule, { path, next: parentStack }));
+            }
+
+            if (submoduleBlock.length) {
+                submoduleBlocks.push([parameter.name, submoduleBlock]);
             }
         }
 
-        return this.flatWithLine(types);
-    }
+        if (submoduleBlocks.length === 1) {
+            const [parameterName, submoduleBlock] = submoduleBlocks[0];
+            types.push(this.formatNamespace(`${module.name}.${parameterName}`, submoduleBlock));
+        } else if (submoduleBlocks.length) {
+            const submoduleNamespaces = submoduleBlocks.map(([parameterName, submoduleBlock]) =>
+                this.formatNamespace(parameterName, submoduleBlock)
+            );
+            types.push(this.formatNamespace(module.name, submoduleNamespaces));
+        }
+
+        if (module.oldName) {
+            const nameParts = [module.name];
+            for (let parent = parentStack; parent !== null; parent = parent.next) {
+                nameParts.unshift(parent.path.parameter.module.name, parent.path.parameter.name);
+            }
+
+            this.deprecatedAliases[module.oldName] ??= [];
+            this.deprecatedAliases[module.oldName].push(nameParts.join("."));
+        }
+
+        return types;
+    };
+
+    formatDeprecatedAliases = () => {
+        return Object.entries(this.deprecatedAliases).map(([typeName, targetNames]) => [
+            `/** @deprecated Use ${targetNames
+                .map((t) => `{@link mw.Api.${t} \`Partial<mw.Api.${t}>\`}`)
+                .join(" / ")} instead. */`,
+            `export type ${typeName} = Partial<mw.Api.${targetNames[0]}>;`,
+        ]);
+    };
 
     /**
      * Format some module interface data as a TS declaration file.
      * @param {ModuleData} rootModule Formatted module data
      * @returns {string[]}
      */
-    formatContent(rootModule) {
+    formatContent = (rootModule) => {
         return this.flatWithLine([
             "// AUTOMATICALLY GENERATED (see scripts/api-types-generator.js)",
             [
@@ -1178,10 +1139,13 @@ class ModuleFormatter {
             'export type ApiAssert = "anon" | "bot" | "user";',
             'export type ApiTokenType = "createaccount" | "csrf" | "deleteglobalaccount" | "login" | "patrol" | "rollback" | "setglobalaccountstatus" | "userrights" | "watch";',
             'export type ApiLegacyTokenType = "block" | "delete" | "edit" | "email" | "import" | "move" | "options" | "protect" | "unblock";',
-            this.formatModule(rootModule),
+            this.formatGlobal([
+                this.formatNamespace("mw.Api", this.formatModule(rootModule, null)),
+            ]),
+            ...this.formatDeprecatedAliases(),
             "export {};",
         ]);
-    }
+    };
 }
 
 const loaders = Object.values(SOURCES).map((s) => new ModuleLoader(s));
@@ -1189,11 +1153,7 @@ const merger = new ModuleMerger();
 const parser = new ModuleParser();
 const formatter = new ModuleFormatter();
 
-const rawRootModules = await Promise.all(loaders.map((l) => l.getRootModule()));
+const rawRootModules = await Promise.all(loaders.map((l) => l.load()));
 const rawRootModule = rawRootModules.reduce(merger.merge);
 const rootModule = parser.processModule(rawRootModule);
 console.log(formatter.formatContent(rootModule).join("\n"));
-// Object.values(await getModules())
-//     .map((m) => `${m.source}\t${m.path}`)
-//     .sort()
-//     .join("\n");
