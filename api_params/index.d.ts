@@ -12629,9 +12629,6 @@ export type AbuseFilterApiAbuseLogPrivateDetailsParams = Partial<mw.Api.Params.A
 /** @deprecated Use {@link mw.Api.Params.Action.AcquireTempUserName `Partial<mw.Api.Params.Action.AcquireTempUserName>`} instead. */
 export type ApiAcquireTempUserNameParams = Partial<mw.Api.Params.Action.AcquireTempUserName>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.AggregateGroups `Partial<mw.Api.Params.Action.AggregateGroups>`} instead. */
-export type TranslateMessageGroupProcessingAggregateGroupsActionApiParams = Partial<mw.Api.Params.Action.AggregateGroups>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.AntiSpoof `Partial<mw.Api.Params.Action.AntiSpoof>`} instead. */
 export type AntiSpoofApiAntiSpoofParams = Partial<mw.Api.Params.Action.AntiSpoof>;
 
@@ -12665,9 +12662,6 @@ export type ApiChangeContentModelParams = Partial<mw.Api.Params.Action.ChangeCon
 /** @deprecated Use {@link mw.Api.Params.Action.CheckToken `Partial<mw.Api.Params.Action.CheckToken>`} instead. */
 export type ApiCheckTokenParams = Partial<mw.Api.Params.Action.CheckToken>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.CirrusCheckSanity `Partial<mw.Api.Params.Action.CirrusCheckSanity>`} instead. */
-export type CirrusSearchApiCheckSanityParams = Partial<mw.Api.Params.Action.CirrusCheckSanity>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.CirrusConfigDump `Partial<mw.Api.Params.Action.CirrusConfigDump>`} instead. */
 export type CirrusSearchApiConfigDumpParams = Partial<mw.Api.Params.Action.CirrusConfigDump>;
 
@@ -12689,9 +12683,6 @@ export type ApiClientLoginParams = Partial<mw.Api.Params.Action.ClientLogin>;
 /** @deprecated Use {@link mw.Api.Params.Action.Collection `Partial<mw.Api.Params.Action.Collection>`} instead. */
 export type CollectionApiCollectionParams = Partial<mw.Api.Params.Action.Collection>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.CommunityConfigurationEdit `Partial<mw.Api.Params.Action.CommunityConfigurationEdit>`} instead. */
-export type CommunityConfigurationApiEditParams = Partial<mw.Api.Params.Action.CommunityConfigurationEdit>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Compare `Partial<mw.Api.Params.Action.Compare>`} instead. */
 export type ApiComparePagesParams = Partial<mw.Api.Params.Action.Compare>;
 
@@ -12704,9 +12695,6 @@ export type CentralAuthApiCreateLocalAccountParams = Partial<mw.Api.Params.Actio
 /** @deprecated Use {@link mw.Api.Params.Action.CSPReport `Partial<mw.Api.Params.Action.CSPReport>`} instead. */
 export type ApiCSPReportParams = Partial<mw.Api.Params.Action.CSPReport>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.CXCheckUnreviewed `Partial<mw.Api.Params.Action.CXCheckUnreviewed>`} instead. */
-export type ContentTranslationActionApiContentTranslationUnreviewedCheckParams = Partial<mw.Api.Params.Action.CXCheckUnreviewed>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.CXDelete `Partial<mw.Api.Params.Action.CXDelete>`} instead. */
 export type ContentTranslationActionApiContentTranslationDeleteParams = Partial<mw.Api.Params.Action.CXDelete>;
 
@@ -12718,9 +12706,6 @@ export type ContentTranslationActionApiSectionTranslationPublishParams = Partial
 
 /** @deprecated Use {@link mw.Api.Params.Action.CXSave `Partial<mw.Api.Params.Action.CXSave>`} instead. */
 export type ContentTranslationActionApiContentTranslationSaveParams = Partial<mw.Api.Params.Action.CXSave>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.CXSplit `Partial<mw.Api.Params.Action.CXSplit>`} instead. */
-export type ContentTranslationActionApiContentTranslationSplitParams = Partial<mw.Api.Params.Action.CXSplit>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.CXSuggestionList `Partial<mw.Api.Params.Action.CXSuggestionList>`} instead. */
 export type ContentTranslationActionApiContentTranslationSuggestionListParams = Partial<mw.Api.Params.Action.CXSuggestionList>;
@@ -12755,12 +12740,6 @@ export type DiscussionToolsApiDiscussionToolsPreviewParams = Partial<mw.Api.Para
 /** @deprecated Use {@link mw.Api.Params.Action.DiscussionToolsSubscribe `Partial<mw.Api.Params.Action.DiscussionToolsSubscribe>`} instead. */
 export type DiscussionToolsApiDiscussionToolsSubscribeParams = Partial<mw.Api.Params.Action.DiscussionToolsSubscribe>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.DiscussionToolsThank `Partial<mw.Api.Params.Action.DiscussionToolsThank>`} instead. */
-export type DiscussionToolsApiDiscussionToolsThankParams = Partial<mw.Api.Params.Action.DiscussionToolsThank>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.EchoCreateEvent `Partial<mw.Api.Params.Action.EchoCreateEvent>`} instead. */
-export type NotificationsApiEchoCreateEventParams = Partial<mw.Api.Params.Action.EchoCreateEvent>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.EchoMarkRead `Partial<mw.Api.Params.Action.EchoMarkRead>`} instead. */
 export type NotificationsApiEchoMarkReadParams = Partial<mw.Api.Params.Action.EchoMarkRead>;
 
@@ -12775,9 +12754,6 @@ export type NotificationsPushApiEchoPushSubscriptionsParams = Partial<mw.Api.Par
 
 /** @deprecated Use {@link mw.Api.Params.Action.Edit `Partial<mw.Api.Params.Action.Edit>`} instead. */
 export type ApiEditPageParams = Partial<mw.Api.Params.Action.Edit>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.EditCheckReferenceUrl `Partial<mw.Api.Params.Action.EditCheckReferenceUrl>`} instead. */
-export type VisualEditorEditCheckApiEditCheckReferenceUrlParams = Partial<mw.Api.Params.Action.EditCheckReferenceUrl>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.EditMassMessageList `Partial<mw.Api.Params.Action.EditMassMessageList>`} instead. */
 export type MediaWikiMassMessageApiEditMassMessageListParams = Partial<mw.Api.Params.Action.EditMassMessageList>;
@@ -12800,9 +12776,6 @@ export type ApiFeedContributionsParams = Partial<mw.Api.Params.Action.FeedContri
 /** @deprecated Use {@link mw.Api.Params.Action.FeedRecentChanges `Partial<mw.Api.Params.Action.FeedRecentChanges>`} instead. */
 export type ApiFeedRecentChangesParams = Partial<mw.Api.Params.Action.FeedRecentChanges>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.FeedThreads `Partial<mw.Api.Params.Action.FeedThreads>`} instead. */
-export type LiquidThreadsApiFeedLQTThreadsParams = Partial<mw.Api.Params.Action.FeedThreads>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.FeedWatchlist `Partial<mw.Api.Params.Action.FeedWatchlist>`} instead. */
 export type ApiFeedWatchlistParams = Partial<mw.Api.Params.Action.FeedWatchlist>;
 
@@ -12811,18 +12784,6 @@ export type ApiFileRevertParams = Partial<mw.Api.Params.Action.FileRevert>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.FlagConfig `Partial<mw.Api.Params.Action.FlagConfig>`} instead. */
 export type ApiFlagConfigParams = Partial<mw.Api.Params.Action.FlagConfig>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.FlickrBlacklist `Partial<mw.Api.Params.Action.FlickrBlacklist>`} instead. */
-export type UploadWizardApiFlickrBlacklistParams = Partial<mw.Api.Params.Action.FlickrBlacklist>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Flow `Partial<mw.Api.Params.Action.Flow>`} instead. */
-export type FlowApiFlowParams = Partial<mw.Api.Params.Action.Flow>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.FlowParsoidUtils `Partial<mw.Api.Params.Action.FlowParsoidUtils>`} instead. */
-export type FlowApiParsoidUtilsFlowParams = Partial<mw.Api.Params.Action.FlowParsoidUtils>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.FlowThank `Partial<mw.Api.Params.Action.FlowThank>`} instead. */
-export type ThanksApiFlowThankParams = Partial<mw.Api.Params.Action.FlowThank>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.GlobalBlock `Partial<mw.Api.Params.Action.GlobalBlock>`} instead. */
 export type GlobalBlockingApiGlobalBlockParams = Partial<mw.Api.Params.Action.GlobalBlock>;
@@ -12835,9 +12796,6 @@ export type GlobalPreferencesApiGlobalPreferencesParams = Partial<mw.Api.Params.
 
 /** @deprecated Use {@link mw.Api.Params.Action.GlobalUserRights `Partial<mw.Api.Params.Action.GlobalUserRights>`} instead. */
 export type CentralAuthApiGlobalUserRightsParams = Partial<mw.Api.Params.Action.GlobalUserRights>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.GroupReview `Partial<mw.Api.Params.Action.GroupReview>`} instead. */
-export type TranslateMessageGroupProcessingGroupReviewActionApiParams = Partial<mw.Api.Params.Action.GroupReview>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.GrowthInvalidateImageRecommendation `Partial<mw.Api.Params.Action.GrowthInvalidateImageRecommendation>`} instead. */
 export type GrowthExperimentsApiInvalidateImageRecommendationParams = Partial<mw.Api.Params.Action.GrowthInvalidateImageRecommendation>;
@@ -12881,9 +12839,6 @@ export type JsonConfigJCApiParams = Partial<mw.Api.Params.Action.JsonConfig>;
 /** @deprecated Use {@link mw.Api.Params.Action.JsonData `Partial<mw.Api.Params.Action.JsonData>`} instead. */
 export type JsonConfigJCDataApiParams = Partial<mw.Api.Params.Action.JsonData>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.JsonSchema `Partial<mw.Api.Params.Action.JsonSchema>`} instead. */
-export type EventLoggingApiJsonSchemaParams = Partial<mw.Api.Params.Action.JsonSchema>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.LanguageSearch `Partial<mw.Api.Params.Action.LanguageSearch>`} instead. */
 export type UniversalLanguageSelectorApiLanguageSearchParams = Partial<mw.Api.Params.Action.LanguageSearch>;
 
@@ -12896,35 +12851,17 @@ export type ApiLoginParams = Partial<mw.Api.Params.Action.Login>;
 /** @deprecated Use {@link mw.Api.Params.Action.Logout `Partial<mw.Api.Params.Action.Logout>`} instead. */
 export type ApiLogoutParams = Partial<mw.Api.Params.Action.Logout>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.ManageGroupSynchronizationCache `Partial<mw.Api.Params.Action.ManageGroupSynchronizationCache>`} instead. */
-export type TranslateSynchronizationManageGroupSynchronizationCacheActionApiParams = Partial<mw.Api.Params.Action.ManageGroupSynchronizationCache>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.ManageMessageGroups `Partial<mw.Api.Params.Action.ManageMessageGroups>`} instead. */
-export type TranslateMessageGroupProcessingManageMessageGroupsActionApiParams = Partial<mw.Api.Params.Action.ManageMessageGroups>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.ManageTags `Partial<mw.Api.Params.Action.ManageTags>`} instead. */
 export type ApiManageTagsParams = Partial<mw.Api.Params.Action.ManageTags>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.MarkForTranslation `Partial<mw.Api.Params.Action.MarkForTranslation>`} instead. */
-export type TranslatePageTranslationMarkForTranslationActionApiParams = Partial<mw.Api.Params.Action.MarkForTranslation>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.MassMessage `Partial<mw.Api.Params.Action.MassMessage>`} instead. */
 export type MediaWikiMassMessageApiMassMessageParams = Partial<mw.Api.Params.Action.MassMessage>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.MediaDetection `Partial<mw.Api.Params.Action.MediaDetection>`} instead. */
-export type UploadWizardApiMediaDetectionParams = Partial<mw.Api.Params.Action.MediaDetection>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.MergeHistory `Partial<mw.Api.Params.Action.MergeHistory>`} instead. */
 export type ApiMergeHistoryParams = Partial<mw.Api.Params.Action.MergeHistory>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.MessageGroupSubscription `Partial<mw.Api.Params.Action.MessageGroupSubscription>`} instead. */
-export type TranslateMessageGroupProcessingMessageGroupSubscriptionActionApiParams = Partial<mw.Api.Params.Action.MessageGroupSubscription>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Move `Partial<mw.Api.Params.Action.Move>`} instead. */
 export type ApiMoveParams = Partial<mw.Api.Params.Action.Move>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.NewsletterSubscribe `Partial<mw.Api.Params.Action.NewsletterSubscribe>`} instead. */
-export type NewsletterApiNewsletterSubscribeParams = Partial<mw.Api.Params.Action.NewsletterSubscribe>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.OATHValidate `Partial<mw.Api.Params.Action.OATHValidate>`} instead. */
 export type OATHAuthApiModuleApiOATHValidateParams = Partial<mw.Api.Params.Action.OATHValidate>;
@@ -12983,9 +12920,6 @@ export type ApiQueryAllPagesParams = Partial<mw.Api.Params.Action.Purge.Generato
 /** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.AllRevisions `Partial<mw.Api.Params.Action.Purge.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.Query.List.AllRevisions `Partial<mw.Api.Params.Action.Query.List.AllRevisions>`} / {@link mw.Api.Params.Action.Query.Generator.AllRevisions `Partial<mw.Api.Params.Action.Query.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllRevisions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllRevisions `Partial<mw.Api.Params.Action.TemplateData.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.Watch.Generator.AllRevisions `Partial<mw.Api.Params.Action.Watch.Generator.AllRevisions>`} instead. */
 export type ApiQueryAllRevisionsParams = Partial<mw.Api.Params.Action.Purge.Generator.AllRevisions>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.AutomaticTranslationDenseLanguages `Partial<mw.Api.Params.Action.Purge.Generator.AutomaticTranslationDenseLanguages>`} / {@link mw.Api.Params.Action.Query.List.AutomaticTranslationDenseLanguages `Partial<mw.Api.Params.Action.Query.List.AutomaticTranslationDenseLanguages>`} / {@link mw.Api.Params.Action.Query.Generator.AutomaticTranslationDenseLanguages `Partial<mw.Api.Params.Action.Query.Generator.AutomaticTranslationDenseLanguages>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AutomaticTranslationDenseLanguages `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AutomaticTranslationDenseLanguages>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AutomaticTranslationDenseLanguages `Partial<mw.Api.Params.Action.TemplateData.Generator.AutomaticTranslationDenseLanguages>`} / {@link mw.Api.Params.Action.Watch.Generator.AutomaticTranslationDenseLanguages `Partial<mw.Api.Params.Action.Watch.Generator.AutomaticTranslationDenseLanguages>`} instead. */
-export type ContentTranslationActionApiQueryAutomaticTranslationDenseLanguagesParams = Partial<mw.Api.Params.Action.Purge.Generator.AutomaticTranslationDenseLanguages>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.Backlinks `Partial<mw.Api.Params.Action.Purge.Generator.Backlinks>`} / {@link mw.Api.Params.Action.Purge.Generator.Embeddedin `Partial<mw.Api.Params.Action.Purge.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.Purge.Generator.ImageUsage `Partial<mw.Api.Params.Action.Purge.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.Query.List.Backlinks `Partial<mw.Api.Params.Action.Query.List.Backlinks>`} / {@link mw.Api.Params.Action.Query.List.Embeddedin `Partial<mw.Api.Params.Action.Query.List.Embeddedin>`} / {@link mw.Api.Params.Action.Query.List.ImageUsage `Partial<mw.Api.Params.Action.Query.List.ImageUsage>`} / {@link mw.Api.Params.Action.Query.Generator.Backlinks `Partial<mw.Api.Params.Action.Query.Generator.Backlinks>`} / {@link mw.Api.Params.Action.Query.Generator.Embeddedin `Partial<mw.Api.Params.Action.Query.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.Query.Generator.ImageUsage `Partial<mw.Api.Params.Action.Query.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Backlinks `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Backlinks>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Embeddedin `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ImageUsage `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Backlinks `Partial<mw.Api.Params.Action.TemplateData.Generator.Backlinks>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Embeddedin `Partial<mw.Api.Params.Action.TemplateData.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ImageUsage `Partial<mw.Api.Params.Action.TemplateData.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.Watch.Generator.Backlinks `Partial<mw.Api.Params.Action.Watch.Generator.Backlinks>`} / {@link mw.Api.Params.Action.Watch.Generator.Embeddedin `Partial<mw.Api.Params.Action.Watch.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.Watch.Generator.ImageUsage `Partial<mw.Api.Params.Action.Watch.Generator.ImageUsage>`} instead. */
 export type ApiQueryBacklinksParams = Partial<mw.Api.Params.Action.Purge.Generator.Backlinks>;
 
@@ -12994,9 +12928,6 @@ export type ApiQueryCategoriesParams = Partial<mw.Api.Params.Action.Purge.Genera
 
 /** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.CategoryMembers `Partial<mw.Api.Params.Action.Purge.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.Query.List.CategoryMembers `Partial<mw.Api.Params.Action.Query.List.CategoryMembers>`} / {@link mw.Api.Params.Action.Query.Generator.CategoryMembers `Partial<mw.Api.Params.Action.Query.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.CategoryMembers `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.TemplateData.Generator.CategoryMembers `Partial<mw.Api.Params.Action.TemplateData.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.Watch.Generator.CategoryMembers `Partial<mw.Api.Params.Action.Watch.Generator.CategoryMembers>`} instead. */
 export type ApiQueryCategoryMembersParams = Partial<mw.Api.Params.Action.Purge.Generator.CategoryMembers>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.Configuredpages `Partial<mw.Api.Params.Action.Purge.Generator.Configuredpages>`} / {@link mw.Api.Params.Action.Query.List.Configuredpages `Partial<mw.Api.Params.Action.Query.List.Configuredpages>`} / {@link mw.Api.Params.Action.Query.Generator.Configuredpages `Partial<mw.Api.Params.Action.Query.Generator.Configuredpages>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Configuredpages `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Configuredpages>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Configuredpages `Partial<mw.Api.Params.Action.TemplateData.Generator.Configuredpages>`} / {@link mw.Api.Params.Action.Watch.Generator.Configuredpages `Partial<mw.Api.Params.Action.Watch.Generator.Configuredpages>`} instead. */
-export type ApiQueryConfiguredpagesParams = Partial<mw.Api.Params.Action.Purge.Generator.Configuredpages>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.ContentTranslation `Partial<mw.Api.Params.Action.Purge.Generator.ContentTranslation>`} / {@link mw.Api.Params.Action.Query.List.ContentTranslation `Partial<mw.Api.Params.Action.Query.List.ContentTranslation>`} / {@link mw.Api.Params.Action.Query.Generator.ContentTranslation `Partial<mw.Api.Params.Action.Query.Generator.ContentTranslation>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ContentTranslation `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ContentTranslation>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ContentTranslation `Partial<mw.Api.Params.Action.TemplateData.Generator.ContentTranslation>`} / {@link mw.Api.Params.Action.Watch.Generator.ContentTranslation `Partial<mw.Api.Params.Action.Watch.Generator.ContentTranslation>`} instead. */
 export type ContentTranslationActionApiQueryContentTranslationParams = Partial<mw.Api.Params.Action.Purge.Generator.ContentTranslation>;
@@ -13034,9 +12965,6 @@ export type ApiQueryLangBacklinksParams = Partial<mw.Api.Params.Action.Purge.Gen
 /** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.Links `Partial<mw.Api.Params.Action.Purge.Generator.Links>`} / {@link mw.Api.Params.Action.Purge.Generator.Templates `Partial<mw.Api.Params.Action.Purge.Generator.Templates>`} / {@link mw.Api.Params.Action.Query.Prop.Links `Partial<mw.Api.Params.Action.Query.Prop.Links>`} / {@link mw.Api.Params.Action.Query.Prop.Templates `Partial<mw.Api.Params.Action.Query.Prop.Templates>`} / {@link mw.Api.Params.Action.Query.Generator.Links `Partial<mw.Api.Params.Action.Query.Generator.Links>`} / {@link mw.Api.Params.Action.Query.Generator.Templates `Partial<mw.Api.Params.Action.Query.Generator.Templates>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Links `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Links>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Templates `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Templates>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Links `Partial<mw.Api.Params.Action.TemplateData.Generator.Links>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Templates `Partial<mw.Api.Params.Action.TemplateData.Generator.Templates>`} / {@link mw.Api.Params.Action.Watch.Generator.Links `Partial<mw.Api.Params.Action.Watch.Generator.Links>`} / {@link mw.Api.Params.Action.Watch.Generator.Templates `Partial<mw.Api.Params.Action.Watch.Generator.Templates>`} instead. */
 export type ApiQueryLinksParams = Partial<mw.Api.Params.Action.Purge.Generator.Links>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.MessageCollection `Partial<mw.Api.Params.Action.Purge.Generator.MessageCollection>`} / {@link mw.Api.Params.Action.Query.List.MessageCollection `Partial<mw.Api.Params.Action.Query.List.MessageCollection>`} / {@link mw.Api.Params.Action.Query.Generator.MessageCollection `Partial<mw.Api.Params.Action.Query.Generator.MessageCollection>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.MessageCollection `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.MessageCollection>`} / {@link mw.Api.Params.Action.TemplateData.Generator.MessageCollection `Partial<mw.Api.Params.Action.TemplateData.Generator.MessageCollection>`} / {@link mw.Api.Params.Action.Watch.Generator.MessageCollection `Partial<mw.Api.Params.Action.Watch.Generator.MessageCollection>`} instead. */
-export type TranslateMessageLoadingQueryMessageCollectionActionApiParams = Partial<mw.Api.Params.Action.Purge.Generator.MessageCollection>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.MostViewed `Partial<mw.Api.Params.Action.Purge.Generator.MostViewed>`} / {@link mw.Api.Params.Action.Query.List.MostViewed `Partial<mw.Api.Params.Action.Query.List.MostViewed>`} / {@link mw.Api.Params.Action.Query.Generator.MostViewed `Partial<mw.Api.Params.Action.Query.Generator.MostViewed>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.MostViewed `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.MostViewed>`} / {@link mw.Api.Params.Action.TemplateData.Generator.MostViewed `Partial<mw.Api.Params.Action.TemplateData.Generator.MostViewed>`} / {@link mw.Api.Params.Action.Watch.Generator.MostViewed `Partial<mw.Api.Params.Action.Watch.Generator.MostViewed>`} instead. */
 export type PageViewInfoApiQueryMostViewedParams = Partial<mw.Api.Params.Action.Purge.Generator.MostViewed>;
 
@@ -13051,9 +12979,6 @@ export type ApiQueryPrefixSearchParams = Partial<mw.Api.Params.Action.Purge.Gene
 
 /** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.ProjectPages `Partial<mw.Api.Params.Action.Purge.Generator.ProjectPages>`} / {@link mw.Api.Params.Action.Query.List.ProjectPages `Partial<mw.Api.Params.Action.Query.List.ProjectPages>`} / {@link mw.Api.Params.Action.Query.Generator.ProjectPages `Partial<mw.Api.Params.Action.Query.Generator.ProjectPages>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProjectPages `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProjectPages>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ProjectPages `Partial<mw.Api.Params.Action.TemplateData.Generator.ProjectPages>`} / {@link mw.Api.Params.Action.Watch.Generator.ProjectPages `Partial<mw.Api.Params.Action.Watch.Generator.ProjectPages>`} instead. */
 export type PageAssessmentsApiQueryProjectPagesParams = Partial<mw.Api.Params.Action.Purge.Generator.ProjectPages>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.ProofreadPagesInIndex `Partial<mw.Api.Params.Action.Purge.Generator.ProofreadPagesInIndex>`} / {@link mw.Api.Params.Action.Query.List.ProofreadPagesInIndex `Partial<mw.Api.Params.Action.Query.List.ProofreadPagesInIndex>`} / {@link mw.Api.Params.Action.Query.Generator.ProofreadPagesInIndex `Partial<mw.Api.Params.Action.Query.Generator.ProofreadPagesInIndex>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProofreadPagesInIndex `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProofreadPagesInIndex>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ProofreadPagesInIndex `Partial<mw.Api.Params.Action.TemplateData.Generator.ProofreadPagesInIndex>`} / {@link mw.Api.Params.Action.Watch.Generator.ProofreadPagesInIndex `Partial<mw.Api.Params.Action.Watch.Generator.ProofreadPagesInIndex>`} instead. */
-export type ProofreadPageApiQueryPagesInIndexParams = Partial<mw.Api.Params.Action.Purge.Generator.ProofreadPagesInIndex>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.Purge.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.Query.List.ProtectedTitles `Partial<mw.Api.Params.Action.Query.List.ProtectedTitles>`} / {@link mw.Api.Params.Action.Query.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.Query.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.TemplateData.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.Watch.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.Watch.Generator.ProtectedTitles>`} instead. */
 export type ApiQueryProtectedTitlesParams = Partial<mw.Api.Params.Action.Purge.Generator.ProtectedTitles>;
@@ -13076,9 +13001,6 @@ export type ApiQueryRevisionsParams = Partial<mw.Api.Params.Action.Purge.Generat
 /** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.Search `Partial<mw.Api.Params.Action.Purge.Generator.Search>`} / {@link mw.Api.Params.Action.Query.List.Search `Partial<mw.Api.Params.Action.Query.List.Search>`} / {@link mw.Api.Params.Action.Query.Generator.Search `Partial<mw.Api.Params.Action.Query.Generator.Search>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Search `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Search>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Search `Partial<mw.Api.Params.Action.TemplateData.Generator.Search>`} / {@link mw.Api.Params.Action.Watch.Generator.Search `Partial<mw.Api.Params.Action.Watch.Generator.Search>`} instead. */
 export type ApiQuerySearchParams = Partial<mw.Api.Params.Action.Purge.Generator.Search>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.Unreviewedpages `Partial<mw.Api.Params.Action.Purge.Generator.Unreviewedpages>`} / {@link mw.Api.Params.Action.Query.List.Unreviewedpages `Partial<mw.Api.Params.Action.Query.List.Unreviewedpages>`} / {@link mw.Api.Params.Action.Query.Generator.Unreviewedpages `Partial<mw.Api.Params.Action.Query.Generator.Unreviewedpages>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Unreviewedpages `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Unreviewedpages>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Unreviewedpages `Partial<mw.Api.Params.Action.TemplateData.Generator.Unreviewedpages>`} / {@link mw.Api.Params.Action.Watch.Generator.Unreviewedpages `Partial<mw.Api.Params.Action.Watch.Generator.Unreviewedpages>`} instead. */
-export type ApiQueryUnreviewedpagesParams = Partial<mw.Api.Params.Action.Purge.Generator.Unreviewedpages>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.Watchlist `Partial<mw.Api.Params.Action.Purge.Generator.Watchlist>`} / {@link mw.Api.Params.Action.Query.List.Watchlist `Partial<mw.Api.Params.Action.Query.List.Watchlist>`} / {@link mw.Api.Params.Action.Query.Generator.Watchlist `Partial<mw.Api.Params.Action.Query.Generator.Watchlist>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Watchlist `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Watchlist>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Watchlist `Partial<mw.Api.Params.Action.TemplateData.Generator.Watchlist>`} / {@link mw.Api.Params.Action.Watch.Generator.Watchlist `Partial<mw.Api.Params.Action.Watch.Generator.Watchlist>`} instead. */
 export type ApiQueryWatchlistParams = Partial<mw.Api.Params.Action.Purge.Generator.Watchlist>;
 
@@ -13087,18 +13009,6 @@ export type ApiQueryWatchlistRawParams = Partial<mw.Api.Params.Action.Purge.Gene
 
 /** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.WBListEntityUsage `Partial<mw.Api.Params.Action.Purge.Generator.WBListEntityUsage>`} / {@link mw.Api.Params.Action.Query.List.WBListEntityUsage `Partial<mw.Api.Params.Action.Query.List.WBListEntityUsage>`} / {@link mw.Api.Params.Action.Query.Generator.WBListEntityUsage `Partial<mw.Api.Params.Action.Query.Generator.WBListEntityUsage>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.WBListEntityUsage `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.WBListEntityUsage>`} / {@link mw.Api.Params.Action.TemplateData.Generator.WBListEntityUsage `Partial<mw.Api.Params.Action.TemplateData.Generator.WBListEntityUsage>`} / {@link mw.Api.Params.Action.Watch.Generator.WBListEntityUsage `Partial<mw.Api.Params.Action.Watch.Generator.WBListEntityUsage>`} instead. */
 export type WikibaseClientApiListEntityUsageParams = Partial<mw.Api.Params.Action.Purge.Generator.WBListEntityUsage>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.WBSearch `Partial<mw.Api.Params.Action.Purge.Generator.WBSearch>`} / {@link mw.Api.Params.Action.Query.List.WBSearch `Partial<mw.Api.Params.Action.Query.List.WBSearch>`} / {@link mw.Api.Params.Action.Query.Generator.WBSearch `Partial<mw.Api.Params.Action.Query.Generator.WBSearch>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.WBSearch `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.WBSearch>`} / {@link mw.Api.Params.Action.TemplateData.Generator.WBSearch `Partial<mw.Api.Params.Action.TemplateData.Generator.WBSearch>`} / {@link mw.Api.Params.Action.Watch.Generator.WBSearch `Partial<mw.Api.Params.Action.Watch.Generator.WBSearch>`} instead. */
-export type WikibaseRepoApiQuerySearchEntitiesParams = Partial<mw.Api.Params.Action.Purge.Generator.WBSearch>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.WikiLambdaFnSearch `Partial<mw.Api.Params.Action.Purge.Generator.WikiLambdaFnSearch>`} / {@link mw.Api.Params.Action.Query.List.WikiLambdaFnSearch `Partial<mw.Api.Params.Action.Query.List.WikiLambdaFnSearch>`} / {@link mw.Api.Params.Action.Query.Generator.WikiLambdaFnSearch `Partial<mw.Api.Params.Action.Query.Generator.WikiLambdaFnSearch>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.WikiLambdaFnSearch `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.WikiLambdaFnSearch>`} / {@link mw.Api.Params.Action.TemplateData.Generator.WikiLambdaFnSearch `Partial<mw.Api.Params.Action.TemplateData.Generator.WikiLambdaFnSearch>`} / {@link mw.Api.Params.Action.Watch.Generator.WikiLambdaFnSearch `Partial<mw.Api.Params.Action.Watch.Generator.WikiLambdaFnSearch>`} instead. */
-export type WikiLambdaActionAPIApiQueryZFunctionReferenceParams = Partial<mw.Api.Params.Action.Purge.Generator.WikiLambdaFnSearch>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.WikiLambdaLoadZObjects `Partial<mw.Api.Params.Action.Purge.Generator.WikiLambdaLoadZObjects>`} / {@link mw.Api.Params.Action.Query.List.WikiLambdaLoadZObjects `Partial<mw.Api.Params.Action.Query.List.WikiLambdaLoadZObjects>`} / {@link mw.Api.Params.Action.Query.Generator.WikiLambdaLoadZObjects `Partial<mw.Api.Params.Action.Query.Generator.WikiLambdaLoadZObjects>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.WikiLambdaLoadZObjects `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.WikiLambdaLoadZObjects>`} / {@link mw.Api.Params.Action.TemplateData.Generator.WikiLambdaLoadZObjects `Partial<mw.Api.Params.Action.TemplateData.Generator.WikiLambdaLoadZObjects>`} / {@link mw.Api.Params.Action.Watch.Generator.WikiLambdaLoadZObjects `Partial<mw.Api.Params.Action.Watch.Generator.WikiLambdaLoadZObjects>`} instead. */
-export type WikiLambdaActionAPIApiQueryZObjectsParams = Partial<mw.Api.Params.Action.Purge.Generator.WikiLambdaLoadZObjects>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Purge.Generator.WikiLambdaSearchLabels `Partial<mw.Api.Params.Action.Purge.Generator.WikiLambdaSearchLabels>`} / {@link mw.Api.Params.Action.Query.List.WikiLambdaSearchLabels `Partial<mw.Api.Params.Action.Query.List.WikiLambdaSearchLabels>`} / {@link mw.Api.Params.Action.Query.Generator.WikiLambdaSearchLabels `Partial<mw.Api.Params.Action.Query.Generator.WikiLambdaSearchLabels>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.WikiLambdaSearchLabels `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.WikiLambdaSearchLabels>`} / {@link mw.Api.Params.Action.TemplateData.Generator.WikiLambdaSearchLabels `Partial<mw.Api.Params.Action.TemplateData.Generator.WikiLambdaSearchLabels>`} / {@link mw.Api.Params.Action.Watch.Generator.WikiLambdaSearchLabels `Partial<mw.Api.Params.Action.Watch.Generator.WikiLambdaSearchLabels>`} instead. */
-export type WikiLambdaActionAPIApiQueryZObjectLabelsParams = Partial<mw.Api.Params.Action.Purge.Generator.WikiLambdaSearchLabels>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Purge `Partial<mw.Api.Params.Action.Purge>`} instead. */
 export type ApiPurgeParams = Partial<mw.Api.Params.Action.Purge>;
@@ -13121,14 +13031,8 @@ export type ApiQueryContributorsParams = Partial<mw.Api.Params.Action.Query.Prop
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Coordinates `Partial<mw.Api.Params.Action.Query.Prop.Coordinates>`} instead. */
 export type GeoDataApiQueryCoordinatesParams = Partial<mw.Api.Params.Action.Query.Prop.Coordinates>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.DefaultContentForPage `Partial<mw.Api.Params.Action.Query.Prop.DefaultContentForPage>`} instead. */
-export type ProofreadPageApiQueryDefaultContentForPageParams = Partial<mw.Api.Params.Action.Query.Prop.DefaultContentForPage>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Description `Partial<mw.Api.Params.Action.Query.Prop.Description>`} instead. */
 export type WikibaseClientApiDescriptionParams = Partial<mw.Api.Params.Action.Query.Prop.Description>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.EntityTerms `Partial<mw.Api.Params.Action.Query.Prop.EntityTerms>`} instead. */
-export type WikibaseRepoApiEntityTermsParams = Partial<mw.Api.Params.Action.Query.Prop.EntityTerms>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.ExtLinks `Partial<mw.Api.Params.Action.Query.Prop.ExtLinks>`} instead. */
 export type ApiQueryExternalLinksParams = Partial<mw.Api.Params.Action.Query.Prop.ExtLinks>;
@@ -13139,17 +13043,11 @@ export type TextExtractsApiQueryExtractsParams = Partial<mw.Api.Params.Action.Qu
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Flagged `Partial<mw.Api.Params.Action.Query.Prop.Flagged>`} instead. */
 export type ApiQueryFlaggedParams = Partial<mw.Api.Params.Action.Query.Prop.Flagged>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.FlowInfo `Partial<mw.Api.Params.Action.Query.Prop.FlowInfo>`} instead. */
-export type FlowApiQueryPropFlowInfoParams = Partial<mw.Api.Params.Action.Query.Prop.FlowInfo>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.GlobalUsage `Partial<mw.Api.Params.Action.Query.Prop.GlobalUsage>`} instead. */
 export type GlobalUsageApiQueryGlobalUsageParams = Partial<mw.Api.Params.Action.Query.Prop.GlobalUsage>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.GrowthImageSuggestionData `Partial<mw.Api.Params.Action.Query.Prop.GrowthImageSuggestionData>`} instead. */
 export type GrowthExperimentsApiQueryImageSuggestionDataParams = Partial<mw.Api.Params.Action.Query.Prop.GrowthImageSuggestionData>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.ImageForPage `Partial<mw.Api.Params.Action.Query.Prop.ImageForPage>`} instead. */
-export type ProofreadPageApiQueryImageForPageParams = Partial<mw.Api.Params.Action.Query.Prop.ImageForPage>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.ImageInfo `Partial<mw.Api.Params.Action.Query.Prop.ImageInfo>`} instead. */
 export type ApiQueryImageInfoParams = Partial<mw.Api.Params.Action.Query.Prop.ImageInfo>;
@@ -13190,9 +13088,6 @@ export type WikibaseClientApiPageTermsParams = Partial<mw.Api.Params.Action.Quer
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.PageViews `Partial<mw.Api.Params.Action.Query.Prop.PageViews>`} instead. */
 export type PageViewInfoApiQueryPageViewsParams = Partial<mw.Api.Params.Action.Query.Prop.PageViews>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Proofread `Partial<mw.Api.Params.Action.Query.Prop.Proofread>`} instead. */
-export type ProofreadPageApiQueryProofreadParams = Partial<mw.Api.Params.Action.Query.Prop.Proofread>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Prop.StashImageInfo `Partial<mw.Api.Params.Action.Query.Prop.StashImageInfo>`} instead. */
 export type ApiQueryStashImageInfoParams = Partial<mw.Api.Params.Action.Query.Prop.StashImageInfo>;
 
@@ -13210,9 +13105,6 @@ export type AbuseFilterApiQueryAbuseFiltersParams = Partial<mw.Api.Params.Action
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.List.AbuseLog `Partial<mw.Api.Params.Action.Query.List.AbuseLog>`} instead. */
 export type AbuseFilterApiQueryAbuseLogParams = Partial<mw.Api.Params.Action.Query.List.AbuseLog>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.List.AllCampaigns `Partial<mw.Api.Params.Action.Query.List.AllCampaigns>`} instead. */
-export type UploadWizardApiQueryAllCampaignsParams = Partial<mw.Api.Params.Action.Query.List.AllCampaigns>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.List.AllUsers `Partial<mw.Api.Params.Action.Query.List.AllUsers>`} instead. */
 export type ApiQueryAllUsersParams = Partial<mw.Api.Params.Action.Query.List.AllUsers>;
@@ -13253,12 +13145,6 @@ export type ContentTranslationActionApiQueryTranslatorStatsParams = Partial<mw.A
 /** @deprecated Use {@link mw.Api.Params.Action.Query.List.Deletedrevs `Partial<mw.Api.Params.Action.Query.List.Deletedrevs>`} instead. */
 export type ApiQueryDeletedrevsParams = Partial<mw.Api.Params.Action.Query.List.Deletedrevs>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.Query.List.ExtDistBranches `Partial<mw.Api.Params.Action.Query.List.ExtDistBranches>`} instead. */
-export type ExtensionDistributorApiListExtDistBranchesParams = Partial<mw.Api.Params.Action.Query.List.ExtDistBranches>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.List.ExtDistRepos `Partial<mw.Api.Params.Action.Query.List.ExtDistRepos>`} instead. */
-export type ExtensionDistributorApiListExtDistReposParams = Partial<mw.Api.Params.Action.Query.List.ExtDistRepos>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Query.List.Filearchive `Partial<mw.Api.Params.Action.Query.List.Filearchive>`} instead. */
 export type ApiQueryFilearchiveParams = Partial<mw.Api.Params.Action.Query.List.Filearchive>;
 
@@ -13292,9 +13178,6 @@ export type MediaWikiLinterApiQueryLintErrorsParams = Partial<mw.Api.Params.Acti
 /** @deprecated Use {@link mw.Api.Params.Action.Query.List.LogEvents `Partial<mw.Api.Params.Action.Query.List.LogEvents>`} instead. */
 export type ApiQueryLogEventsParams = Partial<mw.Api.Params.Action.Query.List.LogEvents>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.Query.List.MessageGroupSubscription `Partial<mw.Api.Params.Action.Query.List.MessageGroupSubscription>`} instead. */
-export type TranslateMessageGroupProcessingQueryMessageGroupSubscriptionApiParams = Partial<mw.Api.Params.Action.Query.List.MessageGroupSubscription>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Query.List.MyStashedFiles `Partial<mw.Api.Params.Action.Query.List.MyStashedFiles>`} instead. */
 export type ApiQueryMyStashedFilesParams = Partial<mw.Api.Params.Action.Query.List.MyStashedFiles>;
 
@@ -13307,17 +13190,11 @@ export type PageAssessmentsApiQueryProjectsParams = Partial<mw.Api.Params.Action
 /** @deprecated Use {@link mw.Api.Params.Action.Query.List.Tags `Partial<mw.Api.Params.Action.Query.List.Tags>`} instead. */
 export type ApiQueryTagsParams = Partial<mw.Api.Params.Action.Query.List.Tags>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.Query.List.Threads `Partial<mw.Api.Params.Action.Query.List.Threads>`} instead. */
-export type LiquidThreadsApiQueryLQTThreadsParams = Partial<mw.Api.Params.Action.Query.List.Threads>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Query.List.UserContribs `Partial<mw.Api.Params.Action.Query.List.UserContribs>`} instead. */
 export type ApiQueryUserContribsParams = Partial<mw.Api.Params.Action.Query.List.UserContribs>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.List.Users `Partial<mw.Api.Params.Action.Query.List.Users>`} instead. */
 export type ApiQueryUsersParams = Partial<mw.Api.Params.Action.Query.List.Users>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.List.WBSubscribers `Partial<mw.Api.Params.Action.Query.List.WBSubscribers>`} instead. */
-export type WikibaseRepoApiListSubscribersParams = Partial<mw.Api.Params.Action.Query.List.WBSubscribers>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.List.WikiSets `Partial<mw.Api.Params.Action.Query.List.WikiSets>`} instead. */
 export type CentralAuthApiQueryWikiSetsParams = Partial<mw.Api.Params.Action.Query.List.WikiSets>;
@@ -13330,9 +13207,6 @@ export type ApiQueryAuthManagerInfoParams = Partial<mw.Api.Params.Action.Query.M
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.Babel `Partial<mw.Api.Params.Action.Query.Meta.Babel>`} instead. */
 export type MediaWikiBabelApiQueryBabelParams = Partial<mw.Api.Params.Action.Query.Meta.Babel>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.CommunityConfiguration `Partial<mw.Api.Params.Action.Query.Meta.CommunityConfiguration>`} instead. */
-export type CommunityConfigurationApiQueryReadParams = Partial<mw.Api.Params.Action.Query.Meta.CommunityConfiguration>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.CXDeletedTranslations `Partial<mw.Api.Params.Action.Query.Meta.CXDeletedTranslations>`} instead. */
 export type ContentTranslationActionApiQueryDeletedTranslationsParams = Partial<mw.Api.Params.Action.Query.Meta.CXDeletedTranslations>;
@@ -13364,23 +13238,8 @@ export type GrowthExperimentsApiQueryNextSuggestedTaskTypeParams = Partial<mw.Ap
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.Languageinfo `Partial<mw.Api.Params.Action.Query.Meta.Languageinfo>`} instead. */
 export type ApiQueryLanguageinfoParams = Partial<mw.Api.Params.Action.Query.Meta.Languageinfo>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.LanguageStats `Partial<mw.Api.Params.Action.Query.Meta.LanguageStats>`} instead. */
-export type TranslateStatisticsQueryLanguageStatsActionApiParams = Partial<mw.Api.Params.Action.Query.Meta.LanguageStats>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.LinterStats `Partial<mw.Api.Params.Action.Query.Meta.LinterStats>`} instead. */
 export type MediaWikiLinterApiQueryLinterStatsParams = Partial<mw.Api.Params.Action.Query.Meta.LinterStats>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.ManageMessageGroups `Partial<mw.Api.Params.Action.Query.Meta.ManageMessageGroups>`} instead. */
-export type TranslateMessageGroupProcessingQueryManageMessageGroupsActionApiParams = Partial<mw.Api.Params.Action.Query.Meta.ManageMessageGroups>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.MessageGroups `Partial<mw.Api.Params.Action.Query.Meta.MessageGroups>`} instead. */
-export type TranslateMessageGroupProcessingQueryMessageGroupsActionApiParams = Partial<mw.Api.Params.Action.Query.Meta.MessageGroups>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.MessageGroupStats `Partial<mw.Api.Params.Action.Query.Meta.MessageGroupStats>`} instead. */
-export type TranslateStatisticsQueryMessageGroupStatsActionApiParams = Partial<mw.Api.Params.Action.Query.Meta.MessageGroupStats>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.MessageTranslations `Partial<mw.Api.Params.Action.Query.Meta.MessageTranslations>`} instead. */
-export type TranslateMessageLoadingQueryMessageTranslationsActionApiParams = Partial<mw.Api.Params.Action.Query.Meta.MessageTranslations>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.Notifications `Partial<mw.Api.Params.Action.Query.Meta.Notifications>`} instead. */
 export type NotificationsApiEchoNotificationsParams = Partial<mw.Api.Params.Action.Query.Meta.Notifications>;
@@ -13390,9 +13249,6 @@ export type OATHAuthApiModuleApiQueryOATHParams = Partial<mw.Api.Params.Action.Q
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.ORES `Partial<mw.Api.Params.Action.Query.Meta.ORES>`} instead. */
 export type ORESHooksApiQueryORESParams = Partial<mw.Api.Params.Action.Query.Meta.ORES>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.ProofreadInfo `Partial<mw.Api.Params.Action.Query.Meta.ProofreadInfo>`} instead. */
-export type ProofreadPageApiQueryProofreadInfoParams = Partial<mw.Api.Params.Action.Query.Meta.ProofreadInfo>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.ReadingLists `Partial<mw.Api.Params.Action.Query.Meta.ReadingLists>`} instead. */
 export type ReadingListsApiQueryReadingListsParams = Partial<mw.Api.Params.Action.Query.Meta.ReadingLists>;
@@ -13412,17 +13268,8 @@ export type NotificationsApiEchoUnreadNotificationPagesParams = Partial<mw.Api.P
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.UserInfo `Partial<mw.Api.Params.Action.Query.Meta.UserInfo>`} instead. */
 export type ApiQueryUserInfoParams = Partial<mw.Api.Params.Action.Query.Meta.UserInfo>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.WBContentLanguages `Partial<mw.Api.Params.Action.Query.Meta.WBContentLanguages>`} instead. */
-export type WikibaseRepoApiMetaContentLanguagesParams = Partial<mw.Api.Params.Action.Query.Meta.WBContentLanguages>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.WBDataBridgeConfig `Partial<mw.Api.Params.Action.Query.Meta.WBDataBridgeConfig>`} instead. */
-export type WikibaseRepoApiMetaDataBridgeConfigParams = Partial<mw.Api.Params.Action.Query.Meta.WBDataBridgeConfig>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.Wikibase `Partial<mw.Api.Params.Action.Query.Meta.Wikibase>`} instead. */
 export type WikibaseClientApiClientInfoParams = Partial<mw.Api.Params.Action.Query.Meta.Wikibase>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.Query.Meta.WikimediaEditorTasksCounts `Partial<mw.Api.Params.Action.Query.Meta.WikimediaEditorTasksCounts>`} instead. */
-export type WikimediaEditorTasksApiQueryWikimediaEditorTasksCountsParams = Partial<mw.Api.Params.Action.Query.Meta.WikimediaEditorTasksCounts>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Query `Partial<mw.Api.Params.Action.Query>`} instead. */
 export type ApiQueryParams = Partial<mw.Api.Params.Action.Query>;
@@ -13453,9 +13300,6 @@ export type KartographerApiSanitizeMapDataParams = Partial<mw.Api.Params.Action.
 
 /** @deprecated Use {@link mw.Api.Params.Action.ScribuntoConsole `Partial<mw.Api.Params.Action.ScribuntoConsole>`} instead. */
 export type ScribuntoApiScribuntoConsoleParams = Partial<mw.Api.Params.Action.ScribuntoConsole>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.SearchTranslations `Partial<mw.Api.Params.Action.SearchTranslations>`} instead. */
-export type TranslateTtmServerSearchTranslationsActionApiParams = Partial<mw.Api.Params.Action.SearchTranslations>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.SecurePollAuth `Partial<mw.Api.Params.Action.SecurePollAuth>`} instead. */
 export type SecurePollApiSecurePollAuthParams = Partial<mw.Api.Params.Action.SecurePollAuth>;
@@ -13505,9 +13349,6 @@ export type TemplateDataApiTemplateDataParams = Partial<mw.Api.Params.Action.Tem
 /** @deprecated Use {@link mw.Api.Params.Action.Thank `Partial<mw.Api.Params.Action.Thank>`} instead. */
 export type ThanksApiCoreThankParams = Partial<mw.Api.Params.Action.Thank>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.ThreadAction `Partial<mw.Api.Params.Action.ThreadAction>`} instead. */
-export type LiquidThreadsApiThreadActionParams = Partial<mw.Api.Params.Action.ThreadAction>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.TimedText `Partial<mw.Api.Params.Action.TimedText>`} instead. */
 export type MediaWikiTimedMediaHandlerApiTimedTextParams = Partial<mw.Api.Params.Action.TimedText>;
 
@@ -13519,24 +13360,6 @@ export type TorBlockApiTorBlockParams = Partial<mw.Api.Params.Action.TorBlock>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.TranscodeReset `Partial<mw.Api.Params.Action.TranscodeReset>`} instead. */
 export type MediaWikiTimedMediaHandlerApiTranscodeResetParams = Partial<mw.Api.Params.Action.TranscodeReset>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.TranslationAids `Partial<mw.Api.Params.Action.TranslationAids>`} instead. */
-export type TranslateTranslatorInterfaceAidTranslationAidsActionApiParams = Partial<mw.Api.Params.Action.TranslationAids>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.TranslationCheck `Partial<mw.Api.Params.Action.TranslationCheck>`} instead. */
-export type TranslateValidationCheckTranslationActionApiParams = Partial<mw.Api.Params.Action.TranslationCheck>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.TranslationEntitySearch `Partial<mw.Api.Params.Action.TranslationEntitySearch>`} instead. */
-export type TranslateTranslatorInterfaceTranslationEntitySearchActionApiParams = Partial<mw.Api.Params.Action.TranslationEntitySearch>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.TranslationReview `Partial<mw.Api.Params.Action.TranslationReview>`} instead. */
-export type TranslateTranslatorInterfaceReviewTranslationActionApiParams = Partial<mw.Api.Params.Action.TranslationReview>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.TranslationStats `Partial<mw.Api.Params.Action.TranslationStats>`} instead. */
-export type TranslateStatisticsQueryTranslationStatsActionApiParams = Partial<mw.Api.Params.Action.TranslationStats>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.TtmServer `Partial<mw.Api.Params.Action.TtmServer>`} instead. */
-export type TranslateTtmServerTtmServerActionApiParams = Partial<mw.Api.Params.Action.TtmServer>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.ULSLocalization `Partial<mw.Api.Params.Action.ULSLocalization>`} instead. */
 export type UniversalLanguageSelectorApiULSLocalizationParams = Partial<mw.Api.Params.Action.ULSLocalization>;
@@ -13568,131 +13391,11 @@ export type VisualEditorApiVisualEditorEditParams = Partial<mw.Api.Params.Action
 /** @deprecated Use {@link mw.Api.Params.Action.Watch `Partial<mw.Api.Params.Action.Watch>`} instead. */
 export type ApiWatchParams = Partial<mw.Api.Params.Action.Watch>;
 
-/** @deprecated Use {@link mw.Api.Params.Action.WBAvailableBadges `Partial<mw.Api.Params.Action.WBAvailableBadges>`} instead. */
-export type WikibaseRepoApiAvailableBadgesParams = Partial<mw.Api.Params.Action.WBAvailableBadges>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBCheckConstraintParameters `Partial<mw.Api.Params.Action.WBCheckConstraintParameters>`} instead. */
-export type WikibaseQualityConstraintReportApiCheckConstraintParametersParams = Partial<mw.Api.Params.Action.WBCheckConstraintParameters>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBCheckConstraints `Partial<mw.Api.Params.Action.WBCheckConstraints>`} instead. */
-export type WikibaseQualityConstraintReportApiCheckConstraintsParams = Partial<mw.Api.Params.Action.WBCheckConstraints>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBCreateClaim `Partial<mw.Api.Params.Action.WBCreateClaim>`} instead. */
-export type WikibaseRepoApiCreateClaimParams = Partial<mw.Api.Params.Action.WBCreateClaim>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBCreateRedirect `Partial<mw.Api.Params.Action.WBCreateRedirect>`} instead. */
-export type WikibaseRepoApiCreateRedirectParams = Partial<mw.Api.Params.Action.WBCreateRedirect>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBEditEntity `Partial<mw.Api.Params.Action.WBEditEntity>`} instead. */
-export type WikibaseRepoApiEditEntityParams = Partial<mw.Api.Params.Action.WBEditEntity>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBFormatEntities `Partial<mw.Api.Params.Action.WBFormatEntities>`} instead. */
-export type WikibaseRepoApiFormatEntitiesParams = Partial<mw.Api.Params.Action.WBFormatEntities>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBFormatReference `Partial<mw.Api.Params.Action.WBFormatReference>`} instead. */
-export type WikibaseClientApiFormatReferenceParams = Partial<mw.Api.Params.Action.WBFormatReference>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBFormatValue `Partial<mw.Api.Params.Action.WBFormatValue>`} instead. */
-export type WikibaseRepoApiFormatSnakValueParams = Partial<mw.Api.Params.Action.WBFormatValue>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBGetClaims `Partial<mw.Api.Params.Action.WBGetClaims>`} instead. */
-export type WikibaseRepoApiGetClaimsParams = Partial<mw.Api.Params.Action.WBGetClaims>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBGetEntities `Partial<mw.Api.Params.Action.WBGetEntities>`} instead. */
-export type WikibaseRepoApiGetEntitiesParams = Partial<mw.Api.Params.Action.WBGetEntities>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBLAddForm `Partial<mw.Api.Params.Action.WBLAddForm>`} instead. */
-export type WikibaseLexemeMediaWikiApiAddFormParams = Partial<mw.Api.Params.Action.WBLAddForm>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBLAddSense `Partial<mw.Api.Params.Action.WBLAddSense>`} instead. */
-export type WikibaseLexemeMediaWikiApiAddSenseParams = Partial<mw.Api.Params.Action.WBLAddSense>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBLEditFormElements `Partial<mw.Api.Params.Action.WBLEditFormElements>`} instead. */
-export type WikibaseLexemeMediaWikiApiEditFormElementsParams = Partial<mw.Api.Params.Action.WBLEditFormElements>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBLEditSenseElements `Partial<mw.Api.Params.Action.WBLEditSenseElements>`} instead. */
-export type WikibaseLexemeMediaWikiApiEditSenseElementsParams = Partial<mw.Api.Params.Action.WBLEditSenseElements>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBLinkTitles `Partial<mw.Api.Params.Action.WBLinkTitles>`} instead. */
-export type WikibaseRepoApiLinkTitlesParams = Partial<mw.Api.Params.Action.WBLinkTitles>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBLMergeLexemes `Partial<mw.Api.Params.Action.WBLMergeLexemes>`} instead. */
-export type WikibaseLexemeMediaWikiApiMergeLexemesParams = Partial<mw.Api.Params.Action.WBLMergeLexemes>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBLRemoveForm `Partial<mw.Api.Params.Action.WBLRemoveForm>`} instead. */
-export type WikibaseLexemeMediaWikiApiRemoveFormParams = Partial<mw.Api.Params.Action.WBLRemoveForm>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBLRemoveSense `Partial<mw.Api.Params.Action.WBLRemoveSense>`} instead. */
-export type WikibaseLexemeMediaWikiApiRemoveSenseParams = Partial<mw.Api.Params.Action.WBLRemoveSense>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBMergeItems `Partial<mw.Api.Params.Action.WBMergeItems>`} instead. */
-export type WikibaseRepoApiMergeItemsParams = Partial<mw.Api.Params.Action.WBMergeItems>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBParseValue `Partial<mw.Api.Params.Action.WBParseValue>`} instead. */
-export type WikibaseRepoApiParseValueParams = Partial<mw.Api.Params.Action.WBParseValue>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBRemoveClaims `Partial<mw.Api.Params.Action.WBRemoveClaims>`} instead. */
-export type WikibaseRepoApiRemoveClaimsParams = Partial<mw.Api.Params.Action.WBRemoveClaims>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBRemoveQualifiers `Partial<mw.Api.Params.Action.WBRemoveQualifiers>`} instead. */
-export type WikibaseRepoApiRemoveQualifiersParams = Partial<mw.Api.Params.Action.WBRemoveQualifiers>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBRemoveReferences `Partial<mw.Api.Params.Action.WBRemoveReferences>`} instead. */
-export type WikibaseRepoApiRemoveReferencesParams = Partial<mw.Api.Params.Action.WBRemoveReferences>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBSearchEntities `Partial<mw.Api.Params.Action.WBSearchEntities>`} instead. */
-export type WikibaseRepoApiSearchEntitiesParams = Partial<mw.Api.Params.Action.WBSearchEntities>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBSetAliases `Partial<mw.Api.Params.Action.WBSetAliases>`} instead. */
-export type WikibaseRepoApiSetAliasesParams = Partial<mw.Api.Params.Action.WBSetAliases>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBSetClaim `Partial<mw.Api.Params.Action.WBSetClaim>`} instead. */
-export type WikibaseRepoApiSetClaimParams = Partial<mw.Api.Params.Action.WBSetClaim>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBSetClaimValue `Partial<mw.Api.Params.Action.WBSetClaimValue>`} instead. */
-export type WikibaseRepoApiSetClaimValueParams = Partial<mw.Api.Params.Action.WBSetClaimValue>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBSetDescription `Partial<mw.Api.Params.Action.WBSetDescription>`} instead. */
-export type WikibaseRepoApiSetDescriptionParams = Partial<mw.Api.Params.Action.WBSetDescription>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBSetLabel `Partial<mw.Api.Params.Action.WBSetLabel>`} instead. */
-export type WikibaseRepoApiSetLabelParams = Partial<mw.Api.Params.Action.WBSetLabel>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBSetQualifier `Partial<mw.Api.Params.Action.WBSetQualifier>`} instead. */
-export type WikibaseRepoApiSetQualifierParams = Partial<mw.Api.Params.Action.WBSetQualifier>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBSetReference `Partial<mw.Api.Params.Action.WBSetReference>`} instead. */
-export type WikibaseRepoApiSetReferenceParams = Partial<mw.Api.Params.Action.WBSetReference>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBSetSiteLink `Partial<mw.Api.Params.Action.WBSetSiteLink>`} instead. */
-export type WikibaseRepoApiSetSiteLinkParams = Partial<mw.Api.Params.Action.WBSetSiteLink>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WBSGetSuggestions `Partial<mw.Api.Params.Action.WBSGetSuggestions>`} instead. */
-export type PropertySuggesterGetSuggestionsParams = Partial<mw.Api.Params.Action.WBSGetSuggestions>;
-
 /** @deprecated Use {@link mw.Api.Params.Action.WebappManifest `Partial<mw.Api.Params.Action.WebappManifest>`} instead. */
 export type MobileFrontendApiWebappManifestParams = Partial<mw.Api.Params.Action.WebappManifest>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.WebAuthn `Partial<mw.Api.Params.Action.WebAuthn>`} instead. */
 export type WebAuthnApiWebAuthnParams = Partial<mw.Api.Params.Action.WebAuthn>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WikiFunctionsRun `Partial<mw.Api.Params.Action.WikiFunctionsRun>`} instead. */
-export type WikiLambdaPublicAPIPublicApiRunParams = Partial<mw.Api.Params.Action.WikiFunctionsRun>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WikiLambdaEdit `Partial<mw.Api.Params.Action.WikiLambdaEdit>`} instead. */
-export type WikiLambdaActionAPIApiZObjectEditorParams = Partial<mw.Api.Params.Action.WikiLambdaEdit>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WikiLambdaFetch `Partial<mw.Api.Params.Action.WikiLambdaFetch>`} instead. */
-export type WikiLambdaActionAPIApiZObjectFetcherParams = Partial<mw.Api.Params.Action.WikiLambdaFetch>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WikiLambdaFunctionCall `Partial<mw.Api.Params.Action.WikiLambdaFunctionCall>`} instead. */
-export type WikiLambdaActionAPIApiFunctionCallParams = Partial<mw.Api.Params.Action.WikiLambdaFunctionCall>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WikiLambdaPerformTest `Partial<mw.Api.Params.Action.WikiLambdaPerformTest>`} instead. */
-export type WikiLambdaActionAPIApiPerformTestParams = Partial<mw.Api.Params.Action.WikiLambdaPerformTest>;
-
-/** @deprecated Use {@link mw.Api.Params.Action.WikiLambdaSupportedProgrammingLanguages `Partial<mw.Api.Params.Action.WikiLambdaSupportedProgrammingLanguages>`} instead. */
-export type WikiLambdaActionAPIApiSupportedProgrammingLanguagesParams = Partial<mw.Api.Params.Action.WikiLambdaSupportedProgrammingLanguages>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.WikiLove `Partial<mw.Api.Params.Action.WikiLove>`} instead. */
 export type WikiLoveApiWikiLoveParams = Partial<mw.Api.Params.Action.WikiLove>;
@@ -13711,8 +13414,5 @@ export type ApiFormatPhpParams = Partial<mw.Api.Params.Format.Php>;
 
 /** @deprecated Use {@link mw.Api.Params.Format.Xml `Partial<mw.Api.Params.Format.Xml>`} / {@link mw.Api.Params.Format.XmlFM `Partial<mw.Api.Params.Format.XmlFM>`} instead. */
 export type ApiFormatXmlParams = Partial<mw.Api.Params.Format.Xml>;
-
-/** @deprecated Use {@link mw.Api.Params `Partial<mw.Api.Params>`} instead. */
-export type ApiMainParams = Partial<mw.Api.Params>;
 
 export {};
