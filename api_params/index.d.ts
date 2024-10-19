@@ -1620,7 +1620,6 @@ declare global {
                 }
 
                 /**
-                 * @deprecated
                  * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Login
                  */
                 interface Login extends Params {
@@ -3086,7 +3085,26 @@ declare global {
                      */
                     interface Revisions extends Purge {
                         generator?: "revisions";
-                        grvprop?: string | string[];
+                        grvprop?: OneOrMore<
+                            | "comment"
+                            | "content"
+                            | "contentmodel"
+                            | "flagged"
+                            | "flags"
+                            | "ids"
+                            | "oresscores"
+                            | "parsedcomment"
+                            | "roles"
+                            | "sha1"
+                            | "size"
+                            | "slotsha1"
+                            | "slotsize"
+                            | "tags"
+                            | "timestamp"
+                            | "user"
+                            | "userid"
+                            | "parsetree"
+                        >;
                         grvslots?: string | string[];
                         [k: `grvcontentformat-${string}`]:
                             | "application/json"
@@ -3875,7 +3893,26 @@ declare global {
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisions
                          */
                         interface Revisions extends Query {
-                            rvprop?: string | string[];
+                            rvprop?: OneOrMore<
+                                | "comment"
+                                | "content"
+                                | "contentmodel"
+                                | "flagged"
+                                | "flags"
+                                | "ids"
+                                | "oresscores"
+                                | "parsedcomment"
+                                | "roles"
+                                | "sha1"
+                                | "size"
+                                | "slotsha1"
+                                | "slotsize"
+                                | "tags"
+                                | "timestamp"
+                                | "user"
+                                | "userid"
+                                | "parsetree"
+                            >;
                             rvslots?: string | string[];
                             [k: `rvcontentformat-${string}`]:
                                 | "application/json"
@@ -5742,7 +5779,21 @@ declare global {
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Filerepoinfo
                          */
                         interface FileRepoInfo extends Query {
-                            friprop?: string | string[];
+                            friprop?: OneOrMore<
+                                | "canUpload"
+                                | "descBaseUrl"
+                                | "descriptionCacheExpiry"
+                                | "displayname"
+                                | "favicon"
+                                | "fetchDescription"
+                                | "initialCapital"
+                                | "local"
+                                | "name"
+                                | "rootUrl"
+                                | "scriptDirUrl"
+                                | "thumbUrl"
+                                | "url"
+                            >;
                         }
 
                         /**
@@ -7020,7 +7071,26 @@ declare global {
                          */
                         interface Revisions extends Query {
                             generator?: "revisions";
-                            grvprop?: string | string[];
+                            grvprop?: OneOrMore<
+                                | "comment"
+                                | "content"
+                                | "contentmodel"
+                                | "flagged"
+                                | "flags"
+                                | "ids"
+                                | "oresscores"
+                                | "parsedcomment"
+                                | "roles"
+                                | "sha1"
+                                | "size"
+                                | "slotsha1"
+                                | "slotsize"
+                                | "tags"
+                                | "timestamp"
+                                | "user"
+                                | "userid"
+                                | "parsetree"
+                            >;
                             grvslots?: string | string[];
                             [k: `grvcontentformat-${string}`]:
                                 | "application/json"
@@ -8496,7 +8566,26 @@ declare global {
                      */
                     interface Revisions extends SetNotificationTimestamp {
                         generator?: "revisions";
-                        grvprop?: string | string[];
+                        grvprop?: OneOrMore<
+                            | "comment"
+                            | "content"
+                            | "contentmodel"
+                            | "flagged"
+                            | "flags"
+                            | "ids"
+                            | "oresscores"
+                            | "parsedcomment"
+                            | "roles"
+                            | "sha1"
+                            | "size"
+                            | "slotsha1"
+                            | "slotsize"
+                            | "tags"
+                            | "timestamp"
+                            | "user"
+                            | "userid"
+                            | "parsetree"
+                        >;
                         grvslots?: string | string[];
                         [k: `grvcontentformat-${string}`]:
                             | "application/json"
@@ -8807,9 +8896,9 @@ declare global {
 
                 interface Stabilize extends Params {
                     action?: "stabilize";
+                    protectlevel?: "autoconfirmed" | "none";
                     default: "latest" | "stable";
                     autoreview?: "none" | "sysop";
-                    protectlevel?: "autoconfirmed" | "none";
                     expiry?: string;
                     reason?: string;
                     review?: boolean;
@@ -9909,7 +9998,26 @@ declare global {
                      */
                     interface Revisions extends TemplateData {
                         generator?: "revisions";
-                        grvprop?: string | string[];
+                        grvprop?: OneOrMore<
+                            | "comment"
+                            | "content"
+                            | "contentmodel"
+                            | "flagged"
+                            | "flags"
+                            | "ids"
+                            | "oresscores"
+                            | "parsedcomment"
+                            | "roles"
+                            | "sha1"
+                            | "size"
+                            | "slotsha1"
+                            | "slotsize"
+                            | "tags"
+                            | "timestamp"
+                            | "user"
+                            | "userid"
+                            | "parsetree"
+                        >;
                         grvslots?: string | string[];
                         [k: `grvcontentformat-${string}`]:
                             | "application/json"
@@ -11507,7 +11615,26 @@ declare global {
                      */
                     interface Revisions extends Watch {
                         generator?: "revisions";
-                        grvprop?: string | string[];
+                        grvprop?: OneOrMore<
+                            | "comment"
+                            | "content"
+                            | "contentmodel"
+                            | "flagged"
+                            | "flags"
+                            | "ids"
+                            | "oresscores"
+                            | "parsedcomment"
+                            | "roles"
+                            | "sha1"
+                            | "size"
+                            | "slotsha1"
+                            | "slotsize"
+                            | "tags"
+                            | "timestamp"
+                            | "user"
+                            | "userid"
+                            | "parsetree"
+                        >;
                         grvslots?: string | string[];
                         [k: `grvcontentformat-${string}`]:
                             | "application/json"
@@ -13352,7 +13479,7 @@ export type SiteMatrixApiSiteMatrixParams = Partial<mw.Api.Params.Action.SiteMat
 export type SpamBlacklistApiSpamBlacklistParams = Partial<mw.Api.Params.Action.SpamBlacklist>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.Stabilize `Partial<mw.Api.Params.Action.Stabilize>`} instead. */
-export type ApiStabilizeGeneralParams = Partial<mw.Api.Params.Action.Stabilize>;
+export type ApiStabilizeProtectParams = Partial<mw.Api.Params.Action.Stabilize>;
 
 /** @deprecated Use {@link mw.Api.Params.Action.StashEdit `Partial<mw.Api.Params.Action.StashEdit>`} instead. */
 export type ApiStashEditParams = Partial<mw.Api.Params.Action.StashEdit>;

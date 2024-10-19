@@ -28,24 +28,26 @@
  */
 const SOURCES = {
     "mediawiki": "https://www.mediawiki.org/w/api.php",
-    "wikibooks-en": "https://en.wikibooks.org/w/api.php",
+    "wikipedia-en": "https://en.wikipedia.org/w/api.php",
     "wikidata": "https://www.wikidata.org/w/api.php",
-    "wikidata-test": "https://test.wikidata.org/w/api.php",
     "wikifunctions": "https://www.wikifunctions.org/w/api.php",
+
+    "wikibooks-en": "https://en.wikibooks.org/w/api.php",
     "wikimedia-api": "https://api.wikimedia.org/w/api.php",
     "wikimedia-commons": "https://commons.wikimedia.org/w/api.php",
-    "wikimedia-commons-test": "https://test-commons.wikimedia.org/w/api.php",
-    "wikimedia-labtestwikitech": "https://labtestwikitech.wikimedia.org/w/api.php",
     "wikimedia-meta": "https://meta.wikimedia.org/w/api.php",
     "wikinews-en": "https://en.wikinews.org/w/api.php",
-    "wikipedia-en": "https://en.wikipedia.org/w/api.php",
-    "wikipedia-test": "https://test.wikipedia.org/w/api.php",
-    "wikipedia-test2": "https://test2.wikipedia.org/w/api.php",
     "wikiquote-en": "https://en.wikiquote.org/w/api.php",
     "wikisource-en": "https://en.wikisource.org/w/api.php",
     "wikiversity-en": "https://en.wikiversity.org/w/api.php",
     "wikivoyage-en": "https://en.wikivoyage.org/w/api.php",
     "wiktionary-en": "https://en.wiktionary.org/w/api.php",
+
+    "wikidata-test": "https://test.wikidata.org/w/api.php",
+    "wikimedia-commons-test": "https://test-commons.wikimedia.org/w/api.php",
+    "wikimedia-labtestwikitech": "https://labtestwikitech.wikimedia.org/w/api.php",
+    "wikipedia-test": "https://test.wikipedia.org/w/api.php",
+    "wikipedia-test2": "https://test2.wikipedia.org/w/api.php",
 };
 
 /**
@@ -117,15 +119,37 @@ const REQUIRED_PARAMS_MAP = {
     // e.g. allfileusages: { somerequiredparam: true, someoptionalparam: false },
 };
 
+// Where to log process information and errors.
+// Final output is unaffected.
 const log = mw.log;
 const logError = mw.log.error;
 
 class ModuleLoader {
-    /** @type {Record<string, Promise<APIModuleDict>>} */
+    /**
+     * Load modules from a list of loaders.
+     *
+     * @param {ModuleLoader[]} loaders
+     */
+    static loadAll = async (loaders) => {
+        const results = await Promise.allSettled(loaders.map((l) => l.load()));
+
+        const modules = [];
+        for (const r of results) {
+            if (r.status === "fulfilled") {
+                modules.push(r.value);
+            } else {
+                logError(`[ML]: ${r.reason}`);
+            }
+        }
+
+        return modules;
+    };
+
+    /** @type {Record<string, Promise<RawModuleDict>>} */
     cache = {};
 
     /**
-     * Creates a module loader.
+     * Create a module loader.
      *
      * @param {string} api URI to the foreign API.
      */
@@ -134,16 +158,14 @@ class ModuleLoader {
     }
 
     /**
+     * Merge `parameters` with `templatedparameters`.
+     *
+     * We do not care about having 2 distinct parameter lists, since a
+     * templated parameter can still be distinguished using templatevars.
+     *
      * @param {any} module
-     * @returns {Promise<APIModuleDict>}
      */
-    processAndLoadSubmodules = async (module) => {
-        /** @type {Array<Promise<APIModuleDict>>} */
-        const promises = [];
-
-        // Merge parameters with templated parameters.
-        // We do not care about having 2 distinct parameter lists, since a
-        // templated parameter can still be distinguished using templatevars.
+    mergeTemplatedParameters = (module) => {
         const parameters = [];
         let i = 0,
             j = 0;
@@ -157,45 +179,55 @@ class ModuleLoader {
         parameters.push(...module.parameters.slice(i), ...module.templatedparameters.slice(j));
         module.parameters = parameters;
         delete module.templatedparameters;
+    };
 
-        // Retrieve sub-modules
+    /**
+     * Load sub-modules.
+     *
+     * @param {any} module
+     * @returns {Promise<RawModuleDict>}
+     */
+    loadSubmodules = async (module) => {
+        /** @type {Promise<RawModuleDict>[]} */
+        const promises = [];
+
         for (const parameter of module.parameters) {
-            parameter.module = module;
-
             const submodules = parameter.submodules;
-            if (!submodules) {
+            if (submodules === undefined) {
                 continue;
             }
 
             const paths = Object.values(submodules);
-            if (paths.length) {
-                const submodulePromise = this.getModules(paths).then((submoduleData) => {
-                    for (const [key, path] of Object.entries(submodules)) {
-                        const submodule = submoduleData[path];
-                        submodules[key] = submodule;
-                    }
-                    return submoduleData;
-                });
-                promises.unshift(submodulePromise);
+            if (paths.length === 0) {
+                continue;
             }
+
+            const submodulePromise = this.loadModules(paths).then((submoduleData) => {
+                for (const [key, path] of Object.entries(submodules)) {
+                    submodules[key] = submoduleData[path];
+                }
+                return submoduleData;
+            });
+
+            promises.unshift(submodulePromise);
         }
 
         return Object.assign({}, ...(await Promise.all(promises)));
     };
 
     /**
-     * @param {string[]} paths Module paths
-     * @returns {Promise<RawModule[]>} Module data
+     * @param {string[]} modules Module paths
+     * @returns {Promise<any[]>} Module data
      */
-    queryModules = (paths) => {
-        log("Querying module data...", paths);
+    queryModules = (modules) => {
+        log("[ML] Querying module data...", modules);
 
         /** @type {mw.Api.Params.Action.ParamInfo & mw.Api.Params.Format.Json} */
         const params = {
             action: "paraminfo",
             format: "json",
-            modules: paths,
-            formatversion: 2,
+            modules,
+            formatversion: "2",
         };
 
         const { promise, resolve, reject } = Promise.withResolvers();
@@ -204,12 +236,35 @@ class ModuleLoader {
     };
 
     /**
-     * Get module data from the API.
-     * @param {string[]} paths Module paths
-     * @returns {Promise<APIModuleDict>} Module data
+     * @param {any[]} modules
      */
-    getModules = async (paths) => {
-        /** @type {Array<Promise<APIModuleDict>>} */
+    processQueriedModules = async (modules) => {
+        /** @type {RawModuleDict} */
+        const moduleData = {};
+
+        for (const module of modules) {
+            module.classname = [module.classname];
+            this.mergeTemplatedParameters(module);
+
+            for (const parameter of module.parameters) {
+                parameter.module = module;
+            }
+
+            moduleData[module.path] = module;
+            Object.assign(moduleData, await this.loadSubmodules(module));
+        }
+
+        return moduleData;
+    };
+
+    /**
+     * Get module data from the API.
+     *
+     * @param {string[]} paths Module paths.
+     * @returns {Promise<RawModuleDict>} Module data.
+     */
+    loadModules = async (paths) => {
+        /** @type {Promise<RawModuleDict>[]} */
         const promises = [];
         /** @type {string[]} */
         const pathsToQuery = [];
@@ -224,15 +279,7 @@ class ModuleLoader {
 
         for (let i = 0; i < pathsToQuery.length; i += 50) {
             const batch = pathsToQuery.slice(i, i + 50);
-            const batchPromise = this.queryModules(batch).then(async (modules) => {
-                const moduleData = Object.fromEntries(
-                    modules.map((module) => [module.path, module])
-                );
-                const submoduleData = await Promise.all(
-                    modules.flatMap(this.processAndLoadSubmodules)
-                );
-                return Object.assign(moduleData, ...submoduleData);
-            });
+            const batchPromise = this.queryModules(batch).then(this.processQueriedModules);
 
             promises.push(batchPromise);
             for (const path of pathsToQuery) {
@@ -243,52 +290,10 @@ class ModuleLoader {
         return Object.assign({}, ...(await Promise.all(promises)));
     };
 
-    load = () => this.getModules(["main"]).then((m) => m["main"]);
+    load = () => this.loadModules(["main"]).then((m) => m["main"]);
 }
 
 class ModuleMerger {
-    /**
-     * @template {{}} T
-     * @template {string & keyof T} K
-     * @template {unknown[]} U
-     * @param {K} key
-     * @param {T} o
-     * @param {T} o1
-     * @param {T} o2
-     * @param {string} path
-     * @param {(v1: T[K], v2: T[K], path: string, ...args: U) => T[K] | undefined} [merge]
-     * @param {U} args
-     */
-    extract = (key, o, o1, o2, path, merge, ...args) => {
-        if (key in o1 && key in o2 && merge) {
-            const v = merge(o1[key], o2[key], `${path}.${key}`, ...args);
-            if (v !== undefined) {
-                o[key] = v;
-            }
-        } else if (key in o1) {
-            o[key] = o1[key];
-        } else if (key in o2) {
-            o[key] = o2[key];
-        }
-    };
-
-    /**
-     * @template T
-     * @param {T} v1
-     * @param {T} v2
-     * @param {string} path
-     * @param {T} [def]
-     */
-    expectSame = (v1, v2, path, def) => {
-        if (v1 === v2) {
-            return v1;
-        }
-        if (def !== undefined) {
-            return def;
-        }
-        throw `Found different values ("${v1}" and "${v2}") for "${path}".`;
-    };
-
     /**
      * @template T
      * @template {unknown[]} U
@@ -311,158 +316,216 @@ class ModuleMerger {
     };
 
     /**
-     * @param {boolean | undefined} v1
-     * @param {boolean | undefined} v2
-     * @param {string} _
+     * @template {string | number} T
+     * @param {T | T[] | undefined} a1
+     * @param {T | T[] | undefined} a2
      */
-    mergeRequired = (v1, v2, _) => {
-        if (v1 === undefined || v2 === undefined) {
-            return undefined;
+    mergeArray = (a1, a2) => {
+        /** @type {T[]} */
+        const a = [];
+
+        if (Array.isArray(a1)) {
+            a.push(...a1);
+        } else if (a1 !== undefined) {
+            a.push(a1);
         }
-        return v1 && v2;
+
+        if (Array.isArray(a2)) {
+            a.push(...a2);
+        } else if (a2 !== undefined) {
+            a.push(a2);
+        }
+
+        return new Set(a).values().toArray();
     };
 
     /**
-     * @param {number | undefined} v1
-     * @param {number | undefined} v2
-     * @param {string} _
-     */
-    mergeMin = (v1, v2, _) => {
-        if (v1 === undefined || v2 === undefined) {
-            return undefined;
-        }
-        return Math.min(v1, v2);
-    };
-
-    /**
-     * @param {number | undefined} v1
-     * @param {number | undefined} v2
-     * @param {string} _
-     */
-    mergeMax = (v1, v2, _) => {
-        if (v1 === undefined || v2 === undefined) {
-            return undefined;
-        }
-        return Math.max(v1, v2);
-    };
-
-    /**
-     * @template T
-     * @param {T[] | undefined} a1
-     * @param {T[] | undefined} a2
-     * @param {string} _
-     */
-    mergeKeyArray = (a1, a2, _) => {
-        if (a1 === undefined) {
-            return a2;
-        }
-        if (a2 === undefined) {
-            return a1;
-        }
-        return new Set([...a1, ...a2]).values().toArray();
-    };
-
-    /**
-     * @template T
-     * @template {unknown[]} U
-     * @param {Record<string, T> | undefined} o1
-     * @param {Record<string, T> | undefined} o2
-     * @param {string} path
-     * @param {(v1: T, v2: T, path: string, ...args: U) => T} [merge]
-     * @param {U} args
-     */
-    mergeObject = (o1, o2, path, merge, ...args) => {
-        if (o1 === undefined) {
-            return o2;
-        }
-        if (o2 === undefined) {
-            return o1;
-        }
-        const o = { ...o1 };
-        for (const k in o2) {
-            if (k in o) {
-                if (merge) {
-                    o[k] = merge(o[k], o2[k], `${path}.${k}`, ...args);
-                }
-            } else {
-                o[k] = o2[k];
-            }
-        }
-        return o;
-    };
-
-    /**
-     * @param {string | string[]} t1
-     * @param {string | string[]} t2
-     * @param {string} path
-     */
-    mergeParameterType = (t1, t2, path) => {
-        if (typeof t1 === "string" && typeof t2 === "string") {
-            return this.expectSame(t1, t2, path);
-        }
-        if (typeof t1 === "string") {
-            return t1;
-        }
-        if (typeof t2 === "string") {
-            return t2;
-        }
-
-        // If one type is a subset of the other, just take the more generalized one.
-        if (t2.every(t1.includes, t1)) {
-            return t1;
-        }
-        if (t1.every(t2.includes, t2)) {
-            return t2;
-        }
-
-        // If types are incompatible enumerations, we assume values are wiki-dependent,
-        // so we generalize it back to a string.
-        try {
-            return this.expectSameSizeArray(t1, t2, path, this.expectSame);
-        } catch {
-            return "string";
-        }
-    };
-
-    /**
-     * @param {RawModuleParam} p1
-     * @param {RawModuleParam} p2
+     * @param {any} p1
+     * @param {any} p2
      * @param {string} path
      */
     mergeParameter = (p1, p2, path) => {
-        /** @type {RawModuleParam} */
-        // @ts-ignore
+        /** @type {any} */
         const p = {};
-        this.extract("name", p, p1, p2, path, this.expectSame);
-        if (p1.submodules) {
-            this.extract("type", p, p1, p2, path, this.mergeKeyArray);
-        } else {
-            this.extract("type", p, p1, p2, path, this.mergeParameterType);
+
+        p.name = p1.name;
+        if (p1.name !== p2.name) {
+            logError(`[MM] ${path}: Different parameter names ("${p1.name}" and "${p2.name}").`);
         }
-        this.extract("default", p, p1, p2, path, this.expectSame, "string");
-        this.extract("multi", p, p1, p2, path, this.expectSame);
-        this.extract("lowlimit", p, p1, p2, path, this.mergeMin);
-        this.extract("highlimit", p, p1, p2, path, this.mergeMax);
-        this.extract("limit", p, p1, p2, path, this.mergeMax);
-        this.extract("min", p, p1, p2, path, this.mergeMin);
-        this.extract("max", p, p1, p2, path, this.mergeMax);
-        this.extract("mustExist", p, p1, p2, path, this.expectSame);
-        this.extract("required", p, p1, p2, path, this.mergeRequired);
-        this.extract("sensitive", p, p1, p2, path, this.expectSame);
-        this.extract("deprecated", p, p1, p2, path, this.expectSame);
-        this.extract("allspecifier", p, p1, p2, path, this.expectSame);
-        this.extract("subtypes", p, p1, p2, path, this.expectSameSizeArray, this.expectSame);
-        this.extract("submodules", p, p1, p2, path, this.mergeObject, this.mergeModule);
-        this.extract("submoduleparamprefix", p, p1, p2, path, this.expectSame);
-        this.extract("internalvalues", p, p1, p2, path, this.mergeKeyArray);
-        this.extract("tokentype", p, p1, p2, path, this.expectSame);
-        this.extract("templatevars", p, p1, p2, path);
+
+        // If both types are enums, and one includes the other, we take the more generalized one.
+        // If both types are enums, but incompatible:
+        //     If they contain values, we assume values are wiki-dependent and generalize it back to a string.
+        //     If they contain sub-module names, we take all possible values.
+        // If one type is an enum and the other generalizes it, we take the generalized one.
+        if (typeof p1.type === "object" && typeof p2.type === "object") {
+            if (p2.type.every(p1.type.includes, p1.type)) {
+                p.type = p1.type;
+            } else if (p1.type.every(p2.type.includes, p2.type)) {
+                p.type = p2.type;
+            } else if (p1.submodules) {
+                p.type = this.mergeArray(p1.type, p2.type);
+            } else {
+                p.type = "string";
+            }
+        } else if (
+            (typeof p1.type === "object" && p2.type === "string") ||
+            (typeof p2.type === "object" && p1.type === "string")
+        ) {
+            p.type = "string";
+        } else if (p1.type === p2.type) {
+            p.type = p1.type;
+        } else {
+            p.type = p1.type;
+            logError(
+                `[MM] ${path}: Incompatible parameter types ("${p1.type}" and "${p2.type}") for "${path}".`
+            );
+        }
+
+        // If one is optional, we make it optional.
+        if (p1.required && p2.required) {
+            p.required = true;
+        }
+
+        // If default values are different, it may be wiki-dependant so we do not take it into account.
+        if (p1.default === p2.default) {
+            p.default = p1.default;
+        }
+
+        p.multi = p1.multi;
+        if (p1.multi !== p2.multi) {
+            logError(
+                `[MM] ${path}: Different parameter multiplicity ("${p1.multi}" and "${p2.multi}").`
+            );
+        }
+
+        // If one allows duplicates, we allow duplicates.
+        if (p1.allowsduplicates || p2.allowsduplicates) {
+            p.allowsduplicates = true;
+        }
+
+        // If one is sensitive, we make it sensitive.
+        if (p1.sensitive || p2.sensitive) {
+            p.sensitive = true;
+        }
+
+        // If one is deprecated, we make it deprecated.
+        if (p1.deprecated || p2.deprecated) {
+            p.deprecated = true;
+        }
+
+        // If limits are different, we take the least restrictive ones.
+        if (p1.limit !== undefined && p2.limit !== undefined) {
+            p.limit = Math.max(p1.limit, p2.limit);
+        }
+        if (p1.lowlimit !== undefined && p2.lowlimit !== undefined) {
+            p.lowlimit = Math.min(p1.lowlimit, p2.lowlimit);
+        }
+        if (p1.highlimit !== undefined && p2.highlimit !== undefined) {
+            p.highlimit = Math.max(p1.highlimit, p2.highlimit);
+        }
+        if (p1.min !== undefined && p2.min !== undefined) {
+            p.min = Math.min(p1.min, p2.min);
+        }
+        if (p1.max !== undefined && p2.max !== undefined) {
+            p.max = Math.max(p1.max, p2.max);
+        }
+        if (p1.highmax !== undefined && p2.highmax !== undefined) {
+            p.highmax = Math.max(p1.highmax, p2.highmax);
+        }
+        if (p1.maxbytes !== undefined && p2.maxbytes !== undefined) {
+            p.maxbytes = Math.max(p1.maxbytes, p2.maxbytes);
+        }
+        if (p1.maxchars !== undefined && p2.maxchars !== undefined) {
+            p.maxchars = Math.max(p1.maxchars, p2.maxchars);
+        }
+
+        p.allspecifier = p1.allspecifier;
+        if (p1.allspecifier !== p2.allspecifier) {
+            logError(
+                `[MM] ${path}: Different enumerated parameter "all" specifiers ("${p1.allspecifier}" and "${p2.allspecifier}").`
+            );
+        }
+
+        if (p1.extranamespaces !== undefined || p2.extranamespaces !== undefined) {
+            p.extranamespaces = this.mergeArray(p1.extranamespaces, p2.extranamespaces);
+        }
+
+        if (
+            p1.extranamespaces !== undefined &&
+            p2.extranamespaces !== undefined &&
+            p1.tokentype === p2.tokentype
+        ) {
+            p.tokentype = p1.tokentype;
+        } else if (p1.extranamespaces !== undefined || p2.extranamespaces !== undefined) {
+            logError(
+                `[MM] ${path}: Different token parameter types ("${p1.tokentype}" and "${p2.tokentype}").`
+            );
+        }
+
+        // If one accepts non-existent titles, we accept non-existent titles.
+        if (p1.mustExist && p2.mustExist) {
+            p.mustExist = true;
+        }
+
+        // TODO: handle different values for templatevars & info
+        if (p1.templatevars !== undefined || p2.templatevars !== undefined) {
+            p.templatevars = p1.templatevars || p2.templatevars;
+        }
+        if (p1.info !== undefined || p2.info !== undefined) {
+            p.info = p1.info || p2.info;
+        }
+
+        if (
+            p1.subtypes !== undefined &&
+            p2.subtypes !== undefined &&
+            p1.subtypes.length === p2.subtypes.length &&
+            p1.subtypes.every((v1, i) => v1 === p2.subtypes[i])
+        ) {
+            p.subtypes = p1.subtypes;
+        } else if (p1.subtypes !== undefined || p2.subtypes !== undefined) {
+            logError(
+                `[MM] ${path}: Different user parameter subtypes ("${p1.subtypes}" and "${p2.subtypes}").`
+            );
+            p.subtypes = p1.subtypes ?? p2.subtypes;
+        }
+
+        // Merge submodules.
+        if (p1.submodules !== undefined && p2.submodules !== undefined) {
+            p.submodules = { ...p1.submodules };
+            for (const [k, submodule] of Object.entries(p2.submodules)) {
+                if (k in p.submodules) {
+                    p.submodules[k] = this.mergeModule(p.submodules[k], submodule, `${path}.${k}`);
+                } else {
+                    p.submodules[k] = submodule;
+                }
+            }
+        } else if (p1.submodules !== undefined || p2.submodules !== undefined) {
+            p.submodules = p1.submodules ?? p2.submodules;
+        }
+
+        if (p1.submoduleparamprefix !== undefined || p2.submoduleparamprefix !== undefined) {
+            p.submoduleparamprefix = p1.submoduleparamprefix;
+            if (p1.submoduleparamprefix !== p2.submoduleparamprefix) {
+                logError(
+                    `[MM] ${path}: Different sub-module parameter prefix ("${p1.submoduleparamprefix}" and "${p2.submoduleparamprefix}").`
+                );
+            }
+        }
+
+        if (p1.internalvalues !== undefined || p2.internalvalues !== undefined) {
+            p.internalvalues = this.mergeArray(p1.internalvalues, p2.internalvalues);
+        }
+        if (p1.deprecatedvalues !== undefined || p2.deprecatedvalues !== undefined) {
+            p.deprecatedvalues = this.mergeArray(p1.deprecatedvalues, p2.deprecatedvalues);
+        }
+
         return p;
     };
 
     /**
-     * @param {RawModuleParam[]} a1
-     * @param {RawModuleParam[]} a2
+     * @param {RawModule.Parameter[]} a1
+     * @param {RawModule.Parameter[]} a2
      * @param {string} path
      */
     mergeParameterArray = (a1, a2, path) => {
@@ -482,7 +545,7 @@ class ModuleMerger {
             let i1Next = a1.findIndex((p) => p.name === p2.name),
                 i2Next = a2.findIndex((p) => p.name === p1.name);
             if (i2Next > 0 && i1Next > 0) {
-                throw `Inconsistent parameter order for "${path}".`;
+                logError(`[MM] Inconsistent parameter order for "${path}".`);
             }
 
             if (i1Next > 0) {
@@ -510,41 +573,78 @@ class ModuleMerger {
      */
     mergeModule = (m1, m2, path) => {
         /** @type {RawModule} */
-        // @ts-ignore
         const m = {};
-        this.extract("name", m, m1, m2, path, this.expectSame);
-        this.extract("classname", m, m1, m2, path);
-        this.extract("path", m, m1, m2, path, this.expectSame);
-        this.extract("group", m, m1, m2, path, this.expectSame);
-        this.extract("prefix", m, m1, m2, path, this.expectSame);
-        this.extract("source", m, m1, m2, path, this.expectSame);
-        this.extract("sourcename", m, m1, m2, path);
-        this.extract("licensetag", m, m1, m2, path, this.expectSame);
-        this.extract("licenselink", m, m1, m2, path);
-        this.extract("internal", m, m1, m2, path, this.expectSame);
-        this.extract("readrights", m, m1, m2, path, this.expectSame);
-        this.extract("writerights", m, m1, m2, path, this.expectSame);
-        this.extract("mustbeposted", m, m1, m2, path, this.expectSame);
-        this.extract("deprecated", m, m1, m2, path, this.expectSame);
-        this.extract("generator", m, m1, m2, path, this.expectSame);
-        this.extract("helpurls", m, m1, m2, path, this.expectSameSizeArray);
-        this.extract("parameters", m, m1, m2, path, this.mergeParameterArray);
+
+        m.name = m1.name;
+        if (m1.name !== m2.name) {
+            logError(`[MM] ${path}: Different module names ("${m1.name}" and "${m2.name}").`);
+        }
+
+        m.classname = this.mergeArray(m1.classname, m2.classname);
+
+        m.path = m1.path;
+        if (m1.path !== m2.path) {
+            logError(`[MM] ${path}: Different module paths ("${m1.path}" and "${m2.path}").`);
+        }
+
+        m.group = m1.group;
+        if (m1.group !== m2.group) {
+            logError(`[MM] ${path}: Different module groups ("${m1.group}" and "${m2.group}").`);
+        }
+
+        m.prefix = m1.prefix;
+        if (m1.prefix !== m2.prefix) {
+            logError(
+                `[MM] ${path}: Different module prefixes ("${m1.prefix}" and "${m2.prefix}").`
+            );
+        }
+
+        // We use what the most up to date site says about module metadata.
+        m.source = m1.source;
+        m.sourcename = m1.sourcename;
+        m.licensetag = m1.licensetag;
+        m.licenselink = m1.licenselink;
+        if (m1.internal) {
+            m.internal = true;
+        }
+
+        // If usage restrictions are different, we take the less restrictive ones.
+        if (m1.readrights && m2.readrights) {
+            m.readrights = true;
+        }
+        if (m1.writerights && m2.writerights) {
+            m.writerights = true;
+        }
+        if (m1.mustbeposted && m2.mustbeposted) {
+            m.mustbeposted = true;
+        }
+
+        // If one is deprecated, we make it deprecated.
+        if (m1.deprecated || m2.deprecated) {
+            m.deprecated = true;
+        }
+
+        if (m1.generator || m2.generator) {
+            m.generator = true;
+        }
+
+        m.helpurls = this.mergeArray(m1.helpurls, m2.helpurls);
+
+        m.parameters = this.mergeParameterArray(m1.parameters, m2.parameters, path);
         m.parameters.forEach((p) => (p.module = m));
-        this.extract("dynamicparameters", m, m1, m2, path, this.expectSame);
+
+        if (m1.dynamicparameters || m2.dynamicparameters) {
+            m.dynamicparameters = true;
+        }
+
         return m;
     };
 
     /**
-     * @param {RawModule} m1
-     * @param {RawModule} m2
+     * @param {RawModule[]} ms
      */
-    merge = (m1, m2) => {
-        try {
-            return this.mergeModule(m1, m2, m1.path);
-        } catch (e) {
-            logError(e);
-            return m1;
-        }
+    merge = (ms) => {
+        return ms.reduce((m1, m2) => this.mergeModule(m1, m2, m2.path));
     };
 }
 
@@ -569,7 +669,7 @@ class ModuleParser {
         }
 
         return (
-            rawModule.classname
+            rawModule.classname[0]
                 .replace(/\\/g, "")
                 .replace(/^MediaWikiApi/g, "Api")
                 .replace(/^MediaWikiExtensions?/g, "")
@@ -603,7 +703,9 @@ class ModuleParser {
 
         result.name = result.name.split(/[-_]/g).map(firstToUppercase).join("");
 
-        const plainClassName = rawModule.classname.replace(/Api|Extensions?|\\/g, "") + "s",
+        const plainClassNames = rawModule.classname.map(
+                (n) => n.replace(/Api|Extensions?|\\/g, "") + "s"
+            ),
             possibleReplacements = Object.entries({
                 ...Object.fromEntries(
                     result.source.matchAll(/[A-Z][^A-Z]*/g).map((m) => [m[0].toLowerCase(), m[0]])
@@ -619,12 +721,14 @@ class ModuleParser {
          * @returns {{ name: string, optimal: boolean }}
          */
         function findBestReplacement(name) {
-            const nameIndex = plainClassName.toLowerCase().indexOf(name.toLowerCase());
-            if (nameIndex >= 0) {
-                return {
-                    name: plainClassName.substring(nameIndex, nameIndex + name.length),
-                    optimal: true,
-                };
+            for (const plainClassName of plainClassNames) {
+                const nameIndex = plainClassName.toLowerCase().indexOf(name.toLowerCase());
+                if (nameIndex >= 0) {
+                    return {
+                        name: plainClassName.substring(nameIndex, nameIndex + name.length),
+                        optimal: true,
+                    };
+                }
             }
 
             let bestReplacement = firstToUppercase(name),
@@ -672,7 +776,7 @@ class ModuleParser {
         result.name = bestRepl.name;
         if (!bestRepl.optimal) {
             log(
-                `Could not find a proper name capitalization for module "${rawModule.name}", using "${result.name}".`
+                `[MP] Could not find a proper name capitalization for module "${rawModule.name}", using "${result.name}".`
             );
         }
 
@@ -680,23 +784,21 @@ class ModuleParser {
     };
 
     /**
-     * @param {RawModuleParam} rawParameter
+     * @param {RawModule.Parameter} rawParameter
      */
-    findParameterName = (rawParameter) => {
-        return firstToUppercase(rawParameter.name);
-    };
+    findParameterName = (rawParameter) => firstToUppercase(rawParameter.name);
 
     /**
      * Get some data about a module parameter.
-     * @param {ModuleData} module Formatted module data
-     * @param {RawModuleParam} rawParameter API parameter data
+     * @param {Module} module Formatted module data
+     * @param {RawModule.Parameter} rawParameter API parameter data
      */
-    processParameter = (module, rawParameter) => {
+    parseParameter = (module, rawParameter) => {
         const rawModule = rawParameter.module;
 
         /** @type {JSdocData} */
         const jsdoc = { deprecated: !!rawParameter.deprecated };
-        /** @type {ParameterData} */
+        /** @type {Parameter} */
         const parameter = {
             key: rawParameter.name,
             name: rawParameter.name,
@@ -707,14 +809,14 @@ class ModuleParser {
             jsdoc,
         };
 
-        if (Array.isArray(rawParameter.type)) {
+        if (typeof rawParameter.type !== "string") {
             const isUsedAsTemplateVariable = rawModule.parameters.some((p) =>
                 Object.values(p.templatevars ?? {}).includes(rawParameter.name)
             );
 
-            // we do not have a generic way to detect which parameters may get unspecified new values,
+            // We do not have a generic way to detect which parameters may get unspecified new values,
             // so for now we generalize all parameter types referenced in templated parameters
-            // to be sure we are not being too specific
+            // to be sure we are not being too specific.
             if (
                 isUsedAsTemplateVariable ||
                 (!rawParameter.submodules && rawParameter.type.length > 100)
@@ -768,7 +870,7 @@ class ModuleParser {
             parameter.type = Object.fromEntries(
                 parameter.type.map((value) => [
                     value,
-                    this.processModule(rawSubmodules[value], rawParameter.submoduleparamprefix, {
+                    this.parseModule(rawSubmodules[value], rawParameter.submoduleparamprefix, {
                         parameter,
                         value,
                     }),
@@ -784,9 +886,8 @@ class ModuleParser {
      * @param {RawModule} rawModule API module data
      * @param {string} [prefix]
      * @param {ParentPath} [parent] API data of the module this one is an extension of
-     * @returns {ModuleData}
      */
-    processModule = (rawModule, prefix, parent) => {
+    parseModule = (rawModule, prefix, parent) => {
         /** @type {JSdocData} */
         const jsdoc = {
             private: !!rawModule.internal,
@@ -796,7 +897,7 @@ class ModuleParser {
 
         const { name, source } = this.findModuleName(rawModule);
 
-        /** @type {ModuleData} */
+        /** @type {Module} */
         const module = {
             path: rawModule.path,
             source,
@@ -819,7 +920,7 @@ class ModuleParser {
         const rawParameters = rawModule.parameters.toSorted((p1, p2) => p1.index - p2.index);
 
         module.parameters = rawParameters.map((rawParameter) =>
-            this.processParameter(module, rawParameter)
+            this.parseParameter(module, rawParameter)
         );
 
         return module;
@@ -835,23 +936,16 @@ class ModuleFormatter {
     /**
      * @param {string} s
      */
-    quote = (s) => {
-        return `"${s}"`;
-    };
+    quote = (s) => `"${s}"`;
 
     /**
      * @param {string} s
      */
-    indent = (s) => {
-        if (s !== "") {
-            s = " ".repeat(4) + s;
-        }
-        return s;
-    };
+    indent = (s) => (s !== "" ? " ".repeat(4) : "") + s;
 
     /**
      * @template T
-     * @param {Array<string|T>} block
+     * @param {(string | T)[]} block
      */
     flatWithLine = (block) => {
         if (!block.length) {
@@ -867,7 +961,7 @@ class ModuleFormatter {
     };
 
     /**
-     * @param {ModuleData} source
+     * @param {Module} source
      * @param {ModuleFormatter.ParentStack} parentStack
      */
     formatParameterPrefix = (source, parentStack) => {
@@ -883,9 +977,7 @@ class ModuleFormatter {
      * @param {string} name Rule name
      * @returns TS string line
      */
-    disableRule = (name) => {
-        return `// tslint:disable-next-line:${name}`;
-    };
+    disableRule = (name) => `// tslint:disable-next-line:${name}`;
 
     /**
      * @param {JSdocData|undefined} jsdoc
@@ -929,22 +1021,22 @@ class ModuleFormatter {
     /**
      * @param {LineBlock} content
      */
-    formatGlobal = (content) => {
-        return ["declare global {", ...this.flatWithLine(content).map(this.indent), "}"];
-    };
+    formatGlobal = (content) => [
+        "declare global {",
+        ...this.flatWithLine(content).map(this.indent),
+        "}",
+    ];
 
     /**
      * @param {string} name
      * @param {LineBlock} content
      * @param {ModuleFormatter.DeclarationModifier} [modifier]
      */
-    formatNamespace = (name, content, modifier) => {
-        return [
-            `${modifier ? `${modifier} ` : ""}namespace ${name} {`,
-            ...this.flatWithLine(content).map(this.indent),
-            "}",
-        ];
-    };
+    formatNamespace = (name, content, modifier) => [
+        `${modifier ? `${modifier} ` : ""}namespace ${name} {`,
+        ...this.flatWithLine(content).map(this.indent),
+        "}",
+    ];
 
     /**
      * Format an interface parameter as a TS string.
@@ -1022,14 +1114,14 @@ class ModuleFormatter {
 
     /**
      * Format a module interface as a TS string.
-     * @param {ModuleData} module Module interface data
+     * @param {Module} module Module interface data
      * @param {ModuleFormatter.ParentStack} parentStack
      * @returns {LineBlock}
      */
     formatModule = (module, parentStack) => {
         const parameterPrefix = this.formatParameterPrefix(module, parentStack);
 
-        /** @type {ParameterData[]} */
+        /** @type {Parameter[]} */
         const prefixedParameters = module.parameters.map((parameter) => ({
             ...parameter,
             key: `${parameterPrefix}${parameter.key}`,
@@ -1110,22 +1202,21 @@ class ModuleFormatter {
         return types;
     };
 
-    formatDeprecatedAliases = () => {
-        return Object.entries(this.deprecatedAliases).map(([typeName, targetNames]) => [
+    formatDeprecatedAliases = () =>
+        Object.entries(this.deprecatedAliases).map(([typeName, targetNames]) => [
             `/** @deprecated Use ${targetNames
                 .map((t) => `{@link mw.Api.${t} \`Partial<mw.Api.${t}>\`}`)
                 .join(" / ")} instead. */`,
             `export type ${typeName} = Partial<mw.Api.${targetNames[0]}>;`,
         ]);
-    };
 
     /**
      * Format some module interface data as a TS declaration file.
-     * @param {ModuleData} rootModule Formatted module data
+     * @param {Module} rootModule Formatted module data
      * @returns {string[]}
      */
-    formatContent = (rootModule) => {
-        return this.flatWithLine([
+    formatContent = (rootModule) =>
+        this.flatWithLine([
             "// AUTOMATICALLY GENERATED (see scripts/api-types-generator.js)",
             [
                 "type timestamp = string;",
@@ -1145,7 +1236,6 @@ class ModuleFormatter {
             ...this.formatDeprecatedAliases(),
             "export {};",
         ]);
-    };
 }
 
 const loaders = Object.values(SOURCES).map((s) => new ModuleLoader(s));
@@ -1153,7 +1243,7 @@ const merger = new ModuleMerger();
 const parser = new ModuleParser();
 const formatter = new ModuleFormatter();
 
-const rawRootModules = await Promise.all(loaders.map((l) => l.load()));
-const rawRootModule = rawRootModules.reduce(merger.merge);
-const rootModule = parser.processModule(rawRootModule);
+const rawRootModules = await ModuleLoader.loadAll(loaders);
+const rawRootModule = merger.merge(rawRootModules);
+const rootModule = parser.parseModule(rawRootModule);
 console.log(formatter.formatContent(rootModule).join("\n"));

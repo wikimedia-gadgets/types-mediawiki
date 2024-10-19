@@ -8,7 +8,7 @@ declare global {
 
     interface RawModule {
         name: string;
-        classname: string;
+        classname: string[];
         path: string;
         group?: string;
         prefix: string;
@@ -23,41 +23,116 @@ declare global {
         deprecated?: boolean;
         generator?: boolean;
         helpurls: string[];
-        parameters: RawModuleParam[];
+        parameters: RawModule.Parameter[];
         dynamicparameters?: boolean;
     }
 
-    interface RawModuleParam {
-        index: number;
-        module: RawModule;
-        name: string;
-        type: string | string[];
-        default?: unknown;
-        multi?: boolean;
-        lowlimit?: number;
-        highlimit?: number;
-        limit?: number;
-        min?: number;
-        max?: number;
-        mustExist?: boolean;
-        required?: boolean;
-        sensitive?: boolean;
-        deprecated?: boolean;
-        allspecifier?: string;
-        subtypes?: string[];
-        submodules?: Record<string, RawModule>;
-        submoduleparamprefix?: string;
-        internalvalues?: string[];
-        tokentype?: string;
-        templatevars?: Record<string, string>;
+    namespace RawModule {
+        type Parameter =
+            | (Parameter.Base<string[]> & Parameter.SubmoduleType)
+            | {
+                  [T in keyof Parameter.TypeMap]: Parameter.Base<T> & Parameter.TypeMap[T];
+              }[keyof Parameter.TypeMap];
+
+        namespace Parameter {
+            interface Base<T extends string | string[]> {
+                index: number;
+                module: RawModule;
+                name: string;
+                type: T;
+                required?: boolean;
+                default?: unknown;
+                multi?: boolean;
+                allowsduplicates?: boolean;
+                limit?: number;
+                lowlimit?: number;
+                highlimit?: number;
+                sensitive?: boolean;
+                deprecated?: boolean;
+                templatevars?: Record<string, string>;
+                info?: Info[];
+            }
+
+            interface Info {
+                name: string;
+            }
+
+            interface TypeMap {
+                boolean: BooleanType;
+                expiry: ExpiryType;
+                integer: IntegerType;
+                limit: LimitType;
+                namespace: NamespaceType;
+                password: PasswordType;
+                raw: RawType;
+                string: StringType;
+                title: TitleType;
+                text: TextType;
+                timestamp: TimestampType;
+                upload: UploadType;
+                user: UserType;
+            }
+
+            interface BooleanType {}
+
+            interface ExpiryType {}
+
+            interface IntegerType {
+                min?: number;
+                max?: number;
+            }
+
+            interface LimitType extends IntegerType {
+                highmax?: number;
+            }
+
+            interface EnumType {
+                allspecifier?: string;
+            }
+
+            interface NamespaceType extends EnumType {
+                extranamespaces?: number[];
+            }
+
+            interface PasswordType {}
+
+            interface RawType {}
+
+            interface StringType {
+                maxbytes?: number;
+                maxchars?: number;
+                tokentype?: string;
+            }
+
+            interface TextType {}
+
+            interface TimestampType {}
+
+            interface TitleType {
+                mustExist?: boolean;
+            }
+
+            interface UploadType {}
+
+            interface UserType {
+                subtypes?: string[];
+            }
+
+            interface SubmoduleType extends EnumType {
+                submodules?: Record<string, RawModule>;
+                submoduleparamprefix?: string;
+                internalvalues?: string[];
+                deprecatedvalues?: string[];
+            }
+        }
     }
 
-    type APIModuleDict = Record<string, RawModule>;
+    type RawModuleDict = Record<string, RawModule>;
 
     /**
      * Pre-processed API module data.
      */
-    interface ModuleData {
+    interface Module {
         /**
          * API module path.
          */
@@ -81,7 +156,7 @@ declare global {
         /**
          * Sorted list of properties.
          */
-        parameters: ParameterData[];
+        parameters: Parameter[];
         prefix: string;
         jsdoc?: JSdocData;
     }
@@ -90,14 +165,14 @@ declare global {
      * If it is not an API root module, indicates a parameter and associated value providing this module as a sub-module.
      */
     interface ParentPath {
-        parameter: ParameterData;
+        parameter: Parameter;
         value: string;
     }
 
     /**
      * Pre-processed API parameter data.
      */
-    interface ParameterData {
+    interface Parameter {
         /**
          * Property name.
          */
@@ -109,7 +184,7 @@ declare global {
         /**
          * Interface data.
          */
-        module: ModuleData;
+        module: Module;
         /**
          * Whether the type name is a string template or litteral.
          */
@@ -117,7 +192,7 @@ declare global {
         /**
          * Type, list of possible values, or map of submodules.
          */
-        type: string | string[] | Record<string, ModuleData>;
+        type: string | string[] | Record<string, Module>;
         /**
          * Whether multiple values can be specified as a list.
          */
@@ -148,7 +223,7 @@ declare global {
         exported?: boolean;
     }
 
-    type PropertyData = Omit<ParameterData, "module" | "name">;
+    type PropertyData = Omit<Parameter, "module" | "name">;
 
     namespace ModuleFormatter {
         type DeclarationModifier = "declare" | "export" | "export declare";
