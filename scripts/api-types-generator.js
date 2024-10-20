@@ -51,19 +51,6 @@ const SOURCES = {
 };
 
 /**
- * Mapping of API module parameter types to TS types.
- *
- * @type {Record<string, string>}
- */
-const TYPE_MAP = {
-    integer: "number",
-    raw: "string",
-    text: "string",
-    title: "string",
-    user: "string",
-};
-
-/**
  * Patterns used to properly capitalize TS type names.
  * By default, PHP namespaces and class name are used to find proper capitalizations, this can be used to
  * override bad deductions or when there is not enough information for the script to capitalize anything.
@@ -102,21 +89,29 @@ const NAME_PATH_MAP = {
 };
 
 /**
- * Hardcoded list of (unprefixed) parameter names that should always be optional.
- * Used with any module.
- *
- * @type {string[]}
+ * @type {Record<string & RawModule.Parameter.Type, Parameter.Type>}
  */
-const FORCE_OPTIONAL_PARAMS = [];
+const PARAMETER_TYPE_UNDERLYING = {
+    boolean: { base: "boolean" },
+    expiry: { base: "string" },
+    integer: { base: "number" },
+    limit: { base: "Limit" },
+    namespace: { base: "number" },
+    password: { base: "string" },
+    raw: { base: "string" },
+    string: { base: "string" },
+    text: { base: "string" },
+    timestamp: { base: "string" },
+    title: { base: "string" },
+    upload: { base: "File" },
+    user: { base: "string" },
+};
 
 /**
- * Hardcoded list of (unprefixed) parameter names that should be required or optional.
- * Only applies to the specified module.
- *
- * @type {Record<string, Record<string, boolean>>}
+ * @type {Record<string, Parameter.Type>}
  */
-const REQUIRED_PARAMS_MAP = {
-    // e.g. allfileusages: { somerequiredparam: true, someoptionalparam: false },
+const TYPE_ALIASES = {
+    Limit: { base: "number", lits: new Set(["max"]) },
 };
 
 // Where to log process information and errors.
@@ -1072,17 +1067,20 @@ class ModuleParser {
         const rawModule = rawParameter.module;
 
         /** @type {JSdocData} */
-        const jsdoc = { deprecated: !!rawParameter.deprecated };
+        const jsdoc = {};
         /** @type {Parameter} */
         const parameter = {
             key: rawParameter.name,
             name: rawParameter.name,
             module: module,
-            type: rawParameter.type,
+            type: {},
             multi: !!rawParameter.multi,
             required: !!rawParameter.required,
             jsdoc,
         };
+
+        parameter.type.lits = new Set();
+        jsdoc.description = [];
 
         if (typeof rawParameter.type !== "string") {
             const isUsedAsTemplateVariable = rawModule.parameters.some((p) =>
@@ -1096,31 +1094,41 @@ class ModuleParser {
                 isUsedAsTemplateVariable ||
                 (!rawParameter.submodules && rawParameter.type.length > 100)
             ) {
-                parameter.type = "string";
-            } else {
-                parameter.type = [...rawParameter.type];
-                if (rawParameter.internalvalues) {
-                    parameter.type.push(...rawParameter.internalvalues);
-                }
-                if (rawParameter.allspecifier) {
-                    parameter.type.push(rawParameter.allspecifier);
-                }
+                parameter.type.base = "string";
+            } else if (rawParameter.type.length > 0) {
+                rawParameter.type.forEach(Set.prototype.add, parameter.type.lits);
             }
-        } else if (rawParameter.type in TYPE_MAP) {
-            parameter.type = TYPE_MAP[rawParameter.type];
+        } else if (rawParameter.type in PARAMETER_TYPE_UNDERLYING) {
+            parameter.type = PARAMETER_TYPE_UNDERLYING[rawParameter.type];
+            parameter.type.lits ??= new Set();
+        } else {
+            logError(
+                `[MP] Could not find an appropriate TS type for parameter type "${rawParameter.type}".`
+            );
         }
 
-        if (
-            rawModule.name in REQUIRED_PARAMS_MAP &&
-            rawParameter.name in REQUIRED_PARAMS_MAP[rawModule.name]
-        ) {
-            parameter.required = REQUIRED_PARAMS_MAP[rawModule.name][rawParameter.name];
-        } else if (FORCE_OPTIONAL_PARAMS.includes(rawParameter.name) || rawParameter.sensitive) {
-            parameter.required = false;
-        }
-
-        if (rawParameter.default) {
+        if (rawParameter.default !== undefined) {
             parameter.default = rawParameter.default;
+            jsdoc.description.push(`Defaults to \`${rawParameter.default}\`.`);
+        }
+
+        if (rawParameter.sensitive) {
+            jsdoc.description.push("Sensitive parameter.");
+        }
+
+        if (rawParameter.deprecated) {
+            jsdoc.deprecated = true;
+        }
+
+        if (rawParameter.allspecifier !== undefined) {
+            parameter.type.lits.add(rawParameter.allspecifier);
+        }
+
+        if (rawParameter.internalvalues) {
+            rawParameter.internalvalues.forEach(Set.prototype.add, parameter.type.lits);
+        }
+        if (rawParameter.deprecatedvalues) {
+            rawParameter.deprecatedvalues.forEach(Set.prototype.add, parameter.type.lits);
         }
 
         const templatevars = rawParameter.templatevars;
@@ -1140,12 +1148,11 @@ class ModuleParser {
 
         parameter.name = this.findParameterName(rawParameter);
 
-        const rawSubmodules = rawParameter.submodules;
-        if (rawSubmodules && Array.isArray(parameter.type)) {
-            parameter.type = Object.fromEntries(
-                parameter.type.map((value) => [
+        if (rawParameter.submodules !== undefined) {
+            parameter.type.base = Object.fromEntries(
+                Object.entries(rawParameter.submodules).map(([value, submodule]) => [
                     value,
-                    this.parseModule(rawSubmodules[value], rawParameter.submoduleparamprefix, {
+                    this.parseModule(submodule, rawParameter.submoduleparamprefix, {
                         parameter,
                         value,
                     }),
@@ -1262,7 +1269,7 @@ class ModuleFormatter {
         /** @type {LineBlock} */
         const lineBlock = [];
 
-        if (jsdoc.description !== undefined) {
+        if (jsdoc.description !== undefined && jsdoc.description.length > 0) {
             lineBlock.push(jsdoc.description);
         }
 
@@ -1293,6 +1300,51 @@ class ModuleFormatter {
     };
 
     /**
+     * @param {Parameter.Type} type
+     * @param {boolean} [multi]
+     */
+    formatTypeExpr = (type, multi) => {
+        let lits = type.lits ?? new Set();
+        let underlying = type;
+        while (true) {
+            if (underlying.base === "string") {
+                lits.clear();
+                break;
+            }
+
+            if (typeof underlying.base === "object") {
+                lits = lits.difference(new Set(Object.keys(underlying.base)));
+                break;
+            } else if (underlying.base === undefined || !(underlying.base in TYPE_ALIASES)) {
+                break;
+            }
+
+            underlying = TYPE_ALIASES[underlying.base];
+
+            if (underlying.lits !== undefined) {
+                lits = lits.difference(underlying.lits);
+            }
+        }
+
+        const typeUnion = lits.values().toArray().map(this.quote).sort();
+        if (typeof type.base === "object") {
+            typeUnion.unshift("string");
+        } else if (typeof type.base === "string") {
+            typeUnion.unshift(type.base);
+        }
+
+        if (typeUnion.length === 0) {
+            return "never";
+        } else if (!multi) {
+            return typeUnion.join(" | ");
+        } else if (typeUnion.length === 1) {
+            return `${typeUnion[0]} | ${typeUnion[0]}[]`;
+        } else {
+            return `OneOrMore<${typeUnion.join(" | ")}>`;
+        }
+    };
+
+    /**
      * @param {LineBlock} content
      */
     formatGlobal = (content) => [
@@ -1313,12 +1365,21 @@ class ModuleFormatter {
     ];
 
     /**
+     * @param {string} name
+     * @param {string} expr
+     * @param {ModuleFormatter.DeclarationModifier} [modifier]
+     */
+    formatType = (name, expr, modifier) => [
+        `${modifier ? `${modifier} ` : ""}type ${name} = ${expr};`,
+    ];
+
+    /**
      * Format an interface parameter as a TS string.
      * @param {PropertyData} prop Interface parameter data
      * @returns {string[]}
      */
     formatProperty = (prop) => {
-        let { key, type } = prop;
+        let key = prop.key;
 
         if (prop.template) {
             key = `[k: \`${key}\`]`;
@@ -1328,25 +1389,14 @@ class ModuleFormatter {
             }
 
             if (!prop.required) {
-                key += "?";
+                key = `${key}?`;
             }
         }
 
-        if (Array.isArray(type)) {
-            type = type.length > 0 ? type.map(this.quote).join(" | ") : "never";
-        } else if (typeof type === "object") {
-            type = "string";
-        }
-
-        if (prop.multi) {
-            if (type.match(/^[a-z]{0,10}$/)) {
-                type = `${type} | ${type}[]`;
-            } else {
-                type = `OneOrMore<${type}>`;
-            }
-        }
-
-        return [...this.formatJSdoc(prop.jsdoc), `${key}: ${type};`];
+        return [
+            ...this.formatJSdoc(prop.jsdoc),
+            `${key}: ${this.formatTypeExpr(prop.type, prop.multi)};`,
+        ];
     };
 
     /**
@@ -1402,10 +1452,10 @@ class ModuleFormatter {
         }));
 
         const submoduleSets = prefixedParameters.flatMap((parameter) => {
-            if (Array.isArray(parameter.type) || typeof parameter.type !== "object") {
+            if (typeof parameter.type.base !== "object") {
                 return [];
             } else {
-                const values = Object.entries(parameter.type).sort((e1, e2) =>
+                const values = Object.entries(parameter.type.base).sort((e1, e2) =>
                     e1[0].localeCompare(e2[0])
                 );
                 return { values, parameter };
@@ -1415,16 +1465,28 @@ class ModuleFormatter {
         /** @type {InterfaceOptions} */
         const options = {};
 
-        // Set parent interface, and overload parameter from parent interface
+        // Set parent interface, and narrow parameter from parent interface
         if (parentStack !== null) {
             const parameter = parentStack.path.parameter;
             options.parent = parameter.module.name;
+
             if (!parameter.multi) {
-                prefixedParameters.unshift({
-                    ...parameter,
-                    type: [parentStack.path.value],
-                    // required: false,
-                });
+                const narrowedParameter = { ...parameter };
+                narrowedParameter.type = { lits: new Set([parentStack.path.value]) };
+
+                // Make parameter required if not being narrowed with the default value.
+                if (
+                    !parameter.required &&
+                    narrowedParameter.default !== undefined &&
+                    narrowedParameter.default !== parentStack.path.value
+                ) {
+                    narrowedParameter.required = true;
+                }
+
+                // No need to duplicate the JSdoc.
+                delete narrowedParameter.jsdoc;
+
+                prefixedParameters.unshift(narrowedParameter);
             }
         }
 
@@ -1476,13 +1538,18 @@ class ModuleFormatter {
         return types;
     };
 
-    formatDeprecatedAliases = () =>
-        Object.entries(this.deprecatedAliases).map(([typeName, targetNames]) => [
-            `/** @deprecated Use ${targetNames
+    /**
+     * @param {string} typeName
+     * @param {string[]} targetNames
+     */
+    formatDeprecatedAlias = (typeName, targetNames) => [
+        ...this.formatJSdoc({
+            deprecated: `Use ${targetNames
                 .map((t) => `{@link mw.Api.${t} \`Partial<mw.Api.${t}>\`}`)
-                .join(" / ")} instead. */`,
-            `export type ${typeName} = Partial<mw.Api.${targetNames[0]}>;`,
-        ]);
+                .join(" / ")} instead.`,
+        }),
+        ...this.formatType(typeName, `Partial<mw.Api.${targetNames[0]}>`, "export"),
+    ];
 
     /**
      * Format some module interface data as a TS declaration file.
@@ -1492,22 +1559,57 @@ class ModuleFormatter {
     formatContent = (rootModule) =>
         this.flatWithLine([
             "// AUTOMATICALLY GENERATED (see scripts/api-types-generator.js)",
-            [
-                "type timestamp = string;",
-                "type expiry = string;",
-                "type namespace = number;",
-                'type limit = number | "max";',
-                "type password = string;",
-                "type upload = File; // XXX",
-                "type OneOrMore<T> = T | T[];",
-            ],
-            'export type ApiAssert = "anon" | "bot" | "user";',
-            'export type ApiTokenType = "createaccount" | "csrf" | "deleteglobalaccount" | "login" | "patrol" | "rollback" | "setglobalaccountstatus" | "userrights" | "watch";',
-            'export type ApiLegacyTokenType = "block" | "delete" | "edit" | "email" | "import" | "move" | "options" | "protect" | "unblock";',
+            this.formatType("OneOrMore<T>", "T | T[]"),
+            this.formatType(
+                "ApiAssert",
+                this.formatTypeExpr({ lits: new Set(["anon", "bot", "user"]) }),
+                "export"
+            ),
+            this.formatType(
+                "ApiTokenType",
+                this.formatTypeExpr({
+                    lits: new Set([
+                        "createaccount",
+                        "csrf",
+                        "deleteglobalaccount",
+                        "login",
+                        "patrol",
+                        "rollback",
+                        "setglobalaccountstatus",
+                        "userrights",
+                        "watch",
+                    ]),
+                }),
+                "export"
+            ),
+            this.formatType(
+                "ApiLegacyTokenType",
+                this.formatTypeExpr({
+                    lits: new Set([
+                        "block",
+                        "delete",
+                        "edit",
+                        "email",
+                        "import",
+                        "move",
+                        "options",
+                        "protect",
+                        "unblock",
+                    ]),
+                }),
+                "export"
+            ),
             this.formatGlobal([
-                this.formatNamespace("mw.Api", this.formatModule(rootModule, null)),
+                this.formatNamespace("mw.Api", [
+                    ...Object.entries(TYPE_ALIASES).map(([k, v]) =>
+                        this.formatType(k, this.formatTypeExpr(v))
+                    ),
+                    ...this.formatModule(rootModule, null),
+                ]),
             ]),
-            ...this.formatDeprecatedAliases(),
+            ...Object.entries(this.deprecatedAliases).map(([k, v]) =>
+                this.formatDeprecatedAlias(k, v)
+            ),
             "export {};",
         ]);
 }

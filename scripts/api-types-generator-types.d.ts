@@ -28,11 +28,8 @@ declare global {
     }
 
     namespace RawModule {
-        type Parameter =
-            | (Parameter.Base<string[]> & Parameter.SubmoduleType)
-            | {
-                  [T in keyof Parameter.TypeMap]: Parameter.Base<T> & Parameter.TypeMap[T];
-              }[keyof Parameter.TypeMap];
+        type Parameter<T extends Parameter.Type = Parameter.Type> = Parameter.Base<T> &
+            (T extends keyof Parameter.TypeMap ? Parameter.TypeMap[T] : Parameter.SubmoduleType);
 
         namespace Parameter {
             interface Base<T extends string | string[]> {
@@ -57,6 +54,8 @@ declare global {
                 name: string;
             }
 
+            type Type = keyof TypeMap | string[];
+
             interface TypeMap {
                 boolean: BooleanType;
                 expiry: ExpiryType;
@@ -66,9 +65,9 @@ declare global {
                 password: PasswordType;
                 raw: RawType;
                 string: StringType;
-                title: TitleType;
                 text: TextType;
                 timestamp: TimestampType;
+                title: TitleType;
                 upload: UploadType;
                 user: UserType;
             }
@@ -190,9 +189,9 @@ declare global {
          */
         template?: boolean;
         /**
-         * Type, list of possible values, or map of submodules.
+         * Type.
          */
-        type: string | string[] | Record<string, Module>;
+        type: Parameter.Type;
         /**
          * Whether multiple values can be specified as a list.
          */
@@ -208,11 +207,26 @@ declare global {
         jsdoc?: JSdocData;
     }
 
+    namespace Parameter {
+        interface Type {
+            /**
+             * Native type or map of submodules.
+             */
+            base?: string | Record<string, Module>;
+            /**
+             * List of possible values, which may overlap with the base type above.
+             */
+            lits?: Set<string>;
+        }
+    }
+
+    type ParameterType = Record<string, Module>;
+
     /**
      * Some additional information about an API module or parameter.
      */
     interface JSdocData {
-        description?: string | string[];
+        description?: string[];
         private?: boolean;
         deprecated?: string | boolean;
         seelinks?: string[];
