@@ -1109,7 +1109,6 @@ class ModuleParser {
 
         if (rawParameter.default !== undefined) {
             parameter.default = rawParameter.default;
-            jsdoc.description.push(`Defaults to \`${rawParameter.default}\`.`);
         }
 
         if (rawParameter.sensitive) {
@@ -1261,6 +1260,35 @@ class ModuleFormatter {
     disableRule = (name) => `// tslint:disable-next-line:${name}`;
 
     /**
+     * @param {unknown} lit
+     * @param {boolean} [multi]
+     * @returns {string}
+     */
+    formatJSdocLit = (lit, multi) => {
+        if (lit === undefined || lit === "") {
+            return "";
+        }
+
+        if (Number.isInteger(lit)) {
+            return `${lit}`;
+        }
+
+        if (!multi) {
+            return `\`${lit}\``;
+        }
+
+        const litParts = `${lit}`.split("|").map((l) => this.formatJSdocLit(l));
+        if (litParts.length === 1) {
+            return litParts[0];
+        } else if (litParts.length === 2) {
+            return `${litParts[0]} and ${litParts[1]}`;
+        } else {
+            const lastPart = litParts.pop();
+            return `${litParts.join(", ")}, and ${lastPart}`;
+        }
+    };
+
+    /**
      * @param {JSdocData|undefined} jsdoc
      */
     formatJSdoc = (jsdoc) => {
@@ -1380,7 +1408,6 @@ class ModuleFormatter {
      */
     formatProperty = (prop) => {
         let key = prop.key;
-
         if (prop.template) {
             key = `[k: \`${key}\`]`;
         } else {
@@ -1393,8 +1420,17 @@ class ModuleFormatter {
             }
         }
 
+        const jsdoc = { ...prop.jsdoc };
+
+        if (prop.default !== undefined) {
+            jsdoc.description = jsdoc.description ? [...jsdoc.description] : [];
+            jsdoc.description.push(
+                `Defaults to ${this.formatJSdocLit(prop.default, prop.multi) || "an empty string"}.`
+            );
+        }
+
         return [
-            ...this.formatJSdoc(prop.jsdoc),
+            ...this.formatJSdoc(jsdoc),
             `${key}: ${this.formatTypeExpr(prop.type, prop.multi)};`,
         ];
     };
@@ -1484,6 +1520,7 @@ class ModuleFormatter {
                 }
 
                 // No need to duplicate the JSdoc.
+                delete narrowedParameter.default;
                 delete narrowedParameter.jsdoc;
 
                 prefixedParameters.unshift(narrowedParameter);

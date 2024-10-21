@@ -41,11 +41,11 @@ declare global {
             format?: string;
             maxlag?: number;
             /**
-             * Defaults to `0`.
+             * Defaults to 0.
              */
             smaxage?: number;
             /**
-             * Defaults to `0`.
+             * Defaults to 0.
              */
             maxage?: number;
             assert?: "anon" | "bot" | "user";
@@ -109,7 +109,7 @@ declare global {
                     action: "abuselogprivatedetails";
                     logid?: number;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     /**
@@ -159,7 +159,7 @@ declare global {
                      */
                     expiry?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     anononly?: boolean;
@@ -223,7 +223,7 @@ declare global {
                 interface CentralNoticeQueryCampaign extends Params {
                     action: "centralnoticequerycampaign";
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     campaign?: string;
                 }
@@ -287,12 +287,12 @@ declare global {
                     cluster?: "cloudelastic" | "codfw" | "eqiad";
                     from: number;
                     /**
-                     * Defaults to `100`.
+                     * Defaults to 100.
                      */
                     limit?: Limit;
                     sequenceid?: number;
                     /**
-                     * Defaults to `16`.
+                     * Defaults to 16.
                      */
                     rerenderfrequency?: number;
                 }
@@ -300,7 +300,7 @@ declare global {
                 interface CirrusConfigDump extends Params {
                     action: "cirrus-config-dump";
                     /**
-                     * Defaults to `globals|namespacemap|profiles|replicagroup`.
+                     * Defaults to `globals`, `namespacemap`, `profiles`, and `replicagroup`.
                      */
                     prop?: OneOrMore<
                         "globals" | "namespacemap" | "profiles" | "replicagroup" | "usertesting"
@@ -361,7 +361,7 @@ declare global {
                         namespace: number;
                         title: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         oldid?: number;
                     }
@@ -369,7 +369,7 @@ declare global {
                     interface AddCategory extends Collection {
                         submodule: "addcategory";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         title?: string;
                     }
@@ -377,7 +377,7 @@ declare global {
                     interface AddChapter extends Collection {
                         submodule: "addchapter";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         chaptername?: string;
                     }
@@ -389,7 +389,7 @@ declare global {
                     interface GetBookCreatorBoxContent extends Collection {
                         submodule: "getbookcreatorboxcontent";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         hint?: string;
                         oldid?: number;
@@ -408,7 +408,7 @@ declare global {
                     interface PostCollection extends Collection {
                         submodule: "postcollection";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         collection?: string;
                     }
@@ -418,7 +418,7 @@ declare global {
                         namespace: number;
                         title: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         oldid?: number;
                     }
@@ -426,7 +426,7 @@ declare global {
                     interface RemoveItem extends Collection {
                         submodule: "removeitem";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         index?: number;
                     }
@@ -446,11 +446,11 @@ declare global {
                         submodule: "settitles";
                         title: string;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         subtitle?: string;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         settings?: string;
                     }
@@ -484,7 +484,7 @@ declare global {
                         | "Mentorship";
                     content: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     summary?: string;
                     /**
@@ -594,7 +594,7 @@ declare global {
                      */
                     tosection?: string;
                     /**
-                     * Defaults to `diff|ids|title`.
+                     * Defaults to `diff`, `ids`, and `title`.
                      */
                     prop?: OneOrMore<
                         | "comment"
@@ -852,11 +852,11 @@ declare global {
                     tags?: string | string[];
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     mobileformat?: boolean;
@@ -1073,11 +1073,11 @@ declare global {
                     token: string;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     captchaword?: string;
@@ -1201,7 +1201,7 @@ declare global {
                     year?: number;
                     month?: number;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     tagfilter?: string | string[];
                     deletedonly?: boolean;
@@ -1224,11 +1224,11 @@ declare global {
                     invert?: boolean;
                     associated?: boolean;
                     /**
-                     * Defaults to `7`.
+                     * Defaults to 7.
                      */
                     days?: number;
                     /**
-                     * Defaults to `50`.
+                     * Defaults to 50.
                      */
                     limit?: number;
                     from?: string;
@@ -1252,7 +1252,7 @@ declare global {
                      */
                     feedformat?: "atom" | "rss" | "sitemap";
                     /**
-                     * Defaults to `7`.
+                     * Defaults to 7.
                      */
                     days?: number;
                     /**
@@ -1273,7 +1273,7 @@ declare global {
                      */
                     feedformat?: "atom" | "rss" | "sitemap";
                     /**
-                     * Defaults to `24`.
+                     * Defaults to 24.
                      */
                     hours?: number;
                     linktosections?: boolean;
@@ -1298,7 +1298,7 @@ declare global {
                         | "unread"
                     >;
                     /**
-                     * Defaults to `edit|new|log|categorize`.
+                     * Defaults to `edit`, `new`, `log`, and `categorize`.
                      */
                     wltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                     wlexcludeuser?: string;
@@ -1311,7 +1311,7 @@ declare global {
                     action: "filerevert";
                     filename: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     comment?: string;
                     archivename: string;
@@ -1342,7 +1342,7 @@ declare global {
                      */
                     page?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     token?: string;
                 }
@@ -1632,7 +1632,7 @@ declare global {
                         "vtloffset"?: string;
                         "vtlinclude-offset"?: boolean;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         "vtllimit"?: Limit;
                         "vtltoconly"?: boolean;
@@ -1803,7 +1803,7 @@ declare global {
                         | "wmf-researcher"
                     >;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     /**
@@ -1868,7 +1868,7 @@ declare global {
                     isaway?: boolean;
                     awaytimestamp?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     summary?: string;
                     username?: string;
@@ -1900,7 +1900,7 @@ declare global {
                     mentee: string;
                     mentor: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     /**
@@ -1999,11 +1999,11 @@ declare global {
                     command?: "reload" | "reset" | "status";
                     namespace?: number;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     title?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     content?: string;
                 }
@@ -2029,7 +2029,7 @@ declare global {
                     action: "languagesearch";
                     search: string;
                     /**
-                     * Defaults to `1`.
+                     * Defaults to 1.
                      */
                     typos?: number;
                 }
@@ -2123,7 +2123,7 @@ declare global {
                     operation: "activate" | "create" | "deactivate" | "delete";
                     tag: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     ignorewarnings?: boolean;
@@ -2185,7 +2185,7 @@ declare global {
                     toid?: number;
                     timestamp?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     /**
@@ -2216,7 +2216,7 @@ declare global {
                     fromid?: number;
                     to: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     movetalk?: boolean;
@@ -2265,11 +2265,11 @@ declare global {
                     action: "opensearch";
                     search: string;
                     /**
-                     * Defaults to `0`.
+                     * Defaults to 0.
                      */
                     namespace?: OneOrMore<number | "*">;
                     /**
-                     * Defaults to `10`.
+                     * Defaults to 10.
                      */
                     limit?: Limit;
                     /**
@@ -2375,7 +2375,7 @@ declare global {
                     date_range_to?: string;
                     page_id?: number;
                     /**
-                     * Defaults to `20`.
+                     * Defaults to 20.
                      */
                     limit?: number;
                     offset?: number;
@@ -2484,7 +2484,7 @@ declare global {
                     redirects?: boolean;
                     oldid?: number;
                     /**
-                     * Defaults to `text|langlinks|categories|links|templates|images|externallinks|sections|revid|displaytitle|iwlinks|properties|parsewarnings`.
+                     * Defaults to `text`, `langlinks`, `categories`, `links`, `templates`, `images`, `externallinks`, `sections`, `revid`, `displaytitle`, `iwlinks`, `properties`, and `parsewarnings`.
                      */
                     prop?: OneOrMore<
                         | "categories"
@@ -2583,7 +2583,7 @@ declare global {
                     action: "parser-migration";
                     title: string;
                     /**
-                     * Defaults to `old|new`.
+                     * Defaults to `old` and `new`.
                      */
                     config?: OneOrMore<"new" | "old">;
                     redirect?: string;
@@ -2616,7 +2616,7 @@ declare global {
                      */
                     expiry?: string | string[];
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     tags?: string | string[];
@@ -2669,11 +2669,11 @@ declare global {
                         gacmin?: number;
                         gacmax?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaclimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gacprop?: OneOrMore<"hidden" | "size">;
                     }
@@ -2684,7 +2684,7 @@ declare global {
                     interface AllDeletedRevisions extends Purge {
                         generator?: "alldeletedrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         gadrprop?: OneOrMore<
                             | "comment"
@@ -2790,7 +2790,7 @@ declare global {
                          */
                         gafprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaflimit?: Limit;
                         /**
@@ -2818,7 +2818,7 @@ declare global {
                         gaistart?: string;
                         gaiend?: string;
                         /**
-                         * Defaults to `timestamp|url`.
+                         * Defaults to `timestamp` and `url`.
                          */
                         gaiprop?: OneOrMore<
                             | "badfile"
@@ -2851,7 +2851,7 @@ declare global {
                         gaifilterbots?: "all" | "bots" | "nobots";
                         gaimime?: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gailimit?: Limit;
                     }
@@ -2871,11 +2871,11 @@ declare global {
                          */
                         galprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         galnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gallimit?: Limit;
                         /**
@@ -2894,7 +2894,7 @@ declare global {
                         gapto?: string;
                         gapprefix?: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gapnamespace?: number | "*";
                         /**
@@ -2918,7 +2918,7 @@ declare global {
                          */
                         gapprexpiry?: "all" | "definite" | "indefinite";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaplimit?: Limit;
                         /**
@@ -2942,11 +2942,11 @@ declare global {
                          */
                         garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         garnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         garlimit?: Limit;
                         /**
@@ -2961,7 +2961,7 @@ declare global {
                     interface AllRevisions extends Purge {
                         generator?: "allrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         garvprop?: OneOrMore<
                             | "comment"
@@ -3064,11 +3064,11 @@ declare global {
                          */
                         gatprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gatnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gatlimit?: Limit;
                         /**
@@ -3101,7 +3101,7 @@ declare global {
                          */
                         gblfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gbllimit?: Limit;
                         gblredirect?: boolean;
@@ -3115,7 +3115,7 @@ declare global {
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                         gclshow?: OneOrMore<"!hidden" | "hidden">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcllimit?: Limit;
                         gclcontinue?: string;
@@ -3134,19 +3134,19 @@ declare global {
                         gcmtitle?: string;
                         gcmpageid?: number;
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gcmprop?: OneOrMore<
                             "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                         >;
                         gcmnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `page|subcat|file`.
+                         * Defaults to `page`, `subcat`, and `file`.
                          */
                         gcmtype?: OneOrMore<"file" | "page" | "subcat">;
                         gcmcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcmlimit?: Limit;
                         /**
@@ -3185,7 +3185,7 @@ declare global {
                         gcpdefault?: "latest" | "stable";
                         gcpautoreview?: "none" | "sysop";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcplimit?: Limit;
                     }
@@ -3198,7 +3198,7 @@ declare global {
                         gsourcetitle?: string;
                         gsourcesectiontitle?: string;
                         /**
-                         * Defaults to `100`.
+                         * Defaults to 100.
                          */
                         glimit?: Limit;
                         goffset?: string;
@@ -3215,7 +3215,7 @@ declare global {
                         gto?: string;
                         glistid?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glimit?: Limit;
                         goffset?: string;
@@ -3228,7 +3228,7 @@ declare global {
                     interface DeletedRevisions extends Purge {
                         generator?: "deletedrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         gdrvprop?: OneOrMore<
                             | "comment"
@@ -3320,7 +3320,7 @@ declare global {
                     interface DuplicateFiles extends Purge {
                         generator?: "duplicatefiles";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gdflimit?: Limit;
                         gdfcontinue?: string;
@@ -3349,7 +3349,7 @@ declare global {
                          */
                         geifilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         geilimit?: Limit;
                     }
@@ -3360,12 +3360,12 @@ declare global {
                     interface ExtUrlUsage extends Purge {
                         generator?: "exturlusage";
                         /**
-                         * Defaults to `ids|title|url`.
+                         * Defaults to `ids`, `title`, and `url`.
                          */
                         geuprop?: OneOrMore<"ids" | "title" | "url">;
                         geucontinue?: string;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         geuprotocol?:
                             | ""
@@ -3400,7 +3400,7 @@ declare global {
                         geuquery?: string;
                         geunamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         geulimit?: Limit;
                         /**
@@ -3415,13 +3415,13 @@ declare global {
                     interface FileUsage extends Purge {
                         generator?: "fileusage";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         gfunamespace?: OneOrMore<number | "*">;
                         gfushow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gfulimit?: Limit;
                         gfucontinue?: string;
@@ -3436,7 +3436,7 @@ declare global {
                         ggspage?: string;
                         ggsbbox?: string;
                         /**
-                         * Defaults to `500`.
+                         * Defaults to 500.
                          */
                         ggsradius?: number;
                         ggsmaxdim?: number;
@@ -3445,7 +3445,7 @@ declare global {
                          */
                         ggssort?: "distance" | "relevance";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         ggslimit?: Limit;
                         /**
@@ -3453,7 +3453,7 @@ declare global {
                          */
                         ggsglobe?: "earth";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         ggsnamespace?: OneOrMore<number | "*">;
                         /**
@@ -3539,7 +3539,7 @@ declare global {
                     interface Images extends Purge {
                         generator?: "images";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gimlimit?: Limit;
                         gimcontinue?: string;
@@ -3568,7 +3568,7 @@ declare global {
                          */
                         giufilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         giulimit?: Limit;
                         giuredirect?: boolean;
@@ -3584,11 +3584,11 @@ declare global {
                         giwbltitle?: string;
                         giwblcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         giwbllimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
                         /**
@@ -3606,11 +3606,11 @@ declare global {
                         glbltitle?: string;
                         glblcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glbllimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         glblprop?: OneOrMore<"lllang" | "lltitle">;
                         /**
@@ -3626,7 +3626,7 @@ declare global {
                         generator?: "links";
                         gplnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpllimit?: Limit;
                         gplcontinue?: string;
@@ -3643,13 +3643,13 @@ declare global {
                     interface LinksHere extends Purge {
                         generator?: "linkshere";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         glhnamespace?: OneOrMore<number | "*">;
                         glhshow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glhlimit?: Limit;
                         glhcontinue?: string;
@@ -3663,19 +3663,19 @@ declare global {
                          */
                         gmclanguage?: string;
                         /**
-                         * Defaults to `500`.
+                         * Defaults to 500.
                          */
                         gmclimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gmcoffset?: string;
                         /**
-                         * Defaults to `!optional|!ignored`.
+                         * Defaults to `!optional` and `!ignored`.
                          */
                         gmcfilter?: string | string[];
                         /**
-                         * Defaults to `definition|translation`.
+                         * Defaults to `definition` and `translation`.
                          */
                         gmcprop?: OneOrMore<
                             "definition" | "properties" | "revision" | "tags" | "translation"
@@ -3692,11 +3692,11 @@ declare global {
                          */
                         gpvimmetric?: "pageviews";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpvimlimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpvimoffset?: number;
                     }
@@ -3715,7 +3715,7 @@ declare global {
                          */
                         gorfilterwatched?: "all" | "watched";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gornamespace?: OneOrMore<number | "*">;
                         gorcategory?: string;
@@ -3724,7 +3724,7 @@ declare global {
                          */
                         gorfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gorlimit?: Limit;
                     }
@@ -3736,12 +3736,12 @@ declare global {
                         generator?: "pageswithprop";
                         gpwppropname: string;
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gpwpprop?: OneOrMore<"ids" | "title" | "value">;
                         gpwpcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpwplimit?: Limit;
                         /**
@@ -3757,15 +3757,15 @@ declare global {
                         generator?: "prefixsearch";
                         gpssearch: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpsnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpslimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpsoffset?: number;
                         /**
@@ -3790,7 +3790,7 @@ declare global {
                         gwppassessments?: boolean;
                         gwppprojects: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwpplimit?: Limit;
                         gwppcontinue?: string;
@@ -3802,7 +3802,7 @@ declare global {
                     interface ProofreadPagesInIndex extends Purge {
                         generator?: "proofreadpagesinindex";
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gprppiiprop?: OneOrMore<
                             "formattedPageNumber" | "formattedpagenumber" | "ids" | "title"
@@ -3819,7 +3819,7 @@ declare global {
                         gptnamespace?: OneOrMore<number | "*">;
                         gptlevel?: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gptlimit?: Limit;
                         /**
@@ -3829,7 +3829,7 @@ declare global {
                         gptstart?: string;
                         gptend?: string;
                         /**
-                         * Defaults to `timestamp|level`.
+                         * Defaults to `timestamp` and `level`.
                          */
                         gptprop?: OneOrMore<
                             | "comment"
@@ -3850,11 +3850,11 @@ declare global {
                         generator?: "querypage";
                         gqppage: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gqpoffset?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gqplimit?: Limit;
                     }
@@ -3874,7 +3874,7 @@ declare global {
                          */
                         grnredirect?: boolean;
                         /**
-                         * Defaults to `1`.
+                         * Defaults to 1.
                          */
                         grnlimit?: Limit;
                         grncontinue?: string;
@@ -3894,7 +3894,7 @@ declare global {
                          */
                         grledir?: "ascending" | "descending";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grlelimit?: Limit;
                         grlecontinue?: string;
@@ -3916,7 +3916,7 @@ declare global {
                         grcexcludeuser?: string;
                         grctag?: string;
                         /**
-                         * Defaults to `title|timestamp|ids`.
+                         * Defaults to `title`, `timestamp`, and `ids`.
                          */
                         grcprop?: OneOrMore<
                             | "comment"
@@ -3953,11 +3953,11 @@ declare global {
                             | "unpatrolled"
                         >;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grclimit?: Limit;
                         /**
-                         * Defaults to `edit|new|log|categorize`.
+                         * Defaults to `edit`, `new`, `log`, and `categorize`.
                          */
                         grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                         grctoponly?: boolean;
@@ -3973,13 +3973,13 @@ declare global {
                     interface Redirects extends Purge {
                         generator?: "redirects";
                         /**
-                         * Defaults to `pageid|title`.
+                         * Defaults to `pageid` and `title`.
                          */
                         grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
                         grdnamespace?: OneOrMore<number | "*">;
                         grdshow?: OneOrMore<"!fragment" | "fragment">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grdlimit?: Limit;
                         grdcontinue?: string;
@@ -3991,7 +3991,7 @@ declare global {
                     interface Revisions extends Purge {
                         generator?: "revisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         grvprop?: OneOrMore<
                             | "comment"
@@ -4088,15 +4088,15 @@ declare global {
                         generator?: "search";
                         gsrsearch: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gsrnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gsrlimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gsroffset?: number;
                         /**
@@ -4105,11 +4105,11 @@ declare global {
                         gsrqiprofile?: string;
                         gsrwhat?: "nearmatch" | "text" | "title";
                         /**
-                         * Defaults to `totalhits|suggestion|rewrittenquery`.
+                         * Defaults to `totalhits`, `suggestion`, and `rewrittenquery`.
                          */
                         gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
                         /**
-                         * Defaults to `size|wordcount|timestamp|snippet`.
+                         * Defaults to `size`, `wordcount`, `timestamp`, and `snippet`.
                          */
                         gsrprop?: OneOrMore<
                             | "categorysnippet"
@@ -4153,7 +4153,7 @@ declare global {
                         generator?: "templates";
                         gtlnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gtllimit?: Limit;
                         gtlcontinue?: string;
@@ -4170,13 +4170,13 @@ declare global {
                     interface Transcludedin extends Purge {
                         generator?: "transcludedin";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         gtinamespace?: OneOrMore<number | "*">;
                         gtishow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gtilimit?: Limit;
                         gticontinue?: string;
@@ -4191,7 +4191,7 @@ declare global {
                          */
                         gurdir?: "ascending" | "descending";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gurnamespace?: OneOrMore<number | "*">;
                         /**
@@ -4199,11 +4199,11 @@ declare global {
                          */
                         gurfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gurfilterlevel?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gurlimit?: Limit;
                     }
@@ -4224,11 +4224,11 @@ declare global {
                          */
                         gwldir?: "newer" | "older";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwllimit?: Limit;
                         /**
-                         * Defaults to `ids|title|flags`.
+                         * Defaults to `ids`, `title`, and `flags`.
                          */
                         gwlprop?: OneOrMore<
                             | "comment"
@@ -4264,7 +4264,7 @@ declare global {
                             | "unread"
                         >;
                         /**
-                         * Defaults to `edit|new|log|categorize`.
+                         * Defaults to `edit`, `new`, `log`, and `categorize`.
                          */
                         gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                         gwlowner?: string;
@@ -4283,7 +4283,7 @@ declare global {
                         gwrcontinue?: string;
                         gwrnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwrlimit?: Limit;
                         gwrprop?: "changed" | "changed"[];
@@ -4310,7 +4310,7 @@ declare global {
                         gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
                         gwbleuentities: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwbleulimit?: Limit;
                         gwbleucontinue?: string;
@@ -4329,7 +4329,7 @@ declare global {
                          */
                         gwbstype?: string;
                         /**
-                         * Defaults to `7`.
+                         * Defaults to 7.
                          */
                         gwbslimit?: Limit;
                         /**
@@ -4341,15 +4341,15 @@ declare global {
                     interface WikiLambdaFnSearch extends Purge {
                         generator?: "wikilambdafn_search";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdafn_zfunction_id?: string;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdafn_type?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwikilambdafn_limit?: Limit;
                         gwikilambdafn_continue?: string;
@@ -4366,7 +4366,7 @@ declare global {
                     interface WikiLambdaSearchLabels extends Purge {
                         generator?: "wikilambdasearch_labels";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdasearch_search?: string;
                         gwikilambdasearch_language: string;
@@ -4376,7 +4376,7 @@ declare global {
                         gwikilambdasearch_return_type?: string;
                         gwikilambdasearch_strict_return_type?: boolean;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwikilambdasearch_limit?: Limit;
                         gwikilambdasearch_continue?: string;
@@ -4421,7 +4421,7 @@ declare global {
                             clprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                             clshow?: OneOrMore<"!hidden" | "hidden">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             cllimit?: Limit;
                             clcontinue?: string;
@@ -4467,7 +4467,7 @@ declare global {
                             pcrights?: string | string[];
                             pcexcluderights?: string | string[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             pclimit?: Limit;
                             pccontinue?: string;
@@ -4478,7 +4478,7 @@ declare global {
                          */
                         interface Coordinates extends Query {
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             colimit?: Limit;
                             cocontinue?: string;
@@ -4507,7 +4507,7 @@ declare global {
                          */
                         interface DeletedRevisions extends Query {
                             /**
-                             * Defaults to `ids|timestamp|flags|comment|user`.
+                             * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                              */
                             drvprop?: OneOrMore<
                                 | "comment"
@@ -4598,7 +4598,7 @@ declare global {
                          */
                         interface Description extends Query {
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             desccontinue?: number;
                             /**
@@ -4612,7 +4612,7 @@ declare global {
                          */
                         interface DuplicateFiles extends Query {
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             dflimit?: Limit;
                             dfcontinue?: string;
@@ -4630,7 +4630,7 @@ declare global {
                              */
                             wbetlanguage?: string;
                             /**
-                             * Defaults to `alias|label|description`.
+                             * Defaults to `alias`, `label`, and `description`.
                              */
                             wbetterms?: OneOrMore<"alias" | "description" | "label">;
                         }
@@ -4640,12 +4640,12 @@ declare global {
                          */
                         interface ExtLinks extends Query {
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             ellimit?: Limit;
                             elcontinue?: string;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             elprotocol?:
                                 | ""
@@ -4691,7 +4691,7 @@ declare global {
                             exchars?: number;
                             exsentences?: number;
                             /**
-                             * Defaults to `20`.
+                             * Defaults to 20.
                              */
                             exlimit?: Limit;
                             exintro?: boolean;
@@ -4708,13 +4708,13 @@ declare global {
                          */
                         interface FileUsage extends Query {
                             /**
-                             * Defaults to `pageid|title|redirect`.
+                             * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             fuprop?: OneOrMore<"pageid" | "redirect" | "title">;
                             funamespace?: OneOrMore<number | "*">;
                             fushow?: OneOrMore<"!redirect" | "redirect">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             fulimit?: Limit;
                             fucontinue?: string;
@@ -4736,7 +4736,7 @@ declare global {
                              */
                             guprop?: OneOrMore<"namespace" | "pageid" | "url">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gulimit?: Limit;
                             /**
@@ -4758,7 +4758,7 @@ declare global {
 
                         interface ImageForPage extends Query {
                             /**
-                             * Defaults to `filename|size|fullsize|responsiveimages`.
+                             * Defaults to `filename`, `size`, `fullsize`, and `responsiveimages`.
                              */
                             prppifpprop?: OneOrMore<
                                 "filename" | "fullsize" | "responsiveimages" | "size"
@@ -4770,7 +4770,7 @@ declare global {
                          */
                         interface ImageInfo extends Query {
                             /**
-                             * Defaults to `timestamp|user`.
+                             * Defaults to `timestamp` and `user`.
                              */
                             iiprop?: OneOrMore<
                                 | "archivename"
@@ -4795,17 +4795,17 @@ declare global {
                                 | "userid"
                             >;
                             /**
-                             * Defaults to `1`.
+                             * Defaults to 1.
                              */
                             iilimit?: Limit;
                             iistart?: string;
                             iiend?: string;
                             /**
-                             * Defaults to `-1`.
+                             * Defaults to -1.
                              */
                             iiurlwidth?: number;
                             /**
-                             * Defaults to `-1`.
+                             * Defaults to -1.
                              */
                             iiurlheight?: number;
                             /**
@@ -4819,7 +4819,7 @@ declare global {
                             iiextmetadatamultilang?: boolean;
                             iiextmetadatafilter?: string | string[];
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             iiurlparam?: string;
                             iibadfilecontexttitle?: string;
@@ -4832,7 +4832,7 @@ declare global {
                          */
                         interface Images extends Query {
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             imlimit?: Limit;
                             imcontinue?: string;
@@ -4900,7 +4900,7 @@ declare global {
                              */
                             iwdir?: "ascending" | "descending";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             iwlimit?: Limit;
                             iwcontinue?: string;
@@ -4926,7 +4926,7 @@ declare global {
                              */
                             llinlanguagecode?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             lllimit?: Limit;
                             llcontinue?: string;
@@ -4945,7 +4945,7 @@ declare global {
                         interface Links extends Query {
                             plnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             pllimit?: Limit;
                             plcontinue?: string;
@@ -4961,13 +4961,13 @@ declare global {
                          */
                         interface LinksHere extends Query {
                             /**
-                             * Defaults to `pageid|title|redirect`.
+                             * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             lhprop?: OneOrMore<"pageid" | "redirect" | "title">;
                             lhnamespace?: OneOrMore<number | "*">;
                             lhshow?: OneOrMore<"!redirect" | "redirect">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             lhlimit?: Limit;
                             lhcontinue?: string;
@@ -4978,11 +4978,11 @@ declare global {
                          */
                         interface MapData extends Query {
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             mpdgroups?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             mpdlimit?: Limit;
                             mpdcontinue?: number;
@@ -4997,7 +4997,7 @@ declare global {
                         interface PageAssessments extends Query {
                             pacontinue?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             palimit?: Limit;
                             pasubprojects?: boolean;
@@ -5008,15 +5008,15 @@ declare global {
                          */
                         interface PageImages extends Query {
                             /**
-                             * Defaults to `thumbnail|name`.
+                             * Defaults to `thumbnail` and `name`.
                              */
                             piprop?: OneOrMore<"name" | "original" | "thumbnail">;
                             /**
-                             * Defaults to `50`.
+                             * Defaults to 50.
                              */
                             pithumbsize?: number;
                             /**
-                             * Defaults to `50`.
+                             * Defaults to 50.
                              */
                             pilimit?: Limit;
                             /**
@@ -5042,7 +5042,7 @@ declare global {
                              */
                             wbptlanguage?: string;
                             /**
-                             * Defaults to `alias|label|description`.
+                             * Defaults to `alias`, `label`, and `description`.
                              */
                             wbptterms?: OneOrMore<"alias" | "description" | "label">;
                         }
@@ -5056,7 +5056,7 @@ declare global {
                              */
                             pvipmetric?: "pageviews";
                             /**
-                             * Defaults to `60`.
+                             * Defaults to 60.
                              */
                             pvipdays?: number;
                             pvipcontinue?: string;
@@ -5070,13 +5070,13 @@ declare global {
                          */
                         interface Redirects extends Query {
                             /**
-                             * Defaults to `pageid|title`.
+                             * Defaults to `pageid` and `title`.
                              */
                             rdprop?: OneOrMore<"fragment" | "pageid" | "title">;
                             rdnamespace?: OneOrMore<number | "*">;
                             rdshow?: OneOrMore<"!fragment" | "fragment">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             rdlimit?: Limit;
                             rdcontinue?: string;
@@ -5087,7 +5087,7 @@ declare global {
                          */
                         interface Revisions extends Query {
                             /**
-                             * Defaults to `ids|timestamp|flags|comment|user`.
+                             * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                              */
                             rvprop?: OneOrMore<
                                 | "comment"
@@ -5187,7 +5187,7 @@ declare global {
                              */
                             siisessionkey?: string | string[];
                             /**
-                             * Defaults to `timestamp|url`.
+                             * Defaults to `timestamp` and `url`.
                              */
                             siiprop?: OneOrMore<
                                 | "badfile"
@@ -5205,15 +5205,15 @@ declare global {
                                 | "url"
                             >;
                             /**
-                             * Defaults to `-1`.
+                             * Defaults to -1.
                              */
                             siiurlwidth?: number;
                             /**
-                             * Defaults to `-1`.
+                             * Defaults to -1.
                              */
                             siiurlheight?: number;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             siiurlparam?: string;
                         }
@@ -5224,7 +5224,7 @@ declare global {
                         interface Templates extends Query {
                             tlnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             tllimit?: Limit;
                             tlcontinue?: string;
@@ -5240,13 +5240,13 @@ declare global {
                          */
                         interface Transcludedin extends Query {
                             /**
-                             * Defaults to `pageid|title|redirect`.
+                             * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             tiprop?: OneOrMore<"pageid" | "redirect" | "title">;
                             tinamespace?: OneOrMore<number | "*">;
                             tishow?: OneOrMore<"!redirect" | "redirect">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             tilimit?: Limit;
                             ticontinue?: string;
@@ -5260,7 +5260,7 @@ declare global {
                          */
                         interface VideoInfo extends Query {
                             /**
-                             * Defaults to `timestamp|user`.
+                             * Defaults to `timestamp` and `user`.
                              */
                             viprop?: OneOrMore<
                                 | "archivename"
@@ -5287,17 +5287,17 @@ declare global {
                                 | "userid"
                             >;
                             /**
-                             * Defaults to `1`.
+                             * Defaults to 1.
                              */
                             vilimit?: Limit;
                             vistart?: string;
                             viend?: string;
                             /**
-                             * Defaults to `-1`.
+                             * Defaults to -1.
                              */
                             viurlwidth?: number;
                             /**
-                             * Defaults to `-1`.
+                             * Defaults to -1.
                              */
                             viurlheight?: number;
                             /**
@@ -5311,7 +5311,7 @@ declare global {
                             viextmetadatamultilang?: boolean;
                             viextmetadatafilter?: string | string[];
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             viurlparam?: string;
                             vibadfilecontexttitle?: string;
@@ -5327,7 +5327,7 @@ declare global {
                             wbeuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
                             wbeuentities?: string | string[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             wbeulimit?: Limit;
                             wbeucontinue?: string;
@@ -5353,11 +5353,11 @@ declare global {
                                 | "protected"
                             >;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             abflimit?: Limit;
                             /**
-                             * Defaults to `id|description|actions|status`.
+                             * Defaults to `id`, `description`, `actions`, and `status`.
                              */
                             abfprop?: OneOrMore<
                                 | "actions"
@@ -5386,7 +5386,7 @@ declare global {
                             afltitle?: string;
                             aflfilter?: string | string[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             afllimit?: Limit;
                             aflprop?: OneOrMore<
@@ -5411,7 +5411,7 @@ declare global {
                         interface AllCampaigns extends Query {
                             uwcenabledonly?: boolean;
                             /**
-                             * Defaults to `50`.
+                             * Defaults to 50.
                              */
                             uwclimit?: Limit;
                             uwccontinue?: string;
@@ -5432,11 +5432,11 @@ declare global {
                             acmin?: number;
                             acmax?: number;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             aclimit?: Limit;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             acprop?: OneOrMore<"hidden" | "size">;
                         }
@@ -5446,7 +5446,7 @@ declare global {
                          */
                         interface AllDeletedRevisions extends Query {
                             /**
-                             * Defaults to `ids|timestamp|flags|comment|user`.
+                             * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                              */
                             adrprop?: OneOrMore<
                                 | "comment"
@@ -5551,7 +5551,7 @@ declare global {
                              */
                             afprop?: OneOrMore<"ids" | "title">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             aflimit?: Limit;
                             /**
@@ -5578,7 +5578,7 @@ declare global {
                             aistart?: string;
                             aiend?: string;
                             /**
-                             * Defaults to `timestamp|url`.
+                             * Defaults to `timestamp` and `url`.
                              */
                             aiprop?: OneOrMore<
                                 | "badfile"
@@ -5611,7 +5611,7 @@ declare global {
                             aifilterbots?: "all" | "bots" | "nobots";
                             aimime?: string | string[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             ailimit?: Limit;
                         }
@@ -5630,11 +5630,11 @@ declare global {
                              */
                             alprop?: OneOrMore<"ids" | "title">;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             alnamespace?: number | "*";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             allimit?: Limit;
                             /**
@@ -5652,7 +5652,7 @@ declare global {
                             apto?: string;
                             apprefix?: string;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             apnamespace?: number | "*";
                             /**
@@ -5676,7 +5676,7 @@ declare global {
                              */
                             apprexpiry?: "all" | "definite" | "indefinite";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             aplimit?: Limit;
                             /**
@@ -5699,11 +5699,11 @@ declare global {
                              */
                             arprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             arnamespace?: number | "*";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             arlimit?: Limit;
                             /**
@@ -5717,7 +5717,7 @@ declare global {
                          */
                         interface AllRevisions extends Query {
                             /**
-                             * Defaults to `ids|timestamp|flags|comment|user`.
+                             * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                              */
                             arvprop?: OneOrMore<
                                 | "comment"
@@ -5819,11 +5819,11 @@ declare global {
                              */
                             atprop?: OneOrMore<"ids" | "title">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             atnamespace?: number | "*";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             atlimit?: Limit;
                             /**
@@ -5856,7 +5856,7 @@ declare global {
                                 | "rights"
                             >;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             aulimit?: Limit;
                             auwitheditsonly?: boolean;
@@ -5888,7 +5888,7 @@ declare global {
                              */
                             blfilterredir?: "all" | "nonredirects" | "redirects";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             bllimit?: Limit;
                             blredirect?: boolean;
@@ -5915,11 +5915,11 @@ declare global {
                             bkusers?: string | string[];
                             bkip?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             bklimit?: Limit;
                             /**
-                             * Defaults to `id|user|by|timestamp|expiry|reason|flags`.
+                             * Defaults to `id`, `user`, `by`, `timestamp`, `expiry`, `reason`, and `flags`.
                              */
                             bkprop?: OneOrMore<
                                 | "by"
@@ -5954,19 +5954,19 @@ declare global {
                             cmtitle?: string;
                             cmpageid?: number;
                             /**
-                             * Defaults to `ids|title`.
+                             * Defaults to `ids` and `title`.
                              */
                             cmprop?: OneOrMore<
                                 "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                             >;
                             cmnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `page|subcat|file`.
+                             * Defaults to `page`, `subcat`, and `file`.
                              */
                             cmtype?: OneOrMore<"file" | "page" | "subcat">;
                             cmcontinue?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             cmlimit?: Limit;
                             /**
@@ -6001,11 +6001,11 @@ declare global {
                             campaign?: string;
                             user?: string;
                             /**
-                             * Defaults to `50`.
+                             * Defaults to 50.
                              */
                             limit?: Limit;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             offset?: number;
                             start?: string;
@@ -6019,11 +6019,11 @@ declare global {
                             curequest: "actions" | "edits" | "ipusers" | "userips";
                             cutarget: string;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             cureason: string;
                             /**
-                             * Defaults to `500`.
+                             * Defaults to 500.
                              */
                             culimit?: Limit;
                             /**
@@ -6045,7 +6045,7 @@ declare global {
                             cultarget?: string;
                             culreason?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             cullimit?: Limit;
                             /**
@@ -6068,7 +6068,7 @@ declare global {
                             cpdefault?: "latest" | "stable";
                             cpautoreview?: "none" | "sysop";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             cplimit?: Limit;
                         }
@@ -6080,7 +6080,7 @@ declare global {
                             sourcetitle?: string;
                             sourcesectiontitle?: string;
                             /**
-                             * Defaults to `100`.
+                             * Defaults to 100.
                              */
                             limit?: Limit;
                             offset?: string;
@@ -6095,7 +6095,7 @@ declare global {
                             translationid: number;
                             striphtml?: boolean;
                             /**
-                             * Defaults to `source|mt|user`.
+                             * Defaults to `source`, `mt`, and `user`.
                              */
                             types?: OneOrMore<"mt" | "source" | "user">;
                         }
@@ -6117,7 +6117,7 @@ declare global {
                             to?: string;
                             listid?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             limit?: Limit;
                             offset?: string;
@@ -6128,11 +6128,11 @@ declare global {
                             from?: string;
                             to?: string;
                             /**
-                             * Defaults to `500`.
+                             * Defaults to 500.
                              */
                             limit?: Limit;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             offset?: string;
                         }
@@ -6157,14 +6157,14 @@ declare global {
                             drprefix?: string;
                             drunique?: boolean;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             drnamespace?: number | "*";
                             drtag?: string;
                             druser?: string;
                             drexcludeuser?: string;
                             /**
-                             * Defaults to `user|comment`.
+                             * Defaults to `user` and `comment`.
                              */
                             drprop?: OneOrMore<
                                 | "comment"
@@ -6181,7 +6181,7 @@ declare global {
                                 | "userid"
                             >;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             drlimit?: Limit;
                             drcontinue?: string;
@@ -6204,7 +6204,7 @@ declare global {
                              */
                             eifilterredir?: "all" | "nonredirects" | "redirects";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             eilimit?: Limit;
                         }
@@ -6279,12 +6279,12 @@ declare global {
                          */
                         interface ExtUrlUsage extends Query {
                             /**
-                             * Defaults to `ids|title|url`.
+                             * Defaults to `ids`, `title`, and `url`.
                              */
                             euprop?: OneOrMore<"ids" | "title" | "url">;
                             eucontinue?: string;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             euprotocol?:
                                 | ""
@@ -6319,7 +6319,7 @@ declare global {
                             euquery?: string;
                             eunamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             eulimit?: Limit;
                             /**
@@ -6359,7 +6359,7 @@ declare global {
                                 | "user"
                             >;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             falimit?: Limit;
                             facontinue?: string;
@@ -6375,7 +6375,7 @@ declare global {
 
                         interface Gadgets extends Query {
                             /**
-                             * Defaults to `id|metadata`.
+                             * Defaults to `id` and `metadata`.
                              */
                             gaprop?: OneOrMore<"desc" | "id" | "metadata">;
                             gacategories?: string | string[];
@@ -6392,7 +6392,7 @@ declare global {
                             gspage?: string;
                             gsbbox?: string;
                             /**
-                             * Defaults to `500`.
+                             * Defaults to 500.
                              */
                             gsradius?: number;
                             gsmaxdim?: number;
@@ -6401,7 +6401,7 @@ declare global {
                              */
                             gssort?: "distance" | "relevance";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gslimit?: Limit;
                             /**
@@ -6409,7 +6409,7 @@ declare global {
                              */
                             gsglobe?: "earth";
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             gsnamespace?: OneOrMore<number | "*">;
                             /**
@@ -6487,7 +6487,7 @@ declare global {
                             >;
                             aguprop?: OneOrMore<"existslocally" | "groups" | "lockinfo">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             agulimit?: Limit;
                             aguexcludenamed?: boolean;
@@ -6509,11 +6509,11 @@ declare global {
                             bgtargets?: string | string[];
                             bgip?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             bglimit?: Limit;
                             /**
-                             * Defaults to `id|target|by|timestamp|expiry|reason`.
+                             * Defaults to `id`, `target`, `by`, `timestamp`, `expiry`, and `reason`.
                              */
                             bgprop?: OneOrMore<
                                 | "address"
@@ -6621,7 +6621,7 @@ declare global {
                              */
                             iufilterredir?: "all" | "nonredirects" | "redirects";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             iulimit?: Limit;
                             iuredirect?: boolean;
@@ -6636,11 +6636,11 @@ declare global {
                             iwbltitle?: string;
                             iwblcontinue?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             iwbllimit?: Limit;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             iwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
                             /**
@@ -6657,11 +6657,11 @@ declare global {
                             lbltitle?: string;
                             lblcontinue?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             lbllimit?: Limit;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             lblprop?: OneOrMore<"lllang" | "lltitle">;
                             /**
@@ -6672,7 +6672,7 @@ declare global {
 
                         interface LintErrors extends Query {
                             /**
-                             * Defaults to `deletable-table-tag|duplicate-ids|html5-misnesting|misc-tidy-replacement-issues|multiline-html-table-in-list|multiple-unclosed-formatting-tags|pwrap-bug-workaround|self-closed-tag|tidy-font-bug|tidy-whitespace-bug|unclosed-quotes-in-heading|bogus-image-options|fostered|misnested-tag|multi-colon-escape|wikilink-in-extlink|missing-end-tag|missing-end-tag-in-heading|night-mode-unaware-background-color|obsolete-tag|stripped-tag`.
+                             * Defaults to `deletable-table-tag`, `duplicate-ids`, `html5-misnesting`, `misc-tidy-replacement-issues`, `multiline-html-table-in-list`, `multiple-unclosed-formatting-tags`, `pwrap-bug-workaround`, `self-closed-tag`, `tidy-font-bug`, `tidy-whitespace-bug`, `unclosed-quotes-in-heading`, `bogus-image-options`, `fostered`, `misnested-tag`, `multi-colon-escape`, `wikilink-in-extlink`, `missing-end-tag`, `missing-end-tag-in-heading`, `night-mode-unaware-background-color`, `obsolete-tag`, and `stripped-tag`.
                              */
                             lntcategories?: OneOrMore<
                                 | "bogus-image-options"
@@ -6700,7 +6700,7 @@ declare global {
                                 | "wikilink-in-extlink"
                             >;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             lntlimit?: Limit;
                             lntnamespace?: OneOrMore<number | "*">;
@@ -6714,7 +6714,7 @@ declare global {
                          */
                         interface LogEvents extends Query {
                             /**
-                             * Defaults to `ids|title|type|user|timestamp|comment|details`.
+                             * Defaults to `ids`, `title`, `type`, `user`, `timestamp`, `comment`, and `details`.
                              */
                             leprop?: OneOrMore<
                                 | "comment"
@@ -6742,7 +6742,7 @@ declare global {
                             leprefix?: string;
                             letag?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             lelimit?: Limit;
                             lecontinue?: string;
@@ -6755,19 +6755,19 @@ declare global {
                              */
                             mclanguage?: string;
                             /**
-                             * Defaults to `500`.
+                             * Defaults to 500.
                              */
                             mclimit?: Limit;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             mcoffset?: string;
                             /**
-                             * Defaults to `!optional|!ignored`.
+                             * Defaults to `!optional` and `!ignored`.
                              */
                             mcfilter?: string | string[];
                             /**
-                             * Defaults to `definition|translation`.
+                             * Defaults to `definition` and `translation`.
                              */
                             mcprop?: OneOrMore<
                                 "definition" | "properties" | "revision" | "tags" | "translation"
@@ -6789,11 +6789,11 @@ declare global {
                              */
                             pvimmetric?: "pageviews";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             pvimlimit?: Limit;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             pvimoffset?: number;
                         }
@@ -6803,11 +6803,11 @@ declare global {
                          */
                         interface MyStashedFiles extends Query {
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             msfprop?: OneOrMore<"size" | "type">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             msflimit?: Limit;
                             msfcontinue?: string;
@@ -6826,7 +6826,7 @@ declare global {
                              */
                             orfilterwatched?: "all" | "watched";
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             ornamespace?: OneOrMore<number | "*">;
                             orcategory?: string;
@@ -6835,7 +6835,7 @@ declare global {
                              */
                             orfilterredir?: "all" | "nonredirects" | "redirects";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             orlimit?: Limit;
                         }
@@ -6846,7 +6846,7 @@ declare global {
                         interface PagePropNames extends Query {
                             ppncontinue?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             ppnlimit?: Limit;
                         }
@@ -6857,12 +6857,12 @@ declare global {
                         interface PagesWithProp extends Query {
                             pwppropname: string;
                             /**
-                             * Defaults to `ids|title`.
+                             * Defaults to `ids` and `title`.
                              */
                             pwpprop?: OneOrMore<"ids" | "title" | "value">;
                             pwpcontinue?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             pwplimit?: Limit;
                             /**
@@ -6877,15 +6877,15 @@ declare global {
                         interface PrefixSearch extends Query {
                             pssearch: string;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             psnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             pslimit?: Limit;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             psoffset?: number;
                             /**
@@ -6909,7 +6909,7 @@ declare global {
                             wppassessments?: boolean;
                             wppprojects: string | string[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             wpplimit?: Limit;
                             wppcontinue?: string;
@@ -6927,7 +6927,7 @@ declare global {
                          */
                         interface ProofreadPagesInIndex extends Query {
                             /**
-                             * Defaults to `ids|title`.
+                             * Defaults to `ids` and `title`.
                              */
                             prppiiprop?: OneOrMore<
                                 "formattedPageNumber" | "formattedpagenumber" | "ids" | "title"
@@ -6943,7 +6943,7 @@ declare global {
                             ptnamespace?: OneOrMore<number | "*">;
                             ptlevel?: string | string[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             ptlimit?: Limit;
                             /**
@@ -6953,7 +6953,7 @@ declare global {
                             ptstart?: string;
                             ptend?: string;
                             /**
-                             * Defaults to `timestamp|level`.
+                             * Defaults to `timestamp` and `level`.
                              */
                             ptprop?: OneOrMore<
                                 | "comment"
@@ -6973,11 +6973,11 @@ declare global {
                         interface QueryPage extends Query {
                             qppage: string;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             qpoffset?: number;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             qplimit?: Limit;
                         }
@@ -6996,7 +6996,7 @@ declare global {
                              */
                             rnredirect?: boolean;
                             /**
-                             * Defaults to `1`.
+                             * Defaults to 1.
                              */
                             rnlimit?: Limit;
                             rncontinue?: string;
@@ -7015,7 +7015,7 @@ declare global {
                              */
                             rledir?: "ascending" | "descending";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             rlelimit?: Limit;
                             rlecontinue?: string;
@@ -7036,7 +7036,7 @@ declare global {
                             rcexcludeuser?: string;
                             rctag?: string;
                             /**
-                             * Defaults to `title|timestamp|ids`.
+                             * Defaults to `title`, `timestamp`, and `ids`.
                              */
                             rcprop?: OneOrMore<
                                 | "comment"
@@ -7073,11 +7073,11 @@ declare global {
                                 | "unpatrolled"
                             >;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             rclimit?: Limit;
                             /**
-                             * Defaults to `edit|new|log|categorize`.
+                             * Defaults to `edit`, `new`, `log`, and `categorize`.
                              */
                             rctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                             rctoponly?: boolean;
@@ -7093,15 +7093,15 @@ declare global {
                         interface Search extends Query {
                             srsearch: string;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             srnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             srlimit?: Limit;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             sroffset?: number;
                             /**
@@ -7110,11 +7110,11 @@ declare global {
                             srqiprofile?: string;
                             srwhat?: "nearmatch" | "text" | "title";
                             /**
-                             * Defaults to `totalhits|suggestion|rewrittenquery`.
+                             * Defaults to `totalhits`, `suggestion`, and `rewrittenquery`.
                              */
                             srinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
                             /**
-                             * Defaults to `size|wordcount|timestamp|snippet`.
+                             * Defaults to `size`, `wordcount`, `timestamp`, and `snippet`.
                              */
                             srprop?: OneOrMore<
                                 | "categorysnippet"
@@ -7157,11 +7157,11 @@ declare global {
                         interface Tags extends Query {
                             tgcontinue?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             tglimit?: Limit;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             tgprop?: OneOrMore<
                                 | "active"
@@ -7182,11 +7182,11 @@ declare global {
                             thdir?: "newer" | "older";
                             thshowdeleted?: boolean;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             thlimit?: Limit;
                             /**
-                             * Defaults to `id|subject|page|parent|author`.
+                             * Defaults to `id`, `subject`, `page`, `parent`, and `author`.
                              */
                             thprop?: OneOrMore<
                                 | "ancestor"
@@ -7211,15 +7211,15 @@ declare global {
                             thid?: string | string[];
                             thrender?: boolean;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             threnderlevel?: number;
                             /**
-                             * Defaults to `1`.
+                             * Defaults to 1.
                              */
                             threnderthreadpos?: number;
                             /**
-                             * Defaults to `1`.
+                             * Defaults to 1.
                              */
                             threnderthreadcount?: number;
                             threndermaxthreadcount?: string;
@@ -7235,7 +7235,7 @@ declare global {
                              */
                             urdir?: "ascending" | "descending";
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             urnamespace?: OneOrMore<number | "*">;
                             /**
@@ -7243,11 +7243,11 @@ declare global {
                              */
                             urfilterredir?: "all" | "nonredirects" | "redirects";
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             urfilterlevel?: number;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             urlimit?: Limit;
                         }
@@ -7257,7 +7257,7 @@ declare global {
                          */
                         interface UserContribs extends Query {
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             uclimit?: Limit;
                             ucstart?: string;
@@ -7273,7 +7273,7 @@ declare global {
                             ucdir?: "newer" | "older";
                             ucnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `ids|title|timestamp|comment|size|flags`.
+                             * Defaults to `ids`, `title`, `timestamp`, `comment`, `size`, and `flags`.
                              */
                             ucprop?: OneOrMore<
                                 | "comment"
@@ -7346,11 +7346,11 @@ declare global {
                              */
                             wldir?: "newer" | "older";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             wllimit?: Limit;
                             /**
-                             * Defaults to `ids|title|flags`.
+                             * Defaults to `ids`, `title`, and `flags`.
                              */
                             wlprop?: OneOrMore<
                                 | "comment"
@@ -7386,7 +7386,7 @@ declare global {
                                 | "unread"
                             >;
                             /**
-                             * Defaults to `edit|new|log|categorize`.
+                             * Defaults to `edit`, `new`, `log`, and `categorize`.
                              */
                             wltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                             wlowner?: string;
@@ -7404,7 +7404,7 @@ declare global {
                             wrcontinue?: string;
                             wrnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             wrlimit?: Limit;
                             wrprop?: "changed" | "changed"[];
@@ -7430,7 +7430,7 @@ declare global {
                             wbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
                             wbleuentities: string | string[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             wbleulimit?: Limit;
                             wbleucontinue?: string;
@@ -7448,7 +7448,7 @@ declare global {
                              */
                             wbstype?: string;
                             /**
-                             * Defaults to `7`.
+                             * Defaults to 7.
                              */
                             wbslimit?: Limit;
                             /**
@@ -7460,11 +7460,11 @@ declare global {
                         interface WBSubscribers extends Query {
                             wblsentities: string | string[];
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             wblsprop?: "url" | "url"[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             wblslimit?: Limit;
                             wblscontinue?: string;
@@ -7472,15 +7472,15 @@ declare global {
 
                         interface WikiLambdaFnSearch extends Query {
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             wikilambdafn_zfunction_id?: string;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             wikilambdafn_type?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             wikilambdafn_limit?: Limit;
                             wikilambdafn_continue?: string;
@@ -7495,7 +7495,7 @@ declare global {
 
                         interface WikiLambdaSearchLabels extends Query {
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             wikilambdasearch_search?: string;
                             wikilambdasearch_language: string;
@@ -7505,7 +7505,7 @@ declare global {
                             wikilambdasearch_return_type?: string;
                             wikilambdasearch_strict_return_type?: boolean;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             wikilambdasearch_limit?: Limit;
                             wikilambdasearch_continue?: string;
@@ -7515,7 +7515,7 @@ declare global {
                             wsfrom?: string;
                             wsprop?: OneOrMore<"type" | "wikisincluded" | "wikisnotincluded">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             wslimit?: Limit;
                             wsorderbyname?: boolean;
@@ -7630,7 +7630,7 @@ declare global {
                          */
                         interface GlobalPreferences extends Query {
                             /**
-                             * Defaults to `preferences|localoverrides`.
+                             * Defaults to `preferences` and `localoverrides`.
                              */
                             gprprop?: OneOrMore<"localoverrides" | "preferences">;
                         }
@@ -7712,11 +7712,11 @@ declare global {
 
                         interface MessageGroups extends Query {
                             /**
-                             * Defaults to `100`.
+                             * Defaults to 100.
                              */
                             mgdepth?: number;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             mgfilter?: string | string[];
                             /**
@@ -7724,11 +7724,11 @@ declare global {
                              */
                             mgformat?: "flat" | "tree";
                             /**
-                             * Defaults to `64`.
+                             * Defaults to 64.
                              */
                             mgiconsize?: number;
                             /**
-                             * Defaults to `id|label|description|class|exists`.
+                             * Defaults to `id`, `label`, `description`, `class`, and `exists`.
                              */
                             mgprop?: OneOrMore<
                                 | "class"
@@ -7746,11 +7746,11 @@ declare global {
                                 | "workflowstates"
                             >;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             mgroot?: string;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             mglanguageFilter?: string;
                         }
@@ -7768,7 +7768,7 @@ declare global {
                         interface MessageTranslations extends Query {
                             mttitle: string;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             mtoffset?: number;
                         }
@@ -7779,7 +7779,7 @@ declare global {
                         interface Notifications extends Query {
                             notwikis?: string | string[];
                             /**
-                             * Defaults to `read|!read`.
+                             * Defaults to `read` and `!read`.
                              */
                             notfilter?: OneOrMore<"!read" | "read">;
                             /**
@@ -7787,13 +7787,13 @@ declare global {
                              */
                             notprop?: OneOrMore<"count" | "list" | "seenTime">;
                             /**
-                             * Defaults to `alert|message`.
+                             * Defaults to `alert` and `message`.
                              */
                             notsections?: OneOrMore<"alert" | "message">;
                             notgroupbysection?: boolean;
                             notformat?: "flyout" | "html" | "model" | "special";
                             /**
-                             * Defaults to `20`.
+                             * Defaults to 20.
                              */
                             notlimit?: Limit;
                             notcontinue?: string;
@@ -7827,7 +7827,7 @@ declare global {
 
                         interface ProofreadInfo extends Query {
                             /**
-                             * Defaults to `namespaces|qualitylevels`.
+                             * Defaults to `namespaces` and `qualitylevels`.
                              */
                             prpiprop?: OneOrMore<"namespaces" | "qualitylevels">;
                         }
@@ -7847,7 +7847,7 @@ declare global {
                              */
                             rldir?: "ascending" | "descending";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             rllimit?: Limit;
                             rlcontinue?: string;
@@ -7905,7 +7905,7 @@ declare global {
                              */
                             pvismetric?: "pageviews" | "uniques";
                             /**
-                             * Defaults to `60`.
+                             * Defaults to 60.
                              */
                             pvisdays?: number;
                         }
@@ -7938,7 +7938,7 @@ declare global {
                             unpwikis?: string | string[];
                             unpgrouppages?: boolean;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             unplimit?: Limit;
                         }
@@ -7991,7 +7991,7 @@ declare global {
 
                         interface Wikibase extends Query {
                             /**
-                             * Defaults to `url|siteid`.
+                             * Defaults to `url` and `siteid`.
                              */
                             wbprop?: OneOrMore<"siteid" | "url">;
                         }
@@ -8020,11 +8020,11 @@ declare global {
                             gacmin?: number;
                             gacmax?: number;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gaclimit?: Limit;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             gacprop?: OneOrMore<"hidden" | "size">;
                         }
@@ -8035,7 +8035,7 @@ declare global {
                         interface AllDeletedRevisions extends Query {
                             generator?: "alldeletedrevisions";
                             /**
-                             * Defaults to `ids|timestamp|flags|comment|user`.
+                             * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                              */
                             gadrprop?: OneOrMore<
                                 | "comment"
@@ -8141,7 +8141,7 @@ declare global {
                              */
                             gafprop?: OneOrMore<"ids" | "title">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gaflimit?: Limit;
                             /**
@@ -8169,7 +8169,7 @@ declare global {
                             gaistart?: string;
                             gaiend?: string;
                             /**
-                             * Defaults to `timestamp|url`.
+                             * Defaults to `timestamp` and `url`.
                              */
                             gaiprop?: OneOrMore<
                                 | "badfile"
@@ -8202,7 +8202,7 @@ declare global {
                             gaifilterbots?: "all" | "bots" | "nobots";
                             gaimime?: string | string[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gailimit?: Limit;
                         }
@@ -8222,11 +8222,11 @@ declare global {
                              */
                             galprop?: OneOrMore<"ids" | "title">;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             galnamespace?: number | "*";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gallimit?: Limit;
                             /**
@@ -8245,7 +8245,7 @@ declare global {
                             gapto?: string;
                             gapprefix?: string;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             gapnamespace?: number | "*";
                             /**
@@ -8269,7 +8269,7 @@ declare global {
                              */
                             gapprexpiry?: "all" | "definite" | "indefinite";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gaplimit?: Limit;
                             /**
@@ -8293,11 +8293,11 @@ declare global {
                              */
                             garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             garnamespace?: number | "*";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             garlimit?: Limit;
                             /**
@@ -8312,7 +8312,7 @@ declare global {
                         interface AllRevisions extends Query {
                             generator?: "allrevisions";
                             /**
-                             * Defaults to `ids|timestamp|flags|comment|user`.
+                             * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                              */
                             garvprop?: OneOrMore<
                                 | "comment"
@@ -8415,11 +8415,11 @@ declare global {
                              */
                             gatprop?: OneOrMore<"ids" | "title">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gatnamespace?: number | "*";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gatlimit?: Limit;
                             /**
@@ -8452,7 +8452,7 @@ declare global {
                              */
                             gblfilterredir?: "all" | "nonredirects" | "redirects";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gbllimit?: Limit;
                             gblredirect?: boolean;
@@ -8466,7 +8466,7 @@ declare global {
                             gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                             gclshow?: OneOrMore<"!hidden" | "hidden">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gcllimit?: Limit;
                             gclcontinue?: string;
@@ -8485,19 +8485,19 @@ declare global {
                             gcmtitle?: string;
                             gcmpageid?: number;
                             /**
-                             * Defaults to `ids|title`.
+                             * Defaults to `ids` and `title`.
                              */
                             gcmprop?: OneOrMore<
                                 "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                             >;
                             gcmnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `page|subcat|file`.
+                             * Defaults to `page`, `subcat`, and `file`.
                              */
                             gcmtype?: OneOrMore<"file" | "page" | "subcat">;
                             gcmcontinue?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gcmlimit?: Limit;
                             /**
@@ -8542,7 +8542,7 @@ declare global {
                             gcpdefault?: "latest" | "stable";
                             gcpautoreview?: "none" | "sysop";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gcplimit?: Limit;
                         }
@@ -8555,7 +8555,7 @@ declare global {
                             gsourcetitle?: string;
                             gsourcesectiontitle?: string;
                             /**
-                             * Defaults to `100`.
+                             * Defaults to 100.
                              */
                             glimit?: Limit;
                             goffset?: string;
@@ -8572,7 +8572,7 @@ declare global {
                             gto?: string;
                             glistid?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             glimit?: Limit;
                             goffset?: string;
@@ -8585,7 +8585,7 @@ declare global {
                         interface DeletedRevisions extends Query {
                             generator?: "deletedrevisions";
                             /**
-                             * Defaults to `ids|timestamp|flags|comment|user`.
+                             * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                              */
                             gdrvprop?: OneOrMore<
                                 | "comment"
@@ -8677,7 +8677,7 @@ declare global {
                         interface DuplicateFiles extends Query {
                             generator?: "duplicatefiles";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gdflimit?: Limit;
                             gdfcontinue?: string;
@@ -8706,7 +8706,7 @@ declare global {
                              */
                             geifilterredir?: "all" | "nonredirects" | "redirects";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             geilimit?: Limit;
                         }
@@ -8717,12 +8717,12 @@ declare global {
                         interface ExtUrlUsage extends Query {
                             generator?: "exturlusage";
                             /**
-                             * Defaults to `ids|title|url`.
+                             * Defaults to `ids`, `title`, and `url`.
                              */
                             geuprop?: OneOrMore<"ids" | "title" | "url">;
                             geucontinue?: string;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             geuprotocol?:
                                 | ""
@@ -8757,7 +8757,7 @@ declare global {
                             geuquery?: string;
                             geunamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             geulimit?: Limit;
                             /**
@@ -8772,13 +8772,13 @@ declare global {
                         interface FileUsage extends Query {
                             generator?: "fileusage";
                             /**
-                             * Defaults to `pageid|title|redirect`.
+                             * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
                             gfunamespace?: OneOrMore<number | "*">;
                             gfushow?: OneOrMore<"!redirect" | "redirect">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gfulimit?: Limit;
                             gfucontinue?: string;
@@ -8793,7 +8793,7 @@ declare global {
                             ggspage?: string;
                             ggsbbox?: string;
                             /**
-                             * Defaults to `500`.
+                             * Defaults to 500.
                              */
                             ggsradius?: number;
                             ggsmaxdim?: number;
@@ -8802,7 +8802,7 @@ declare global {
                              */
                             ggssort?: "distance" | "relevance";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             ggslimit?: Limit;
                             /**
@@ -8810,7 +8810,7 @@ declare global {
                              */
                             ggsglobe?: "earth";
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             ggsnamespace?: OneOrMore<number | "*">;
                             /**
@@ -8896,7 +8896,7 @@ declare global {
                         interface Images extends Query {
                             generator?: "images";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gimlimit?: Limit;
                             gimcontinue?: string;
@@ -8925,7 +8925,7 @@ declare global {
                              */
                             giufilterredir?: "all" | "nonredirects" | "redirects";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             giulimit?: Limit;
                             giuredirect?: boolean;
@@ -8941,11 +8941,11 @@ declare global {
                             giwbltitle?: string;
                             giwblcontinue?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             giwbllimit?: Limit;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
                             /**
@@ -8963,11 +8963,11 @@ declare global {
                             glbltitle?: string;
                             glblcontinue?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             glbllimit?: Limit;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             glblprop?: OneOrMore<"lllang" | "lltitle">;
                             /**
@@ -8983,7 +8983,7 @@ declare global {
                             generator?: "links";
                             gplnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gpllimit?: Limit;
                             gplcontinue?: string;
@@ -9000,13 +9000,13 @@ declare global {
                         interface LinksHere extends Query {
                             generator?: "linkshere";
                             /**
-                             * Defaults to `pageid|title|redirect`.
+                             * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
                             glhnamespace?: OneOrMore<number | "*">;
                             glhshow?: OneOrMore<"!redirect" | "redirect">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             glhlimit?: Limit;
                             glhcontinue?: string;
@@ -9020,19 +9020,19 @@ declare global {
                              */
                             gmclanguage?: string;
                             /**
-                             * Defaults to `500`.
+                             * Defaults to 500.
                              */
                             gmclimit?: Limit;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             gmcoffset?: string;
                             /**
-                             * Defaults to `!optional|!ignored`.
+                             * Defaults to `!optional` and `!ignored`.
                              */
                             gmcfilter?: string | string[];
                             /**
-                             * Defaults to `definition|translation`.
+                             * Defaults to `definition` and `translation`.
                              */
                             gmcprop?: OneOrMore<
                                 "definition" | "properties" | "revision" | "tags" | "translation"
@@ -9049,11 +9049,11 @@ declare global {
                              */
                             gpvimmetric?: "pageviews";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gpvimlimit?: Limit;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             gpvimoffset?: number;
                         }
@@ -9072,7 +9072,7 @@ declare global {
                              */
                             gorfilterwatched?: "all" | "watched";
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             gornamespace?: OneOrMore<number | "*">;
                             gorcategory?: string;
@@ -9081,7 +9081,7 @@ declare global {
                              */
                             gorfilterredir?: "all" | "nonredirects" | "redirects";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gorlimit?: Limit;
                         }
@@ -9093,12 +9093,12 @@ declare global {
                             generator?: "pageswithprop";
                             gpwppropname: string;
                             /**
-                             * Defaults to `ids|title`.
+                             * Defaults to `ids` and `title`.
                              */
                             gpwpprop?: OneOrMore<"ids" | "title" | "value">;
                             gpwpcontinue?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gpwplimit?: Limit;
                             /**
@@ -9114,15 +9114,15 @@ declare global {
                             generator?: "prefixsearch";
                             gpssearch: string;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             gpsnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gpslimit?: Limit;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             gpsoffset?: number;
                             /**
@@ -9147,7 +9147,7 @@ declare global {
                             gwppassessments?: boolean;
                             gwppprojects: string | string[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gwpplimit?: Limit;
                             gwppcontinue?: string;
@@ -9159,7 +9159,7 @@ declare global {
                         interface ProofreadPagesInIndex extends Query {
                             generator?: "proofreadpagesinindex";
                             /**
-                             * Defaults to `ids|title`.
+                             * Defaults to `ids` and `title`.
                              */
                             gprppiiprop?: OneOrMore<
                                 "formattedPageNumber" | "formattedpagenumber" | "ids" | "title"
@@ -9176,7 +9176,7 @@ declare global {
                             gptnamespace?: OneOrMore<number | "*">;
                             gptlevel?: string | string[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gptlimit?: Limit;
                             /**
@@ -9186,7 +9186,7 @@ declare global {
                             gptstart?: string;
                             gptend?: string;
                             /**
-                             * Defaults to `timestamp|level`.
+                             * Defaults to `timestamp` and `level`.
                              */
                             gptprop?: OneOrMore<
                                 | "comment"
@@ -9207,11 +9207,11 @@ declare global {
                             generator?: "querypage";
                             gqppage: string;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             gqpoffset?: number;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gqplimit?: Limit;
                         }
@@ -9231,7 +9231,7 @@ declare global {
                              */
                             grnredirect?: boolean;
                             /**
-                             * Defaults to `1`.
+                             * Defaults to 1.
                              */
                             grnlimit?: Limit;
                             grncontinue?: string;
@@ -9251,7 +9251,7 @@ declare global {
                              */
                             grledir?: "ascending" | "descending";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             grlelimit?: Limit;
                             grlecontinue?: string;
@@ -9273,7 +9273,7 @@ declare global {
                             grcexcludeuser?: string;
                             grctag?: string;
                             /**
-                             * Defaults to `title|timestamp|ids`.
+                             * Defaults to `title`, `timestamp`, and `ids`.
                              */
                             grcprop?: OneOrMore<
                                 | "comment"
@@ -9310,11 +9310,11 @@ declare global {
                                 | "unpatrolled"
                             >;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             grclimit?: Limit;
                             /**
-                             * Defaults to `edit|new|log|categorize`.
+                             * Defaults to `edit`, `new`, `log`, and `categorize`.
                              */
                             grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                             grctoponly?: boolean;
@@ -9330,13 +9330,13 @@ declare global {
                         interface Redirects extends Query {
                             generator?: "redirects";
                             /**
-                             * Defaults to `pageid|title`.
+                             * Defaults to `pageid` and `title`.
                              */
                             grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
                             grdnamespace?: OneOrMore<number | "*">;
                             grdshow?: OneOrMore<"!fragment" | "fragment">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             grdlimit?: Limit;
                             grdcontinue?: string;
@@ -9348,7 +9348,7 @@ declare global {
                         interface Revisions extends Query {
                             generator?: "revisions";
                             /**
-                             * Defaults to `ids|timestamp|flags|comment|user`.
+                             * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                              */
                             grvprop?: OneOrMore<
                                 | "comment"
@@ -9445,15 +9445,15 @@ declare global {
                             generator?: "search";
                             gsrsearch: string;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             gsrnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gsrlimit?: Limit;
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             gsroffset?: number;
                             /**
@@ -9462,11 +9462,11 @@ declare global {
                             gsrqiprofile?: string;
                             gsrwhat?: "nearmatch" | "text" | "title";
                             /**
-                             * Defaults to `totalhits|suggestion|rewrittenquery`.
+                             * Defaults to `totalhits`, `suggestion`, and `rewrittenquery`.
                              */
                             gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
                             /**
-                             * Defaults to `size|wordcount|timestamp|snippet`.
+                             * Defaults to `size`, `wordcount`, `timestamp`, and `snippet`.
                              */
                             gsrprop?: OneOrMore<
                                 | "categorysnippet"
@@ -9510,7 +9510,7 @@ declare global {
                             generator?: "templates";
                             gtlnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gtllimit?: Limit;
                             gtlcontinue?: string;
@@ -9527,13 +9527,13 @@ declare global {
                         interface Transcludedin extends Query {
                             generator?: "transcludedin";
                             /**
-                             * Defaults to `pageid|title|redirect`.
+                             * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
                             gtinamespace?: OneOrMore<number | "*">;
                             gtishow?: OneOrMore<"!redirect" | "redirect">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gtilimit?: Limit;
                             gticontinue?: string;
@@ -9548,7 +9548,7 @@ declare global {
                              */
                             gurdir?: "ascending" | "descending";
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             gurnamespace?: OneOrMore<number | "*">;
                             /**
@@ -9556,11 +9556,11 @@ declare global {
                              */
                             gurfilterredir?: "all" | "nonredirects" | "redirects";
                             /**
-                             * Defaults to `0`.
+                             * Defaults to 0.
                              */
                             gurfilterlevel?: number;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gurlimit?: Limit;
                         }
@@ -9581,11 +9581,11 @@ declare global {
                              */
                             gwldir?: "newer" | "older";
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gwllimit?: Limit;
                             /**
-                             * Defaults to `ids|title|flags`.
+                             * Defaults to `ids`, `title`, and `flags`.
                              */
                             gwlprop?: OneOrMore<
                                 | "comment"
@@ -9621,7 +9621,7 @@ declare global {
                                 | "unread"
                             >;
                             /**
-                             * Defaults to `edit|new|log|categorize`.
+                             * Defaults to `edit`, `new`, `log`, and `categorize`.
                              */
                             gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                             gwlowner?: string;
@@ -9640,7 +9640,7 @@ declare global {
                             gwrcontinue?: string;
                             gwrnamespace?: OneOrMore<number | "*">;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gwrlimit?: Limit;
                             gwrprop?: "changed" | "changed"[];
@@ -9667,7 +9667,7 @@ declare global {
                             gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
                             gwbleuentities: string | string[];
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gwbleulimit?: Limit;
                             gwbleucontinue?: string;
@@ -9686,7 +9686,7 @@ declare global {
                              */
                             gwbstype?: string;
                             /**
-                             * Defaults to `7`.
+                             * Defaults to 7.
                              */
                             gwbslimit?: Limit;
                             /**
@@ -9698,15 +9698,15 @@ declare global {
                         interface WikiLambdaFnSearch extends Query {
                             generator?: "wikilambdafn_search";
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             gwikilambdafn_zfunction_id?: string;
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             gwikilambdafn_type?: string;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gwikilambdafn_limit?: Limit;
                             gwikilambdafn_continue?: string;
@@ -9723,7 +9723,7 @@ declare global {
                         interface WikiLambdaSearchLabels extends Query {
                             generator?: "wikilambdasearch_labels";
                             /**
-                             * Defaults to ``.
+                             * Defaults to an empty string.
                              */
                             gwikilambdasearch_search?: string;
                             gwikilambdasearch_language: string;
@@ -9733,7 +9733,7 @@ declare global {
                             gwikilambdasearch_return_type?: string;
                             gwikilambdasearch_strict_return_type?: boolean;
                             /**
-                             * Defaults to `10`.
+                             * Defaults to 10.
                              */
                             gwikilambdasearch_limit?: Limit;
                             gwikilambdasearch_continue?: string;
@@ -9903,7 +9903,7 @@ declare global {
                     tags?: string | string[];
                     user: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     summary?: string;
                     markbot?: boolean;
@@ -9965,19 +9965,19 @@ declare global {
                      */
                     sourcelanguage?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     language?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     group?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     filter?: "" | "fuzzy" | "translated" | "untranslated";
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     match?: string;
                     /**
@@ -9985,11 +9985,11 @@ declare global {
                      */
                     case?: string;
                     /**
-                     * Defaults to `0`.
+                     * Defaults to 0.
                      */
                     offset?: number;
                     /**
-                     * Defaults to `25`.
+                     * Defaults to 25.
                      */
                     limit?: Limit;
                 }
@@ -10055,11 +10055,11 @@ declare global {
                         gacmin?: number;
                         gacmax?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaclimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gacprop?: OneOrMore<"hidden" | "size">;
                     }
@@ -10070,7 +10070,7 @@ declare global {
                     interface AllDeletedRevisions extends SetNotificationTimestamp {
                         generator?: "alldeletedrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         gadrprop?: OneOrMore<
                             | "comment"
@@ -10176,7 +10176,7 @@ declare global {
                          */
                         gafprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaflimit?: Limit;
                         /**
@@ -10204,7 +10204,7 @@ declare global {
                         gaistart?: string;
                         gaiend?: string;
                         /**
-                         * Defaults to `timestamp|url`.
+                         * Defaults to `timestamp` and `url`.
                          */
                         gaiprop?: OneOrMore<
                             | "badfile"
@@ -10237,7 +10237,7 @@ declare global {
                         gaifilterbots?: "all" | "bots" | "nobots";
                         gaimime?: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gailimit?: Limit;
                     }
@@ -10257,11 +10257,11 @@ declare global {
                          */
                         galprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         galnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gallimit?: Limit;
                         /**
@@ -10280,7 +10280,7 @@ declare global {
                         gapto?: string;
                         gapprefix?: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gapnamespace?: number | "*";
                         /**
@@ -10304,7 +10304,7 @@ declare global {
                          */
                         gapprexpiry?: "all" | "definite" | "indefinite";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaplimit?: Limit;
                         /**
@@ -10328,11 +10328,11 @@ declare global {
                          */
                         garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         garnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         garlimit?: Limit;
                         /**
@@ -10347,7 +10347,7 @@ declare global {
                     interface AllRevisions extends SetNotificationTimestamp {
                         generator?: "allrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         garvprop?: OneOrMore<
                             | "comment"
@@ -10450,11 +10450,11 @@ declare global {
                          */
                         gatprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gatnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gatlimit?: Limit;
                         /**
@@ -10487,7 +10487,7 @@ declare global {
                          */
                         gblfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gbllimit?: Limit;
                         gblredirect?: boolean;
@@ -10501,7 +10501,7 @@ declare global {
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                         gclshow?: OneOrMore<"!hidden" | "hidden">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcllimit?: Limit;
                         gclcontinue?: string;
@@ -10520,19 +10520,19 @@ declare global {
                         gcmtitle?: string;
                         gcmpageid?: number;
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gcmprop?: OneOrMore<
                             "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                         >;
                         gcmnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `page|subcat|file`.
+                         * Defaults to `page`, `subcat`, and `file`.
                          */
                         gcmtype?: OneOrMore<"file" | "page" | "subcat">;
                         gcmcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcmlimit?: Limit;
                         /**
@@ -10571,7 +10571,7 @@ declare global {
                         gcpdefault?: "latest" | "stable";
                         gcpautoreview?: "none" | "sysop";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcplimit?: Limit;
                     }
@@ -10584,7 +10584,7 @@ declare global {
                         gsourcetitle?: string;
                         gsourcesectiontitle?: string;
                         /**
-                         * Defaults to `100`.
+                         * Defaults to 100.
                          */
                         glimit?: Limit;
                         goffset?: string;
@@ -10601,7 +10601,7 @@ declare global {
                         gto?: string;
                         glistid?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glimit?: Limit;
                         goffset?: string;
@@ -10614,7 +10614,7 @@ declare global {
                     interface DeletedRevisions extends SetNotificationTimestamp {
                         generator?: "deletedrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         gdrvprop?: OneOrMore<
                             | "comment"
@@ -10706,7 +10706,7 @@ declare global {
                     interface DuplicateFiles extends SetNotificationTimestamp {
                         generator?: "duplicatefiles";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gdflimit?: Limit;
                         gdfcontinue?: string;
@@ -10735,7 +10735,7 @@ declare global {
                          */
                         geifilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         geilimit?: Limit;
                     }
@@ -10746,12 +10746,12 @@ declare global {
                     interface ExtUrlUsage extends SetNotificationTimestamp {
                         generator?: "exturlusage";
                         /**
-                         * Defaults to `ids|title|url`.
+                         * Defaults to `ids`, `title`, and `url`.
                          */
                         geuprop?: OneOrMore<"ids" | "title" | "url">;
                         geucontinue?: string;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         geuprotocol?:
                             | ""
@@ -10786,7 +10786,7 @@ declare global {
                         geuquery?: string;
                         geunamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         geulimit?: Limit;
                         /**
@@ -10801,13 +10801,13 @@ declare global {
                     interface FileUsage extends SetNotificationTimestamp {
                         generator?: "fileusage";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         gfunamespace?: OneOrMore<number | "*">;
                         gfushow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gfulimit?: Limit;
                         gfucontinue?: string;
@@ -10822,7 +10822,7 @@ declare global {
                         ggspage?: string;
                         ggsbbox?: string;
                         /**
-                         * Defaults to `500`.
+                         * Defaults to 500.
                          */
                         ggsradius?: number;
                         ggsmaxdim?: number;
@@ -10831,7 +10831,7 @@ declare global {
                          */
                         ggssort?: "distance" | "relevance";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         ggslimit?: Limit;
                         /**
@@ -10839,7 +10839,7 @@ declare global {
                          */
                         ggsglobe?: "earth";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         ggsnamespace?: OneOrMore<number | "*">;
                         /**
@@ -10925,7 +10925,7 @@ declare global {
                     interface Images extends SetNotificationTimestamp {
                         generator?: "images";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gimlimit?: Limit;
                         gimcontinue?: string;
@@ -10954,7 +10954,7 @@ declare global {
                          */
                         giufilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         giulimit?: Limit;
                         giuredirect?: boolean;
@@ -10970,11 +10970,11 @@ declare global {
                         giwbltitle?: string;
                         giwblcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         giwbllimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
                         /**
@@ -10992,11 +10992,11 @@ declare global {
                         glbltitle?: string;
                         glblcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glbllimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         glblprop?: OneOrMore<"lllang" | "lltitle">;
                         /**
@@ -11012,7 +11012,7 @@ declare global {
                         generator?: "links";
                         gplnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpllimit?: Limit;
                         gplcontinue?: string;
@@ -11029,13 +11029,13 @@ declare global {
                     interface LinksHere extends SetNotificationTimestamp {
                         generator?: "linkshere";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         glhnamespace?: OneOrMore<number | "*">;
                         glhshow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glhlimit?: Limit;
                         glhcontinue?: string;
@@ -11049,19 +11049,19 @@ declare global {
                          */
                         gmclanguage?: string;
                         /**
-                         * Defaults to `500`.
+                         * Defaults to 500.
                          */
                         gmclimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gmcoffset?: string;
                         /**
-                         * Defaults to `!optional|!ignored`.
+                         * Defaults to `!optional` and `!ignored`.
                          */
                         gmcfilter?: string | string[];
                         /**
-                         * Defaults to `definition|translation`.
+                         * Defaults to `definition` and `translation`.
                          */
                         gmcprop?: OneOrMore<
                             "definition" | "properties" | "revision" | "tags" | "translation"
@@ -11078,11 +11078,11 @@ declare global {
                          */
                         gpvimmetric?: "pageviews";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpvimlimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpvimoffset?: number;
                     }
@@ -11101,7 +11101,7 @@ declare global {
                          */
                         gorfilterwatched?: "all" | "watched";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gornamespace?: OneOrMore<number | "*">;
                         gorcategory?: string;
@@ -11110,7 +11110,7 @@ declare global {
                          */
                         gorfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gorlimit?: Limit;
                     }
@@ -11122,12 +11122,12 @@ declare global {
                         generator?: "pageswithprop";
                         gpwppropname: string;
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gpwpprop?: OneOrMore<"ids" | "title" | "value">;
                         gpwpcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpwplimit?: Limit;
                         /**
@@ -11143,15 +11143,15 @@ declare global {
                         generator?: "prefixsearch";
                         gpssearch: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpsnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpslimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpsoffset?: number;
                         /**
@@ -11176,7 +11176,7 @@ declare global {
                         gwppassessments?: boolean;
                         gwppprojects: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwpplimit?: Limit;
                         gwppcontinue?: string;
@@ -11188,7 +11188,7 @@ declare global {
                     interface ProofreadPagesInIndex extends SetNotificationTimestamp {
                         generator?: "proofreadpagesinindex";
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gprppiiprop?: OneOrMore<
                             "formattedPageNumber" | "formattedpagenumber" | "ids" | "title"
@@ -11205,7 +11205,7 @@ declare global {
                         gptnamespace?: OneOrMore<number | "*">;
                         gptlevel?: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gptlimit?: Limit;
                         /**
@@ -11215,7 +11215,7 @@ declare global {
                         gptstart?: string;
                         gptend?: string;
                         /**
-                         * Defaults to `timestamp|level`.
+                         * Defaults to `timestamp` and `level`.
                          */
                         gptprop?: OneOrMore<
                             | "comment"
@@ -11236,11 +11236,11 @@ declare global {
                         generator?: "querypage";
                         gqppage: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gqpoffset?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gqplimit?: Limit;
                     }
@@ -11260,7 +11260,7 @@ declare global {
                          */
                         grnredirect?: boolean;
                         /**
-                         * Defaults to `1`.
+                         * Defaults to 1.
                          */
                         grnlimit?: Limit;
                         grncontinue?: string;
@@ -11280,7 +11280,7 @@ declare global {
                          */
                         grledir?: "ascending" | "descending";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grlelimit?: Limit;
                         grlecontinue?: string;
@@ -11302,7 +11302,7 @@ declare global {
                         grcexcludeuser?: string;
                         grctag?: string;
                         /**
-                         * Defaults to `title|timestamp|ids`.
+                         * Defaults to `title`, `timestamp`, and `ids`.
                          */
                         grcprop?: OneOrMore<
                             | "comment"
@@ -11339,11 +11339,11 @@ declare global {
                             | "unpatrolled"
                         >;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grclimit?: Limit;
                         /**
-                         * Defaults to `edit|new|log|categorize`.
+                         * Defaults to `edit`, `new`, `log`, and `categorize`.
                          */
                         grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                         grctoponly?: boolean;
@@ -11359,13 +11359,13 @@ declare global {
                     interface Redirects extends SetNotificationTimestamp {
                         generator?: "redirects";
                         /**
-                         * Defaults to `pageid|title`.
+                         * Defaults to `pageid` and `title`.
                          */
                         grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
                         grdnamespace?: OneOrMore<number | "*">;
                         grdshow?: OneOrMore<"!fragment" | "fragment">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grdlimit?: Limit;
                         grdcontinue?: string;
@@ -11377,7 +11377,7 @@ declare global {
                     interface Revisions extends SetNotificationTimestamp {
                         generator?: "revisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         grvprop?: OneOrMore<
                             | "comment"
@@ -11474,15 +11474,15 @@ declare global {
                         generator?: "search";
                         gsrsearch: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gsrnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gsrlimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gsroffset?: number;
                         /**
@@ -11491,11 +11491,11 @@ declare global {
                         gsrqiprofile?: string;
                         gsrwhat?: "nearmatch" | "text" | "title";
                         /**
-                         * Defaults to `totalhits|suggestion|rewrittenquery`.
+                         * Defaults to `totalhits`, `suggestion`, and `rewrittenquery`.
                          */
                         gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
                         /**
-                         * Defaults to `size|wordcount|timestamp|snippet`.
+                         * Defaults to `size`, `wordcount`, `timestamp`, and `snippet`.
                          */
                         gsrprop?: OneOrMore<
                             | "categorysnippet"
@@ -11539,7 +11539,7 @@ declare global {
                         generator?: "templates";
                         gtlnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gtllimit?: Limit;
                         gtlcontinue?: string;
@@ -11556,13 +11556,13 @@ declare global {
                     interface Transcludedin extends SetNotificationTimestamp {
                         generator?: "transcludedin";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         gtinamespace?: OneOrMore<number | "*">;
                         gtishow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gtilimit?: Limit;
                         gticontinue?: string;
@@ -11577,7 +11577,7 @@ declare global {
                          */
                         gurdir?: "ascending" | "descending";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gurnamespace?: OneOrMore<number | "*">;
                         /**
@@ -11585,11 +11585,11 @@ declare global {
                          */
                         gurfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gurfilterlevel?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gurlimit?: Limit;
                     }
@@ -11610,11 +11610,11 @@ declare global {
                          */
                         gwldir?: "newer" | "older";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwllimit?: Limit;
                         /**
-                         * Defaults to `ids|title|flags`.
+                         * Defaults to `ids`, `title`, and `flags`.
                          */
                         gwlprop?: OneOrMore<
                             | "comment"
@@ -11650,7 +11650,7 @@ declare global {
                             | "unread"
                         >;
                         /**
-                         * Defaults to `edit|new|log|categorize`.
+                         * Defaults to `edit`, `new`, `log`, and `categorize`.
                          */
                         gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                         gwlowner?: string;
@@ -11669,7 +11669,7 @@ declare global {
                         gwrcontinue?: string;
                         gwrnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwrlimit?: Limit;
                         gwrprop?: "changed" | "changed"[];
@@ -11696,7 +11696,7 @@ declare global {
                         gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
                         gwbleuentities: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwbleulimit?: Limit;
                         gwbleucontinue?: string;
@@ -11715,7 +11715,7 @@ declare global {
                          */
                         gwbstype?: string;
                         /**
-                         * Defaults to `7`.
+                         * Defaults to 7.
                          */
                         gwbslimit?: Limit;
                         /**
@@ -11727,15 +11727,15 @@ declare global {
                     interface WikiLambdaFnSearch extends SetNotificationTimestamp {
                         generator?: "wikilambdafn_search";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdafn_zfunction_id?: string;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdafn_type?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwikilambdafn_limit?: Limit;
                         gwikilambdafn_continue?: string;
@@ -11752,7 +11752,7 @@ declare global {
                     interface WikiLambdaSearchLabels extends SetNotificationTimestamp {
                         generator?: "wikilambdasearch_labels";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdasearch_search?: string;
                         gwikilambdasearch_language: string;
@@ -11762,7 +11762,7 @@ declare global {
                         gwikilambdasearch_return_type?: string;
                         gwikilambdasearch_strict_return_type?: boolean;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwikilambdasearch_limit?: Limit;
                         gwikilambdasearch_continue?: string;
@@ -11797,7 +11797,7 @@ declare global {
                 interface SiteMatrix extends Params {
                     action: "sitematrix";
                     /**
-                     * Defaults to `special|language`.
+                     * Defaults to `special` and `language`.
                      */
                     smtype?: OneOrMore<"language" | "special">;
                     /**
@@ -11805,15 +11805,15 @@ declare global {
                      */
                     smstate?: OneOrMore<"all" | "closed" | "fishbowl" | "nonglobal" | "private">;
                     /**
-                     * Defaults to `code|name|site|dir|localname`.
+                     * Defaults to `code`, `name`, `site`, `dir`, and `localname`.
                      */
                     smlangprop?: OneOrMore<"code" | "dir" | "localname" | "name" | "site">;
                     /**
-                     * Defaults to `url|dbname|code|sitename`.
+                     * Defaults to `url`, `dbname`, `code`, and `sitename`.
                      */
                     smsiteprop?: OneOrMore<"code" | "dbname" | "lang" | "sitename" | "url">;
                     /**
-                     * Defaults to `5000`.
+                     * Defaults to 5000.
                      */
                     smlimit?: Limit;
                     smcontinue?: string;
@@ -11843,7 +11843,7 @@ declare global {
                      */
                     expiry?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     review?: boolean;
@@ -11866,7 +11866,7 @@ declare global {
                     text?: string;
                     stashedtexthash?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     summary?: string;
                     contentmodel: string;
@@ -11957,7 +11957,7 @@ declare global {
                     add?: string | string[];
                     remove?: string | string[];
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     tags?: string | string[];
@@ -12003,11 +12003,11 @@ declare global {
                         gacmin?: number;
                         gacmax?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaclimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gacprop?: OneOrMore<"hidden" | "size">;
                     }
@@ -12018,7 +12018,7 @@ declare global {
                     interface AllDeletedRevisions extends TemplateData {
                         generator?: "alldeletedrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         gadrprop?: OneOrMore<
                             | "comment"
@@ -12124,7 +12124,7 @@ declare global {
                          */
                         gafprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaflimit?: Limit;
                         /**
@@ -12152,7 +12152,7 @@ declare global {
                         gaistart?: string;
                         gaiend?: string;
                         /**
-                         * Defaults to `timestamp|url`.
+                         * Defaults to `timestamp` and `url`.
                          */
                         gaiprop?: OneOrMore<
                             | "badfile"
@@ -12185,7 +12185,7 @@ declare global {
                         gaifilterbots?: "all" | "bots" | "nobots";
                         gaimime?: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gailimit?: Limit;
                     }
@@ -12205,11 +12205,11 @@ declare global {
                          */
                         galprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         galnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gallimit?: Limit;
                         /**
@@ -12228,7 +12228,7 @@ declare global {
                         gapto?: string;
                         gapprefix?: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gapnamespace?: number | "*";
                         /**
@@ -12252,7 +12252,7 @@ declare global {
                          */
                         gapprexpiry?: "all" | "definite" | "indefinite";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaplimit?: Limit;
                         /**
@@ -12276,11 +12276,11 @@ declare global {
                          */
                         garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         garnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         garlimit?: Limit;
                         /**
@@ -12295,7 +12295,7 @@ declare global {
                     interface AllRevisions extends TemplateData {
                         generator?: "allrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         garvprop?: OneOrMore<
                             | "comment"
@@ -12398,11 +12398,11 @@ declare global {
                          */
                         gatprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gatnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gatlimit?: Limit;
                         /**
@@ -12435,7 +12435,7 @@ declare global {
                          */
                         gblfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gbllimit?: Limit;
                         gblredirect?: boolean;
@@ -12449,7 +12449,7 @@ declare global {
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                         gclshow?: OneOrMore<"!hidden" | "hidden">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcllimit?: Limit;
                         gclcontinue?: string;
@@ -12468,19 +12468,19 @@ declare global {
                         gcmtitle?: string;
                         gcmpageid?: number;
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gcmprop?: OneOrMore<
                             "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                         >;
                         gcmnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `page|subcat|file`.
+                         * Defaults to `page`, `subcat`, and `file`.
                          */
                         gcmtype?: OneOrMore<"file" | "page" | "subcat">;
                         gcmcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcmlimit?: Limit;
                         /**
@@ -12519,7 +12519,7 @@ declare global {
                         gcpdefault?: "latest" | "stable";
                         gcpautoreview?: "none" | "sysop";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcplimit?: Limit;
                     }
@@ -12532,7 +12532,7 @@ declare global {
                         gsourcetitle?: string;
                         gsourcesectiontitle?: string;
                         /**
-                         * Defaults to `100`.
+                         * Defaults to 100.
                          */
                         glimit?: Limit;
                         goffset?: string;
@@ -12549,7 +12549,7 @@ declare global {
                         gto?: string;
                         glistid?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glimit?: Limit;
                         goffset?: string;
@@ -12562,7 +12562,7 @@ declare global {
                     interface DeletedRevisions extends TemplateData {
                         generator?: "deletedrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         gdrvprop?: OneOrMore<
                             | "comment"
@@ -12654,7 +12654,7 @@ declare global {
                     interface DuplicateFiles extends TemplateData {
                         generator?: "duplicatefiles";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gdflimit?: Limit;
                         gdfcontinue?: string;
@@ -12683,7 +12683,7 @@ declare global {
                          */
                         geifilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         geilimit?: Limit;
                     }
@@ -12694,12 +12694,12 @@ declare global {
                     interface ExtUrlUsage extends TemplateData {
                         generator?: "exturlusage";
                         /**
-                         * Defaults to `ids|title|url`.
+                         * Defaults to `ids`, `title`, and `url`.
                          */
                         geuprop?: OneOrMore<"ids" | "title" | "url">;
                         geucontinue?: string;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         geuprotocol?:
                             | ""
@@ -12734,7 +12734,7 @@ declare global {
                         geuquery?: string;
                         geunamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         geulimit?: Limit;
                         /**
@@ -12749,13 +12749,13 @@ declare global {
                     interface FileUsage extends TemplateData {
                         generator?: "fileusage";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         gfunamespace?: OneOrMore<number | "*">;
                         gfushow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gfulimit?: Limit;
                         gfucontinue?: string;
@@ -12770,7 +12770,7 @@ declare global {
                         ggspage?: string;
                         ggsbbox?: string;
                         /**
-                         * Defaults to `500`.
+                         * Defaults to 500.
                          */
                         ggsradius?: number;
                         ggsmaxdim?: number;
@@ -12779,7 +12779,7 @@ declare global {
                          */
                         ggssort?: "distance" | "relevance";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         ggslimit?: Limit;
                         /**
@@ -12787,7 +12787,7 @@ declare global {
                          */
                         ggsglobe?: "earth";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         ggsnamespace?: OneOrMore<number | "*">;
                         /**
@@ -12873,7 +12873,7 @@ declare global {
                     interface Images extends TemplateData {
                         generator?: "images";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gimlimit?: Limit;
                         gimcontinue?: string;
@@ -12902,7 +12902,7 @@ declare global {
                          */
                         giufilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         giulimit?: Limit;
                         giuredirect?: boolean;
@@ -12918,11 +12918,11 @@ declare global {
                         giwbltitle?: string;
                         giwblcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         giwbllimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
                         /**
@@ -12940,11 +12940,11 @@ declare global {
                         glbltitle?: string;
                         glblcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glbllimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         glblprop?: OneOrMore<"lllang" | "lltitle">;
                         /**
@@ -12960,7 +12960,7 @@ declare global {
                         generator?: "links";
                         gplnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpllimit?: Limit;
                         gplcontinue?: string;
@@ -12977,13 +12977,13 @@ declare global {
                     interface LinksHere extends TemplateData {
                         generator?: "linkshere";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         glhnamespace?: OneOrMore<number | "*">;
                         glhshow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glhlimit?: Limit;
                         glhcontinue?: string;
@@ -12997,19 +12997,19 @@ declare global {
                          */
                         gmclanguage?: string;
                         /**
-                         * Defaults to `500`.
+                         * Defaults to 500.
                          */
                         gmclimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gmcoffset?: string;
                         /**
-                         * Defaults to `!optional|!ignored`.
+                         * Defaults to `!optional` and `!ignored`.
                          */
                         gmcfilter?: string | string[];
                         /**
-                         * Defaults to `definition|translation`.
+                         * Defaults to `definition` and `translation`.
                          */
                         gmcprop?: OneOrMore<
                             "definition" | "properties" | "revision" | "tags" | "translation"
@@ -13026,11 +13026,11 @@ declare global {
                          */
                         gpvimmetric?: "pageviews";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpvimlimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpvimoffset?: number;
                     }
@@ -13049,7 +13049,7 @@ declare global {
                          */
                         gorfilterwatched?: "all" | "watched";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gornamespace?: OneOrMore<number | "*">;
                         gorcategory?: string;
@@ -13058,7 +13058,7 @@ declare global {
                          */
                         gorfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gorlimit?: Limit;
                     }
@@ -13070,12 +13070,12 @@ declare global {
                         generator?: "pageswithprop";
                         gpwppropname: string;
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gpwpprop?: OneOrMore<"ids" | "title" | "value">;
                         gpwpcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpwplimit?: Limit;
                         /**
@@ -13091,15 +13091,15 @@ declare global {
                         generator?: "prefixsearch";
                         gpssearch: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpsnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpslimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpsoffset?: number;
                         /**
@@ -13124,7 +13124,7 @@ declare global {
                         gwppassessments?: boolean;
                         gwppprojects: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwpplimit?: Limit;
                         gwppcontinue?: string;
@@ -13136,7 +13136,7 @@ declare global {
                     interface ProofreadPagesInIndex extends TemplateData {
                         generator?: "proofreadpagesinindex";
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gprppiiprop?: OneOrMore<
                             "formattedPageNumber" | "formattedpagenumber" | "ids" | "title"
@@ -13153,7 +13153,7 @@ declare global {
                         gptnamespace?: OneOrMore<number | "*">;
                         gptlevel?: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gptlimit?: Limit;
                         /**
@@ -13163,7 +13163,7 @@ declare global {
                         gptstart?: string;
                         gptend?: string;
                         /**
-                         * Defaults to `timestamp|level`.
+                         * Defaults to `timestamp` and `level`.
                          */
                         gptprop?: OneOrMore<
                             | "comment"
@@ -13184,11 +13184,11 @@ declare global {
                         generator?: "querypage";
                         gqppage: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gqpoffset?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gqplimit?: Limit;
                     }
@@ -13208,7 +13208,7 @@ declare global {
                          */
                         grnredirect?: boolean;
                         /**
-                         * Defaults to `1`.
+                         * Defaults to 1.
                          */
                         grnlimit?: Limit;
                         grncontinue?: string;
@@ -13228,7 +13228,7 @@ declare global {
                          */
                         grledir?: "ascending" | "descending";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grlelimit?: Limit;
                         grlecontinue?: string;
@@ -13250,7 +13250,7 @@ declare global {
                         grcexcludeuser?: string;
                         grctag?: string;
                         /**
-                         * Defaults to `title|timestamp|ids`.
+                         * Defaults to `title`, `timestamp`, and `ids`.
                          */
                         grcprop?: OneOrMore<
                             | "comment"
@@ -13287,11 +13287,11 @@ declare global {
                             | "unpatrolled"
                         >;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grclimit?: Limit;
                         /**
-                         * Defaults to `edit|new|log|categorize`.
+                         * Defaults to `edit`, `new`, `log`, and `categorize`.
                          */
                         grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                         grctoponly?: boolean;
@@ -13307,13 +13307,13 @@ declare global {
                     interface Redirects extends TemplateData {
                         generator?: "redirects";
                         /**
-                         * Defaults to `pageid|title`.
+                         * Defaults to `pageid` and `title`.
                          */
                         grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
                         grdnamespace?: OneOrMore<number | "*">;
                         grdshow?: OneOrMore<"!fragment" | "fragment">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grdlimit?: Limit;
                         grdcontinue?: string;
@@ -13325,7 +13325,7 @@ declare global {
                     interface Revisions extends TemplateData {
                         generator?: "revisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         grvprop?: OneOrMore<
                             | "comment"
@@ -13422,15 +13422,15 @@ declare global {
                         generator?: "search";
                         gsrsearch: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gsrnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gsrlimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gsroffset?: number;
                         /**
@@ -13439,11 +13439,11 @@ declare global {
                         gsrqiprofile?: string;
                         gsrwhat?: "nearmatch" | "text" | "title";
                         /**
-                         * Defaults to `totalhits|suggestion|rewrittenquery`.
+                         * Defaults to `totalhits`, `suggestion`, and `rewrittenquery`.
                          */
                         gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
                         /**
-                         * Defaults to `size|wordcount|timestamp|snippet`.
+                         * Defaults to `size`, `wordcount`, `timestamp`, and `snippet`.
                          */
                         gsrprop?: OneOrMore<
                             | "categorysnippet"
@@ -13487,7 +13487,7 @@ declare global {
                         generator?: "templates";
                         gtlnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gtllimit?: Limit;
                         gtlcontinue?: string;
@@ -13504,13 +13504,13 @@ declare global {
                     interface Transcludedin extends TemplateData {
                         generator?: "transcludedin";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         gtinamespace?: OneOrMore<number | "*">;
                         gtishow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gtilimit?: Limit;
                         gticontinue?: string;
@@ -13525,7 +13525,7 @@ declare global {
                          */
                         gurdir?: "ascending" | "descending";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gurnamespace?: OneOrMore<number | "*">;
                         /**
@@ -13533,11 +13533,11 @@ declare global {
                          */
                         gurfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gurfilterlevel?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gurlimit?: Limit;
                     }
@@ -13558,11 +13558,11 @@ declare global {
                          */
                         gwldir?: "newer" | "older";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwllimit?: Limit;
                         /**
-                         * Defaults to `ids|title|flags`.
+                         * Defaults to `ids`, `title`, and `flags`.
                          */
                         gwlprop?: OneOrMore<
                             | "comment"
@@ -13598,7 +13598,7 @@ declare global {
                             | "unread"
                         >;
                         /**
-                         * Defaults to `edit|new|log|categorize`.
+                         * Defaults to `edit`, `new`, `log`, and `categorize`.
                          */
                         gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                         gwlowner?: string;
@@ -13617,7 +13617,7 @@ declare global {
                         gwrcontinue?: string;
                         gwrnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwrlimit?: Limit;
                         gwrprop?: "changed" | "changed"[];
@@ -13644,7 +13644,7 @@ declare global {
                         gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
                         gwbleuentities: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwbleulimit?: Limit;
                         gwbleucontinue?: string;
@@ -13663,7 +13663,7 @@ declare global {
                          */
                         gwbstype?: string;
                         /**
-                         * Defaults to `7`.
+                         * Defaults to 7.
                          */
                         gwbslimit?: Limit;
                         /**
@@ -13675,15 +13675,15 @@ declare global {
                     interface WikiLambdaFnSearch extends TemplateData {
                         generator?: "wikilambdafn_search";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdafn_zfunction_id?: string;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdafn_type?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwikilambdafn_limit?: Limit;
                         gwikilambdafn_continue?: string;
@@ -13700,7 +13700,7 @@ declare global {
                     interface WikiLambdaSearchLabels extends TemplateData {
                         generator?: "wikilambdasearch_labels";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdasearch_search?: string;
                         gwikilambdasearch_language: string;
@@ -13710,7 +13710,7 @@ declare global {
                         gwikilambdasearch_return_type?: string;
                         gwikilambdasearch_strict_return_type?: boolean;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwikilambdasearch_limit?: Limit;
                         gwikilambdasearch_continue?: string;
@@ -13820,7 +13820,7 @@ declare global {
                     title: string;
                     group?: string;
                     /**
-                     * Defaults to `groups|definition|translation|inotherlanguages|documentation|mt|definitiondiff|ttmserver|support|gettext|insertables|editsummaries`.
+                     * Defaults to `groups`, `definition`, `translation`, `inotherlanguages`, `documentation`, `mt`, `definitiondiff`, `ttmserver`, `support`, `gettext`, `insertables`, and `editsummaries`.
                      */
                     prop?: OneOrMore<
                         | "definition"
@@ -13853,15 +13853,15 @@ declare global {
                 interface TranslationEntitySearch extends Params {
                     action: "translationentitysearch";
                     /**
-                     * Defaults to `groups|messages`.
+                     * Defaults to `groups` and `messages`.
                      */
                     entitytype?: OneOrMore<"groups" | "messages">;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     query?: string;
                     /**
-                     * Defaults to `10`.
+                     * Defaults to 10.
                      */
                     limit?: Limit;
                     grouptypes?: OneOrMore<
@@ -13882,7 +13882,7 @@ declare global {
                     action: "translationstats";
                     count: "edits" | "reviewers" | "reviews" | "users";
                     /**
-                     * Defaults to `30`.
+                     * Defaults to 30.
                      */
                     days: number;
                     group?: string | string[];
@@ -13934,7 +13934,7 @@ declare global {
                      */
                     userid?: number;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     tags?: string | string[];
@@ -13953,7 +13953,7 @@ declare global {
                     action: "undelete";
                     title: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     tags?: string | string[];
@@ -13990,7 +13990,7 @@ declare global {
                     action: "upload";
                     filename?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     comment?: string;
                     tags?: string | string[];
@@ -14041,7 +14041,7 @@ declare global {
                     expiry?: string | string[];
                     remove?: string | string[];
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     reason?: string;
                     /**
@@ -14117,11 +14117,11 @@ declare global {
                     nocontent?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     useskin?: string;
@@ -14172,11 +14172,11 @@ declare global {
                         gacmin?: number;
                         gacmax?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaclimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gacprop?: OneOrMore<"hidden" | "size">;
                     }
@@ -14187,7 +14187,7 @@ declare global {
                     interface AllDeletedRevisions extends Watch {
                         generator?: "alldeletedrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         gadrprop?: OneOrMore<
                             | "comment"
@@ -14293,7 +14293,7 @@ declare global {
                          */
                         gafprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaflimit?: Limit;
                         /**
@@ -14321,7 +14321,7 @@ declare global {
                         gaistart?: string;
                         gaiend?: string;
                         /**
-                         * Defaults to `timestamp|url`.
+                         * Defaults to `timestamp` and `url`.
                          */
                         gaiprop?: OneOrMore<
                             | "badfile"
@@ -14354,7 +14354,7 @@ declare global {
                         gaifilterbots?: "all" | "bots" | "nobots";
                         gaimime?: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gailimit?: Limit;
                     }
@@ -14374,11 +14374,11 @@ declare global {
                          */
                         galprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         galnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gallimit?: Limit;
                         /**
@@ -14397,7 +14397,7 @@ declare global {
                         gapto?: string;
                         gapprefix?: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gapnamespace?: number | "*";
                         /**
@@ -14421,7 +14421,7 @@ declare global {
                          */
                         gapprexpiry?: "all" | "definite" | "indefinite";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gaplimit?: Limit;
                         /**
@@ -14445,11 +14445,11 @@ declare global {
                          */
                         garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         garnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         garlimit?: Limit;
                         /**
@@ -14464,7 +14464,7 @@ declare global {
                     interface AllRevisions extends Watch {
                         generator?: "allrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         garvprop?: OneOrMore<
                             | "comment"
@@ -14567,11 +14567,11 @@ declare global {
                          */
                         gatprop?: OneOrMore<"ids" | "title">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gatnamespace?: number | "*";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gatlimit?: Limit;
                         /**
@@ -14604,7 +14604,7 @@ declare global {
                          */
                         gblfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gbllimit?: Limit;
                         gblredirect?: boolean;
@@ -14618,7 +14618,7 @@ declare global {
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                         gclshow?: OneOrMore<"!hidden" | "hidden">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcllimit?: Limit;
                         gclcontinue?: string;
@@ -14637,19 +14637,19 @@ declare global {
                         gcmtitle?: string;
                         gcmpageid?: number;
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gcmprop?: OneOrMore<
                             "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                         >;
                         gcmnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `page|subcat|file`.
+                         * Defaults to `page`, `subcat`, and `file`.
                          */
                         gcmtype?: OneOrMore<"file" | "page" | "subcat">;
                         gcmcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcmlimit?: Limit;
                         /**
@@ -14688,7 +14688,7 @@ declare global {
                         gcpdefault?: "latest" | "stable";
                         gcpautoreview?: "none" | "sysop";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gcplimit?: Limit;
                     }
@@ -14701,7 +14701,7 @@ declare global {
                         gsourcetitle?: string;
                         gsourcesectiontitle?: string;
                         /**
-                         * Defaults to `100`.
+                         * Defaults to 100.
                          */
                         glimit?: Limit;
                         goffset?: string;
@@ -14718,7 +14718,7 @@ declare global {
                         gto?: string;
                         glistid?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glimit?: Limit;
                         goffset?: string;
@@ -14731,7 +14731,7 @@ declare global {
                     interface DeletedRevisions extends Watch {
                         generator?: "deletedrevisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         gdrvprop?: OneOrMore<
                             | "comment"
@@ -14823,7 +14823,7 @@ declare global {
                     interface DuplicateFiles extends Watch {
                         generator?: "duplicatefiles";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gdflimit?: Limit;
                         gdfcontinue?: string;
@@ -14852,7 +14852,7 @@ declare global {
                          */
                         geifilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         geilimit?: Limit;
                     }
@@ -14863,12 +14863,12 @@ declare global {
                     interface ExtUrlUsage extends Watch {
                         generator?: "exturlusage";
                         /**
-                         * Defaults to `ids|title|url`.
+                         * Defaults to `ids`, `title`, and `url`.
                          */
                         geuprop?: OneOrMore<"ids" | "title" | "url">;
                         geucontinue?: string;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         geuprotocol?:
                             | ""
@@ -14903,7 +14903,7 @@ declare global {
                         geuquery?: string;
                         geunamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         geulimit?: Limit;
                         /**
@@ -14918,13 +14918,13 @@ declare global {
                     interface FileUsage extends Watch {
                         generator?: "fileusage";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         gfunamespace?: OneOrMore<number | "*">;
                         gfushow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gfulimit?: Limit;
                         gfucontinue?: string;
@@ -14939,7 +14939,7 @@ declare global {
                         ggspage?: string;
                         ggsbbox?: string;
                         /**
-                         * Defaults to `500`.
+                         * Defaults to 500.
                          */
                         ggsradius?: number;
                         ggsmaxdim?: number;
@@ -14948,7 +14948,7 @@ declare global {
                          */
                         ggssort?: "distance" | "relevance";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         ggslimit?: Limit;
                         /**
@@ -14956,7 +14956,7 @@ declare global {
                          */
                         ggsglobe?: "earth";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         ggsnamespace?: OneOrMore<number | "*">;
                         /**
@@ -15042,7 +15042,7 @@ declare global {
                     interface Images extends Watch {
                         generator?: "images";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gimlimit?: Limit;
                         gimcontinue?: string;
@@ -15071,7 +15071,7 @@ declare global {
                          */
                         giufilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         giulimit?: Limit;
                         giuredirect?: boolean;
@@ -15087,11 +15087,11 @@ declare global {
                         giwbltitle?: string;
                         giwblcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         giwbllimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
                         /**
@@ -15109,11 +15109,11 @@ declare global {
                         glbltitle?: string;
                         glblcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glbllimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         glblprop?: OneOrMore<"lllang" | "lltitle">;
                         /**
@@ -15129,7 +15129,7 @@ declare global {
                         generator?: "links";
                         gplnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpllimit?: Limit;
                         gplcontinue?: string;
@@ -15146,13 +15146,13 @@ declare global {
                     interface LinksHere extends Watch {
                         generator?: "linkshere";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         glhnamespace?: OneOrMore<number | "*">;
                         glhshow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         glhlimit?: Limit;
                         glhcontinue?: string;
@@ -15166,19 +15166,19 @@ declare global {
                          */
                         gmclanguage?: string;
                         /**
-                         * Defaults to `500`.
+                         * Defaults to 500.
                          */
                         gmclimit?: Limit;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gmcoffset?: string;
                         /**
-                         * Defaults to `!optional|!ignored`.
+                         * Defaults to `!optional` and `!ignored`.
                          */
                         gmcfilter?: string | string[];
                         /**
-                         * Defaults to `definition|translation`.
+                         * Defaults to `definition` and `translation`.
                          */
                         gmcprop?: OneOrMore<
                             "definition" | "properties" | "revision" | "tags" | "translation"
@@ -15195,11 +15195,11 @@ declare global {
                          */
                         gpvimmetric?: "pageviews";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpvimlimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpvimoffset?: number;
                     }
@@ -15218,7 +15218,7 @@ declare global {
                          */
                         gorfilterwatched?: "all" | "watched";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gornamespace?: OneOrMore<number | "*">;
                         gorcategory?: string;
@@ -15227,7 +15227,7 @@ declare global {
                          */
                         gorfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gorlimit?: Limit;
                     }
@@ -15239,12 +15239,12 @@ declare global {
                         generator?: "pageswithprop";
                         gpwppropname: string;
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gpwpprop?: OneOrMore<"ids" | "title" | "value">;
                         gpwpcontinue?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpwplimit?: Limit;
                         /**
@@ -15260,15 +15260,15 @@ declare global {
                         generator?: "prefixsearch";
                         gpssearch: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpsnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gpslimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gpsoffset?: number;
                         /**
@@ -15293,7 +15293,7 @@ declare global {
                         gwppassessments?: boolean;
                         gwppprojects: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwpplimit?: Limit;
                         gwppcontinue?: string;
@@ -15305,7 +15305,7 @@ declare global {
                     interface ProofreadPagesInIndex extends Watch {
                         generator?: "proofreadpagesinindex";
                         /**
-                         * Defaults to `ids|title`.
+                         * Defaults to `ids` and `title`.
                          */
                         gprppiiprop?: OneOrMore<
                             "formattedPageNumber" | "formattedpagenumber" | "ids" | "title"
@@ -15322,7 +15322,7 @@ declare global {
                         gptnamespace?: OneOrMore<number | "*">;
                         gptlevel?: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gptlimit?: Limit;
                         /**
@@ -15332,7 +15332,7 @@ declare global {
                         gptstart?: string;
                         gptend?: string;
                         /**
-                         * Defaults to `timestamp|level`.
+                         * Defaults to `timestamp` and `level`.
                          */
                         gptprop?: OneOrMore<
                             | "comment"
@@ -15353,11 +15353,11 @@ declare global {
                         generator?: "querypage";
                         gqppage: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gqpoffset?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gqplimit?: Limit;
                     }
@@ -15377,7 +15377,7 @@ declare global {
                          */
                         grnredirect?: boolean;
                         /**
-                         * Defaults to `1`.
+                         * Defaults to 1.
                          */
                         grnlimit?: Limit;
                         grncontinue?: string;
@@ -15397,7 +15397,7 @@ declare global {
                          */
                         grledir?: "ascending" | "descending";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grlelimit?: Limit;
                         grlecontinue?: string;
@@ -15419,7 +15419,7 @@ declare global {
                         grcexcludeuser?: string;
                         grctag?: string;
                         /**
-                         * Defaults to `title|timestamp|ids`.
+                         * Defaults to `title`, `timestamp`, and `ids`.
                          */
                         grcprop?: OneOrMore<
                             | "comment"
@@ -15456,11 +15456,11 @@ declare global {
                             | "unpatrolled"
                         >;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grclimit?: Limit;
                         /**
-                         * Defaults to `edit|new|log|categorize`.
+                         * Defaults to `edit`, `new`, `log`, and `categorize`.
                          */
                         grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                         grctoponly?: boolean;
@@ -15476,13 +15476,13 @@ declare global {
                     interface Redirects extends Watch {
                         generator?: "redirects";
                         /**
-                         * Defaults to `pageid|title`.
+                         * Defaults to `pageid` and `title`.
                          */
                         grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
                         grdnamespace?: OneOrMore<number | "*">;
                         grdshow?: OneOrMore<"!fragment" | "fragment">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         grdlimit?: Limit;
                         grdcontinue?: string;
@@ -15494,7 +15494,7 @@ declare global {
                     interface Revisions extends Watch {
                         generator?: "revisions";
                         /**
-                         * Defaults to `ids|timestamp|flags|comment|user`.
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
                         grvprop?: OneOrMore<
                             | "comment"
@@ -15591,15 +15591,15 @@ declare global {
                         generator?: "search";
                         gsrsearch: string;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gsrnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gsrlimit?: Limit;
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gsroffset?: number;
                         /**
@@ -15608,11 +15608,11 @@ declare global {
                         gsrqiprofile?: string;
                         gsrwhat?: "nearmatch" | "text" | "title";
                         /**
-                         * Defaults to `totalhits|suggestion|rewrittenquery`.
+                         * Defaults to `totalhits`, `suggestion`, and `rewrittenquery`.
                          */
                         gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
                         /**
-                         * Defaults to `size|wordcount|timestamp|snippet`.
+                         * Defaults to `size`, `wordcount`, `timestamp`, and `snippet`.
                          */
                         gsrprop?: OneOrMore<
                             | "categorysnippet"
@@ -15656,7 +15656,7 @@ declare global {
                         generator?: "templates";
                         gtlnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gtllimit?: Limit;
                         gtlcontinue?: string;
@@ -15673,13 +15673,13 @@ declare global {
                     interface Transcludedin extends Watch {
                         generator?: "transcludedin";
                         /**
-                         * Defaults to `pageid|title|redirect`.
+                         * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
                         gtinamespace?: OneOrMore<number | "*">;
                         gtishow?: OneOrMore<"!redirect" | "redirect">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gtilimit?: Limit;
                         gticontinue?: string;
@@ -15694,7 +15694,7 @@ declare global {
                          */
                         gurdir?: "ascending" | "descending";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gurnamespace?: OneOrMore<number | "*">;
                         /**
@@ -15702,11 +15702,11 @@ declare global {
                          */
                         gurfilterredir?: "all" | "nonredirects" | "redirects";
                         /**
-                         * Defaults to `0`.
+                         * Defaults to 0.
                          */
                         gurfilterlevel?: number;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gurlimit?: Limit;
                     }
@@ -15727,11 +15727,11 @@ declare global {
                          */
                         gwldir?: "newer" | "older";
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwllimit?: Limit;
                         /**
-                         * Defaults to `ids|title|flags`.
+                         * Defaults to `ids`, `title`, and `flags`.
                          */
                         gwlprop?: OneOrMore<
                             | "comment"
@@ -15767,7 +15767,7 @@ declare global {
                             | "unread"
                         >;
                         /**
-                         * Defaults to `edit|new|log|categorize`.
+                         * Defaults to `edit`, `new`, `log`, and `categorize`.
                          */
                         gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
                         gwlowner?: string;
@@ -15786,7 +15786,7 @@ declare global {
                         gwrcontinue?: string;
                         gwrnamespace?: OneOrMore<number | "*">;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwrlimit?: Limit;
                         gwrprop?: "changed" | "changed"[];
@@ -15813,7 +15813,7 @@ declare global {
                         gwbleuaspect?: OneOrMore<"C" | "D" | "L" | "O" | "S" | "T" | "X">;
                         gwbleuentities: string | string[];
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwbleulimit?: Limit;
                         gwbleucontinue?: string;
@@ -15832,7 +15832,7 @@ declare global {
                          */
                         gwbstype?: string;
                         /**
-                         * Defaults to `7`.
+                         * Defaults to 7.
                          */
                         gwbslimit?: Limit;
                         /**
@@ -15844,15 +15844,15 @@ declare global {
                     interface WikiLambdaFnSearch extends Watch {
                         generator?: "wikilambdafn_search";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdafn_zfunction_id?: string;
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdafn_type?: string;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwikilambdafn_limit?: Limit;
                         gwikilambdafn_continue?: string;
@@ -15869,7 +15869,7 @@ declare global {
                     interface WikiLambdaSearchLabels extends Watch {
                         generator?: "wikilambdasearch_labels";
                         /**
-                         * Defaults to ``.
+                         * Defaults to an empty string.
                          */
                         gwikilambdasearch_search?: string;
                         gwikilambdasearch_language: string;
@@ -15879,7 +15879,7 @@ declare global {
                         gwikilambdasearch_return_type?: string;
                         gwikilambdasearch_strict_return_type?: boolean;
                         /**
-                         * Defaults to `10`.
+                         * Defaults to 10.
                          */
                         gwikilambdasearch_limit?: Limit;
                         gwikilambdasearch_continue?: string;
@@ -15902,7 +15902,7 @@ declare global {
                     claimid?: string | string[];
                     constraintid?: string | string[];
                     /**
-                     * Defaults to `violation|warning|suggestion|bad-parameters`.
+                     * Defaults to `violation`, `warning`, `suggestion`, and `bad-parameters`.
                      */
                     status?: OneOrMore<
                         | "*"
@@ -15934,11 +15934,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                 }
@@ -15954,11 +15954,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                 }
@@ -15979,11 +15979,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     data: string;
@@ -16062,7 +16062,7 @@ declare global {
                      */
                     redirects?: "no" | "yes";
                     /**
-                     * Defaults to `info|sitelinks|aliases|labels|descriptions|claims|datatype`.
+                     * Defaults to `info`, `sitelinks`, `aliases`, `labels`, `descriptions`, `claims`, and `datatype`.
                      */
                     props?: OneOrMore<
                         | "aliases"
@@ -16092,11 +16092,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     /**
@@ -16117,11 +16117,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     /**
@@ -16142,11 +16142,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     /**
@@ -16167,11 +16167,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     /**
@@ -16184,11 +16184,11 @@ declare global {
                     action: "wblinktitles";
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     tosite: string;
@@ -16211,11 +16211,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     /**
@@ -16235,11 +16235,11 @@ declare global {
                     baserevid?: number;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     /**
@@ -16259,11 +16259,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     /**
@@ -16286,11 +16286,11 @@ declare global {
                     token: string;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                 }
@@ -16360,11 +16360,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                 }
@@ -16383,11 +16383,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                 }
@@ -16406,11 +16406,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                 }
@@ -16425,11 +16425,11 @@ declare global {
                      */
                     type?: "entity-schema" | "form" | "item" | "lexeme" | "property" | "sense";
                     /**
-                     * Defaults to `7`.
+                     * Defaults to 7.
                      */
                     limit?: Limit;
                     /**
-                     * Defaults to `0`.
+                     * Defaults to 0.
                      */
                     continue?: number;
                     /**
@@ -16458,11 +16458,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     add?: string | string[];
@@ -16486,11 +16486,11 @@ declare global {
                     ignoreduplicatemainsnak?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                 }
@@ -16510,11 +16510,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                 }
@@ -16535,11 +16535,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     language: string;
@@ -16562,11 +16562,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     language: string;
@@ -16590,11 +16590,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                 }
@@ -16616,11 +16616,11 @@ declare global {
                     "bot"?: boolean;
                     "returnto"?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     "returntoquery"?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     "returntoanchor"?: string;
                 }
@@ -16641,11 +16641,11 @@ declare global {
                     bot?: boolean;
                     returnto?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoquery?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     returntoanchor?: string;
                     linksite: string;
@@ -16659,7 +16659,7 @@ declare global {
                     properties?: string | string[];
                     types?: string | string[];
                     /**
-                     * Defaults to `7`.
+                     * Defaults to 7.
                      */
                     limit?: Limit;
                     continue?: number;
@@ -16669,15 +16669,15 @@ declare global {
                      */
                     context?: "item" | "qualifier" | "reference";
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     include?: "" | "all";
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     search?: string;
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     event?: string;
                 }
@@ -16702,7 +16702,7 @@ declare global {
                 interface WikiLambdaEdit extends Params {
                     action: "wikilambda_edit";
                     /**
-                     * Defaults to ``.
+                     * Defaults to an empty string.
                      */
                     summary?: string;
                     zid?: string;
