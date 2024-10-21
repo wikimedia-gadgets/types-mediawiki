@@ -112,6 +112,21 @@ const PARAMETER_TYPE_UNDERLYING = {
  */
 const TYPE_ALIASES = {
     Limit: { base: "number", lits: new Set(["max"]) },
+    Namespace: { base: "number", lits: new Set(["*"]) },
+    Assert: { lits: new Set(["anon", "bot", "user"]) },
+    TokenType: {
+        lits: new Set([
+            "createaccount",
+            "csrf",
+            "deleteglobalaccount",
+            "login",
+            "patrol",
+            "rollback",
+            "setglobalaccountstatus",
+            "userrights",
+            "watch",
+        ]),
+    },
 };
 
 // Where to log process information and errors.
@@ -1059,6 +1074,60 @@ class ModuleParser {
     findParameterName = (rawParameter) => firstToUppercase(rawParameter.name);
 
     /**
+     * @param {Parameter.Type} type
+     */
+    normalizeType = (type) => {
+        if (type.lits === undefined || type.lits.size === 0) {
+            return;
+        }
+
+        let underlying = type;
+        while (true) {
+            if (underlying.base === "string") {
+                type.lits.clear();
+                break;
+            }
+
+            if (typeof underlying.base === "object") {
+                type.lits = type.lits.difference(new Set(Object.keys(underlying.base)));
+                break;
+            } else if (underlying.base === undefined || !(underlying.base in TYPE_ALIASES)) {
+                break;
+            }
+
+            underlying = TYPE_ALIASES[underlying.base];
+
+            if (underlying.lits !== undefined) {
+                type.lits = type.lits.difference(underlying.lits);
+            }
+        }
+
+        // Use type aliases to reduce type expressions.
+        // Only consider types with literals, as we do not want to replace type synonyms.
+        // Note that this approach is linear: we apply the first replacement found in order,
+        // without trying to find the best replacement.
+        let foundReplacement;
+        do {
+            foundReplacement = false;
+            for (const [name, typeMap] of Object.entries(TYPE_ALIASES)) {
+                if (
+                    (typeMap.base !== undefined && typeMap.base !== type.base) ||
+                    typeMap.lits === undefined ||
+                    type.lits === undefined ||
+                    !type.lits.isSupersetOf(typeMap.lits)
+                ) {
+                    continue;
+                }
+
+                type.base = name;
+                type.lits = type.lits.difference(typeMap.lits);
+                foundReplacement = true;
+                break;
+            }
+        } while (foundReplacement);
+    };
+
+    /**
      * Get some data about a module parameter.
      * @param {Module} module Formatted module data
      * @param {RawModule.Parameter} rawParameter API parameter data
@@ -1158,6 +1227,8 @@ class ModuleParser {
                 ])
             );
         }
+
+        this.normalizeType(parameter.type);
 
         return parameter;
     };
@@ -1332,29 +1403,7 @@ class ModuleFormatter {
      * @param {boolean} [multi]
      */
     formatTypeExpr = (type, multi) => {
-        let lits = type.lits ?? new Set();
-        let underlying = type;
-        while (true) {
-            if (underlying.base === "string") {
-                lits.clear();
-                break;
-            }
-
-            if (typeof underlying.base === "object") {
-                lits = lits.difference(new Set(Object.keys(underlying.base)));
-                break;
-            } else if (underlying.base === undefined || !(underlying.base in TYPE_ALIASES)) {
-                break;
-            }
-
-            underlying = TYPE_ALIASES[underlying.base];
-
-            if (underlying.lits !== undefined) {
-                lits = lits.difference(underlying.lits);
-            }
-        }
-
-        const typeUnion = lits.values().toArray().map(this.quote).sort();
+        const typeUnion = (type.lits ?? new Set()).values().toArray().map(this.quote).sort();
         if (typeof type.base === "object") {
             typeUnion.unshift("string");
         } else if (typeof type.base === "string") {
