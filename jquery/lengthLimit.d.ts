@@ -51,7 +51,7 @@ declare global {
          * For unfortunate historical reasons, browsers' native maxlength counts
          * {@link https://www.w3.org/TR/html5/sec-forms.html#limiting-user-input-length-the-maxlength-attribute the number of UTF-16
          * code units rather than Unicode codepoints}, which means that codepoints outside the Basic
-         * Multilingual Plane (e.g. many emojis) count as 2 characters each. This plugin exists to
+         * Multilingual Plane (such as many emojis) count as 2 characters each. This plugin exists to
          * correct this.
          *
          * Can be called with a custom limit (to use that limit instead of the maxlength attribute

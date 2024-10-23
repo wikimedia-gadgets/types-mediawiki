@@ -6,7 +6,8 @@ declare global {
     interface JQuery {
         /**
          * Create a sortable table with multi-column sorting capabilities.
-         * Provided by `jquery.tablesorter` ResourceLoader module.
+         *
+         * To use this {@link jQuery} plugin, load the `jquery.tablesorter` module with {@link mw.loader}.
          *
          * ```js
          * // Create a simple tablesorter interface

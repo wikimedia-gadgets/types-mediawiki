@@ -3,34 +3,36 @@ export type RestResponse = Record<string, any>; // Unknown JSON object
 declare global {
     namespace mw {
         /**
+         * Interact with the REST API. `mw.Rest` is a client library for the
+         * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:REST_API REST API}.
+         * An `mw.Rest` object represents the REST API of a MediaWiki site. For the action API, see {@link mw.Api}.
+         *
+         * @example
+         * ```js
+         * var api = new mw.Rest();
+         * api.get( '/v1/page/Main_Page/html' )
+         * .then( function ( data ) {
+         *     console.log( data );
+         * } );
+         *
+         * api.post( '/v1/page/Main_Page', {
+         *     token: 'anon_token',
+         *     source: 'Lörem Ipsüm',
+         *     comment: 'tästing',
+         *     title: 'My_Page'
+         * }, {
+         *     'authorization': 'token'
+         * } )
+         * .then( function ( data ) {
+         *     console.log( data );
+         * } );
+         * ```
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html
          */
         class Rest {
             /**
-             * Constructor to create an object to interact with the REST API of a particular
-             * MediaWiki server. mw.Rest objects represent the REST API of a particular
-             * MediaWiki server.
+             * Create an instance of {@link mw.Rest}.
              *
-             * @example
-             * ```js
-             * var api = new mw.Rest();
-             * api.get( '/v1/page/Main_Page/html' )
-             * .done( function ( data ) {
-             *     console.log( data );
-             * } );
-             *
-             * api.post( '/v1/page/Main_Page', {
-             *     token: 'anon_token',
-             *     source: 'Lörem Ipsüm',
-             *     comment: 'tästing',
-             *     title: 'My_Page'
-             * }, {
-             *     'authorization': 'token'
-             * } )
-             * .done( function ( data ) {
-             *     console.log( data );
-             * } );
-             * ```
              * @param {Rest.Options} [options] See {@link mw.Rest.Options}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#Rest
              */

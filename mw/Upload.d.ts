@@ -3,10 +3,9 @@ import { ApiResponse } from "./Api";
 declare global {
     namespace mw {
         /**
-         * Used to represent an upload in progress on the frontend.
-         * Most of the functionality is implemented in mw.Api.plugin.upload,
-         * but this model class will tie it together as well as let you perform
-         * actions in a logical way.
+         * Upload to a wiki. Most of the functionality is implemented
+         * in {@link mw.Api.upload} and friends, but this model class will tie it
+         * together as well as let you perform actions in a logical way.
          *
          * A simple example:
          *
@@ -51,47 +50,6 @@ declare global {
         class Upload {
             /**
              * Used to represent an upload in progress on the frontend.
-             * Most of the functionality is implemented in mw.Api.plugin.upload,
-             * but this model class will tie it together as well as let you perform
-             * actions in a logical way.
-             *
-             * A simple example:
-             *
-             * ```js
-             * var file = new OO.ui.SelectFileWidget(),
-             *     button = new OO.ui.ButtonWidget( { label: 'Save' } ),
-             *     upload = new mw.Upload;
-             *
-             * button.on( 'click', function () {
-             *     upload.setFile( file.getValue() );
-             *     upload.setFilename( file.getValue().name );
-             *     upload.upload();
-             * } );
-             *
-             * $( document.body ).append( file.$element, button.$element );
-             * ```
-             *
-             * You can also choose to {@link uploadToStash stash the upload} and
-             * {@link finishStashUpload finalize} it later:
-             *
-             * ```js
-             * var file, // Some file object
-             *     upload = new mw.Upload,
-             *     stashPromise = $.Deferred();
-             *
-             * upload.setFile( file );
-             * upload.uploadToStash().then( function () {
-             *     stashPromise.resolve();
-             * } );
-             *
-             * stashPromise.then( function () {
-             *     upload.setFilename( 'foo' );
-             *     upload.setText( 'bar' );
-             *     upload.finishStashUpload().then( function () {
-             *         console.log( 'Done!' );
-             *     } );
-             * } );
-             * ```
              *
              * @param {Api|Api.Options} [apiconfig] A mw.Api object (or subclass), or configuration
              *     to pass to the constructor of mw.Api.

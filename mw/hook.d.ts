@@ -14,6 +14,7 @@ import { User } from "./user";
  * Features like navigating to other wiki pages, previewing an edit
  * and editing itself – without a refresh – can then retrigger these
  * hooks accordingly to ensure everything still works as expected.
+ * See {@link Hook}.
  *
  * Example usage:
  *
@@ -37,6 +38,8 @@ import { User } from "./user";
  * var h = mw.hook( 'bar.ready' );
  * new mw.Foo( .. ).fetch( { callback: h.fire } );
  * ```
+ *
+ * The function signature for hooks can be considered {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Stable_interface_policy/Frontend stable}.
  *
  * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html
  */
@@ -204,7 +207,7 @@ declare global {
          */
         function hook(
             name: "util.addPortlet"
-        ): Hook<[portlet: HTMLElement, before: string | undefined]>;
+        ): Hook<[portlet: HTMLElement, selectorHint: string | undefined]>;
 
         /**
          * Create an instance of {@link Hook}, fired when a portlet link is successfully created.

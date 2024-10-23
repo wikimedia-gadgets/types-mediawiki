@@ -142,7 +142,7 @@ declare global {
              *
              * - `registered`: The module is available for loading but not yet requested.
              * - `loading`, `loaded`, or `executing`: The module is currently being loaded.
-             * - `ready`: The module was succesfully and fully loaded.
+             * - `ready`: The module was successfully and fully loaded.
              * - `error`: The module or one its dependencies has failed to load, e.g. due to
              *    uncaught error from the module's script files.
              * - `missing`: The module was requested but is not defined according to the server.
@@ -151,19 +151,19 @@ declare global {
              *
              * - `registered`:
              *    The module is known to the system but not yet required.
-             *    Meta data is stored by {@link mw.loader.register}.
+             *    Meta data is stored by {@link register()}.
              *    Calls to that method are generated server-side by StartupModule.
              * - `loading`:
              *    The module was required through mw.loader (either directly or as dependency of
-             *    another module). The client will fetch module contents from mw.loader.store
-             *    or from the server. The contents should later be received by {@link mw.loader.implement}.
+             *    another module). The client will fetch module contents from {@link mw.loader.store}
+             *    or from the server. The contents should later be received by {@link implement()}.
              * - `loaded`:
-             *    The module has been received by mw.loader#implement.
+             *    The module has been received by {@link implement()}.
              *    Once the module has no more dependencies in-flight, the module will be executed,
-             *    controlled via #setAndPropagate and #doPropagation.
+             *    controlled via `setAndPropagate()` and `doPropagation()`.
              * - `executing`:
              *    The module is being executed (apply messages and stylesheets, execute scripts)
-             *    by mw.loader#execute.
+             *    by `execute()`.
              * - `ready`:
              *    The module has been successfully executed.
              * - `error`:

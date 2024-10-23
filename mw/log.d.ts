@@ -3,17 +3,20 @@ declare global {
         /**
          * Write a verbose message to the browser's console in debug mode.
          *
-         * This method is mainly intended for verbose logging. It is a no-op in production mode.
-         * In ResourceLoader debug mode, it will use the browser's console.
+         * In ResourceLoader debug mode, this writes to the browser's console.
+         * In production mode, it is a no-op.
          *
          * See {@link mw.log} for other logging methods.
          *
+         * @variation 2
          * @param {...any} msg Messages to output to console.
          */
         function log(...msg: any[]): void;
 
         /**
-         * Library for logging developer warnings to the JavaScript console.
+         * Log debug messages and developer warnings to the browser console.
+         *
+         * See {@link mw.log(2) mw.log()} for verbose debug logging.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.log.html
          */
