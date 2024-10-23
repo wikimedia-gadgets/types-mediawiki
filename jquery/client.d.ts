@@ -27,42 +27,6 @@ declare global {
              * }
              * ```
              *
-             * Recognised browser names:
-             *
-             * - `android` (legacy Android browser, prior to Chrome Mobile)
-             * - `chrome` (includes Chrome Mobile, Microsoft Edge, Opera, and others)
-             * - `crios` (Chrome on iOS, which uses Mobile Safari)
-             * - `edge` (legacy Microsoft Edge, which uses EdgeHTML)
-             * - `firefox` (includes Firefox Mobile, Iceweasel, and others)
-             * - `fxios` (Firefox on iOS, which uses Mobile Safari)
-             * - `konqueror`
-             * - `msie`
-             * - `opera` (legacy Opera, which uses Presto)
-             * - `rekonq`
-             * - `safari` (including Mobile Safari)
-             * - `silk`
-             *
-             * Recognised layout engines:
-             *
-             * - `edge` (EdgeHTML 12-18, as used by legacy Microsoft Edge)
-             * - `gecko`
-             * - `khtml`
-             * - `presto`
-             * - `trident`
-             * - `webkit`
-             *
-             * Note that Chrome and Chromium-based browsers like Opera have their layout
-             * engine identified as `webkit`.
-             *
-             * Recognised platforms:
-             *
-             * - `ipad`
-             * - `iphone`
-             * - `linux`
-             * - `mac`
-             * - `solaris` (untested)
-             * - `win`
-             *
              * @example
              * ```js
              * if ( $.client.profile().layout == 'gecko' ) {
@@ -137,20 +101,6 @@ declare global {
                 userAgent: string;
             }
 
-            type ProfileName =
-                | "android"
-                | "chrome"
-                | "crios"
-                | "edge"
-                | "firefox"
-                | "fxios"
-                | "konqueror"
-                | "msie"
-                | "opera"
-                | "rekong"
-                | "safari"
-                | "silk";
-
             type ComparisonOperator = "==" | "===" | "!=" | "!==" | "<" | "<=" | ">" | ">=";
 
             type SupportMap = SupportMap.Undirected | Record<"ltr" | "rtl", SupportMap.Undirected>;
@@ -158,17 +108,98 @@ declare global {
             namespace SupportMap {
                 type Condition = [ComparisonOperator, string | number];
 
-                type Undirected = Partial<Record<ProfileName, false | null | Condition[]>>;
+                type Undirected = Partial<Record<Profile.Name, false | null | Condition[]>>;
             }
 
+            /**
+             * An object containing information about the client.
+             *
+             * @example
+             * ```js
+             * {
+             *     'name': 'firefox',
+             *     'layout': 'gecko',
+             *     'layoutVersion': 20101026,
+             *     'platform': 'linux'
+             *     'version': '3.5.1',
+             *     'versionBase': '3',
+             *     'versionNumber': 3.5,
+             * }
+             * ```
+             * @see https://doc.wikimedia.org/jquery-client/master/jQuery.client.html#.Profile
+             */
             interface Profile {
-                layout: "edge" | "gecko" | "khtml" | "presto" | "trident" | "webkit";
-                layoutVersion: number;
-                name: ProfileName;
-                platform: "ipad" | "iphone" | "linux" | "mac" | "solaris" | "win";
+                /**
+                 * Name of the layout engine. Recognised layout engines:
+                 *
+                 * - `edge` (EdgeHTML 12-18, as used by legacy Microsoft Edge)
+                 * - `gecko`
+                 * - `khtml`
+                 * - `presto`
+                 * - `trident`
+                 * - `webkit`
+                 *
+                 * Note that Chrome and Chromium-based browsers like Opera have their layout
+                 * engine identified as `webkit`.
+                 */
+                layout: Profile.Layout | "unknown";
+                /**
+                 * Version of the layout engine,
+                 * e.g. `6` or `20101026`.
+                 */
+                layoutVersion: number | "unknown";
+                /**
+                 * Name of the browser. Recognized browser names:
+                 *
+                 * - `android` (legacy Android browser, prior to Chrome Mobile)
+                 * - `chrome` (includes Chrome Mobile, Microsoft Edge, Opera, and others)
+                 * - `crios` (Chrome on iOS, which uses Mobile Safari)
+                 * - `edge` (legacy Microsoft Edge, which uses EdgeHTML)
+                 * - `firefox` (includes Firefox Mobile, Iceweasel, and others)
+                 * - `fxios` (Firefox on iOS, which uses Mobile Safari)
+                 * - `konqueror`
+                 * - `msie`
+                 * - `opera` (legacy Opera, which uses Presto)
+                 * - `rekonq`
+                 * - `safari` (including Mobile Safari)
+                 * - `silk`
+                 */
+                name: Profile.Name | "unknown";
+                /**
+                 * Operating system the browser is running on.
+                 * Recognised platforms:
+                 *
+                 * - `ipad`
+                 * - `iphone`
+                 * - `linux`
+                 * - `mac`
+                 * - `solaris` (untested)
+                 * - `win`
+                 */
+                platform: Profile.Platform | "unknown";
                 version: string;
                 versionBase: string;
                 versionNumber: number;
+            }
+
+            namespace Profile {
+                type Layout = "edge" | "gecko" | "khtml" | "presto" | "trident" | "webkit";
+
+                type Name =
+                    | "android"
+                    | "chrome"
+                    | "crios"
+                    | "edge"
+                    | "firefox"
+                    | "fxios"
+                    | "konqueror"
+                    | "msie"
+                    | "opera"
+                    | "rekong"
+                    | "safari"
+                    | "silk";
+
+                type Platform = "ipad" | "iphone" | "linux" | "mac" | "solaris" | "win";
             }
         }
     }
