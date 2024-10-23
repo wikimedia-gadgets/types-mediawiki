@@ -96,6 +96,7 @@ export interface ClientNavigator {
     userAgent: string;
 }
 
+type ClientProfileLayout = "edge" | "gecko" | "khtml" | "presto" | "trident" | "webkit";
 type ClientProfileName =
     | "android"
     | "chrome"
@@ -109,6 +110,7 @@ type ClientProfileName =
     | "rekong"
     | "safari"
     | "silk";
+type ClientProfilePlatform = "ipad" | "iphone" | "linux" | "mac" | "solaris" | "win";
 
 type ComparisonOperator = "==" | "===" | "!=" | "!==" | "<" | "<=" | ">" | ">=";
 type ClientSupportCondition = [ComparisonOperator, string | number];
@@ -151,12 +153,12 @@ interface ClientProfile {
      * Note that Chrome and Chromium-based browsers like Opera have their layout
      * engine identified as `webkit`.
      */
-    layout: "edge" | "gecko" | "khtml" | "presto" | "trident" | "webkit";
+    layout: ClientProfileLayout | "unknown";
     /**
      * Version of the layout engine,
      * e.g. `6` or `20101026`.
      */
-    layoutVersion: number;
+    layoutVersion: number | "unknown";
     /**
      * Name of the browser. Recognized browser names:
      *
@@ -173,7 +175,7 @@ interface ClientProfile {
      * - `safari` (including Mobile Safari)
      * - `silk`
      */
-    name: ClientProfileName;
+    name: ClientProfileName | "unknown";
     /**
      * Operating system the browser is running on.
      * Recognised platforms:
@@ -185,7 +187,7 @@ interface ClientProfile {
      * - `solaris` (untested)
      * - `win`
      */
-    platform: "ipad" | "iphone" | "linux" | "mac" | "solaris" | "win";
+    platform: ClientProfilePlatform | "unknown";
     version: string;
     versionBase: string;
     versionNumber: number;
