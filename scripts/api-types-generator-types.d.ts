@@ -193,10 +193,6 @@ declare global {
          */
         type: Parameter.Type;
         /**
-         * Whether multiple values can be specified as a list.
-         */
-        multi?: boolean;
-        /**
          * Whether the parameter is required or optional.
          */
         required: boolean;
@@ -217,6 +213,10 @@ declare global {
              * List of possible values, which may overlap with the base type above.
              */
             lits?: Set<string>;
+            /**
+             * Whether multiple values can be specified as a list.
+             */
+            multi?: boolean;
         }
     }
 

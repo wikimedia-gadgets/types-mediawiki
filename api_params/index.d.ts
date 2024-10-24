@@ -2,37 +2,15 @@
 
 type OneOrMore<T> = T | T[];
 
-export type ApiAssert = "anon" | "bot" | "user";
-
-export type ApiTokenType =
-    | "createaccount"
-    | "csrf"
-    | "deleteglobalaccount"
-    | "login"
-    | "patrol"
-    | "rollback"
-    | "setglobalaccountstatus"
-    | "userrights"
-    | "watch";
-
-export type ApiLegacyTokenType =
-    | "block"
-    | "delete"
-    | "edit"
-    | "email"
-    | "import"
-    | "move"
-    | "options"
-    | "protect"
-    | "unblock";
-
 declare global {
     namespace mw.Api {
+        type Toggle<T extends string> = { [V in T]: V | `!${V}` }[T];
+
         type Limit = number | "max";
 
-        type Namespace = number | "*";
+        type Assert = "anon" | "bot" | "user";
 
-        type Token =
+        type TokenType =
             | "createaccount"
             | "csrf"
             | "deleteglobalaccount"
@@ -42,6 +20,17 @@ declare global {
             | "setglobalaccountstatus"
             | "userrights"
             | "watch";
+
+        type LegacyTokenType =
+            | "block"
+            | "delete"
+            | "edit"
+            | "email"
+            | "import"
+            | "move"
+            | "options"
+            | "protect"
+            | "unblock";
 
         interface Params {
             /**
@@ -61,7 +50,7 @@ declare global {
              * Defaults to 0.
              */
             maxage?: number;
-            assert?: "anon" | "bot" | "user";
+            assert?: Assert;
             assertuser?: string;
             requestid?: string;
             servedby?: boolean;
@@ -187,7 +176,7 @@ declare global {
                     tags?: string | string[];
                     partial?: boolean;
                     pagerestrictions?: string | string[];
-                    namespacerestrictions?: Namespace | Namespace[];
+                    namespacerestrictions?: OneOrMore<number | "*">;
                     actionrestrictions?: OneOrMore<"create" | "move" | "thanks" | "upload">;
                     /**
                      * Sensitive parameter.
@@ -275,7 +264,7 @@ declare global {
                  */
                 interface CheckToken extends Params {
                     action: "checktoken";
-                    type: Token;
+                    type: TokenType;
                     /**
                      * Sensitive parameter.
                      */
@@ -848,7 +837,19 @@ declare global {
                     summary?: string;
                     sectiontitle?: string;
                     allownosectiontitle?: boolean;
-                    useskin?: string;
+                    useskin?:
+                        | "apioutput"
+                        | "authentication-popup"
+                        | "cologneblue"
+                        | "contenttranslation"
+                        | "fallback"
+                        | "json"
+                        | "minerva"
+                        | "modern"
+                        | "monobook"
+                        | "timeless"
+                        | "vector"
+                        | "vector-2022";
                     watchlist?: string;
                     captchaid?: string;
                     captchaword?: string;
@@ -901,7 +902,19 @@ declare global {
                     page: string;
                     wikitext: string;
                     sectiontitle?: string;
-                    useskin?: string;
+                    useskin?:
+                        | "apioutput"
+                        | "authentication-popup"
+                        | "cologneblue"
+                        | "contenttranslation"
+                        | "fallback"
+                        | "json"
+                        | "minerva"
+                        | "modern"
+                        | "monobook"
+                        | "timeless"
+                        | "vector"
+                        | "vector-2022";
                     mobileformat?: boolean;
                 }
 
@@ -1201,7 +1214,7 @@ declare global {
                      */
                     feedformat?: "atom" | "rss" | "sitemap";
                     user: string;
-                    namespace?: Namespace;
+                    namespace?: number;
                     year?: number;
                     month?: number;
                     /**
@@ -1224,7 +1237,7 @@ declare global {
                      * Defaults to `rss`.
                      */
                     feedformat?: "atom" | "rss" | "sitemap";
-                    namespace?: Namespace;
+                    namespace?: number;
                     invert?: boolean;
                     associated?: boolean;
                     /**
@@ -1288,18 +1301,7 @@ declare global {
                      */
                     wltoken?: string;
                     wlshow?: OneOrMore<
-                        | "!anon"
-                        | "!autopatrolled"
-                        | "!bot"
-                        | "!minor"
-                        | "!patrolled"
-                        | "!unread"
-                        | "anon"
-                        | "autopatrolled"
-                        | "bot"
-                        | "minor"
-                        | "patrolled"
-                        | "unread"
+                        Toggle<"anon" | "autopatrolled" | "bot" | "minor" | "patrolled" | "unread">
                     >;
                     /**
                      * Defaults to `edit`, `new`, `log`, and `categorize`.
@@ -1674,6 +1676,7 @@ declare global {
                     "reason": string;
                     "anononly"?: boolean;
                     "allow-account-creation"?: boolean;
+                    "enable-autoblock"?: boolean;
                     "modify"?: boolean;
                     "alsolocal"?: boolean;
                     "localblockstalk"?: boolean;
@@ -1985,7 +1988,7 @@ declare global {
                     interwikipage?: string;
                     fullhistory?: boolean;
                     templates?: boolean;
-                    namespace?: Namespace;
+                    namespace?: number;
                     assignknownusers?: boolean;
                     rootpage?: string;
                     tags?: string | string[];
@@ -2271,7 +2274,7 @@ declare global {
                     /**
                      * Defaults to 0.
                      */
-                    namespace?: Namespace | Namespace[];
+                    namespace?: OneOrMore<number | "*">;
                     /**
                      * Defaults to 10.
                      */
@@ -2547,7 +2550,19 @@ declare global {
                     preview?: boolean;
                     sectionpreview?: boolean;
                     disabletoc?: boolean;
-                    useskin?: string;
+                    useskin?:
+                        | "apioutput"
+                        | "authentication-popup"
+                        | "cologneblue"
+                        | "contenttranslation"
+                        | "fallback"
+                        | "json"
+                        | "minerva"
+                        | "modern"
+                        | "monobook"
+                        | "timeless"
+                        | "vector"
+                        | "vector-2022";
                     contentformat?:
                         | "application/json"
                         | "application/octet-stream"
@@ -2763,7 +2778,7 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         gadruser?: string;
-                        gadrnamespace?: Namespace | Namespace[];
+                        gadrnamespace?: OneOrMore<number | "*">;
                         gadrstart?: string;
                         gadrend?: string;
                         /**
@@ -2877,7 +2892,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        galnamespace?: Namespace;
+                        galnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -2900,7 +2915,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gapnamespace?: Namespace;
+                        gapnamespace?: number;
                         /**
                          * Defaults to `all`.
                          */
@@ -2948,7 +2963,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        garnamespace?: Namespace;
+                        garnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -3041,7 +3056,7 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         garvuser?: string;
-                        garvnamespace?: Namespace | Namespace[];
+                        garvnamespace?: OneOrMore<number | "*">;
                         garvstart?: string;
                         garvend?: string;
                         /**
@@ -3070,7 +3085,7 @@ declare global {
                         /**
                          * Defaults to 10.
                          */
-                        gatnamespace?: Namespace;
+                        gatnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -3095,7 +3110,7 @@ declare global {
                         gbltitle?: string;
                         gblpageid?: number;
                         gblcontinue?: string;
-                        gblnamespace?: Namespace | Namespace[];
+                        gblnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -3117,7 +3132,7 @@ declare global {
                     interface Categories extends Purge {
                         generator?: "categories";
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
-                        gclshow?: OneOrMore<"!hidden" | "hidden">;
+                        gclshow?: OneOrMore<Toggle<"hidden">>;
                         /**
                          * Defaults to 10.
                          */
@@ -3143,7 +3158,7 @@ declare global {
                         gcmprop?: OneOrMore<
                             "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                         >;
-                        gcmnamespace?: Namespace | Namespace[];
+                        gcmnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `page`, `subcat`, and `file`.
                          */
@@ -3185,7 +3200,7 @@ declare global {
                          * Defaults to `newer`.
                          */
                         gcpdir?: "newer" | "older";
-                        gcpnamespace?: Namespace | Namespace[];
+                        gcpnamespace?: OneOrMore<number | "*">;
                         gcpdefault?: "latest" | "stable";
                         gcpautoreview?: "none" | "sysop";
                         /**
@@ -3343,7 +3358,7 @@ declare global {
                         geititle?: string;
                         geipageid?: number;
                         geicontinue?: string;
-                        geinamespace?: Namespace | Namespace[];
+                        geinamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -3402,7 +3417,7 @@ declare global {
                             | "worldwind"
                             | "xmpp";
                         geuquery?: string;
-                        geunamespace?: Namespace | Namespace[];
+                        geunamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -3422,8 +3437,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        gfunamespace?: Namespace | Namespace[];
-                        gfushow?: OneOrMore<"!redirect" | "redirect">;
+                        gfunamespace?: OneOrMore<number | "*">;
+                        gfushow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -3459,7 +3474,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        ggsnamespace?: Namespace | Namespace[];
+                        ggsnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `globe`.
                          */
@@ -3562,7 +3577,7 @@ declare global {
                         giutitle?: string;
                         giupageid?: number;
                         giucontinue?: string;
-                        giunamespace?: Namespace | Namespace[];
+                        giunamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -3628,7 +3643,7 @@ declare global {
                      */
                     interface Links extends Purge {
                         generator?: "links";
-                        gplnamespace?: Namespace | Namespace[];
+                        gplnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -3650,8 +3665,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        glhnamespace?: Namespace | Namespace[];
-                        glhshow?: OneOrMore<"!redirect" | "redirect">;
+                        glhnamespace?: OneOrMore<number | "*">;
+                        glhshow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -3721,7 +3736,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gornamespace?: Namespace | Namespace[];
+                        gornamespace?: OneOrMore<number | "*">;
                         gorcategory?: string;
                         /**
                          * Defaults to `all`.
@@ -3763,7 +3778,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gpsnamespace?: Namespace | Namespace[];
+                        gpsnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -3820,7 +3835,7 @@ declare global {
                      */
                     interface ProtectedTitles extends Purge {
                         generator?: "protectedtitles";
-                        gptnamespace?: Namespace | Namespace[];
+                        gptnamespace?: OneOrMore<number | "*">;
                         gptlevel?: string | string[];
                         /**
                          * Defaults to 10.
@@ -3868,7 +3883,7 @@ declare global {
                      */
                     interface Random extends Purge {
                         generator?: "random";
-                        grnnamespace?: Namespace | Namespace[];
+                        grnnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `nonredirects`.
                          */
@@ -3915,7 +3930,7 @@ declare global {
                          * Defaults to `older`.
                          */
                         grcdir?: "newer" | "older";
-                        grcnamespace?: Namespace | Namespace[];
+                        grcnamespace?: OneOrMore<number | "*">;
                         grcuser?: string;
                         grcexcludeuser?: string;
                         grctag?: string;
@@ -3940,20 +3955,15 @@ declare global {
                             | "userid"
                         >;
                         grcshow?: OneOrMore<
-                            | "!anon"
-                            | "!autopatrolled"
-                            | "!bot"
-                            | "!minor"
-                            | "!oresreview"
-                            | "!patrolled"
-                            | "!redirect"
-                            | "anon"
-                            | "autopatrolled"
-                            | "bot"
-                            | "minor"
-                            | "oresreview"
-                            | "patrolled"
-                            | "redirect"
+                            | Toggle<
+                                  | "anon"
+                                  | "autopatrolled"
+                                  | "bot"
+                                  | "minor"
+                                  | "oresreview"
+                                  | "patrolled"
+                                  | "redirect"
+                              >
                             | "unpatrolled"
                         >;
                         /**
@@ -3980,8 +3990,8 @@ declare global {
                          * Defaults to `pageid` and `title`.
                          */
                         grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
-                        grdnamespace?: Namespace | Namespace[];
-                        grdshow?: OneOrMore<"!fragment" | "fragment">;
+                        grdnamespace?: OneOrMore<number | "*">;
+                        grdshow?: OneOrMore<Toggle<"fragment">>;
                         /**
                          * Defaults to 10.
                          */
@@ -4094,7 +4104,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gsrnamespace?: Namespace | Namespace[];
+                        gsrnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -4155,7 +4165,7 @@ declare global {
                      */
                     interface Templates extends Purge {
                         generator?: "templates";
-                        gtlnamespace?: Namespace | Namespace[];
+                        gtlnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -4177,8 +4187,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        gtinamespace?: Namespace | Namespace[];
-                        gtishow?: OneOrMore<"!redirect" | "redirect">;
+                        gtinamespace?: OneOrMore<number | "*">;
+                        gtishow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -4197,7 +4207,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gurnamespace?: Namespace | Namespace[];
+                        gurnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `all`.
                          */
@@ -4220,7 +4230,7 @@ declare global {
                         gwlallrev?: boolean;
                         gwlstart?: string;
                         gwlend?: string;
-                        gwlnamespace?: Namespace | Namespace[];
+                        gwlnamespace?: OneOrMore<number | "*">;
                         gwluser?: string;
                         gwlexcludeuser?: string;
                         /**
@@ -4252,20 +4262,15 @@ declare global {
                             | "userid"
                         >;
                         gwlshow?: OneOrMore<
-                            | "!anon"
-                            | "!autopatrolled"
-                            | "!bot"
-                            | "!minor"
-                            | "!oresreview"
-                            | "!patrolled"
-                            | "!unread"
-                            | "anon"
-                            | "autopatrolled"
-                            | "bot"
-                            | "minor"
-                            | "oresreview"
-                            | "patrolled"
-                            | "unread"
+                            Toggle<
+                                | "anon"
+                                | "autopatrolled"
+                                | "bot"
+                                | "minor"
+                                | "oresreview"
+                                | "patrolled"
+                                | "unread"
+                            >
                         >;
                         /**
                          * Defaults to `edit`, `new`, `log`, and `categorize`.
@@ -4285,13 +4290,13 @@ declare global {
                     interface WatchlistRaw extends Purge {
                         generator?: "watchlistraw";
                         gwrcontinue?: string;
-                        gwrnamespace?: Namespace | Namespace[];
+                        gwrnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
                         gwrlimit?: Limit;
                         gwrprop?: "changed" | "changed"[];
-                        gwrshow?: OneOrMore<"!changed" | "changed">;
+                        gwrshow?: OneOrMore<Toggle<"changed">>;
                         gwrowner?: string;
                         /**
                          * Sensitive parameter.
@@ -4423,7 +4428,7 @@ declare global {
                          */
                         interface Categories extends Query {
                             clprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
-                            clshow?: OneOrMore<"!hidden" | "hidden">;
+                            clshow?: OneOrMore<Toggle<"hidden">>;
                             /**
                              * Defaults to 10.
                              */
@@ -4715,8 +4720,8 @@ declare global {
                              * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             fuprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                            funamespace?: Namespace | Namespace[];
-                            fushow?: OneOrMore<"!redirect" | "redirect">;
+                            funamespace?: OneOrMore<number | "*">;
+                            fushow?: OneOrMore<Toggle<"redirect">>;
                             /**
                              * Defaults to 10.
                              */
@@ -4746,7 +4751,7 @@ declare global {
                             /**
                              * Defaults to `*`.
                              */
-                            gunamespace?: Namespace | Namespace[];
+                            gunamespace?: OneOrMore<number | "*">;
                             gusite?: string | string[];
                             gucontinue?: string;
                             gufilterlocal?: boolean;
@@ -4947,7 +4952,7 @@ declare global {
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Links
                          */
                         interface Links extends Query {
-                            plnamespace?: Namespace | Namespace[];
+                            plnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
@@ -4968,8 +4973,8 @@ declare global {
                              * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             lhprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                            lhnamespace?: Namespace | Namespace[];
-                            lhshow?: OneOrMore<"!redirect" | "redirect">;
+                            lhnamespace?: OneOrMore<number | "*">;
+                            lhshow?: OneOrMore<Toggle<"redirect">>;
                             /**
                              * Defaults to 10.
                              */
@@ -5077,8 +5082,8 @@ declare global {
                              * Defaults to `pageid` and `title`.
                              */
                             rdprop?: OneOrMore<"fragment" | "pageid" | "title">;
-                            rdnamespace?: Namespace | Namespace[];
-                            rdshow?: OneOrMore<"!fragment" | "fragment">;
+                            rdnamespace?: OneOrMore<number | "*">;
+                            rdshow?: OneOrMore<Toggle<"fragment">>;
                             /**
                              * Defaults to 10.
                              */
@@ -5226,7 +5231,7 @@ declare global {
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates
                          */
                         interface Templates extends Query {
-                            tlnamespace?: Namespace | Namespace[];
+                            tlnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
@@ -5247,8 +5252,8 @@ declare global {
                              * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             tiprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                            tinamespace?: Namespace | Namespace[];
-                            tishow?: OneOrMore<"!redirect" | "redirect">;
+                            tinamespace?: OneOrMore<number | "*">;
+                            tishow?: OneOrMore<Toggle<"redirect">>;
                             /**
                              * Defaults to 10.
                              */
@@ -5347,14 +5352,7 @@ declare global {
                              */
                             abfdir?: "newer" | "older";
                             abfshow?: OneOrMore<
-                                | "!deleted"
-                                | "!enabled"
-                                | "!private"
-                                | "!protected"
-                                | "deleted"
-                                | "enabled"
-                                | "private"
-                                | "protected"
+                                Toggle<"deleted" | "enabled" | "private" | "protected">
                             >;
                             /**
                              * Defaults to 10.
@@ -5525,7 +5523,7 @@ declare global {
                                 | "text/x-wiki"
                                 | "unknown/unknown";
                             adruser?: string;
-                            adrnamespace?: Namespace | Namespace[];
+                            adrnamespace?: OneOrMore<number | "*">;
                             adrstart?: string;
                             adrend?: string;
                             /**
@@ -5636,7 +5634,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            alnamespace?: Namespace;
+                            alnamespace?: number;
                             /**
                              * Defaults to 10.
                              */
@@ -5658,7 +5656,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            apnamespace?: Namespace;
+                            apnamespace?: number;
                             /**
                              * Defaults to `all`.
                              */
@@ -5705,7 +5703,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            arnamespace?: Namespace;
+                            arnamespace?: number;
                             /**
                              * Defaults to 10.
                              */
@@ -5797,7 +5795,7 @@ declare global {
                                 | "text/x-wiki"
                                 | "unknown/unknown";
                             arvuser?: string;
-                            arvnamespace?: Namespace | Namespace[];
+                            arvnamespace?: OneOrMore<number | "*">;
                             arvstart?: string;
                             arvend?: string;
                             /**
@@ -5825,7 +5823,7 @@ declare global {
                             /**
                              * Defaults to 10.
                              */
-                            atnamespace?: Namespace;
+                            atnamespace?: number;
                             /**
                              * Defaults to 10.
                              */
@@ -5882,7 +5880,7 @@ declare global {
                             bltitle?: string;
                             blpageid?: number;
                             blcontinue?: string;
-                            blnamespace?: Namespace | Namespace[];
+                            blnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `ascending`.
                              */
@@ -5938,16 +5936,7 @@ declare global {
                                 | "user"
                                 | "userid"
                             >;
-                            bkshow?: OneOrMore<
-                                | "!account"
-                                | "!ip"
-                                | "!range"
-                                | "!temp"
-                                | "account"
-                                | "ip"
-                                | "range"
-                                | "temp"
-                            >;
+                            bkshow?: OneOrMore<Toggle<"account" | "ip" | "range" | "temp">>;
                             bkcontinue?: string;
                         }
 
@@ -5963,7 +5952,7 @@ declare global {
                             cmprop?: OneOrMore<
                                 "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                             >;
-                            cmnamespace?: Namespace | Namespace[];
+                            cmnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `page`, `subcat`, and `file`.
                              */
@@ -6068,7 +6057,7 @@ declare global {
                              * Defaults to `newer`.
                              */
                             cpdir?: "newer" | "older";
-                            cpnamespace?: Namespace | Namespace[];
+                            cpnamespace?: OneOrMore<number | "*">;
                             cpdefault?: "latest" | "stable";
                             cpautoreview?: "none" | "sysop";
                             /**
@@ -6163,7 +6152,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            drnamespace?: Namespace;
+                            drnamespace?: number;
                             drtag?: string;
                             druser?: string;
                             drexcludeuser?: string;
@@ -6198,7 +6187,7 @@ declare global {
                             eititle?: string;
                             eipageid?: number;
                             eicontinue?: string;
-                            einamespace?: Namespace | Namespace[];
+                            einamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `ascending`.
                              */
@@ -6217,7 +6206,7 @@ declare global {
                          * @private
                          */
                         interface ExtDistBranches extends Query {
-                            edbexts?: string | string[];
+                            edbexts?: never;
                             edbskins?: OneOrMore<
                                 | "2018"
                                 | "Aether"
@@ -6321,7 +6310,7 @@ declare global {
                                 | "worldwind"
                                 | "xmpp";
                             euquery?: string;
-                            eunamespace?: Namespace | Namespace[];
+                            eunamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
@@ -6415,7 +6404,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            gsnamespace?: Namespace | Namespace[];
+                            gsnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `globe`.
                              */
@@ -6615,7 +6604,7 @@ declare global {
                             iutitle?: string;
                             iupageid?: number;
                             iucontinue?: string;
-                            iunamespace?: Namespace | Namespace[];
+                            iunamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `ascending`.
                              */
@@ -6707,7 +6696,7 @@ declare global {
                              * Defaults to 10.
                              */
                             lntlimit?: Limit;
-                            lntnamespace?: Namespace | Namespace[];
+                            lntnamespace?: OneOrMore<number | "*">;
                             lntpageid?: number | number[];
                             lnttitle?: string;
                             lntfrom?: number;
@@ -6742,7 +6731,7 @@ declare global {
                             ledir?: "newer" | "older";
                             leuser?: string;
                             letitle?: string;
-                            lenamespace?: Namespace;
+                            lenamespace?: number;
                             leprefix?: string;
                             letag?: string;
                             /**
@@ -6832,7 +6821,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            ornamespace?: Namespace | Namespace[];
+                            ornamespace?: OneOrMore<number | "*">;
                             orcategory?: string;
                             /**
                              * Defaults to `all`.
@@ -6883,7 +6872,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            psnamespace?: Namespace | Namespace[];
+                            psnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
@@ -6944,7 +6933,7 @@ declare global {
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles
                          */
                         interface ProtectedTitles extends Query {
-                            ptnamespace?: Namespace | Namespace[];
+                            ptnamespace?: OneOrMore<number | "*">;
                             ptlevel?: string | string[];
                             /**
                              * Defaults to 10.
@@ -6990,7 +6979,7 @@ declare global {
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Random
                          */
                         interface Random extends Query {
-                            rnnamespace?: Namespace | Namespace[];
+                            rnnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `nonredirects`.
                              */
@@ -7035,7 +7024,7 @@ declare global {
                              * Defaults to `older`.
                              */
                             rcdir?: "newer" | "older";
-                            rcnamespace?: Namespace | Namespace[];
+                            rcnamespace?: OneOrMore<number | "*">;
                             rcuser?: string;
                             rcexcludeuser?: string;
                             rctag?: string;
@@ -7060,20 +7049,15 @@ declare global {
                                 | "userid"
                             >;
                             rcshow?: OneOrMore<
-                                | "!anon"
-                                | "!autopatrolled"
-                                | "!bot"
-                                | "!minor"
-                                | "!oresreview"
-                                | "!patrolled"
-                                | "!redirect"
-                                | "anon"
-                                | "autopatrolled"
-                                | "bot"
-                                | "minor"
-                                | "oresreview"
-                                | "patrolled"
-                                | "redirect"
+                                | Toggle<
+                                      | "anon"
+                                      | "autopatrolled"
+                                      | "bot"
+                                      | "minor"
+                                      | "oresreview"
+                                      | "patrolled"
+                                      | "redirect"
+                                  >
                                 | "unpatrolled"
                             >;
                             /**
@@ -7099,7 +7083,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            srnamespace?: Namespace | Namespace[];
+                            srnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
@@ -7241,7 +7225,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            urnamespace?: Namespace | Namespace[];
+                            urnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `all`.
                              */
@@ -7275,7 +7259,7 @@ declare global {
                              * Defaults to `older`.
                              */
                             ucdir?: "newer" | "older";
-                            ucnamespace?: Namespace | Namespace[];
+                            ucnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `ids`, `title`, `timestamp`, `comment`, `size`, and `flags`.
                              */
@@ -7293,18 +7277,14 @@ declare global {
                                 | "title"
                             >;
                             ucshow?: OneOrMore<
-                                | "!autopatrolled"
-                                | "!minor"
-                                | "!new"
-                                | "!oresreview"
-                                | "!patrolled"
-                                | "!top"
-                                | "autopatrolled"
-                                | "minor"
-                                | "new"
-                                | "oresreview"
-                                | "patrolled"
-                                | "top"
+                                Toggle<
+                                    | "autopatrolled"
+                                    | "minor"
+                                    | "new"
+                                    | "oresreview"
+                                    | "patrolled"
+                                    | "top"
+                                >
                             >;
                             uctag?: string;
                             /**
@@ -7342,7 +7322,7 @@ declare global {
                             wlallrev?: boolean;
                             wlstart?: string;
                             wlend?: string;
-                            wlnamespace?: Namespace | Namespace[];
+                            wlnamespace?: OneOrMore<number | "*">;
                             wluser?: string;
                             wlexcludeuser?: string;
                             /**
@@ -7374,20 +7354,15 @@ declare global {
                                 | "userid"
                             >;
                             wlshow?: OneOrMore<
-                                | "!anon"
-                                | "!autopatrolled"
-                                | "!bot"
-                                | "!minor"
-                                | "!oresreview"
-                                | "!patrolled"
-                                | "!unread"
-                                | "anon"
-                                | "autopatrolled"
-                                | "bot"
-                                | "minor"
-                                | "oresreview"
-                                | "patrolled"
-                                | "unread"
+                                Toggle<
+                                    | "anon"
+                                    | "autopatrolled"
+                                    | "bot"
+                                    | "minor"
+                                    | "oresreview"
+                                    | "patrolled"
+                                    | "unread"
+                                >
                             >;
                             /**
                              * Defaults to `edit`, `new`, `log`, and `categorize`.
@@ -7406,13 +7381,13 @@ declare global {
                          */
                         interface WatchlistRaw extends Query {
                             wrcontinue?: string;
-                            wrnamespace?: Namespace | Namespace[];
+                            wrnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
                             wrlimit?: Limit;
                             wrprop?: "changed" | "changed"[];
-                            wrshow?: OneOrMore<"!changed" | "changed">;
+                            wrshow?: OneOrMore<Toggle<"changed">>;
                             wrowner?: string;
                             /**
                              * Sensitive parameter.
@@ -7595,7 +7570,7 @@ declare global {
                          */
                         interface CXDeletedTranslations extends Query {
                             dtafter?: string;
-                            dtnamespace?: Namespace;
+                            dtnamespace?: number;
                         }
 
                         /**
@@ -7785,7 +7760,7 @@ declare global {
                             /**
                              * Defaults to `read` and `!read`.
                              */
-                            notfilter?: OneOrMore<"!read" | "read">;
+                            notfilter?: OneOrMore<Toggle<"read">>;
                             /**
                              * Defaults to `list`.
                              */
@@ -7894,7 +7869,7 @@ declare global {
                                 | "usergroups"
                                 | "variables"
                             >;
-                            sifilteriw?: "!local" | "local";
+                            sifilteriw?: Toggle<"local">;
                             sishowalldb?: boolean;
                             sinumberingroup?: boolean;
                             siinlanguagecode?: string;
@@ -7921,7 +7896,7 @@ declare global {
                             /**
                              * Defaults to `csrf`.
                              */
-                            type?: OneOrMore<Token | "*">;
+                            type?: OneOrMore<TokenType | "*">;
                         }
 
                         /**
@@ -8103,7 +8078,7 @@ declare global {
                                 | "text/x-wiki"
                                 | "unknown/unknown";
                             gadruser?: string;
-                            gadrnamespace?: Namespace | Namespace[];
+                            gadrnamespace?: OneOrMore<number | "*">;
                             gadrstart?: string;
                             gadrend?: string;
                             /**
@@ -8217,7 +8192,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            galnamespace?: Namespace;
+                            galnamespace?: number;
                             /**
                              * Defaults to 10.
                              */
@@ -8240,7 +8215,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            gapnamespace?: Namespace;
+                            gapnamespace?: number;
                             /**
                              * Defaults to `all`.
                              */
@@ -8288,7 +8263,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            garnamespace?: Namespace;
+                            garnamespace?: number;
                             /**
                              * Defaults to 10.
                              */
@@ -8381,7 +8356,7 @@ declare global {
                                 | "text/x-wiki"
                                 | "unknown/unknown";
                             garvuser?: string;
-                            garvnamespace?: Namespace | Namespace[];
+                            garvnamespace?: OneOrMore<number | "*">;
                             garvstart?: string;
                             garvend?: string;
                             /**
@@ -8410,7 +8385,7 @@ declare global {
                             /**
                              * Defaults to 10.
                              */
-                            gatnamespace?: Namespace;
+                            gatnamespace?: number;
                             /**
                              * Defaults to 10.
                              */
@@ -8435,7 +8410,7 @@ declare global {
                             gbltitle?: string;
                             gblpageid?: number;
                             gblcontinue?: string;
-                            gblnamespace?: Namespace | Namespace[];
+                            gblnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `ascending`.
                              */
@@ -8457,7 +8432,7 @@ declare global {
                         interface Categories extends Query {
                             generator?: "categories";
                             gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
-                            gclshow?: OneOrMore<"!hidden" | "hidden">;
+                            gclshow?: OneOrMore<Toggle<"hidden">>;
                             /**
                              * Defaults to 10.
                              */
@@ -8483,7 +8458,7 @@ declare global {
                             gcmprop?: OneOrMore<
                                 "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                             >;
-                            gcmnamespace?: Namespace | Namespace[];
+                            gcmnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `page`, `subcat`, and `file`.
                              */
@@ -8531,7 +8506,7 @@ declare global {
                              * Defaults to `newer`.
                              */
                             gcpdir?: "newer" | "older";
-                            gcpnamespace?: Namespace | Namespace[];
+                            gcpnamespace?: OneOrMore<number | "*">;
                             gcpdefault?: "latest" | "stable";
                             gcpautoreview?: "none" | "sysop";
                             /**
@@ -8689,7 +8664,7 @@ declare global {
                             geititle?: string;
                             geipageid?: number;
                             geicontinue?: string;
-                            geinamespace?: Namespace | Namespace[];
+                            geinamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `ascending`.
                              */
@@ -8748,7 +8723,7 @@ declare global {
                                 | "worldwind"
                                 | "xmpp";
                             geuquery?: string;
-                            geunamespace?: Namespace | Namespace[];
+                            geunamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
@@ -8768,8 +8743,8 @@ declare global {
                              * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                            gfunamespace?: Namespace | Namespace[];
-                            gfushow?: OneOrMore<"!redirect" | "redirect">;
+                            gfunamespace?: OneOrMore<number | "*">;
+                            gfushow?: OneOrMore<Toggle<"redirect">>;
                             /**
                              * Defaults to 10.
                              */
@@ -8805,7 +8780,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            ggsnamespace?: Namespace | Namespace[];
+                            ggsnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `globe`.
                              */
@@ -8908,7 +8883,7 @@ declare global {
                             giutitle?: string;
                             giupageid?: number;
                             giucontinue?: string;
-                            giunamespace?: Namespace | Namespace[];
+                            giunamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `ascending`.
                              */
@@ -8974,7 +8949,7 @@ declare global {
                          */
                         interface Links extends Query {
                             generator?: "links";
-                            gplnamespace?: Namespace | Namespace[];
+                            gplnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
@@ -8996,8 +8971,8 @@ declare global {
                              * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                            glhnamespace?: Namespace | Namespace[];
-                            glhshow?: OneOrMore<"!redirect" | "redirect">;
+                            glhnamespace?: OneOrMore<number | "*">;
+                            glhshow?: OneOrMore<Toggle<"redirect">>;
                             /**
                              * Defaults to 10.
                              */
@@ -9067,7 +9042,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            gornamespace?: Namespace | Namespace[];
+                            gornamespace?: OneOrMore<number | "*">;
                             gorcategory?: string;
                             /**
                              * Defaults to `all`.
@@ -9109,7 +9084,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            gpsnamespace?: Namespace | Namespace[];
+                            gpsnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
@@ -9166,7 +9141,7 @@ declare global {
                          */
                         interface ProtectedTitles extends Query {
                             generator?: "protectedtitles";
-                            gptnamespace?: Namespace | Namespace[];
+                            gptnamespace?: OneOrMore<number | "*">;
                             gptlevel?: string | string[];
                             /**
                              * Defaults to 10.
@@ -9214,7 +9189,7 @@ declare global {
                          */
                         interface Random extends Query {
                             generator?: "random";
-                            grnnamespace?: Namespace | Namespace[];
+                            grnnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `nonredirects`.
                              */
@@ -9261,7 +9236,7 @@ declare global {
                              * Defaults to `older`.
                              */
                             grcdir?: "newer" | "older";
-                            grcnamespace?: Namespace | Namespace[];
+                            grcnamespace?: OneOrMore<number | "*">;
                             grcuser?: string;
                             grcexcludeuser?: string;
                             grctag?: string;
@@ -9286,20 +9261,15 @@ declare global {
                                 | "userid"
                             >;
                             grcshow?: OneOrMore<
-                                | "!anon"
-                                | "!autopatrolled"
-                                | "!bot"
-                                | "!minor"
-                                | "!oresreview"
-                                | "!patrolled"
-                                | "!redirect"
-                                | "anon"
-                                | "autopatrolled"
-                                | "bot"
-                                | "minor"
-                                | "oresreview"
-                                | "patrolled"
-                                | "redirect"
+                                | Toggle<
+                                      | "anon"
+                                      | "autopatrolled"
+                                      | "bot"
+                                      | "minor"
+                                      | "oresreview"
+                                      | "patrolled"
+                                      | "redirect"
+                                  >
                                 | "unpatrolled"
                             >;
                             /**
@@ -9326,8 +9296,8 @@ declare global {
                              * Defaults to `pageid` and `title`.
                              */
                             grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
-                            grdnamespace?: Namespace | Namespace[];
-                            grdshow?: OneOrMore<"!fragment" | "fragment">;
+                            grdnamespace?: OneOrMore<number | "*">;
+                            grdshow?: OneOrMore<Toggle<"fragment">>;
                             /**
                              * Defaults to 10.
                              */
@@ -9440,7 +9410,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            gsrnamespace?: Namespace | Namespace[];
+                            gsrnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
@@ -9501,7 +9471,7 @@ declare global {
                          */
                         interface Templates extends Query {
                             generator?: "templates";
-                            gtlnamespace?: Namespace | Namespace[];
+                            gtlnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
@@ -9523,8 +9493,8 @@ declare global {
                              * Defaults to `pageid`, `title`, and `redirect`.
                              */
                             gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                            gtinamespace?: Namespace | Namespace[];
-                            gtishow?: OneOrMore<"!redirect" | "redirect">;
+                            gtinamespace?: OneOrMore<number | "*">;
+                            gtishow?: OneOrMore<Toggle<"redirect">>;
                             /**
                              * Defaults to 10.
                              */
@@ -9543,7 +9513,7 @@ declare global {
                             /**
                              * Defaults to 0.
                              */
-                            gurnamespace?: Namespace | Namespace[];
+                            gurnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to `all`.
                              */
@@ -9566,7 +9536,7 @@ declare global {
                             gwlallrev?: boolean;
                             gwlstart?: string;
                             gwlend?: string;
-                            gwlnamespace?: Namespace | Namespace[];
+                            gwlnamespace?: OneOrMore<number | "*">;
                             gwluser?: string;
                             gwlexcludeuser?: string;
                             /**
@@ -9598,20 +9568,15 @@ declare global {
                                 | "userid"
                             >;
                             gwlshow?: OneOrMore<
-                                | "!anon"
-                                | "!autopatrolled"
-                                | "!bot"
-                                | "!minor"
-                                | "!oresreview"
-                                | "!patrolled"
-                                | "!unread"
-                                | "anon"
-                                | "autopatrolled"
-                                | "bot"
-                                | "minor"
-                                | "oresreview"
-                                | "patrolled"
-                                | "unread"
+                                Toggle<
+                                    | "anon"
+                                    | "autopatrolled"
+                                    | "bot"
+                                    | "minor"
+                                    | "oresreview"
+                                    | "patrolled"
+                                    | "unread"
+                                >
                             >;
                             /**
                              * Defaults to `edit`, `new`, `log`, and `categorize`.
@@ -9631,13 +9596,13 @@ declare global {
                         interface WatchlistRaw extends Query {
                             generator?: "watchlistraw";
                             gwrcontinue?: string;
-                            gwrnamespace?: Namespace | Namespace[];
+                            gwrnamespace?: OneOrMore<number | "*">;
                             /**
                              * Defaults to 10.
                              */
                             gwrlimit?: Limit;
                             gwrprop?: "changed" | "changed"[];
-                            gwrshow?: OneOrMore<"!changed" | "changed">;
+                            gwrshow?: OneOrMore<Toggle<"changed">>;
                             gwrowner?: string;
                             /**
                              * Sensitive parameter.
@@ -10138,7 +10103,7 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         gadruser?: string;
-                        gadrnamespace?: Namespace | Namespace[];
+                        gadrnamespace?: OneOrMore<number | "*">;
                         gadrstart?: string;
                         gadrend?: string;
                         /**
@@ -10252,7 +10217,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        galnamespace?: Namespace;
+                        galnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -10275,7 +10240,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gapnamespace?: Namespace;
+                        gapnamespace?: number;
                         /**
                          * Defaults to `all`.
                          */
@@ -10323,7 +10288,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        garnamespace?: Namespace;
+                        garnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -10416,7 +10381,7 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         garvuser?: string;
-                        garvnamespace?: Namespace | Namespace[];
+                        garvnamespace?: OneOrMore<number | "*">;
                         garvstart?: string;
                         garvend?: string;
                         /**
@@ -10445,7 +10410,7 @@ declare global {
                         /**
                          * Defaults to 10.
                          */
-                        gatnamespace?: Namespace;
+                        gatnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -10470,7 +10435,7 @@ declare global {
                         gbltitle?: string;
                         gblpageid?: number;
                         gblcontinue?: string;
-                        gblnamespace?: Namespace | Namespace[];
+                        gblnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -10492,7 +10457,7 @@ declare global {
                     interface Categories extends SetNotificationTimestamp {
                         generator?: "categories";
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
-                        gclshow?: OneOrMore<"!hidden" | "hidden">;
+                        gclshow?: OneOrMore<Toggle<"hidden">>;
                         /**
                          * Defaults to 10.
                          */
@@ -10518,7 +10483,7 @@ declare global {
                         gcmprop?: OneOrMore<
                             "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                         >;
-                        gcmnamespace?: Namespace | Namespace[];
+                        gcmnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `page`, `subcat`, and `file`.
                          */
@@ -10560,7 +10525,7 @@ declare global {
                          * Defaults to `newer`.
                          */
                         gcpdir?: "newer" | "older";
-                        gcpnamespace?: Namespace | Namespace[];
+                        gcpnamespace?: OneOrMore<number | "*">;
                         gcpdefault?: "latest" | "stable";
                         gcpautoreview?: "none" | "sysop";
                         /**
@@ -10718,7 +10683,7 @@ declare global {
                         geititle?: string;
                         geipageid?: number;
                         geicontinue?: string;
-                        geinamespace?: Namespace | Namespace[];
+                        geinamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -10777,7 +10742,7 @@ declare global {
                             | "worldwind"
                             | "xmpp";
                         geuquery?: string;
-                        geunamespace?: Namespace | Namespace[];
+                        geunamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -10797,8 +10762,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        gfunamespace?: Namespace | Namespace[];
-                        gfushow?: OneOrMore<"!redirect" | "redirect">;
+                        gfunamespace?: OneOrMore<number | "*">;
+                        gfushow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -10834,7 +10799,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        ggsnamespace?: Namespace | Namespace[];
+                        ggsnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `globe`.
                          */
@@ -10937,7 +10902,7 @@ declare global {
                         giutitle?: string;
                         giupageid?: number;
                         giucontinue?: string;
-                        giunamespace?: Namespace | Namespace[];
+                        giunamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -11003,7 +10968,7 @@ declare global {
                      */
                     interface Links extends SetNotificationTimestamp {
                         generator?: "links";
-                        gplnamespace?: Namespace | Namespace[];
+                        gplnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -11025,8 +10990,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        glhnamespace?: Namespace | Namespace[];
-                        glhshow?: OneOrMore<"!redirect" | "redirect">;
+                        glhnamespace?: OneOrMore<number | "*">;
+                        glhshow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -11096,7 +11061,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gornamespace?: Namespace | Namespace[];
+                        gornamespace?: OneOrMore<number | "*">;
                         gorcategory?: string;
                         /**
                          * Defaults to `all`.
@@ -11138,7 +11103,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gpsnamespace?: Namespace | Namespace[];
+                        gpsnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -11195,7 +11160,7 @@ declare global {
                      */
                     interface ProtectedTitles extends SetNotificationTimestamp {
                         generator?: "protectedtitles";
-                        gptnamespace?: Namespace | Namespace[];
+                        gptnamespace?: OneOrMore<number | "*">;
                         gptlevel?: string | string[];
                         /**
                          * Defaults to 10.
@@ -11243,7 +11208,7 @@ declare global {
                      */
                     interface Random extends SetNotificationTimestamp {
                         generator?: "random";
-                        grnnamespace?: Namespace | Namespace[];
+                        grnnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `nonredirects`.
                          */
@@ -11290,7 +11255,7 @@ declare global {
                          * Defaults to `older`.
                          */
                         grcdir?: "newer" | "older";
-                        grcnamespace?: Namespace | Namespace[];
+                        grcnamespace?: OneOrMore<number | "*">;
                         grcuser?: string;
                         grcexcludeuser?: string;
                         grctag?: string;
@@ -11315,20 +11280,15 @@ declare global {
                             | "userid"
                         >;
                         grcshow?: OneOrMore<
-                            | "!anon"
-                            | "!autopatrolled"
-                            | "!bot"
-                            | "!minor"
-                            | "!oresreview"
-                            | "!patrolled"
-                            | "!redirect"
-                            | "anon"
-                            | "autopatrolled"
-                            | "bot"
-                            | "minor"
-                            | "oresreview"
-                            | "patrolled"
-                            | "redirect"
+                            | Toggle<
+                                  | "anon"
+                                  | "autopatrolled"
+                                  | "bot"
+                                  | "minor"
+                                  | "oresreview"
+                                  | "patrolled"
+                                  | "redirect"
+                              >
                             | "unpatrolled"
                         >;
                         /**
@@ -11355,8 +11315,8 @@ declare global {
                          * Defaults to `pageid` and `title`.
                          */
                         grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
-                        grdnamespace?: Namespace | Namespace[];
-                        grdshow?: OneOrMore<"!fragment" | "fragment">;
+                        grdnamespace?: OneOrMore<number | "*">;
+                        grdshow?: OneOrMore<Toggle<"fragment">>;
                         /**
                          * Defaults to 10.
                          */
@@ -11469,7 +11429,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gsrnamespace?: Namespace | Namespace[];
+                        gsrnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -11530,7 +11490,7 @@ declare global {
                      */
                     interface Templates extends SetNotificationTimestamp {
                         generator?: "templates";
-                        gtlnamespace?: Namespace | Namespace[];
+                        gtlnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -11552,8 +11512,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        gtinamespace?: Namespace | Namespace[];
-                        gtishow?: OneOrMore<"!redirect" | "redirect">;
+                        gtinamespace?: OneOrMore<number | "*">;
+                        gtishow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -11572,7 +11532,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gurnamespace?: Namespace | Namespace[];
+                        gurnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `all`.
                          */
@@ -11595,7 +11555,7 @@ declare global {
                         gwlallrev?: boolean;
                         gwlstart?: string;
                         gwlend?: string;
-                        gwlnamespace?: Namespace | Namespace[];
+                        gwlnamespace?: OneOrMore<number | "*">;
                         gwluser?: string;
                         gwlexcludeuser?: string;
                         /**
@@ -11627,20 +11587,15 @@ declare global {
                             | "userid"
                         >;
                         gwlshow?: OneOrMore<
-                            | "!anon"
-                            | "!autopatrolled"
-                            | "!bot"
-                            | "!minor"
-                            | "!oresreview"
-                            | "!patrolled"
-                            | "!unread"
-                            | "anon"
-                            | "autopatrolled"
-                            | "bot"
-                            | "minor"
-                            | "oresreview"
-                            | "patrolled"
-                            | "unread"
+                            Toggle<
+                                | "anon"
+                                | "autopatrolled"
+                                | "bot"
+                                | "minor"
+                                | "oresreview"
+                                | "patrolled"
+                                | "unread"
+                            >
                         >;
                         /**
                          * Defaults to `edit`, `new`, `log`, and `categorize`.
@@ -11660,13 +11615,13 @@ declare global {
                     interface WatchlistRaw extends SetNotificationTimestamp {
                         generator?: "watchlistraw";
                         gwrcontinue?: string;
-                        gwrnamespace?: Namespace | Namespace[];
+                        gwrnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
                         gwrlimit?: Limit;
                         gwrprop?: "changed" | "changed"[];
-                        gwrshow?: OneOrMore<"!changed" | "changed">;
+                        gwrshow?: OneOrMore<Toggle<"changed">>;
                         gwrowner?: string;
                         /**
                          * Sensitive parameter.
@@ -12086,7 +12041,7 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         gadruser?: string;
-                        gadrnamespace?: Namespace | Namespace[];
+                        gadrnamespace?: OneOrMore<number | "*">;
                         gadrstart?: string;
                         gadrend?: string;
                         /**
@@ -12200,7 +12155,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        galnamespace?: Namespace;
+                        galnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -12223,7 +12178,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gapnamespace?: Namespace;
+                        gapnamespace?: number;
                         /**
                          * Defaults to `all`.
                          */
@@ -12271,7 +12226,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        garnamespace?: Namespace;
+                        garnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -12364,7 +12319,7 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         garvuser?: string;
-                        garvnamespace?: Namespace | Namespace[];
+                        garvnamespace?: OneOrMore<number | "*">;
                         garvstart?: string;
                         garvend?: string;
                         /**
@@ -12393,7 +12348,7 @@ declare global {
                         /**
                          * Defaults to 10.
                          */
-                        gatnamespace?: Namespace;
+                        gatnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -12418,7 +12373,7 @@ declare global {
                         gbltitle?: string;
                         gblpageid?: number;
                         gblcontinue?: string;
-                        gblnamespace?: Namespace | Namespace[];
+                        gblnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -12440,7 +12395,7 @@ declare global {
                     interface Categories extends TemplateData {
                         generator?: "categories";
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
-                        gclshow?: OneOrMore<"!hidden" | "hidden">;
+                        gclshow?: OneOrMore<Toggle<"hidden">>;
                         /**
                          * Defaults to 10.
                          */
@@ -12466,7 +12421,7 @@ declare global {
                         gcmprop?: OneOrMore<
                             "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                         >;
-                        gcmnamespace?: Namespace | Namespace[];
+                        gcmnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `page`, `subcat`, and `file`.
                          */
@@ -12508,7 +12463,7 @@ declare global {
                          * Defaults to `newer`.
                          */
                         gcpdir?: "newer" | "older";
-                        gcpnamespace?: Namespace | Namespace[];
+                        gcpnamespace?: OneOrMore<number | "*">;
                         gcpdefault?: "latest" | "stable";
                         gcpautoreview?: "none" | "sysop";
                         /**
@@ -12666,7 +12621,7 @@ declare global {
                         geititle?: string;
                         geipageid?: number;
                         geicontinue?: string;
-                        geinamespace?: Namespace | Namespace[];
+                        geinamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -12725,7 +12680,7 @@ declare global {
                             | "worldwind"
                             | "xmpp";
                         geuquery?: string;
-                        geunamespace?: Namespace | Namespace[];
+                        geunamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -12745,8 +12700,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        gfunamespace?: Namespace | Namespace[];
-                        gfushow?: OneOrMore<"!redirect" | "redirect">;
+                        gfunamespace?: OneOrMore<number | "*">;
+                        gfushow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -12782,7 +12737,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        ggsnamespace?: Namespace | Namespace[];
+                        ggsnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `globe`.
                          */
@@ -12885,7 +12840,7 @@ declare global {
                         giutitle?: string;
                         giupageid?: number;
                         giucontinue?: string;
-                        giunamespace?: Namespace | Namespace[];
+                        giunamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -12951,7 +12906,7 @@ declare global {
                      */
                     interface Links extends TemplateData {
                         generator?: "links";
-                        gplnamespace?: Namespace | Namespace[];
+                        gplnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -12973,8 +12928,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        glhnamespace?: Namespace | Namespace[];
-                        glhshow?: OneOrMore<"!redirect" | "redirect">;
+                        glhnamespace?: OneOrMore<number | "*">;
+                        glhshow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -13044,7 +12999,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gornamespace?: Namespace | Namespace[];
+                        gornamespace?: OneOrMore<number | "*">;
                         gorcategory?: string;
                         /**
                          * Defaults to `all`.
@@ -13086,7 +13041,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gpsnamespace?: Namespace | Namespace[];
+                        gpsnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -13143,7 +13098,7 @@ declare global {
                      */
                     interface ProtectedTitles extends TemplateData {
                         generator?: "protectedtitles";
-                        gptnamespace?: Namespace | Namespace[];
+                        gptnamespace?: OneOrMore<number | "*">;
                         gptlevel?: string | string[];
                         /**
                          * Defaults to 10.
@@ -13191,7 +13146,7 @@ declare global {
                      */
                     interface Random extends TemplateData {
                         generator?: "random";
-                        grnnamespace?: Namespace | Namespace[];
+                        grnnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `nonredirects`.
                          */
@@ -13238,7 +13193,7 @@ declare global {
                          * Defaults to `older`.
                          */
                         grcdir?: "newer" | "older";
-                        grcnamespace?: Namespace | Namespace[];
+                        grcnamespace?: OneOrMore<number | "*">;
                         grcuser?: string;
                         grcexcludeuser?: string;
                         grctag?: string;
@@ -13263,20 +13218,15 @@ declare global {
                             | "userid"
                         >;
                         grcshow?: OneOrMore<
-                            | "!anon"
-                            | "!autopatrolled"
-                            | "!bot"
-                            | "!minor"
-                            | "!oresreview"
-                            | "!patrolled"
-                            | "!redirect"
-                            | "anon"
-                            | "autopatrolled"
-                            | "bot"
-                            | "minor"
-                            | "oresreview"
-                            | "patrolled"
-                            | "redirect"
+                            | Toggle<
+                                  | "anon"
+                                  | "autopatrolled"
+                                  | "bot"
+                                  | "minor"
+                                  | "oresreview"
+                                  | "patrolled"
+                                  | "redirect"
+                              >
                             | "unpatrolled"
                         >;
                         /**
@@ -13303,8 +13253,8 @@ declare global {
                          * Defaults to `pageid` and `title`.
                          */
                         grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
-                        grdnamespace?: Namespace | Namespace[];
-                        grdshow?: OneOrMore<"!fragment" | "fragment">;
+                        grdnamespace?: OneOrMore<number | "*">;
+                        grdshow?: OneOrMore<Toggle<"fragment">>;
                         /**
                          * Defaults to 10.
                          */
@@ -13417,7 +13367,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gsrnamespace?: Namespace | Namespace[];
+                        gsrnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -13478,7 +13428,7 @@ declare global {
                      */
                     interface Templates extends TemplateData {
                         generator?: "templates";
-                        gtlnamespace?: Namespace | Namespace[];
+                        gtlnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -13500,8 +13450,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        gtinamespace?: Namespace | Namespace[];
-                        gtishow?: OneOrMore<"!redirect" | "redirect">;
+                        gtinamespace?: OneOrMore<number | "*">;
+                        gtishow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -13520,7 +13470,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gurnamespace?: Namespace | Namespace[];
+                        gurnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `all`.
                          */
@@ -13543,7 +13493,7 @@ declare global {
                         gwlallrev?: boolean;
                         gwlstart?: string;
                         gwlend?: string;
-                        gwlnamespace?: Namespace | Namespace[];
+                        gwlnamespace?: OneOrMore<number | "*">;
                         gwluser?: string;
                         gwlexcludeuser?: string;
                         /**
@@ -13575,20 +13525,15 @@ declare global {
                             | "userid"
                         >;
                         gwlshow?: OneOrMore<
-                            | "!anon"
-                            | "!autopatrolled"
-                            | "!bot"
-                            | "!minor"
-                            | "!oresreview"
-                            | "!patrolled"
-                            | "!unread"
-                            | "anon"
-                            | "autopatrolled"
-                            | "bot"
-                            | "minor"
-                            | "oresreview"
-                            | "patrolled"
-                            | "unread"
+                            Toggle<
+                                | "anon"
+                                | "autopatrolled"
+                                | "bot"
+                                | "minor"
+                                | "oresreview"
+                                | "patrolled"
+                                | "unread"
+                            >
                         >;
                         /**
                          * Defaults to `edit`, `new`, `log`, and `categorize`.
@@ -13608,13 +13553,13 @@ declare global {
                     interface WatchlistRaw extends TemplateData {
                         generator?: "watchlistraw";
                         gwrcontinue?: string;
-                        gwrnamespace?: Namespace | Namespace[];
+                        gwrnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
                         gwrlimit?: Limit;
                         gwrprop?: "changed" | "changed"[];
-                        gwrshow?: OneOrMore<"!changed" | "changed">;
+                        gwrshow?: OneOrMore<Toggle<"changed">>;
                         gwrowner?: string;
                         /**
                          * Sensitive parameter.
@@ -14117,7 +14062,19 @@ declare global {
                      * Defaults to an empty string.
                      */
                     returntoanchor?: string;
-                    useskin?: string;
+                    useskin?:
+                        | "apioutput"
+                        | "authentication-popup"
+                        | "cologneblue"
+                        | "contenttranslation"
+                        | "fallback"
+                        | "json"
+                        | "minerva"
+                        | "modern"
+                        | "monobook"
+                        | "timeless"
+                        | "vector"
+                        | "vector-2022";
                     tags?: string | string[];
                     plugins?: string | string[];
                     [k: `data-${string}`]: string;
@@ -14255,7 +14212,7 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         gadruser?: string;
-                        gadrnamespace?: Namespace | Namespace[];
+                        gadrnamespace?: OneOrMore<number | "*">;
                         gadrstart?: string;
                         gadrend?: string;
                         /**
@@ -14369,7 +14326,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        galnamespace?: Namespace;
+                        galnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -14392,7 +14349,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gapnamespace?: Namespace;
+                        gapnamespace?: number;
                         /**
                          * Defaults to `all`.
                          */
@@ -14440,7 +14397,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        garnamespace?: Namespace;
+                        garnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -14533,7 +14490,7 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         garvuser?: string;
-                        garvnamespace?: Namespace | Namespace[];
+                        garvnamespace?: OneOrMore<number | "*">;
                         garvstart?: string;
                         garvend?: string;
                         /**
@@ -14562,7 +14519,7 @@ declare global {
                         /**
                          * Defaults to 10.
                          */
-                        gatnamespace?: Namespace;
+                        gatnamespace?: number;
                         /**
                          * Defaults to 10.
                          */
@@ -14587,7 +14544,7 @@ declare global {
                         gbltitle?: string;
                         gblpageid?: number;
                         gblcontinue?: string;
-                        gblnamespace?: Namespace | Namespace[];
+                        gblnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -14609,7 +14566,7 @@ declare global {
                     interface Categories extends Watch {
                         generator?: "categories";
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
-                        gclshow?: OneOrMore<"!hidden" | "hidden">;
+                        gclshow?: OneOrMore<Toggle<"hidden">>;
                         /**
                          * Defaults to 10.
                          */
@@ -14635,7 +14592,7 @@ declare global {
                         gcmprop?: OneOrMore<
                             "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
                         >;
-                        gcmnamespace?: Namespace | Namespace[];
+                        gcmnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `page`, `subcat`, and `file`.
                          */
@@ -14677,7 +14634,7 @@ declare global {
                          * Defaults to `newer`.
                          */
                         gcpdir?: "newer" | "older";
-                        gcpnamespace?: Namespace | Namespace[];
+                        gcpnamespace?: OneOrMore<number | "*">;
                         gcpdefault?: "latest" | "stable";
                         gcpautoreview?: "none" | "sysop";
                         /**
@@ -14835,7 +14792,7 @@ declare global {
                         geititle?: string;
                         geipageid?: number;
                         geicontinue?: string;
-                        geinamespace?: Namespace | Namespace[];
+                        geinamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -14894,7 +14851,7 @@ declare global {
                             | "worldwind"
                             | "xmpp";
                         geuquery?: string;
-                        geunamespace?: Namespace | Namespace[];
+                        geunamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -14914,8 +14871,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        gfunamespace?: Namespace | Namespace[];
-                        gfushow?: OneOrMore<"!redirect" | "redirect">;
+                        gfunamespace?: OneOrMore<number | "*">;
+                        gfushow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -14951,7 +14908,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        ggsnamespace?: Namespace | Namespace[];
+                        ggsnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `globe`.
                          */
@@ -15054,7 +15011,7 @@ declare global {
                         giutitle?: string;
                         giupageid?: number;
                         giucontinue?: string;
-                        giunamespace?: Namespace | Namespace[];
+                        giunamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `ascending`.
                          */
@@ -15120,7 +15077,7 @@ declare global {
                      */
                     interface Links extends Watch {
                         generator?: "links";
-                        gplnamespace?: Namespace | Namespace[];
+                        gplnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -15142,8 +15099,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        glhnamespace?: Namespace | Namespace[];
-                        glhshow?: OneOrMore<"!redirect" | "redirect">;
+                        glhnamespace?: OneOrMore<number | "*">;
+                        glhshow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -15213,7 +15170,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gornamespace?: Namespace | Namespace[];
+                        gornamespace?: OneOrMore<number | "*">;
                         gorcategory?: string;
                         /**
                          * Defaults to `all`.
@@ -15255,7 +15212,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gpsnamespace?: Namespace | Namespace[];
+                        gpsnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -15312,7 +15269,7 @@ declare global {
                      */
                     interface ProtectedTitles extends Watch {
                         generator?: "protectedtitles";
-                        gptnamespace?: Namespace | Namespace[];
+                        gptnamespace?: OneOrMore<number | "*">;
                         gptlevel?: string | string[];
                         /**
                          * Defaults to 10.
@@ -15360,7 +15317,7 @@ declare global {
                      */
                     interface Random extends Watch {
                         generator?: "random";
-                        grnnamespace?: Namespace | Namespace[];
+                        grnnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `nonredirects`.
                          */
@@ -15407,7 +15364,7 @@ declare global {
                          * Defaults to `older`.
                          */
                         grcdir?: "newer" | "older";
-                        grcnamespace?: Namespace | Namespace[];
+                        grcnamespace?: OneOrMore<number | "*">;
                         grcuser?: string;
                         grcexcludeuser?: string;
                         grctag?: string;
@@ -15432,20 +15389,15 @@ declare global {
                             | "userid"
                         >;
                         grcshow?: OneOrMore<
-                            | "!anon"
-                            | "!autopatrolled"
-                            | "!bot"
-                            | "!minor"
-                            | "!oresreview"
-                            | "!patrolled"
-                            | "!redirect"
-                            | "anon"
-                            | "autopatrolled"
-                            | "bot"
-                            | "minor"
-                            | "oresreview"
-                            | "patrolled"
-                            | "redirect"
+                            | Toggle<
+                                  | "anon"
+                                  | "autopatrolled"
+                                  | "bot"
+                                  | "minor"
+                                  | "oresreview"
+                                  | "patrolled"
+                                  | "redirect"
+                              >
                             | "unpatrolled"
                         >;
                         /**
@@ -15472,8 +15424,8 @@ declare global {
                          * Defaults to `pageid` and `title`.
                          */
                         grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
-                        grdnamespace?: Namespace | Namespace[];
-                        grdshow?: OneOrMore<"!fragment" | "fragment">;
+                        grdnamespace?: OneOrMore<number | "*">;
+                        grdshow?: OneOrMore<Toggle<"fragment">>;
                         /**
                          * Defaults to 10.
                          */
@@ -15586,7 +15538,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gsrnamespace?: Namespace | Namespace[];
+                        gsrnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -15647,7 +15599,7 @@ declare global {
                      */
                     interface Templates extends Watch {
                         generator?: "templates";
-                        gtlnamespace?: Namespace | Namespace[];
+                        gtlnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
@@ -15669,8 +15621,8 @@ declare global {
                          * Defaults to `pageid`, `title`, and `redirect`.
                          */
                         gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
-                        gtinamespace?: Namespace | Namespace[];
-                        gtishow?: OneOrMore<"!redirect" | "redirect">;
+                        gtinamespace?: OneOrMore<number | "*">;
+                        gtishow?: OneOrMore<Toggle<"redirect">>;
                         /**
                          * Defaults to 10.
                          */
@@ -15689,7 +15641,7 @@ declare global {
                         /**
                          * Defaults to 0.
                          */
-                        gurnamespace?: Namespace | Namespace[];
+                        gurnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to `all`.
                          */
@@ -15712,7 +15664,7 @@ declare global {
                         gwlallrev?: boolean;
                         gwlstart?: string;
                         gwlend?: string;
-                        gwlnamespace?: Namespace | Namespace[];
+                        gwlnamespace?: OneOrMore<number | "*">;
                         gwluser?: string;
                         gwlexcludeuser?: string;
                         /**
@@ -15744,20 +15696,15 @@ declare global {
                             | "userid"
                         >;
                         gwlshow?: OneOrMore<
-                            | "!anon"
-                            | "!autopatrolled"
-                            | "!bot"
-                            | "!minor"
-                            | "!oresreview"
-                            | "!patrolled"
-                            | "!unread"
-                            | "anon"
-                            | "autopatrolled"
-                            | "bot"
-                            | "minor"
-                            | "oresreview"
-                            | "patrolled"
-                            | "unread"
+                            Toggle<
+                                | "anon"
+                                | "autopatrolled"
+                                | "bot"
+                                | "minor"
+                                | "oresreview"
+                                | "patrolled"
+                                | "unread"
+                            >
                         >;
                         /**
                          * Defaults to `edit`, `new`, `log`, and `categorize`.
@@ -15777,13 +15724,13 @@ declare global {
                     interface WatchlistRaw extends Watch {
                         generator?: "watchlistraw";
                         gwrcontinue?: string;
-                        gwrnamespace?: Namespace | Namespace[];
+                        gwrnamespace?: OneOrMore<number | "*">;
                         /**
                          * Defaults to 10.
                          */
                         gwrlimit?: Limit;
                         gwrprop?: "changed" | "changed"[];
-                        gwrshow?: OneOrMore<"!changed" | "changed">;
+                        gwrshow?: OneOrMore<Toggle<"changed">>;
                         gwrowner?: string;
                         /**
                          * Sensitive parameter.
@@ -16859,6 +16806,21 @@ declare global {
         }
     }
 }
+
+/**
+ * @deprecated Use {@link mw.Api.Assert `mw.Api.Assert`} instead.
+ */
+export type ApiAssert = mw.Api.Assert;
+
+/**
+ * @deprecated Use {@link mw.Api.TokenType `mw.Api.TokenType`} instead.
+ */
+export type ApiTokenType = mw.Api.TokenType;
+
+/**
+ * @deprecated Use {@link mw.Api.LegacyTokenType `mw.Api.LegacyTokenType`} instead.
+ */
+export type ApiLegacyTokenType = mw.Api.LegacyTokenType;
 
 /**
  * @deprecated Use {@link mw.Api.Params.Action.AbuseFilterCheckMatch `Partial<mw.Api.Params.Action.AbuseFilterCheckMatch>`} instead.

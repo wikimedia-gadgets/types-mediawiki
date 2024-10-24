@@ -112,7 +112,6 @@ const PARAMETER_TYPE_UNDERLYING = {
  */
 const TYPE_ALIASES = {
     Limit: { base: "number", lits: new Set(["max"]) },
-    Namespace: { base: "number", lits: new Set(["*"]) },
     Assert: { lits: new Set(["anon", "bot", "user"]) },
     TokenType: {
         lits: new Set([
@@ -125,6 +124,19 @@ const TYPE_ALIASES = {
             "setglobalaccountstatus",
             "userrights",
             "watch",
+        ]),
+    },
+    LegacyTokenType: {
+        lits: new Set([
+            "block",
+            "delete",
+            "edit",
+            "email",
+            "import",
+            "move",
+            "options",
+            "protect",
+            "unblock",
         ]),
     },
 };
@@ -1096,10 +1108,7 @@ class ModuleParser {
             }
 
             underlying = TYPE_ALIASES[underlying.base];
-
-            if (underlying.lits !== undefined) {
-                type.lits = type.lits.difference(underlying.lits);
-            }
+            underlying.lits?.forEach(Set.prototype.delete, type.lits);
         }
 
         // Use type aliases to reduce type expressions.
@@ -1143,7 +1152,6 @@ class ModuleParser {
             name: rawParameter.name,
             module: module,
             type: {},
-            multi: !!rawParameter.multi,
             required: !!rawParameter.required,
             jsdoc,
         };
@@ -1168,8 +1176,8 @@ class ModuleParser {
                 rawParameter.type.forEach(Set.prototype.add, parameter.type.lits);
             }
         } else if (rawParameter.type in PARAMETER_TYPE_UNDERLYING) {
-            parameter.type = PARAMETER_TYPE_UNDERLYING[rawParameter.type];
-            parameter.type.lits ??= new Set();
+            parameter.type = { ...PARAMETER_TYPE_UNDERLYING[rawParameter.type] };
+            parameter.type.lits = new Set(parameter.type.lits);
         } else {
             logError(
                 `[MP] Could not find an appropriate TS type for parameter type "${rawParameter.type}".`
@@ -1178,6 +1186,10 @@ class ModuleParser {
 
         if (rawParameter.default !== undefined) {
             parameter.default = rawParameter.default;
+        }
+
+        if (rawParameter.multi) {
+            parameter.type.multi = true;
         }
 
         if (rawParameter.sensitive) {
@@ -1332,10 +1344,10 @@ class ModuleFormatter {
 
     /**
      * @param {unknown} lit
-     * @param {boolean} [multi]
+     * @param {Parameter.Type} [type]
      * @returns {string}
      */
-    formatJSdocLit = (lit, multi) => {
+    formatJSdocLit = (lit, type) => {
         if (lit === undefined || lit === "") {
             return "";
         }
@@ -1344,7 +1356,7 @@ class ModuleFormatter {
             return `${lit}`;
         }
 
-        if (!multi) {
+        if (!type?.multi) {
             return `\`${lit}\``;
         }
 
@@ -1400,21 +1412,42 @@ class ModuleFormatter {
 
     /**
      * @param {Parameter.Type} type
-     * @param {boolean} [multi]
      */
-    formatTypeExpr = (type, multi) => {
-        const typeUnion = (type.lits ?? new Set()).values().toArray().map(this.quote).sort();
+    formatTypeExpr = (type) => {
+        const typeUnion = [];
+
         if (typeof type.base === "object") {
-            typeUnion.unshift("string");
+            typeUnion.push("string");
         } else if (typeof type.base === "string") {
-            typeUnion.unshift(type.base);
+            typeUnion.push(type.base);
+        }
+
+        const lits = new Set(type.lits);
+        const toggleLits = new Set();
+        if (lits.size > 0) {
+            for (const lit of lits.values().toArray()) {
+                const negLit = `!${lit}`;
+                if (lits.has(negLit)) {
+                    toggleLits.add(lit);
+                    lits.delete(lit);
+                    lits.delete(negLit);
+                }
+            }
+
+            if (toggleLits.size > 0) {
+                typeUnion.push(
+                    `Toggle<${toggleLits.values().map(this.quote).toArray().sort().join(" | ")}>`
+                );
+            }
+
+            typeUnion.push(...lits.values().map(this.quote).toArray().sort());
         }
 
         if (typeUnion.length === 0) {
             return "never";
-        } else if (!multi) {
+        } else if (!type.multi) {
             return typeUnion.join(" | ");
-        } else if (typeUnion.length === 1) {
+        } else if (typeUnion.length === 1 && toggleLits.size === 0) {
             return `${typeUnion[0]} | ${typeUnion[0]}[]`;
         } else {
             return `OneOrMore<${typeUnion.join(" | ")}>`;
@@ -1474,14 +1507,11 @@ class ModuleFormatter {
         if (prop.default !== undefined) {
             jsdoc.description = jsdoc.description ? [...jsdoc.description] : [];
             jsdoc.description.push(
-                `Defaults to ${this.formatJSdocLit(prop.default, prop.multi) || "an empty string"}.`
+                `Defaults to ${this.formatJSdocLit(prop.default, prop.type) || "an empty string"}.`
             );
         }
 
-        return [
-            ...this.formatJSdoc(jsdoc),
-            `${key}: ${this.formatTypeExpr(prop.type, prop.multi)};`,
-        ];
+        return [...this.formatJSdoc(jsdoc), `${key}: ${this.formatTypeExpr(prop.type)};`];
     };
 
     /**
@@ -1555,7 +1585,7 @@ class ModuleFormatter {
             const parameter = parentStack.path.parameter;
             options.parent = parameter.module.name;
 
-            if (!parameter.multi) {
+            if (!parameter.type.multi) {
                 const narrowedParameter = { ...parameter };
                 narrowedParameter.type = { lits: new Set([parentStack.path.value]) };
 
@@ -1626,15 +1656,15 @@ class ModuleFormatter {
 
     /**
      * @param {string} typeName
-     * @param {string[]} targetNames
+     * @param {{type: string, link?: string }[]} targets
      */
-    formatDeprecatedAlias = (typeName, targetNames) => [
+    formatDeprecatedAlias = (typeName, targets) => [
         ...this.formatJSdoc({
-            deprecated: `Use ${targetNames
-                .map((t) => `{@link mw.Api.${t} \`Partial<mw.Api.${t}>\`}`)
+            deprecated: `Use ${targets
+                .map((t) => `{@link ${t.link ?? t.type} \`${t.type}\`}`)
                 .join(" / ")} instead.`,
         }),
-        ...this.formatType(typeName, `Partial<mw.Api.${targetNames[0]}>`, "export"),
+        ...this.formatType(typeName, targets[0].type, "export"),
     ];
 
     /**
@@ -1646,55 +1676,23 @@ class ModuleFormatter {
         this.flatWithLine([
             "// AUTOMATICALLY GENERATED (see scripts/api-types-generator.js)",
             this.formatType("OneOrMore<T>", "T | T[]"),
-            this.formatType(
-                "ApiAssert",
-                this.formatTypeExpr({ lits: new Set(["anon", "bot", "user"]) }),
-                "export"
-            ),
-            this.formatType(
-                "ApiTokenType",
-                this.formatTypeExpr({
-                    lits: new Set([
-                        "createaccount",
-                        "csrf",
-                        "deleteglobalaccount",
-                        "login",
-                        "patrol",
-                        "rollback",
-                        "setglobalaccountstatus",
-                        "userrights",
-                        "watch",
-                    ]),
-                }),
-                "export"
-            ),
-            this.formatType(
-                "ApiLegacyTokenType",
-                this.formatTypeExpr({
-                    lits: new Set([
-                        "block",
-                        "delete",
-                        "edit",
-                        "email",
-                        "import",
-                        "move",
-                        "options",
-                        "protect",
-                        "unblock",
-                    ]),
-                }),
-                "export"
-            ),
             this.formatGlobal([
                 this.formatNamespace("mw.Api", [
+                    this.formatType("Toggle<T extends string>", "{ [V in T]: V | `!${V}` }[T]"),
                     ...Object.entries(TYPE_ALIASES).map(([k, v]) =>
                         this.formatType(k, this.formatTypeExpr(v))
                     ),
                     ...this.formatModule(rootModule, null),
                 ]),
             ]),
-            ...Object.entries(this.deprecatedAliases).map(([k, v]) =>
-                this.formatDeprecatedAlias(k, v)
+            this.formatDeprecatedAlias("ApiAssert", [{ type: "mw.Api.Assert" }]),
+            this.formatDeprecatedAlias("ApiTokenType", [{ type: "mw.Api.TokenType" }]),
+            this.formatDeprecatedAlias("ApiLegacyTokenType", [{ type: "mw.Api.LegacyTokenType" }]),
+            ...Object.entries(this.deprecatedAliases).map(([k, vs]) =>
+                this.formatDeprecatedAlias(
+                    k,
+                    vs.map((v) => ({ type: `Partial<mw.Api.${v}>`, link: `mw.Api.${v}` }))
+                )
             ),
             "export {};",
         ]);
