@@ -1,22 +1,23 @@
 // This generates the content of `api_params/index.d.ts`, by extracting online MediaWiki API module information.
-// Go to a Wikimedia site, paste this into the browser console, and copy the log output.
+// Go to a Wikimedia site, paste this into the browser console, and move the generated TS declaration files to api_params.
 //
 // This process is done in 4 steps:
 //
-//                                  main
-//                                  └── action=                                                                       namespace Params {
-//   https://w1/api.php  ══[ML]══>      ├── query   ═══╗          main                      Params                     namespace Action {
-//                                      └── block      ║          └── action=               └── Action                  interface Query {}
-//                                                     ╠══[MM]══>     ├── query   ══[MP]══>     ├── Query   ══[MF]══>   interface Block {}
-//                                  main               ║              ├── block                 ├── Block               interface WBSearch {}
-//                                  └── action=        ║              └── wbsearch              └── WBSearch           }
-//   https://w2/api.php  ══[ML]══>      ├── query     ═╝                                                              }
-//                                      └── wbsearch
+//                          main                                                                     namespace Params
+//                          └─ action=                                                               └─ namespace Action
+//   /w1/api.php  ══[ML]══>    ├─ query  ══╗         main                   Params              ╔══>    ├─ interface Query  ══[MG]══>  index.d.ts
+//                             └─ block    ║         └─ action=             └─ Action           ║       └─ interface Block
+//                                         ╠═[MM]══>    ├─ query  ══[MP]══>    ├─ Query  ══[MF]═╣
+//                          main           ║            ├─ block               ├─ Block         ║    namespace Params
+//                          └─ action=     ║            └─ wbsearch            └─ WBSearch      ╚═>  └─ namespace Action    ══[MG]══>  Wikibase.d.ts
+//   /w2/api.php  ══[ML]══>    ├─ query   ═╝                                                            └─ interface WBSearch
+//                             └─ wbsearch
 //
 // [ML] ModuleLoader: load module data from all APIs.
 // [MM] ModuleMerger: merge module data into a single hierarchy.
 // [MP] ModuleParser: process module data to deduce API parameter types.
 // [MF] ModuleFormatter: format module data into TS type declarations.
+// [MG] ModuleGenerator: generate TS files from type declarations.
 
 /** @type {import("./api-types-generator-types")} */
 
@@ -1144,7 +1145,7 @@ class ModuleParser {
     parseParameter = (module, rawParameter) => {
         const rawModule = rawParameter.module;
 
-        /** @type {JSdocData} */
+        /** @type {Declaration.JSdoc} */
         const jsdoc = {};
         /** @type {Parameter} */
         const parameter = {
@@ -1252,7 +1253,7 @@ class ModuleParser {
      * @param {ParentPath} [parent] API data of the module this one is an extension of
      */
     parseModule = (rawModule, prefix, parent) => {
-        /** @type {JSdocData} */
+        /** @type {Declaration.JSdoc} */
         const jsdoc = {
             private: !!rawModule.internal,
             deprecated: !!rawModule.deprecated,
@@ -1290,6 +1291,11 @@ class ModuleParser {
     };
 }
 
+/**
+ * @param {string} s
+ */
+const quote = (s) => `"${s}"`;
+
 class ModuleFormatter {
     /**
      * @type {Record<string, string[]>};
@@ -1297,50 +1303,16 @@ class ModuleFormatter {
     deprecatedAliases = {};
 
     /**
-     * @param {string} s
-     */
-    quote = (s) => `"${s}"`;
-
-    /**
-     * @param {string} s
-     */
-    indent = (s) => (s !== "" ? " ".repeat(4) : "") + s;
-
-    /**
-     * @template T
-     * @param {(string | T)[]} block
-     */
-    flatWithLine = (block) => {
-        if (!block.length) {
-            return [];
-        }
-
-        const newBlock = [block[0]];
-        for (let i = 1; i < block.length; ++i) {
-            newBlock.push("", block[i]);
-        }
-
-        return newBlock.flat(1);
-    };
-
-    /**
      * @param {Module} source
-     * @param {ModuleFormatter.ParentStack} parentStack
+     * @param {ParentStack} [parentStack]
      */
     formatParameterPrefix = (source, parentStack) => {
         let prefix = source.prefix;
-        for (let parent = parentStack; parent !== null; parent = parent.next) {
+        for (let parent = parentStack; parent !== undefined; parent = parent.next) {
             prefix = `${parent.path.parameter.module.prefix}${prefix}`;
         }
         return prefix;
     };
-
-    /**
-     * Disable a linter rule for the next line.
-     * @param {string} name Rule name
-     * @returns TS string line
-     */
-    disableRule = (name) => `// tslint:disable-next-line:${name}`;
 
     /**
      * @param {unknown} lit
@@ -1372,9 +1344,299 @@ class ModuleFormatter {
     };
 
     /**
-     * @param {JSdocData|undefined} jsdoc
+     * @param {Parameter.Type} type
      */
-    formatJSdoc = (jsdoc) => {
+    formatTypeExpr = (type) => {
+        const typeUnion = [];
+
+        if (typeof type.base === "object") {
+            typeUnion.push("string");
+        } else if (typeof type.base === "string") {
+            typeUnion.push(type.base);
+        }
+
+        const lits = new Set(type.lits);
+        const toggleLits = new Set();
+        if (lits.size > 0) {
+            for (const lit of lits.values().toArray()) {
+                const negLit = `!${lit}`;
+                if (lits.has(negLit)) {
+                    toggleLits.add(lit);
+                    lits.delete(lit);
+                    lits.delete(negLit);
+                }
+            }
+
+            if (toggleLits.size > 0) {
+                typeUnion.push(
+                    `Toggle<${toggleLits.values().map(quote).toArray().sort().join(" | ")}>`
+                );
+            }
+
+            typeUnion.push(...lits.values().map(quote).toArray().sort());
+        }
+
+        if (typeUnion.length === 0) {
+            return "never";
+        } else if (!type.multi) {
+            return typeUnion.join(" | ");
+        } else if (typeUnion.length === 1 && toggleLits.size === 0) {
+            return `${typeUnion[0]} | ${typeUnion[0]}[]`;
+        } else {
+            return `OneOrMore<${typeUnion.join(" | ")}>`;
+        }
+    };
+
+    /**
+     * @param {Declaration.Namespace} namespace
+     * @param {Declaration.Namespace} namespace2
+     */
+    mergeNamespace = (namespace, namespace2) => {
+        if (
+            ["export", "declare"].every((m) =>
+                [namespace, namespace2].some((ns) => ns.modifier?.includes(m))
+            )
+        ) {
+            namespace.modifier = "export declare";
+        } else if ([namespace, namespace2].some((ns) => ns.modifier === "export")) {
+            namespace.modifier = "export";
+        } else if ([namespace, namespace2].some((ns) => ns.modifier === "declare")) {
+            namespace.modifier = "declare";
+        }
+
+        if (namespace2.declarations !== undefined) {
+            namespace.declarations ??= [];
+            namespace.declarations.push(...namespace2.declarations);
+        }
+
+        if (namespace2.subnamespaces !== undefined) {
+            namespace.subnamespaces ??= {};
+            for (const [subname, subnamespace] of Object.entries(namespace2.subnamespaces)) {
+                namespace.subnamespaces[subname] ??= {};
+                this.mergeNamespace(namespace.subnamespaces[subname], subnamespace);
+            }
+        }
+
+        if (namespace2.deprecated !== undefined) {
+            namespace.deprecated ??= {};
+            for (const [name, targets] of Object.entries(namespace2.deprecated)) {
+                namespace.deprecated[name] ??= [];
+                namespace.deprecated[name].push(...targets);
+            }
+        }
+    };
+
+    /**
+     * Format a module interface as a TS string.
+     * @param {Module} module Module interface data
+     * @param {ParentStack} [parentStack]
+     * @returns {Declaration.Namespace}
+     */
+    formatModule = (module, parentStack) => {
+        const parameterPrefix = this.formatParameterPrefix(module, parentStack);
+
+        /** @type {Parameter[]} */
+        const prefixedParameters = module.parameters.map((parameter) => {
+            parameter = { ...parameter };
+
+            parameter.key = `${parameterPrefix}${parameter.key}`;
+
+            if (parameter.default !== undefined) {
+                const jsdocLit =
+                    this.formatJSdocLit(parameter.default, parameter.type) || "an empty string";
+                parameter.jsdoc ??= {};
+                parameter.jsdoc.description = [...(parameter.jsdoc.description ?? [])];
+                parameter.jsdoc.description.push(`Defaults to ${jsdocLit}.`);
+            }
+
+            return parameter;
+        });
+
+        const submoduleSets = prefixedParameters.flatMap((parameter) => {
+            if (typeof parameter.type.base !== "object") {
+                return [];
+            } else {
+                const values = Object.entries(parameter.type.base).sort((e1, e2) =>
+                    e1[0].localeCompare(e2[0])
+                );
+                return { values, parameter };
+            }
+        });
+
+        /** @type {Declaration.Interface} */
+        const baseInterface = {
+            jsdoc: module.jsdoc,
+            name: module.name,
+            parents: [],
+            properties: module.parameters.map((parameter) => ({
+                jsdoc: parameter.jsdoc,
+                name: `${parameterPrefix}${parameter.key}`,
+                template: parameter.template,
+                type: this.formatTypeExpr(parameter.type),
+                required: parameter.required,
+            })),
+        };
+
+        if (parentStack !== undefined) {
+            const parameter = parentStack.path.parameter;
+            const parentParameterPrefix = this.formatParameterPrefix(
+                parameter.module,
+                parentStack.next
+            );
+
+            // Set parent interface
+            baseInterface.parents.push(parameter.module.name);
+
+            // Narrow parameter from parent interface
+            if (!parameter.type.multi) {
+                /** @type {Declaration.Property} */
+                const narrowedProperty = {
+                    name: `${parentParameterPrefix}${parameter.key}`,
+                    template: parameter.template,
+                    type: this.formatTypeExpr({ lits: new Set([parentStack.path.value]) }),
+                    required: parameter.required,
+                };
+
+                // Make parameter required if not being narrowed with the default value.
+                if (
+                    !parameter.required &&
+                    parameter.default !== undefined &&
+                    parameter.default !== parentStack.path.value
+                ) {
+                    narrowedProperty.required = true;
+                }
+
+                baseInterface.properties.unshift(narrowedProperty);
+            }
+        }
+
+        /** @type {Declaration.Namespace} */
+        const namespace = {};
+        namespace.declarations = [baseInterface];
+
+        /** @type {Record<string, Declaration.Namespace>} */
+        const subnamespaces = {};
+        for (const submoduleSet of submoduleSets) {
+            const parameter = submoduleSet.parameter;
+            subnamespaces[parameter.name] ??= {};
+            for (const [value, submodule] of submoduleSet.values) {
+                const path = { parameter, value };
+                this.mergeNamespace(
+                    subnamespaces[parameter.name],
+                    this.formatModule(submodule, { path, next: parentStack })
+                );
+            }
+        }
+
+        if (Object.entries(subnamespaces).length) {
+            namespace.subnamespaces = { [module.name]: { subnamespaces } };
+        }
+
+        if (module.oldName) {
+            const nameParts = [module.name];
+            for (let parent = parentStack; parent !== undefined; parent = parent.next) {
+                nameParts.unshift(parent.path.parameter.module.name, parent.path.parameter.name);
+            }
+
+            this.deprecatedAliases[module.oldName] ??= [];
+            this.deprecatedAliases[module.oldName].push(nameParts.join("."));
+        }
+
+        return namespace;
+    };
+
+    /**
+     * Format some module interface data as a TS declaration file.
+     * @param {Module} rootModule Formatted module data
+     * @returns {Declaration.Namespace}
+     */
+    format = (rootModule) => {
+        /** @type {Declaration.Namespace} */
+        const apiNamespace = {};
+        apiNamespace.declarations = [];
+
+        apiNamespace.declarations.push({
+            name: "Toggle",
+            template: ["T extends string"],
+            type: "{ [V in T]: V | `!${V}` }[T]",
+        });
+
+        for (const [name, type] of Object.entries(TYPE_ALIASES)) {
+            apiNamespace.declarations.push({
+                name,
+                type: this.formatTypeExpr(type),
+            });
+        }
+
+        this.mergeNamespace(apiNamespace, this.formatModule(rootModule));
+
+        /** @type {Declaration.Namespace} */
+        const mwNamespace = {};
+        mwNamespace.subnamespaces = {};
+
+        mwNamespace.subnamespaces["Api"] = apiNamespace;
+
+        /** @type {Declaration.Namespace} */
+        const namespace = {};
+        namespace.declarations = [];
+        namespace.subnamespaces = {};
+        namespace.deprecated = {};
+
+        namespace.declarations.push({
+            name: "OneOrMore",
+            template: ["T"],
+            type: "T | T[]",
+        });
+
+        namespace.subnamespaces["mw"] = mwNamespace;
+
+        namespace.deprecated["ApiAssert"] = [{ type: "mw.Api.Assert" }];
+        namespace.deprecated["ApiTokenType"] = [{ type: "mw.Api.TokenType" }];
+        namespace.deprecated["ApiLegacyTokenType"] = [{ type: "mw.Api.LegacyTokenType" }];
+        for (const [name, targets] of Object.entries(this.deprecatedAliases)) {
+            namespace.deprecated[name] = targets.map((target) => ({
+                type: `Partial<mw.Api.${target}>`,
+                link: `mw.Api.${target}`,
+            }));
+        }
+
+        return namespace;
+    };
+}
+
+class ModuleGenerator {
+    /**
+     * @param {string} s
+     */
+    indent = (s) => (s !== "" ? " ".repeat(4) : "") + s;
+
+    /**
+     * @param {LineBlock} block
+     */
+    flatWithLine = (block) => {
+        if (block.length === 0) {
+            return [];
+        }
+
+        const newBlock = [...block[0]];
+        for (let i = 1; i < block.length; ++i) {
+            newBlock.push("", ...block[i]);
+        }
+
+        return newBlock;
+    };
+
+    /**
+     * Disable a linter rule for the next line.
+     * @param {string} name Rule name
+     * @returns TS string line
+     */
+    disableRule = (name) => `// tslint:disable-next-line:${name}`;
+
+    /**
+     * @param {Declaration.JSdoc | undefined} jsdoc
+     */
+    logJSdoc = (jsdoc) => {
         jsdoc ??= {};
 
         /** @type {LineBlock} */
@@ -1411,299 +1673,184 @@ class ModuleFormatter {
     };
 
     /**
-     * @param {Parameter.Type} type
+     * @param {Declaration.Type} type
      */
-    formatTypeExpr = (type) => {
-        const typeUnion = [];
-
-        if (typeof type.base === "object") {
-            typeUnion.push("string");
-        } else if (typeof type.base === "string") {
-            typeUnion.push(type.base);
+    logType = (type) => {
+        let intro = `type ${type.name}`;
+        if (type.modifier !== undefined) {
+            intro = `${type.modifier} ${intro}`;
         }
 
-        const lits = new Set(type.lits);
-        const toggleLits = new Set();
-        if (lits.size > 0) {
-            for (const lit of lits.values().toArray()) {
-                const negLit = `!${lit}`;
-                if (lits.has(negLit)) {
-                    toggleLits.add(lit);
-                    lits.delete(lit);
-                    lits.delete(negLit);
-                }
-            }
-
-            if (toggleLits.size > 0) {
-                typeUnion.push(
-                    `Toggle<${toggleLits.values().map(this.quote).toArray().sort().join(" | ")}>`
-                );
-            }
-
-            typeUnion.push(...lits.values().map(this.quote).toArray().sort());
+        if (type.template !== undefined) {
+            intro = `${intro}<${type.template.join(", ")}>`;
         }
 
-        if (typeUnion.length === 0) {
-            return "never";
-        } else if (!type.multi) {
-            return typeUnion.join(" | ");
-        } else if (typeUnion.length === 1 && toggleLits.size === 0) {
-            return `${typeUnion[0]} | ${typeUnion[0]}[]`;
-        } else {
-            return `OneOrMore<${typeUnion.join(" | ")}>`;
-        }
+        return [...this.logJSdoc(type.jsdoc), `${intro} = ${type.type};`];
     };
-
-    /**
-     * @param {LineBlock} content
-     */
-    formatGlobal = (content) => [
-        "declare global {",
-        ...this.flatWithLine(content).map(this.indent),
-        "}",
-    ];
-
-    /**
-     * @param {string} name
-     * @param {LineBlock} content
-     * @param {ModuleFormatter.DeclarationModifier} [modifier]
-     */
-    formatNamespace = (name, content, modifier) => [
-        `${modifier ? `${modifier} ` : ""}namespace ${name} {`,
-        ...this.flatWithLine(content).map(this.indent),
-        "}",
-    ];
-
-    /**
-     * @param {string} name
-     * @param {string} expr
-     * @param {ModuleFormatter.DeclarationModifier} [modifier]
-     */
-    formatType = (name, expr, modifier) => [
-        `${modifier ? `${modifier} ` : ""}type ${name} = ${expr};`,
-    ];
 
     /**
      * Format an interface parameter as a TS string.
-     * @param {PropertyData} prop Interface parameter data
+     * @param {Declaration.Property} property Interface parameter data
      * @returns {string[]}
      */
-    formatProperty = (prop) => {
-        let key = prop.key;
-        if (prop.template) {
-            key = `[k: \`${key}\`]`;
+    logProperty = (property) => {
+        let name = property.name;
+        if (property.template) {
+            name = `[k: \`${name}\`]`;
         } else {
-            if (!key.match(/^[0-9a-z]+$/i)) {
-                key = this.quote(key);
+            if (!name.match(/^[0-9a-z]+$/i)) {
+                name = quote(name);
             }
 
-            if (!prop.required) {
-                key = `${key}?`;
+            if (!property.required) {
+                name = `${name}?`;
             }
         }
 
-        const jsdoc = { ...prop.jsdoc };
-
-        if (prop.default !== undefined) {
-            jsdoc.description = jsdoc.description ? [...jsdoc.description] : [];
-            jsdoc.description.push(
-                `Defaults to ${this.formatJSdocLit(prop.default, prop.type) || "an empty string"}.`
-            );
-        }
-
-        return [...this.formatJSdoc(jsdoc), `${key}: ${this.formatTypeExpr(prop.type)};`];
+        return [...this.logJSdoc(property.jsdoc), `${name}: ${property.type};`];
     };
 
     /**
-     * @param {string} name
-     * @param {PropertyData[]} properties
-     * @param {InterfaceOptions} [options]
-     * @returns {string[]}
+     * @param {Declaration.Interface} iface
      */
-    formatInterface = (name, properties, options) => {
-        options ??= {};
+    logInterface = (iface) => {
         /** @type {string[]} */
         const lines = [];
 
-        if (name.match(/^I[^a-z]/)) {
+        if (iface.name.match(/^I[^a-z]/)) {
             lines.push(this.disableRule("interface-name"));
         }
 
-        let intro = `interface ${name}`;
-        if (options.exported) {
-            intro = `export ${intro}`;
+        let intro = `interface ${iface.name}`;
+        if (iface.modifier !== undefined) {
+            intro = `${iface.modifier} ${intro}`;
         }
 
-        if (options.parent) {
-            intro = `${intro} extends ${options.parent}`;
+        if (iface.template !== undefined) {
+            intro = `${intro}<${iface.template.join(", ")}>`;
         }
 
-        if (properties.length) {
+        if (iface.parents !== undefined && iface.parents.length > 0) {
+            intro = `${intro} extends ${iface.parents.join(", ")}`;
+        }
+
+        if (iface.properties.length > 0) {
             lines.push(
                 `${intro} {`,
-                ...properties.flatMap(this.formatProperty).map(this.indent),
+                ...iface.properties.flatMap(this.logProperty).map(this.indent),
                 "}"
             );
         } else {
             lines.push(this.disableRule("no-empty-interface"), `${intro} {}`);
         }
 
+        lines.unshift(...this.logJSdoc(iface.jsdoc));
+
         return lines;
     };
 
     /**
-     * Format a module interface as a TS string.
-     * @param {Module} module Module interface data
-     * @param {ModuleFormatter.ParentStack} parentStack
-     * @returns {LineBlock}
+     * @param {Declaration} declaration
      */
-    formatModule = (module, parentStack) => {
-        const parameterPrefix = this.formatParameterPrefix(module, parentStack);
-
-        /** @type {Parameter[]} */
-        const prefixedParameters = module.parameters.map((parameter) => ({
-            ...parameter,
-            key: `${parameterPrefix}${parameter.key}`,
-        }));
-
-        const submoduleSets = prefixedParameters.flatMap((parameter) => {
-            if (typeof parameter.type.base !== "object") {
-                return [];
-            } else {
-                const values = Object.entries(parameter.type.base).sort((e1, e2) =>
-                    e1[0].localeCompare(e2[0])
-                );
-                return { values, parameter };
-            }
-        });
-
-        /** @type {InterfaceOptions} */
-        const options = {};
-
-        // Set parent interface, and narrow parameter from parent interface
-        if (parentStack !== null) {
-            const parameter = parentStack.path.parameter;
-            options.parent = parameter.module.name;
-
-            if (!parameter.type.multi) {
-                const narrowedParameter = { ...parameter };
-                narrowedParameter.type = { lits: new Set([parentStack.path.value]) };
-
-                // Make parameter required if not being narrowed with the default value.
-                if (
-                    !parameter.required &&
-                    narrowedParameter.default !== undefined &&
-                    narrowedParameter.default !== parentStack.path.value
-                ) {
-                    narrowedParameter.required = true;
-                }
-
-                // No need to duplicate the JSdoc.
-                delete narrowedParameter.default;
-                delete narrowedParameter.jsdoc;
-
-                prefixedParameters.unshift(narrowedParameter);
-            }
-        }
-
-        /** @type {LineBlock} */
-        const types = [];
-
-        types.push([
-            ...this.formatJSdoc(module.jsdoc),
-            ...this.formatInterface(module.name, prefixedParameters, options),
-        ]);
-
-        /** @type {[string, LineBlock][]} */
-        const submoduleBlocks = [];
-        for (const submoduleSet of submoduleSets) {
-            const parameter = submoduleSet.parameter;
-            /** @type {LineBlock} */
-            const submoduleBlock = [];
-
-            for (const [value, submodule] of submoduleSet.values) {
-                const path = { parameter, value };
-                submoduleBlock.push(...this.formatModule(submodule, { path, next: parentStack }));
-            }
-
-            if (submoduleBlock.length) {
-                submoduleBlocks.push([parameter.name, submoduleBlock]);
-            }
-        }
-
-        if (submoduleBlocks.length === 1) {
-            const [parameterName, submoduleBlock] = submoduleBlocks[0];
-            types.push(this.formatNamespace(`${module.name}.${parameterName}`, submoduleBlock));
-        } else if (submoduleBlocks.length) {
-            const submoduleNamespaces = submoduleBlocks.map(([parameterName, submoduleBlock]) =>
-                this.formatNamespace(parameterName, submoduleBlock)
-            );
-            types.push(this.formatNamespace(module.name, submoduleNamespaces));
-        }
-
-        if (module.oldName) {
-            const nameParts = [module.name];
-            for (let parent = parentStack; parent !== null; parent = parent.next) {
-                nameParts.unshift(parent.path.parameter.module.name, parent.path.parameter.name);
-            }
-
-            this.deprecatedAliases[module.oldName] ??= [];
-            this.deprecatedAliases[module.oldName].push(nameParts.join("."));
-        }
-
-        return types;
-    };
+    logDeclaration = (declaration) =>
+        "type" in declaration ? this.logType(declaration) : this.logInterface(declaration);
 
     /**
      * @param {string} typeName
      * @param {{type: string, link?: string }[]} targets
      */
-    formatDeprecatedAlias = (typeName, targets) => [
-        ...this.formatJSdoc({
+    logDeprecated = (typeName, targets) => [
+        ...this.logJSdoc({
             deprecated: `Use ${targets
                 .map((t) => `{@link ${t.link ?? t.type} \`${t.type}\`}`)
                 .join(" / ")} instead.`,
         }),
-        ...this.formatType(typeName, targets[0].type, "export"),
+        ...this.logType({ modifier: "export", name: typeName, type: targets[0].type }),
     ];
 
     /**
-     * Format some module interface data as a TS declaration file.
-     * @param {Module} rootModule Formatted module data
+     * @param {`namespace ${string}` | "global"} name
+     * @param {Declaration.Namespace} namespace
      * @returns {string[]}
      */
-    formatContent = (rootModule) =>
-        this.flatWithLine([
-            "// AUTOMATICALLY GENERATED (see scripts/api-types-generator.js)",
-            this.formatType("OneOrMore<T>", "T | T[]"),
-            this.formatGlobal([
-                this.formatNamespace("mw.Api", [
-                    this.formatType("Toggle<T extends string>", "{ [V in T]: V | `!${V}` }[T]"),
-                    ...Object.entries(TYPE_ALIASES).map(([k, v]) =>
-                        this.formatType(k, this.formatTypeExpr(v))
-                    ),
-                    ...this.formatModule(rootModule, null),
-                ]),
-            ]),
-            this.formatDeprecatedAlias("ApiAssert", [{ type: "mw.Api.Assert" }]),
-            this.formatDeprecatedAlias("ApiTokenType", [{ type: "mw.Api.TokenType" }]),
-            this.formatDeprecatedAlias("ApiLegacyTokenType", [{ type: "mw.Api.LegacyTokenType" }]),
-            ...Object.entries(this.deprecatedAliases).map(([k, vs]) =>
-                this.formatDeprecatedAlias(
-                    k,
-                    vs.map((v) => ({ type: `Partial<mw.Api.${v}>`, link: `mw.Api.${v}` }))
-                )
+    logNamespace = (name, namespace) => {
+        const declarations = namespace.declarations ?? [];
+        const subnamespaces = Object.entries(namespace.subnamespaces ?? {});
+        const deprecated = Object.entries(namespace.deprecated ?? {});
+
+        // Flatten empty namespaces.
+        if (
+            name !== "global" &&
+            subnamespaces.length === 1 &&
+            declarations.length === 0 &&
+            deprecated.length === 0
+        ) {
+            const [subname, subnamespace] = subnamespaces[0];
+            return this.logNamespace(`${name}.${subname}`, subnamespace);
+        }
+
+        const content = [
+            ...declarations.map((declaration) => this.logDeclaration(declaration)),
+            ...subnamespaces.map(([subname, subnamespace]) =>
+                this.logNamespace(`namespace ${subname}`, subnamespace)
             ),
-            "export {};",
+            ...deprecated.map(([name, targets]) => this.logDeprecated(name, targets)),
+        ];
+
+        return [
+            `${namespace.modifier ? `${namespace.modifier} ` : ""}${name} {`,
+            ...this.flatWithLine(content).map(this.indent),
+            "}",
+        ];
+    };
+
+    /**
+     * @param {Declaration.Namespace} content
+     * @returns {string[]}
+     */
+    log = (content) =>
+        this.flatWithLine([
+            ["// AUTOMATICALLY GENERATED (see scripts/api-types-generator.js)"],
+            ...(content.declarations ?? []).map(this.logDeclaration),
+            this.logNamespace("global", {
+                subnamespaces: content.subnamespaces,
+                modifier: "declare",
+            }),
+            ...Object.entries(content.deprecated ?? {}).map(([name, targets]) =>
+                this.logDeprecated(name, targets)
+            ),
+            ["export {};"],
         ]);
+
+    /**
+     * @param {string} fileName
+     * @param {Declaration.Namespace} content
+     */
+    generate = (fileName, content) => {
+        const lines = this.log(content);
+
+        const element = document.createElement("a");
+        element.setAttribute(
+            "href",
+            `data:text/plain;charset=utf-8,${encodeURIComponent(lines.join("\n"))}`
+        );
+        element.setAttribute("download", fileName);
+
+        element.style.display = "none";
+        document.body.append(element);
+        element.click();
+        element.remove();
+    };
 }
 
 const loaders = Object.values(SOURCES).map((s) => new ModuleLoader(s));
 const merger = new ModuleMerger();
 const parser = new ModuleParser();
 const formatter = new ModuleFormatter();
+const logger = new ModuleGenerator();
 
 const rawRootModules = await ModuleLoader.loadAll(loaders);
 const rawRootModule = merger.merge(rawRootModules);
 const rootModule = parser.parseModule(rawRootModule);
-console.log(formatter.formatContent(rootModule).join("\n"));
+const content = formatter.format(rootModule);
+logger.generate("index.d.ts", content);

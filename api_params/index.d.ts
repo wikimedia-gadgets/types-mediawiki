@@ -348,123 +348,6 @@ declare global {
                     submodule: string;
                 }
 
-                namespace Collection.Submodule {
-                    interface AddArticle extends Collection {
-                        submodule: "addarticle";
-                        namespace: number;
-                        title: string;
-                        /**
-                         * Defaults to 0.
-                         */
-                        oldid?: number;
-                    }
-
-                    interface AddCategory extends Collection {
-                        submodule: "addcategory";
-                        /**
-                         * Defaults to an empty string.
-                         */
-                        title?: string;
-                    }
-
-                    interface AddChapter extends Collection {
-                        submodule: "addchapter";
-                        /**
-                         * Defaults to an empty string.
-                         */
-                        chaptername?: string;
-                    }
-
-                    interface ClearCollection extends Collection {
-                        submodule: "clearcollection";
-                    }
-
-                    interface GetBookCreatorBoxContent extends Collection {
-                        submodule: "getbookcreatorboxcontent";
-                        /**
-                         * Defaults to an empty string.
-                         */
-                        hint?: string;
-                        oldid?: number;
-                        pagename?: string;
-                    }
-
-                    interface GetCollection extends Collection {
-                        submodule: "getcollection";
-                    }
-
-                    interface GetPopupData extends Collection {
-                        submodule: "getpopupdata";
-                        title: string;
-                    }
-
-                    interface PostCollection extends Collection {
-                        submodule: "postcollection";
-                        /**
-                         * Defaults to an empty string.
-                         */
-                        collection?: string;
-                    }
-
-                    interface RemoveArticle extends Collection {
-                        submodule: "removearticle";
-                        namespace: number;
-                        title: string;
-                        /**
-                         * Defaults to 0.
-                         */
-                        oldid?: number;
-                    }
-
-                    interface RemoveItem extends Collection {
-                        submodule: "removeitem";
-                        /**
-                         * Defaults to 0.
-                         */
-                        index?: number;
-                    }
-
-                    interface RenameChapter extends Collection {
-                        submodule: "renamechapter";
-                        index: number;
-                        chaptername: string;
-                    }
-
-                    interface SetSorting extends Collection {
-                        submodule: "setsorting";
-                        items: number | number[];
-                    }
-
-                    interface SetTitles extends Collection {
-                        submodule: "settitles";
-                        title: string;
-                        /**
-                         * Defaults to an empty string.
-                         */
-                        subtitle?: string;
-                        /**
-                         * Defaults to an empty string.
-                         */
-                        settings?: string;
-                    }
-
-                    interface SortItems extends Collection {
-                        submodule: "sortitems";
-                    }
-
-                    interface SuggestArticleAction extends Collection {
-                        submodule: "suggestarticleaction";
-                        suggestaction: "add" | "ban" | "remove";
-                        title: string;
-                    }
-
-                    interface SuggestUndoArticleAction extends Collection {
-                        submodule: "suggestundoarticleaction";
-                        lastaction: "add" | "ban" | "remove";
-                        title: string;
-                    }
-                }
-
                 interface CommunityConfigurationEdit extends Params {
                     action: "communityconfigurationedit";
                     provider:
@@ -1011,26 +894,6 @@ declare global {
                     token: string;
                 }
 
-                namespace EchoPushSubscriptions.Command {
-                    /**
-                     * @private
-                     */
-                    interface Create extends EchoPushSubscriptions {
-                        command: "create";
-                        provider: "apns" | "fcm";
-                        providertoken: string;
-                        topic?: string;
-                    }
-
-                    /**
-                     * @private
-                     */
-                    interface Delete extends EchoPushSubscriptions {
-                        command: "delete";
-                        providertoken: string | string[];
-                    }
-                }
-
                 /**
                  * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Edit
                  */
@@ -1351,302 +1214,6 @@ declare global {
                      * Defaults to an empty string.
                      */
                     token?: string;
-                }
-
-                namespace Flow.Submodule {
-                    /**
-                     * @deprecated
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#lock-topic
-                     */
-                    interface CloseOpenTopic extends Flow {
-                        submodule: "close-open-topic";
-                        cotmoderationState: "close" | "lock" | "reopen" | "unlock";
-                        cotreason: string;
-                        /**
-                         * Sensitive parameter.
-                         */
-                        cottoken: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#edit-header
-                     */
-                    interface EditHeader extends Flow {
-                        submodule: "edit-header";
-                        ehprev_revision?: string;
-                        ehcontent: string;
-                        /**
-                         * Defaults to `wikitext`.
-                         */
-                        ehformat?: "html" | "wikitext";
-                        /**
-                         * Sensitive parameter.
-                         */
-                        ehtoken: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#edit-post
-                     */
-                    interface EditPost extends Flow {
-                        submodule: "edit-post";
-                        eppostId: string;
-                        epprev_revision: string;
-                        epcontent: string;
-                        /**
-                         * Defaults to `wikitext`.
-                         */
-                        epformat?: "html" | "wikitext";
-                        /**
-                         * Sensitive parameter.
-                         */
-                        eptoken: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#edit-title
-                     */
-                    interface EditTitle extends Flow {
-                        submodule: "edit-title";
-                        etprev_revision: string;
-                        etcontent: string;
-                        /**
-                         * Sensitive parameter.
-                         */
-                        ettoken: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#edit-topic-summary
-                     */
-                    interface EditTopicSummary extends Flow {
-                        submodule: "edit-topic-summary";
-                        etsprev_revision?: string;
-                        etssummary: string;
-                        /**
-                         * Defaults to `wikitext`.
-                         */
-                        etsformat?: "html" | "wikitext";
-                        /**
-                         * Sensitive parameter.
-                         */
-                        etstoken: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#lock-topic
-                     */
-                    interface LockTopic extends Flow {
-                        submodule: "lock-topic";
-                        cotmoderationState: "close" | "lock" | "reopen" | "unlock";
-                        cotreason: string;
-                        /**
-                         * Sensitive parameter.
-                         */
-                        cottoken: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#moderate-post
-                     */
-                    interface ModeratePost extends Flow {
-                        submodule: "moderate-post";
-                        mpmoderationState:
-                            | ""
-                            | "delete"
-                            | "hide"
-                            | "restore"
-                            | "suppress"
-                            | "undelete"
-                            | "unhide"
-                            | "unsuppress";
-                        mpreason: string;
-                        mppostId: string;
-                        /**
-                         * Sensitive parameter.
-                         */
-                        mptoken: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#moderate-topic
-                     */
-                    interface ModerateTopic extends Flow {
-                        submodule: "moderate-topic";
-                        mtmoderationState:
-                            | ""
-                            | "delete"
-                            | "hide"
-                            | "restore"
-                            | "suppress"
-                            | "undelete"
-                            | "unhide"
-                            | "unsuppress";
-                        mtreason: string;
-                        /**
-                         * Sensitive parameter.
-                         */
-                        mttoken: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#new-topic
-                     */
-                    interface NewTopic extends Flow {
-                        submodule: "new-topic";
-                        nttopic: string;
-                        ntcontent: string;
-                        /**
-                         * Defaults to `wikitext`.
-                         */
-                        ntformat?: "html" | "wikitext";
-                        /**
-                         * Sensitive parameter.
-                         */
-                        nttoken: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#reply
-                     */
-                    interface Reply extends Flow {
-                        submodule: "reply";
-                        repreplyTo: string;
-                        repcontent: string;
-                        /**
-                         * Defaults to `wikitext`.
-                         */
-                        repformat?: "html" | "wikitext";
-                        /**
-                         * Sensitive parameter.
-                         */
-                        reptoken: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#undo-edit-header
-                     */
-                    interface UndoEditHeader extends Flow {
-                        submodule: "undo-edit-header";
-                        uehstartId: string;
-                        uehendId: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#undo-edit-post
-                     */
-                    interface UndoEditPost extends Flow {
-                        submodule: "undo-edit-post";
-                        uepstartId: string;
-                        uependId: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#undo-edit-topic-summary
-                     */
-                    interface UndoEditTopicSummary extends Flow {
-                        submodule: "undo-edit-topic-summary";
-                        uetsstartId: string;
-                        uetsendId: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-header
-                     */
-                    interface ViewHeader extends Flow {
-                        submodule: "view-header";
-                        /**
-                         * Defaults to `fixed-html`.
-                         */
-                        vhformat?: "fixed-html" | "html" | "wikitext";
-                        vhrevId?: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-post
-                     */
-                    interface ViewPost extends Flow {
-                        submodule: "view-post";
-                        vppostId: string;
-                        /**
-                         * Defaults to `fixed-html`.
-                         */
-                        vpformat?: "fixed-html" | "html" | "wikitext";
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-post-history
-                     */
-                    interface ViewPostHistory extends Flow {
-                        submodule: "view-post-history";
-                        vphpostId: string;
-                        /**
-                         * Defaults to `fixed-html`.
-                         */
-                        vphformat?: "fixed-html" | "html" | "wikitext";
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-topic
-                     */
-                    interface ViewTopic extends Flow {
-                        submodule: "view-topic";
-                        /**
-                         * Defaults to `fixed-html`.
-                         */
-                        vtformat?: "fixed-html" | "html" | "wikitext";
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-topic-history
-                     */
-                    interface ViewTopicHistory extends Flow {
-                        submodule: "view-topic-history";
-                        /**
-                         * Defaults to `fixed-html`.
-                         */
-                        vthformat?: "fixed-html" | "html" | "wikitext";
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-topic-summary
-                     */
-                    interface ViewTopicSummary extends Flow {
-                        submodule: "view-topic-summary";
-                        /**
-                         * Defaults to `fixed-html`.
-                         */
-                        vtsformat?: "fixed-html" | "html" | "wikitext";
-                        vtsrevId?: string;
-                    }
-
-                    /**
-                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-topiclist
-                     */
-                    interface ViewTopicList extends Flow {
-                        "submodule": "view-topiclist";
-                        /**
-                         * Defaults to `fwd`.
-                         */
-                        "vtloffset-dir"?: "fwd" | "rev";
-                        /**
-                         * Defaults to `user`.
-                         */
-                        "vtlsortby"?: "newest" | "updated" | "user";
-                        "vtlsavesortby"?: boolean;
-                        "vtloffset-id"?: string;
-                        "vtloffset"?: string;
-                        "vtlinclude-offset"?: boolean;
-                        /**
-                         * Defaults to 10.
-                         */
-                        "vtllimit"?: Limit;
-                        "vtltoconly"?: boolean;
-                        /**
-                         * Defaults to `fixed-html`.
-                         */
-                        "vtlformat"?: "fixed-html" | "html" | "wikitext";
-                    }
                 }
 
                 interface FlowParsoidUtils extends Params {
@@ -2669,6 +2236,2248 @@ declare global {
                     generator?: string;
                     redirects?: boolean;
                     converttitles?: boolean;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Query
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Meta
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Properties
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Lists
+                 */
+                interface Query extends Params {
+                    action: "query";
+                    prop?: string | string[];
+                    list?: string | string[];
+                    meta?: string | string[];
+                    indexpageids?: boolean;
+                    export?: boolean;
+                    exportnowrap?: boolean;
+                    /**
+                     * Defaults to `0.11`.
+                     */
+                    exportschema?: "0.10" | "0.11";
+                    iwurl?: boolean;
+                    continue?: string;
+                    rawcontinue?: boolean;
+                    titles?: string | string[];
+                    pageids?: number | number[];
+                    revids?: number | number[];
+                    generator?: string;
+                    redirects?: boolean;
+                    converttitles?: boolean;
+                }
+
+                /**
+                 * @private
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API
+                 */
+                interface ReadingLists extends Params {
+                    action: "readinglists";
+                    command: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Manage_authentication_data
+                 */
+                interface RemoveAuthenticationData extends Params {
+                    action: "removeauthenticationdata";
+                    request: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Manage_authentication_data
+                 */
+                interface ResetPassword extends Params {
+                    action: "resetpassword";
+                    user?: string;
+                    email?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                interface Review extends Params {
+                    action: "review";
+                    revid?: string;
+                    comment?: string;
+                    unapprove?: boolean;
+                    /**
+                     * Defaults to `1`.
+                     */
+                    flag_value?: "0" | "1" | "2" | "3";
+                    /**
+                     * Defaults to `1`.
+                     */
+                    flag_accuracy?: "0" | "1" | "2";
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisiondelete
+                 */
+                interface RevisionDelete extends Params {
+                    action: "revisiondelete";
+                    type: "archive" | "filearchive" | "logging" | "oldimage" | "revision";
+                    target?: string;
+                    ids: string | string[];
+                    hide?: OneOrMore<"comment" | "content" | "user">;
+                    show?: OneOrMore<"comment" | "content" | "user">;
+                    /**
+                     * Defaults to `nochange`.
+                     */
+                    suppress?: "no" | "nochange" | "yes";
+                    reason?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Rollback
+                 */
+                interface Rollback extends Params {
+                    action: "rollback";
+                    title?: string;
+                    pageid?: number;
+                    tags?: string | string[];
+                    user: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    summary?: string;
+                    markbot?: boolean;
+                    /**
+                     * Defaults to `preferences`.
+                     */
+                    watchlist?: "nochange" | "preferences" | "unwatch" | "watch";
+                    watchlistexpiry?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Rsd
+                 */
+                interface Rsd extends Params {
+                    action: "rsd";
+                }
+
+                /**
+                 * @private
+                 */
+                interface SanitizeMapData extends Params {
+                    action: "sanitize-mapdata";
+                    /**
+                     * Defaults to `Dummy title (called from Kartographer\Api\ApiSanitizeMapData)`.
+                     */
+                    title?: string;
+                    text: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface ScribuntoConsole extends Params {
+                    action: "scribunto-console";
+                    title?: string;
+                    content?: string;
+                    session?: number;
+                    question: string;
+                    clear?: boolean;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                interface SearchTranslations extends Params {
+                    action: "searchtranslations";
+                    /**
+                     * Defaults to `default`.
+                     */
+                    service?: "codfw" | "default" | "eqiad";
+                    query: string;
+                    /**
+                     * Defaults to `en`.
+                     */
+                    sourcelanguage?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    language?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    group?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    filter?: "" | "fuzzy" | "translated" | "untranslated";
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    match?: string;
+                    /**
+                     * Defaults to `0`.
+                     */
+                    case?: string;
+                    /**
+                     * Defaults to 0.
+                     */
+                    offset?: number;
+                    /**
+                     * Defaults to 25.
+                     */
+                    limit?: Limit;
+                }
+
+                /**
+                 * @private
+                 */
+                interface SecurePollAuth extends Params {
+                    action: "securepollauth";
+                    token: string;
+                    id: number;
+                }
+
+                interface SetGlobalAccountStatus extends Params {
+                    action: "setglobalaccountstatus";
+                    user: string;
+                    locked?: "" | "lock" | "unlock";
+                    hidden?: "" | "lists" | "suppressed";
+                    reason?: string;
+                    statecheck?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:SetNotificationTimestamp
+                 */
+                interface SetNotificationTimestamp extends Params {
+                    action: "setnotificationtimestamp";
+                    entirewatchlist?: boolean;
+                    timestamp?: string;
+                    torevid?: number;
+                    newerthanrevid?: number;
+                    continue?: string;
+                    titles?: string | string[];
+                    pageids?: number | number[];
+                    revids?: number | number[];
+                    generator?: string;
+                    redirects?: boolean;
+                    converttitles?: boolean;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:SetPageLanguage
+                 */
+                interface SetPageLanguage extends Params {
+                    action: "setpagelanguage";
+                    title?: string;
+                    pageid?: number;
+                    lang: string;
+                    reason?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                interface ShortenUrl extends Params {
+                    action: "shortenurl";
+                    url: string;
+                    qrcode?: boolean;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Sitematrix
+                 */
+                interface SiteMatrix extends Params {
+                    action: "sitematrix";
+                    /**
+                     * Defaults to `special` and `language`.
+                     */
+                    smtype?: OneOrMore<"language" | "special">;
+                    /**
+                     * Defaults to `all`.
+                     */
+                    smstate?: OneOrMore<"all" | "closed" | "fishbowl" | "nonglobal" | "private">;
+                    /**
+                     * Defaults to `code`, `name`, `site`, `dir`, and `localname`.
+                     */
+                    smlangprop?: OneOrMore<"code" | "dir" | "localname" | "name" | "site">;
+                    /**
+                     * Defaults to `url`, `dbname`, `code`, and `sitename`.
+                     */
+                    smsiteprop?: OneOrMore<"code" | "dbname" | "lang" | "sitename" | "url">;
+                    /**
+                     * Defaults to 5000.
+                     */
+                    smlimit?: Limit;
+                    smcontinue?: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Extension:SpamBlacklist/API
+                 */
+                interface SpamBlacklist extends Params {
+                    action: "spamblacklist";
+                    url: string | string[];
+                }
+
+                interface Stabilize extends Params {
+                    action: "stabilize";
+                    /**
+                     * Defaults to `none`.
+                     */
+                    protectlevel?: "autoconfirmed" | "none";
+                    default: "latest" | "stable";
+                    /**
+                     * Defaults to `none`.
+                     */
+                    autoreview?: "none" | "sysop";
+                    /**
+                     * Defaults to `infinite`.
+                     */
+                    expiry?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    reason?: string;
+                    review?: boolean;
+                    title: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @private
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Stashedit
+                 */
+                interface StashEdit extends Params {
+                    action: "stashedit";
+                    title: string;
+                    section?: string;
+                    sectiontitle?: string;
+                    text?: string;
+                    stashedtexthash?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    summary?: string;
+                    contentmodel: string;
+                    contentformat:
+                        | "application/json"
+                        | "application/octet-stream"
+                        | "application/unknown"
+                        | "application/vnd.php.serialized"
+                        | "application/x-binary"
+                        | "text/css"
+                        | "text/javascript"
+                        | "text/plain"
+                        | "text/unknown"
+                        | "text/x-wiki"
+                        | "unknown/unknown";
+                    baserevid: number;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Extension:EventStreamConfig
+                 */
+                interface StreamConfigS extends Params {
+                    action: "streamconfigs";
+                    streams?: string | string[];
+                    constraints?: string | string[];
+                    /**
+                     * @deprecated
+                     */
+                    all_settings?: boolean;
+                }
+
+                interface StrikeVote extends Params {
+                    action: "strikevote";
+                    option: "strike" | "unstrike";
+                    reason: string;
+                    voteid: number;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                interface SXDelete extends Params {
+                    action: "sxdelete";
+                    sectiontranslationid: number;
+                    translationid: number;
+                    sectionid: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface SXSave extends Params {
+                    action: "sxsave";
+                    sourcelanguage: string;
+                    targetlanguage: string;
+                    sourcetitle: string;
+                    targettitle: string;
+                    content: string;
+                    sourcerevision: number;
+                    sourcesectiontitle: string;
+                    targetsectiontitle: string;
+                    sectionid: string;
+                    issandbox?: boolean;
+                    progress: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Tag
+                 */
+                interface Tag extends Params {
+                    action: "tag";
+                    rcid?: number | number[];
+                    revid?: number | number[];
+                    logid?: number | number[];
+                    add?: string | string[];
+                    remove?: string | string[];
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    reason?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TemplateData
+                 */
+                interface TemplateData extends Params {
+                    action: "templatedata";
+                    includeMissingTitles?: boolean;
+                    /**
+                     * @deprecated
+                     */
+                    doNotIgnoreMissingTitles?: boolean;
+                    lang?: string;
+                    titles?: string | string[];
+                    pageids?: number | number[];
+                    revids?: number | number[];
+                    generator?: string;
+                    redirects?: boolean;
+                    converttitles?: boolean;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Extension:Thanks#API_Documentation
+                 */
+                interface Thank extends Params {
+                    action: "thank";
+                    rev?: number;
+                    log?: number;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    source?: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Threadaction
+                 */
+                interface ThreadAction extends Params {
+                    action: "threadaction";
+                    thread?: string | string[];
+                    talkpage?: string;
+                    threadaction:
+                        | "addreaction"
+                        | "deletereaction"
+                        | "edit"
+                        | "inlineeditform"
+                        | "markread"
+                        | "markunread"
+                        | "merge"
+                        | "newthread"
+                        | "reply"
+                        | "setsortkey"
+                        | "setsubject"
+                        | "split";
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    subject?: string;
+                    reason?: string;
+                    newparent?: string;
+                    text?: string;
+                    render?: string;
+                    bump?: string;
+                    sortkey?: string;
+                    signature?: string;
+                    type?: string;
+                    value?: string;
+                    method?: string;
+                    operand?: string;
+                    captchaword?: string;
+                    captchaid?: string;
+                }
+
+                /**
+                 * @private
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TimedMediaHandler
+                 */
+                interface TimedText extends Params {
+                    action: "timedtext";
+                    title?: string;
+                    pageid?: number;
+                    trackformat: "srt" | "vtt";
+                    lang?: string;
+                }
+
+                interface TitleBlacklist extends Params {
+                    action: "titleblacklist";
+                    tbtitle: string;
+                    /**
+                     * Defaults to `edit`.
+                     */
+                    tbaction?:
+                        | "create"
+                        | "createpage"
+                        | "createtalk"
+                        | "edit"
+                        | "move"
+                        | "new-account"
+                        | "upload";
+                    tbnooverride?: boolean;
+                }
+
+                interface TorBlock extends Params {
+                    action: "torblock";
+                    ip: string;
+                }
+
+                interface TranscodeReset extends Params {
+                    action: "transcodereset";
+                    title: string;
+                    transcodekey?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                interface TranslationAids extends Params {
+                    action: "translationaids";
+                    title: string;
+                    group?: string;
+                    /**
+                     * Defaults to `groups`, `definition`, `translation`, `inotherlanguages`, `documentation`, `mt`, `definitiondiff`, `ttmserver`, `support`, `gettext`, `insertables`, and `editsummaries`.
+                     */
+                    prop?: OneOrMore<
+                        | "definition"
+                        | "definitiondiff"
+                        | "documentation"
+                        | "editsummaries"
+                        | "gettext"
+                        | "groups"
+                        | "inotherlanguages"
+                        | "insertables"
+                        | "mt"
+                        | "support"
+                        | "translation"
+                        | "ttmserver"
+                    >;
+                }
+
+                /**
+                 * @private
+                 */
+                interface TranslationCheck extends Params {
+                    action: "translationcheck";
+                    title: string;
+                    translation: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface TranslationEntitySearch extends Params {
+                    action: "translationentitysearch";
+                    /**
+                     * Defaults to `groups` and `messages`.
+                     */
+                    entitytype?: OneOrMore<"groups" | "messages">;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    query?: string;
+                    /**
+                     * Defaults to 10.
+                     */
+                    limit?: Limit;
+                    grouptypes?: OneOrMore<
+                        "aggregate-groups" | "message-bundles" | "translatable-pages"
+                    >;
+                }
+
+                interface TranslationReview extends Params {
+                    action: "translationreview";
+                    revision: number;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                interface TranslationStats extends Params {
+                    action: "translationstats";
+                    count: "edits" | "reviewers" | "reviews" | "users";
+                    /**
+                     * Defaults to 30.
+                     */
+                    days: number;
+                    group?: string | string[];
+                    language?: string | string[];
+                    /**
+                     * Defaults to `days`.
+                     */
+                    scale?: "days" | "hours" | "months" | "weeks" | "years";
+                    start?: string;
+                }
+
+                interface TtmServer extends Params {
+                    action: "ttmserver";
+                    service?: never;
+                    sourcelanguage: string;
+                    targetlanguage: string;
+                    text: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface ULSLocalization extends Params {
+                    action: "ulslocalization";
+                    language: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface ULSSetLang extends Params {
+                    action: "ulssetlang";
+                    languagecode: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Block
+                 */
+                interface Unblock extends Params {
+                    action: "unblock";
+                    id?: number;
+                    user?: string;
+                    /**
+                     * @deprecated
+                     */
+                    userid?: number;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    reason?: string;
+                    tags?: string | string[];
+                    watchuser?: boolean;
+                    watchlistexpiry?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Undelete
+                 */
+                interface Undelete extends Params {
+                    action: "undelete";
+                    title: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    reason?: string;
+                    tags?: string | string[];
+                    timestamps?: string | string[];
+                    fileids?: number | number[];
+                    undeletetalk?: boolean;
+                    /**
+                     * Defaults to `preferences`.
+                     */
+                    watchlist?: "nochange" | "preferences" | "unwatch" | "watch";
+                    watchlistexpiry?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Manage_authentication_data
+                 */
+                interface UnlinkAccount extends Params {
+                    action: "unlinkaccount";
+                    request: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Upload
+                 */
+                interface Upload extends Params {
+                    action: "upload";
+                    filename?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    comment?: string;
+                    tags?: string | string[];
+                    text?: string;
+                    /**
+                     * @deprecated
+                     */
+                    watch?: boolean;
+                    /**
+                     * Defaults to `preferences`.
+                     */
+                    watchlist?: "nochange" | "preferences" | "watch";
+                    watchlistexpiry?: string;
+                    ignorewarnings?: boolean;
+                    file?: File;
+                    url?: string;
+                    filekey?: string;
+                    /**
+                     * @deprecated
+                     */
+                    sessionkey?: string;
+                    stash?: boolean;
+                    filesize?: number;
+                    offset?: number;
+                    chunk?: File;
+                    async?: boolean;
+                    checkstatus?: boolean;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:User_group_membership
+                 */
+                interface Userrights extends Params {
+                    action: "userrights";
+                    user?: string;
+                    /**
+                     * @deprecated
+                     */
+                    userid?: number;
+                    add?: string | string[];
+                    /**
+                     * Defaults to `infinite`.
+                     */
+                    expiry?: string | string[];
+                    remove?: string | string[];
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    reason?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    tags?: string | string[];
+                    watchuser?: boolean;
+                    watchlistexpiry?: string;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Validatepassword
+                 */
+                interface ValidatePassword extends Params {
+                    action: "validatepassword";
+                    /**
+                     * Sensitive parameter.
+                     */
+                    password: string;
+                    user?: string;
+                    email?: string;
+                    realname?: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface VisualEditor extends Params {
+                    action: "visualeditor";
+                    page: string;
+                    badetag?: string;
+                    /**
+                     * Defaults to `jsonfm`.
+                     */
+                    format?: "json" | "jsonfm";
+                    paction: "metadata" | "parse" | "parsefragment" | "templatesused" | "wikitext";
+                    wikitext?: string;
+                    section?: string;
+                    stash?: boolean;
+                    oldid?: number;
+                    editintro?: string;
+                    pst?: boolean;
+                    preload?: string;
+                    preloadparams?: string | string[];
+                }
+
+                /**
+                 * @private
+                 */
+                interface VisualEditorEdit extends Params {
+                    action: "visualeditoredit";
+                    paction: "diff" | "save" | "serialize" | "serializeforcache";
+                    page: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    wikitext?: string;
+                    section?: string;
+                    sectiontitle?: string;
+                    basetimestamp?: string;
+                    starttimestamp?: string;
+                    oldid?: number;
+                    minor?: string;
+                    watchlist?: string;
+                    html?: string;
+                    etag?: string;
+                    summary?: string;
+                    captchaid?: string;
+                    captchaword?: string;
+                    cachekey?: string;
+                    nocontent?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    useskin?:
+                        | "apioutput"
+                        | "authentication-popup"
+                        | "cologneblue"
+                        | "contenttranslation"
+                        | "fallback"
+                        | "json"
+                        | "minerva"
+                        | "modern"
+                        | "monobook"
+                        | "timeless"
+                        | "vector"
+                        | "vector-2022";
+                    tags?: string | string[];
+                    plugins?: string | string[];
+                    [k: `data-${string}`]: string;
+                    mobileformat?: boolean;
+                }
+
+                /**
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watch
+                 */
+                interface Watch extends Params {
+                    action: "watch";
+                    /**
+                     * @deprecated
+                     */
+                    title?: string;
+                    expiry?: string;
+                    unwatch?: boolean;
+                    continue?: string;
+                    titles?: string | string[];
+                    pageids?: number | number[];
+                    revids?: number | number[];
+                    generator?: string;
+                    redirects?: boolean;
+                    converttitles?: boolean;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                interface WBAvailableBadges extends Params {
+                    action: "wbavailablebadges";
+                }
+
+                interface WBCheckConstraintParameters extends Params {
+                    action: "wbcheckconstraintparameters";
+                    propertyid?: string | string[];
+                    constraintid?: string | string[];
+                }
+
+                interface WBCheckConstraints extends Params {
+                    action: "wbcheckconstraints";
+                    id?: string | string[];
+                    claimid?: string | string[];
+                    constraintid?: string | string[];
+                    /**
+                     * Defaults to `violation`, `warning`, `suggestion`, and `bad-parameters`.
+                     */
+                    status?: OneOrMore<
+                        | "*"
+                        | "bad-parameters"
+                        | "compliance"
+                        | "deprecated"
+                        | "exception"
+                        | "not-in-scope"
+                        | "suggestion"
+                        | "todo"
+                        | "violation"
+                        | "warning"
+                    >;
+                }
+
+                interface WBCreateClaim extends Params {
+                    action: "wbcreateclaim";
+                    entity: string;
+                    snaktype: "novalue" | "somevalue" | "value";
+                    property: string;
+                    value?: string;
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    baserevid?: number;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                }
+
+                interface WBCreateRedirect extends Params {
+                    action: "wbcreateredirect";
+                    from: string;
+                    to: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                }
+
+                interface WBEditEntity extends Params {
+                    action: "wbeditentity";
+                    id?: string;
+                    new?: string;
+                    site?: string;
+                    title?: string;
+                    baserevid?: number;
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    data: string;
+                    clear?: boolean;
+                }
+
+                interface WBFormatEntities extends Params {
+                    action: "wbformatentities";
+                    ids?: string | string[];
+                }
+
+                /**
+                 * @private
+                 */
+                interface WBFormatReference extends Params {
+                    action: "wbformatreference";
+                    reference: string;
+                    style: "internal-data-bridge";
+                    outputformat: "html";
+                }
+
+                interface WBFormatValue extends Params {
+                    action: "wbformatvalue";
+                    /**
+                     * Defaults to `text/x-wiki`.
+                     */
+                    generate?:
+                        | "text/html"
+                        | "text/html; disposition=verbose"
+                        | "text/html; disposition=verbose-preview"
+                        | "text/plain"
+                        | "text/x-wiki";
+                    datavalue: string;
+                    datatype?:
+                        | "commonsMedia"
+                        | "entity-schema"
+                        | "external-id"
+                        | "geo-shape"
+                        | "globe-coordinate"
+                        | "math"
+                        | "monolingualtext"
+                        | "musical-notation"
+                        | "quantity"
+                        | "string"
+                        | "tabular-data"
+                        | "time"
+                        | "url"
+                        | "wikibase-form"
+                        | "wikibase-item"
+                        | "wikibase-lexeme"
+                        | "wikibase-property"
+                        | "wikibase-sense";
+                    property?: string;
+                    options?: string;
+                }
+
+                interface WBGetClaims extends Params {
+                    action: "wbgetclaims";
+                    entity?: string;
+                    property?: string;
+                    claim?: string;
+                    rank?: "deprecated" | "normal" | "preferred";
+                    /**
+                     * Defaults to `references`.
+                     */
+                    props?: "references" | "references"[];
+                }
+
+                interface WBGetEntities extends Params {
+                    action: "wbgetentities";
+                    ids?: string | string[];
+                    sites?: string | string[];
+                    titles?: string | string[];
+                    /**
+                     * Defaults to `yes`.
+                     */
+                    redirects?: "no" | "yes";
+                    /**
+                     * Defaults to `info`, `sitelinks`, `aliases`, `labels`, `descriptions`, `claims`, and `datatype`.
+                     */
+                    props?: OneOrMore<
+                        | "aliases"
+                        | "claims"
+                        | "datatype"
+                        | "descriptions"
+                        | "info"
+                        | "labels"
+                        | "sitelinks"
+                        | "sitelinks/urls"
+                    >;
+                    languages?: string | string[];
+                    languagefallback?: boolean;
+                    normalize?: boolean;
+                    sitefilter?: string | string[];
+                }
+
+                /**
+                 * @private
+                 */
+                interface WBLAddForm extends Params {
+                    action: "wbladdform";
+                    lexemeId: string;
+                    data: string;
+                    baserevid?: number;
+                    tags?: string | string[];
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface WBLAddSense extends Params {
+                    action: "wbladdsense";
+                    lexemeId: string;
+                    data: string;
+                    baserevid?: number;
+                    tags?: string | string[];
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface WBLEditFormElements extends Params {
+                    action: "wbleditformelements";
+                    formId: string;
+                    data: string;
+                    baserevid?: number;
+                    tags?: string | string[];
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface WBLEditSenseElements extends Params {
+                    action: "wbleditsenseelements";
+                    senseId: string;
+                    data: string;
+                    baserevid?: number;
+                    tags?: string | string[];
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                interface WBLinkTitles extends Params {
+                    action: "wblinktitles";
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    tosite: string;
+                    totitle: string;
+                    fromsite: string;
+                    fromtitle: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    bot?: boolean;
+                }
+
+                interface WBLMergeLexemes extends Params {
+                    action: "wblmergelexemes";
+                    source: string;
+                    target: string;
+                    summary?: string;
+                    tags?: string | string[];
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface WBLRemoveForm extends Params {
+                    action: "wblremoveform";
+                    id: string;
+                    tags?: string | string[];
+                    bot?: boolean;
+                    baserevid?: number;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface WBLRemoveSense extends Params {
+                    action: "wblremovesense";
+                    id: string;
+                    baserevid?: number;
+                    tags?: string | string[];
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                interface WBMergeItems extends Params {
+                    action: "wbmergeitems";
+                    fromid: string;
+                    toid: string;
+                    ignoreconflicts?: OneOrMore<"description" | "sitelink" | "statement">;
+                    summary?: string;
+                    tags?: string | string[];
+                    bot?: boolean;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                }
+
+                interface WBParseValue extends Params {
+                    action: "wbparsevalue";
+                    datatype?:
+                        | "commonsMedia"
+                        | "entity-schema"
+                        | "external-id"
+                        | "geo-shape"
+                        | "globe-coordinate"
+                        | "math"
+                        | "monolingualtext"
+                        | "musical-notation"
+                        | "quantity"
+                        | "string"
+                        | "tabular-data"
+                        | "time"
+                        | "url"
+                        | "wikibase-form"
+                        | "wikibase-item"
+                        | "wikibase-lexeme"
+                        | "wikibase-property"
+                        | "wikibase-sense";
+                    property?: string;
+                    /**
+                     * @deprecated
+                     */
+                    parser?:
+                        | "commonsMedia"
+                        | "entity-schema"
+                        | "external-id"
+                        | "geo-shape"
+                        | "globe-coordinate"
+                        | "globecoordinate"
+                        | "math"
+                        | "monolingualtext"
+                        | "musical-notation"
+                        | "null"
+                        | "quantity"
+                        | "string"
+                        | "tabular-data"
+                        | "time"
+                        | "url"
+                        | "wikibase-entityid"
+                        | "wikibase-form"
+                        | "wikibase-item"
+                        | "wikibase-lexeme"
+                        | "wikibase-property"
+                        | "wikibase-sense";
+                    values: string | string[];
+                    options?: string;
+                    validate?: boolean;
+                }
+
+                interface WBRemoveClaims extends Params {
+                    action: "wbremoveclaims";
+                    claim: string | string[];
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    baserevid?: number;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                }
+
+                interface WBRemoveQualifiers extends Params {
+                    action: "wbremovequalifiers";
+                    claim: string;
+                    qualifiers: string | string[];
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    baserevid?: number;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                }
+
+                interface WBRemoveReferences extends Params {
+                    action: "wbremovereferences";
+                    statement: string;
+                    references: string | string[];
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    baserevid?: number;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                }
+
+                interface WBSearchEntities extends Params {
+                    action: "wbsearchentities";
+                    search: string;
+                    language: string;
+                    strictlanguage?: boolean;
+                    /**
+                     * Defaults to `item`.
+                     */
+                    type?: "entity-schema" | "form" | "item" | "lexeme" | "property" | "sense";
+                    /**
+                     * Defaults to 7.
+                     */
+                    limit?: Limit;
+                    /**
+                     * Defaults to 0.
+                     */
+                    continue?: number;
+                    /**
+                     * Defaults to `url`.
+                     */
+                    props?: "url" | "url"[];
+                    /**
+                     * Defaults to `default`.
+                     */
+                    profile?: "default" | "language";
+                }
+
+                interface WBSetAliases extends Params {
+                    action: "wbsetaliases";
+                    id?: string;
+                    new?: "item" | "property";
+                    site?: string;
+                    title?: string;
+                    baserevid?: number;
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    add?: string | string[];
+                    remove?: string | string[];
+                    set?: string | string[];
+                    language: string;
+                }
+
+                interface WBSetClaim extends Params {
+                    action: "wbsetclaim";
+                    claim: string;
+                    index?: number;
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    baserevid?: number;
+                    bot?: boolean;
+                    ignoreduplicatemainsnak?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                }
+
+                interface WBSetClaimValue extends Params {
+                    action: "wbsetclaimvalue";
+                    claim: string;
+                    value?: string;
+                    snaktype: "novalue" | "somevalue" | "value";
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    baserevid?: number;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                }
+
+                interface WBSetDescription extends Params {
+                    action: "wbsetdescription";
+                    id?: string;
+                    new?: string;
+                    site?: string;
+                    title?: string;
+                    baserevid?: number;
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    language: string;
+                    value?: string;
+                }
+
+                interface WBSetLabel extends Params {
+                    action: "wbsetlabel";
+                    id?: string;
+                    new?: string;
+                    site?: string;
+                    title?: string;
+                    baserevid?: number;
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    language: string;
+                    value?: string;
+                }
+
+                interface WBSetQualifier extends Params {
+                    action: "wbsetqualifier";
+                    claim: string;
+                    property?: string;
+                    value?: string;
+                    snaktype?: "novalue" | "somevalue" | "value";
+                    snakhash?: string;
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    baserevid?: number;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                }
+
+                interface WBSetReference extends Params {
+                    "action": "wbsetreference";
+                    "statement": string;
+                    "snaks": string;
+                    "snaks-order"?: string;
+                    "reference"?: string;
+                    "index"?: number;
+                    "summary"?: string;
+                    "tags"?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    "token": string;
+                    "baserevid"?: number;
+                    "bot"?: boolean;
+                    "returnto"?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    "returntoquery"?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    "returntoanchor"?: string;
+                }
+
+                interface WBSetSiteLink extends Params {
+                    action: "wbsetsitelink";
+                    id?: string;
+                    new?: string;
+                    site?: string;
+                    title?: string;
+                    baserevid?: number;
+                    summary?: string;
+                    tags?: string | string[];
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    bot?: boolean;
+                    returnto?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoquery?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    returntoanchor?: string;
+                    linksite: string;
+                    linktitle?: string;
+                    badges?: string | string[];
+                }
+
+                interface WBSGetSuggestions extends Params {
+                    action: "wbsgetsuggestions";
+                    entity?: string;
+                    properties?: string | string[];
+                    types?: string | string[];
+                    /**
+                     * Defaults to 7.
+                     */
+                    limit?: Limit;
+                    continue?: number;
+                    language?: string;
+                    /**
+                     * Defaults to `item`.
+                     */
+                    context?: "item" | "qualifier" | "reference";
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    include?: "" | "all";
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    search?: string;
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    event?: string;
+                }
+
+                interface WebappManifest extends Params {
+                    action: "webapp-manifest";
+                }
+
+                interface WebAuthn extends Params {
+                    action: "webauthn";
+                    func: "getAuthInfo" | "getRegisterInfo";
+                }
+
+                interface WikiFunctionsRun extends Params {
+                    action: "wikifunctions_run";
+                    function_call: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface WikiLambdaEdit extends Params {
+                    action: "wikilambda_edit";
+                    /**
+                     * Defaults to an empty string.
+                     */
+                    summary?: string;
+                    zid?: string;
+                    zobject: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                }
+
+                interface WikiLambdaFetch extends Params {
+                    action: "wikilambda_fetch";
+                    zids: string | string[];
+                    revisions?: string | string[];
+                    language?: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface WikiLambdaFunctionCall extends Params {
+                    action: "wikilambda_function_call";
+                    wikilambda_function_call_zobject: string;
+                }
+
+                /**
+                 * @private
+                 */
+                interface WikiLambdaPerformTest extends Params {
+                    action: "wikilambda_perform_test";
+                    wikilambda_perform_test_zfunction: string;
+                    wikilambda_perform_test_zimplementations?: string | string[];
+                    wikilambda_perform_test_ztesters?: string | string[];
+                }
+
+                /**
+                 * @private
+                 */
+                interface WikiLambdaSupportedProgrammingLanguages extends Params {
+                    action: "wikilambda_supported_programming_languages";
+                }
+
+                interface WikiLove extends Params {
+                    action: "wikilove";
+                    title: string;
+                    text: string;
+                    message?: string;
+                    /**
+                     * Sensitive parameter.
+                     */
+                    token: string;
+                    subject: string;
+                    type?: string;
+                    email?: string;
+                    tags?: string | string[];
+                }
+
+                /**
+                 * @private
+                 */
+                interface WikimediaEventsBlockedEdit extends Params {
+                    action: "wikimediaeventsblockededit";
+                    page: string;
+                    interface:
+                        | "discussiontools"
+                        | "mobilefrontend"
+                        | "other"
+                        | "visualeditor"
+                        | "wikieditor";
+                    platform: "desktop" | "mobile";
+                }
+
+                namespace Collection.Submodule {
+                    interface AddArticle extends Collection {
+                        submodule: "addarticle";
+                        namespace: number;
+                        title: string;
+                        /**
+                         * Defaults to 0.
+                         */
+                        oldid?: number;
+                    }
+
+                    interface AddCategory extends Collection {
+                        submodule: "addcategory";
+                        /**
+                         * Defaults to an empty string.
+                         */
+                        title?: string;
+                    }
+
+                    interface AddChapter extends Collection {
+                        submodule: "addchapter";
+                        /**
+                         * Defaults to an empty string.
+                         */
+                        chaptername?: string;
+                    }
+
+                    interface ClearCollection extends Collection {
+                        submodule: "clearcollection";
+                    }
+
+                    interface GetBookCreatorBoxContent extends Collection {
+                        submodule: "getbookcreatorboxcontent";
+                        /**
+                         * Defaults to an empty string.
+                         */
+                        hint?: string;
+                        oldid?: number;
+                        pagename?: string;
+                    }
+
+                    interface GetCollection extends Collection {
+                        submodule: "getcollection";
+                    }
+
+                    interface GetPopupData extends Collection {
+                        submodule: "getpopupdata";
+                        title: string;
+                    }
+
+                    interface PostCollection extends Collection {
+                        submodule: "postcollection";
+                        /**
+                         * Defaults to an empty string.
+                         */
+                        collection?: string;
+                    }
+
+                    interface RemoveArticle extends Collection {
+                        submodule: "removearticle";
+                        namespace: number;
+                        title: string;
+                        /**
+                         * Defaults to 0.
+                         */
+                        oldid?: number;
+                    }
+
+                    interface RemoveItem extends Collection {
+                        submodule: "removeitem";
+                        /**
+                         * Defaults to 0.
+                         */
+                        index?: number;
+                    }
+
+                    interface RenameChapter extends Collection {
+                        submodule: "renamechapter";
+                        index: number;
+                        chaptername: string;
+                    }
+
+                    interface SetSorting extends Collection {
+                        submodule: "setsorting";
+                        items: number | number[];
+                    }
+
+                    interface SetTitles extends Collection {
+                        submodule: "settitles";
+                        title: string;
+                        /**
+                         * Defaults to an empty string.
+                         */
+                        subtitle?: string;
+                        /**
+                         * Defaults to an empty string.
+                         */
+                        settings?: string;
+                    }
+
+                    interface SortItems extends Collection {
+                        submodule: "sortitems";
+                    }
+
+                    interface SuggestArticleAction extends Collection {
+                        submodule: "suggestarticleaction";
+                        suggestaction: "add" | "ban" | "remove";
+                        title: string;
+                    }
+
+                    interface SuggestUndoArticleAction extends Collection {
+                        submodule: "suggestundoarticleaction";
+                        lastaction: "add" | "ban" | "remove";
+                        title: string;
+                    }
+                }
+
+                namespace EchoPushSubscriptions.Command {
+                    /**
+                     * @private
+                     */
+                    interface Create extends EchoPushSubscriptions {
+                        command: "create";
+                        provider: "apns" | "fcm";
+                        providertoken: string;
+                        topic?: string;
+                    }
+
+                    /**
+                     * @private
+                     */
+                    interface Delete extends EchoPushSubscriptions {
+                        command: "delete";
+                        providertoken: string | string[];
+                    }
+                }
+
+                namespace Flow.Submodule {
+                    /**
+                     * @deprecated
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#lock-topic
+                     */
+                    interface CloseOpenTopic extends Flow {
+                        submodule: "close-open-topic";
+                        cotmoderationState: "close" | "lock" | "reopen" | "unlock";
+                        cotreason: string;
+                        /**
+                         * Sensitive parameter.
+                         */
+                        cottoken: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#edit-header
+                     */
+                    interface EditHeader extends Flow {
+                        submodule: "edit-header";
+                        ehprev_revision?: string;
+                        ehcontent: string;
+                        /**
+                         * Defaults to `wikitext`.
+                         */
+                        ehformat?: "html" | "wikitext";
+                        /**
+                         * Sensitive parameter.
+                         */
+                        ehtoken: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#edit-post
+                     */
+                    interface EditPost extends Flow {
+                        submodule: "edit-post";
+                        eppostId: string;
+                        epprev_revision: string;
+                        epcontent: string;
+                        /**
+                         * Defaults to `wikitext`.
+                         */
+                        epformat?: "html" | "wikitext";
+                        /**
+                         * Sensitive parameter.
+                         */
+                        eptoken: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#edit-title
+                     */
+                    interface EditTitle extends Flow {
+                        submodule: "edit-title";
+                        etprev_revision: string;
+                        etcontent: string;
+                        /**
+                         * Sensitive parameter.
+                         */
+                        ettoken: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#edit-topic-summary
+                     */
+                    interface EditTopicSummary extends Flow {
+                        submodule: "edit-topic-summary";
+                        etsprev_revision?: string;
+                        etssummary: string;
+                        /**
+                         * Defaults to `wikitext`.
+                         */
+                        etsformat?: "html" | "wikitext";
+                        /**
+                         * Sensitive parameter.
+                         */
+                        etstoken: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#lock-topic
+                     */
+                    interface LockTopic extends Flow {
+                        submodule: "lock-topic";
+                        cotmoderationState: "close" | "lock" | "reopen" | "unlock";
+                        cotreason: string;
+                        /**
+                         * Sensitive parameter.
+                         */
+                        cottoken: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#moderate-post
+                     */
+                    interface ModeratePost extends Flow {
+                        submodule: "moderate-post";
+                        mpmoderationState:
+                            | ""
+                            | "delete"
+                            | "hide"
+                            | "restore"
+                            | "suppress"
+                            | "undelete"
+                            | "unhide"
+                            | "unsuppress";
+                        mpreason: string;
+                        mppostId: string;
+                        /**
+                         * Sensitive parameter.
+                         */
+                        mptoken: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#moderate-topic
+                     */
+                    interface ModerateTopic extends Flow {
+                        submodule: "moderate-topic";
+                        mtmoderationState:
+                            | ""
+                            | "delete"
+                            | "hide"
+                            | "restore"
+                            | "suppress"
+                            | "undelete"
+                            | "unhide"
+                            | "unsuppress";
+                        mtreason: string;
+                        /**
+                         * Sensitive parameter.
+                         */
+                        mttoken: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#new-topic
+                     */
+                    interface NewTopic extends Flow {
+                        submodule: "new-topic";
+                        nttopic: string;
+                        ntcontent: string;
+                        /**
+                         * Defaults to `wikitext`.
+                         */
+                        ntformat?: "html" | "wikitext";
+                        /**
+                         * Sensitive parameter.
+                         */
+                        nttoken: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#reply
+                     */
+                    interface Reply extends Flow {
+                        submodule: "reply";
+                        repreplyTo: string;
+                        repcontent: string;
+                        /**
+                         * Defaults to `wikitext`.
+                         */
+                        repformat?: "html" | "wikitext";
+                        /**
+                         * Sensitive parameter.
+                         */
+                        reptoken: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#undo-edit-header
+                     */
+                    interface UndoEditHeader extends Flow {
+                        submodule: "undo-edit-header";
+                        uehstartId: string;
+                        uehendId: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#undo-edit-post
+                     */
+                    interface UndoEditPost extends Flow {
+                        submodule: "undo-edit-post";
+                        uepstartId: string;
+                        uependId: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#undo-edit-topic-summary
+                     */
+                    interface UndoEditTopicSummary extends Flow {
+                        submodule: "undo-edit-topic-summary";
+                        uetsstartId: string;
+                        uetsendId: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-header
+                     */
+                    interface ViewHeader extends Flow {
+                        submodule: "view-header";
+                        /**
+                         * Defaults to `fixed-html`.
+                         */
+                        vhformat?: "fixed-html" | "html" | "wikitext";
+                        vhrevId?: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-post
+                     */
+                    interface ViewPost extends Flow {
+                        submodule: "view-post";
+                        vppostId: string;
+                        /**
+                         * Defaults to `fixed-html`.
+                         */
+                        vpformat?: "fixed-html" | "html" | "wikitext";
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-post-history
+                     */
+                    interface ViewPostHistory extends Flow {
+                        submodule: "view-post-history";
+                        vphpostId: string;
+                        /**
+                         * Defaults to `fixed-html`.
+                         */
+                        vphformat?: "fixed-html" | "html" | "wikitext";
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-topic
+                     */
+                    interface ViewTopic extends Flow {
+                        submodule: "view-topic";
+                        /**
+                         * Defaults to `fixed-html`.
+                         */
+                        vtformat?: "fixed-html" | "html" | "wikitext";
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-topic-history
+                     */
+                    interface ViewTopicHistory extends Flow {
+                        submodule: "view-topic-history";
+                        /**
+                         * Defaults to `fixed-html`.
+                         */
+                        vthformat?: "fixed-html" | "html" | "wikitext";
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-topic-summary
+                     */
+                    interface ViewTopicSummary extends Flow {
+                        submodule: "view-topic-summary";
+                        /**
+                         * Defaults to `fixed-html`.
+                         */
+                        vtsformat?: "fixed-html" | "html" | "wikitext";
+                        vtsrevId?: string;
+                    }
+
+                    /**
+                     * @see https://www.mediawiki.org/wiki/Extension:Flow/API#view-topiclist
+                     */
+                    interface ViewTopicList extends Flow {
+                        "submodule": "view-topiclist";
+                        /**
+                         * Defaults to `fwd`.
+                         */
+                        "vtloffset-dir"?: "fwd" | "rev";
+                        /**
+                         * Defaults to `user`.
+                         */
+                        "vtlsortby"?: "newest" | "updated" | "user";
+                        "vtlsavesortby"?: boolean;
+                        "vtloffset-id"?: string;
+                        "vtloffset"?: string;
+                        "vtlinclude-offset"?: boolean;
+                        /**
+                         * Defaults to 10.
+                         */
+                        "vtllimit"?: Limit;
+                        "vtltoconly"?: boolean;
+                        /**
+                         * Defaults to `fixed-html`.
+                         */
+                        "vtlformat"?: "fixed-html" | "html" | "wikitext";
+                    }
                 }
 
                 namespace Purge.Generator {
@@ -4390,35 +6199,6 @@ declare global {
                         gwikilambdasearch_limit?: Limit;
                         gwikilambdasearch_continue?: string;
                     }
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Query
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Meta
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Properties
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Lists
-                 */
-                interface Query extends Params {
-                    action: "query";
-                    prop?: string | string[];
-                    list?: string | string[];
-                    meta?: string | string[];
-                    indexpageids?: boolean;
-                    export?: boolean;
-                    exportnowrap?: boolean;
-                    /**
-                     * Defaults to `0.11`.
-                     */
-                    exportschema?: "0.10" | "0.11";
-                    iwurl?: boolean;
-                    continue?: string;
-                    rawcontinue?: boolean;
-                    titles?: string | string[];
-                    pageids?: number | number[];
-                    revids?: number | number[];
-                    generator?: string;
-                    redirects?: boolean;
-                    converttitles?: boolean;
                 }
 
                 namespace Query {
@@ -6206,7 +7986,7 @@ declare global {
                          * @private
                          */
                         interface ExtDistBranches extends Query {
-                            edbexts?: never;
+                            edbexts?: string | string[];
                             edbskins?: OneOrMore<
                                 | "2018"
                                 | "Aether"
@@ -6663,6 +8443,13 @@ declare global {
                             lbldir?: "ascending" | "descending";
                         }
 
+                        /**
+                         * @private
+                         */
+                        interface LinkRecommendations extends Query {
+                            lrpageid: number;
+                        }
+
                         interface LintErrors extends Query {
                             /**
                              * Defaults to `deletable-table-tag`, `duplicate-ids`, `html5-misnesting`, `misc-tidy-replacement-issues`, `multiline-html-table-in-list`, `multiple-unclosed-formatting-tags`, `pwrap-bug-workaround`, `self-closed-tag`, `tidy-font-bug`, `tidy-whitespace-bug`, `unclosed-quotes-in-heading`, `bogus-image-options`, `fostered`, `misnested-tag`, `multi-colon-escape`, `wikilink-in-extlink`, `missing-end-tag`, `missing-end-tag-in-heading`, `night-mode-unaware-background-color`, `obsolete-tag`, and `stripped-tag`.
@@ -6831,6 +8618,10 @@ declare global {
                              * Defaults to 10.
                              */
                             orlimit?: Limit;
+                        }
+
+                        interface PageCollectionsMetadata extends Query {
+                            titles: string | string[];
                         }
 
                         /**
@@ -9699,19 +11490,6 @@ declare global {
                     }
                 }
 
-                /**
-                 * @private
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ReadingLists#API
-                 */
-                interface ReadingLists extends Params {
-                    action: "readinglists";
-                    command: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
                 namespace ReadingLists.Command {
                     /**
                      * @private
@@ -9783,217 +11561,6 @@ declare global {
                         description?: string;
                         batch?: string;
                     }
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Manage_authentication_data
-                 */
-                interface RemoveAuthenticationData extends Params {
-                    action: "removeauthenticationdata";
-                    request: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Manage_authentication_data
-                 */
-                interface ResetPassword extends Params {
-                    action: "resetpassword";
-                    user?: string;
-                    email?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                interface Review extends Params {
-                    action: "review";
-                    revid?: string;
-                    comment?: string;
-                    unapprove?: boolean;
-                    /**
-                     * Defaults to `1`.
-                     */
-                    flag_value?: "0" | "1" | "2" | "3";
-                    /**
-                     * Defaults to `1`.
-                     */
-                    flag_accuracy?: "0" | "1" | "2";
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisiondelete
-                 */
-                interface RevisionDelete extends Params {
-                    action: "revisiondelete";
-                    type: "archive" | "filearchive" | "logging" | "oldimage" | "revision";
-                    target?: string;
-                    ids: string | string[];
-                    hide?: OneOrMore<"comment" | "content" | "user">;
-                    show?: OneOrMore<"comment" | "content" | "user">;
-                    /**
-                     * Defaults to `nochange`.
-                     */
-                    suppress?: "no" | "nochange" | "yes";
-                    reason?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Rollback
-                 */
-                interface Rollback extends Params {
-                    action: "rollback";
-                    title?: string;
-                    pageid?: number;
-                    tags?: string | string[];
-                    user: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    summary?: string;
-                    markbot?: boolean;
-                    /**
-                     * Defaults to `preferences`.
-                     */
-                    watchlist?: "nochange" | "preferences" | "unwatch" | "watch";
-                    watchlistexpiry?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Rsd
-                 */
-                interface Rsd extends Params {
-                    action: "rsd";
-                }
-
-                /**
-                 * @private
-                 */
-                interface SanitizeMapData extends Params {
-                    action: "sanitize-mapdata";
-                    /**
-                     * Defaults to `Dummy title (called from Kartographer\Api\ApiSanitizeMapData)`.
-                     */
-                    title?: string;
-                    text: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface ScribuntoConsole extends Params {
-                    action: "scribunto-console";
-                    title?: string;
-                    content?: string;
-                    session?: number;
-                    question: string;
-                    clear?: boolean;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                interface SearchTranslations extends Params {
-                    action: "searchtranslations";
-                    /**
-                     * Defaults to `default`.
-                     */
-                    service?: "codfw" | "default" | "eqiad";
-                    query: string;
-                    /**
-                     * Defaults to `en`.
-                     */
-                    sourcelanguage?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    language?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    group?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    filter?: "" | "fuzzy" | "translated" | "untranslated";
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    match?: string;
-                    /**
-                     * Defaults to `0`.
-                     */
-                    case?: string;
-                    /**
-                     * Defaults to 0.
-                     */
-                    offset?: number;
-                    /**
-                     * Defaults to 25.
-                     */
-                    limit?: Limit;
-                }
-
-                /**
-                 * @private
-                 */
-                interface SecurePollAuth extends Params {
-                    action: "securepollauth";
-                    token: string;
-                    id: number;
-                }
-
-                interface SetGlobalAccountStatus extends Params {
-                    action: "setglobalaccountstatus";
-                    user: string;
-                    locked?: "" | "lock" | "unlock";
-                    hidden?: "" | "lists" | "suppressed";
-                    reason?: string;
-                    statecheck?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:SetNotificationTimestamp
-                 */
-                interface SetNotificationTimestamp extends Params {
-                    action: "setnotificationtimestamp";
-                    entirewatchlist?: boolean;
-                    timestamp?: string;
-                    torevid?: number;
-                    newerthanrevid?: number;
-                    continue?: string;
-                    titles?: string | string[];
-                    pageids?: number | number[];
-                    revids?: number | number[];
-                    generator?: string;
-                    redirects?: boolean;
-                    converttitles?: boolean;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
                 }
 
                 namespace SetNotificationTimestamp.Generator {
@@ -11717,223 +13284,6 @@ declare global {
                     }
                 }
 
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:SetPageLanguage
-                 */
-                interface SetPageLanguage extends Params {
-                    action: "setpagelanguage";
-                    title?: string;
-                    pageid?: number;
-                    lang: string;
-                    reason?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                interface ShortenUrl extends Params {
-                    action: "shortenurl";
-                    url: string;
-                    qrcode?: boolean;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Sitematrix
-                 */
-                interface SiteMatrix extends Params {
-                    action: "sitematrix";
-                    /**
-                     * Defaults to `special` and `language`.
-                     */
-                    smtype?: OneOrMore<"language" | "special">;
-                    /**
-                     * Defaults to `all`.
-                     */
-                    smstate?: OneOrMore<"all" | "closed" | "fishbowl" | "nonglobal" | "private">;
-                    /**
-                     * Defaults to `code`, `name`, `site`, `dir`, and `localname`.
-                     */
-                    smlangprop?: OneOrMore<"code" | "dir" | "localname" | "name" | "site">;
-                    /**
-                     * Defaults to `url`, `dbname`, `code`, and `sitename`.
-                     */
-                    smsiteprop?: OneOrMore<"code" | "dbname" | "lang" | "sitename" | "url">;
-                    /**
-                     * Defaults to 5000.
-                     */
-                    smlimit?: Limit;
-                    smcontinue?: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Extension:SpamBlacklist/API
-                 */
-                interface SpamBlacklist extends Params {
-                    action: "spamblacklist";
-                    url: string | string[];
-                }
-
-                interface Stabilize extends Params {
-                    action: "stabilize";
-                    /**
-                     * Defaults to `none`.
-                     */
-                    protectlevel?: "autoconfirmed" | "none";
-                    default: "latest" | "stable";
-                    /**
-                     * Defaults to `none`.
-                     */
-                    autoreview?: "none" | "sysop";
-                    /**
-                     * Defaults to `infinite`.
-                     */
-                    expiry?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    reason?: string;
-                    review?: boolean;
-                    title: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @private
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Stashedit
-                 */
-                interface StashEdit extends Params {
-                    action: "stashedit";
-                    title: string;
-                    section?: string;
-                    sectiontitle?: string;
-                    text?: string;
-                    stashedtexthash?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    summary?: string;
-                    contentmodel: string;
-                    contentformat:
-                        | "application/json"
-                        | "application/octet-stream"
-                        | "application/unknown"
-                        | "application/vnd.php.serialized"
-                        | "application/x-binary"
-                        | "text/css"
-                        | "text/javascript"
-                        | "text/plain"
-                        | "text/unknown"
-                        | "text/x-wiki"
-                        | "unknown/unknown";
-                    baserevid: number;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Extension:EventStreamConfig
-                 */
-                interface StreamConfigS extends Params {
-                    action: "streamconfigs";
-                    streams?: string | string[];
-                    constraints?: string | string[];
-                    /**
-                     * @deprecated
-                     */
-                    all_settings?: boolean;
-                }
-
-                interface StrikeVote extends Params {
-                    action: "strikevote";
-                    option: "strike" | "unstrike";
-                    reason: string;
-                    voteid: number;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                interface SXDelete extends Params {
-                    action: "sxdelete";
-                    sectiontranslationid: number;
-                    translationid: number;
-                    sectionid: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface SXSave extends Params {
-                    action: "sxsave";
-                    sourcelanguage: string;
-                    targetlanguage: string;
-                    sourcetitle: string;
-                    targettitle: string;
-                    content: string;
-                    sourcerevision: number;
-                    sourcesectiontitle: string;
-                    targetsectiontitle: string;
-                    sectionid: string;
-                    issandbox?: boolean;
-                    progress: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Tag
-                 */
-                interface Tag extends Params {
-                    action: "tag";
-                    rcid?: number | number[];
-                    revid?: number | number[];
-                    logid?: number | number[];
-                    add?: string | string[];
-                    remove?: string | string[];
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    reason?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TemplateData
-                 */
-                interface TemplateData extends Params {
-                    action: "templatedata";
-                    includeMissingTitles?: boolean;
-                    /**
-                     * @deprecated
-                     */
-                    doNotIgnoreMissingTitles?: boolean;
-                    lang?: string;
-                    titles?: string | string[];
-                    pageids?: number | number[];
-                    revids?: number | number[];
-                    generator?: string;
-                    redirects?: boolean;
-                    converttitles?: boolean;
-                }
-
                 namespace TemplateData.Generator {
                     /**
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allcategories
@@ -13655,456 +15005,6 @@ declare global {
                     }
                 }
 
-                /**
-                 * @see https://www.mediawiki.org/wiki/Extension:Thanks#API_Documentation
-                 */
-                interface Thank extends Params {
-                    action: "thank";
-                    rev?: number;
-                    log?: number;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    source?: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Threadaction
-                 */
-                interface ThreadAction extends Params {
-                    action: "threadaction";
-                    thread?: string | string[];
-                    talkpage?: string;
-                    threadaction:
-                        | "addreaction"
-                        | "deletereaction"
-                        | "edit"
-                        | "inlineeditform"
-                        | "markread"
-                        | "markunread"
-                        | "merge"
-                        | "newthread"
-                        | "reply"
-                        | "setsortkey"
-                        | "setsubject"
-                        | "split";
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    subject?: string;
-                    reason?: string;
-                    newparent?: string;
-                    text?: string;
-                    render?: string;
-                    bump?: string;
-                    sortkey?: string;
-                    signature?: string;
-                    type?: string;
-                    value?: string;
-                    method?: string;
-                    operand?: string;
-                    captchaword?: string;
-                    captchaid?: string;
-                }
-
-                /**
-                 * @private
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TimedMediaHandler
-                 */
-                interface TimedText extends Params {
-                    action: "timedtext";
-                    title?: string;
-                    pageid?: number;
-                    trackformat: "srt" | "vtt";
-                    lang?: string;
-                }
-
-                interface TitleBlacklist extends Params {
-                    action: "titleblacklist";
-                    tbtitle: string;
-                    /**
-                     * Defaults to `edit`.
-                     */
-                    tbaction?:
-                        | "create"
-                        | "createpage"
-                        | "createtalk"
-                        | "edit"
-                        | "move"
-                        | "new-account"
-                        | "upload";
-                    tbnooverride?: boolean;
-                }
-
-                interface TorBlock extends Params {
-                    action: "torblock";
-                    ip: string;
-                }
-
-                interface TranscodeReset extends Params {
-                    action: "transcodereset";
-                    title: string;
-                    transcodekey?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                interface TranslationAids extends Params {
-                    action: "translationaids";
-                    title: string;
-                    group?: string;
-                    /**
-                     * Defaults to `groups`, `definition`, `translation`, `inotherlanguages`, `documentation`, `mt`, `definitiondiff`, `ttmserver`, `support`, `gettext`, `insertables`, and `editsummaries`.
-                     */
-                    prop?: OneOrMore<
-                        | "definition"
-                        | "definitiondiff"
-                        | "documentation"
-                        | "editsummaries"
-                        | "gettext"
-                        | "groups"
-                        | "inotherlanguages"
-                        | "insertables"
-                        | "mt"
-                        | "support"
-                        | "translation"
-                        | "ttmserver"
-                    >;
-                }
-
-                /**
-                 * @private
-                 */
-                interface TranslationCheck extends Params {
-                    action: "translationcheck";
-                    title: string;
-                    translation: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface TranslationEntitySearch extends Params {
-                    action: "translationentitysearch";
-                    /**
-                     * Defaults to `groups` and `messages`.
-                     */
-                    entitytype?: OneOrMore<"groups" | "messages">;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    query?: string;
-                    /**
-                     * Defaults to 10.
-                     */
-                    limit?: Limit;
-                    grouptypes?: OneOrMore<
-                        "aggregate-groups" | "message-bundles" | "translatable-pages"
-                    >;
-                }
-
-                interface TranslationReview extends Params {
-                    action: "translationreview";
-                    revision: number;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                interface TranslationStats extends Params {
-                    action: "translationstats";
-                    count: "edits" | "reviewers" | "reviews" | "users";
-                    /**
-                     * Defaults to 30.
-                     */
-                    days: number;
-                    group?: string | string[];
-                    language?: string | string[];
-                    /**
-                     * Defaults to `days`.
-                     */
-                    scale?: "days" | "hours" | "months" | "weeks" | "years";
-                    start?: string;
-                }
-
-                interface TtmServer extends Params {
-                    action: "ttmserver";
-                    service?: never;
-                    sourcelanguage: string;
-                    targetlanguage: string;
-                    text: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface ULSLocalization extends Params {
-                    action: "ulslocalization";
-                    language: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface ULSSetLang extends Params {
-                    action: "ulssetlang";
-                    languagecode: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Block
-                 */
-                interface Unblock extends Params {
-                    action: "unblock";
-                    id?: number;
-                    user?: string;
-                    /**
-                     * @deprecated
-                     */
-                    userid?: number;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    reason?: string;
-                    tags?: string | string[];
-                    watchuser?: boolean;
-                    watchlistexpiry?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Undelete
-                 */
-                interface Undelete extends Params {
-                    action: "undelete";
-                    title: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    reason?: string;
-                    tags?: string | string[];
-                    timestamps?: string | string[];
-                    fileids?: number | number[];
-                    undeletetalk?: boolean;
-                    /**
-                     * Defaults to `preferences`.
-                     */
-                    watchlist?: "nochange" | "preferences" | "unwatch" | "watch";
-                    watchlistexpiry?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Manage_authentication_data
-                 */
-                interface UnlinkAccount extends Params {
-                    action: "unlinkaccount";
-                    request: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Upload
-                 */
-                interface Upload extends Params {
-                    action: "upload";
-                    filename?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    comment?: string;
-                    tags?: string | string[];
-                    text?: string;
-                    /**
-                     * @deprecated
-                     */
-                    watch?: boolean;
-                    /**
-                     * Defaults to `preferences`.
-                     */
-                    watchlist?: "nochange" | "preferences" | "watch";
-                    watchlistexpiry?: string;
-                    ignorewarnings?: boolean;
-                    file?: File;
-                    url?: string;
-                    filekey?: string;
-                    /**
-                     * @deprecated
-                     */
-                    sessionkey?: string;
-                    stash?: boolean;
-                    filesize?: number;
-                    offset?: number;
-                    chunk?: File;
-                    async?: boolean;
-                    checkstatus?: boolean;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:User_group_membership
-                 */
-                interface Userrights extends Params {
-                    action: "userrights";
-                    user?: string;
-                    /**
-                     * @deprecated
-                     */
-                    userid?: number;
-                    add?: string | string[];
-                    /**
-                     * Defaults to `infinite`.
-                     */
-                    expiry?: string | string[];
-                    remove?: string | string[];
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    reason?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    tags?: string | string[];
-                    watchuser?: boolean;
-                    watchlistexpiry?: string;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Validatepassword
-                 */
-                interface ValidatePassword extends Params {
-                    action: "validatepassword";
-                    /**
-                     * Sensitive parameter.
-                     */
-                    password: string;
-                    user?: string;
-                    email?: string;
-                    realname?: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface VisualEditor extends Params {
-                    action: "visualeditor";
-                    page: string;
-                    badetag?: string;
-                    /**
-                     * Defaults to `jsonfm`.
-                     */
-                    format?: "json" | "jsonfm";
-                    paction: "metadata" | "parse" | "parsefragment" | "templatesused" | "wikitext";
-                    wikitext?: string;
-                    section?: string;
-                    stash?: boolean;
-                    oldid?: number;
-                    editintro?: string;
-                    pst?: boolean;
-                    preload?: string;
-                    preloadparams?: string | string[];
-                }
-
-                /**
-                 * @private
-                 */
-                interface VisualEditorEdit extends Params {
-                    action: "visualeditoredit";
-                    paction: "diff" | "save" | "serialize" | "serializeforcache";
-                    page: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    wikitext?: string;
-                    section?: string;
-                    sectiontitle?: string;
-                    basetimestamp?: string;
-                    starttimestamp?: string;
-                    oldid?: number;
-                    minor?: string;
-                    watchlist?: string;
-                    html?: string;
-                    etag?: string;
-                    summary?: string;
-                    captchaid?: string;
-                    captchaword?: string;
-                    cachekey?: string;
-                    nocontent?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    useskin?:
-                        | "apioutput"
-                        | "authentication-popup"
-                        | "cologneblue"
-                        | "contenttranslation"
-                        | "fallback"
-                        | "json"
-                        | "minerva"
-                        | "modern"
-                        | "monobook"
-                        | "timeless"
-                        | "vector"
-                        | "vector-2022";
-                    tags?: string | string[];
-                    plugins?: string | string[];
-                    [k: `data-${string}`]: string;
-                    mobileformat?: boolean;
-                }
-
-                /**
-                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watch
-                 */
-                interface Watch extends Params {
-                    action: "watch";
-                    /**
-                     * @deprecated
-                     */
-                    title?: string;
-                    expiry?: string;
-                    unwatch?: boolean;
-                    continue?: string;
-                    titles?: string | string[];
-                    pageids?: number | number[];
-                    revids?: number | number[];
-                    generator?: string;
-                    redirects?: boolean;
-                    converttitles?: boolean;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
                 namespace Watch.Generator {
                     /**
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allcategories
@@ -15824,895 +16724,6 @@ declare global {
                         gwikilambdasearch_limit?: Limit;
                         gwikilambdasearch_continue?: string;
                     }
-                }
-
-                interface WBAvailableBadges extends Params {
-                    action: "wbavailablebadges";
-                }
-
-                interface WBCheckConstraintParameters extends Params {
-                    action: "wbcheckconstraintparameters";
-                    propertyid?: string | string[];
-                    constraintid?: string | string[];
-                }
-
-                interface WBCheckConstraints extends Params {
-                    action: "wbcheckconstraints";
-                    id?: string | string[];
-                    claimid?: string | string[];
-                    constraintid?: string | string[];
-                    /**
-                     * Defaults to `violation`, `warning`, `suggestion`, and `bad-parameters`.
-                     */
-                    status?: OneOrMore<
-                        | "*"
-                        | "bad-parameters"
-                        | "compliance"
-                        | "deprecated"
-                        | "exception"
-                        | "not-in-scope"
-                        | "suggestion"
-                        | "todo"
-                        | "violation"
-                        | "warning"
-                    >;
-                }
-
-                interface WBCreateClaim extends Params {
-                    action: "wbcreateclaim";
-                    entity: string;
-                    snaktype: "novalue" | "somevalue" | "value";
-                    property: string;
-                    value?: string;
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    baserevid?: number;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                }
-
-                interface WBCreateRedirect extends Params {
-                    action: "wbcreateredirect";
-                    from: string;
-                    to: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                }
-
-                interface WBEditEntity extends Params {
-                    action: "wbeditentity";
-                    id?: string;
-                    new?: string;
-                    site?: string;
-                    title?: string;
-                    baserevid?: number;
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    data: string;
-                    clear?: boolean;
-                }
-
-                interface WBFormatEntities extends Params {
-                    action: "wbformatentities";
-                    ids?: string | string[];
-                }
-
-                /**
-                 * @private
-                 */
-                interface WBFormatReference extends Params {
-                    action: "wbformatreference";
-                    reference: string;
-                    style: "internal-data-bridge";
-                    outputformat: "html";
-                }
-
-                interface WBFormatValue extends Params {
-                    action: "wbformatvalue";
-                    /**
-                     * Defaults to `text/x-wiki`.
-                     */
-                    generate?:
-                        | "text/html"
-                        | "text/html; disposition=verbose"
-                        | "text/html; disposition=verbose-preview"
-                        | "text/plain"
-                        | "text/x-wiki";
-                    datavalue: string;
-                    datatype?:
-                        | "commonsMedia"
-                        | "entity-schema"
-                        | "external-id"
-                        | "geo-shape"
-                        | "globe-coordinate"
-                        | "math"
-                        | "monolingualtext"
-                        | "musical-notation"
-                        | "quantity"
-                        | "string"
-                        | "tabular-data"
-                        | "time"
-                        | "url"
-                        | "wikibase-form"
-                        | "wikibase-item"
-                        | "wikibase-lexeme"
-                        | "wikibase-property"
-                        | "wikibase-sense";
-                    property?: string;
-                    options?: string;
-                }
-
-                interface WBGetClaims extends Params {
-                    action: "wbgetclaims";
-                    entity?: string;
-                    property?: string;
-                    claim?: string;
-                    rank?: "deprecated" | "normal" | "preferred";
-                    /**
-                     * Defaults to `references`.
-                     */
-                    props?: "references" | "references"[];
-                }
-
-                interface WBGetEntities extends Params {
-                    action: "wbgetentities";
-                    ids?: string | string[];
-                    sites?: string | string[];
-                    titles?: string | string[];
-                    /**
-                     * Defaults to `yes`.
-                     */
-                    redirects?: "no" | "yes";
-                    /**
-                     * Defaults to `info`, `sitelinks`, `aliases`, `labels`, `descriptions`, `claims`, and `datatype`.
-                     */
-                    props?: OneOrMore<
-                        | "aliases"
-                        | "claims"
-                        | "datatype"
-                        | "descriptions"
-                        | "info"
-                        | "labels"
-                        | "sitelinks"
-                        | "sitelinks/urls"
-                    >;
-                    languages?: string | string[];
-                    languagefallback?: boolean;
-                    normalize?: boolean;
-                    sitefilter?: string | string[];
-                }
-
-                /**
-                 * @private
-                 */
-                interface WBLAddForm extends Params {
-                    action: "wbladdform";
-                    lexemeId: string;
-                    data: string;
-                    baserevid?: number;
-                    tags?: string | string[];
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface WBLAddSense extends Params {
-                    action: "wbladdsense";
-                    lexemeId: string;
-                    data: string;
-                    baserevid?: number;
-                    tags?: string | string[];
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface WBLEditFormElements extends Params {
-                    action: "wbleditformelements";
-                    formId: string;
-                    data: string;
-                    baserevid?: number;
-                    tags?: string | string[];
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface WBLEditSenseElements extends Params {
-                    action: "wbleditsenseelements";
-                    senseId: string;
-                    data: string;
-                    baserevid?: number;
-                    tags?: string | string[];
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                interface WBLinkTitles extends Params {
-                    action: "wblinktitles";
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    tosite: string;
-                    totitle: string;
-                    fromsite: string;
-                    fromtitle: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    bot?: boolean;
-                }
-
-                interface WBLMergeLexemes extends Params {
-                    action: "wblmergelexemes";
-                    source: string;
-                    target: string;
-                    summary?: string;
-                    tags?: string | string[];
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface WBLRemoveForm extends Params {
-                    action: "wblremoveform";
-                    id: string;
-                    tags?: string | string[];
-                    bot?: boolean;
-                    baserevid?: number;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface WBLRemoveSense extends Params {
-                    action: "wblremovesense";
-                    id: string;
-                    baserevid?: number;
-                    tags?: string | string[];
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                interface WBMergeItems extends Params {
-                    action: "wbmergeitems";
-                    fromid: string;
-                    toid: string;
-                    ignoreconflicts?: OneOrMore<"description" | "sitelink" | "statement">;
-                    summary?: string;
-                    tags?: string | string[];
-                    bot?: boolean;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                }
-
-                interface WBParseValue extends Params {
-                    action: "wbparsevalue";
-                    datatype?:
-                        | "commonsMedia"
-                        | "entity-schema"
-                        | "external-id"
-                        | "geo-shape"
-                        | "globe-coordinate"
-                        | "math"
-                        | "monolingualtext"
-                        | "musical-notation"
-                        | "quantity"
-                        | "string"
-                        | "tabular-data"
-                        | "time"
-                        | "url"
-                        | "wikibase-form"
-                        | "wikibase-item"
-                        | "wikibase-lexeme"
-                        | "wikibase-property"
-                        | "wikibase-sense";
-                    property?: string;
-                    /**
-                     * @deprecated
-                     */
-                    parser?:
-                        | "commonsMedia"
-                        | "entity-schema"
-                        | "external-id"
-                        | "geo-shape"
-                        | "globe-coordinate"
-                        | "globecoordinate"
-                        | "math"
-                        | "monolingualtext"
-                        | "musical-notation"
-                        | "null"
-                        | "quantity"
-                        | "string"
-                        | "tabular-data"
-                        | "time"
-                        | "url"
-                        | "wikibase-entityid"
-                        | "wikibase-form"
-                        | "wikibase-item"
-                        | "wikibase-lexeme"
-                        | "wikibase-property"
-                        | "wikibase-sense";
-                    values: string | string[];
-                    options?: string;
-                    validate?: boolean;
-                }
-
-                interface WBRemoveClaims extends Params {
-                    action: "wbremoveclaims";
-                    claim: string | string[];
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    baserevid?: number;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                }
-
-                interface WBRemoveQualifiers extends Params {
-                    action: "wbremovequalifiers";
-                    claim: string;
-                    qualifiers: string | string[];
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    baserevid?: number;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                }
-
-                interface WBRemoveReferences extends Params {
-                    action: "wbremovereferences";
-                    statement: string;
-                    references: string | string[];
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    baserevid?: number;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                }
-
-                interface WBSearchEntities extends Params {
-                    action: "wbsearchentities";
-                    search: string;
-                    language: string;
-                    strictlanguage?: boolean;
-                    /**
-                     * Defaults to `item`.
-                     */
-                    type?: "entity-schema" | "form" | "item" | "lexeme" | "property" | "sense";
-                    /**
-                     * Defaults to 7.
-                     */
-                    limit?: Limit;
-                    /**
-                     * Defaults to 0.
-                     */
-                    continue?: number;
-                    /**
-                     * Defaults to `url`.
-                     */
-                    props?: "url" | "url"[];
-                    /**
-                     * Defaults to `default`.
-                     */
-                    profile?: "default" | "language";
-                }
-
-                interface WBSetAliases extends Params {
-                    action: "wbsetaliases";
-                    id?: string;
-                    new?: "item" | "property";
-                    site?: string;
-                    title?: string;
-                    baserevid?: number;
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    add?: string | string[];
-                    remove?: string | string[];
-                    set?: string | string[];
-                    language: string;
-                }
-
-                interface WBSetClaim extends Params {
-                    action: "wbsetclaim";
-                    claim: string;
-                    index?: number;
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    baserevid?: number;
-                    bot?: boolean;
-                    ignoreduplicatemainsnak?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                }
-
-                interface WBSetClaimValue extends Params {
-                    action: "wbsetclaimvalue";
-                    claim: string;
-                    value?: string;
-                    snaktype: "novalue" | "somevalue" | "value";
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    baserevid?: number;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                }
-
-                interface WBSetDescription extends Params {
-                    action: "wbsetdescription";
-                    id?: string;
-                    new?: string;
-                    site?: string;
-                    title?: string;
-                    baserevid?: number;
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    language: string;
-                    value?: string;
-                }
-
-                interface WBSetLabel extends Params {
-                    action: "wbsetlabel";
-                    id?: string;
-                    new?: string;
-                    site?: string;
-                    title?: string;
-                    baserevid?: number;
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    language: string;
-                    value?: string;
-                }
-
-                interface WBSetQualifier extends Params {
-                    action: "wbsetqualifier";
-                    claim: string;
-                    property?: string;
-                    value?: string;
-                    snaktype?: "novalue" | "somevalue" | "value";
-                    snakhash?: string;
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    baserevid?: number;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                }
-
-                interface WBSetReference extends Params {
-                    "action": "wbsetreference";
-                    "statement": string;
-                    "snaks": string;
-                    "snaks-order"?: string;
-                    "reference"?: string;
-                    "index"?: number;
-                    "summary"?: string;
-                    "tags"?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    "token": string;
-                    "baserevid"?: number;
-                    "bot"?: boolean;
-                    "returnto"?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    "returntoquery"?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    "returntoanchor"?: string;
-                }
-
-                interface WBSetSiteLink extends Params {
-                    action: "wbsetsitelink";
-                    id?: string;
-                    new?: string;
-                    site?: string;
-                    title?: string;
-                    baserevid?: number;
-                    summary?: string;
-                    tags?: string | string[];
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    bot?: boolean;
-                    returnto?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoquery?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    returntoanchor?: string;
-                    linksite: string;
-                    linktitle?: string;
-                    badges?: string | string[];
-                }
-
-                interface WBSGetSuggestions extends Params {
-                    action: "wbsgetsuggestions";
-                    entity?: string;
-                    properties?: string | string[];
-                    types?: string | string[];
-                    /**
-                     * Defaults to 7.
-                     */
-                    limit?: Limit;
-                    continue?: number;
-                    language?: string;
-                    /**
-                     * Defaults to `item`.
-                     */
-                    context?: "item" | "qualifier" | "reference";
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    include?: "" | "all";
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    search?: string;
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    event?: string;
-                }
-
-                interface WebappManifest extends Params {
-                    action: "webapp-manifest";
-                }
-
-                interface WebAuthn extends Params {
-                    action: "webauthn";
-                    func: "getAuthInfo" | "getRegisterInfo";
-                }
-
-                interface WikiFunctionsRun extends Params {
-                    action: "wikifunctions_run";
-                    function_call: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface WikiLambdaEdit extends Params {
-                    action: "wikilambda_edit";
-                    /**
-                     * Defaults to an empty string.
-                     */
-                    summary?: string;
-                    zid?: string;
-                    zobject: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                }
-
-                interface WikiLambdaFetch extends Params {
-                    action: "wikilambda_fetch";
-                    zids: string | string[];
-                    revisions?: string | string[];
-                    language?: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface WikiLambdaFunctionCall extends Params {
-                    action: "wikilambda_function_call";
-                    wikilambda_function_call_zobject: string;
-                }
-
-                /**
-                 * @private
-                 */
-                interface WikiLambdaPerformTest extends Params {
-                    action: "wikilambda_perform_test";
-                    wikilambda_perform_test_zfunction: string;
-                    wikilambda_perform_test_zimplementations?: string | string[];
-                    wikilambda_perform_test_ztesters?: string | string[];
-                }
-
-                /**
-                 * @private
-                 */
-                interface WikiLambdaSupportedProgrammingLanguages extends Params {
-                    action: "wikilambda_supported_programming_languages";
-                }
-
-                interface WikiLove extends Params {
-                    action: "wikilove";
-                    title: string;
-                    text: string;
-                    message?: string;
-                    /**
-                     * Sensitive parameter.
-                     */
-                    token: string;
-                    subject: string;
-                    type?: string;
-                    email?: string;
-                    tags?: string | string[];
-                }
-
-                /**
-                 * @private
-                 */
-                interface WikimediaEventsBlockedEdit extends Params {
-                    action: "wikimediaeventsblockededit";
-                    page: string;
-                    interface:
-                        | "discussiontools"
-                        | "mobilefrontend"
-                        | "other"
-                        | "visualeditor"
-                        | "wikieditor";
-                    platform: "desktop" | "mobile";
                 }
             }
 

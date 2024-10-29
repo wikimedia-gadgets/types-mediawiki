@@ -3,8 +3,16 @@
 import "..";
 import "../api_params";
 
+type CombinationOf<T extends string[], S extends string = " "> = T extends [infer U, ...infer T2]
+    ? U extends string
+        ? T2 extends string[]
+            ? U | `${U}${S}${CombinationOf<T2, S>}` | CombinationOf<T2, S>
+            : never
+        : never
+    : never;
+
 declare global {
-    type LineBlock = (string | string[])[];
+    type LineBlock = string[][];
 
     interface RawModule {
         name: string;
@@ -28,101 +36,66 @@ declare global {
     }
 
     namespace RawModule {
-        type Parameter<T extends Parameter.Type = Parameter.Type> = Parameter.Base<T> &
-            (T extends keyof Parameter.TypeMap ? Parameter.TypeMap[T] : Parameter.SubmoduleType);
+        interface Parameter {
+            index: number;
+            module: RawModule;
+            name: string;
+            type: Parameter.Type;
+            required?: boolean;
+            default?: unknown;
+            multi?: boolean;
+            allowsduplicates?: boolean;
+            limit?: number;
+            lowlimit?: number;
+            highlimit?: number;
+            sensitive?: boolean;
+            deprecated?: boolean;
+            templatevars?: Record<string, string>;
+            info?: Parameter.Info[];
+            // integer, limit
+            min?: number;
+            max?: number;
+            // limit
+            highmax?: number;
+            // namespace, enum
+            allspecifier?: string;
+            // namespace
+            extranamespaces?: number[];
+            // string
+            maxbytes?: number;
+            maxchars?: number;
+            tokentype?: string;
+            // title
+            mustExist?: boolean;
+            // user
+            subtypes?: string[];
+            // enum
+            submodules?: Record<string, RawModule>;
+            submoduleparamprefix?: string;
+            internalvalues?: string[];
+            deprecatedvalues?: string[];
+        }
 
         namespace Parameter {
-            interface Base<T extends string | string[]> {
-                index: number;
-                module: RawModule;
-                name: string;
-                type: T;
-                required?: boolean;
-                default?: unknown;
-                multi?: boolean;
-                allowsduplicates?: boolean;
-                limit?: number;
-                lowlimit?: number;
-                highlimit?: number;
-                sensitive?: boolean;
-                deprecated?: boolean;
-                templatevars?: Record<string, string>;
-                info?: Info[];
-            }
-
             interface Info {
                 name: string;
             }
 
-            type Type = keyof TypeMap | string[];
-
-            interface TypeMap {
-                boolean: BooleanType;
-                expiry: ExpiryType;
-                integer: IntegerType;
-                limit: LimitType;
-                namespace: NamespaceType;
-                password: PasswordType;
-                raw: RawType;
-                string: StringType;
-                text: TextType;
-                timestamp: TimestampType;
-                title: TitleType;
-                upload: UploadType;
-                user: UserType;
-            }
-
-            interface BooleanType {}
-
-            interface ExpiryType {}
-
-            interface IntegerType {
-                min?: number;
-                max?: number;
-            }
-
-            interface LimitType extends IntegerType {
-                highmax?: number;
-            }
-
-            interface EnumType {
-                allspecifier?: string;
-            }
-
-            interface NamespaceType extends EnumType {
-                extranamespaces?: number[];
-            }
-
-            interface PasswordType {}
-
-            interface RawType {}
-
-            interface StringType {
-                maxbytes?: number;
-                maxchars?: number;
-                tokentype?: string;
-            }
-
-            interface TextType {}
-
-            interface TimestampType {}
-
-            interface TitleType {
-                mustExist?: boolean;
-            }
-
-            interface UploadType {}
-
-            interface UserType {
-                subtypes?: string[];
-            }
-
-            interface SubmoduleType extends EnumType {
-                submodules?: Record<string, RawModule>;
-                submoduleparamprefix?: string;
-                internalvalues?: string[];
-                deprecatedvalues?: string[];
-            }
+            type Type =
+                | "boolean"
+                | "expiry"
+                | "integer"
+                | "limit"
+                | "namespace"
+                | "password"
+                | "raw"
+                | "string"
+                | "text"
+                | "timestamp"
+                | "title"
+                | "upload"
+                | "user"
+                | string[];
         }
     }
 
@@ -157,7 +130,7 @@ declare global {
          */
         parameters: Parameter[];
         prefix: string;
-        jsdoc?: JSdocData;
+        jsdoc?: Declaration.JSdoc;
     }
 
     /**
@@ -200,7 +173,7 @@ declare global {
          * Default parameter value.
          */
         default?: unknown;
-        jsdoc?: JSdocData;
+        jsdoc?: Declaration.JSdoc;
     }
 
     namespace Parameter {
@@ -220,32 +193,64 @@ declare global {
         }
     }
 
-    type ParameterType = Record<string, Module>;
+    type ParentStack =
+        | {
+              path: ParentPath;
+              next: ParentStack;
+          }
+        | undefined;
 
-    /**
-     * Some additional information about an API module or parameter.
-     */
-    interface JSdocData {
-        description?: string[];
-        private?: boolean;
-        deprecated?: string | boolean;
-        seelinks?: string[];
+    type Declaration = Declaration.Type | Declaration.Interface;
+
+    namespace Declaration {
+        interface Base {
+            jsdoc?: JSdoc;
+        }
+
+        interface Standalone extends Base {
+            modifier?: Modifier;
+        }
+
+        interface Extendable extends Standalone {
+            name: string;
+            template?: string[];
+        }
+
+        interface Namespace extends Standalone {
+            declarations?: Declaration[];
+            subnamespaces?: Record<string, Namespace>;
+            deprecated?: Record<string, DeprecationTarget[]>;
+        }
+
+        interface Type extends Extendable {
+            type: string;
+        }
+
+        interface Interface extends Extendable {
+            parents: string[];
+            properties: Property[];
+        }
+
+        interface Property extends Base {
+            name: string;
+            template?: boolean;
+            type: string;
+            required?: boolean;
+        }
+
+        type Modifier = CombinationOf<["export", "declare"]>;
+
+        interface JSdoc {
+            description?: string[];
+            private?: boolean;
+            deprecated?: string | boolean;
+            seelinks?: string[];
+        }
     }
 
-    interface InterfaceOptions {
-        parent?: string;
-        exported?: boolean;
-    }
-
-    type PropertyData = Omit<Parameter, "module" | "name">;
-
-    namespace ModuleFormatter {
-        type DeclarationModifier = "declare" | "export" | "export declare";
-
-        type ParentStack = {
-            path: ParentPath;
-            next: ParentStack;
-        } | null;
+    interface DeprecationTarget {
+        type: string;
+        link?: string;
     }
 }
 
