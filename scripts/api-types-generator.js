@@ -46,6 +46,7 @@ const SOURCES = {
     "wikibooks-en": "https://en.wikibooks.org/w/api.php",
     "wikimedia-api": "https://api.wikimedia.org/w/api.php",
     "wikimedia-commons": "https://commons.wikimedia.org/w/api.php",
+    "wikimedia-incubator": "https://incubator.wikimedia.org/w/api.php",
     "wikimedia-meta": "https://meta.wikimedia.org/w/api.php",
     "wikinews-en": "https://en.wikinews.org/w/api.php",
     "wikiquote-en": "https://en.wikiquote.org/w/api.php",
@@ -53,6 +54,8 @@ const SOURCES = {
     "wikiversity-en": "https://en.wikiversity.org/w/api.php",
     "wikivoyage-en": "https://en.wikivoyage.org/w/api.php",
     "wiktionary-en": "https://en.wiktionary.org/w/api.php",
+
+    "gracesguide": "https://www.gracesguide.co.uk/api.php",
 
     "wikidata-test": "https://test.wikidata.org/w/api.php",
     "wikimedia-commons-test": "https://test-commons.wikimedia.org/w/api.php",
@@ -496,7 +499,7 @@ class ModuleLoader {
     constructor(api, name) {
         this.name = name ?? api;
         this.uri = new URL(api).origin;
-        this.api = new mw.ForeignApi(api);
+        this.api = new mw.ForeignApi(api, { anonymous: true });
     }
 
     /**
@@ -838,9 +841,11 @@ class ModuleMerger {
         ) {
             p.subtypes = p1.subtypes;
         } else if (p1.subtypes !== undefined || p2.subtypes !== undefined) {
-            logError(
-                `[MM] ${path}: Different user parameter subtypes ("${p1.subtypes}" and "${p2.subtypes}").`
-            );
+            if (p1.subtypes !== undefined && p2.subtypes !== undefined) {
+                logError(
+                    `[MM] ${path}: Different user parameter subtypes ("${p1.subtypes}" and "${p2.subtypes}").`
+                );
+            }
             p.subtypes = p1.subtypes ?? p2.subtypes;
         }
 
@@ -896,13 +901,14 @@ class ModuleMerger {
                 continue;
             }
 
-            let i1Next = a1.findIndex((p) => p.name === p2.name),
+            const i1Next = a1.findIndex((p) => p.name === p2.name),
                 i2Next = a2.findIndex((p) => p.name === p1.name);
             if (i2Next > 0 && i1Next > 0) {
-                logError(`[MM] Inconsistent parameter order for "${path}".`);
-            }
-
-            if (i1Next > 0) {
+                // Inconsistent parameter order, we use the first one.
+                a.push(this.mergeParameter(p1, a2[i2Next], `${path}[${i1}]`));
+                ++i1;
+                a2 = [...a2.slice(0, i2Next), ...a2.slice(i2Next + 1)];
+            } else if (i1Next > 0) {
                 a.push(...a1.slice(i1, i1Next));
                 i1 = i1Next;
             } else if (i2Next > 0) {
@@ -954,7 +960,7 @@ class ModuleMerger {
         }
 
         // We use what the most up to date site says about module metadata.
-        m.source = m1.source;
+        m.source = m1.source ?? m2.source;
         m.sourcename = m1.sourcename;
         m.licensetag = m1.licensetag;
         m.licenselink = m1.licenselink;
@@ -1021,7 +1027,10 @@ class ModuleParser {
     findModuleName = (rawModule) => {
         const result = {
             name: rawModule.name,
-            source: rawModule.source === "MediaWiki" ? "" : rawModule.source.replace(/[\s-]/g, ""),
+            source:
+                rawModule.source === undefined || rawModule.source === "MediaWiki"
+                    ? ""
+                    : rawModule.source.replace(/[\s-]/g, ""),
         };
 
         // Main module.
@@ -1472,6 +1481,10 @@ class ModuleFormatter {
             typeUnion.push(...this.formatLitSet(lits));
         }
 
+        if (typeUnion.length === 0) {
+            return "string";
+        }
+
         if (type.multi) {
             if (typeUnion.length === 1 && type.base !== undefined) {
                 typeUnion.push(`${typeUnion[0]}[]`, ...this.formatLitSet(type.singleLits));
@@ -1481,10 +1494,6 @@ class ModuleFormatter {
                     `OneOrMore<${typeUnion.join(" | ")}>`,
                 ];
             }
-        }
-
-        if (typeUnion.length === 0) {
-            return "never";
         }
 
         return typeUnion.join(" | ");

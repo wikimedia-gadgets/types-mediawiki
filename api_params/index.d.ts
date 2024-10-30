@@ -1679,19 +1679,7 @@ declare global {
                     /**
                      * Apply the selected skin to the parser output. May affect the following properties: `text`, `langlinks`, `headitems`, `modules`, `jsconfigvars`, `indicators`.
                      */
-                    useskin?:
-                        | "apioutput"
-                        | "authentication-popup"
-                        | "cologneblue"
-                        | "contenttranslation"
-                        | "fallback"
-                        | "json"
-                        | "minerva"
-                        | "modern"
-                        | "monobook"
-                        | "timeless"
-                        | "vector"
-                        | "vector-2022";
+                    useskin?: string;
                     /**
                      * Unconditionally add or remove the page from the current user's watchlist, use preferences (ignored for bot users) or do not change watch.
                      */
@@ -1823,19 +1811,7 @@ declare global {
                     /**
                      * Apply the selected skin to the parser output. May affect the following properties: `text`, `langlinks`, `headitems`, `modules`, `jsconfigvars`, `indicators`.
                      */
-                    useskin?:
-                        | "apioutput"
-                        | "authentication-popup"
-                        | "cologneblue"
-                        | "contenttranslation"
-                        | "fallback"
-                        | "json"
-                        | "minerva"
-                        | "modern"
-                        | "monobook"
-                        | "timeless"
-                        | "vector"
-                        | "vector-2022";
+                    useskin?: string;
                     /**
                      * Return parse output in a format suitable for mobile devices.
                      */
@@ -2275,7 +2251,7 @@ declare global {
                     /**
                      * Subject header.
                      */
-                    subject: string;
+                    subject?: string;
                     /**
                      * Email body.
                      */
@@ -2296,6 +2272,7 @@ declare global {
                  * Expands all templates within wikitext.
                  *
                  * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Expandtemplates
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Parsing_wikitext#expandtemplates
                  */
                 interface ExpandTemplates extends Params {
                     action: "expandtemplates";
@@ -3379,6 +3356,87 @@ declare global {
                  */
                 interface ImageRotate extends Params {
                     action: "imagerotate";
+                    /**
+                     * Degrees to rotate image clockwise.
+                     */
+                    rotation: "180" | "270" | "90";
+                    /**
+                     * When more results are available, use this to continue.
+                     */
+                    continue?: string;
+                    /**
+                     * Tags to apply to the entry in the upload log.
+                     */
+                    tags?: string;
+                    /**
+                     * A list of titles to work on.
+                     */
+                    titles?: string | string[];
+                    /**
+                     * A list of page IDs to work on.
+                     */
+                    pageids?: number | number[];
+                    /**
+                     * A list of revision IDs to work on.
+                     */
+                    revids?: number | number[];
+                    /**
+                     * Get the list of pages to work on by executing the specified query module.
+                     *
+                     * **Note:** Generator parameter names must be prefixed with a "g", see examples.
+                     *
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Ballcategories allcategories}**: Enumerate all categories.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Balldeletedrevisions alldeletedrevisions}**: List all deleted revisions by a user or in a namespace.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Ballfileusages allfileusages}**: List all file usages, including non-existing.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Ballimages allimages}**: Enumerate all images sequentially.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Balllinks alllinks}**: Enumerate all links that point to a given namespace.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Ballpages allpages}**: Enumerate all pages sequentially in a given namespace.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Ballredirects allredirects}**: List all redirects to a namespace.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Ballrevisions allrevisions}**: List all revisions.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bbacklinks backlinks}**: Find all pages that link to the given page.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bcategories categories}**: List all categories the pages belong to.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bcategorymembers categorymembers}**: List all pages in a given category.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bdeletedrevisions deletedrevisions}**: Get deleted revision information.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bduplicatefiles duplicatefiles}**: List all files that are duplicates of the given files based on hash values.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bembeddedin embeddedin}**: Find all pages that embed (transclude) the given title.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bexturlusage exturlusage}**: Enumerate pages that contain a given URL.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bfileusage fileusage}**: Find all pages that use the given files.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bimages images}**: Returns all files contained on the given pages.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bimageusage imageusage}**: Find all pages that use the given image title.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Biwbacklinks iwbacklinks}**: Find all pages that link to the given interwiki link.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Blangbacklinks langbacklinks}**: Find all pages that link to the given language link.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Blinks links}**: Returns all links from the given pages.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Blinkshere linkshere}**: Find all pages that link to the given pages.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bpageswithprop pageswithprop}**: List all pages using a given page property.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bprefixsearch prefixsearch}**: Perform a prefix search for page titles.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bprotectedtitles protectedtitles}**: List all titles protected from creation.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bquerypage querypage}**: Get a list provided by a QueryPage-based special page.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Brandom random}**: Get a set of random pages.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Brecentchanges recentchanges}**: Enumerate recent changes.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bredirects redirects}**: Returns all redirects to the given pages.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Brevisions revisions}**: Get revision information.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bsearch search}**: Perform a full text search.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btemplates templates}**: Returns all pages transcluded on the given pages.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btranscludedin transcludedin}**: Find all pages that transclude the given pages.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bwatchlist watchlist}**: Get recent changes to pages in the current user's watchlist.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bwatchlistraw watchlistraw}**: Get all pages on the current user's watchlist.
+                     */
+                    generator?: string;
+                    /**
+                     * Automatically resolve redirects in `titles`, `pageids`, and `revids`, and in pages returned by `generator`.
+                     */
+                    redirects?: boolean;
+                    /**
+                     * Convert titles to other variants if necessary. Only works if the wiki's content language supports variant conversion. Languages that support variant conversion include ban, en, crh, gan, iu, kk, ku, shi, sr, tg, uz and zh.
+                     */
+                    converttitles?: boolean;
+                    /**
+                     * A "csrf" token retrieved from {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     *
+                     * Sensitive parameter.
+                     */
+                    token: string;
                 }
 
                 /**
@@ -3708,8 +3766,6 @@ declare global {
                     tag: string;
                     /**
                      * An optional reason for creating, deleting, activating or deactivating the tag.
-                     *
-                     * Defaults to an empty string.
                      */
                     reason?: string;
                     /**
@@ -4557,6 +4613,7 @@ declare global {
                  * - Specify only a summary to parse. `prop` should be given an empty value.
                  *
                  * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Parsing_wikitext
+                 * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Parsing_wikitext#parse
                  */
                 interface Parse extends Params {
                     action: "parse";
@@ -4737,19 +4794,7 @@ declare global {
                     /**
                      * Apply the selected skin to the parser output. May affect the following properties: `text`, `langlinks`, `headitems`, `modules`, `jsconfigvars`, `indicators`.
                      */
-                    useskin?:
-                        | "apioutput"
-                        | "authentication-popup"
-                        | "cologneblue"
-                        | "contenttranslation"
-                        | "fallback"
-                        | "json"
-                        | "minerva"
-                        | "modern"
-                        | "monobook"
-                        | "timeless"
-                        | "vector"
-                        | "vector-2022";
+                    useskin?: string;
                     /**
                      * Content serialization format used for the input text. Only valid when used with text.
                      */
@@ -6423,6 +6468,23 @@ declare global {
                 }
 
                 /**
+                 * Get tokens for data-modifying actions.
+                 *
+                 * This module is deprecated in favor of {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}.
+                 *
+                 * @deprecated
+                 */
+                interface Tokens extends Params {
+                    action: "tokens";
+                    /**
+                     * Types of token to request.
+                     *
+                     * Defaults to `edit`.
+                     */
+                    type?: string;
+                }
+
+                /**
                  * Check if an IP address is blocked as a Tor exit node.
                  */
                 interface TorBlock extends Params {
@@ -6600,7 +6662,7 @@ declare global {
                     /**
                      * Which of the available translation services to use.
                      */
-                    service?: never;
+                    service?: string;
                     /**
                      * The language code of the source text.
                      */
@@ -7116,19 +7178,7 @@ declare global {
                     /**
                      * Apply the selected skin to the parser output. May affect the following properties: `text`, `langlinks`, `headitems`, `modules`, `jsconfigvars`, `indicators`.
                      */
-                    useskin?:
-                        | "apioutput"
-                        | "authentication-popup"
-                        | "cologneblue"
-                        | "contenttranslation"
-                        | "fallback"
-                        | "json"
-                        | "minerva"
-                        | "modern"
-                        | "monobook"
-                        | "timeless"
-                        | "vector"
-                        | "vector-2022";
+                    useskin?: string;
                     /**
                      * Change tags to apply to the edit.
                      */
@@ -10012,6 +10062,2484 @@ declare global {
                     }
                 }
 
+                namespace ImageRotate.Generator {
+                    /**
+                     * Enumerate all categories.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allcategories
+                     */
+                    interface AllCategories extends ImageRotate {
+                        generator?: "allcategories";
+                        /**
+                         * The category to start enumerating from.
+                         */
+                        gacfrom?: string;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gaccontinue?: string;
+                        /**
+                         * The category to stop enumerating at.
+                         */
+                        gacto?: string;
+                        /**
+                         * Search for all category titles that begin with this value.
+                         */
+                        gacprefix?: string;
+                        /**
+                         * Direction to sort in.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gacdir?: "ascending" | "descending";
+                        /**
+                         * Only return categories with at least this many members.
+                         */
+                        gacmin?: number;
+                        /**
+                         * Only return categories with at most this many members.
+                         */
+                        gacmax?: number;
+                        /**
+                         * How many categories to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gaclimit?: Limit;
+                        /**
+                         * Which properties to get:
+                         *
+                         * - **size**: Adds number of pages in the category.
+                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         *
+                         * Defaults to an empty string.
+                         */
+                        gacprop?: OneOrMore<"hidden" | "size">;
+                    }
+
+                    /**
+                     * List all deleted revisions by a user or in a namespace.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alldeletedrevisions
+                     */
+                    interface AllDeletedRevisions extends ImageRotate {
+                        generator?: "alldeletedrevisions";
+                        /**
+                         * Which properties to get for each revision:
+                         *
+                         * - **ids**: The ID of the revision.
+                         * - **flags**: Revision flags (minor).
+                         * - **timestamp**: The timestamp of the revision.
+                         * - **user**: User that made the revision. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **userid**: User ID of the revision creator. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **size**: Length (bytes) of the revision.
+                         * - **slotsize**: Length (bytes) of each revision slot.
+                         * - **sha1**: SHA-1 (base 16) of the revision. If the content has been revision deleted, a `sha1hidden` property will be returned.
+                         * - **slotsha1**: SHA-1 (base 16) of each revision slot. If the content has been revision deleted, a `sha1hidden` property will be returned.
+                         * - **contentmodel**: Content model ID of each revision slot.
+                         * - **comment**: Comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **parsedcomment**: Parsed comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned.
+                         * - **tags**: Tags for the revision.
+                         * - **roles**: List content slot roles that exist in the revision.
+                         * - **parsetree**: Deprecated. Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`).
+                         *
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
+                         */
+                        gadrprop?: OneOrMore<
+                            | "comment"
+                            | "content"
+                            | "contentmodel"
+                            | "flags"
+                            | "ids"
+                            | "parsedcomment"
+                            | "parsetree"
+                            | "roles"
+                            | "sha1"
+                            | "size"
+                            | "slotsha1"
+                            | "slotsize"
+                            | "tags"
+                            | "timestamp"
+                            | "user"
+                            | "userid"
+                        >;
+                        /**
+                         * Which revision slots to return data for, when slot-related properties are included in `adrprops`. If omitted, data from the `main` slot will be returned in a backwards-compatible format.
+                         */
+                        gadrslots?: "*" | OneOrMore<"main">;
+                        /**
+                         * Limit how many revisions will be returned.
+                         */
+                        gadrlimit?: Limit;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires adrprop=content).
+                         *
+                         * @deprecated
+                         */
+                        gadrexpandtemplates?: boolean;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires adrprop=content).
+                         *
+                         * @deprecated
+                         */
+                        gadrgeneratexml?: boolean;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires adrprop=content). For performance reasons, if this option is used, adrlimit is enforced to 1.
+                         *
+                         * @deprecated
+                         */
+                        gadrparse?: boolean;
+                        /**
+                         * Only retrieve the content of this section number.
+                         */
+                        gadrsection?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively.
+                         *
+                         * @deprecated
+                         */
+                        gadrdiffto?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `adrdiffto`. If `adrsection` is set, only that section will be diffed against this text.
+                         *
+                         * @deprecated
+                         */
+                        gadrdifftotext?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `adrdifftotext`.
+                         *
+                         * @deprecated
+                         */
+                        gadrdifftotextpst?: boolean;
+                        /**
+                         * Serialization format used for `adrdifftotext` and expected for output of content.
+                         *
+                         * @deprecated
+                         */
+                        gadrcontentformat?:
+                            | "application/json"
+                            | "application/octet-stream"
+                            | "application/unknown"
+                            | "application/x-binary"
+                            | "text/css"
+                            | "text/javascript"
+                            | "text/plain"
+                            | "text/unknown"
+                            | "text/x-wiki"
+                            | "unknown/unknown";
+                        /**
+                         * Only list revisions by this user.
+                         */
+                        gadruser?: string;
+                        /**
+                         * Only list pages in this namespace.
+                         */
+                        gadrnamespace?: number | number[] | "*";
+                        /**
+                         * The timestamp to start enumerating from.
+                         */
+                        gadrstart?: string;
+                        /**
+                         * The timestamp to stop enumerating at.
+                         */
+                        gadrend?: string;
+                        /**
+                         * In which direction to enumerate:
+                         *
+                         * - **newer**: List oldest first. Note: adrstart has to be before adrend.
+                         * - **older**: List newest first (default). Note: adrstart has to be later than adrend.
+                         *
+                         * Defaults to `older`.
+                         */
+                        gadrdir?: "newer" | "older";
+                        /**
+                         * Start listing at this title.
+                         */
+                        gadrfrom?: string;
+                        /**
+                         * Stop listing at this title.
+                         */
+                        gadrto?: string;
+                        /**
+                         * Search for all page titles that begin with this value.
+                         */
+                        gadrprefix?: string;
+                        /**
+                         * Don't list revisions by this user.
+                         */
+                        gadrexcludeuser?: string;
+                        /**
+                         * Only list revisions tagged with this tag.
+                         */
+                        gadrtag?: string;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gadrcontinue?: string;
+                        /**
+                         * When being used as a generator, generate titles rather than revision IDs.
+                         */
+                        gadrgeneratetitles?: boolean;
+                    }
+
+                    /**
+                     * List all file usages, including non-existing.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allfileusages
+                     */
+                    interface AllFileUsages extends ImageRotate {
+                        generator?: "allfileusages";
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gafcontinue?: string;
+                        /**
+                         * The title of the file to start enumerating from.
+                         */
+                        gaffrom?: string;
+                        /**
+                         * The title of the file to stop enumerating at.
+                         */
+                        gafto?: string;
+                        /**
+                         * Search for all file titles that begin with this value.
+                         */
+                        gafprefix?: string;
+                        /**
+                         * Only show distinct file titles. Cannot be used with afprop=ids.
+                         * When used as a generator, yields target pages instead of source pages.
+                         */
+                        gafunique?: boolean;
+                        /**
+                         * Which pieces of information to include:
+                         *
+                         * - **ids**: Adds the page IDs of the using pages (cannot be used with afunique).
+                         * - **title**: Adds the title of the file.
+                         *
+                         * Defaults to `title`.
+                         */
+                        gafprop?: OneOrMore<"ids" | "title">;
+                        /**
+                         * How many total items to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gaflimit?: Limit;
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gafdir?: "ascending" | "descending";
+                    }
+
+                    /**
+                     * Enumerate all images sequentially.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allimages
+                     */
+                    interface AllImages extends ImageRotate {
+                        generator?: "allimages";
+                        /**
+                         * Property to sort by.
+                         *
+                         * Defaults to `name`.
+                         */
+                        gaisort?: "name" | "timestamp";
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gaidir?: "ascending" | "descending" | "newer" | "older";
+                        /**
+                         * The image title to start enumerating from. Can only be used with aisort=name.
+                         */
+                        gaifrom?: string;
+                        /**
+                         * The image title to stop enumerating at. Can only be used with aisort=name.
+                         */
+                        gaito?: string;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gaicontinue?: string;
+                        /**
+                         * The timestamp to start enumerating from. Can only be used with aisort=timestamp.
+                         */
+                        gaistart?: string;
+                        /**
+                         * The timestamp to end enumerating. Can only be used with aisort=timestamp.
+                         */
+                        gaiend?: string;
+                        /**
+                         * Which file information to get:
+                         *
+                         * - **timestamp**: Adds timestamp for the uploaded version.
+                         * - **user**: Adds the user who uploaded each file version. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **userid**: Add the ID of the user that uploaded each file version. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **comment**: Comment on the version. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **parsedcomment**: Parse the comment on the version. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **canonicaltitle**: Adds the canonical title of the file. If the file has been revision deleted, a `filehidden` property will be returned.
+                         * - **url**: Gives URL to the file and the description page. If the file has been revision deleted, a `filehidden` property will be returned.
+                         * - **size**: Adds the size of the file in bytes and the height, width and page count (if applicable).
+                         * - **dimensions**: Alias for size.
+                         * - **sha1**: Adds SHA-1 hash for the file. If the file has been revision deleted, a `filehidden` property will be returned.
+                         * - **mime**: Adds MIME type of the file. If the file has been revision deleted, a `filehidden` property will be returned.
+                         * - **mediatype**: Adds the media type of the file. If the file has been revision deleted, a `filehidden` property will be returned.
+                         * - **metadata**: Lists Exif metadata for the version of the file. If the file has been revision deleted, a `filehidden` property will be returned.
+                         * - **commonmetadata**: Lists file format generic metadata for the version of the file. If the file has been revision deleted, a `filehidden` property will be returned.
+                         * - **extmetadata**: Lists formatted metadata combined from multiple sources. Results are HTML formatted. If the file has been revision deleted, a `filehidden` property will be returned.
+                         * - **bitdepth**: Adds the bit depth of the version. If the file has been revision deleted, a `filehidden` property will be returned.
+                         * - **badfile**: Adds whether the file is on the {@link https://www.gracesguide.co.uk/MediaWiki:Bad_image_list MediaWiki:Bad image list}
+                         *
+                         * Defaults to `timestamp` and `url`.
+                         */
+                        gaiprop?: OneOrMore<
+                            | "badfile"
+                            | "bitdepth"
+                            | "canonicaltitle"
+                            | "comment"
+                            | "commonmetadata"
+                            | "dimensions"
+                            | "extmetadata"
+                            | "mediatype"
+                            | "metadata"
+                            | "mime"
+                            | "parsedcomment"
+                            | "sha1"
+                            | "size"
+                            | "timestamp"
+                            | "url"
+                            | "user"
+                            | "userid"
+                        >;
+                        /**
+                         * Search for all image titles that begin with this value. Can only be used with aisort=name.
+                         */
+                        gaiprefix?: string;
+                        /**
+                         * Limit to images with at least this many bytes.
+                         */
+                        gaiminsize?: number;
+                        /**
+                         * Limit to images with at most this many bytes.
+                         */
+                        gaimaxsize?: number;
+                        /**
+                         * SHA1 hash of image. Overrides aisha1base36.
+                         */
+                        gaisha1?: string;
+                        /**
+                         * SHA1 hash of image in base 36 (used in MediaWiki).
+                         */
+                        gaisha1base36?: string;
+                        /**
+                         * Only return files uploaded by this user. Can only be used with aisort=timestamp. Cannot be used together with aifilterbots.
+                         */
+                        gaiuser?: string;
+                        /**
+                         * How to filter files uploaded by bots. Can only be used with aisort=timestamp. Cannot be used together with aiuser.
+                         *
+                         * Defaults to `all`.
+                         */
+                        gaifilterbots?: "all" | "bots" | "nobots";
+                        /**
+                         * What MIME types to search for, e.g. `image/jpeg`.
+                         */
+                        gaimime?: string | string[];
+                        /**
+                         * How many images in total to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gailimit?: Limit;
+                    }
+
+                    /**
+                     * Enumerate all links that point to a given namespace.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alllinks
+                     */
+                    interface AllLinks extends ImageRotate {
+                        generator?: "alllinks";
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        galcontinue?: string;
+                        /**
+                         * The title of the link to start enumerating from.
+                         */
+                        galfrom?: string;
+                        /**
+                         * The title of the link to stop enumerating at.
+                         */
+                        galto?: string;
+                        /**
+                         * Search for all linked titles that begin with this value.
+                         */
+                        galprefix?: string;
+                        /**
+                         * Only show distinct linked titles. Cannot be used with `alprop=ids`.
+                         * When used as a generator, yields target pages instead of source pages.
+                         */
+                        galunique?: boolean;
+                        /**
+                         * Which pieces of information to include:
+                         *
+                         * - **ids**: Adds the page ID of the linking page (cannot be used with `alunique`).
+                         * - **title**: Adds the title of the link.
+                         *
+                         * Defaults to `title`.
+                         */
+                        galprop?: OneOrMore<"ids" | "title">;
+                        /**
+                         * The namespace to enumerate.
+                         *
+                         * Defaults to 0.
+                         */
+                        galnamespace?: number;
+                        /**
+                         * How many total items to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gallimit?: Limit;
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        galdir?: "ascending" | "descending";
+                    }
+
+                    /**
+                     * Enumerate all pages sequentially in a given namespace.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allpages
+                     */
+                    interface AllPages extends ImageRotate {
+                        generator?: "allpages";
+                        /**
+                         * The page title to start enumerating from.
+                         */
+                        gapfrom?: string;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gapcontinue?: string;
+                        /**
+                         * The page title to stop enumerating at.
+                         */
+                        gapto?: string;
+                        /**
+                         * Search for all page titles that begin with this value.
+                         */
+                        gapprefix?: string;
+                        /**
+                         * The namespace to enumerate.
+                         *
+                         * Defaults to 0.
+                         */
+                        gapnamespace?: number;
+                        /**
+                         * Which pages to list.
+                         *
+                         * Defaults to `all`.
+                         */
+                        gapfilterredir?: "all" | "nonredirects" | "redirects";
+                        /**
+                         * Limit to pages with at least this many bytes.
+                         */
+                        gapminsize?: number;
+                        /**
+                         * Limit to pages with at most this many bytes.
+                         */
+                        gapmaxsize?: number;
+                        /**
+                         * Limit to protected pages only.
+                         */
+                        gapprtype?: OneOrMore<"edit" | "move" | "upload">;
+                        /**
+                         * Filter protections based on protection level (must be used with apprtype= parameter).
+                         */
+                        gapprlevel?: OneOrMore<"" | "autoconfirmed" | "sysop">;
+                        /**
+                         * Filter protections based on cascadingness (ignored when apprtype isn't set).
+                         *
+                         * Defaults to `all`.
+                         */
+                        gapprfiltercascade?: "all" | "cascading" | "noncascading";
+                        /**
+                         * How many total pages to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gaplimit?: Limit;
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gapdir?: "ascending" | "descending";
+                        /**
+                         * Filter based on whether a page has langlinks. Note that this may not consider langlinks added by extensions.
+                         *
+                         * Defaults to `all`.
+                         */
+                        gapfilterlanglinks?: "all" | "withlanglinks" | "withoutlanglinks";
+                        /**
+                         * Which protection expiry to filter the page on:
+                         *
+                         * - **indefinite**: Get only pages with indefinite protection expiry.
+                         * - **definite**: Get only pages with a definite (specific) protection expiry.
+                         * - **all**: Get pages with any protections expiry.
+                         *
+                         * Defaults to `all`.
+                         */
+                        gapprexpiry?: "all" | "definite" | "indefinite";
+                    }
+
+                    /**
+                     * List all redirects to a namespace.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allredirects
+                     */
+                    interface AllRedirects extends ImageRotate {
+                        generator?: "allredirects";
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        garcontinue?: string;
+                        /**
+                         * The title of the redirect to start enumerating from.
+                         */
+                        garfrom?: string;
+                        /**
+                         * The title of the redirect to stop enumerating at.
+                         */
+                        garto?: string;
+                        /**
+                         * Search for all target pages that begin with this value.
+                         */
+                        garprefix?: string;
+                        /**
+                         * Only show distinct target pages. Cannot be used with arprop=ids|fragment|interwiki.
+                         * When used as a generator, yields target pages instead of source pages.
+                         */
+                        garunique?: boolean;
+                        /**
+                         * Which pieces of information to include:
+                         *
+                         * - **ids**: Adds the page ID of the redirecting page (cannot be used with `arunique`).
+                         * - **title**: Adds the title of the redirect.
+                         * - **fragment**: Adds the fragment from the redirect, if any (cannot be used with `arunique`).
+                         * - **interwiki**: Adds the interwiki prefix from the redirect, if any (cannot be used with `arunique`).
+                         *
+                         * Defaults to `title`.
+                         */
+                        garprop?: OneOrMore<"fragment" | "ids" | "interwiki" | "title">;
+                        /**
+                         * The namespace to enumerate.
+                         *
+                         * Defaults to 0.
+                         */
+                        garnamespace?: number;
+                        /**
+                         * How many total items to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        garlimit?: Limit;
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gardir?: "ascending" | "descending";
+                    }
+
+                    /**
+                     * List all revisions.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Allrevisions
+                     */
+                    interface AllRevisions extends ImageRotate {
+                        generator?: "allrevisions";
+                        /**
+                         * Which properties to get for each revision:
+                         *
+                         * - **ids**: The ID of the revision.
+                         * - **flags**: Revision flags (minor).
+                         * - **timestamp**: The timestamp of the revision.
+                         * - **user**: User that made the revision. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **userid**: User ID of the revision creator. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **size**: Length (bytes) of the revision.
+                         * - **slotsize**: Length (bytes) of each revision slot.
+                         * - **sha1**: SHA-1 (base 16) of the revision. If the content has been revision deleted, a `sha1hidden` property will be returned.
+                         * - **slotsha1**: SHA-1 (base 16) of each revision slot. If the content has been revision deleted, a `sha1hidden` property will be returned.
+                         * - **contentmodel**: Content model ID of each revision slot.
+                         * - **comment**: Comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **parsedcomment**: Parsed comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned.
+                         * - **tags**: Tags for the revision.
+                         * - **roles**: List content slot roles that exist in the revision.
+                         * - **parsetree**: Deprecated. Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`).
+                         *
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
+                         */
+                        garvprop?: OneOrMore<
+                            | "comment"
+                            | "content"
+                            | "contentmodel"
+                            | "flags"
+                            | "ids"
+                            | "parsedcomment"
+                            | "parsetree"
+                            | "roles"
+                            | "sha1"
+                            | "size"
+                            | "slotsha1"
+                            | "slotsize"
+                            | "tags"
+                            | "timestamp"
+                            | "user"
+                            | "userid"
+                        >;
+                        /**
+                         * Which revision slots to return data for, when slot-related properties are included in `arvprops`. If omitted, data from the `main` slot will be returned in a backwards-compatible format.
+                         */
+                        garvslots?: "*" | OneOrMore<"main">;
+                        /**
+                         * Limit how many revisions will be returned.
+                         */
+                        garvlimit?: Limit;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires arvprop=content).
+                         *
+                         * @deprecated
+                         */
+                        garvexpandtemplates?: boolean;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires arvprop=content).
+                         *
+                         * @deprecated
+                         */
+                        garvgeneratexml?: boolean;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires arvprop=content). For performance reasons, if this option is used, arvlimit is enforced to 1.
+                         *
+                         * @deprecated
+                         */
+                        garvparse?: boolean;
+                        /**
+                         * Only retrieve the content of this section number.
+                         */
+                        garvsection?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively.
+                         *
+                         * @deprecated
+                         */
+                        garvdiffto?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `arvdiffto`. If `arvsection` is set, only that section will be diffed against this text.
+                         *
+                         * @deprecated
+                         */
+                        garvdifftotext?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `arvdifftotext`.
+                         *
+                         * @deprecated
+                         */
+                        garvdifftotextpst?: boolean;
+                        /**
+                         * Serialization format used for `arvdifftotext` and expected for output of content.
+                         *
+                         * @deprecated
+                         */
+                        garvcontentformat?:
+                            | "application/json"
+                            | "application/octet-stream"
+                            | "application/unknown"
+                            | "application/x-binary"
+                            | "text/css"
+                            | "text/javascript"
+                            | "text/plain"
+                            | "text/unknown"
+                            | "text/x-wiki"
+                            | "unknown/unknown";
+                        /**
+                         * Only list revisions by this user.
+                         */
+                        garvuser?: string;
+                        /**
+                         * Only list pages in this namespace.
+                         */
+                        garvnamespace?: number | number[] | "*";
+                        /**
+                         * The timestamp to start enumerating from.
+                         */
+                        garvstart?: string;
+                        /**
+                         * The timestamp to stop enumerating at.
+                         */
+                        garvend?: string;
+                        /**
+                         * In which direction to enumerate:
+                         *
+                         * - **newer**: List oldest first. Note: arvstart has to be before arvend.
+                         * - **older**: List newest first (default). Note: arvstart has to be later than arvend.
+                         *
+                         * Defaults to `older`.
+                         */
+                        garvdir?: "newer" | "older";
+                        /**
+                         * Don't list revisions by this user.
+                         */
+                        garvexcludeuser?: string;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        garvcontinue?: string;
+                        /**
+                         * When being used as a generator, generate titles rather than revision IDs.
+                         */
+                        garvgeneratetitles?: boolean;
+                    }
+
+                    /**
+                     * List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions
+                     */
+                    interface AllTransclusions extends ImageRotate {
+                        generator?: "alltransclusions";
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gatcontinue?: string;
+                        /**
+                         * The title of the transclusion to start enumerating from.
+                         */
+                        gatfrom?: string;
+                        /**
+                         * The title of the transclusion to stop enumerating at.
+                         */
+                        gatto?: string;
+                        /**
+                         * Search for all transcluded titles that begin with this value.
+                         */
+                        gatprefix?: string;
+                        /**
+                         * Only show distinct transcluded titles. Cannot be used with atprop=ids.
+                         * When used as a generator, yields target pages instead of source pages.
+                         */
+                        gatunique?: boolean;
+                        /**
+                         * Which pieces of information to include:
+                         *
+                         * - **ids**: Adds the page ID of the transcluding page (cannot be used with atunique).
+                         * - **title**: Adds the title of the transclusion.
+                         *
+                         * Defaults to `title`.
+                         */
+                        gatprop?: OneOrMore<"ids" | "title">;
+                        /**
+                         * The namespace to enumerate.
+                         *
+                         * Defaults to 10.
+                         */
+                        gatnamespace?: number;
+                        /**
+                         * How many total items to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gatlimit?: Limit;
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gatdir?: "ascending" | "descending";
+                    }
+
+                    /**
+                     * Find all pages that link to the given page.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Backlinks
+                     */
+                    interface Backlinks extends ImageRotate {
+                        generator?: "backlinks";
+                        /**
+                         * Title to search. Cannot be used together with `blpageid`.
+                         */
+                        gbltitle?: string;
+                        /**
+                         * Page ID to search. Cannot be used together with `bltitle`.
+                         */
+                        gblpageid?: number;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gblcontinue?: string;
+                        /**
+                         * The namespace to enumerate.
+                         */
+                        gblnamespace?: number | number[] | "*";
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gbldir?: "ascending" | "descending";
+                        /**
+                         * How to filter for redirects. If set to `nonredirects` when `blredirect` is enabled, this is only applied to the second level.
+                         *
+                         * Defaults to `all`.
+                         */
+                        gblfilterredir?: "all" | "nonredirects" | "redirects";
+                        /**
+                         * How many total pages to return. If `blredirect` is enabled, the limit applies to each level separately (which means up to 2 * `bllimit` results may be returned).
+                         *
+                         * Defaults to 10.
+                         */
+                        gbllimit?: Limit;
+                        /**
+                         * If linking page is a redirect, find all pages that link to that redirect as well. Maximum limit is halved.
+                         */
+                        gblredirect?: boolean;
+                    }
+
+                    /**
+                     * List all categories the pages belong to.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categories
+                     */
+                    interface Categories extends ImageRotate {
+                        generator?: "categories";
+                        /**
+                         * Which additional properties to get for each category:
+                         *
+                         * - **sortkey**: Adds the sortkey (hexadecimal string) and sortkey prefix (human-readable part) for the category.
+                         * - **timestamp**: Adds timestamp of when the category was added.
+                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         */
+                        gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
+                        /**
+                         * Which kind of categories to show.
+                         */
+                        gclshow?: OneOrMore<Toggle<"hidden">>;
+                        /**
+                         * How many categories to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gcllimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gclcontinue?: string;
+                        /**
+                         * Only list these categories. Useful for checking whether a certain page is in a certain category.
+                         */
+                        gclcategories?: string | string[];
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gcldir?: "ascending" | "descending";
+                    }
+
+                    /**
+                     * List all pages in a given category.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Categorymembers
+                     */
+                    interface CategoryMembers extends ImageRotate {
+                        generator?: "categorymembers";
+                        /**
+                         * Which category to enumerate (required). Must include the `Category:` prefix. Cannot be used together with `cmpageid`.
+                         */
+                        gcmtitle?: string;
+                        /**
+                         * Page ID of the category to enumerate. Cannot be used together with `cmtitle`.
+                         */
+                        gcmpageid?: number;
+                        /**
+                         * Which pieces of information to include:
+                         *
+                         * - **ids**: Adds the page ID.
+                         * - **title**: Adds the title and namespace ID of the page.
+                         * - **sortkey**: Adds the sortkey used for sorting in the category (hexadecimal string).
+                         * - **sortkeyprefix**: Adds the sortkey prefix used for sorting in the category (human-readable part of the sortkey).
+                         * - **type**: Adds the type that the page has been categorised as (`page`, `subcat` or `file`).
+                         * - **timestamp**: Adds the timestamp of when the page was included.
+                         *
+                         * Defaults to `ids` and `title`.
+                         */
+                        gcmprop?: OneOrMore<
+                            "ids" | "sortkey" | "sortkeyprefix" | "timestamp" | "title" | "type"
+                        >;
+                        /**
+                         * Only include pages in these namespaces. Note that `cmtype=subcat` or `cmtype=file` may be used instead of `cmnamespace=14` or `6`.
+                         */
+                        gcmnamespace?: number | number[] | "*";
+                        /**
+                         * Which type of category members to include. Ignored when `cmsort=timestamp` is set.
+                         *
+                         * Defaults to `page`, `subcat`, and `file`.
+                         */
+                        gcmtype?: OneOrMore<"file" | "page" | "subcat">;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gcmcontinue?: string;
+                        /**
+                         * The maximum number of pages to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gcmlimit?: Limit;
+                        /**
+                         * Property to sort by.
+                         *
+                         * Defaults to `sortkey`.
+                         */
+                        gcmsort?: "sortkey" | "timestamp";
+                        /**
+                         * In which direction to sort.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gcmdir?: "asc" | "ascending" | "desc" | "descending" | "newer" | "older";
+                        /**
+                         * Timestamp to start listing from. Can only be used with `cmsort=timestamp`.
+                         */
+                        gcmstart?: string;
+                        /**
+                         * Timestamp to end listing at. Can only be used with `cmsort=timestamp`.
+                         */
+                        gcmend?: string;
+                        /**
+                         * Sortkey to start listing from, as returned by `cmprop=sortkey`. Can only be used with `cmsort=sortkey`.
+                         */
+                        gcmstarthexsortkey?: string;
+                        /**
+                         * Sortkey to end listing at, as returned by `cmprop=sortkey`. Can only be used with `cmsort=sortkey`.
+                         */
+                        gcmendhexsortkey?: string;
+                        /**
+                         * Sortkey prefix to start listing from. Can only be used with `cmsort=sortkey`. Overrides `cmstarthexsortkey`.
+                         */
+                        gcmstartsortkeyprefix?: string;
+                        /**
+                         * Sortkey prefix to end listing **before** (not **at**; if this value occurs it will not be included!). Can only be used with cmsort=sortkey. Overrides cmendhexsortkey.
+                         */
+                        gcmendsortkeyprefix?: string;
+                        /**
+                         * Use cmstarthexsortkey instead.
+                         *
+                         * @deprecated
+                         */
+                        gcmstartsortkey?: string;
+                        /**
+                         * Use cmendhexsortkey instead.
+                         *
+                         * @deprecated
+                         */
+                        gcmendsortkey?: string;
+                    }
+
+                    /**
+                     * Get deleted revision information.
+                     *
+                     * May be used in several ways:
+                     *
+                     * - Get deleted revisions for a set of pages, by setting titles or pageids. Ordered by title and timestamp.
+                     * - Get data about a set of deleted revisions by setting their IDs with revids. Ordered by revision ID.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Deletedrevisions
+                     */
+                    interface DeletedRevisions extends ImageRotate {
+                        generator?: "deletedrevisions";
+                        /**
+                         * Which properties to get for each revision:
+                         *
+                         * - **ids**: The ID of the revision.
+                         * - **flags**: Revision flags (minor).
+                         * - **timestamp**: The timestamp of the revision.
+                         * - **user**: User that made the revision. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **userid**: User ID of the revision creator. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **size**: Length (bytes) of the revision.
+                         * - **slotsize**: Length (bytes) of each revision slot.
+                         * - **sha1**: SHA-1 (base 16) of the revision. If the content has been revision deleted, a `sha1hidden` property will be returned.
+                         * - **slotsha1**: SHA-1 (base 16) of each revision slot. If the content has been revision deleted, a `sha1hidden` property will be returned.
+                         * - **contentmodel**: Content model ID of each revision slot.
+                         * - **comment**: Comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **parsedcomment**: Parsed comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned.
+                         * - **tags**: Tags for the revision.
+                         * - **roles**: List content slot roles that exist in the revision.
+                         * - **parsetree**: Deprecated. Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`).
+                         *
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
+                         */
+                        gdrvprop?: OneOrMore<
+                            | "comment"
+                            | "content"
+                            | "contentmodel"
+                            | "flags"
+                            | "ids"
+                            | "parsedcomment"
+                            | "parsetree"
+                            | "roles"
+                            | "sha1"
+                            | "size"
+                            | "slotsha1"
+                            | "slotsize"
+                            | "tags"
+                            | "timestamp"
+                            | "user"
+                            | "userid"
+                        >;
+                        /**
+                         * Which revision slots to return data for, when slot-related properties are included in `drvprops`. If omitted, data from the `main` slot will be returned in a backwards-compatible format.
+                         */
+                        gdrvslots?: "*" | OneOrMore<"main">;
+                        /**
+                         * Limit how many revisions will be returned.
+                         */
+                        gdrvlimit?: Limit;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires drvprop=content).
+                         *
+                         * @deprecated
+                         */
+                        gdrvexpandtemplates?: boolean;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires drvprop=content).
+                         *
+                         * @deprecated
+                         */
+                        gdrvgeneratexml?: boolean;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires drvprop=content). For performance reasons, if this option is used, drvlimit is enforced to 1.
+                         *
+                         * @deprecated
+                         */
+                        gdrvparse?: boolean;
+                        /**
+                         * Only retrieve the content of this section number.
+                         */
+                        gdrvsection?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively.
+                         *
+                         * @deprecated
+                         */
+                        gdrvdiffto?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `drvdiffto`. If `drvsection` is set, only that section will be diffed against this text.
+                         *
+                         * @deprecated
+                         */
+                        gdrvdifftotext?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `drvdifftotext`.
+                         *
+                         * @deprecated
+                         */
+                        gdrvdifftotextpst?: boolean;
+                        /**
+                         * Serialization format used for `drvdifftotext` and expected for output of content.
+                         *
+                         * @deprecated
+                         */
+                        gdrvcontentformat?:
+                            | "application/json"
+                            | "application/octet-stream"
+                            | "application/unknown"
+                            | "application/x-binary"
+                            | "text/css"
+                            | "text/javascript"
+                            | "text/plain"
+                            | "text/unknown"
+                            | "text/x-wiki"
+                            | "unknown/unknown";
+                        /**
+                         * The timestamp to start enumerating from. Ignored when processing a list of revision IDs.
+                         */
+                        gdrvstart?: string;
+                        /**
+                         * The timestamp to stop enumerating at. Ignored when processing a list of revision IDs.
+                         */
+                        gdrvend?: string;
+                        /**
+                         * In which direction to enumerate:
+                         *
+                         * - **newer**: List oldest first. Note: drvstart has to be before drvend.
+                         * - **older**: List newest first (default). Note: drvstart has to be later than drvend.
+                         *
+                         * Defaults to `older`.
+                         */
+                        gdrvdir?: "newer" | "older";
+                        /**
+                         * Only list revisions tagged with this tag.
+                         */
+                        gdrvtag?: string;
+                        /**
+                         * Only list revisions by this user.
+                         */
+                        gdrvuser?: string;
+                        /**
+                         * Don't list revisions by this user.
+                         */
+                        gdrvexcludeuser?: string;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gdrvcontinue?: string;
+                    }
+
+                    /**
+                     * List all files that are duplicates of the given files based on hash values.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Duplicatefiles
+                     */
+                    interface DuplicateFiles extends ImageRotate {
+                        generator?: "duplicatefiles";
+                        /**
+                         * How many duplicate files to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gdflimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gdfcontinue?: string;
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gdfdir?: "ascending" | "descending";
+                        /**
+                         * Look only for files in the local repository.
+                         */
+                        gdflocalonly?: boolean;
+                    }
+
+                    /**
+                     * Find all pages that embed (transclude) the given title.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Embeddedin
+                     */
+                    interface Embeddedin extends ImageRotate {
+                        generator?: "embeddedin";
+                        /**
+                         * Title to search. Cannot be used together with eipageid.
+                         */
+                        geititle?: string;
+                        /**
+                         * Page ID to search. Cannot be used together with eititle.
+                         */
+                        geipageid?: number;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        geicontinue?: string;
+                        /**
+                         * The namespace to enumerate.
+                         */
+                        geinamespace?: number | number[] | "*";
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        geidir?: "ascending" | "descending";
+                        /**
+                         * How to filter for redirects.
+                         *
+                         * Defaults to `all`.
+                         */
+                        geifilterredir?: "all" | "nonredirects" | "redirects";
+                        /**
+                         * How many total pages to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        geilimit?: Limit;
+                    }
+
+                    /**
+                     * Enumerate pages that contain a given URL.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Exturlusage
+                     */
+                    interface ExtUrlUsage extends ImageRotate {
+                        generator?: "exturlusage";
+                        /**
+                         * Which pieces of information to include:
+                         *
+                         * - **ids**: Adds the ID of page.
+                         * - **title**: Adds the title and namespace ID of the page.
+                         * - **url**: Adds the URL used in the page.
+                         *
+                         * Defaults to `ids`, `title`, and `url`.
+                         */
+                        geuprop?: OneOrMore<"ids" | "title" | "url">;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        geucontinue?: string;
+                        /**
+                         * Protocol of the URL. If empty and `euquery` is set, the protocol is `http`. Leave both this and `euquery` empty to list all external links.
+                         *
+                         * Defaults to an empty string.
+                         */
+                        geuprotocol?:
+                            | ""
+                            | "bitcoin"
+                            | "ftp"
+                            | "ftps"
+                            | "geo"
+                            | "git"
+                            | "gopher"
+                            | "http"
+                            | "https"
+                            | "irc"
+                            | "ircs"
+                            | "magnet"
+                            | "mailto"
+                            | "mms"
+                            | "news"
+                            | "nntp"
+                            | "redis"
+                            | "sftp"
+                            | "sip"
+                            | "sips"
+                            | "sms"
+                            | "ssh"
+                            | "svn"
+                            | "tel"
+                            | "telnet"
+                            | "urn"
+                            | "worldwind"
+                            | "xmpp";
+                        /**
+                         * Search string without protocol. See {@link https://www.gracesguide.co.uk/Special:LinkSearch Special:LinkSearch}. Leave empty to list all external links.
+                         */
+                        geuquery?: string;
+                        /**
+                         * The page namespaces to enumerate.
+                         */
+                        geunamespace?: number | number[] | "*";
+                        /**
+                         * How many pages to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        geulimit?: Limit;
+                        /**
+                         * Expand protocol-relative URLs with the canonical protocol.
+                         */
+                        geuexpandurl?: boolean;
+                    }
+
+                    /**
+                     * Find all pages that use the given files.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Fileusage
+                     */
+                    interface FileUsage extends ImageRotate {
+                        generator?: "fileusage";
+                        /**
+                         * Which properties to get:
+                         *
+                         * - **pageid**: Page ID of each page.
+                         * - **title**: Title of each page.
+                         * - **redirect**: Flag if the page is a redirect.
+                         *
+                         * Defaults to `pageid`, `title`, and `redirect`.
+                         */
+                        gfuprop?: OneOrMore<"pageid" | "redirect" | "title">;
+                        /**
+                         * Only include pages in these namespaces.
+                         */
+                        gfunamespace?: number | number[] | "*";
+                        /**
+                         * Show only items that meet these criteria:
+                         *
+                         * - **redirect**: Only show redirects.
+                         * - **!redirect**: Only show non-redirects.
+                         */
+                        gfushow?: OneOrMore<Toggle<"redirect">>;
+                        /**
+                         * How many to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gfulimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gfucontinue?: string;
+                    }
+
+                    /**
+                     * Returns all files contained on the given pages.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Images
+                     */
+                    interface Images extends ImageRotate {
+                        generator?: "images";
+                        /**
+                         * How many files to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gimlimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gimcontinue?: string;
+                        /**
+                         * Only list these files. Useful for checking whether a certain page has a certain file.
+                         */
+                        gimimages?: string | string[];
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gimdir?: "ascending" | "descending";
+                    }
+
+                    /**
+                     * Find all pages that use the given image title.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Imageusage
+                     */
+                    interface ImageUsage extends ImageRotate {
+                        generator?: "imageusage";
+                        /**
+                         * Title to search. Cannot be used together with iupageid.
+                         */
+                        giutitle?: string;
+                        /**
+                         * Page ID to search. Cannot be used together with iutitle.
+                         */
+                        giupageid?: number;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        giucontinue?: string;
+                        /**
+                         * The namespace to enumerate.
+                         */
+                        giunamespace?: number | number[] | "*";
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        giudir?: "ascending" | "descending";
+                        /**
+                         * How to filter for redirects. If set to nonredirects when iuredirect is enabled, this is only applied to the second level.
+                         *
+                         * Defaults to `all`.
+                         */
+                        giufilterredir?: "all" | "nonredirects" | "redirects";
+                        /**
+                         * How many total pages to return. If `iuredirect` is enabled, the limit applies to each level separately (which means up to 2 * `iulimit` results may be returned).
+                         *
+                         * Defaults to 10.
+                         */
+                        giulimit?: Limit;
+                        /**
+                         * If linking page is a redirect, find all pages that link to that redirect as well. Maximum limit is halved.
+                         */
+                        giuredirect?: boolean;
+                    }
+
+                    /**
+                     * Find all pages that link to the given interwiki link.
+                     *
+                     * Can be used to find all links with a prefix, or all links to a title (with a given prefix). Using neither parameter is effectively "all interwiki links".
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Iwbacklinks
+                     */
+                    // tslint:disable-next-line:interface-name
+                    interface IWBacklinks extends ImageRotate {
+                        generator?: "iwbacklinks";
+                        /**
+                         * Prefix for the interwiki.
+                         */
+                        giwblprefix?: string;
+                        /**
+                         * Interwiki link to search for. Must be used with `iwblblprefix`.
+                         */
+                        giwbltitle?: string;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        giwblcontinue?: string;
+                        /**
+                         * How many total pages to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        giwbllimit?: Limit;
+                        /**
+                         * Which properties to get:
+                         *
+                         * - **iwprefix**: Adds the prefix of the interwiki.
+                         * - **iwtitle**: Adds the title of the interwiki.
+                         *
+                         * Defaults to an empty string.
+                         */
+                        giwblprop?: OneOrMore<"iwprefix" | "iwtitle">;
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        giwbldir?: "ascending" | "descending";
+                    }
+
+                    /**
+                     * Find all pages that link to the given language link.
+                     *
+                     * Can be used to find all links with a language code, or all links to a title (with a given language). Using neither parameter is effectively "all language links".
+                     *
+                     * Note that this may not consider language links added by extensions.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Langbacklinks
+                     */
+                    interface LangBacklinks extends ImageRotate {
+                        generator?: "langbacklinks";
+                        /**
+                         * Language for the language link.
+                         */
+                        glbllang?: string;
+                        /**
+                         * Language link to search for. Must be used with lbllang.
+                         */
+                        glbltitle?: string;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        glblcontinue?: string;
+                        /**
+                         * How many total pages to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        glbllimit?: Limit;
+                        /**
+                         * Which properties to get:
+                         *
+                         * - **lllang**: Adds the language code of the language link.
+                         * - **lltitle**: Adds the title of the language link.
+                         *
+                         * Defaults to an empty string.
+                         */
+                        glblprop?: OneOrMore<"lllang" | "lltitle">;
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        glbldir?: "ascending" | "descending";
+                    }
+
+                    /**
+                     * Returns all links from the given pages.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Links
+                     */
+                    interface Links extends ImageRotate {
+                        generator?: "links";
+                        /**
+                         * Show links in these namespaces only.
+                         */
+                        gplnamespace?: number | number[] | "*";
+                        /**
+                         * How many links to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gpllimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gplcontinue?: string;
+                        /**
+                         * Only list links to these titles. Useful for checking whether a certain page links to a certain title.
+                         */
+                        gpltitles?: string | string[];
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gpldir?: "ascending" | "descending";
+                    }
+
+                    /**
+                     * Find all pages that link to the given pages.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Linkshere
+                     */
+                    interface LinksHere extends ImageRotate {
+                        generator?: "linkshere";
+                        /**
+                         * Which properties to get:
+                         *
+                         * - **pageid**: Page ID of each page.
+                         * - **title**: Title of each page.
+                         * - **redirect**: Flag if the page is a redirect.
+                         *
+                         * Defaults to `pageid`, `title`, and `redirect`.
+                         */
+                        glhprop?: OneOrMore<"pageid" | "redirect" | "title">;
+                        /**
+                         * Only include pages in these namespaces.
+                         */
+                        glhnamespace?: number | number[] | "*";
+                        /**
+                         * Show only items that meet these criteria:
+                         *
+                         * - **redirect**: Only show redirects.
+                         * - **!redirect**: Only show non-redirects.
+                         */
+                        glhshow?: OneOrMore<Toggle<"redirect">>;
+                        /**
+                         * How many to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        glhlimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        glhcontinue?: string;
+                    }
+
+                    /**
+                     * List all pages using a given page property.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Pageswithprop
+                     */
+                    interface PagesWithProp extends ImageRotate {
+                        generator?: "pageswithprop";
+                        /**
+                         * Page property for which to enumerate pages ({@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bpagepropnames `action=query&amp;list=pagepropnames`} returns page property names in use).
+                         */
+                        gpwppropname: string;
+                        /**
+                         * Which pieces of information to include:
+                         *
+                         * - **ids**: Adds the page ID.
+                         * - **title**: Adds the title and namespace ID of the page.
+                         * - **value**: Adds the value of the page property.
+                         *
+                         * Defaults to `ids` and `title`.
+                         */
+                        gpwpprop?: OneOrMore<"ids" | "title" | "value">;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gpwpcontinue?: string;
+                        /**
+                         * The maximum number of pages to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gpwplimit?: Limit;
+                        /**
+                         * In which direction to sort.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gpwpdir?: "ascending" | "descending";
+                    }
+
+                    /**
+                     * Perform a prefix search for page titles.
+                     *
+                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.gracesguide.co.uk/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Ballpages `action=query&amp;list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.gracesguide.co.uk/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch
+                     */
+                    interface PrefixSearch extends ImageRotate {
+                        generator?: "prefixsearch";
+                        /**
+                         * Search string.
+                         */
+                        gpssearch: string;
+                        /**
+                         * Namespaces to search. Ignored if `pssearch` begins with a valid namespace prefix.
+                         *
+                         * Defaults to 0.
+                         */
+                        gpsnamespace?: number | number[] | "*";
+                        /**
+                         * Maximum number of results to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gpslimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         *
+                         * Defaults to 0.
+                         */
+                        gpsoffset?: number;
+                    }
+
+                    /**
+                     * List all titles protected from creation.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Protectedtitles
+                     */
+                    interface ProtectedTitles extends ImageRotate {
+                        generator?: "protectedtitles";
+                        /**
+                         * Only list titles in these namespaces.
+                         */
+                        gptnamespace?: number | number[] | "*";
+                        /**
+                         * Only list titles with these protection levels.
+                         */
+                        gptlevel?: OneOrMore<"autoconfirmed" | "sysop">;
+                        /**
+                         * How many total pages to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gptlimit?: Limit;
+                        /**
+                         * In which direction to enumerate:
+                         *
+                         * - **newer**: List oldest first. Note: ptstart has to be before ptend.
+                         * - **older**: List newest first (default). Note: ptstart has to be later than ptend.
+                         *
+                         * Defaults to `older`.
+                         */
+                        gptdir?: "newer" | "older";
+                        /**
+                         * Start listing at this protection timestamp.
+                         */
+                        gptstart?: string;
+                        /**
+                         * Stop listing at this protection timestamp.
+                         */
+                        gptend?: string;
+                        /**
+                         * Which properties to get:
+                         *
+                         * - **timestamp**: Adds the timestamp of when protection was added.
+                         * - **user**: Adds the user that added the protection.
+                         * - **userid**: Adds the user ID that added the protection.
+                         * - **comment**: Adds the comment for the protection.
+                         * - **parsedcomment**: Adds the parsed comment for the protection.
+                         * - **expiry**: Adds the timestamp of when the protection will be lifted.
+                         * - **level**: Adds the protection level.
+                         *
+                         * Defaults to `timestamp` and `level`.
+                         */
+                        gptprop?: OneOrMore<
+                            | "comment"
+                            | "expiry"
+                            | "level"
+                            | "parsedcomment"
+                            | "timestamp"
+                            | "user"
+                            | "userid"
+                        >;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gptcontinue?: string;
+                    }
+
+                    /**
+                     * Get a list provided by a QueryPage-based special page.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Querypage
+                     */
+                    interface QueryPage extends ImageRotate {
+                        generator?: "querypage";
+                        /**
+                         * The name of the special page. Note, this is case sensitive.
+                         */
+                        gqppage:
+                            | "Ancientpages"
+                            | "BrokenRedirects"
+                            | "Deadendpages"
+                            | "DoubleRedirects"
+                            | "Fewestrevisions"
+                            | "ListDuplicatedFiles"
+                            | "Listredirects"
+                            | "Lonelypages"
+                            | "Longpages"
+                            | "MediaStatistics"
+                            | "Mostcategories"
+                            | "Mostimages"
+                            | "Mostinterwikis"
+                            | "Mostlinked"
+                            | "Mostlinkedcategories"
+                            | "Mostlinkedtemplates"
+                            | "Mostrevisions"
+                            | "Shortpages"
+                            | "Uncategorizedcategories"
+                            | "Uncategorizedimages"
+                            | "Uncategorizedpages"
+                            | "Uncategorizedtemplates"
+                            | "Unusedcategories"
+                            | "Unusedimages"
+                            | "Unusedtemplates"
+                            | "Unwatchedpages"
+                            | "Wantedcategories"
+                            | "Wantedfiles"
+                            | "Wantedpages"
+                            | "Wantedtemplates"
+                            | "Withoutinterwiki";
+                        /**
+                         * When more results are available, use this to continue.
+                         *
+                         * Defaults to 0.
+                         */
+                        gqpoffset?: number;
+                        /**
+                         * Number of results to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gqplimit?: Limit;
+                    }
+
+                    /**
+                     * Get a set of random pages.
+                     *
+                     * Pages are listed in a fixed sequence, only the starting point is random. This means that if, for example, `Main Page` is the first random page in the list, `List of fictional monkeys` will **always** be second, `List of people on stamps of Vanuatu` third, etc.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Random
+                     */
+                    interface Random extends ImageRotate {
+                        generator?: "random";
+                        /**
+                         * Return pages in these namespaces only.
+                         */
+                        grnnamespace?: number | number[] | "*";
+                        /**
+                         * How to filter for redirects.
+                         *
+                         * Defaults to `nonredirects`.
+                         */
+                        grnfilterredir?: "all" | "nonredirects" | "redirects";
+                        /**
+                         * Use `rnfilterredir=redirects` instead.
+                         *
+                         * @deprecated
+                         */
+                        grnredirect?: boolean;
+                        /**
+                         * Limit how many random pages will be returned.
+                         *
+                         * Defaults to 1.
+                         */
+                        grnlimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        grncontinue?: string;
+                    }
+
+                    /**
+                     * Enumerate recent changes.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Recentchanges
+                     */
+                    interface RecentChanges extends ImageRotate {
+                        generator?: "recentchanges";
+                        /**
+                         * The timestamp to start enumerating from.
+                         */
+                        grcstart?: string;
+                        /**
+                         * The timestamp to end enumerating.
+                         */
+                        grcend?: string;
+                        /**
+                         * In which direction to enumerate:
+                         *
+                         * - **newer**: List oldest first. Note: rcstart has to be before rcend.
+                         * - **older**: List newest first (default). Note: rcstart has to be later than rcend.
+                         *
+                         * Defaults to `older`.
+                         */
+                        grcdir?: "newer" | "older";
+                        /**
+                         * Filter changes to only these namespaces.
+                         */
+                        grcnamespace?: number | number[] | "*";
+                        /**
+                         * Only list changes by this user.
+                         */
+                        grcuser?: string;
+                        /**
+                         * Don't list changes by this user.
+                         */
+                        grcexcludeuser?: string;
+                        /**
+                         * Only list changes tagged with this tag.
+                         */
+                        grctag?: string;
+                        /**
+                         * Include additional pieces of information:
+                         *
+                         * - **user**: Adds the user responsible for the edit and tags if they are an IP. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **userid**: Adds the user ID responsible for the edit. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **comment**: Adds the comment for the edit. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **parsedcomment**: Adds the parsed comment for the edit. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **flags**: Adds flags for the edit.
+                         * - **timestamp**: Adds timestamp of the edit.
+                         * - **title**: Adds the page title of the edit.
+                         * - **ids**: Adds the page ID, recent changes ID and the new and old revision ID.
+                         * - **sizes**: Adds the new and old page length in bytes.
+                         * - **redirect**: Tags edit if page is a redirect.
+                         * - **patrolled**: Tags patrollable edits as being patrolled or unpatrolled.
+                         * - **loginfo**: Adds log information (log ID, log type, etc) to log entries.
+                         * - **tags**: Lists tags for the entry.
+                         * - **sha1**: Adds the content checksum for entries associated with a revision. If the content has been revision deleted, a `sha1hidden` property will be returned.
+                         *
+                         * Defaults to `title`, `timestamp`, and `ids`.
+                         */
+                        grcprop?: OneOrMore<
+                            | "comment"
+                            | "flags"
+                            | "ids"
+                            | "loginfo"
+                            | "parsedcomment"
+                            | "patrolled"
+                            | "redirect"
+                            | "sha1"
+                            | "sizes"
+                            | "tags"
+                            | "timestamp"
+                            | "title"
+                            | "user"
+                            | "userid"
+                        >;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                         *
+                         * @deprecated
+                         */
+                        grctoken?: string;
+                        /**
+                         * Show only items that meet these criteria. For example, to see only minor edits done by logged-in users, set rcshow=minor|!anon.
+                         */
+                        grcshow?: OneOrMore<
+                            | Toggle<
+                                  | "anon"
+                                  | "autopatrolled"
+                                  | "bot"
+                                  | "minor"
+                                  | "patrolled"
+                                  | "redirect"
+                              >
+                            | "unpatrolled"
+                        >;
+                        /**
+                         * How many total changes to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        grclimit?: Limit;
+                        /**
+                         * Which types of changes to show.
+                         *
+                         * Defaults to `edit`, `new`, `log`, and `categorize`.
+                         */
+                        grctype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+                        /**
+                         * Only list changes which are the latest revision.
+                         */
+                        grctoponly?: boolean;
+                        /**
+                         * Filter entries to those related to a page.
+                         */
+                        grctitle?: string;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        grccontinue?: string;
+                        /**
+                         * When being used as a generator, generate revision IDs rather than titles. Recent change entries without associated revision IDs (e.g. most log entries) will generate nothing.
+                         */
+                        grcgeneraterevisions?: boolean;
+                        /**
+                         * Only list changes that touch the named slot.
+                         */
+                        grcslot?: "main";
+                    }
+
+                    /**
+                     * Returns all redirects to the given pages.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Redirects
+                     */
+                    interface Redirects extends ImageRotate {
+                        generator?: "redirects";
+                        /**
+                         * Which properties to get:
+                         *
+                         * - **pageid**: Page ID of each redirect.
+                         * - **title**: Title of each redirect.
+                         * - **fragment**: Fragment of each redirect, if any.
+                         *
+                         * Defaults to `pageid` and `title`.
+                         */
+                        grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
+                        /**
+                         * Only include pages in these namespaces.
+                         */
+                        grdnamespace?: number | number[] | "*";
+                        /**
+                         * Show only items that meet these criteria:
+                         *
+                         * - **fragment**: Only show redirects with a fragment.
+                         * - **!fragment**: Only show redirects without a fragment.
+                         */
+                        grdshow?: OneOrMore<Toggle<"fragment">>;
+                        /**
+                         * How many redirects to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        grdlimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        grdcontinue?: string;
+                    }
+
+                    /**
+                     * Get revision information.
+                     *
+                     * May be used in several ways:
+                     *
+                     * - Get data about a set of pages (last revision), by setting titles or pageids.
+                     * - Get revisions for one given page, by using titles or pageids with start, end, or limit.
+                     * - Get data about a set of revisions by setting their IDs with revids.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Revisions
+                     */
+                    interface Revisions extends ImageRotate {
+                        generator?: "revisions";
+                        /**
+                         * Which properties to get for each revision:
+                         *
+                         * - **ids**: The ID of the revision.
+                         * - **flags**: Revision flags (minor).
+                         * - **timestamp**: The timestamp of the revision.
+                         * - **user**: User that made the revision. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **userid**: User ID of the revision creator. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **size**: Length (bytes) of the revision.
+                         * - **slotsize**: Length (bytes) of each revision slot.
+                         * - **sha1**: SHA-1 (base 16) of the revision. If the content has been revision deleted, a `sha1hidden` property will be returned.
+                         * - **slotsha1**: SHA-1 (base 16) of each revision slot. If the content has been revision deleted, a `sha1hidden` property will be returned.
+                         * - **contentmodel**: Content model ID of each revision slot.
+                         * - **comment**: Comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **parsedcomment**: Parsed comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned.
+                         * - **tags**: Tags for the revision.
+                         * - **roles**: List content slot roles that exist in the revision.
+                         * - **parsetree**: Deprecated. Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`).
+                         *
+                         * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
+                         */
+                        grvprop?: OneOrMore<
+                            | "comment"
+                            | "content"
+                            | "contentmodel"
+                            | "flags"
+                            | "ids"
+                            | "parsedcomment"
+                            | "parsetree"
+                            | "roles"
+                            | "sha1"
+                            | "size"
+                            | "slotsha1"
+                            | "slotsize"
+                            | "tags"
+                            | "timestamp"
+                            | "user"
+                            | "userid"
+                        >;
+                        /**
+                         * Which revision slots to return data for, when slot-related properties are included in `rvprops`. If omitted, data from the `main` slot will be returned in a backwards-compatible format.
+                         */
+                        grvslots?: "*" | OneOrMore<"main">;
+                        /**
+                         * Limit how many revisions will be returned.
+                         */
+                        grvlimit?: Limit;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires rvprop=content).
+                         *
+                         * @deprecated
+                         */
+                        grvexpandtemplates?: boolean;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires rvprop=content).
+                         *
+                         * @deprecated
+                         */
+                        grvgeneratexml?: boolean;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires rvprop=content). For performance reasons, if this option is used, rvlimit is enforced to 1.
+                         *
+                         * @deprecated
+                         */
+                        grvparse?: boolean;
+                        /**
+                         * Only retrieve the content of this section number.
+                         */
+                        grvsection?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively.
+                         *
+                         * @deprecated
+                         */
+                        grvdiffto?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `rvdiffto`. If `rvsection` is set, only that section will be diffed against this text.
+                         *
+                         * @deprecated
+                         */
+                        grvdifftotext?: string;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `rvdifftotext`.
+                         *
+                         * @deprecated
+                         */
+                        grvdifftotextpst?: boolean;
+                        /**
+                         * Serialization format used for `rvdifftotext` and expected for output of content.
+                         *
+                         * @deprecated
+                         */
+                        grvcontentformat?:
+                            | "application/json"
+                            | "application/octet-stream"
+                            | "application/unknown"
+                            | "application/x-binary"
+                            | "text/css"
+                            | "text/javascript"
+                            | "text/plain"
+                            | "text/unknown"
+                            | "text/x-wiki"
+                            | "unknown/unknown";
+                        /**
+                         * Start enumeration from this revision's timestamp. The revision must exist, but need not belong to this page.
+                         */
+                        grvstartid?: number;
+                        /**
+                         * Stop enumeration at this revision's timestamp. The revision must exist, but need not belong to this page.
+                         */
+                        grvendid?: number;
+                        /**
+                         * From which revision timestamp to start enumeration.
+                         */
+                        grvstart?: string;
+                        /**
+                         * Enumerate up to this timestamp.
+                         */
+                        grvend?: string;
+                        /**
+                         * In which direction to enumerate:
+                         *
+                         * - **newer**: List oldest first. Note: rvstart has to be before rvend.
+                         * - **older**: List newest first (default). Note: rvstart has to be later than rvend.
+                         *
+                         * Defaults to `older`.
+                         */
+                        grvdir?: "newer" | "older";
+                        /**
+                         * Only include revisions made by user.
+                         */
+                        grvuser?: string;
+                        /**
+                         * Exclude revisions made by user.
+                         */
+                        grvexcludeuser?: string;
+                        /**
+                         * Only list revisions tagged with this tag.
+                         */
+                        grvtag?: string;
+                        /**
+                         * Which tokens to obtain for each revision.
+                         *
+                         * @deprecated
+                         */
+                        grvtoken?: string;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        grvcontinue?: string;
+                    }
+
+                    /**
+                     * Perform a full text search.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Search
+                     */
+                    interface Search extends ImageRotate {
+                        generator?: "search";
+                        /**
+                         * Search for page titles or content matching this value. You can use the search string to invoke special search features, depending on what the wiki's search backend implements.
+                         */
+                        gsrsearch: string;
+                        /**
+                         * Search only within these namespaces.
+                         *
+                         * Defaults to 0.
+                         */
+                        gsrnamespace?: number | number[] | "*";
+                        /**
+                         * How many total pages to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gsrlimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         *
+                         * Defaults to 0.
+                         */
+                        gsroffset?: number;
+                        /**
+                         * Which type of search to perform.
+                         */
+                        gsrwhat?: "nearmatch" | "text" | "title";
+                        /**
+                         * Which metadata to return.
+                         *
+                         * Defaults to `totalhits`, `suggestion`, and `rewrittenquery`.
+                         */
+                        gsrinfo?: OneOrMore<"rewrittenquery" | "suggestion" | "totalhits">;
+                        /**
+                         * Which properties to return:
+                         *
+                         * - **size**: Adds the size of the page in bytes.
+                         * - **wordcount**: Adds the word count of the page.
+                         * - **timestamp**: Adds the timestamp of when the page was last edited.
+                         * - **snippet**: Adds a parsed snippet of the page.
+                         * - **titlesnippet**: Adds a parsed snippet of the page title.
+                         * - **redirecttitle**: Adds the title of the matching redirect.
+                         * - **redirectsnippet**: Adds a parsed snippet of the redirect title.
+                         * - **sectiontitle**: Adds the title of the matching section.
+                         * - **sectionsnippet**: Adds a parsed snippet of the matching section title.
+                         * - **isfilematch**: Adds a boolean indicating if the search matched file content.
+                         * - **categorysnippet**: Adds a parsed snippet of the matching category.
+                         * - **score**: Deprecated. Ignored.
+                         * - **hasrelated**: Deprecated. Ignored.
+                         * - **extensiondata**: Adds extra data generated by extensions.
+                         *
+                         * Defaults to `size`, `wordcount`, `timestamp`, and `snippet`.
+                         */
+                        gsrprop?: OneOrMore<
+                            | "categorysnippet"
+                            | "extensiondata"
+                            | "hasrelated"
+                            | "isfilematch"
+                            | "redirectsnippet"
+                            | "redirecttitle"
+                            | "score"
+                            | "sectionsnippet"
+                            | "sectiontitle"
+                            | "size"
+                            | "snippet"
+                            | "timestamp"
+                            | "titlesnippet"
+                            | "wordcount"
+                        >;
+                        /**
+                         * Include interwiki results in the search, if available.
+                         */
+                        gsrinterwiki?: boolean;
+                        /**
+                         * Enable internal query rewriting. Some search backends can rewrite the query into another which is thought to provide better results, for instance by correcting spelling errors.
+                         */
+                        gsrenablerewrites?: boolean;
+                        /**
+                         * Set the sort order of returned results.
+                         *
+                         * Defaults to `relevance`.
+                         */
+                        gsrsort?: "relevance";
+                    }
+
+                    /**
+                     * Returns all pages transcluded on the given pages.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Templates
+                     */
+                    interface Templates extends ImageRotate {
+                        generator?: "templates";
+                        /**
+                         * Show templates in these namespaces only.
+                         */
+                        gtlnamespace?: number | number[] | "*";
+                        /**
+                         * How many templates to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gtllimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gtlcontinue?: string;
+                        /**
+                         * Only list these templates. Useful for checking whether a certain page uses a certain template.
+                         */
+                        gtltemplates?: string | string[];
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gtldir?: "ascending" | "descending";
+                    }
+
+                    /**
+                     * Find all pages that transclude the given pages.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Transcludedin
+                     */
+                    interface Transcludedin extends ImageRotate {
+                        generator?: "transcludedin";
+                        /**
+                         * Which properties to get:
+                         *
+                         * - **pageid**: Page ID of each page.
+                         * - **title**: Title of each page.
+                         * - **redirect**: Flag if the page is a redirect.
+                         *
+                         * Defaults to `pageid`, `title`, and `redirect`.
+                         */
+                        gtiprop?: OneOrMore<"pageid" | "redirect" | "title">;
+                        /**
+                         * Only include pages in these namespaces.
+                         */
+                        gtinamespace?: number | number[] | "*";
+                        /**
+                         * Show only items that meet these criteria:
+                         *
+                         * - **redirect**: Only show redirects.
+                         * - **!redirect**: Only show non-redirects.
+                         */
+                        gtishow?: OneOrMore<Toggle<"redirect">>;
+                        /**
+                         * How many to return.
+                         *
+                         * Defaults to 10.
+                         */
+                        gtilimit?: Limit;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gticontinue?: string;
+                    }
+
+                    /**
+                     * Get recent changes to pages in the current user's watchlist.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlist
+                     */
+                    interface Watchlist extends ImageRotate {
+                        generator?: "watchlist";
+                        /**
+                         * Include multiple revisions of the same page within given timeframe.
+                         */
+                        gwlallrev?: boolean;
+                        /**
+                         * The timestamp to start enumerating from.
+                         */
+                        gwlstart?: string;
+                        /**
+                         * The timestamp to end enumerating.
+                         */
+                        gwlend?: string;
+                        /**
+                         * Filter changes to only the given namespaces.
+                         */
+                        gwlnamespace?: number | number[] | "*";
+                        /**
+                         * Only list changes by this user.
+                         */
+                        gwluser?: string;
+                        /**
+                         * Don't list changes by this user.
+                         */
+                        gwlexcludeuser?: string;
+                        /**
+                         * In which direction to enumerate:
+                         *
+                         * - **newer**: List oldest first. Note: wlstart has to be before wlend.
+                         * - **older**: List newest first (default). Note: wlstart has to be later than wlend.
+                         *
+                         * Defaults to `older`.
+                         */
+                        gwldir?: "newer" | "older";
+                        /**
+                         * How many total results to return per request.
+                         *
+                         * Defaults to 10.
+                         */
+                        gwllimit?: Limit;
+                        /**
+                         * Which additional properties to get:
+                         *
+                         * - **ids**: Adds revision IDs and page IDs.
+                         * - **title**: Adds title of the page.
+                         * - **flags**: Adds flags for the edit.
+                         * - **user**: Adds the user who made the edit. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **userid**: Adds user ID of whoever made the edit. If the user has been revision deleted, a `userhidden` property will be returned.
+                         * - **comment**: Adds comment of the edit. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **parsedcomment**: Adds parsed comment of the edit. If the comment has been revision deleted, a `commenthidden` property will be returned.
+                         * - **timestamp**: Adds timestamp of the edit.
+                         * - **patrol**: Tags edits that are patrolled.
+                         * - **sizes**: Adds the old and new lengths of the page.
+                         * - **notificationtimestamp**: Adds timestamp of when the user was last notified about the edit.
+                         * - **loginfo**: Adds log information where appropriate.
+                         * - **tags**: Lists tags for the entry.
+                         * - **expiry**: (no description)
+                         *
+                         * Defaults to `ids`, `title`, and `flags`.
+                         */
+                        gwlprop?: OneOrMore<
+                            | "comment"
+                            | "expiry"
+                            | "flags"
+                            | "ids"
+                            | "loginfo"
+                            | "notificationtimestamp"
+                            | "parsedcomment"
+                            | "patrol"
+                            | "sizes"
+                            | "tags"
+                            | "timestamp"
+                            | "title"
+                            | "user"
+                            | "userid"
+                        >;
+                        /**
+                         * Show only items that meet these criteria. For example, to see only minor edits done by logged-in users, set wlshow=minor|!anon.
+                         */
+                        gwlshow?: OneOrMore<
+                            Toggle<
+                                "anon" | "autopatrolled" | "bot" | "minor" | "patrolled" | "unread"
+                            >
+                        >;
+                        /**
+                         * Which types of changes to show:
+                         *
+                         * - **edit**: Regular page edits.
+                         * - **new**: Page creations.
+                         * - **log**: Log entries.
+                         * - **external**: External changes.
+                         * - **categorize**: Category membership changes.
+                         *
+                         * Defaults to `edit`, `new`, `log`, and `categorize`.
+                         */
+                        gwltype?: OneOrMore<"categorize" | "edit" | "external" | "log" | "new">;
+                        /**
+                         * Used along with wltoken to access a different user's watchlist.
+                         */
+                        gwlowner?: string;
+                        /**
+                         * A security token (available in the user's {@link https://www.gracesguide.co.uk/Special:Preferences#mw-prefsection-watchlist preferences}) to allow access to another user's watchlist.
+                         *
+                         * Sensitive parameter.
+                         */
+                        gwltoken?: string;
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gwlcontinue?: string;
+                    }
+
+                    /**
+                     * Get all pages on the current user's watchlist.
+                     *
+                     * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Watchlistraw
+                     */
+                    interface WatchlistRaw extends ImageRotate {
+                        generator?: "watchlistraw";
+                        /**
+                         * When more results are available, use this to continue.
+                         */
+                        gwrcontinue?: string;
+                        /**
+                         * Only list pages in the given namespaces.
+                         */
+                        gwrnamespace?: number | number[] | "*";
+                        /**
+                         * How many total results to return per request.
+                         *
+                         * Defaults to 10.
+                         */
+                        gwrlimit?: Limit;
+                        /**
+                         * Which additional properties to get:
+                         *
+                         * - **changed**: Adds timestamp of when the user was last notified about the edit.
+                         */
+                        gwrprop?: OneOrMore<"changed">;
+                        /**
+                         * Only list items that meet these criteria.
+                         */
+                        gwrshow?: OneOrMore<Toggle<"changed">>;
+                        /**
+                         * Used along with wrtoken to access a different user's watchlist.
+                         */
+                        gwrowner?: string;
+                        /**
+                         * A security token (available in the user's {@link https://www.gracesguide.co.uk/Special:Preferences#mw-prefsection-watchlist preferences}) to allow access to another user's watchlist.
+                         *
+                         * Sensitive parameter.
+                         */
+                        gwrtoken?: string;
+                        /**
+                         * The direction in which to list.
+                         *
+                         * Defaults to `ascending`.
+                         */
+                        gwrdir?: "ascending" | "descending";
+                        /**
+                         * Title (with namespace prefix) to begin enumerating from.
+                         */
+                        gwrfromtitle?: string;
+                        /**
+                         * Title (with namespace prefix) to stop enumerating at.
+                         */
+                        gwrtotitle?: string;
+                    }
+                }
+
                 namespace Purge.Generator {
                     /**
                      * Enumerate all categories.
@@ -12441,7 +14969,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T14:23:12Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
                          */
                         grlechangedsince?: string;
                         /**
@@ -12546,6 +15074,12 @@ declare global {
                             | "user"
                             | "userid"
                         >;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                         *
+                         * @deprecated
+                         */
+                        grctoken?: string;
                         /**
                          * Show only items that meet these criteria. For example, to see only minor edits done by logged-in users, set rcshow=minor|!anon.
                          */
@@ -12809,6 +15343,12 @@ declare global {
                          * Only list revisions tagged with this tag.
                          */
                         grvtag?: string;
+                        /**
+                         * Which tokens to obtain for each revision.
+                         *
+                         * @deprecated
+                         */
+                        grvtoken?: string;
                         /**
                          * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
@@ -14336,6 +16876,12 @@ declare global {
                              */
                             ineditintrocustom?: string;
                             /**
+                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens} instead.
+                             *
+                             * @deprecated
+                             */
+                            intoken?: string;
+                            /**
                              * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                              */
                             incontinue?: string;
@@ -14904,6 +17450,12 @@ declare global {
                              * Only list revisions tagged with this tag.
                              */
                             rvtag?: string;
+                            /**
+                             * Which tokens to obtain for each revision.
+                             *
+                             * @deprecated
+                             */
+                            rvtoken?: string;
                             /**
                              * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                              */
@@ -16957,20 +19509,7 @@ declare global {
                              *
                              * Defaults to `user` and `comment`.
                              */
-                            drprop?: OneOrMore<
-                                | "comment"
-                                | "content"
-                                | "len"
-                                | "minor"
-                                | "parentid"
-                                | "parsedcomment"
-                                | "revid"
-                                | "sha1"
-                                | "tags"
-                                | "token"
-                                | "user"
-                                | "userid"
-                            >;
+                            drprop?: string | string[];
                             /**
                              * The maximum amount of revisions to list. If `drprop=content` is used, the limit is 50.
                              *
@@ -18529,7 +21068,7 @@ declare global {
                              */
                             rlelists?: number | number[];
                             /**
-                             * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T14:23:12Z`.
+                             * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
                              */
                             rlechangedsince?: string;
                             /**
@@ -18633,6 +21172,12 @@ declare global {
                                 | "user"
                                 | "userid"
                             >;
+                            /**
+                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                             *
+                             * @deprecated
+                             */
+                            rctoken?: string;
                             /**
                              * Show only items that meet these criteria. For example, to see only minor edits done by logged-in users, set rcshow=minor|!anon.
                              */
@@ -19140,6 +21685,12 @@ declare global {
                              * A list of user IDs to obtain information for.
                              */
                             ususerids?: number | number[];
+                            /**
+                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                             *
+                             * @deprecated
+                             */
+                            ustoken?: string;
                         }
 
                         /**
@@ -20214,7 +22765,7 @@ declare global {
                              */
                             rltitle?: string;
                             /**
-                             * Show lists that have been changed since this timestamp. Must be after `2024-09-30T14:23:13Z`. Clients should use the timestamp returned in the `readinglists-synctimestamp` field from an earlier call if they want to ensure that no changes are missed, and should be prepared to receive changes that have already been returned in an earlier response, and handle them in an idempotent way.
+                             * Show lists that have been changed since this timestamp. Must be after `2024-09-30T15:43:03Z`. Clients should use the timestamp returned in the `readinglists-synctimestamp` field from an earlier call if they want to ensure that no changes are missed, and should be prepared to receive changes that have already been returned in an earlier response, and handle them in an idempotent way.
                              */
                             rlchangedsince?: string;
                             /**
@@ -20432,29 +22983,7 @@ declare global {
                              * - **latestcontrib**: Adds the date of user's latest contribution.
                              * - **cancreateaccount**: Indicates whether the user is allowed to create accounts. To check whether some specific account can be created, use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Busers `action=query&amp;list=users&amp;usprop=cancreate`}.
                              */
-                            uiprop?:
-                                | "*"
-                                | OneOrMore<
-                                      | "acceptlang"
-                                      | "blockinfo"
-                                      | "cancreateaccount"
-                                      | "centralids"
-                                      | "changeablegroups"
-                                      | "editcount"
-                                      | "email"
-                                      | "groupmemberships"
-                                      | "groups"
-                                      | "hasmsg"
-                                      | "implicitgroups"
-                                      | "latestcontrib"
-                                      | "options"
-                                      | "ratelimits"
-                                      | "realname"
-                                      | "registrationdate"
-                                      | "rights"
-                                      | "theoreticalratelimits"
-                                      | "unreadcount"
-                                  >;
+                            uiprop?: string | string[];
                             /**
                              * With `uiprop=centralids`, indicate whether the user is attached with the wiki identified by this ID.
                              */
@@ -22956,7 +25485,7 @@ declare global {
                              */
                             grlelists?: number | number[];
                             /**
-                             * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T14:23:12Z`.
+                             * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
                              */
                             grlechangedsince?: string;
                             /**
@@ -23061,6 +25590,12 @@ declare global {
                                 | "user"
                                 | "userid"
                             >;
+                            /**
+                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                             *
+                             * @deprecated
+                             */
+                            grctoken?: string;
                             /**
                              * Show only items that meet these criteria. For example, to see only minor edits done by logged-in users, set rcshow=minor|!anon.
                              */
@@ -23324,6 +25859,12 @@ declare global {
                              * Only list revisions tagged with this tag.
                              */
                             grvtag?: string;
+                            /**
+                             * Which tokens to obtain for each revision.
+                             *
+                             * @deprecated
+                             */
+                            grvtoken?: string;
                             /**
                              * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                              */
@@ -26505,7 +29046,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T14:23:12Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
                          */
                         grlechangedsince?: string;
                         /**
@@ -26610,6 +29151,12 @@ declare global {
                             | "user"
                             | "userid"
                         >;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                         *
+                         * @deprecated
+                         */
+                        grctoken?: string;
                         /**
                          * Show only items that meet these criteria. For example, to see only minor edits done by logged-in users, set rcshow=minor|!anon.
                          */
@@ -26873,6 +29420,12 @@ declare global {
                          * Only list revisions tagged with this tag.
                          */
                         grvtag?: string;
+                        /**
+                         * Which tokens to obtain for each revision.
+                         *
+                         * @deprecated
+                         */
+                        grvtoken?: string;
                         /**
                          * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
@@ -29911,7 +32464,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T14:23:12Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
                          */
                         grlechangedsince?: string;
                         /**
@@ -33317,7 +35870,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T14:23:12Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
                          */
                         grlechangedsince?: string;
                         /**
@@ -33422,6 +35975,12 @@ declare global {
                             | "user"
                             | "userid"
                         >;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                         *
+                         * @deprecated
+                         */
+                        grctoken?: string;
                         /**
                          * Show only items that meet these criteria. For example, to see only minor edits done by logged-in users, set rcshow=minor|!anon.
                          */
@@ -33685,6 +36244,12 @@ declare global {
                          * Only list revisions tagged with this tag.
                          */
                         grvtag?: string;
+                        /**
+                         * Which tokens to obtain for each revision.
+                         *
+                         * @deprecated
+                         */
+                        grvtoken?: string;
                         /**
                          * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
@@ -34844,6 +37409,141 @@ export type GrowthExperimentsApiHelpPanelPostQuestionParams = Partial<mw.Api.Par
 export type GrowthExperimentsApiQuestionStoreParams = Partial<mw.Api.Params.Action.HomePageQuestionStore>;
 
 /**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllCategories `Partial<mw.Api.Params.Action.Query.List.AllCategories>`} / {@link mw.Api.Params.Action.Purge.Generator.AllCategories `Partial<mw.Api.Params.Action.Purge.Generator.AllCategories>`} / {@link mw.Api.Params.Action.Query.Generator.AllCategories `Partial<mw.Api.Params.Action.Query.Generator.AllCategories>`} / {@link mw.Api.Params.Action.Watch.Generator.AllCategories `Partial<mw.Api.Params.Action.Watch.Generator.AllCategories>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.AllCategories `Partial<mw.Api.Params.Action.ImageRotate.Generator.AllCategories>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllCategories `Partial<mw.Api.Params.Action.TemplateData.Generator.AllCategories>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllCategories `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllCategories>`} instead.
+ */
+export type ApiQueryAllCategoriesParams = Partial<mw.Api.Params.Action.Query.List.AllCategories>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllDeletedRevisions `Partial<mw.Api.Params.Action.Query.List.AllDeletedRevisions>`} / {@link mw.Api.Params.Action.Purge.Generator.AllDeletedRevisions `Partial<mw.Api.Params.Action.Purge.Generator.AllDeletedRevisions>`} / {@link mw.Api.Params.Action.Query.Generator.AllDeletedRevisions `Partial<mw.Api.Params.Action.Query.Generator.AllDeletedRevisions>`} / {@link mw.Api.Params.Action.Watch.Generator.AllDeletedRevisions `Partial<mw.Api.Params.Action.Watch.Generator.AllDeletedRevisions>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.AllDeletedRevisions `Partial<mw.Api.Params.Action.ImageRotate.Generator.AllDeletedRevisions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllDeletedRevisions `Partial<mw.Api.Params.Action.TemplateData.Generator.AllDeletedRevisions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllDeletedRevisions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllDeletedRevisions>`} instead.
+ */
+export type ApiQueryAllDeletedRevisionsParams = Partial<mw.Api.Params.Action.Query.List.AllDeletedRevisions>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllFileUsages `Partial<mw.Api.Params.Action.Query.List.AllFileUsages>`} / {@link mw.Api.Params.Action.Purge.Generator.AllFileUsages `Partial<mw.Api.Params.Action.Purge.Generator.AllFileUsages>`} / {@link mw.Api.Params.Action.Query.Generator.AllFileUsages `Partial<mw.Api.Params.Action.Query.Generator.AllFileUsages>`} / {@link mw.Api.Params.Action.Watch.Generator.AllFileUsages `Partial<mw.Api.Params.Action.Watch.Generator.AllFileUsages>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.AllFileUsages `Partial<mw.Api.Params.Action.ImageRotate.Generator.AllFileUsages>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllFileUsages `Partial<mw.Api.Params.Action.TemplateData.Generator.AllFileUsages>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllFileUsages `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllFileUsages>`} / {@link mw.Api.Params.Action.Query.List.AllLinks `Partial<mw.Api.Params.Action.Query.List.AllLinks>`} / {@link mw.Api.Params.Action.Purge.Generator.AllLinks `Partial<mw.Api.Params.Action.Purge.Generator.AllLinks>`} / {@link mw.Api.Params.Action.Query.Generator.AllLinks `Partial<mw.Api.Params.Action.Query.Generator.AllLinks>`} / {@link mw.Api.Params.Action.Watch.Generator.AllLinks `Partial<mw.Api.Params.Action.Watch.Generator.AllLinks>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.AllLinks `Partial<mw.Api.Params.Action.ImageRotate.Generator.AllLinks>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllLinks `Partial<mw.Api.Params.Action.TemplateData.Generator.AllLinks>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllLinks `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllLinks>`} / {@link mw.Api.Params.Action.Query.List.AllRedirects `Partial<mw.Api.Params.Action.Query.List.AllRedirects>`} / {@link mw.Api.Params.Action.Purge.Generator.AllRedirects `Partial<mw.Api.Params.Action.Purge.Generator.AllRedirects>`} / {@link mw.Api.Params.Action.Query.Generator.AllRedirects `Partial<mw.Api.Params.Action.Query.Generator.AllRedirects>`} / {@link mw.Api.Params.Action.Watch.Generator.AllRedirects `Partial<mw.Api.Params.Action.Watch.Generator.AllRedirects>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.AllRedirects `Partial<mw.Api.Params.Action.ImageRotate.Generator.AllRedirects>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllRedirects `Partial<mw.Api.Params.Action.TemplateData.Generator.AllRedirects>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllRedirects `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllRedirects>`} / {@link mw.Api.Params.Action.Query.List.AllTransclusions `Partial<mw.Api.Params.Action.Query.List.AllTransclusions>`} / {@link mw.Api.Params.Action.Purge.Generator.AllTransclusions `Partial<mw.Api.Params.Action.Purge.Generator.AllTransclusions>`} / {@link mw.Api.Params.Action.Query.Generator.AllTransclusions `Partial<mw.Api.Params.Action.Query.Generator.AllTransclusions>`} / {@link mw.Api.Params.Action.Watch.Generator.AllTransclusions `Partial<mw.Api.Params.Action.Watch.Generator.AllTransclusions>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.AllTransclusions `Partial<mw.Api.Params.Action.ImageRotate.Generator.AllTransclusions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllTransclusions `Partial<mw.Api.Params.Action.TemplateData.Generator.AllTransclusions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllTransclusions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllTransclusions>`} instead.
+ */
+export type ApiQueryAllLinksParams = Partial<mw.Api.Params.Action.Query.List.AllFileUsages>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllImages `Partial<mw.Api.Params.Action.Query.List.AllImages>`} / {@link mw.Api.Params.Action.Purge.Generator.AllImages `Partial<mw.Api.Params.Action.Purge.Generator.AllImages>`} / {@link mw.Api.Params.Action.Query.Generator.AllImages `Partial<mw.Api.Params.Action.Query.Generator.AllImages>`} / {@link mw.Api.Params.Action.Watch.Generator.AllImages `Partial<mw.Api.Params.Action.Watch.Generator.AllImages>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.AllImages `Partial<mw.Api.Params.Action.ImageRotate.Generator.AllImages>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllImages `Partial<mw.Api.Params.Action.TemplateData.Generator.AllImages>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllImages `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllImages>`} instead.
+ */
+export type ApiQueryAllImagesParams = Partial<mw.Api.Params.Action.Query.List.AllImages>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllPages `Partial<mw.Api.Params.Action.Query.List.AllPages>`} / {@link mw.Api.Params.Action.Purge.Generator.AllPages `Partial<mw.Api.Params.Action.Purge.Generator.AllPages>`} / {@link mw.Api.Params.Action.Query.Generator.AllPages `Partial<mw.Api.Params.Action.Query.Generator.AllPages>`} / {@link mw.Api.Params.Action.Watch.Generator.AllPages `Partial<mw.Api.Params.Action.Watch.Generator.AllPages>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.AllPages `Partial<mw.Api.Params.Action.ImageRotate.Generator.AllPages>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllPages `Partial<mw.Api.Params.Action.TemplateData.Generator.AllPages>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllPages `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllPages>`} instead.
+ */
+export type ApiQueryAllPagesParams = Partial<mw.Api.Params.Action.Query.List.AllPages>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllRevisions `Partial<mw.Api.Params.Action.Query.List.AllRevisions>`} / {@link mw.Api.Params.Action.Purge.Generator.AllRevisions `Partial<mw.Api.Params.Action.Purge.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.Query.Generator.AllRevisions `Partial<mw.Api.Params.Action.Query.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.Watch.Generator.AllRevisions `Partial<mw.Api.Params.Action.Watch.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.AllRevisions `Partial<mw.Api.Params.Action.ImageRotate.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllRevisions `Partial<mw.Api.Params.Action.TemplateData.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllRevisions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllRevisions>`} instead.
+ */
+export type ApiQueryAllRevisionsParams = Partial<mw.Api.Params.Action.Query.List.AllRevisions>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.Backlinks `Partial<mw.Api.Params.Action.Query.List.Backlinks>`} / {@link mw.Api.Params.Action.Purge.Generator.Backlinks `Partial<mw.Api.Params.Action.Purge.Generator.Backlinks>`} / {@link mw.Api.Params.Action.Query.Generator.Backlinks `Partial<mw.Api.Params.Action.Query.Generator.Backlinks>`} / {@link mw.Api.Params.Action.Watch.Generator.Backlinks `Partial<mw.Api.Params.Action.Watch.Generator.Backlinks>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Backlinks `Partial<mw.Api.Params.Action.ImageRotate.Generator.Backlinks>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Backlinks `Partial<mw.Api.Params.Action.TemplateData.Generator.Backlinks>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Backlinks `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Backlinks>`} / {@link mw.Api.Params.Action.Query.List.Embeddedin `Partial<mw.Api.Params.Action.Query.List.Embeddedin>`} / {@link mw.Api.Params.Action.Purge.Generator.Embeddedin `Partial<mw.Api.Params.Action.Purge.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.Query.Generator.Embeddedin `Partial<mw.Api.Params.Action.Query.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.Watch.Generator.Embeddedin `Partial<mw.Api.Params.Action.Watch.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Embeddedin `Partial<mw.Api.Params.Action.ImageRotate.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Embeddedin `Partial<mw.Api.Params.Action.TemplateData.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Embeddedin `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.Query.List.ImageUsage `Partial<mw.Api.Params.Action.Query.List.ImageUsage>`} / {@link mw.Api.Params.Action.Purge.Generator.ImageUsage `Partial<mw.Api.Params.Action.Purge.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.Query.Generator.ImageUsage `Partial<mw.Api.Params.Action.Query.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.Watch.Generator.ImageUsage `Partial<mw.Api.Params.Action.Watch.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.ImageUsage `Partial<mw.Api.Params.Action.ImageRotate.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ImageUsage `Partial<mw.Api.Params.Action.TemplateData.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ImageUsage `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ImageUsage>`} instead.
+ */
+export type ApiQueryBacklinksParams = Partial<mw.Api.Params.Action.Query.List.Backlinks>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Categories `Partial<mw.Api.Params.Action.Query.Prop.Categories>`} / {@link mw.Api.Params.Action.Purge.Generator.Categories `Partial<mw.Api.Params.Action.Purge.Generator.Categories>`} / {@link mw.Api.Params.Action.Query.Generator.Categories `Partial<mw.Api.Params.Action.Query.Generator.Categories>`} / {@link mw.Api.Params.Action.Watch.Generator.Categories `Partial<mw.Api.Params.Action.Watch.Generator.Categories>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Categories `Partial<mw.Api.Params.Action.ImageRotate.Generator.Categories>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Categories `Partial<mw.Api.Params.Action.TemplateData.Generator.Categories>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Categories `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Categories>`} instead.
+ */
+export type ApiQueryCategoriesParams = Partial<mw.Api.Params.Action.Query.Prop.Categories>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.CategoryMembers `Partial<mw.Api.Params.Action.Query.List.CategoryMembers>`} / {@link mw.Api.Params.Action.Purge.Generator.CategoryMembers `Partial<mw.Api.Params.Action.Purge.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.Query.Generator.CategoryMembers `Partial<mw.Api.Params.Action.Query.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.Watch.Generator.CategoryMembers `Partial<mw.Api.Params.Action.Watch.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.CategoryMembers `Partial<mw.Api.Params.Action.ImageRotate.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.TemplateData.Generator.CategoryMembers `Partial<mw.Api.Params.Action.TemplateData.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.CategoryMembers `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.CategoryMembers>`} instead.
+ */
+export type ApiQueryCategoryMembersParams = Partial<mw.Api.Params.Action.Query.List.CategoryMembers>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.DeletedRevisions `Partial<mw.Api.Params.Action.Query.Prop.DeletedRevisions>`} / {@link mw.Api.Params.Action.Purge.Generator.DeletedRevisions `Partial<mw.Api.Params.Action.Purge.Generator.DeletedRevisions>`} / {@link mw.Api.Params.Action.Query.Generator.DeletedRevisions `Partial<mw.Api.Params.Action.Query.Generator.DeletedRevisions>`} / {@link mw.Api.Params.Action.Watch.Generator.DeletedRevisions `Partial<mw.Api.Params.Action.Watch.Generator.DeletedRevisions>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.DeletedRevisions `Partial<mw.Api.Params.Action.ImageRotate.Generator.DeletedRevisions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.DeletedRevisions `Partial<mw.Api.Params.Action.TemplateData.Generator.DeletedRevisions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.DeletedRevisions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.DeletedRevisions>`} instead.
+ */
+export type ApiQueryDeletedRevisionsParams = Partial<mw.Api.Params.Action.Query.Prop.DeletedRevisions>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.DuplicateFiles `Partial<mw.Api.Params.Action.Query.Prop.DuplicateFiles>`} / {@link mw.Api.Params.Action.Purge.Generator.DuplicateFiles `Partial<mw.Api.Params.Action.Purge.Generator.DuplicateFiles>`} / {@link mw.Api.Params.Action.Query.Generator.DuplicateFiles `Partial<mw.Api.Params.Action.Query.Generator.DuplicateFiles>`} / {@link mw.Api.Params.Action.Watch.Generator.DuplicateFiles `Partial<mw.Api.Params.Action.Watch.Generator.DuplicateFiles>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.DuplicateFiles `Partial<mw.Api.Params.Action.ImageRotate.Generator.DuplicateFiles>`} / {@link mw.Api.Params.Action.TemplateData.Generator.DuplicateFiles `Partial<mw.Api.Params.Action.TemplateData.Generator.DuplicateFiles>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.DuplicateFiles `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.DuplicateFiles>`} instead.
+ */
+export type ApiQueryDuplicateFilesParams = Partial<mw.Api.Params.Action.Query.Prop.DuplicateFiles>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.ExtUrlUsage `Partial<mw.Api.Params.Action.Query.List.ExtUrlUsage>`} / {@link mw.Api.Params.Action.Purge.Generator.ExtUrlUsage `Partial<mw.Api.Params.Action.Purge.Generator.ExtUrlUsage>`} / {@link mw.Api.Params.Action.Query.Generator.ExtUrlUsage `Partial<mw.Api.Params.Action.Query.Generator.ExtUrlUsage>`} / {@link mw.Api.Params.Action.Watch.Generator.ExtUrlUsage `Partial<mw.Api.Params.Action.Watch.Generator.ExtUrlUsage>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.ExtUrlUsage `Partial<mw.Api.Params.Action.ImageRotate.Generator.ExtUrlUsage>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ExtUrlUsage `Partial<mw.Api.Params.Action.TemplateData.Generator.ExtUrlUsage>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ExtUrlUsage `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ExtUrlUsage>`} instead.
+ */
+export type ApiQueryExtLinksUsageParams = Partial<mw.Api.Params.Action.Query.List.ExtUrlUsage>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.FileUsage `Partial<mw.Api.Params.Action.Query.Prop.FileUsage>`} / {@link mw.Api.Params.Action.Purge.Generator.FileUsage `Partial<mw.Api.Params.Action.Purge.Generator.FileUsage>`} / {@link mw.Api.Params.Action.Query.Generator.FileUsage `Partial<mw.Api.Params.Action.Query.Generator.FileUsage>`} / {@link mw.Api.Params.Action.Watch.Generator.FileUsage `Partial<mw.Api.Params.Action.Watch.Generator.FileUsage>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.FileUsage `Partial<mw.Api.Params.Action.ImageRotate.Generator.FileUsage>`} / {@link mw.Api.Params.Action.TemplateData.Generator.FileUsage `Partial<mw.Api.Params.Action.TemplateData.Generator.FileUsage>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.FileUsage `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.FileUsage>`} / {@link mw.Api.Params.Action.Query.Prop.LinksHere `Partial<mw.Api.Params.Action.Query.Prop.LinksHere>`} / {@link mw.Api.Params.Action.Purge.Generator.LinksHere `Partial<mw.Api.Params.Action.Purge.Generator.LinksHere>`} / {@link mw.Api.Params.Action.Query.Generator.LinksHere `Partial<mw.Api.Params.Action.Query.Generator.LinksHere>`} / {@link mw.Api.Params.Action.Watch.Generator.LinksHere `Partial<mw.Api.Params.Action.Watch.Generator.LinksHere>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.LinksHere `Partial<mw.Api.Params.Action.ImageRotate.Generator.LinksHere>`} / {@link mw.Api.Params.Action.TemplateData.Generator.LinksHere `Partial<mw.Api.Params.Action.TemplateData.Generator.LinksHere>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.LinksHere `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.LinksHere>`} / {@link mw.Api.Params.Action.Query.Prop.Redirects `Partial<mw.Api.Params.Action.Query.Prop.Redirects>`} / {@link mw.Api.Params.Action.Purge.Generator.Redirects `Partial<mw.Api.Params.Action.Purge.Generator.Redirects>`} / {@link mw.Api.Params.Action.Query.Generator.Redirects `Partial<mw.Api.Params.Action.Query.Generator.Redirects>`} / {@link mw.Api.Params.Action.Watch.Generator.Redirects `Partial<mw.Api.Params.Action.Watch.Generator.Redirects>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Redirects `Partial<mw.Api.Params.Action.ImageRotate.Generator.Redirects>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Redirects `Partial<mw.Api.Params.Action.TemplateData.Generator.Redirects>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Redirects `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Redirects>`} / {@link mw.Api.Params.Action.Query.Prop.Transcludedin `Partial<mw.Api.Params.Action.Query.Prop.Transcludedin>`} / {@link mw.Api.Params.Action.Purge.Generator.Transcludedin `Partial<mw.Api.Params.Action.Purge.Generator.Transcludedin>`} / {@link mw.Api.Params.Action.Query.Generator.Transcludedin `Partial<mw.Api.Params.Action.Query.Generator.Transcludedin>`} / {@link mw.Api.Params.Action.Watch.Generator.Transcludedin `Partial<mw.Api.Params.Action.Watch.Generator.Transcludedin>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Transcludedin `Partial<mw.Api.Params.Action.ImageRotate.Generator.Transcludedin>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Transcludedin `Partial<mw.Api.Params.Action.TemplateData.Generator.Transcludedin>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Transcludedin `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Transcludedin>`} instead.
+ */
+export type ApiQueryBacklinkspropParams = Partial<mw.Api.Params.Action.Query.Prop.FileUsage>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Images `Partial<mw.Api.Params.Action.Query.Prop.Images>`} / {@link mw.Api.Params.Action.Purge.Generator.Images `Partial<mw.Api.Params.Action.Purge.Generator.Images>`} / {@link mw.Api.Params.Action.Query.Generator.Images `Partial<mw.Api.Params.Action.Query.Generator.Images>`} / {@link mw.Api.Params.Action.Watch.Generator.Images `Partial<mw.Api.Params.Action.Watch.Generator.Images>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Images `Partial<mw.Api.Params.Action.ImageRotate.Generator.Images>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Images `Partial<mw.Api.Params.Action.TemplateData.Generator.Images>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Images `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Images>`} instead.
+ */
+export type ApiQueryImagesParams = Partial<mw.Api.Params.Action.Query.Prop.Images>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.IWBacklinks `Partial<mw.Api.Params.Action.Query.List.IWBacklinks>`} / {@link mw.Api.Params.Action.Purge.Generator.IWBacklinks `Partial<mw.Api.Params.Action.Purge.Generator.IWBacklinks>`} / {@link mw.Api.Params.Action.Query.Generator.IWBacklinks `Partial<mw.Api.Params.Action.Query.Generator.IWBacklinks>`} / {@link mw.Api.Params.Action.Watch.Generator.IWBacklinks `Partial<mw.Api.Params.Action.Watch.Generator.IWBacklinks>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.IWBacklinks `Partial<mw.Api.Params.Action.ImageRotate.Generator.IWBacklinks>`} / {@link mw.Api.Params.Action.TemplateData.Generator.IWBacklinks `Partial<mw.Api.Params.Action.TemplateData.Generator.IWBacklinks>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.IWBacklinks `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.IWBacklinks>`} instead.
+ */
+export type ApiQueryIWBacklinksParams = Partial<mw.Api.Params.Action.Query.List.IWBacklinks>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.LangBacklinks `Partial<mw.Api.Params.Action.Query.List.LangBacklinks>`} / {@link mw.Api.Params.Action.Purge.Generator.LangBacklinks `Partial<mw.Api.Params.Action.Purge.Generator.LangBacklinks>`} / {@link mw.Api.Params.Action.Query.Generator.LangBacklinks `Partial<mw.Api.Params.Action.Query.Generator.LangBacklinks>`} / {@link mw.Api.Params.Action.Watch.Generator.LangBacklinks `Partial<mw.Api.Params.Action.Watch.Generator.LangBacklinks>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.LangBacklinks `Partial<mw.Api.Params.Action.ImageRotate.Generator.LangBacklinks>`} / {@link mw.Api.Params.Action.TemplateData.Generator.LangBacklinks `Partial<mw.Api.Params.Action.TemplateData.Generator.LangBacklinks>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.LangBacklinks `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.LangBacklinks>`} instead.
+ */
+export type ApiQueryLangBacklinksParams = Partial<mw.Api.Params.Action.Query.List.LangBacklinks>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Links `Partial<mw.Api.Params.Action.Query.Prop.Links>`} / {@link mw.Api.Params.Action.Purge.Generator.Links `Partial<mw.Api.Params.Action.Purge.Generator.Links>`} / {@link mw.Api.Params.Action.Query.Generator.Links `Partial<mw.Api.Params.Action.Query.Generator.Links>`} / {@link mw.Api.Params.Action.Watch.Generator.Links `Partial<mw.Api.Params.Action.Watch.Generator.Links>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Links `Partial<mw.Api.Params.Action.ImageRotate.Generator.Links>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Links `Partial<mw.Api.Params.Action.TemplateData.Generator.Links>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Links `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Links>`} / {@link mw.Api.Params.Action.Query.Prop.Templates `Partial<mw.Api.Params.Action.Query.Prop.Templates>`} / {@link mw.Api.Params.Action.Purge.Generator.Templates `Partial<mw.Api.Params.Action.Purge.Generator.Templates>`} / {@link mw.Api.Params.Action.Query.Generator.Templates `Partial<mw.Api.Params.Action.Query.Generator.Templates>`} / {@link mw.Api.Params.Action.Watch.Generator.Templates `Partial<mw.Api.Params.Action.Watch.Generator.Templates>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Templates `Partial<mw.Api.Params.Action.ImageRotate.Generator.Templates>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Templates `Partial<mw.Api.Params.Action.TemplateData.Generator.Templates>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Templates `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Templates>`} instead.
+ */
+export type ApiQueryLinksParams = Partial<mw.Api.Params.Action.Query.Prop.Links>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.PagesWithProp `Partial<mw.Api.Params.Action.Query.List.PagesWithProp>`} / {@link mw.Api.Params.Action.Purge.Generator.PagesWithProp `Partial<mw.Api.Params.Action.Purge.Generator.PagesWithProp>`} / {@link mw.Api.Params.Action.Query.Generator.PagesWithProp `Partial<mw.Api.Params.Action.Query.Generator.PagesWithProp>`} / {@link mw.Api.Params.Action.Watch.Generator.PagesWithProp `Partial<mw.Api.Params.Action.Watch.Generator.PagesWithProp>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.PagesWithProp `Partial<mw.Api.Params.Action.ImageRotate.Generator.PagesWithProp>`} / {@link mw.Api.Params.Action.TemplateData.Generator.PagesWithProp `Partial<mw.Api.Params.Action.TemplateData.Generator.PagesWithProp>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.PagesWithProp `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.PagesWithProp>`} instead.
+ */
+export type ApiQueryPagesWithPropParams = Partial<mw.Api.Params.Action.Query.List.PagesWithProp>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.PrefixSearch `Partial<mw.Api.Params.Action.Query.List.PrefixSearch>`} / {@link mw.Api.Params.Action.Purge.Generator.PrefixSearch `Partial<mw.Api.Params.Action.Purge.Generator.PrefixSearch>`} / {@link mw.Api.Params.Action.Query.Generator.PrefixSearch `Partial<mw.Api.Params.Action.Query.Generator.PrefixSearch>`} / {@link mw.Api.Params.Action.Watch.Generator.PrefixSearch `Partial<mw.Api.Params.Action.Watch.Generator.PrefixSearch>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.PrefixSearch `Partial<mw.Api.Params.Action.ImageRotate.Generator.PrefixSearch>`} / {@link mw.Api.Params.Action.TemplateData.Generator.PrefixSearch `Partial<mw.Api.Params.Action.TemplateData.Generator.PrefixSearch>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.PrefixSearch `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.PrefixSearch>`} instead.
+ */
+export type ApiQueryPrefixSearchParams = Partial<mw.Api.Params.Action.Query.List.PrefixSearch>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.ProtectedTitles `Partial<mw.Api.Params.Action.Query.List.ProtectedTitles>`} / {@link mw.Api.Params.Action.Purge.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.Purge.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.Query.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.Query.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.Watch.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.Watch.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.ImageRotate.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.TemplateData.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProtectedTitles>`} instead.
+ */
+export type ApiQueryProtectedTitlesParams = Partial<mw.Api.Params.Action.Query.List.ProtectedTitles>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.QueryPage `Partial<mw.Api.Params.Action.Query.List.QueryPage>`} / {@link mw.Api.Params.Action.Purge.Generator.QueryPage `Partial<mw.Api.Params.Action.Purge.Generator.QueryPage>`} / {@link mw.Api.Params.Action.Query.Generator.QueryPage `Partial<mw.Api.Params.Action.Query.Generator.QueryPage>`} / {@link mw.Api.Params.Action.Watch.Generator.QueryPage `Partial<mw.Api.Params.Action.Watch.Generator.QueryPage>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.QueryPage `Partial<mw.Api.Params.Action.ImageRotate.Generator.QueryPage>`} / {@link mw.Api.Params.Action.TemplateData.Generator.QueryPage `Partial<mw.Api.Params.Action.TemplateData.Generator.QueryPage>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.QueryPage `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.QueryPage>`} instead.
+ */
+export type ApiQueryQueryPageParams = Partial<mw.Api.Params.Action.Query.List.QueryPage>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.Random `Partial<mw.Api.Params.Action.Query.List.Random>`} / {@link mw.Api.Params.Action.Purge.Generator.Random `Partial<mw.Api.Params.Action.Purge.Generator.Random>`} / {@link mw.Api.Params.Action.Query.Generator.Random `Partial<mw.Api.Params.Action.Query.Generator.Random>`} / {@link mw.Api.Params.Action.Watch.Generator.Random `Partial<mw.Api.Params.Action.Watch.Generator.Random>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Random `Partial<mw.Api.Params.Action.ImageRotate.Generator.Random>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Random `Partial<mw.Api.Params.Action.TemplateData.Generator.Random>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Random `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Random>`} instead.
+ */
+export type ApiQueryRandomParams = Partial<mw.Api.Params.Action.Query.List.Random>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.RecentChanges `Partial<mw.Api.Params.Action.Query.List.RecentChanges>`} / {@link mw.Api.Params.Action.Purge.Generator.RecentChanges `Partial<mw.Api.Params.Action.Purge.Generator.RecentChanges>`} / {@link mw.Api.Params.Action.Query.Generator.RecentChanges `Partial<mw.Api.Params.Action.Query.Generator.RecentChanges>`} / {@link mw.Api.Params.Action.Watch.Generator.RecentChanges `Partial<mw.Api.Params.Action.Watch.Generator.RecentChanges>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.RecentChanges `Partial<mw.Api.Params.Action.ImageRotate.Generator.RecentChanges>`} / {@link mw.Api.Params.Action.TemplateData.Generator.RecentChanges `Partial<mw.Api.Params.Action.TemplateData.Generator.RecentChanges>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.RecentChanges `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.RecentChanges>`} instead.
+ */
+export type ApiQueryRecentChangesParams = Partial<mw.Api.Params.Action.Query.List.RecentChanges>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Revisions `Partial<mw.Api.Params.Action.Query.Prop.Revisions>`} / {@link mw.Api.Params.Action.Purge.Generator.Revisions `Partial<mw.Api.Params.Action.Purge.Generator.Revisions>`} / {@link mw.Api.Params.Action.Query.Generator.Revisions `Partial<mw.Api.Params.Action.Query.Generator.Revisions>`} / {@link mw.Api.Params.Action.Watch.Generator.Revisions `Partial<mw.Api.Params.Action.Watch.Generator.Revisions>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Revisions `Partial<mw.Api.Params.Action.ImageRotate.Generator.Revisions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Revisions `Partial<mw.Api.Params.Action.TemplateData.Generator.Revisions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Revisions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Revisions>`} instead.
+ */
+export type ApiQueryRevisionsParams = Partial<mw.Api.Params.Action.Query.Prop.Revisions>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.Search `Partial<mw.Api.Params.Action.Query.List.Search>`} / {@link mw.Api.Params.Action.Purge.Generator.Search `Partial<mw.Api.Params.Action.Purge.Generator.Search>`} / {@link mw.Api.Params.Action.Query.Generator.Search `Partial<mw.Api.Params.Action.Query.Generator.Search>`} / {@link mw.Api.Params.Action.Watch.Generator.Search `Partial<mw.Api.Params.Action.Watch.Generator.Search>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Search `Partial<mw.Api.Params.Action.ImageRotate.Generator.Search>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Search `Partial<mw.Api.Params.Action.TemplateData.Generator.Search>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Search `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Search>`} instead.
+ */
+export type ApiQuerySearchParams = Partial<mw.Api.Params.Action.Query.List.Search>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.Watchlist `Partial<mw.Api.Params.Action.Query.List.Watchlist>`} / {@link mw.Api.Params.Action.Purge.Generator.Watchlist `Partial<mw.Api.Params.Action.Purge.Generator.Watchlist>`} / {@link mw.Api.Params.Action.Query.Generator.Watchlist `Partial<mw.Api.Params.Action.Query.Generator.Watchlist>`} / {@link mw.Api.Params.Action.Watch.Generator.Watchlist `Partial<mw.Api.Params.Action.Watch.Generator.Watchlist>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.Watchlist `Partial<mw.Api.Params.Action.ImageRotate.Generator.Watchlist>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Watchlist `Partial<mw.Api.Params.Action.TemplateData.Generator.Watchlist>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Watchlist `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Watchlist>`} instead.
+ */
+export type ApiQueryWatchlistParams = Partial<mw.Api.Params.Action.Query.List.Watchlist>;
+
+/**
+ * @deprecated Use {@link mw.Api.Params.Action.Query.List.WatchlistRaw `Partial<mw.Api.Params.Action.Query.List.WatchlistRaw>`} / {@link mw.Api.Params.Action.Purge.Generator.WatchlistRaw `Partial<mw.Api.Params.Action.Purge.Generator.WatchlistRaw>`} / {@link mw.Api.Params.Action.Query.Generator.WatchlistRaw `Partial<mw.Api.Params.Action.Query.Generator.WatchlistRaw>`} / {@link mw.Api.Params.Action.Watch.Generator.WatchlistRaw `Partial<mw.Api.Params.Action.Watch.Generator.WatchlistRaw>`} / {@link mw.Api.Params.Action.ImageRotate.Generator.WatchlistRaw `Partial<mw.Api.Params.Action.ImageRotate.Generator.WatchlistRaw>`} / {@link mw.Api.Params.Action.TemplateData.Generator.WatchlistRaw `Partial<mw.Api.Params.Action.TemplateData.Generator.WatchlistRaw>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.WatchlistRaw `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.WatchlistRaw>`} instead.
+ */
+export type ApiQueryWatchlistRawParams = Partial<mw.Api.Params.Action.Query.List.WatchlistRaw>;
+
+/**
  * @deprecated Use {@link mw.Api.Params.Action.ImageRotate `Partial<mw.Api.Params.Action.ImageRotate>`} instead.
  */
 export type ApiDisabledParams = Partial<mw.Api.Params.Action.ImageRotate>;
@@ -34969,51 +37669,6 @@ export type ApiPatrolParams = Partial<mw.Api.Params.Action.Patrol>;
 export type ApiProtectParams = Partial<mw.Api.Params.Action.Protect>;
 
 /**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllCategories `Partial<mw.Api.Params.Action.Query.List.AllCategories>`} / {@link mw.Api.Params.Action.Purge.Generator.AllCategories `Partial<mw.Api.Params.Action.Purge.Generator.AllCategories>`} / {@link mw.Api.Params.Action.Query.Generator.AllCategories `Partial<mw.Api.Params.Action.Query.Generator.AllCategories>`} / {@link mw.Api.Params.Action.Watch.Generator.AllCategories `Partial<mw.Api.Params.Action.Watch.Generator.AllCategories>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllCategories `Partial<mw.Api.Params.Action.TemplateData.Generator.AllCategories>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllCategories `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllCategories>`} instead.
- */
-export type ApiQueryAllCategoriesParams = Partial<mw.Api.Params.Action.Query.List.AllCategories>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllDeletedRevisions `Partial<mw.Api.Params.Action.Query.List.AllDeletedRevisions>`} / {@link mw.Api.Params.Action.Purge.Generator.AllDeletedRevisions `Partial<mw.Api.Params.Action.Purge.Generator.AllDeletedRevisions>`} / {@link mw.Api.Params.Action.Query.Generator.AllDeletedRevisions `Partial<mw.Api.Params.Action.Query.Generator.AllDeletedRevisions>`} / {@link mw.Api.Params.Action.Watch.Generator.AllDeletedRevisions `Partial<mw.Api.Params.Action.Watch.Generator.AllDeletedRevisions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllDeletedRevisions `Partial<mw.Api.Params.Action.TemplateData.Generator.AllDeletedRevisions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllDeletedRevisions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllDeletedRevisions>`} instead.
- */
-export type ApiQueryAllDeletedRevisionsParams = Partial<mw.Api.Params.Action.Query.List.AllDeletedRevisions>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllFileUsages `Partial<mw.Api.Params.Action.Query.List.AllFileUsages>`} / {@link mw.Api.Params.Action.Purge.Generator.AllFileUsages `Partial<mw.Api.Params.Action.Purge.Generator.AllFileUsages>`} / {@link mw.Api.Params.Action.Query.Generator.AllFileUsages `Partial<mw.Api.Params.Action.Query.Generator.AllFileUsages>`} / {@link mw.Api.Params.Action.Watch.Generator.AllFileUsages `Partial<mw.Api.Params.Action.Watch.Generator.AllFileUsages>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllFileUsages `Partial<mw.Api.Params.Action.TemplateData.Generator.AllFileUsages>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllFileUsages `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllFileUsages>`} / {@link mw.Api.Params.Action.Query.List.AllLinks `Partial<mw.Api.Params.Action.Query.List.AllLinks>`} / {@link mw.Api.Params.Action.Purge.Generator.AllLinks `Partial<mw.Api.Params.Action.Purge.Generator.AllLinks>`} / {@link mw.Api.Params.Action.Query.Generator.AllLinks `Partial<mw.Api.Params.Action.Query.Generator.AllLinks>`} / {@link mw.Api.Params.Action.Watch.Generator.AllLinks `Partial<mw.Api.Params.Action.Watch.Generator.AllLinks>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllLinks `Partial<mw.Api.Params.Action.TemplateData.Generator.AllLinks>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllLinks `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllLinks>`} / {@link mw.Api.Params.Action.Query.List.AllRedirects `Partial<mw.Api.Params.Action.Query.List.AllRedirects>`} / {@link mw.Api.Params.Action.Purge.Generator.AllRedirects `Partial<mw.Api.Params.Action.Purge.Generator.AllRedirects>`} / {@link mw.Api.Params.Action.Query.Generator.AllRedirects `Partial<mw.Api.Params.Action.Query.Generator.AllRedirects>`} / {@link mw.Api.Params.Action.Watch.Generator.AllRedirects `Partial<mw.Api.Params.Action.Watch.Generator.AllRedirects>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllRedirects `Partial<mw.Api.Params.Action.TemplateData.Generator.AllRedirects>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllRedirects `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllRedirects>`} / {@link mw.Api.Params.Action.Query.List.AllTransclusions `Partial<mw.Api.Params.Action.Query.List.AllTransclusions>`} / {@link mw.Api.Params.Action.Purge.Generator.AllTransclusions `Partial<mw.Api.Params.Action.Purge.Generator.AllTransclusions>`} / {@link mw.Api.Params.Action.Query.Generator.AllTransclusions `Partial<mw.Api.Params.Action.Query.Generator.AllTransclusions>`} / {@link mw.Api.Params.Action.Watch.Generator.AllTransclusions `Partial<mw.Api.Params.Action.Watch.Generator.AllTransclusions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllTransclusions `Partial<mw.Api.Params.Action.TemplateData.Generator.AllTransclusions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllTransclusions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllTransclusions>`} instead.
- */
-export type ApiQueryAllLinksParams = Partial<mw.Api.Params.Action.Query.List.AllFileUsages>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllImages `Partial<mw.Api.Params.Action.Query.List.AllImages>`} / {@link mw.Api.Params.Action.Purge.Generator.AllImages `Partial<mw.Api.Params.Action.Purge.Generator.AllImages>`} / {@link mw.Api.Params.Action.Query.Generator.AllImages `Partial<mw.Api.Params.Action.Query.Generator.AllImages>`} / {@link mw.Api.Params.Action.Watch.Generator.AllImages `Partial<mw.Api.Params.Action.Watch.Generator.AllImages>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllImages `Partial<mw.Api.Params.Action.TemplateData.Generator.AllImages>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllImages `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllImages>`} instead.
- */
-export type ApiQueryAllImagesParams = Partial<mw.Api.Params.Action.Query.List.AllImages>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllPages `Partial<mw.Api.Params.Action.Query.List.AllPages>`} / {@link mw.Api.Params.Action.Purge.Generator.AllPages `Partial<mw.Api.Params.Action.Purge.Generator.AllPages>`} / {@link mw.Api.Params.Action.Query.Generator.AllPages `Partial<mw.Api.Params.Action.Query.Generator.AllPages>`} / {@link mw.Api.Params.Action.Watch.Generator.AllPages `Partial<mw.Api.Params.Action.Watch.Generator.AllPages>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllPages `Partial<mw.Api.Params.Action.TemplateData.Generator.AllPages>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllPages `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllPages>`} instead.
- */
-export type ApiQueryAllPagesParams = Partial<mw.Api.Params.Action.Query.List.AllPages>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.AllRevisions `Partial<mw.Api.Params.Action.Query.List.AllRevisions>`} / {@link mw.Api.Params.Action.Purge.Generator.AllRevisions `Partial<mw.Api.Params.Action.Purge.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.Query.Generator.AllRevisions `Partial<mw.Api.Params.Action.Query.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.Watch.Generator.AllRevisions `Partial<mw.Api.Params.Action.Watch.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.AllRevisions `Partial<mw.Api.Params.Action.TemplateData.Generator.AllRevisions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllRevisions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.AllRevisions>`} instead.
- */
-export type ApiQueryAllRevisionsParams = Partial<mw.Api.Params.Action.Query.List.AllRevisions>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.Backlinks `Partial<mw.Api.Params.Action.Query.List.Backlinks>`} / {@link mw.Api.Params.Action.Purge.Generator.Backlinks `Partial<mw.Api.Params.Action.Purge.Generator.Backlinks>`} / {@link mw.Api.Params.Action.Query.Generator.Backlinks `Partial<mw.Api.Params.Action.Query.Generator.Backlinks>`} / {@link mw.Api.Params.Action.Watch.Generator.Backlinks `Partial<mw.Api.Params.Action.Watch.Generator.Backlinks>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Backlinks `Partial<mw.Api.Params.Action.TemplateData.Generator.Backlinks>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Backlinks `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Backlinks>`} / {@link mw.Api.Params.Action.Query.List.Embeddedin `Partial<mw.Api.Params.Action.Query.List.Embeddedin>`} / {@link mw.Api.Params.Action.Purge.Generator.Embeddedin `Partial<mw.Api.Params.Action.Purge.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.Query.Generator.Embeddedin `Partial<mw.Api.Params.Action.Query.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.Watch.Generator.Embeddedin `Partial<mw.Api.Params.Action.Watch.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Embeddedin `Partial<mw.Api.Params.Action.TemplateData.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Embeddedin `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Embeddedin>`} / {@link mw.Api.Params.Action.Query.List.ImageUsage `Partial<mw.Api.Params.Action.Query.List.ImageUsage>`} / {@link mw.Api.Params.Action.Purge.Generator.ImageUsage `Partial<mw.Api.Params.Action.Purge.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.Query.Generator.ImageUsage `Partial<mw.Api.Params.Action.Query.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.Watch.Generator.ImageUsage `Partial<mw.Api.Params.Action.Watch.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ImageUsage `Partial<mw.Api.Params.Action.TemplateData.Generator.ImageUsage>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ImageUsage `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ImageUsage>`} instead.
- */
-export type ApiQueryBacklinksParams = Partial<mw.Api.Params.Action.Query.List.Backlinks>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Categories `Partial<mw.Api.Params.Action.Query.Prop.Categories>`} / {@link mw.Api.Params.Action.Purge.Generator.Categories `Partial<mw.Api.Params.Action.Purge.Generator.Categories>`} / {@link mw.Api.Params.Action.Query.Generator.Categories `Partial<mw.Api.Params.Action.Query.Generator.Categories>`} / {@link mw.Api.Params.Action.Watch.Generator.Categories `Partial<mw.Api.Params.Action.Watch.Generator.Categories>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Categories `Partial<mw.Api.Params.Action.TemplateData.Generator.Categories>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Categories `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Categories>`} instead.
- */
-export type ApiQueryCategoriesParams = Partial<mw.Api.Params.Action.Query.Prop.Categories>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.CategoryMembers `Partial<mw.Api.Params.Action.Query.List.CategoryMembers>`} / {@link mw.Api.Params.Action.Purge.Generator.CategoryMembers `Partial<mw.Api.Params.Action.Purge.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.Query.Generator.CategoryMembers `Partial<mw.Api.Params.Action.Query.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.Watch.Generator.CategoryMembers `Partial<mw.Api.Params.Action.Watch.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.TemplateData.Generator.CategoryMembers `Partial<mw.Api.Params.Action.TemplateData.Generator.CategoryMembers>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.CategoryMembers `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.CategoryMembers>`} instead.
- */
-export type ApiQueryCategoryMembersParams = Partial<mw.Api.Params.Action.Query.List.CategoryMembers>;
-
-/**
  * @deprecated Use {@link mw.Api.Params.Action.Query.List.ContentTranslation `Partial<mw.Api.Params.Action.Query.List.ContentTranslation>`} / {@link mw.Api.Params.Action.Purge.Generator.ContentTranslation `Partial<mw.Api.Params.Action.Purge.Generator.ContentTranslation>`} / {@link mw.Api.Params.Action.Query.Generator.ContentTranslation `Partial<mw.Api.Params.Action.Query.Generator.ContentTranslation>`} / {@link mw.Api.Params.Action.Watch.Generator.ContentTranslation `Partial<mw.Api.Params.Action.Watch.Generator.ContentTranslation>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ContentTranslation `Partial<mw.Api.Params.Action.TemplateData.Generator.ContentTranslation>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ContentTranslation `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ContentTranslation>`} instead.
  */
 export type ContentTranslationActionApiQueryContentTranslationParams = Partial<mw.Api.Params.Action.Query.List.ContentTranslation>;
@@ -35022,26 +37677,6 @@ export type ContentTranslationActionApiQueryContentTranslationParams = Partial<m
  * @deprecated Use {@link mw.Api.Params.Action.Query.List.ContentTranslationSuggestions `Partial<mw.Api.Params.Action.Query.List.ContentTranslationSuggestions>`} / {@link mw.Api.Params.Action.Purge.Generator.ContentTranslationSuggestions `Partial<mw.Api.Params.Action.Purge.Generator.ContentTranslationSuggestions>`} / {@link mw.Api.Params.Action.Query.Generator.ContentTranslationSuggestions `Partial<mw.Api.Params.Action.Query.Generator.ContentTranslationSuggestions>`} / {@link mw.Api.Params.Action.Watch.Generator.ContentTranslationSuggestions `Partial<mw.Api.Params.Action.Watch.Generator.ContentTranslationSuggestions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ContentTranslationSuggestions `Partial<mw.Api.Params.Action.TemplateData.Generator.ContentTranslationSuggestions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ContentTranslationSuggestions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ContentTranslationSuggestions>`} instead.
  */
 export type ContentTranslationActionApiQueryContentTranslationSuggestionsParams = Partial<mw.Api.Params.Action.Query.List.ContentTranslationSuggestions>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.DeletedRevisions `Partial<mw.Api.Params.Action.Query.Prop.DeletedRevisions>`} / {@link mw.Api.Params.Action.Purge.Generator.DeletedRevisions `Partial<mw.Api.Params.Action.Purge.Generator.DeletedRevisions>`} / {@link mw.Api.Params.Action.Query.Generator.DeletedRevisions `Partial<mw.Api.Params.Action.Query.Generator.DeletedRevisions>`} / {@link mw.Api.Params.Action.Watch.Generator.DeletedRevisions `Partial<mw.Api.Params.Action.Watch.Generator.DeletedRevisions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.DeletedRevisions `Partial<mw.Api.Params.Action.TemplateData.Generator.DeletedRevisions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.DeletedRevisions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.DeletedRevisions>`} instead.
- */
-export type ApiQueryDeletedRevisionsParams = Partial<mw.Api.Params.Action.Query.Prop.DeletedRevisions>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.DuplicateFiles `Partial<mw.Api.Params.Action.Query.Prop.DuplicateFiles>`} / {@link mw.Api.Params.Action.Purge.Generator.DuplicateFiles `Partial<mw.Api.Params.Action.Purge.Generator.DuplicateFiles>`} / {@link mw.Api.Params.Action.Query.Generator.DuplicateFiles `Partial<mw.Api.Params.Action.Query.Generator.DuplicateFiles>`} / {@link mw.Api.Params.Action.Watch.Generator.DuplicateFiles `Partial<mw.Api.Params.Action.Watch.Generator.DuplicateFiles>`} / {@link mw.Api.Params.Action.TemplateData.Generator.DuplicateFiles `Partial<mw.Api.Params.Action.TemplateData.Generator.DuplicateFiles>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.DuplicateFiles `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.DuplicateFiles>`} instead.
- */
-export type ApiQueryDuplicateFilesParams = Partial<mw.Api.Params.Action.Query.Prop.DuplicateFiles>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.ExtUrlUsage `Partial<mw.Api.Params.Action.Query.List.ExtUrlUsage>`} / {@link mw.Api.Params.Action.Purge.Generator.ExtUrlUsage `Partial<mw.Api.Params.Action.Purge.Generator.ExtUrlUsage>`} / {@link mw.Api.Params.Action.Query.Generator.ExtUrlUsage `Partial<mw.Api.Params.Action.Query.Generator.ExtUrlUsage>`} / {@link mw.Api.Params.Action.Watch.Generator.ExtUrlUsage `Partial<mw.Api.Params.Action.Watch.Generator.ExtUrlUsage>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ExtUrlUsage `Partial<mw.Api.Params.Action.TemplateData.Generator.ExtUrlUsage>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ExtUrlUsage `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ExtUrlUsage>`} instead.
- */
-export type ApiQueryExtLinksUsageParams = Partial<mw.Api.Params.Action.Query.List.ExtUrlUsage>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.FileUsage `Partial<mw.Api.Params.Action.Query.Prop.FileUsage>`} / {@link mw.Api.Params.Action.Purge.Generator.FileUsage `Partial<mw.Api.Params.Action.Purge.Generator.FileUsage>`} / {@link mw.Api.Params.Action.Query.Generator.FileUsage `Partial<mw.Api.Params.Action.Query.Generator.FileUsage>`} / {@link mw.Api.Params.Action.Watch.Generator.FileUsage `Partial<mw.Api.Params.Action.Watch.Generator.FileUsage>`} / {@link mw.Api.Params.Action.TemplateData.Generator.FileUsage `Partial<mw.Api.Params.Action.TemplateData.Generator.FileUsage>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.FileUsage `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.FileUsage>`} / {@link mw.Api.Params.Action.Query.Prop.LinksHere `Partial<mw.Api.Params.Action.Query.Prop.LinksHere>`} / {@link mw.Api.Params.Action.Purge.Generator.LinksHere `Partial<mw.Api.Params.Action.Purge.Generator.LinksHere>`} / {@link mw.Api.Params.Action.Query.Generator.LinksHere `Partial<mw.Api.Params.Action.Query.Generator.LinksHere>`} / {@link mw.Api.Params.Action.Watch.Generator.LinksHere `Partial<mw.Api.Params.Action.Watch.Generator.LinksHere>`} / {@link mw.Api.Params.Action.TemplateData.Generator.LinksHere `Partial<mw.Api.Params.Action.TemplateData.Generator.LinksHere>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.LinksHere `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.LinksHere>`} / {@link mw.Api.Params.Action.Query.Prop.Redirects `Partial<mw.Api.Params.Action.Query.Prop.Redirects>`} / {@link mw.Api.Params.Action.Purge.Generator.Redirects `Partial<mw.Api.Params.Action.Purge.Generator.Redirects>`} / {@link mw.Api.Params.Action.Query.Generator.Redirects `Partial<mw.Api.Params.Action.Query.Generator.Redirects>`} / {@link mw.Api.Params.Action.Watch.Generator.Redirects `Partial<mw.Api.Params.Action.Watch.Generator.Redirects>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Redirects `Partial<mw.Api.Params.Action.TemplateData.Generator.Redirects>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Redirects `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Redirects>`} / {@link mw.Api.Params.Action.Query.Prop.Transcludedin `Partial<mw.Api.Params.Action.Query.Prop.Transcludedin>`} / {@link mw.Api.Params.Action.Purge.Generator.Transcludedin `Partial<mw.Api.Params.Action.Purge.Generator.Transcludedin>`} / {@link mw.Api.Params.Action.Query.Generator.Transcludedin `Partial<mw.Api.Params.Action.Query.Generator.Transcludedin>`} / {@link mw.Api.Params.Action.Watch.Generator.Transcludedin `Partial<mw.Api.Params.Action.Watch.Generator.Transcludedin>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Transcludedin `Partial<mw.Api.Params.Action.TemplateData.Generator.Transcludedin>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Transcludedin `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Transcludedin>`} instead.
- */
-export type ApiQueryBacklinkspropParams = Partial<mw.Api.Params.Action.Query.Prop.FileUsage>;
 
 /**
  * @deprecated Use {@link mw.Api.Params.Action.Query.List.GeoSearch `Partial<mw.Api.Params.Action.Query.List.GeoSearch>`} / {@link mw.Api.Params.Action.Purge.Generator.GeoSearch `Partial<mw.Api.Params.Action.Purge.Generator.GeoSearch>`} / {@link mw.Api.Params.Action.Query.Generator.GeoSearch `Partial<mw.Api.Params.Action.Query.Generator.GeoSearch>`} / {@link mw.Api.Params.Action.Watch.Generator.GeoSearch `Partial<mw.Api.Params.Action.Watch.Generator.GeoSearch>`} / {@link mw.Api.Params.Action.TemplateData.Generator.GeoSearch `Partial<mw.Api.Params.Action.TemplateData.Generator.GeoSearch>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.GeoSearch `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.GeoSearch>`} instead.
@@ -35054,26 +37689,6 @@ export type GeoDataApiQueryGeoSearchElasticParams = Partial<mw.Api.Params.Action
 export type GrowthExperimentsApiQueryGrowthTasksParams = Partial<mw.Api.Params.Action.Query.List.GrowthTasks>;
 
 /**
- * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Images `Partial<mw.Api.Params.Action.Query.Prop.Images>`} / {@link mw.Api.Params.Action.Purge.Generator.Images `Partial<mw.Api.Params.Action.Purge.Generator.Images>`} / {@link mw.Api.Params.Action.Query.Generator.Images `Partial<mw.Api.Params.Action.Query.Generator.Images>`} / {@link mw.Api.Params.Action.Watch.Generator.Images `Partial<mw.Api.Params.Action.Watch.Generator.Images>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Images `Partial<mw.Api.Params.Action.TemplateData.Generator.Images>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Images `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Images>`} instead.
- */
-export type ApiQueryImagesParams = Partial<mw.Api.Params.Action.Query.Prop.Images>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.IWBacklinks `Partial<mw.Api.Params.Action.Query.List.IWBacklinks>`} / {@link mw.Api.Params.Action.Purge.Generator.IWBacklinks `Partial<mw.Api.Params.Action.Purge.Generator.IWBacklinks>`} / {@link mw.Api.Params.Action.Query.Generator.IWBacklinks `Partial<mw.Api.Params.Action.Query.Generator.IWBacklinks>`} / {@link mw.Api.Params.Action.Watch.Generator.IWBacklinks `Partial<mw.Api.Params.Action.Watch.Generator.IWBacklinks>`} / {@link mw.Api.Params.Action.TemplateData.Generator.IWBacklinks `Partial<mw.Api.Params.Action.TemplateData.Generator.IWBacklinks>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.IWBacklinks `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.IWBacklinks>`} instead.
- */
-export type ApiQueryIWBacklinksParams = Partial<mw.Api.Params.Action.Query.List.IWBacklinks>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.LangBacklinks `Partial<mw.Api.Params.Action.Query.List.LangBacklinks>`} / {@link mw.Api.Params.Action.Purge.Generator.LangBacklinks `Partial<mw.Api.Params.Action.Purge.Generator.LangBacklinks>`} / {@link mw.Api.Params.Action.Query.Generator.LangBacklinks `Partial<mw.Api.Params.Action.Query.Generator.LangBacklinks>`} / {@link mw.Api.Params.Action.Watch.Generator.LangBacklinks `Partial<mw.Api.Params.Action.Watch.Generator.LangBacklinks>`} / {@link mw.Api.Params.Action.TemplateData.Generator.LangBacklinks `Partial<mw.Api.Params.Action.TemplateData.Generator.LangBacklinks>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.LangBacklinks `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.LangBacklinks>`} instead.
- */
-export type ApiQueryLangBacklinksParams = Partial<mw.Api.Params.Action.Query.List.LangBacklinks>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Links `Partial<mw.Api.Params.Action.Query.Prop.Links>`} / {@link mw.Api.Params.Action.Purge.Generator.Links `Partial<mw.Api.Params.Action.Purge.Generator.Links>`} / {@link mw.Api.Params.Action.Query.Generator.Links `Partial<mw.Api.Params.Action.Query.Generator.Links>`} / {@link mw.Api.Params.Action.Watch.Generator.Links `Partial<mw.Api.Params.Action.Watch.Generator.Links>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Links `Partial<mw.Api.Params.Action.TemplateData.Generator.Links>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Links `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Links>`} / {@link mw.Api.Params.Action.Query.Prop.Templates `Partial<mw.Api.Params.Action.Query.Prop.Templates>`} / {@link mw.Api.Params.Action.Purge.Generator.Templates `Partial<mw.Api.Params.Action.Purge.Generator.Templates>`} / {@link mw.Api.Params.Action.Query.Generator.Templates `Partial<mw.Api.Params.Action.Query.Generator.Templates>`} / {@link mw.Api.Params.Action.Watch.Generator.Templates `Partial<mw.Api.Params.Action.Watch.Generator.Templates>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Templates `Partial<mw.Api.Params.Action.TemplateData.Generator.Templates>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Templates `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Templates>`} instead.
- */
-export type ApiQueryLinksParams = Partial<mw.Api.Params.Action.Query.Prop.Links>;
-
-/**
  * @deprecated Use {@link mw.Api.Params.Action.Query.List.MostViewed `Partial<mw.Api.Params.Action.Query.List.MostViewed>`} / {@link mw.Api.Params.Action.Purge.Generator.MostViewed `Partial<mw.Api.Params.Action.Purge.Generator.MostViewed>`} / {@link mw.Api.Params.Action.Query.Generator.MostViewed `Partial<mw.Api.Params.Action.Query.Generator.MostViewed>`} / {@link mw.Api.Params.Action.Watch.Generator.MostViewed `Partial<mw.Api.Params.Action.Watch.Generator.MostViewed>`} / {@link mw.Api.Params.Action.TemplateData.Generator.MostViewed `Partial<mw.Api.Params.Action.TemplateData.Generator.MostViewed>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.MostViewed `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.MostViewed>`} instead.
  */
 export type PageViewInfoApiQueryMostViewedParams = Partial<mw.Api.Params.Action.Query.List.MostViewed>;
@@ -35084,64 +37699,14 @@ export type PageViewInfoApiQueryMostViewedParams = Partial<mw.Api.Params.Action.
 export type ApiQueryOldreviewedpagesParams = Partial<mw.Api.Params.Action.Query.List.Oldreviewedpages>;
 
 /**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.PagesWithProp `Partial<mw.Api.Params.Action.Query.List.PagesWithProp>`} / {@link mw.Api.Params.Action.Purge.Generator.PagesWithProp `Partial<mw.Api.Params.Action.Purge.Generator.PagesWithProp>`} / {@link mw.Api.Params.Action.Query.Generator.PagesWithProp `Partial<mw.Api.Params.Action.Query.Generator.PagesWithProp>`} / {@link mw.Api.Params.Action.Watch.Generator.PagesWithProp `Partial<mw.Api.Params.Action.Watch.Generator.PagesWithProp>`} / {@link mw.Api.Params.Action.TemplateData.Generator.PagesWithProp `Partial<mw.Api.Params.Action.TemplateData.Generator.PagesWithProp>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.PagesWithProp `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.PagesWithProp>`} instead.
- */
-export type ApiQueryPagesWithPropParams = Partial<mw.Api.Params.Action.Query.List.PagesWithProp>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.PrefixSearch `Partial<mw.Api.Params.Action.Query.List.PrefixSearch>`} / {@link mw.Api.Params.Action.Purge.Generator.PrefixSearch `Partial<mw.Api.Params.Action.Purge.Generator.PrefixSearch>`} / {@link mw.Api.Params.Action.Query.Generator.PrefixSearch `Partial<mw.Api.Params.Action.Query.Generator.PrefixSearch>`} / {@link mw.Api.Params.Action.Watch.Generator.PrefixSearch `Partial<mw.Api.Params.Action.Watch.Generator.PrefixSearch>`} / {@link mw.Api.Params.Action.TemplateData.Generator.PrefixSearch `Partial<mw.Api.Params.Action.TemplateData.Generator.PrefixSearch>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.PrefixSearch `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.PrefixSearch>`} instead.
- */
-export type ApiQueryPrefixSearchParams = Partial<mw.Api.Params.Action.Query.List.PrefixSearch>;
-
-/**
  * @deprecated Use {@link mw.Api.Params.Action.Query.List.ProjectPages `Partial<mw.Api.Params.Action.Query.List.ProjectPages>`} / {@link mw.Api.Params.Action.Purge.Generator.ProjectPages `Partial<mw.Api.Params.Action.Purge.Generator.ProjectPages>`} / {@link mw.Api.Params.Action.Query.Generator.ProjectPages `Partial<mw.Api.Params.Action.Query.Generator.ProjectPages>`} / {@link mw.Api.Params.Action.Watch.Generator.ProjectPages `Partial<mw.Api.Params.Action.Watch.Generator.ProjectPages>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ProjectPages `Partial<mw.Api.Params.Action.TemplateData.Generator.ProjectPages>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProjectPages `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProjectPages>`} instead.
  */
 export type PageAssessmentsApiQueryProjectPagesParams = Partial<mw.Api.Params.Action.Query.List.ProjectPages>;
 
 /**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.ProtectedTitles `Partial<mw.Api.Params.Action.Query.List.ProtectedTitles>`} / {@link mw.Api.Params.Action.Purge.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.Purge.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.Query.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.Query.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.Watch.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.Watch.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.TemplateData.Generator.ProtectedTitles>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProtectedTitles `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ProtectedTitles>`} instead.
- */
-export type ApiQueryProtectedTitlesParams = Partial<mw.Api.Params.Action.Query.List.ProtectedTitles>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.QueryPage `Partial<mw.Api.Params.Action.Query.List.QueryPage>`} / {@link mw.Api.Params.Action.Purge.Generator.QueryPage `Partial<mw.Api.Params.Action.Purge.Generator.QueryPage>`} / {@link mw.Api.Params.Action.Query.Generator.QueryPage `Partial<mw.Api.Params.Action.Query.Generator.QueryPage>`} / {@link mw.Api.Params.Action.Watch.Generator.QueryPage `Partial<mw.Api.Params.Action.Watch.Generator.QueryPage>`} / {@link mw.Api.Params.Action.TemplateData.Generator.QueryPage `Partial<mw.Api.Params.Action.TemplateData.Generator.QueryPage>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.QueryPage `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.QueryPage>`} instead.
- */
-export type ApiQueryQueryPageParams = Partial<mw.Api.Params.Action.Query.List.QueryPage>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.Random `Partial<mw.Api.Params.Action.Query.List.Random>`} / {@link mw.Api.Params.Action.Purge.Generator.Random `Partial<mw.Api.Params.Action.Purge.Generator.Random>`} / {@link mw.Api.Params.Action.Query.Generator.Random `Partial<mw.Api.Params.Action.Query.Generator.Random>`} / {@link mw.Api.Params.Action.Watch.Generator.Random `Partial<mw.Api.Params.Action.Watch.Generator.Random>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Random `Partial<mw.Api.Params.Action.TemplateData.Generator.Random>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Random `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Random>`} instead.
- */
-export type ApiQueryRandomParams = Partial<mw.Api.Params.Action.Query.List.Random>;
-
-/**
  * @deprecated Use {@link mw.Api.Params.Action.Query.List.ReadingListEntries `Partial<mw.Api.Params.Action.Query.List.ReadingListEntries>`} / {@link mw.Api.Params.Action.Purge.Generator.ReadingListEntries `Partial<mw.Api.Params.Action.Purge.Generator.ReadingListEntries>`} / {@link mw.Api.Params.Action.Query.Generator.ReadingListEntries `Partial<mw.Api.Params.Action.Query.Generator.ReadingListEntries>`} / {@link mw.Api.Params.Action.Watch.Generator.ReadingListEntries `Partial<mw.Api.Params.Action.Watch.Generator.ReadingListEntries>`} / {@link mw.Api.Params.Action.TemplateData.Generator.ReadingListEntries `Partial<mw.Api.Params.Action.TemplateData.Generator.ReadingListEntries>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.ReadingListEntries `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.ReadingListEntries>`} instead.
  */
 export type ReadingListsApiQueryReadingListEntriesParams = Partial<mw.Api.Params.Action.Query.List.ReadingListEntries>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.RecentChanges `Partial<mw.Api.Params.Action.Query.List.RecentChanges>`} / {@link mw.Api.Params.Action.Purge.Generator.RecentChanges `Partial<mw.Api.Params.Action.Purge.Generator.RecentChanges>`} / {@link mw.Api.Params.Action.Query.Generator.RecentChanges `Partial<mw.Api.Params.Action.Query.Generator.RecentChanges>`} / {@link mw.Api.Params.Action.Watch.Generator.RecentChanges `Partial<mw.Api.Params.Action.Watch.Generator.RecentChanges>`} / {@link mw.Api.Params.Action.TemplateData.Generator.RecentChanges `Partial<mw.Api.Params.Action.TemplateData.Generator.RecentChanges>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.RecentChanges `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.RecentChanges>`} instead.
- */
-export type ApiQueryRecentChangesParams = Partial<mw.Api.Params.Action.Query.List.RecentChanges>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.Prop.Revisions `Partial<mw.Api.Params.Action.Query.Prop.Revisions>`} / {@link mw.Api.Params.Action.Purge.Generator.Revisions `Partial<mw.Api.Params.Action.Purge.Generator.Revisions>`} / {@link mw.Api.Params.Action.Query.Generator.Revisions `Partial<mw.Api.Params.Action.Query.Generator.Revisions>`} / {@link mw.Api.Params.Action.Watch.Generator.Revisions `Partial<mw.Api.Params.Action.Watch.Generator.Revisions>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Revisions `Partial<mw.Api.Params.Action.TemplateData.Generator.Revisions>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Revisions `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Revisions>`} instead.
- */
-export type ApiQueryRevisionsParams = Partial<mw.Api.Params.Action.Query.Prop.Revisions>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.Search `Partial<mw.Api.Params.Action.Query.List.Search>`} / {@link mw.Api.Params.Action.Purge.Generator.Search `Partial<mw.Api.Params.Action.Purge.Generator.Search>`} / {@link mw.Api.Params.Action.Query.Generator.Search `Partial<mw.Api.Params.Action.Query.Generator.Search>`} / {@link mw.Api.Params.Action.Watch.Generator.Search `Partial<mw.Api.Params.Action.Watch.Generator.Search>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Search `Partial<mw.Api.Params.Action.TemplateData.Generator.Search>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Search `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Search>`} instead.
- */
-export type ApiQuerySearchParams = Partial<mw.Api.Params.Action.Query.List.Search>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.Watchlist `Partial<mw.Api.Params.Action.Query.List.Watchlist>`} / {@link mw.Api.Params.Action.Purge.Generator.Watchlist `Partial<mw.Api.Params.Action.Purge.Generator.Watchlist>`} / {@link mw.Api.Params.Action.Query.Generator.Watchlist `Partial<mw.Api.Params.Action.Query.Generator.Watchlist>`} / {@link mw.Api.Params.Action.Watch.Generator.Watchlist `Partial<mw.Api.Params.Action.Watch.Generator.Watchlist>`} / {@link mw.Api.Params.Action.TemplateData.Generator.Watchlist `Partial<mw.Api.Params.Action.TemplateData.Generator.Watchlist>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.Watchlist `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.Watchlist>`} instead.
- */
-export type ApiQueryWatchlistParams = Partial<mw.Api.Params.Action.Query.List.Watchlist>;
-
-/**
- * @deprecated Use {@link mw.Api.Params.Action.Query.List.WatchlistRaw `Partial<mw.Api.Params.Action.Query.List.WatchlistRaw>`} / {@link mw.Api.Params.Action.Purge.Generator.WatchlistRaw `Partial<mw.Api.Params.Action.Purge.Generator.WatchlistRaw>`} / {@link mw.Api.Params.Action.Query.Generator.WatchlistRaw `Partial<mw.Api.Params.Action.Query.Generator.WatchlistRaw>`} / {@link mw.Api.Params.Action.Watch.Generator.WatchlistRaw `Partial<mw.Api.Params.Action.Watch.Generator.WatchlistRaw>`} / {@link mw.Api.Params.Action.TemplateData.Generator.WatchlistRaw `Partial<mw.Api.Params.Action.TemplateData.Generator.WatchlistRaw>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.WatchlistRaw `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.WatchlistRaw>`} instead.
- */
-export type ApiQueryWatchlistRawParams = Partial<mw.Api.Params.Action.Query.List.WatchlistRaw>;
 
 /**
  * @deprecated Use {@link mw.Api.Params.Action.Query.List.WBListEntityUsage `Partial<mw.Api.Params.Action.Query.List.WBListEntityUsage>`} / {@link mw.Api.Params.Action.Purge.Generator.WBListEntityUsage `Partial<mw.Api.Params.Action.Purge.Generator.WBListEntityUsage>`} / {@link mw.Api.Params.Action.Query.Generator.WBListEntityUsage `Partial<mw.Api.Params.Action.Query.Generator.WBListEntityUsage>`} / {@link mw.Api.Params.Action.Watch.Generator.WBListEntityUsage `Partial<mw.Api.Params.Action.Watch.Generator.WBListEntityUsage>`} / {@link mw.Api.Params.Action.TemplateData.Generator.WBListEntityUsage `Partial<mw.Api.Params.Action.TemplateData.Generator.WBListEntityUsage>`} / {@link mw.Api.Params.Action.SetNotificationTimestamp.Generator.WBListEntityUsage `Partial<mw.Api.Params.Action.SetNotificationTimestamp.Generator.WBListEntityUsage>`} instead.

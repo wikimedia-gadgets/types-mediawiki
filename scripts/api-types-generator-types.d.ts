@@ -20,7 +20,7 @@ declare global {
         path: string;
         group?: string;
         prefix: string;
-        source: string;
+        source?: string;
         sourcename: string;
         licensetag: string;
         licenselink: string;
