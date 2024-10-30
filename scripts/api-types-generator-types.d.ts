@@ -118,10 +118,6 @@ declare global {
          */
         name: string;
         /**
-         * Formatted module name, before PR #41.
-         */
-        oldName?: string;
-        /**
          * Interfaces to inherit from.
          */
         parents: ParentPath[];
