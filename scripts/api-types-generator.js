@@ -495,6 +495,7 @@ class ModuleLoader {
      */
     constructor(api, name) {
         this.name = name ?? api;
+        this.uri = new URL(api).origin;
         this.api = new mw.ForeignApi(api);
     }
 
@@ -567,6 +568,8 @@ class ModuleLoader {
         const params = {
             action: "paraminfo",
             format: "json",
+            uselang: "en",
+            helpformat: "html",
             modules,
             formatversion: "2",
         };
@@ -577,6 +580,11 @@ class ModuleLoader {
     };
 
     /**
+     * @param {string} text
+     */
+    resolveLocalLinks = (text) => text.replace(/(<a.*? href=")(\/.*?")/g, `$1${this.uri}$2`);
+
+    /**
      * @param {any[]} modules
      */
     processQueriedModules = async (modules) => {
@@ -585,11 +593,12 @@ class ModuleLoader {
 
         for (const module of modules) {
             module.classname = [module.classname];
+            module.description = this.resolveLocalLinks(module.description);
 
             this.mergeTemplatedParameters(module);
             for (const parameter of module.parameters) {
                 parameter.module = module;
-
+                parameter.description = this.resolveLocalLinks(parameter.description);
                 if (parameter.allspecifier !== undefined) {
                     parameter.allspecifiers = [parameter.allspecifier];
                     delete parameter.allspecifier;
@@ -636,7 +645,7 @@ class ModuleLoader {
         return Object.assign({}, ...(await Promise.all(promises)));
     };
 
-    load = () => this.loadModules(["main"]).then((m) => m["main"]);
+    load = async () => (await this.loadModules(["main"]))["main"];
 }
 
 class ModuleMerger {
@@ -698,6 +707,8 @@ class ModuleMerger {
         if (p1.name !== p2.name) {
             logError(`[MM] ${path}: Different parameter names ("${p1.name}" and "${p2.name}").`);
         }
+
+        p.description = p1.description;
 
         // If both types are enums, and one includes the other, we take the more generalized one.
         // If both types are enums, but incompatible:
@@ -947,6 +958,7 @@ class ModuleMerger {
         m.sourcename = m1.sourcename;
         m.licensetag = m1.licensetag;
         m.licenselink = m1.licenselink;
+        m.description = m1.description;
         if (m1.internal) {
             m.internal = true;
         }
@@ -972,12 +984,13 @@ class ModuleMerger {
         }
 
         m.helpurls = this.mergeArray(m1.helpurls, m2.helpurls);
+        m.examples = m1.examples;
 
         m.parameters = this.mergeParameterArray(m1.parameters, m2.parameters, path);
         m.parameters.forEach((p) => (p.module = m));
 
         if (m1.dynamicparameters || m2.dynamicparameters) {
-            m.dynamicparameters = true;
+            m.dynamicparameters = m1.dynamicparameters ?? m2.dynamicparameters;
         }
 
         return m;
@@ -1187,6 +1200,31 @@ class ModuleParser {
     };
 
     /**
+     * @param {string} text
+     */
+    parseWikitext = (text) => {
+        text = text.replace(/<\/?(div|span).*?>/g, "");
+
+        text = text.replace(/<p.*?>/g, "").replace(/<\/p>\s*/g, "\n\n");
+
+        text = text.replace(/<\/?(em|strong).*?>/g, "**");
+        text = text.replace(/<\/?i.*?>/g, "_");
+        text = text.replace(/<\/?(code|kbd|samp|var).*?>/g, "`");
+
+        text = text.replace(/<a.*?href="(.*?)".*?>(.*?)<\/a>/g, "{@link $1 $2}");
+        text = text.replace(/`\{@link (.*?) (.*?)\}`/g, "{@link $1 `$2`}");
+        text = text.replace(/`\{@link (.*?)\}`/g, "{@link $1 `$1`}");
+
+        text = text.replace(/<\/?(dd|dl|ol|ul).*?>/g, "");
+        text = text.replace(/\n?<dt.*?>/g, "\n- **").replace(/<\/dt>\s*/g, "**: ");
+        text = text.replace(/\n?<li.*?>/g, "\n- ").replace(/<\/li>/g, "");
+
+        text = text.replace(/\n{3,}/g, "\n\n");
+
+        return text.trim().split("\n");
+    };
+
+    /**
      * Get some data about a module parameter.
      * @param {Module} module Formatted module data
      * @param {RawModule.Parameter} rawParameter API parameter data
@@ -1207,7 +1245,7 @@ class ModuleParser {
         };
 
         parameter.type.lits = new Set();
-        jsdoc.description = [];
+        jsdoc.description = this.parseWikitext(rawParameter.description);
 
         if (typeof rawParameter.type !== "string") {
             const isUsedAsTemplateVariable = rawModule.parameters.some((p) =>
@@ -1246,7 +1284,7 @@ class ModuleParser {
         }
 
         if (rawParameter.sensitive) {
-            jsdoc.description.push("Sensitive parameter.");
+            jsdoc.description.push("", "Sensitive parameter.");
         }
 
         if (rawParameter.deprecated) {
@@ -1312,6 +1350,7 @@ class ModuleParser {
     parseModule = (rawModule, prefix, parent) => {
         /** @type {Declaration.JSdoc} */
         const jsdoc = {
+            description: this.parseWikitext(rawModule.description),
             private: !!rawModule.internal,
             deprecated: !!rawModule.deprecated,
             seelinks: rawModule.helpurls,
@@ -1510,7 +1549,7 @@ class ModuleFormatter {
                     this.formatJSdocLit(parameter.default, parameter.type) || "an empty string";
                 parameter.jsdoc ??= {};
                 parameter.jsdoc.description = [...(parameter.jsdoc.description ?? [])];
-                parameter.jsdoc.description.push(`Defaults to ${jsdocLit}.`);
+                parameter.jsdoc.description.push("", `Defaults to ${jsdocLit}.`);
             }
 
             return parameter;
@@ -1572,6 +1611,8 @@ class ModuleFormatter {
 
                 baseInterface.properties.unshift(narrowedProperty);
             }
+        } else {
+            baseInterface.parents.push("UnknownParams");
         }
 
         /** @type {Declaration.Namespace} */
@@ -1623,6 +1664,11 @@ class ModuleFormatter {
         const apiNamespace = {};
         apiNamespace.declarations = [];
 
+        apiNamespace.declarations.push({
+            name: "UnknownParams",
+            type:
+                "Record<string, string | number | boolean | File | string[] | number[] | undefined>",
+        });
         apiNamespace.declarations.push({
             name: "Toggle",
             template: ["T extends string"],
@@ -1914,7 +1960,7 @@ class ModuleGenerator {
     };
 }
 
-const loaders = Object.values(SOURCES).map((s) => new ModuleLoader(s));
+const loaders = Object.entries(SOURCES).map(([n, s]) => new ModuleLoader(s, n));
 const merger = new ModuleMerger();
 const parser = new ModuleParser();
 const formatter = new ModuleFormatter();

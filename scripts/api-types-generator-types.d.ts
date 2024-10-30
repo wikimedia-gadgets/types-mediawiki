@@ -24,6 +24,7 @@ declare global {
         sourcename: string;
         licensetag: string;
         licenselink: string;
+        description: string;
         internal?: boolean;
         readrights?: boolean;
         writerights?: boolean;
@@ -31,15 +32,22 @@ declare global {
         deprecated?: boolean;
         generator?: boolean;
         helpurls: string[];
+        examples: RawModule.Example[];
         parameters: RawModule.Parameter[];
-        dynamicparameters?: boolean;
+        dynamicparameters?: string;
     }
 
     namespace RawModule {
+        interface Example {
+            query: string;
+            description: string;
+        }
+
         interface Parameter {
             index: number;
             module: RawModule;
             name: string;
+            description: string;
             type: Parameter.Type;
             required?: boolean;
             default?: unknown;
