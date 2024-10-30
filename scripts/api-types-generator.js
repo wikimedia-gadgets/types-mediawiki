@@ -1,21 +1,31 @@
 // This generates the content of `api_params/index.d.ts`, by extracting online MediaWiki API module information.
 // Go to a Wikimedia site, paste this into the browser console, and move the generated TS declaration files to api_params.
 //
-// This process is done in 4 steps:
+// This process is done in 5 steps:
 //
-//                          main                                                                     namespace Params
-//                          └─ action=                                                               └─ namespace Action
-//   /w1/api.php  ══[ML]══>    ├─ query  ══╗         main                   Params              ╔══>    ├─ interface Query  ══[MG]══>  index.d.ts
-//                             └─ block    ║         └─ action=             └─ Action           ║       └─ interface Block
-//                                         ╠═[MM]══>    ├─ query  ══[MP]══>    ├─ Query  ══[MF]═╣
-//                          main           ║            ├─ block               ├─ Block         ║    namespace Params
-//                          └─ action=     ║            └─ wbsearch            └─ WBSearch      ╚═>  └─ namespace Action    ══[MG]══>  Wikibase.d.ts
-//   /w2/api.php  ══[ML]══>    ├─ query   ═╝                                                            └─ interface WBSearch
-//                             └─ wbsearch
+//                             main
+//                             └─ action=
+//   /w1/api.php   ═══[ML]══>     ├─ query   ════╗          main                      Params
+//                                └─ block       ║          └─ action=                └─ Action
+//                                               ╠═[MM]══>     ├─ query   ═══[MP]══>     ├─ Query
+//                             main              ║             ├─ block                  ├─ Block
+//                             └─ action=        ║             └─ wbsearch               └─ WBSearch
+//   /w2/api.php   ═══[ML]══>     ├─ query     ══╝
+//                                └─ wbsearch
 //
 // [ML] ModuleLoader: load module data from all APIs.
 // [MM] ModuleMerger: merge module data into a single hierarchy.
-// [MP] ModuleParser: process module data to deduce API parameter types.
+// [MP] ModuleParser: process module data to deduce TS-friendly parameter types and module names.
+//
+//                                namespace Params
+//                                └─ namespace Action
+//   Params                ╔═══>     ├─ interface Query   ════[MG]═══>   index.d.ts
+//   └─ Action             ║         └─ interface Block
+//      ├─ Query   ═══[MF]═╣
+//      ├─ Block           ║      namespace Params
+//      └─ WBSearch        ╚══>   └─ namespace Action       ═══[MG]══>   Wikibase.d.ts
+//                                   └─ interface WBSearch
+//
 // [MF] ModuleFormatter: format module data into TS type declarations.
 // [MG] ModuleGenerator: generate TS files from type declarations.
 
@@ -443,6 +453,15 @@ const interfaceCompatibility = {
     "query+wikisets": "CentralAuthApiQueryWikiSetsParams",
 };
 
+/**
+ * @template T
+ * @param {Set<T> | undefined} s1
+ * @param {Set<T> | undefined} s2
+ * @returns
+ */
+const isSubset = (s1, s2) =>
+    s1 === undefined || s1.size === 0 || (s2 !== undefined && s1.isSubsetOf(s2));
+
 class ModuleLoader {
     /**
      * Load modules from a list of loaders.
@@ -563,10 +582,15 @@ class ModuleLoader {
 
         for (const module of modules) {
             module.classname = [module.classname];
-            this.mergeTemplatedParameters(module);
 
+            this.mergeTemplatedParameters(module);
             for (const parameter of module.parameters) {
                 parameter.module = module;
+
+                if (parameter.allspecifier !== undefined) {
+                    parameter.allspecifiers = [parameter.allspecifier];
+                    delete parameter.allspecifier;
+                }
             }
 
             moduleData[module.path] = module;
@@ -659,12 +683,12 @@ class ModuleMerger {
     };
 
     /**
-     * @param {any} p1
-     * @param {any} p2
+     * @param {RawModule.Parameter} p1
+     * @param {RawModule.Parameter} p2
      * @param {string} path
      */
     mergeParameter = (p1, p2, path) => {
-        /** @type {any} */
+        /** @type {RawModule.Parameter} */
         const p = {};
 
         p.name = p1.name;
@@ -759,11 +783,8 @@ class ModuleMerger {
             p.maxchars = Math.max(p1.maxchars, p2.maxchars);
         }
 
-        p.allspecifier = p1.allspecifier;
-        if (p1.allspecifier !== p2.allspecifier) {
-            logError(
-                `[MM] ${path}: Different enumerated parameter "all" specifiers ("${p1.allspecifier}" and "${p2.allspecifier}").`
-            );
+        if (p1.allspecifiers !== undefined || p2.allspecifiers !== undefined) {
+            p.allspecifiers = this.mergeArray(p1.allspecifiers, p2.allspecifiers);
         }
 
         if (p1.extranamespaces !== undefined || p2.extranamespaces !== undefined) {
@@ -1090,19 +1111,31 @@ class ModuleParser {
      * @param {Parameter.Type} type
      */
     normalizeType = (type) => {
-        if (type.lits === undefined || type.lits.size === 0) {
+        if (!type.lits?.size && (!type.multi || !type.singleLits?.size)) {
             return;
+        }
+
+        if (type.multi && type.singleLits !== undefined) {
+            type.lits?.forEach(Set.prototype.delete, type.singleLits);
         }
 
         let underlying = type;
         while (true) {
             if (underlying.base === "string") {
-                type.lits.clear();
+                type.lits?.clear();
+                if (type.multi) {
+                    type.singleLits?.clear();
+                }
                 break;
             }
 
             if (typeof underlying.base === "object") {
-                type.lits = type.lits.difference(new Set(Object.keys(underlying.base)));
+                Object.keys(underlying.base).forEach((k) => {
+                    type.lits?.delete(k);
+                    if (type.multi) {
+                        type.singleLits?.delete(k);
+                    }
+                });
                 break;
             } else if (underlying.base === undefined || !(underlying.base in TYPE_ALIASES)) {
                 break;
@@ -1110,6 +1143,9 @@ class ModuleParser {
 
             underlying = TYPE_ALIASES[underlying.base];
             underlying.lits?.forEach(Set.prototype.delete, type.lits);
+            if (underlying.multi && type.multi) {
+                underlying.singleLits?.forEach(Set.prototype.delete, type.singleLits);
+            }
         }
 
         // Use type aliases to reduce type expressions.
@@ -1123,14 +1159,24 @@ class ModuleParser {
                 if (
                     (typeMap.base !== undefined && typeMap.base !== type.base) ||
                     typeMap.lits === undefined ||
-                    type.lits === undefined ||
-                    !type.lits.isSupersetOf(typeMap.lits)
+                    !isSubset(typeMap.lits, type.lits) ||
+                    typeMap.multi !== type.multi ||
+                    (typeMap.multi && type.multi && !isSubset(typeMap.singleLits, type.singleLits))
                 ) {
                     continue;
                 }
 
                 type.base = name;
-                type.lits = type.lits.difference(typeMap.lits);
+                typeMap.lits.forEach(Set.prototype.delete, type.lits);
+                if (
+                    typeMap.multi &&
+                    typeMap.singleLits !== undefined &&
+                    type.multi &&
+                    type.singleLits !== undefined
+                ) {
+                    typeMap.singleLits.forEach(Set.prototype.delete, type.singleLits);
+                }
+
                 foundReplacement = true;
                 break;
             }
@@ -1179,6 +1225,9 @@ class ModuleParser {
         } else if (rawParameter.type in PARAMETER_TYPE_UNDERLYING) {
             parameter.type = { ...PARAMETER_TYPE_UNDERLYING[rawParameter.type] };
             parameter.type.lits = new Set(parameter.type.lits);
+            if (parameter.type.multi) {
+                parameter.type.singleLits = new Set(parameter.type.singleLits);
+            }
         } else {
             logError(
                 `[MP] Could not find an appropriate TS type for parameter type "${rawParameter.type}".`
@@ -1201,8 +1250,13 @@ class ModuleParser {
             jsdoc.deprecated = true;
         }
 
-        if (rawParameter.allspecifier !== undefined) {
-            parameter.type.lits.add(rawParameter.allspecifier);
+        if (rawParameter.allspecifiers !== undefined) {
+            if (parameter.type.multi) {
+                parameter.type.singleLits ??= new Set();
+                rawParameter.allspecifiers.forEach(Set.prototype.add, parameter.type.singleLits);
+            } else {
+                rawParameter.allspecifiers.forEach(Set.prototype.add, parameter.type.lits);
+            }
         }
 
         if (rawParameter.internalvalues) {
@@ -1344,10 +1398,16 @@ class ModuleFormatter {
     };
 
     /**
+     * @param {Set<string> | undefined} litSet
+     */
+    formatLitSet = (litSet) => (litSet ?? new Set()).values().map(quote).toArray().sort();
+
+    /**
      * @param {Parameter.Type} type
      */
     formatTypeExpr = (type) => {
-        const typeUnion = [];
+        /** @type {string[]} */
+        let typeUnion = [];
 
         if (typeof type.base === "object") {
             typeUnion.push("string");
@@ -1368,23 +1428,28 @@ class ModuleFormatter {
             }
 
             if (toggleLits.size > 0) {
-                typeUnion.push(
-                    `Toggle<${toggleLits.values().map(quote).toArray().sort().join(" | ")}>`
-                );
+                typeUnion.push(`Toggle<${this.formatLitSet(toggleLits).join(" | ")}>`);
             }
 
-            typeUnion.push(...lits.values().map(quote).toArray().sort());
+            typeUnion.push(...this.formatLitSet(lits));
+        }
+
+        if (type.multi) {
+            if (typeUnion.length === 1 && type.base !== undefined) {
+                typeUnion.push(`${typeUnion[0]}[]`, ...this.formatLitSet(type.singleLits));
+            } else {
+                typeUnion = [
+                    ...this.formatLitSet(type.singleLits),
+                    `OneOrMore<${typeUnion.join(" | ")}>`,
+                ];
+            }
         }
 
         if (typeUnion.length === 0) {
             return "never";
-        } else if (!type.multi) {
-            return typeUnion.join(" | ");
-        } else if (typeUnion.length === 1 && toggleLits.size === 0) {
-            return `${typeUnion[0]} | ${typeUnion[0]}[]`;
-        } else {
-            return `OneOrMore<${typeUnion.join(" | ")}>`;
         }
+
+        return typeUnion.join(" | ");
     };
 
     /**

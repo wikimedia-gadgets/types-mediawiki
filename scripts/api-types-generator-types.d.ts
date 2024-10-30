@@ -58,7 +58,7 @@ declare global {
             // limit
             highmax?: number;
             // namespace, enum
-            allspecifier?: string;
+            allspecifiers?: string[];
             // namespace
             extranamespaces?: number[];
             // string
@@ -177,19 +177,35 @@ declare global {
     }
 
     namespace Parameter {
-        interface Type {
-            /**
-             * Native type or map of submodules.
-             */
-            base?: string | Record<string, Module>;
-            /**
-             * List of possible values, which may overlap with the base type above.
-             */
-            lits?: Set<string>;
-            /**
-             * Whether multiple values can be specified as a list.
-             */
-            multi?: boolean;
+        type Type = Type.Single | Type.Multi;
+
+        namespace Type {
+            interface Base {
+                /**
+                 * Native type or map of submodules.
+                 */
+                base?: string | Record<string, Module>;
+                /**
+                 * Possible litterals, that may not be part of the base type above.
+                 */
+                lits?: Set<string>;
+                /**
+                 * Whether litterals can be specified as a list.
+                 */
+                multi?: boolean;
+            }
+
+            interface Single extends Base {
+                multi?: false;
+            }
+
+            interface Multi extends Base {
+                multi: true;
+                /**
+                 * Possible litterals, that may not be part of the base type above, and can not be used in a list.
+                 */
+                singleLits?: Set<string>;
+            }
         }
     }
 
