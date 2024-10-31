@@ -645,9 +645,9 @@ class ModuleMerger {
             return undefined;
         }
         if (a1 === undefined || a2 === undefined || a1.length !== a2.length) {
-            throw `Found arrays of different lengths ("${a1?.length ?? 0}" and "${
+            throw `[MM] ${path}: Found arrays of different lengths ("${a1?.length ?? 0}" and "${
                 a2?.length ?? 0
-            }") for "${path}".`;
+            }").`;
         }
         return merge ? a1.map((v1, i) => merge(v1, a2[i], `${path}[${i}]`, ...args)) : [...a1];
     };
@@ -716,9 +716,7 @@ class ModuleMerger {
             p.type = p1.type;
         } else {
             p.type = p1.type;
-            logError(
-                `[MM] ${path}: Incompatible parameter types ("${p1.type}" and "${p2.type}") for "${path}".`
-            );
+            logError(`[MM] ${path}: Incompatible parameter types ("${p1.type}" and "${p2.type}").`);
         }
 
         // If one is optional, we make it optional.
@@ -827,7 +825,7 @@ class ModuleMerger {
                     p1.submodules[value] !== p2.submodules[value]
                 ) {
                     logError(
-                        `[MM] ${value}: Different sub-modules ("${p1.submodules[value]}" and "${p2.submodules[value]}") for the same parameter value ("${value}").`
+                        `[MM] ${path}: Different sub-modules ("${p1.submodules[value]}" and "${p2.submodules[value]}") for the same parameter value ("${value}").`
                     );
                 }
                 p.submodules[value] = p1.submodules[value] ?? p2.submodules[value];
