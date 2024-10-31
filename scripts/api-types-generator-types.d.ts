@@ -78,7 +78,7 @@ declare global {
             // user
             subtypes?: string[];
             // enum
-            submodules?: Record<string, RawModule>;
+            submodules?: Record<string, string>;
             submoduleparamprefix?: string;
             internalvalues?: string[];
             deprecatedvalues?: string[];
@@ -106,8 +106,6 @@ declare global {
                 | string[];
         }
     }
-
-    type RawModuleDict = Record<string, RawModule>;
 
     /**
      * Pre-processed API module data.

@@ -487,8 +487,10 @@ class ModuleLoader {
         return modules;
     };
 
-    /** @type {Record<string, Promise<RawModuleDict>>} */
-    cache = {};
+    /** @type {Record<string, Promise<void>>} */
+    modulePromises = {};
+    /** @type {Record<string, RawModule>} */
+    modules = {};
 
     /**
      * Create a module loader.
@@ -529,35 +531,13 @@ class ModuleLoader {
     /**
      * Load sub-modules.
      *
-     * @param {any} module
-     * @returns {Promise<RawModuleDict>}
+     * @param {RawModule} module
      */
     loadSubmodules = async (module) => {
-        /** @type {Promise<RawModuleDict>[]} */
-        const promises = [];
-
-        for (const parameter of module.parameters) {
-            const submodules = parameter.submodules;
-            if (submodules === undefined) {
-                continue;
-            }
-
-            const paths = Object.values(submodules);
-            if (paths.length === 0) {
-                continue;
-            }
-
-            const submodulePromise = this.loadModules(paths).then((submoduleData) => {
-                for (const [key, path] of Object.entries(submodules)) {
-                    submodules[key] = submoduleData[path];
-                }
-                return submoduleData;
-            });
-
-            promises.unshift(submodulePromise);
-        }
-
-        return Object.assign({}, ...(await Promise.all(promises)));
+        const submoduleSets = module.parameters
+            .map((p) => Object.values(p.submodules ?? {}))
+            .filter((sm) => sm.length > 0);
+        await Promise.all(submoduleSets.map(this.loadModules));
     };
 
     /**
@@ -591,10 +571,9 @@ class ModuleLoader {
      * @param {any[]} modules
      */
     processQueriedModules = async (modules) => {
-        /** @type {RawModuleDict} */
-        const moduleData = {};
-
         for (const module of modules) {
+            this.modules[module.path] = module;
+
             module.classname = [module.classname];
             module.description = this.resolveLocalLinks(module.description);
 
@@ -608,30 +587,27 @@ class ModuleLoader {
                 }
             }
 
-            moduleData[module.path] = module;
-            Object.assign(moduleData, await this.loadSubmodules(module));
+            await this.loadSubmodules(module);
         }
-
-        return moduleData;
     };
 
     /**
      * Get module data from the API.
      *
      * @param {string[]} paths Module paths.
-     * @returns {Promise<RawModuleDict>} Module data.
+     * @returns {Promise<void>} Module data.
      */
     loadModules = async (paths) => {
-        /** @type {Promise<RawModuleDict>[]} */
+        /** @type {Promise<void>[]} */
         const promises = [];
         /** @type {string[]} */
         const pathsToQuery = [];
 
         for (const path of paths) {
-            if (!path.includes("*") && path in this.cache) {
-                promises.push(this.cache[path].then((data) => ({ [path]: data[path] })));
-            } else {
+            if (path.includes("*") || !(path in this.modulePromises)) {
                 pathsToQuery.push(path);
+            } else if (!(path in this.modules)) {
+                promises.push(this.modulePromises[path]);
             }
         }
 
@@ -641,14 +617,17 @@ class ModuleLoader {
 
             promises.push(batchPromise);
             for (const path of pathsToQuery) {
-                this.cache[path] = batchPromise;
+                this.modulePromises[path] = batchPromise;
             }
         }
 
         return Object.assign({}, ...(await Promise.all(promises)));
     };
 
-    load = async () => (await this.loadModules(["main"]))["main"];
+    load = async () => {
+        await this.loadModules(["main"]);
+        return this.modules;
+    };
 }
 
 class ModuleMerger {
@@ -833,31 +812,25 @@ class ModuleMerger {
             p.info = p1.info || p2.info;
         }
 
-        if (
-            p1.subtypes !== undefined &&
-            p2.subtypes !== undefined &&
-            p1.subtypes.length === p2.subtypes.length &&
-            p1.subtypes.every((v1, i) => v1 === p2.subtypes[i])
-        ) {
-            p.subtypes = p1.subtypes;
-        } else if (p1.subtypes !== undefined || p2.subtypes !== undefined) {
-            if (p1.subtypes !== undefined && p2.subtypes !== undefined) {
-                logError(
-                    `[MM] ${path}: Different user parameter subtypes ("${p1.subtypes}" and "${p2.subtypes}").`
-                );
-            }
-            p.subtypes = p1.subtypes ?? p2.subtypes;
+        if (p1.subtypes !== undefined || p2.subtypes !== undefined) {
+            p.subtypes = this.mergeArray(p1.subtypes, p2.subtypes);
         }
 
         // Merge submodules.
         if (p1.submodules !== undefined && p2.submodules !== undefined) {
-            p.submodules = { ...p1.submodules };
-            for (const [k, submodule] of Object.entries(p2.submodules)) {
-                if (k in p.submodules) {
-                    p.submodules[k] = this.mergeModule(p.submodules[k], submodule, `${path}.${k}`);
-                } else {
-                    p.submodules[k] = submodule;
+            p.submodules = {};
+            const values = this.mergeArray(Object.keys(p1.submodules), Object.keys(p2.submodules));
+            for (const value of values) {
+                if (
+                    value in p1.submodules &&
+                    value in p2.submodules &&
+                    p1.submodules[value] !== p2.submodules[value]
+                ) {
+                    logError(
+                        `[MM] ${value}: Different sub-modules ("${p1.submodules[value]}" and "${p2.submodules[value]}") for the same parameter value ("${value}").`
+                    );
                 }
+                p.submodules[value] = p1.submodules[value] ?? p2.submodules[value];
             }
         } else if (p1.submodules !== undefined || p2.submodules !== undefined) {
             p.submodules = p1.submodules ?? p2.submodules;
@@ -1003,10 +976,22 @@ class ModuleMerger {
     };
 
     /**
-     * @param {RawModule[]} ms
+     * @param {Record<string, RawModule>[]} moduleDicts
      */
-    merge = (ms) => {
-        return ms.reduce((m1, m2) => this.mergeModule(m1, m2, m2.path));
+    merge = (moduleDicts) => {
+        /** @type {Record<string, RawModule>} */
+        const mergedDict = {};
+
+        for (const moduleDict of moduleDicts) {
+            for (const key in moduleDict) {
+                mergedDict[key] =
+                    key in mergedDict
+                        ? this.mergeModule(mergedDict[key], moduleDict[key], moduleDict[key].path)
+                        : moduleDict[key];
+            }
+        }
+
+        return mergedDict;
     };
 }
 
@@ -1235,10 +1220,11 @@ class ModuleParser {
 
     /**
      * Get some data about a module parameter.
+     * @param {Record<string, RawModule>} rawModuleDict
      * @param {Module} module Formatted module data
      * @param {RawModule.Parameter} rawParameter API parameter data
      */
-    parseParameter = (module, rawParameter) => {
+    parseParameter = (rawModuleDict, module, rawParameter) => {
         const rawModule = rawParameter.module;
 
         /** @type {Declaration.JSdoc} */
@@ -1337,7 +1323,7 @@ class ModuleParser {
             parameter.type.base = Object.fromEntries(
                 Object.entries(rawParameter.submodules).map(([value, submodule]) => [
                     value,
-                    this.parseModule(submodule, rawParameter.submoduleparamprefix, {
+                    this.parseModule(rawModuleDict, submodule, rawParameter.submoduleparamprefix, {
                         parameter,
                         value,
                     }),
@@ -1352,11 +1338,14 @@ class ModuleParser {
 
     /**
      * Get some data about a module interface.
-     * @param {RawModule} rawModule API module data
+     * @param {Record<string, RawModule>} rawModuleDict
+     * @param {string} path
      * @param {string} [prefix]
      * @param {ParentPath} [parent] API data of the module this one is an extension of
      */
-    parseModule = (rawModule, prefix, parent) => {
+    parseModule = (rawModuleDict, path, prefix, parent) => {
+        const rawModule = rawModuleDict[path];
+
         /** @type {Declaration.JSdoc} */
         const jsdoc = {
             description: this.parseWikitext(rawModule.description),
@@ -1385,11 +1374,16 @@ class ModuleParser {
         const rawParameters = rawModule.parameters.toSorted((p1, p2) => p1.index - p2.index);
 
         module.parameters = rawParameters.map((rawParameter) =>
-            this.parseParameter(module, rawParameter)
+            this.parseParameter(rawModuleDict, module, rawParameter)
         );
 
         return module;
     };
+
+    /**
+     * @param {Record<string, RawModule>} rawModuleDict
+     */
+    parse = (rawModuleDict) => this.parseModule(rawModuleDict, "main");
 }
 
 /**
@@ -1975,8 +1969,7 @@ const parser = new ModuleParser();
 const formatter = new ModuleFormatter();
 const logger = new ModuleGenerator();
 
-const rawRootModules = await ModuleLoader.loadAll(loaders);
-const rawRootModule = merger.merge(rawRootModules);
-const rootModule = parser.parseModule(rawRootModule);
+const rawModuleDict = merger.merge(await ModuleLoader.loadAll(loaders));
+const rootModule = parser.parse(rawModuleDict);
 const content = formatter.format(rootModule);
 logger.generate("index.d.ts", content);

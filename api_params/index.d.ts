@@ -10075,7 +10075,7 @@ declare global {
                          */
                         gacfrom?: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gaccontinue?: string;
                         /**
@@ -10139,10 +10139,10 @@ declare global {
                          * - **contentmodel**: Content model ID of each revision slot.
                          * - **comment**: Comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
                          * - **parsedcomment**: Parsed comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
-                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned.
+                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned. For performance reasons, if this option is used, `adrlimit` is enforced to 50.
                          * - **tags**: Tags for the revision.
                          * - **roles**: List content slot roles that exist in the revision.
-                         * - **parsetree**: Deprecated. Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`).
+                         * - **parsetree**: Deprecated. Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`). For performance reasons, if this option is used, `adrlimit` is enforced to 50.
                          *
                          * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
@@ -10167,47 +10167,62 @@ declare global {
                         /**
                          * Which revision slots to return data for, when slot-related properties are included in `adrprops`. If omitted, data from the `main` slot will be returned in a backwards-compatible format.
                          */
-                        gadrslots?: "*" | OneOrMore<"main">;
+                        gadrslots?: string | string[];
                         /**
-                         * Limit how many revisions will be returned.
+                         * Content serialization format used for output of content.
+                         */
+                        [k: `gadrcontentformat-${string}`]:
+                            | "application/json"
+                            | "application/octet-stream"
+                            | "application/unknown"
+                            | "application/vnd.php.serialized"
+                            | "application/x-binary"
+                            | "text/css"
+                            | "text/javascript"
+                            | "text/plain"
+                            | "text/unknown"
+                            | "text/x-wiki"
+                            | "unknown/unknown";
+                        /**
+                         * Limit how many revisions will be returned. If `adrprop=content`, `adrprop=parsetree`, `adrdiffto` or `adrdifftotext` is used, the limit is 50. If `adrparse` is used, the limit is 1.
                          */
                         gadrlimit?: Limit;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires adrprop=content).
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires adrprop=content).
                          *
                          * @deprecated
                          */
                         gadrexpandtemplates?: boolean;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires adrprop=content).
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires adrprop=content).
                          *
                          * @deprecated
                          */
                         gadrgeneratexml?: boolean;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires adrprop=content). For performance reasons, if this option is used, adrlimit is enforced to 1.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires `adrprop=content`). For performance reasons, if this option is used, `adrlimit` is enforced to 1.
                          *
                          * @deprecated
                          */
                         gadrparse?: boolean;
                         /**
-                         * Only retrieve the content of this section number.
+                         * Only retrieve the content of the section with this identifier.
                          */
                         gadrsection?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively. For performance reasons, if this option is used, `adrlimit` is enforced to 50.
                          *
                          * @deprecated
                          */
                         gadrdiffto?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `adrdiffto`. If `adrsection` is set, only that section will be diffed against this text.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `adrdiffto`. If `adrsection` is set, only that section will be diffed against this text. For performance reasons, if this option is used, `adrlimit` is enforced to 50.
                          *
                          * @deprecated
                          */
                         gadrdifftotext?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `adrdifftotext`.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `adrdifftotext`.
                          *
                          * @deprecated
                          */
@@ -10221,6 +10236,7 @@ declare global {
                             | "application/json"
                             | "application/octet-stream"
                             | "application/unknown"
+                            | "application/vnd.php.serialized"
                             | "application/x-binary"
                             | "text/css"
                             | "text/javascript"
@@ -10230,10 +10246,14 @@ declare global {
                             | "unknown/unknown";
                         /**
                          * Only list revisions by this user.
+                         *
+                         * **Note:** Due to {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgMiserMode miser mode}, using `adruser` and `adrnamespace` together may result in fewer than `adrlimit` results returned before continuing; in extreme cases, zero results may be returned.
                          */
                         gadruser?: string;
                         /**
                          * Only list pages in this namespace.
+                         *
+                         * **Note:** Due to {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgMiserMode miser mode}, using `adruser` and `adrnamespace` together may result in fewer than `adrlimit` results returned before continuing; in extreme cases, zero results may be returned.
                          */
                         gadrnamespace?: number | number[] | "*";
                         /**
@@ -10274,7 +10294,7 @@ declare global {
                          */
                         gadrtag?: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gadrcontinue?: string;
                         /**
@@ -10291,7 +10311,7 @@ declare global {
                     interface AllFileUsages extends ImageRotate {
                         generator?: "allfileusages";
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gafcontinue?: string;
                         /**
@@ -10362,7 +10382,7 @@ declare global {
                          */
                         gaito?: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gaicontinue?: string;
                         /**
@@ -10392,7 +10412,7 @@ declare global {
                          * - **commonmetadata**: Lists file format generic metadata for the version of the file. If the file has been revision deleted, a `filehidden` property will be returned.
                          * - **extmetadata**: Lists formatted metadata combined from multiple sources. Results are HTML formatted. If the file has been revision deleted, a `filehidden` property will be returned.
                          * - **bitdepth**: Adds the bit depth of the version. If the file has been revision deleted, a `filehidden` property will be returned.
-                         * - **badfile**: Adds whether the file is on the {@link https://www.gracesguide.co.uk/MediaWiki:Bad_image_list MediaWiki:Bad image list}
+                         * - **badfile**: Adds whether the file is on the {@link https://www.mediawiki.org/wiki/MediaWiki:Bad_image_list MediaWiki:Bad image list}
                          *
                          * Defaults to `timestamp` and `url`.
                          */
@@ -10436,7 +10456,7 @@ declare global {
                          */
                         gaisha1base36?: string;
                         /**
-                         * Only return files uploaded by this user. Can only be used with aisort=timestamp. Cannot be used together with aifilterbots.
+                         * Only return files where the last version was uploaded by this user. Can only be used with aisort=timestamp. Cannot be used together with aifilterbots.
                          */
                         gaiuser?: string;
                         /**
@@ -10446,7 +10466,7 @@ declare global {
                          */
                         gaifilterbots?: "all" | "bots" | "nobots";
                         /**
-                         * What MIME types to search for, e.g. `image/jpeg`.
+                         * Disabled due to {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgMiserMode miser mode}.
                          */
                         gaimime?: string | string[];
                         /**
@@ -10465,7 +10485,7 @@ declare global {
                     interface AllLinks extends ImageRotate {
                         generator?: "alllinks";
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         galcontinue?: string;
                         /**
@@ -10526,7 +10546,7 @@ declare global {
                          */
                         gapfrom?: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gapcontinue?: string;
                         /**
@@ -10546,9 +10566,17 @@ declare global {
                         /**
                          * Which pages to list.
                          *
+                         * **Note:** Due to {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgMiserMode miser mode}, using this may result in fewer than `aplimit` results returned before continuing; in extreme cases, zero results may be returned.
+                         *
                          * Defaults to `all`.
                          */
                         gapfilterredir?: "all" | "nonredirects" | "redirects";
+                        /**
+                         * Filter based on whether a page has langlinks. Note that this may not consider langlinks added by extensions.
+                         *
+                         * Defaults to `all`.
+                         */
+                        gapfilterlanglinks?: "all" | "withlanglinks" | "withoutlanglinks";
                         /**
                          * Limit to pages with at least this many bytes.
                          */
@@ -10564,13 +10592,23 @@ declare global {
                         /**
                          * Filter protections based on protection level (must be used with apprtype= parameter).
                          */
-                        gapprlevel?: OneOrMore<"" | "autoconfirmed" | "sysop">;
+                        gapprlevel?: string | string[];
                         /**
                          * Filter protections based on cascadingness (ignored when apprtype isn't set).
                          *
                          * Defaults to `all`.
                          */
                         gapprfiltercascade?: "all" | "cascading" | "noncascading";
+                        /**
+                         * Which protection expiry to filter the page on:
+                         *
+                         * - **indefinite**: Get only pages with indefinite protection expiry.
+                         * - **definite**: Get only pages with a definite (specific) protection expiry.
+                         * - **all**: Get pages with any protections expiry.
+                         *
+                         * Defaults to `all`.
+                         */
+                        gapprexpiry?: "all" | "definite" | "indefinite";
                         /**
                          * How many total pages to return.
                          *
@@ -10583,22 +10621,6 @@ declare global {
                          * Defaults to `ascending`.
                          */
                         gapdir?: "ascending" | "descending";
-                        /**
-                         * Filter based on whether a page has langlinks. Note that this may not consider langlinks added by extensions.
-                         *
-                         * Defaults to `all`.
-                         */
-                        gapfilterlanglinks?: "all" | "withlanglinks" | "withoutlanglinks";
-                        /**
-                         * Which protection expiry to filter the page on:
-                         *
-                         * - **indefinite**: Get only pages with indefinite protection expiry.
-                         * - **definite**: Get only pages with a definite (specific) protection expiry.
-                         * - **all**: Get pages with any protections expiry.
-                         *
-                         * Defaults to `all`.
-                         */
-                        gapprexpiry?: "all" | "definite" | "indefinite";
                     }
 
                     /**
@@ -10609,7 +10631,7 @@ declare global {
                     interface AllRedirects extends ImageRotate {
                         generator?: "allredirects";
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         garcontinue?: string;
                         /**
@@ -10682,10 +10704,10 @@ declare global {
                          * - **contentmodel**: Content model ID of each revision slot.
                          * - **comment**: Comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
                          * - **parsedcomment**: Parsed comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
-                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned.
+                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned. For performance reasons, if this option is used, `arvlimit` is enforced to 50.
                          * - **tags**: Tags for the revision.
                          * - **roles**: List content slot roles that exist in the revision.
-                         * - **parsetree**: Deprecated. Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`).
+                         * - **parsetree**: Deprecated. Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`). For performance reasons, if this option is used, `arvlimit` is enforced to 50.
                          *
                          * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
@@ -10695,6 +10717,7 @@ declare global {
                             | "contentmodel"
                             | "flags"
                             | "ids"
+                            | "oresscores"
                             | "parsedcomment"
                             | "parsetree"
                             | "roles"
@@ -10710,47 +10733,62 @@ declare global {
                         /**
                          * Which revision slots to return data for, when slot-related properties are included in `arvprops`. If omitted, data from the `main` slot will be returned in a backwards-compatible format.
                          */
-                        garvslots?: "*" | OneOrMore<"main">;
+                        garvslots?: string | string[];
                         /**
-                         * Limit how many revisions will be returned.
+                         * Content serialization format used for output of content.
+                         */
+                        [k: `garvcontentformat-${string}`]:
+                            | "application/json"
+                            | "application/octet-stream"
+                            | "application/unknown"
+                            | "application/vnd.php.serialized"
+                            | "application/x-binary"
+                            | "text/css"
+                            | "text/javascript"
+                            | "text/plain"
+                            | "text/unknown"
+                            | "text/x-wiki"
+                            | "unknown/unknown";
+                        /**
+                         * Limit how many revisions will be returned. If `arvprop=content`, `arvprop=parsetree`, `arvdiffto` or `arvdifftotext` is used, the limit is 50. If `arvparse` is used, the limit is 1.
                          */
                         garvlimit?: Limit;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires arvprop=content).
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires arvprop=content).
                          *
                          * @deprecated
                          */
                         garvexpandtemplates?: boolean;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires arvprop=content).
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires arvprop=content).
                          *
                          * @deprecated
                          */
                         garvgeneratexml?: boolean;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires arvprop=content). For performance reasons, if this option is used, arvlimit is enforced to 1.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires `arvprop=content`). For performance reasons, if this option is used, `arvlimit` is enforced to 1.
                          *
                          * @deprecated
                          */
                         garvparse?: boolean;
                         /**
-                         * Only retrieve the content of this section number.
+                         * Only retrieve the content of the section with this identifier.
                          */
                         garvsection?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively. For performance reasons, if this option is used, `arvlimit` is enforced to 50.
                          *
                          * @deprecated
                          */
                         garvdiffto?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `arvdiffto`. If `arvsection` is set, only that section will be diffed against this text.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `arvdiffto`. If `arvsection` is set, only that section will be diffed against this text. For performance reasons, if this option is used, `arvlimit` is enforced to 50.
                          *
                          * @deprecated
                          */
                         garvdifftotext?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `arvdifftotext`.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `arvdifftotext`.
                          *
                          * @deprecated
                          */
@@ -10764,6 +10802,7 @@ declare global {
                             | "application/json"
                             | "application/octet-stream"
                             | "application/unknown"
+                            | "application/vnd.php.serialized"
                             | "application/x-binary"
                             | "text/css"
                             | "text/javascript"
@@ -10777,6 +10816,8 @@ declare global {
                         garvuser?: string;
                         /**
                          * Only list pages in this namespace.
+                         *
+                         * **Note:** Due to {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgMiserMode miser mode}, using this may result in fewer than `arvlimit` results returned before continuing; in extreme cases, zero results may be returned.
                          */
                         garvnamespace?: number | number[] | "*";
                         /**
@@ -10801,7 +10842,7 @@ declare global {
                          */
                         garvexcludeuser?: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         garvcontinue?: string;
                         /**
@@ -10818,7 +10859,7 @@ declare global {
                     interface AllTransclusions extends ImageRotate {
                         generator?: "alltransclusions";
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gatcontinue?: string;
                         /**
@@ -10883,7 +10924,7 @@ declare global {
                          */
                         gblpageid?: number;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gblcontinue?: string;
                         /**
@@ -10940,7 +10981,7 @@ declare global {
                          */
                         gcllimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gclcontinue?: string;
                         /**
@@ -10987,6 +11028,8 @@ declare global {
                         >;
                         /**
                          * Only include pages in these namespaces. Note that `cmtype=subcat` or `cmtype=file` may be used instead of `cmnamespace=14` or `6`.
+                         *
+                         * **Note:** Due to {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgMiserMode miser mode}, using this may result in fewer than `cmlimit` results returned before continuing; in extreme cases, zero results may be returned.
                          */
                         gcmnamespace?: number | number[] | "*";
                         /**
@@ -10996,7 +11039,7 @@ declare global {
                          */
                         gcmtype?: OneOrMore<"file" | "page" | "subcat">;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gcmcontinue?: string;
                         /**
@@ -11082,10 +11125,10 @@ declare global {
                          * - **contentmodel**: Content model ID of each revision slot.
                          * - **comment**: Comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
                          * - **parsedcomment**: Parsed comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
-                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned.
+                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned. For performance reasons, if this option is used, `drvlimit` is enforced to 50.
                          * - **tags**: Tags for the revision.
                          * - **roles**: List content slot roles that exist in the revision.
-                         * - **parsetree**: Deprecated. Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`).
+                         * - **parsetree**: Deprecated. Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`). For performance reasons, if this option is used, `drvlimit` is enforced to 50.
                          *
                          * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
@@ -11110,47 +11153,62 @@ declare global {
                         /**
                          * Which revision slots to return data for, when slot-related properties are included in `drvprops`. If omitted, data from the `main` slot will be returned in a backwards-compatible format.
                          */
-                        gdrvslots?: "*" | OneOrMore<"main">;
+                        gdrvslots?: string | string[];
                         /**
-                         * Limit how many revisions will be returned.
+                         * Content serialization format used for output of content.
+                         */
+                        [k: `gdrvcontentformat-${string}`]:
+                            | "application/json"
+                            | "application/octet-stream"
+                            | "application/unknown"
+                            | "application/vnd.php.serialized"
+                            | "application/x-binary"
+                            | "text/css"
+                            | "text/javascript"
+                            | "text/plain"
+                            | "text/unknown"
+                            | "text/x-wiki"
+                            | "unknown/unknown";
+                        /**
+                         * Limit how many revisions will be returned. If `drvprop=content`, `drvprop=parsetree`, `drvdiffto` or `drvdifftotext` is used, the limit is 50. If `drvparse` is used, the limit is 1.
                          */
                         gdrvlimit?: Limit;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires drvprop=content).
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires drvprop=content).
                          *
                          * @deprecated
                          */
                         gdrvexpandtemplates?: boolean;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires drvprop=content).
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires drvprop=content).
                          *
                          * @deprecated
                          */
                         gdrvgeneratexml?: boolean;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires drvprop=content). For performance reasons, if this option is used, drvlimit is enforced to 1.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires `drvprop=content`). For performance reasons, if this option is used, `drvlimit` is enforced to 1.
                          *
                          * @deprecated
                          */
                         gdrvparse?: boolean;
                         /**
-                         * Only retrieve the content of this section number.
+                         * Only retrieve the content of the section with this identifier.
                          */
                         gdrvsection?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively. For performance reasons, if this option is used, `drvlimit` is enforced to 50.
                          *
                          * @deprecated
                          */
                         gdrvdiffto?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `drvdiffto`. If `drvsection` is set, only that section will be diffed against this text.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `drvdiffto`. If `drvsection` is set, only that section will be diffed against this text. For performance reasons, if this option is used, `drvlimit` is enforced to 50.
                          *
                          * @deprecated
                          */
                         gdrvdifftotext?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `drvdifftotext`.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `drvdifftotext`.
                          *
                          * @deprecated
                          */
@@ -11164,6 +11222,7 @@ declare global {
                             | "application/json"
                             | "application/octet-stream"
                             | "application/unknown"
+                            | "application/vnd.php.serialized"
                             | "application/x-binary"
                             | "text/css"
                             | "text/javascript"
@@ -11201,7 +11260,7 @@ declare global {
                          */
                         gdrvexcludeuser?: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gdrvcontinue?: string;
                     }
@@ -11220,7 +11279,7 @@ declare global {
                          */
                         gdflimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gdfcontinue?: string;
                         /**
@@ -11251,7 +11310,7 @@ declare global {
                          */
                         geipageid?: number;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         geicontinue?: string;
                         /**
@@ -11296,11 +11355,11 @@ declare global {
                          */
                         geuprop?: OneOrMore<"ids" | "title" | "url">;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         geucontinue?: string;
                         /**
-                         * Protocol of the URL. If empty and `euquery` is set, the protocol is `http`. Leave both this and `euquery` empty to list all external links.
+                         * Protocol of the URL. If empty and `euquery` is set, the protocol is `http` and `https`. Leave both this and `euquery` empty to list all external links.
                          *
                          * Defaults to an empty string.
                          */
@@ -11318,6 +11377,7 @@ declare global {
                             | "ircs"
                             | "magnet"
                             | "mailto"
+                            | "matrix"
                             | "mms"
                             | "news"
                             | "nntp"
@@ -11334,11 +11394,13 @@ declare global {
                             | "worldwind"
                             | "xmpp";
                         /**
-                         * Search string without protocol. See {@link https://www.gracesguide.co.uk/Special:LinkSearch Special:LinkSearch}. Leave empty to list all external links.
+                         * Search string without protocol. See {@link https://www.mediawiki.org/wiki/Special:LinkSearch Special:LinkSearch}. Leave empty to list all external links.
                          */
                         geuquery?: string;
                         /**
                          * The page namespaces to enumerate.
+                         *
+                         * **Note:** Due to {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgMiserMode miser mode}, using this may result in fewer than `eulimit` results returned before continuing; in extreme cases, zero results may be returned.
                          */
                         geunamespace?: number | number[] | "*";
                         /**
@@ -11349,6 +11411,8 @@ declare global {
                         geulimit?: Limit;
                         /**
                          * Expand protocol-relative URLs with the canonical protocol.
+                         *
+                         * @deprecated
                          */
                         geuexpandurl?: boolean;
                     }
@@ -11388,7 +11452,7 @@ declare global {
                          */
                         gfulimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gfucontinue?: string;
                     }
@@ -11407,7 +11471,7 @@ declare global {
                          */
                         gimlimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gimcontinue?: string;
                         /**
@@ -11438,7 +11502,7 @@ declare global {
                          */
                         giupageid?: number;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         giucontinue?: string;
                         /**
@@ -11488,7 +11552,7 @@ declare global {
                          */
                         giwbltitle?: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         giwblcontinue?: string;
                         /**
@@ -11534,7 +11598,7 @@ declare global {
                          */
                         glbltitle?: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         glblcontinue?: string;
                         /**
@@ -11578,7 +11642,7 @@ declare global {
                          */
                         gpllimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gplcontinue?: string;
                         /**
@@ -11628,7 +11692,7 @@ declare global {
                          */
                         glhlimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         glhcontinue?: string;
                     }
@@ -11641,7 +11705,7 @@ declare global {
                     interface PagesWithProp extends ImageRotate {
                         generator?: "pageswithprop";
                         /**
-                         * Page property for which to enumerate pages ({@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bpagepropnames `action=query&amp;list=pagepropnames`} returns page property names in use).
+                         * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&amp;list=pagepropnames`} returns page property names in use).
                          */
                         gpwppropname: string;
                         /**
@@ -11655,7 +11719,7 @@ declare global {
                          */
                         gpwpprop?: OneOrMore<"ids" | "title" | "value">;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gpwpcontinue?: string;
                         /**
@@ -11675,7 +11739,7 @@ declare global {
                     /**
                      * Perform a prefix search for page titles.
                      *
-                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.gracesguide.co.uk/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Ballpages `action=query&amp;list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.gracesguide.co.uk/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
+                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&amp;list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
                      *
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch
                      */
@@ -11698,11 +11762,34 @@ declare global {
                          */
                         gpslimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          *
                          * Defaults to 0.
                          */
                         gpsoffset?: number;
+                        /**
+                         * Search profile to use.
+                         *
+                         * - **strict**: Strict profile with few punctuation characters removed but diacritics and stress marks are kept.
+                         * - **normal**: Few punctuation characters, some diacritics and stopwords removed.
+                         * - **normal-subphrases**: Few punctuation characters, some diacritics and stopwords removed. It will match also subphrases (can be subphrases or subpages depending on internal wiki configuration).
+                         * - **fuzzy**: Similar to normal with typo correction (two typos supported).
+                         * - **fast-fuzzy**: Experimental fuzzy profile (may be removed at any time)
+                         * - **fuzzy-subphrases**: Similar to normal with typo correction (two typos supported). It will match also subphrases (can be subphrases or subpages depending on internal wiki configuration).
+                         * - **classic**: Classic prefix, few punctuation characters and some diacritics removed.
+                         * - **engine_autoselect**: Let the search engine decide on the best profile to use.
+                         *
+                         * Defaults to `engine_autoselect`.
+                         */
+                        gpsprofile?:
+                            | "classic"
+                            | "engine_autoselect"
+                            | "fast-fuzzy"
+                            | "fuzzy"
+                            | "fuzzy-subphrases"
+                            | "normal"
+                            | "normal-subphrases"
+                            | "strict";
                     }
 
                     /**
@@ -11719,7 +11806,7 @@ declare global {
                         /**
                          * Only list titles with these protection levels.
                          */
-                        gptlevel?: OneOrMore<"autoconfirmed" | "sysop">;
+                        gptlevel?: string | string[];
                         /**
                          * How many total pages to return.
                          *
@@ -11766,7 +11853,7 @@ declare global {
                             | "userid"
                         >;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gptcontinue?: string;
                     }
@@ -11779,42 +11866,11 @@ declare global {
                     interface QueryPage extends ImageRotate {
                         generator?: "querypage";
                         /**
-                         * The name of the special page. Note, this is case sensitive.
+                         * The name of the special page. Note, this is case-sensitive.
                          */
-                        gqppage:
-                            | "Ancientpages"
-                            | "BrokenRedirects"
-                            | "Deadendpages"
-                            | "DoubleRedirects"
-                            | "Fewestrevisions"
-                            | "ListDuplicatedFiles"
-                            | "Listredirects"
-                            | "Lonelypages"
-                            | "Longpages"
-                            | "MediaStatistics"
-                            | "Mostcategories"
-                            | "Mostimages"
-                            | "Mostinterwikis"
-                            | "Mostlinked"
-                            | "Mostlinkedcategories"
-                            | "Mostlinkedtemplates"
-                            | "Mostrevisions"
-                            | "Shortpages"
-                            | "Uncategorizedcategories"
-                            | "Uncategorizedimages"
-                            | "Uncategorizedpages"
-                            | "Uncategorizedtemplates"
-                            | "Unusedcategories"
-                            | "Unusedimages"
-                            | "Unusedtemplates"
-                            | "Unwatchedpages"
-                            | "Wantedcategories"
-                            | "Wantedfiles"
-                            | "Wantedpages"
-                            | "Wantedtemplates"
-                            | "Withoutinterwiki";
+                        gqppage: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          *
                          * Defaults to 0.
                          */
@@ -11859,7 +11915,7 @@ declare global {
                          */
                         grnlimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         grncontinue?: string;
                     }
@@ -11929,6 +11985,7 @@ declare global {
                             | "flags"
                             | "ids"
                             | "loginfo"
+                            | "oresscores"
                             | "parsedcomment"
                             | "patrolled"
                             | "redirect"
@@ -11955,6 +12012,7 @@ declare global {
                                   | "autopatrolled"
                                   | "bot"
                                   | "minor"
+                                  | "oresreview"
                                   | "patrolled"
                                   | "redirect"
                               >
@@ -11981,7 +12039,7 @@ declare global {
                          */
                         grctitle?: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         grccontinue?: string;
                         /**
@@ -11991,7 +12049,7 @@ declare global {
                         /**
                          * Only list changes that touch the named slot.
                          */
-                        grcslot?: "main";
+                        grcslot?: "main" | "mediainfo";
                     }
 
                     /**
@@ -12013,6 +12071,8 @@ declare global {
                         grdprop?: OneOrMore<"fragment" | "pageid" | "title">;
                         /**
                          * Only include pages in these namespaces.
+                         *
+                         * **Note:** Due to {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgMiserMode miser mode}, using this may result in fewer than `rdlimit` results returned before continuing; in extreme cases, zero results may be returned.
                          */
                         grdnamespace?: number | number[] | "*";
                         /**
@@ -12029,7 +12089,7 @@ declare global {
                          */
                         grdlimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         grdcontinue?: string;
                     }
@@ -12062,10 +12122,10 @@ declare global {
                          * - **contentmodel**: Content model ID of each revision slot.
                          * - **comment**: Comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
                          * - **parsedcomment**: Parsed comment by the user for the revision. If the comment has been revision deleted, a `commenthidden` property will be returned.
-                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned.
+                         * - **content**: Content of each revision slot. If the content has been revision deleted, a `texthidden` property will be returned. For performance reasons, if this option is used, `rvlimit` is enforced to 50.
                          * - **tags**: Tags for the revision.
                          * - **roles**: List content slot roles that exist in the revision.
-                         * - **parsetree**: Deprecated. Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`).
+                         * - **parsetree**: Deprecated. Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. The XML parse tree of revision content (requires content model `wikitext`). For performance reasons, if this option is used, `rvlimit` is enforced to 50.
                          *
                          * Defaults to `ids`, `timestamp`, `flags`, `comment`, and `user`.
                          */
@@ -12073,8 +12133,10 @@ declare global {
                             | "comment"
                             | "content"
                             | "contentmodel"
+                            | "flagged"
                             | "flags"
                             | "ids"
+                            | "oresscores"
                             | "parsedcomment"
                             | "parsetree"
                             | "roles"
@@ -12090,47 +12152,62 @@ declare global {
                         /**
                          * Which revision slots to return data for, when slot-related properties are included in `rvprops`. If omitted, data from the `main` slot will be returned in a backwards-compatible format.
                          */
-                        grvslots?: "*" | OneOrMore<"main">;
+                        grvslots?: string | string[];
                         /**
-                         * Limit how many revisions will be returned.
+                         * Content serialization format used for output of content.
+                         */
+                        [k: `grvcontentformat-${string}`]:
+                            | "application/json"
+                            | "application/octet-stream"
+                            | "application/unknown"
+                            | "application/vnd.php.serialized"
+                            | "application/x-binary"
+                            | "text/css"
+                            | "text/javascript"
+                            | "text/plain"
+                            | "text/unknown"
+                            | "text/x-wiki"
+                            | "unknown/unknown";
+                        /**
+                         * Limit how many revisions will be returned. If `rvprop=content`, `rvprop=parsetree`, `rvdiffto` or `rvdifftotext` is used, the limit is 50. If `rvparse` is used, the limit is 1.
                          */
                         grvlimit?: Limit;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires rvprop=content).
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} instead. Expand templates in revision content (requires rvprop=content).
                          *
                          * @deprecated
                          */
                         grvexpandtemplates?: boolean;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires rvprop=content).
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/expandtemplates `action=expandtemplates`} or {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. Generate XML parse tree for revision content (requires rvprop=content).
                          *
                          * @deprecated
                          */
                         grvgeneratexml?: boolean;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires rvprop=content). For performance reasons, if this option is used, rvlimit is enforced to 1.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/parse `action=parse`} instead. Parse revision content (requires `rvprop=content`). For performance reasons, if this option is used, `rvlimit` is enforced to 1.
                          *
                          * @deprecated
                          */
                         grvparse?: boolean;
                         /**
-                         * Only retrieve the content of this section number.
+                         * Only retrieve the content of the section with this identifier.
                          */
                         grvsection?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Revision ID to diff each revision to. Use `prev`, `next` and `cur` for the previous, next and current revision respectively. For performance reasons, if this option is used, `rvlimit` is enforced to 50.
                          *
                          * @deprecated
                          */
                         grvdiffto?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `rvdiffto`. If `rvsection` is set, only that section will be diffed against this text.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Text to diff each revision to. Only diffs a limited number of revisions. Overrides `rvdiffto`. If `rvsection` is set, only that section will be diffed against this text. For performance reasons, if this option is used, `rvlimit` is enforced to 50.
                          *
                          * @deprecated
                          */
                         grvdifftotext?: string;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `rvdifftotext`.
+                         * Use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/compare `action=compare`} instead. Perform a pre-save transform on the text before diffing it. Only valid when used with `rvdifftotext`.
                          *
                          * @deprecated
                          */
@@ -12144,6 +12221,7 @@ declare global {
                             | "application/json"
                             | "application/octet-stream"
                             | "application/unknown"
+                            | "application/vnd.php.serialized"
                             | "application/x-binary"
                             | "text/css"
                             | "text/javascript"
@@ -12195,7 +12273,7 @@ declare global {
                          */
                         grvtoken?: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         grvcontinue?: string;
                     }
@@ -12224,11 +12302,26 @@ declare global {
                          */
                         gsrlimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          *
                          * Defaults to 0.
                          */
                         gsroffset?: number;
+                        /**
+                         * Query independent profile to use (affects ranking algorithm).
+                         *
+                         * - **classic**: Ranking based on the number of incoming links, some templates, page language and recency (templates/language/recency may not be activated on this wiki).
+                         * - **classic_noboostlinks**: Ranking based on some templates, page language and recency when activated on this wiki.
+                         * - **empty**: Ranking based solely on query dependent features (for debug only).
+                         * - **wsum_inclinks**: Weighted sum based on incoming links
+                         * - **wsum_inclinks_pv**: Weighted sum based on incoming links and weekly pageviews
+                         * - **popular_inclinks_pv**: Ranking based primarily on page views
+                         * - **popular_inclinks**: Ranking based primarily on incoming link counts
+                         * - **engine_autoselect**: Let the search engine decide on the best profile to use.
+                         *
+                         * Defaults to `engine_autoselect`.
+                         */
+                        gsrqiprofile?: string;
                         /**
                          * Which type of search to perform.
                          */
@@ -12245,14 +12338,14 @@ declare global {
                          * - **size**: Adds the size of the page in bytes.
                          * - **wordcount**: Adds the word count of the page.
                          * - **timestamp**: Adds the timestamp of when the page was last edited.
-                         * - **snippet**: Adds a parsed snippet of the page.
-                         * - **titlesnippet**: Adds a parsed snippet of the page title.
+                         * - **snippet**: Adds a snippet of the page, with query term highlighting markup.
+                         * - **titlesnippet**: Adds the page title, with query term highlighting markup.
                          * - **redirecttitle**: Adds the title of the matching redirect.
-                         * - **redirectsnippet**: Adds a parsed snippet of the redirect title.
+                         * - **redirectsnippet**: Adds the title of the matching redirect, with query term highlighting markup.
                          * - **sectiontitle**: Adds the title of the matching section.
-                         * - **sectionsnippet**: Adds a parsed snippet of the matching section title.
+                         * - **sectionsnippet**: Adds the title of the matching section, with query term highlighting markup.
                          * - **isfilematch**: Adds a boolean indicating if the search matched file content.
-                         * - **categorysnippet**: Adds a parsed snippet of the matching category.
+                         * - **categorysnippet**: Adds the matching category name, with query term highlighting markup.
                          * - **score**: Deprecated. Ignored.
                          * - **hasrelated**: Deprecated. Ignored.
                          * - **extensiondata**: Adds extra data generated by extensions.
@@ -12288,7 +12381,18 @@ declare global {
                          *
                          * Defaults to `relevance`.
                          */
-                        gsrsort?: "relevance";
+                        gsrsort?:
+                            | "create_timestamp_asc"
+                            | "create_timestamp_desc"
+                            | "incoming_links_asc"
+                            | "incoming_links_desc"
+                            | "just_match"
+                            | "last_edit_asc"
+                            | "last_edit_desc"
+                            | "none"
+                            | "random"
+                            | "relevance"
+                            | "user_random";
                     }
 
                     /**
@@ -12309,7 +12413,7 @@ declare global {
                          */
                         gtllimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gtlcontinue?: string;
                         /**
@@ -12359,7 +12463,7 @@ declare global {
                          */
                         gtilimit?: Limit;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gticontinue?: string;
                     }
@@ -12426,7 +12530,7 @@ declare global {
                          * - **notificationtimestamp**: Adds timestamp of when the user was last notified about the edit.
                          * - **loginfo**: Adds log information where appropriate.
                          * - **tags**: Lists tags for the entry.
-                         * - **expiry**: (no description)
+                         * - **expiry**: Adds the expiry time.
                          *
                          * Defaults to `ids`, `title`, and `flags`.
                          */
@@ -12437,6 +12541,7 @@ declare global {
                             | "ids"
                             | "loginfo"
                             | "notificationtimestamp"
+                            | "oresscores"
                             | "parsedcomment"
                             | "patrol"
                             | "sizes"
@@ -12451,7 +12556,13 @@ declare global {
                          */
                         gwlshow?: OneOrMore<
                             Toggle<
-                                "anon" | "autopatrolled" | "bot" | "minor" | "patrolled" | "unread"
+                                | "anon"
+                                | "autopatrolled"
+                                | "bot"
+                                | "minor"
+                                | "oresreview"
+                                | "patrolled"
+                                | "unread"
                             >
                         >;
                         /**
@@ -12471,13 +12582,13 @@ declare global {
                          */
                         gwlowner?: string;
                         /**
-                         * A security token (available in the user's {@link https://www.gracesguide.co.uk/Special:Preferences#mw-prefsection-watchlist preferences}) to allow access to another user's watchlist.
+                         * A security token (available in the user's {@link https://www.mediawiki.org/wiki/Special:Preferences#mw-prefsection-watchlist preferences}) to allow access to another user's watchlist.
                          *
                          * Sensitive parameter.
                          */
                         gwltoken?: string;
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gwlcontinue?: string;
                     }
@@ -12490,7 +12601,7 @@ declare global {
                     interface WatchlistRaw extends ImageRotate {
                         generator?: "watchlistraw";
                         /**
-                         * When more results are available, use this to continue.
+                         * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
                         gwrcontinue?: string;
                         /**
@@ -12518,7 +12629,7 @@ declare global {
                          */
                         gwrowner?: string;
                         /**
-                         * A security token (available in the user's {@link https://www.gracesguide.co.uk/Special:Preferences#mw-prefsection-watchlist preferences}) to allow access to another user's watchlist.
+                         * A security token (available in the user's {@link https://www.mediawiki.org/wiki/Special:Preferences#mw-prefsection-watchlist preferences}) to allow access to another user's watchlist.
                          *
                          * Sensitive parameter.
                          */
@@ -14969,7 +15080,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
                          */
                         grlechangedsince?: string;
                         /**
@@ -21068,7 +21179,7 @@ declare global {
                              */
                             rlelists?: number | number[];
                             /**
-                             * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
+                             * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
                              */
                             rlechangedsince?: string;
                             /**
@@ -22765,7 +22876,7 @@ declare global {
                              */
                             rltitle?: string;
                             /**
-                             * Show lists that have been changed since this timestamp. Must be after `2024-09-30T15:43:03Z`. Clients should use the timestamp returned in the `readinglists-synctimestamp` field from an earlier call if they want to ensure that no changes are missed, and should be prepared to receive changes that have already been returned in an earlier response, and handle them in an idempotent way.
+                             * Show lists that have been changed since this timestamp. Must be after `2024-10-01T09:34:20Z`. Clients should use the timestamp returned in the `readinglists-synctimestamp` field from an earlier call if they want to ensure that no changes are missed, and should be prepared to receive changes that have already been returned in an earlier response, and handle them in an idempotent way.
                              */
                             rlchangedsince?: string;
                             /**
@@ -25485,7 +25596,7 @@ declare global {
                              */
                             grlelists?: number | number[];
                             /**
-                             * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
+                             * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
                              */
                             grlechangedsince?: string;
                             /**
@@ -29046,7 +29157,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
                          */
                         grlechangedsince?: string;
                         /**
@@ -32464,7 +32575,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
                          */
                         grlechangedsince?: string;
                         /**
@@ -32569,6 +32680,12 @@ declare global {
                             | "user"
                             | "userid"
                         >;
+                        /**
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                         *
+                         * @deprecated
+                         */
+                        grctoken?: string;
                         /**
                          * Show only items that meet these criteria. For example, to see only minor edits done by logged-in users, set rcshow=minor|!anon.
                          */
@@ -32832,6 +32949,12 @@ declare global {
                          * Only list revisions tagged with this tag.
                          */
                         grvtag?: string;
+                        /**
+                         * Which tokens to obtain for each revision.
+                         *
+                         * @deprecated
+                         */
+                        grvtoken?: string;
                         /**
                          * When more results are available, use this to continue. More detailed information on how to continue queries {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Continue can be found on mediawiki.org}.
                          */
@@ -35870,7 +35993,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-09-30T15:42:15Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
                          */
                         grlechangedsince?: string;
                         /**
