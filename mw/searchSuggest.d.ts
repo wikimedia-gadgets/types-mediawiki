@@ -24,7 +24,7 @@ declare global {
              * @param {ResponseFunction} response
              * @param {string|number} [limit]
              * @param {string|number|string[]|number[]} [namespace]
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.UnknownResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.searchSuggest.html#.request
              */
             function request(
@@ -33,7 +33,7 @@ declare global {
                 response: ResponseFunction,
                 limit?: number | "max",
                 namespace?: number | number[]
-            ): JQuery.Promise<Api.Response>;
+            ): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.searchSuggest.html#~ResponseFunction

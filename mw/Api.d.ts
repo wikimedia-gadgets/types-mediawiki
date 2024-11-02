@@ -65,7 +65,7 @@ declare global {
              *
              * @param {Api.UnknownParams} parameters Parameters to the API. See also {@link mw.Api.Options.parameters}.
              * @param {JQuery.AjaxSettings} [ajaxOptions] Parameters to pass to jQuery.ajax. See also {@link mw.Api.Options.ajax}.
-             * @returns {JQuery.Promise<Api.Response>} A promise that settles when the API response is processed.
+             * @returns {JQuery.Promise<Api.UnknownResponse>} A promise that settles when the API response is processed.
              *   Has an 'abort' method which can be used to abort the request.
              *
              *   - On success, resolves to `( result, jqXHR )` where `result` is the parsed API response.
@@ -92,7 +92,7 @@ declare global {
             ajax(
                 parameters: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<Api.Response>;
+            ): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Extend an API parameter object with an assertion that the user won't change.
@@ -148,7 +148,7 @@ declare global {
              * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
              * @param {number} [chunkSize] Size (in bytes) per chunk (default: 5MB)
              * @param {number} [chunkRetries] Amount of times to retry a failed chunk (default: 1)
-             * @returns {JQuery.Promise<Api.Response>}
+             * @returns {JQuery.Promise<Api.UnknownResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#chunkedUpload
              */
             chunkedUpload(
@@ -156,7 +156,7 @@ declare global {
                 data: ApiUploadParams,
                 chunkSize?: number,
                 chunkRetries?: number
-            ): JQuery.Promise<Api.Response>;
+            ): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Upload a file to the stash, in chunks.
@@ -273,13 +273,13 @@ declare global {
              *
              * @param {Api.UnknownParams} parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<Api.Response>}
+             * @returns {JQuery.Promise<Api.UnknownResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#get
              */
             get(
                 parameters: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<Api.Response>;
+            ): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Get the categories that a particular page on the wiki belongs to.
@@ -339,11 +339,11 @@ declare global {
              *     mw.notify( api.getErrorMessage( data ), { type: 'error' } );
              * } );
              * ```
-             * @param {Api.Response} data API response indicating an error
+             * @param {Api.UnknownResponse} data API response indicating an error
              * @returns {JQuery} Error messages, each wrapped in a `<div>`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getErrorMessage
              */
-            getErrorMessage(data: Api.Response): JQuery;
+            getErrorMessage(data: Api.UnknownResponse): JQuery;
 
             /**
              * Get a set of messages.
@@ -436,10 +436,10 @@ declare global {
             /**
              * @param {string} username
              * @param {string} password
-             * @returns {JQuery.Promise<Api.Response>} See {@link post()}
+             * @returns {JQuery.Promise<Api.UnknownResponse>} See {@link post()}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#login
              */
-            login(username: string, password: string): JQuery.Promise<Api.Response>;
+            login(username: string, password: string): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Post a new section to the page.
@@ -448,7 +448,7 @@ declare global {
              * @param {string} header
              * @param {string} message Wikitext message
              * @param {ApiEditPageParams} additionalParams Additional API parameters
-             * @returns {JQuery.Promise<Api.Response>} See {@link postWithEditToken}
+             * @returns {JQuery.Promise<Api.UnknownResponse>} See {@link postWithEditToken}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#newSection
              */
             newSection(
@@ -456,7 +456,7 @@ declare global {
                 header: string,
                 message: string,
                 additionalParams?: ApiEditPageParams
-            ): JQuery.Promise<Api.Response>;
+            ): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Convenience method for `action=parse`.
@@ -474,26 +474,26 @@ declare global {
              *
              * @param {Api.UnknownParams} parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<Api.Response>}
+             * @returns {JQuery.Promise<Api.UnknownResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#post
              */
             post(
                 parameters: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<Api.Response>;
+            ): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Post to API with csrf token. If we have no token, get one and try to post. If we have a cached token try using that, and if it fails, blank out the cached token and start over.
              *
              * @param {Api.UnknownParams} params API parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<Api.Response>} See {@link post}
+             * @returns {JQuery.Promise<Api.UnknownResponse>} See {@link post}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#postWithEditToken
              */
             postWithEditToken(
                 params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<Api.Response>;
+            ): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Post to API with the specified type of token. If we have no token, get one and try to post.
@@ -512,25 +512,25 @@ declare global {
              * @param {string} tokenType The name of the token, like `options` or `edit`.
              * @param {Api.UnknownParams} params API parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {JQuery.Promise<Api.Response>} See {@link post()}
+             * @returns {JQuery.Promise<Api.UnknownResponse>} See {@link post()}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#postWithToken
              */
             postWithToken(
                 tokenType: Api.TokenType,
                 params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<Api.Response>;
+            ): JQuery.Promise<Api.UnknownResponse>;
             /** @deprecated Use `postWithToken('csrf', params)` instead */
             postWithToken(
                 tokenType: Api.LegacyTokenType,
                 params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<Api.Response>;
+            ): JQuery.Promise<Api.UnknownResponse>;
             postWithToken(
                 tokenType: string,
                 params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): JQuery.Promise<Api.Response>;
+            ): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Convenience method for `action=rollback`.
@@ -554,10 +554,10 @@ declare global {
              *
              * @param {string} name
              * @param {string|null} value
-             * @returns {JQuery.Promise<Api.Response>}
+             * @returns {JQuery.Promise<Api.UnknownResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#saveOption
              */
-            saveOption(name: string, value: string | null): JQuery.Promise<Api.Response>;
+            saveOption(name: string, value: string | null): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Asynchronously save the values of user options using the {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Options Options API}.
@@ -575,10 +575,12 @@ declare global {
              * would fail anyway. See T214963.
              *
              * @param {Object.<string, string|null>} options Options as a `{ name: value, … }` object
-             * @returns {JQuery.Promise<Api.Response>}
+             * @returns {JQuery.Promise<Api.UnknownResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#saveOptions
              */
-            saveOptions(options: Record<string, string | null>): JQuery.Promise<Api.Response>;
+            saveOptions(
+                options: Record<string, string | null>
+            ): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Convenience method for `action=watch&unwatch=1`.
@@ -602,23 +604,26 @@ declare global {
              *
              * @param {File|Blob|HTMLInputElement} file HTML `input type=file` element with a file already inside of it, or a File object.
              * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
-             * @returns {JQuery.Promise<Api.Response>}
+             * @returns {JQuery.Promise<Api.UnknownResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#upload
              */
             upload(
                 file: File | Blob | HTMLInputElement,
                 data: ApiUploadParams
-            ): JQuery.Promise<Api.Response>;
+            ): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Finish an upload in the stash.
              *
              * @param {string} filekey
              * @param {ApiUploadParams} data
-             * @returns {JQuery.Promise<Api.Response>}
+             * @returns {JQuery.Promise<Api.UnknownResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#uploadFromStash
              */
-            uploadFromStash(filekey: string, data: ApiUploadParams): JQuery.Promise<Api.Response>;
+            uploadFromStash(
+                filekey: string,
+                data: ApiUploadParams
+            ): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Upload a file to the stash.
@@ -759,7 +764,7 @@ declare global {
                 timestamp: string;
             }
 
-            type Response = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
+            type UnknownResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
 
             namespace Response {
                 type Edit = Edit.Failure | Edit.NoChange | Edit.Changed;
@@ -818,9 +823,9 @@ declare global {
                  * Call this function to finish the upload.
                  *
                  * @param {ApiUploadParams} data Additional data for the upload.
-                 * @returns {JQuery.Promise<Response>} API promise for the final upload.
+                 * @returns {JQuery.Promise<UnknownResponse>} API promise for the final upload.
                  */
-                (data?: ApiUploadParams): JQuery.Promise<Response>;
+                (data?: ApiUploadParams): JQuery.Promise<UnknownResponse>;
             }
 
             /**
@@ -879,7 +884,7 @@ declare global {
 
 /** @deprecated Use {@link mw.Api.Options} instead. Note that `ApiOptions` is strictly equivalent to `Required<mw.Api.Options>` as properties are now optional for consistency. */
 export type ApiOptions = Required<mw.Api.Options>;
-/** @deprecated Use {@link mw.Api.Response} instead */
-export type ApiResponse = mw.Api.Response;
+/** @deprecated Use {@link mw.Api.UnknownResponse} instead */
+export type ApiResponse = mw.Api.UnknownResponse;
 
 export {};
