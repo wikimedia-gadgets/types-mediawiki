@@ -129,7 +129,7 @@ interface MwStorage extends SafeStorage {
      * to know about and delete when the data is no longer needed. Instead,
      * store dynamic values in an object under a single constant key that you
      * manage or replace over time.
-     * See also {@link https://phabricator.wikimedia.org/T121646}.
+     * See also {@link https://phabricator.wikimedia.org/T121646 T121646}.
      *
      * @example
      * ```js
