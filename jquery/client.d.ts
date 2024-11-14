@@ -27,42 +27,6 @@ interface Client {
      * }
      * ```
      *
-     * Recognised browser names:
-     *
-     * - `android` (legacy Android browser, prior to Chrome Mobile)
-     * - `chrome` (includes Chrome Mobile, Microsoft Edge, Opera, and others)
-     * - `crios` (Chrome on iOS, which uses Mobile Safari)
-     * - `edge` (legacy Microsoft Edge, which uses EdgeHTML)
-     * - `firefox` (includes Firefox Mobile, Iceweasel, and others)
-     * - `fxios` (Firefox on iOS, which uses Mobile Safari)
-     * - `konqueror`
-     * - `msie`
-     * - `opera` (legacy Opera, which uses Presto)
-     * - `rekonq`
-     * - `safari` (including Mobile Safari)
-     * - `silk`
-     *
-     * Recognised layout engines:
-     *
-     * - `edge` (EdgeHTML 12-18, as used by legacy Microsoft Edge)
-     * - `gecko`
-     * - `khtml`
-     * - `presto`
-     * - `trident`
-     * - `webkit`
-     *
-     * Note that Chrome and Chromium-based browsers like Opera have their layout
-     * engine identified as `webkit`.
-     *
-     * Recognised platforms:
-     *
-     * - `ipad`
-     * - `iphone`
-     * - `linux`
-     * - `mac`
-     * - `solaris` (untested)
-     * - `win`
-     *
      * @example
      * ```js
      * if ( $.client.profile().layout == 'gecko' ) {
@@ -132,6 +96,7 @@ export interface ClientNavigator {
     userAgent: string;
 }
 
+type ClientProfileLayout = "edge" | "gecko" | "khtml" | "presto" | "trident" | "webkit";
 type ClientProfileName =
     | "android"
     | "chrome"
@@ -145,6 +110,7 @@ type ClientProfileName =
     | "rekong"
     | "safari"
     | "silk";
+type ClientProfilePlatform = "ipad" | "iphone" | "linux" | "mac" | "solaris" | "win";
 
 type ComparisonOperator = "==" | "===" | "!=" | "!==" | "<" | "<=" | ">" | ">=";
 type ClientSupportCondition = [ComparisonOperator, string | number];
@@ -156,11 +122,72 @@ type ClientSupportMap =
     | UndirectedClientSupportMap
     | Record<"ltr" | "rtl", UndirectedClientSupportMap>;
 
+/**
+ * An object containing information about the client.
+ *
+ * @example
+ * ```js
+ * {
+ *     'name': 'firefox',
+ *     'layout': 'gecko',
+ *     'layoutVersion': 20101026,
+ *     'platform': 'linux'
+ *     'version': '3.5.1',
+ *     'versionBase': '3',
+ *     'versionNumber': 3.5,
+ * }
+ * ```
+ * @see https://doc.wikimedia.org/jquery-client/master/jQuery.client.html#.Profile
+ */
 interface ClientProfile {
-    layout: "edge" | "gecko" | "khtml" | "presto" | "trident" | "webkit";
-    layoutVersion: number;
-    name: ClientProfileName;
-    platform: "ipad" | "iphone" | "linux" | "mac" | "solaris" | "win";
+    /**
+     * Name of the layout engine. Recognised layout engines:
+     *
+     * - `edge` (EdgeHTML 12-18, as used by legacy Microsoft Edge)
+     * - `gecko`
+     * - `khtml`
+     * - `presto`
+     * - `trident`
+     * - `webkit`
+     *
+     * Note that Chrome and Chromium-based browsers like Opera have their layout
+     * engine identified as `webkit`.
+     */
+    layout: ClientProfileLayout | "unknown";
+    /**
+     * Version of the layout engine,
+     * e.g. `6` or `20101026`.
+     */
+    layoutVersion: number | "unknown";
+    /**
+     * Name of the browser. Recognized browser names:
+     *
+     * - `android` (legacy Android browser, prior to Chrome Mobile)
+     * - `chrome` (includes Chrome Mobile, Microsoft Edge, Opera, and others)
+     * - `crios` (Chrome on iOS, which uses Mobile Safari)
+     * - `edge` (legacy Microsoft Edge, which uses EdgeHTML)
+     * - `firefox` (includes Firefox Mobile, Iceweasel, and others)
+     * - `fxios` (Firefox on iOS, which uses Mobile Safari)
+     * - `konqueror`
+     * - `msie`
+     * - `opera` (legacy Opera, which uses Presto)
+     * - `rekonq`
+     * - `safari` (including Mobile Safari)
+     * - `silk`
+     */
+    name: ClientProfileName | "unknown";
+    /**
+     * Operating system the browser is running on.
+     * Recognised platforms:
+     *
+     * - `ipad`
+     * - `iphone`
+     * - `linux`
+     * - `mac`
+     * - `solaris` (untested)
+     * - `win`
+     */
+    platform: ClientProfilePlatform | "unknown";
     version: string;
     versionBase: string;
     versionNumber: number;
