@@ -1,5 +1,5 @@
-// This generates the content of `api_params/index.d.ts`, by extracting online MediaWiki API module information.
-// Go to a Wikimedia site, paste this into the browser console, and move the generated TS declaration files to api_params.
+// This script generates the content of `api_params/index.d.ts`, by extracting online MediaWiki API module information.
+// Go to a MediaWiki site, paste this into the browser console, and move the generated TS declaration files to api_params.
 //
 // This process is done in 5 steps:
 //
@@ -102,6 +102,8 @@ const NAME_PATH_MAP = {
 };
 
 /**
+ * Mapping of API parameter types to their associated TS type.
+ *
  * @type {Record<string & RawModule.Parameter.Type, Parameter.Type>}
  */
 const PARAMETER_TYPE_UNDERLYING = {
@@ -121,6 +123,8 @@ const PARAMETER_TYPE_UNDERLYING = {
 };
 
 /**
+ * Type aliases to declare (in namespace mw.Api) and used to simplify API parameter types.
+ *
  * @type {Record<string, Parameter.Type>}
  */
 const TYPE_ALIASES = {
@@ -155,7 +159,8 @@ const TYPE_ALIASES = {
 };
 
 /**
- * Interface names generated before PR #41, used in type aliases for compatibility.
+ * Interface names generated before PR #41.
+ * Used to generate deprecated type aliases for compatibility.
  *
  * @type {Record<string, string[]>}
  */
@@ -458,19 +463,28 @@ const log = mw.log;
 const logError = mw.log.error;
 
 /**
+ * Check whether all elements from the 2nd set are in the 1st one.
+ *
  * @template T
  * @param {Set<T> | undefined} s1
  * @param {Set<T> | undefined} s2
- * @returns
  */
 const isSubset = (s1, s2) =>
     s1 === undefined || s1.size === 0 || (s2 !== undefined && s1.isSubsetOf(s2));
 
+/**
+ * Uppercase the 1st letter of a string.
+ *
+ * @param {string} s String.
+ */
+const firstToUppercase = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
 class ModuleLoader {
     /**
-     * Load modules from a list of loaders.
+     * Load all modules from a list of API module loaders.
+     * Does not return incomplete module data from APIs that failed some of their requests.
      *
-     * @param {ModuleLoader[]} loaders
+     * @param {ModuleLoader[]} loaders API module loaders.
      */
     static loadAll = async (loaders) => {
         const results = await Promise.allSettled(loaders.map((l) => l.load()));
@@ -487,64 +501,54 @@ class ModuleLoader {
         return modules;
     };
 
-    /** @type {Record<string, Promise<void>>} */
+    /**
+     * All queried modules (or that are being queried).
+     * For each we store a promise that resolves when the module has been queried properly.
+     *
+     * @type {Record<string, Promise<void>>}
+     */
     modulePromises = {};
-    /** @type {Record<string, RawModule>} */
+    /**
+     * All queried modules.
+     *
+     * @type {Record<string, RawModule>}
+     */
     modules = {};
 
     /**
-     * Create a module loader.
+     * Create an API module loader.
      *
      * @param {string} api URI to the foreign API.
      * @param {string} [name] API name.
      */
     constructor(api, name) {
+        /**
+         * API name, for debugging purpose.
+         */
         this.name = name ?? api;
+        /**
+         * Base API URI, to use when resolving online documentation links.
+         */
         this.uri = new URL(api).origin;
+        /**
+         * MediaWiki API.
+         */
         this.api = new mw.ForeignApi(api, { anonymous: true });
     }
 
     /**
-     * Merge `parameters` with `templatedparameters`.
+     * Replace relative HTML links with absolute ones.
      *
-     * We do not care about having 2 distinct parameter lists, since a
-     * templated parameter can still be distinguished using templatevars.
-     *
-     * @param {any} module
+     * @param {string} text HTML text.
      */
-    mergeTemplatedParameters = (module) => {
-        const parameters = [];
-        let i = 0,
-            j = 0;
-        while (i < module.parameters.length && j < module.templatedparameters.length) {
-            parameters.push(
-                module.parameters[i].index < module.templatedparameters[j].index
-                    ? module.parameters[i++]
-                    : module.templatedparameters[j++]
-            );
-        }
-        parameters.push(...module.parameters.slice(i), ...module.templatedparameters.slice(j));
-        module.parameters = parameters;
-        delete module.templatedparameters;
-    };
+    resolveLocalLinks = (text) => text.replace(/(<a.*? href=")(\/.*?")/g, `$1${this.uri}$2`);
 
     /**
-     * Load sub-modules.
+     * Run a query request to load a set of modules from the API.
      *
-     * @param {RawModule} module
+     * @param {string[]} modules Module paths.
      */
-    loadSubmodules = async (module) => {
-        const submoduleSets = module.parameters
-            .map((p) => Object.values(p.submodules ?? {}))
-            .filter((sm) => sm.length > 0);
-        await Promise.all(submoduleSets.map(this.loadModules));
-    };
-
-    /**
-     * @param {string[]} modules Module paths
-     * @returns {Promise<any[]>} Module data
-     */
-    queryModules = (modules) => {
+    queryModules = async (modules) => {
         log(`[ML] ${this.name}: Querying module data...`, modules);
 
         /** @type {mw.Api.Params.Action.ParamInfo & mw.Api.Params.Format.Json} */
@@ -557,27 +561,36 @@ class ModuleLoader {
             formatversion: "2",
         };
 
-        const { promise, resolve, reject } = Promise.withResolvers();
-        this.api.get(params).then((response) => resolve(response.paraminfo.modules), reject);
-        return promise;
-    };
+        const response = await this.api.get(params);
 
-    /**
-     * @param {string} text
-     */
-    resolveLocalLinks = (text) => text.replace(/(<a.*? href=")(\/.*?")/g, `$1${this.uri}$2`);
+        /** @type {any[]} */
+        const queriedModules = response.paraminfo.modules;
+        /** @type {Set<string>} */
+        const submodulesToQuery = new Set();
 
-    /**
-     * @param {any[]} modules
-     */
-    processQueriedModules = async (modules) => {
-        for (const module of modules) {
+        for (const module of queriedModules) {
             this.modules[module.path] = module;
 
             module.classname = [module.classname];
             module.description = this.resolveLocalLinks(module.description);
 
-            this.mergeTemplatedParameters(module);
+            // Merge `parameters` with `templatedparameters`.
+            // We do not care about having 2 distinct parameter lists, since a templated parameter
+            // can still be distinguished using `templatevars`.
+            const parameters = [];
+            let i = 0,
+                j = 0;
+            while (i < module.parameters.length && j < module.templatedparameters.length) {
+                parameters.push(
+                    module.parameters[i].index < module.templatedparameters[j].index
+                        ? module.parameters[i++]
+                        : module.templatedparameters[j++]
+                );
+            }
+            parameters.push(...module.parameters.slice(i), ...module.templatedparameters.slice(j));
+            module.parameters = parameters;
+            delete module.templatedparameters;
+
             for (const parameter of module.parameters) {
                 parameter.module = module;
                 parameter.description = this.resolveLocalLinks(parameter.description);
@@ -585,17 +598,21 @@ class ModuleLoader {
                     parameter.allspecifiers = [parameter.allspecifier];
                     delete parameter.allspecifier;
                 }
-            }
 
-            await this.loadSubmodules(module);
+                for (const submodule of Object.values(parameter.submodules ?? {})) {
+                    submodulesToQuery.add(submodule);
+                }
+            }
         }
+
+        await this.loadModules(submodulesToQuery);
     };
 
     /**
-     * Get module data from the API.
+     * Load a set of modules from the API.
+     * Resolves when all modules have been loaded.
      *
-     * @param {string[]} paths Module paths.
-     * @returns {Promise<void>} Module data.
+     * @param {Set<string>} paths Module paths.
      */
     loadModules = async (paths) => {
         /** @type {Promise<void>[]} */
@@ -603,7 +620,7 @@ class ModuleLoader {
         /** @type {string[]} */
         const pathsToQuery = [];
 
-        for (const path of paths) {
+        for (const path of paths.values().toArray()) {
             if (path.includes("*") || !(path in this.modulePromises)) {
                 pathsToQuery.push(path);
             } else if (!(path in this.modules)) {
@@ -613,7 +630,7 @@ class ModuleLoader {
 
         for (let i = 0; i < pathsToQuery.length; i += 50) {
             const batch = pathsToQuery.slice(i, i + 50);
-            const batchPromise = this.queryModules(batch).then(this.processQueriedModules);
+            const batchPromise = this.queryModules(batch);
 
             promises.push(batchPromise);
             for (const path of pathsToQuery) {
@@ -624,38 +641,22 @@ class ModuleLoader {
         return Object.assign({}, ...(await Promise.all(promises)));
     };
 
+    /**
+     * Load all (used) modules from the API.
+     */
     load = async () => {
-        await this.loadModules(["main"]);
+        await this.loadModules(new Set(["main"]));
         return this.modules;
     };
 }
 
 class ModuleMerger {
     /**
-     * @template T
-     * @template {unknown[]} U
-     * @param {T[] | undefined} a1
-     * @param {T[] | undefined} a2
-     * @param {string} path
-     * @param {(v1: T, v2: T, path: string, ...args: U) => T} [merge]
-     * @param {U} args
-     */
-    expectSameSizeArray = (a1, a2, path, merge, ...args) => {
-        if (a1 === undefined && a1 === undefined) {
-            return undefined;
-        }
-        if (a1 === undefined || a2 === undefined || a1.length !== a2.length) {
-            throw `[MM] ${path}: Found arrays of different lengths ("${a1?.length ?? 0}" and "${
-                a2?.length ?? 0
-            }").`;
-        }
-        return merge ? a1.map((v1, i) => merge(v1, a2[i], `${path}[${i}]`, ...args)) : [...a1];
-    };
-
-    /**
+     * Merge two arrays in a new one without duplicates.
+     *
      * @template {string | number} T
-     * @param {T | T[] | undefined} a1
-     * @param {T | T[] | undefined} a2
+     * @param {T | T[] | undefined} a1 1st array to merge.
+     * @param {T | T[] | undefined} a2 2nd array to merge.
      */
     mergeArray = (a1, a2) => {
         /** @type {T[]} */
@@ -677,9 +678,11 @@ class ModuleMerger {
     };
 
     /**
-     * @param {RawModule.Parameter} p1
-     * @param {RawModule.Parameter} p2
-     * @param {string} path
+     * Merge two different declarations of the same API module parameter.
+     *
+     * @param {RawModule.Parameter} p1 1st parameter data.
+     * @param {RawModule.Parameter} p2 2nd parameter data.
+     * @param {string} path Parameter path, for logging purpose.
      */
     mergeParameter = (p1, p2, path) => {
         /** @type {RawModule.Parameter} */
@@ -687,6 +690,7 @@ class ModuleMerger {
 
         p.name = p1.name;
         if (p1.name !== p2.name) {
+            // That should never happen.
             logError(`[MM] ${path}: Different parameter names ("${p1.name}" and "${p2.name}").`);
         }
 
@@ -854,9 +858,11 @@ class ModuleMerger {
     };
 
     /**
-     * @param {RawModule.Parameter[]} a1
-     * @param {RawModule.Parameter[]} a2
-     * @param {string} path
+     * Merge two different lists of API parameters from the same API module.
+     *
+     * @param {RawModule.Parameter[]} a1 1st parameter list.
+     * @param {RawModule.Parameter[]} a2 2nd parameter list.
+     * @param {string} path Module path, for logging purpose.
      */
     mergeParameterArray = (a1, a2, path) => {
         const a = [];
@@ -898,9 +904,11 @@ class ModuleMerger {
     };
 
     /**
-     * @param {RawModule} m1
-     * @param {RawModule} m2
-     * @param {string} path
+     * Merge two different declarations of the same API module.
+     *
+     * @param {RawModule} m1 1st module data.
+     * @param {RawModule} m2 2nd module data.
+     * @param {string} path Module path, for logging purpose.
      */
     mergeModule = (m1, m2, path) => {
         /** @type {RawModule} */
@@ -974,7 +982,9 @@ class ModuleMerger {
     };
 
     /**
-     * @param {Record<string, RawModule>[]} moduleDicts
+     * Merge different declarations of a set of API modules.
+     *
+     * @param {Record<string, RawModule>[]} moduleDicts List of API module sets.
      */
     merge = (moduleDicts) => {
         /** @type {Record<string, RawModule>} */
@@ -993,19 +1003,11 @@ class ModuleMerger {
     };
 }
 
-/**
- * @param {string} s
- */
-function firstToUppercase(s) {
-    return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
 class ModuleParser {
     /**
-     * Try to find a suitable module name for TS formatting.
+     * Try to find a suitable type name (and source if not from MediaWiki) for a module.
      *
-     * @param {RawModule} rawModule API module data
-     * @returns Formatted module name (and source if not from MediaWiki)
+     * @param {RawModule} rawModule API module data.
      */
     findModuleName = (rawModule) => {
         const result = {
@@ -1023,12 +1025,11 @@ class ModuleParser {
         }
 
         // Try to properly capitalize the module name.
+        result.name = result.name.split(/[-_]/g).map(firstToUppercase).join("");
 
         // We generate patterns from the source, presets, and class name, then we try to find the
         // best combination to match the full name. Not that we test all possible combinations, but
         // only keep the ones with maximized pattern lengths.
-
-        result.name = result.name.split(/[-_]/g).map(firstToUppercase).join("");
 
         const plainClassNames = rawModule.classname.map(
                 (n) => n.replace(/Api|Extensions?|\\/g, "") + "s"
@@ -1044,8 +1045,9 @@ class ModuleParser {
         /**
          * Recursively replace prefixes and suffixes of the module name.
          *
-         * @param {string} name
-         * @returns {{ name: string, optimal: boolean }}
+         * @param {string} name Module name (or substring).
+         * @returns {{ name: string, optimal?: true }} Name capitalization with maximized pattern
+         *   lengths, may be annotated `optimal` if all name parts have been properly capitalized.
          */
         function findBestReplacement(name) {
             for (const plainClassName of plainClassNames) {
@@ -1091,10 +1093,7 @@ class ModuleParser {
                 }
             }
 
-            return {
-                name: bestReplacement,
-                optimal: false,
-            };
+            return { name: bestReplacement };
         }
 
         const bestRepl = findBestReplacement(
@@ -1111,24 +1110,31 @@ class ModuleParser {
     };
 
     /**
-     * @param {RawModule.Parameter} rawParameter
+     * Try to find a suitable type name for a module parameter.
+     *
+     * @param {RawModule.Parameter} rawParameter API module parameter data.
      */
     findParameterName = (rawParameter) => firstToUppercase(rawParameter.name);
 
     /**
-     * @param {Parameter.Type} type
+     * Simplify a module parameter type expression.
+     *
+     * @param {Parameter.Type} type Parameter type expression.
      */
     normalizeType = (type) => {
         if (!type.lits?.size && (!type.multi || !type.singleLits?.size)) {
             return;
         }
 
+        // Remove duplicated literals.
         if (type.multi && type.singleLits !== undefined) {
             type.lits?.forEach(Set.prototype.delete, type.singleLits);
         }
 
+        // Remove literals that are already covered by the base type.
         let underlying = type;
         while (true) {
+            // `string` covers all literals.
             if (underlying.base === "string") {
                 type.lits?.clear();
                 if (type.multi) {
@@ -1137,6 +1143,7 @@ class ModuleParser {
                 break;
             }
 
+            // An enumeration covers, well, its members.
             if (typeof underlying.base === "object") {
                 Object.keys(underlying.base).forEach((k) => {
                     type.lits?.delete(k);
@@ -1145,7 +1152,10 @@ class ModuleParser {
                     }
                 });
                 break;
-            } else if (underlying.base === undefined || !(underlying.base in TYPE_ALIASES)) {
+            }
+
+            // Assume any unknown base type does not cover anything.
+            if (underlying.base === undefined || !(underlying.base in TYPE_ALIASES)) {
                 break;
             }
 
@@ -1192,24 +1202,38 @@ class ModuleParser {
     };
 
     /**
-     * @param {string} text
+     * Convert HTML syntax to JSdoc-friendly markdown.
+     *
+     * @param {string} text HTML text.
      */
     parseWikitext = (text) => {
+        // div, span --> nothing
         text = text.replace(/<\/?(div|span).*?>/g, "");
 
+        // p --> paragraph
         text = text.replace(/<p.*?>/g, "").replace(/<\/p>\s*/g, "\n\n");
 
+        // em, strong --> bold
         text = text.replace(/<\/?(em|strong).*?>/g, "**");
+
+        // i --> italic
         text = text.replace(/<\/?i.*?>/g, "_");
+
+        // code, kbd, samp, var --> code block
         text = text.replace(/<\/?(code|kbd|samp|var).*?>/g, "`");
 
+        // a --> @link
         text = text.replace(/<a.*?href="(.*?)".*?>(.*?)<\/a>/g, "{@link $1 $2}");
-        text = text.replace(/`\{@link (.*?) (.*?)\}`/g, "{@link $1 `$2`}");
-        text = text.replace(/`\{@link (.*?)\}`/g, "{@link $1 `$1`}");
 
+        // ol, ul --> list
+        // dl     --> list (with bold term)
         text = text.replace(/<\/?(dd|dl|ol|ul).*?>/g, "");
         text = text.replace(/\n?<dt.*?>/g, "\n- **").replace(/<\/dt>\s*/g, "**: ");
         text = text.replace(/\n?<li.*?>/g, "\n- ").replace(/<\/li>/g, "");
+
+        // `{@link X Y}` --> {@link X `Y`}
+        text = text.replace(/`\{@link (.*?) (.*?)\}`/g, "{@link $1 `$2`}");
+        text = text.replace(/`\{@link (.*?)\}`/g, "{@link $1 `$1`}");
 
         text = text.replace(/\n{3,}/g, "\n\n");
 
@@ -1217,10 +1241,17 @@ class ModuleParser {
     };
 
     /**
-     * Get some data about a module parameter.
-     * @param {Record<string, RawModule>} rawModuleDict
-     * @param {Module} module Formatted module data
-     * @param {RawModule.Parameter} rawParameter API parameter data
+     * Process data of an API module parameter.
+     *
+     * In practice:
+     *  - format and capitalize the parameter name.
+     *  - deduce the TS parameter type.
+     *  - add non-TS info to the JSdoc.
+     *  - format JSdoc description from HTML -> markdown.
+     *
+     * @param {Record<string, RawModule>} rawModuleDict Set of modules the parameter comes from.
+     * @param {Module} module Processed API module data.
+     * @param {RawModule.Parameter} rawParameter API module parameter data.
      */
     parseParameter = (rawModuleDict, module, rawParameter) => {
         const rawModule = rawParameter.module;
@@ -1335,11 +1366,17 @@ class ModuleParser {
     };
 
     /**
-     * Get some data about a module interface.
-     * @param {Record<string, RawModule>} rawModuleDict
-     * @param {string} path
-     * @param {string} [prefix]
-     * @param {ParentPath} [parent] API data of the module this one is an extension of
+     * Process data of an API module.
+     *
+     * In practice:
+     *  - format and capitalize the module name.
+     *  - add prefixes to parameter names, duplicating modules if necessary.
+     *  - format JSdoc description from HTML -> markdown.
+     *
+     * @param {Record<string, RawModule>} rawModuleDict Set of modules the module comes from.
+     * @param {string} path Path of the module to process.
+     * @param {string} [prefix] Full parameter name prefix.
+     * @param {ParentPath} [parent] Data of the module this one is an extension of.
      */
     parseModule = (rawModuleDict, path, prefix, parent) => {
         const rawModule = rawModuleDict[path];
@@ -1379,25 +1416,34 @@ class ModuleParser {
     };
 
     /**
-     * @param {Record<string, RawModule>} rawModuleDict
+     * Process data of a set of API modules.
+     *
+     * @param {Record<string, RawModule>} rawModuleDict Set of modules.
      */
     parse = (rawModuleDict) => this.parseModule(rawModuleDict, "main");
 }
 
 /**
- * @param {string} s
+ * Add quotes around a TS string, unescaping any raw quotes it might contain.
+ *
+ * @param {string} s String to quote.
  */
-const quote = (s) => `"${s}"`;
+const quote = (s) => `"${s.replaceAll('"', '\\"')}"`;
 
 class ModuleFormatter {
     /**
-     * @type {Record<string, Record<string, string[]>>};
+     * Set of deprecated type aliases, with the list of types that can be used as replacement.
+     * Replacements are grouped by module source (to keep a consistent order).
+     *
+     * @type {Record<string, Record<string, string[]>>}
      */
     deprecatedAliases = {};
 
     /**
-     * @param {Module} source
-     * @param {ParentStack} [parentStack]
+     * Generate the full prefix of a parameter name from a stack of parent module parameters.
+     *
+     * @param {Module} source Module to generate the parameter prefix of.
+     * @param {ParentStack} [parentStack] Stack of parent module parameters.
      */
     formatParameterPrefix = (source, parentStack) => {
         let prefix = source.prefix;
@@ -1408,8 +1454,10 @@ class ModuleFormatter {
     };
 
     /**
-     * @param {unknown} lit
-     * @param {Parameter.Type} [type]
+     * Format a TS literal for JSdoc usage.
+     *
+     * @param {unknown} lit Literal.
+     * @param {Parameter.Type} [type] Literal type, may help to produce a more fitting formatting.
      * @returns {string}
      */
     formatJSdocLit = (lit, type) => {
@@ -1437,11 +1485,15 @@ class ModuleFormatter {
     };
 
     /**
-     * @param {Set<string> | undefined} litSet
+     * Format a set of TS literals as a list of quoted strings.
+     *
+     * @param {Set<string> | undefined} litSet Set of literals.
      */
     formatLitSet = (litSet) => (litSet ?? new Set()).values().map(quote).toArray().sort();
 
     /**
+     * Format a TS parameter type expression as a TS string.
+     *
      * @param {Parameter.Type} type
      */
     formatTypeExpr = (type) => {
@@ -1492,8 +1544,10 @@ class ModuleFormatter {
     };
 
     /**
-     * @param {Declaration.Namespace} namespace
-     * @param {Declaration.Namespace} namespace2
+     * Merge two declarations of a same TS namespace, within the 1st one.
+     *
+     * @param {Declaration.Namespace} namespace 1st namespace declaration.
+     * @param {Declaration.Namespace} namespace2 2nd namespace declaration.
      */
     mergeNamespace = (namespace, namespace2) => {
         if (
@@ -1531,10 +1585,10 @@ class ModuleFormatter {
     };
 
     /**
-     * Format a module interface as a TS string.
-     * @param {Module} module Module interface data
-     * @param {ParentStack} [parentStack]
-     * @returns {Declaration.Namespace}
+     * Format an API module as a set of TS declarations.
+     *
+     * @param {Module} module Processed API module data.
+     * @param {ParentStack} [parentStack] Stack of parent module parameters.y
      */
     formatModule = (module, parentStack) => {
         const parameterPrefix = this.formatParameterPrefix(module, parentStack);
@@ -1656,9 +1710,9 @@ class ModuleFormatter {
     };
 
     /**
-     * Format some module interface data as a TS declaration file.
-     * @param {Module} rootModule Formatted module data
-     * @returns {Declaration.Namespace}
+     * Format an API module tree as a set of TS declarations.
+     *
+     * @param {Module} rootModule Processed API module data.
      */
     format = (rootModule) => {
         /** @type {Declaration.Namespace} */
@@ -1724,44 +1778,50 @@ class ModuleFormatter {
 
 class ModuleGenerator {
     /**
+     * Indent a line by 1 level.
+     *
      * @param {string} s
      */
     indent = (s) => (s !== "" ? " ".repeat(4) : "") + s;
 
     /**
-     * @param {LineBlock} block
+     * Flatten multiple code blocks into a single code block, putting an empty line between blocks.
+     *
+     * @param {...string[]} blocks Code blocks.
      */
-    flatWithLine = (block) => {
-        if (block.length === 0) {
+    flatWithLine = (...blocks) => {
+        if (blocks.length === 0) {
             return [];
         }
 
-        const newBlock = [...block[0]];
-        for (let i = 1; i < block.length; ++i) {
-            newBlock.push("", ...block[i]);
+        const newBlock = [...blocks[0]];
+        for (let i = 1; i < blocks.length; ++i) {
+            newBlock.push("", ...blocks[i]);
         }
 
         return newBlock;
     };
 
     /**
-     * Disable a linter rule for the next line.
-     * @param {string} name Rule name
-     * @returns TS string line
+     * Generate a TS line to disable a linter rule for the next line.
+     *
+     * @param {string} name Rule name.
      */
     disableRule = (name) => `// tslint:disable-next-line:${name}`;
 
     /**
-     * @param {Declaration.JSdoc | undefined} jsdoc
+     * Generate a TS code block from a JSdoc declaration.
+     *
+     * @param {Declaration.JSdoc | undefined} jsdoc JSdoc declaration.
      */
     logJSdoc = (jsdoc) => {
         jsdoc ??= {};
 
-        /** @type {LineBlock} */
-        const lineBlock = [];
+        /** @type {string[][]} */
+        const lineBlocks = [];
 
         if (jsdoc.description !== undefined && jsdoc.description.length > 0) {
-            lineBlock.push(jsdoc.description);
+            lineBlocks.push(jsdoc.description);
         }
 
         /** @type {string[]} */
@@ -1782,16 +1842,18 @@ class ModuleGenerator {
         }
 
         if (tags.length) {
-            lineBlock.push(tags);
+            lineBlocks.push(tags);
         }
 
-        return lineBlock.length
-            ? ["/**", ...this.flatWithLine(lineBlock).map((l) => ` * ${l}`), " */"]
+        return lineBlocks.length
+            ? ["/**", ...this.flatWithLine(...lineBlocks).map((l) => ` * ${l}`), " */"]
             : [];
     };
 
     /**
-     * @param {Declaration.Type} type
+     * Generate a TS code block from a type alias declaration.
+     *
+     * @param {Declaration.Type} type Type alias declaration.
      */
     logType = (type) => {
         let intro = `type ${type.name}`;
@@ -1807,9 +1869,9 @@ class ModuleGenerator {
     };
 
     /**
-     * Format an interface parameter as a TS string.
-     * @param {Declaration.Property} property Interface parameter data
-     * @returns {string[]}
+     * Generate a TS string from an interface property declaration.
+     *
+     * @param {Declaration.Property} property Interface property declaration.
      */
     logProperty = (property) => {
         let name = property.name;
@@ -1829,7 +1891,9 @@ class ModuleGenerator {
     };
 
     /**
-     * @param {Declaration.Interface} iface
+     * Generate a TS code block from an interface declaration.
+     *
+     * @param {Declaration.Interface} iface Interface declaration.
      */
     logInterface = (iface) => {
         /** @type {string[]} */
@@ -1868,14 +1932,18 @@ class ModuleGenerator {
     };
 
     /**
-     * @param {Declaration} declaration
+     * Generate a TS code block from a type declaration (either a type alias or an interface).
+     *
+     * @param {Declaration} declaration Type declaration.
      */
     logDeclaration = (declaration) =>
         "type" in declaration ? this.logType(declaration) : this.logInterface(declaration);
 
     /**
-     * @param {string} typeName
-     * @param {{type: string, link?: string }[]} targets
+     * Generate a TS code block from a deprecated type alias declaration.
+     *
+     * @param {string} typeName Type name.
+     * @param {{type: string, link?: string }[]} targets Possible type replacements.
      */
     logDeprecated = (typeName, targets) => [
         ...this.logJSdoc({
@@ -1887,8 +1955,10 @@ class ModuleGenerator {
     ];
 
     /**
-     * @param {`namespace ${string}` | "global"} name
-     * @param {Declaration.Namespace} namespace
+     * Generate a TS code block from a namespace declaration.
+     *
+     * @param {`namespace ${string}` | "global"} name Namespace name (or global).
+     * @param {Declaration.Namespace} namespace Namespace declaration.
      * @returns {string[]}
      */
     logNamespace = (name, namespace) => {
@@ -1896,7 +1966,7 @@ class ModuleGenerator {
         const subnamespaces = Object.entries(namespace.subnamespaces ?? {});
         const deprecated = Object.entries(namespace.deprecated ?? {});
 
-        // Flatten empty namespaces.
+        // namespace X { namespace Y { ... } }  -->  namespace X.Y { ... }
         if (
             name !== "global" &&
             subnamespaces.length === 1 &&
@@ -1907,27 +1977,27 @@ class ModuleGenerator {
             return this.logNamespace(`${name}.${subname}`, subnamespace);
         }
 
-        const content = [
-            ...declarations.map((declaration) => this.logDeclaration(declaration)),
-            ...subnamespaces.map(([subname, subnamespace]) =>
-                this.logNamespace(`namespace ${subname}`, subnamespace)
-            ),
-            ...deprecated.map(([name, targets]) => this.logDeprecated(name, targets)),
-        ];
-
         return [
             `${namespace.modifier ? `${namespace.modifier} ` : ""}${name} {`,
-            ...this.flatWithLine(content).map(this.indent),
+            ...this.flatWithLine(
+                ...declarations.map((declaration) => this.logDeclaration(declaration)),
+                ...subnamespaces.map(([subname, subnamespace]) =>
+                    this.logNamespace(`namespace ${subname}`, subnamespace)
+                ),
+                ...deprecated.map(([name, targets]) => this.logDeprecated(name, targets))
+            ).map(this.indent),
             "}",
         ];
     };
 
     /**
-     * @param {Declaration.Namespace} content
-     * @returns {string[]}
+     * Generate a TS code block from a global namespace declaration. Also puts imports/exports and
+     * some stuff around, to use when generating a full declaration file.
+     *
+     * @param {Declaration.Namespace} content Global namespace declaration.
      */
     log = (content) =>
-        this.flatWithLine([
+        this.flatWithLine(
             ["// AUTOMATICALLY GENERATED (see scripts/api-types-generator.js)"],
             ...(content.declarations ?? []).map(this.logDeclaration),
             this.logNamespace("global", {
@@ -1937,12 +2007,14 @@ class ModuleGenerator {
             ...Object.entries(content.deprecated ?? {}).map(([name, targets]) =>
                 this.logDeprecated(name, targets)
             ),
-            ["export {};"],
-        ]);
+            ["export {};"]
+        );
 
     /**
-     * @param {string} fileName
-     * @param {Declaration.Namespace} content
+     * Generate a TS declaration file from a global namespace declaration.
+     *
+     * @param {string} fileName File name.
+     * @param {Declaration.Namespace} content Global namespace declaration.
      */
     generate = (fileName, content) => {
         const lines = this.log(content);
@@ -1967,7 +2039,9 @@ const parser = new ModuleParser();
 const formatter = new ModuleFormatter();
 const logger = new ModuleGenerator();
 
-const rawModuleDict = merger.merge(await ModuleLoader.loadAll(loaders));
-const rootModule = parser.parse(rawModuleDict);
-const content = formatter.format(rootModule);
-logger.generate("index.d.ts", content);
+ModuleLoader.loadAll(loaders).then((rawModuleDicts) => {
+    const rawModuleDict = merger.merge(rawModuleDicts);
+    const rootModule = parser.parse(rawModuleDict);
+    const content = formatter.format(rootModule);
+    logger.generate("index.d.ts", content);
+});
