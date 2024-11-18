@@ -1237,6 +1237,10 @@ class ModuleParser {
 
         text = text.replace(/\n{3,}/g, "\n\n");
 
+        // Timestamps: use a generic string description to prevent spurious changes when
+        // re-generating the type declarations. We assume all timestamps refer to this exact time.
+        text = text.replace(/`\d{4}(?:-\d{2}){2}T\d{2}(?::\d{2}){2}Z`/g, "the current timestamp");
+
         return text.trim().split("\n");
     };
 

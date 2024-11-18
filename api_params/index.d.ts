@@ -475,7 +475,7 @@ declare global {
                      */
                     userid?: number;
                     /**
-                     * Expiry time. May be relative (e.g. `5 months` or `2 weeks`) or absolute (e.g. `2014-09-18T12:34:56Z`). If set to `infinite`, `indefinite`, or `never`, the block will never expire.
+                     * Expiry time. May be relative (e.g. `5 months` or `2 weeks`) or absolute (e.g. the current timestamp). If set to `infinite`, `indefinite`, or `never`, the block will never expire.
                      *
                      * Defaults to `never`.
                      */
@@ -2988,7 +2988,7 @@ declare global {
                         | "wmf-researcher"
                     >;
                     /**
-                     * Expiry timestamps. May be relative (e.g. `5 months` or `2 weeks`) or absolute (e.g. `2014-09-18T12:34:56Z`). If only one timestamp is set, it will be used for all groups passed to the `add` parameter. Use `infinite`, `indefinite`, `infinity`, or `never` for a never-expiring user group.
+                     * Expiry timestamps. May be relative (e.g. `5 months` or `2 weeks`) or absolute (e.g. the current timestamp). If only one timestamp is set, it will be used for all groups passed to the `add` parameter. Use `infinite`, `indefinite`, `infinity`, or `never` for a never-expiring user group.
                      *
                      * Defaults to `infinite`.
                      */
@@ -4342,6 +4342,10 @@ declare global {
                      */
                     username?: string;
                     /**
+                     * Show only pages with this keyword in the snippet.
+                     */
+                    keyword?: string;
+                    /**
                      * Show only pages created on this date and after.
                      */
                     date_range_from?: string;
@@ -4490,6 +4494,10 @@ declare global {
                      * Include only pages created by username.
                      */
                     username?: string;
+                    /**
+                     * Include only pages with this keyword in the snippet.
+                     */
+                    keyword?: string;
                     /**
                      * Include only pages created on this date and after.
                      */
@@ -6953,7 +6961,7 @@ declare global {
                      */
                     add?: string | string[];
                     /**
-                     * Expiry timestamps. May be relative (e.g. `5 months` or `2 weeks`) or absolute (e.g. `2014-09-18T12:34:56Z`). If only one timestamp is set, it will be used for all groups passed to the `add` parameter. Use `infinite`, `indefinite`, `infinity`, or `never` for a never-expiring user group.
+                     * Expiry timestamps. May be relative (e.g. `5 months` or `2 weeks`) or absolute (e.g. the current timestamp). If only one timestamp is set, it will be used for all groups passed to the `add` parameter. Use `infinite`, `indefinite`, `infinity`, or `never` for a never-expiring user group.
                      *
                      * Defaults to `infinite`.
                      */
@@ -7642,6 +7650,13 @@ declare global {
                     property?: string;
                     /**
                      * The options the formatter should use. Provided as a JSON object.
+                     *
+                     * The supported options are:
+                     *
+                     * - **lang**: The language in which the value should be formatted (a MediaWiki language code).
+                     * - **applyRounding**: Whether to apply rounding to the number. Can be a boolean (automatic / no rounding) or an integer (exponent of the last significant decimal digits). Only useful for quantity values.
+                     * - **applyUnit**: Whether to include the unit in the output (a boolean). Only useful for quantity values.
+                     * - **showcalendar**: Whether to show the calendar model. Can be a boolean (always / never show) or the string `"auto"` (automatically determine whether to show). Only useful for time values.
                      */
                     options?: string;
                 }
@@ -15080,7 +15095,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after the current timestamp.
                          */
                         grlechangedsince?: string;
                         /**
@@ -20853,11 +20868,11 @@ declare global {
                         }
 
                         /**
-                         * Fetch campaign data for the campaign defined inside the page that corresponds to the given title.
+                         * Fetch page collection information for the given title.
                          */
                         interface PageCollectionsMetadata extends Query {
                             /**
-                             * A string containing the page title for which the campaign data will be fetched.
+                             * A string containing the page title for which the page collection information will be fetched.
                              */
                             titles: string | string[];
                         }
@@ -21179,7 +21194,7 @@ declare global {
                              */
                             rlelists?: number | number[];
                             /**
-                             * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
+                             * Show list entries that have been changed since this timestamp. Must be after the current timestamp.
                              */
                             rlechangedsince?: string;
                             /**
@@ -22876,7 +22891,7 @@ declare global {
                              */
                             rltitle?: string;
                             /**
-                             * Show lists that have been changed since this timestamp. Must be after `2024-10-01T09:34:20Z`. Clients should use the timestamp returned in the `readinglists-synctimestamp` field from an earlier call if they want to ensure that no changes are missed, and should be prepared to receive changes that have already been returned in an earlier response, and handle them in an idempotent way.
+                             * Show lists that have been changed since this timestamp. Must be after the current timestamp. Clients should use the timestamp returned in the `readinglists-synctimestamp` field from an earlier call if they want to ensure that no changes are missed, and should be prepared to receive changes that have already been returned in an earlier response, and handle them in an idempotent way.
                              */
                             rlchangedsince?: string;
                             /**
@@ -25596,7 +25611,7 @@ declare global {
                              */
                             grlelists?: number | number[];
                             /**
-                             * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
+                             * Show list entries that have been changed since this timestamp. Must be after the current timestamp.
                              */
                             grlechangedsince?: string;
                             /**
@@ -29157,7 +29172,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after the current timestamp.
                          */
                         grlechangedsince?: string;
                         /**
@@ -32575,7 +32590,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after the current timestamp.
                          */
                         grlechangedsince?: string;
                         /**
@@ -35993,7 +36008,7 @@ declare global {
                          */
                         grlelists?: number | number[];
                         /**
-                         * Show list entries that have been changed since this timestamp. Must be after `2024-10-01T09:34:17Z`.
+                         * Show list entries that have been changed since this timestamp. Must be after the current timestamp.
                          */
                         grlechangedsince?: string;
                         /**
