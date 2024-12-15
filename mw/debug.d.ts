@@ -36,9 +36,7 @@ interface Query {
 declare global {
     namespace mw {
         /**
-         * Debug toolbar.
-         *
-         * Enabled server-side through `$wgDebugToolbar`.
+         * Access the debug toolbar. Enabled server-side through `$wgDebugToolbar`.
          *
          * @since 1.19
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html

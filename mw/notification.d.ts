@@ -89,10 +89,17 @@ declare global {
             const autoHideLimit: number;
 
             /**
-             * @private
+             * Map of predefined auto-hide timeout keys to second values. `short` is
+             * used by default, and other values can be added for use in {@link notify}.
              */
             const autoHideSeconds: {
+                /**
+                 * 5 seconds (default).
+                 */
                 long: number;
+                /**
+                 * 30 seconds.
+                 */
                 short: number;
             };
 
