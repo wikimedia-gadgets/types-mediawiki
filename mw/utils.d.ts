@@ -6,6 +6,8 @@ declare global {
 
         type TypeOrUnionArray<T> = T extends T ? TypeOrArray<T> : never;
 
+        type Tail<T extends any[]> = T extends [] ? T : T extends [any?, ...infer R] ? R : T;
+
         type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
 
         // Get/PickOrDefault<V, S, TD, TX> extracts values from V using key selection S
