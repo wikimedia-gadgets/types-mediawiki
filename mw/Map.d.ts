@@ -28,8 +28,8 @@ export interface ExtensibleMap<V extends Record<string, any>, TX = unknown>
      * @returns True if the key exists
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html#.exists
      */
-    exists<S extends keyof V>(selection: S): selection is S;
-    exists<S extends string>(selection: S): selection is S;
+    exists(selection: keyof V): boolean;
+    exists(selection: string): boolean;
 
     /**
      * Get the value of one or more keys.
@@ -95,7 +95,7 @@ declare global {
              * @returns True if the key exists
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html#.exists
              */
-            exists<S extends keyof V>(selection: S): selection is S;
+            exists(selection: keyof V): boolean;
 
             /**
              * Get the value of one or more keys.
