@@ -80,7 +80,7 @@ declare global {
          * ```
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Map.html
          */
-        class Map<V extends Record<string, any> = any> {
+        class Map<V extends Record<string, any> = Record<string, any>> {
             private values: V;
 
             /**
