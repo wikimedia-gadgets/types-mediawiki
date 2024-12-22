@@ -95,7 +95,7 @@ declare global {
             function convertGrammar(word: string, form: string): string;
 
             /**
-             * Converts a number using {@link getDigitTransformTable}.
+             * Converts a number using {@link getDigitTransformTable()}.
              *
              * @param {number} num Value to be converted
              * @param {boolean} [integer=false] Whether to convert the return value to an integer
@@ -195,7 +195,7 @@ declare global {
             /**
              * Convenience method for setting language data.
              *
-             * Creates the data mw.Map if there isn't one for the specified language already.
+             * Creates the data {@link mw.Map} if there isn't one for the specified language already.
              *
              * @param {string} langCode
              * @param {string|Object.<string, any>} dataKey Key or object of key/values

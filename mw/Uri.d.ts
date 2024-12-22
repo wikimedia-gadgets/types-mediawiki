@@ -11,6 +11,7 @@ declare global {
          * A factory method to create an {@link mw.Uri} class with a default location to resolve relative URLs
          * against (including protocol-relative URLs).
          *
+         * @deprecated since 1.43, use browser native URL instead.
          * @param {string|function():string} documentLocation A full url, or function returning one.
          *  If passed a function, the return value may change over time and this will be honoured. (T74334)
          * @returns {Function} An mw.Uri class constructor
@@ -19,7 +20,7 @@ declare global {
         function UriRelative(documentLocation: string | (() => string)): typeof Uri;
 
         /**
-         * Library for simple URI parsing and manipulation.
+         * Create and manipulate MediaWiki URIs.
          *
          * Intended to be minimal, but featureful; do not expect full RFC 3986 compliance. The use cases we
          * have in mind are constructing 'next page' or 'previous page' URLs, detecting whether we need to
@@ -65,12 +66,13 @@ declare global {
          * fragment  'top'
          * ```
          *
-         * (N.b., 'password' is technically not allowed for HTTP URIs, but it is possible with other kinds
-         * of URIs.)
+         * Note: 'password' is technically not allowed for HTTP URIs, but it is possible with other kinds
+         * of URIs.
          *
          * Parsing based on parseUri 1.2.2 (c) Steven Levithan <http://stevenlevithan.com>, MIT License.
          * <http://stevenlevithan.com/demo/parseuri/js/>
          *
+         * @deprecated since 1.43, use browser native URL instead.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html
          */
         class Uri {
@@ -147,7 +149,8 @@ declare global {
             ];
 
             /**
-             * Create and manipulate MediaWiki URIs.
+             * Construct a new URI object. Throws error if arguments are illegal/impossible, or
+             * otherwise don't parse.
              *
              * @param {string|Uri|Object.<string,string>} [uri] URI string, or an Object with appropriate properties (especially
              *  another URI object to clone). Object must have non-blank `protocol`, `host`, and `path`

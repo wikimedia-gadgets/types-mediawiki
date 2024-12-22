@@ -96,15 +96,16 @@ interface FinishUpload {
 declare global {
     namespace mw {
         /**
-         * Interact with the API of a particular MediaWiki site. mw.Api objects represent the API of
-         * one particular MediaWiki site.
+         * Interact with the MediaWiki API. `mw.Api` is a client library for the
+         * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Main_page action API}.
+         * An `mw.Api` object represents the API of a MediaWiki site. For the REST API, see {@link mw.Rest}.
          *
          * ```js
          * var api = new mw.Api();
          * api.get( {
          *     action: 'query',
          *     meta: 'userinfo'
-         * } ).done( function ( data ) {
+         * } ).then( function ( data ) {
          *     console.log( data );
          * } );
          * ```
@@ -116,7 +117,7 @@ declare global {
          * api.get( {
          *     action: 'query',
          *     meta: [ 'userinfo', 'siteinfo' ] // same effect as 'userinfo|siteinfo'
-         * } ).done( function ( data ) {
+         * } ).then( function ( data ) {
          *     console.log( data );
          * } );
          * ```
@@ -128,6 +129,8 @@ declare global {
          */
         class Api {
             /**
+             * Create an instance of {@link mw.Api}.
+             *
              * @param {Api.Options} [options] See {@link mw.Api.Options}. This can also be overridden for
              *  each request by passing them to {@link get()} or {@link post()} (or directly to {@link ajax()}) later on.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#Api
@@ -623,12 +626,14 @@ declare global {
              * Asynchronously save the value of a single user option using the API.
              * See {@link saveOptions()}.
              *
+             * @since 1.28 - params parameter can be passed.
              * @param {string} name
              * @param {string|null} value
+             * @param {UnknownApiParams} [params] additional parameters for API.
              * @returns {Api.Promise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#saveOption
              */
-            saveOption(name: string, value: string | null): Api.Promise;
+            saveOption(name: string, value: string | null, params?: UnknownApiParams): Api.Promise;
 
             /**
              * Asynchronously save the values of user options using the {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Options Options API}.
@@ -645,12 +650,15 @@ declare global {
              * completed, otherwise MediaWiki gets sad. No requests are sent for anonymous users, as they
              * would fail anyway. See T214963.
              *
+             * @since 1.28 - params parameter can be passed.
              * @param {Object.<string, string|null>} options Options as a `{ name: value, … }` object
+             * @param {UnknownApiParams} [params] additional parameters for API.
              * @returns {Api.Promise<[] | [ApiResponse, JQuery.jqXHR<ApiResponse>]>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#saveOptions
              */
             saveOptions<T extends Record<string, string | null>>(
-                options: T
+                options: T,
+                params?: UnknownApiParams
             ): Api.Promise<({} extends T ? [] : never) | [ApiResponse, JQuery.jqXHR<ApiResponse>]>;
 
             /**

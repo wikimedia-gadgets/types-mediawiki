@@ -5,7 +5,6 @@ declare global {
         /**
          * Manage cookies in a way that is syntactically and functionally similar
          * to the `WebRequest#getCookie` and `WebResponse#setcookie` methods in PHP.
-         * Provided by the `mediawiki.cookie` ResourceLoader module.
          *
          * @example
          * ```js
@@ -33,8 +32,9 @@ declare global {
             function get(key: string, prefix?: string | null): string | null;
 
             /**
-             * Get the value of a `SameSite` = `None` cookie, using the legacy `ss0-` prefix if needed.
+             * Get the value of a cookie.
              *
+             * @deprecated since 1.43, use {@link mw.cookie.get} instead
              * @param {string} key The key for the cookie
              * @param {string} [prefix] The prefix of the key. If undefined or null, `$wgCookiePrefix` is used
              * @param {string|null} [defaultValue] A value to return if the cookie does not exist
@@ -46,7 +46,7 @@ declare global {
                 prefix: string | undefined | null,
                 defaultValue: D
             ): string | D;
-            function getCrossSite(key: string, prefix?: string | null): string | undefined;
+            function getCrossSite(key: string, prefix?: string | null): string | null;
 
             /**
              * Set or delete a cookie.
