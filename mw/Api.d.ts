@@ -626,7 +626,7 @@ declare global {
              * Asynchronously save the value of a single user option using the API.
              * See {@link saveOptions()}.
              *
-             * @since 1.28 - params parameter can be passed.
+             * @since 1.43 - params parameter can be passed.
              * @param {string} name
              * @param {string|null} value
              * @param {UnknownApiParams} [params] additional parameters for API.
@@ -650,7 +650,7 @@ declare global {
              * completed, otherwise MediaWiki gets sad. No requests are sent for anonymous users, as they
              * would fail anyway. See T214963.
              *
-             * @since 1.28 - params parameter can be passed.
+             * @since 1.43 - params parameter can be passed.
              * @param {Object.<string, string|null>} options Options as a `{ name: value, … }` object
              * @param {UnknownApiParams} [params] additional parameters for API.
              * @returns {Api.Promise<[] | [ApiResponse, JQuery.jqXHR<ApiResponse>]>}
