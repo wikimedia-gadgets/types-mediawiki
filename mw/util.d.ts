@@ -63,17 +63,36 @@ declare global {
             /**
              * Creates a detached portlet Element in the skin with no elements.
              *
+             * @example
+             * ```js
+             * // Create a portlet with 2 menu items that is styled as a dropdown in certain skins.
+             * const p = mw.util.addPortlet( 'p-myportlet', 'My label', '#p-cactions' );
+             * mw.util.addPortletLink( 'p-myportlet', '#', 'Link 1' );
+             * mw.util.addPortletLink( 'p-myportlet', '#', 'Link 2' );
+             * ```
              * @since 1.41
              * @param {string} id of the new portlet.
              * @param {string} [label] of the new portlet.
-             * @param {string} [before] selector of the element preceding the new portlet. If not passed
-             *  the caller is responsible for appending the element to the DOM before using addPortletLink.
+             * @param {string} [selectorHint] selector of the element the new portlet would like to
+             *  be inserted near. Typically the portlet will be inserted after this selector, but in some
+             *  skins, the skin may relocate the element when provided to the closest available space.
+             *  If this argument is not passed then the caller is responsible for appending the element
+             *  to the DOM before using addPortletLink.
+             *  To add a portlet in an exact position do not rely on this parameter, instead using the return
+             *  element (make sure to also assign the result to a variable), use `p.parentNode.appendChild( p );`.
+             *  When provided, skins can use the parameter to infer information about how the user intended
+             *  the menu to be rendered. For example, in vector and vector-2022 targeting '#p-cactions' will
+             *  result in the creation of a dropdown.
              * @returns {HTMLElement|null} will be null if it was not possible to create an portlet with
-             *  the required information e.g. the selector given in before parameter could not be resolved
+             *  the required information e.g. the selector given in `selectorHint` parameter could not be resolved
              *  to an existing element in the page.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addPortlet
              */
-            function addPortlet(id: string, label?: string, before?: string): HTMLElement | null;
+            function addPortlet(
+                id: string,
+                label?: string,
+                selectorHint?: string
+            ): HTMLElement | null;
 
             /**
              * Add a link to a portlet menu on the page.
@@ -432,6 +451,27 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isTemporaryUser
              */
             function isTemporaryUser(username: string): boolean;
+
+            /**
+             * Create a message box element. Callers are responsible for ensuring suitable Codex styles
+             * have been added to the page e.g. mediawiki.codex.messagebox.styles.
+             *
+             * @since 1.43
+             * @param {string|Node} textOrElement text or node.
+             * @param {string} [type] defaults to notice.
+             * @param {boolean} [inline] whether the notice should be inline.
+             * @returns {Element}
+             */
+            function messageBox(
+                textOrElement: string | Node,
+                type: "error" | "notice" | "success" | "warning",
+                inline?: boolean
+            ): Element;
+            function messageBox(
+                textOrElement: string | Node,
+                type?: string,
+                inline?: boolean
+            ): Element;
 
             /**
              * Parse the URL of an image uploaded to MediaWiki, or a thumbnail for such an image,

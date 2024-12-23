@@ -37,12 +37,18 @@ declare global {
     /**
      * Base library for MediaWiki.
      *
+     * Exposed globally as `mw`, with `mediaWiki` as alias. `mw` code can be considered stable and follows the
+     * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Stable_interface_policy/Frontend frontend stable interface policy}.
+     *
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html
      */
     const mediaWiki: typeof mw;
 
     /**
      * Base library for MediaWiki.
+     *
+     * Exposed globally as `mw`, with `mediaWiki` as alias. `mw` code can be considered stable and follows the
+     * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Stable_interface_policy/Frontend frontend stable interface policy}.
      *
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html
      */

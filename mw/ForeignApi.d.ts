@@ -1,6 +1,37 @@
 declare global {
     namespace mw {
         /**
+         * Interact with the API of another MediaWiki site. mw.Foreign API creates
+         * an object like {@link mw.Api}, but automatically handle everything required to communicate
+         *
+         * The foreign wiki must be configured to accept requests from the current wiki. See
+         * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains} for details.
+         *
+         * ```js
+         * const api = new mw.ForeignApi( 'https://commons.wikimedia.org/w/api.php' );
+         * api.get( {
+         *     action: 'query',
+         *     meta: 'userinfo'
+         * } ).done( function ( data ) {
+         *     console.log( data );
+         * } );
+         * ```
+         *
+         * To ensure that the user at the foreign wiki is logged in, pass the `assert: 'user'` parameter
+         * to {@link ForeignApi.get get()}/{@link ForeignApi.post post()} (since MW 1.23), otherwise
+         * the API request will fail. (Note that this doesn't guarantee that it's the same user. To assert
+         * that the user at the foreign wiki has a specific username, pass the `assertuser` parameter with
+         * the desired username.)
+         *
+         * Authentication-related MediaWiki extensions may extend this class to ensure that the user authenticated on the current wiki will be automatically authenticated on the foreign one. These extension modules should be registered using the ResourceLoaderForeignApiModules hook. See CentralAuth for a practical example. The general pattern to extend and override the name is:
+         *
+         * ```js
+         * function MyForeignApi() {};
+         * OO.inheritClass( MyForeignApi, mw.ForeignApi );
+         * mw.ForeignApi = MyForeignApi;
+         * ```
+         *
+         * @since 1.26
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignApi.html
          */
         class ForeignApi extends Api {
@@ -10,37 +41,8 @@ declare global {
             static parent: typeof Api;
 
             /**
-             * Create an object like {@link mw.Api}, but automatically handling everything required to communicate
-             * with another MediaWiki wiki via cross-origin requests (CORS).
+             * Create an instance of {@link mw.ForeignApi}.
              *
-             * The foreign wiki must be configured to accept requests from the current wiki. See
-             * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains} for details.
-             *
-             * ```js
-             * var api = new mw.ForeignApi( 'https://commons.wikimedia.org/w/api.php' );
-             * api.get( {
-             *     action: 'query',
-             *     meta: 'userinfo'
-             * } ).done( function ( data ) {
-             *     console.log( data );
-             * } );
-             * ```
-             *
-             * To ensure that the user at the foreign wiki is logged in, pass the `assert: 'user'` parameter
-             * to {@link mw.ForeignApi.get}/{@link mw.ForeignApi.post} (since MW 1.23), otherwise the API
-             * request will fail. (Note that this doesn't guarantee that it's the same user. To assert that
-             * the user at the foreign wiki has a specific username, pass the `assertuser` parameter with
-             * the desired username.)
-             *
-             * Authentication-related MediaWiki extensions may extend this class to ensure that the user authenticated on the current wiki will be automatically authenticated on the foreign one. These extension modules should be registered using the ResourceLoaderForeignApiModules hook. See CentralAuth for a practical example. The general pattern to extend and override the name is:
-             *
-             * ```js
-             * function MyForeignApi() {};
-             * OO.inheritClass( MyForeignApi, mw.ForeignApi );
-             * mw.ForeignApi = MyForeignApi;
-             * ```
-             *
-             * @since 1.26
              * @param {string|Uri} url URL pointing to another wiki's `api.php` endpoint.
              * @param {ForeignApi.Options} [options] Also accepts all the options from {@link mw.Api.Options}.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignApi.html#ForeignApi

@@ -3,6 +3,8 @@ declare global {
         /**
          * Set a cookie.
          *
+         * To use this {@link jQuery} plugin, load the `mediawiki.cookie` module using {@link mw.loader}.
+         *
          * @example
          * ```js
          * mw.loader.using( 'mediawiki.cookie' ).then( () => {
@@ -24,6 +26,8 @@ declare global {
 
         /**
          * Remove a cookie by key.
+         *
+         * To use this {@link jQuery} plugin, load the `mediawiki.cookie` module using {@link mw.loader}.
          *
          * @example
          * ```js

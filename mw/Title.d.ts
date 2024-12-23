@@ -43,7 +43,7 @@ declare global {
 
             /**
              * Parse titles into an object structure. Note that when using the constructor
-             * directly, passing invalid titles will result in an exception. See {@link newFromText} to use the
+             * directly, passing invalid titles will result in an exception. Use {@link newFromText} to use the
              * logic directly and get null for invalid titles which is easier to work with.
              *
              * @param {string} title Title of the page. If no second argument given,
@@ -164,7 +164,7 @@ declare global {
              * Get the namespace prefix (in the content language).
              *
              * Example: `File:` for `File:Example_image.svg`.
-             * In #NS_MAIN this is '', otherwise namespace name plus ':'
+             * In `NS_MAIN` this is '', otherwise namespace name plus ':'
              *
              * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Title.html#getNamespacePrefix
