@@ -1,5 +1,3 @@
-import { ApiResponse } from "./Api";
-
 declare global {
     namespace mw {
         /**
@@ -60,10 +58,10 @@ declare global {
             /**
              * Finish a stash upload.
              *
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.UnknownResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#finishStashUpload
              */
-            finishStashUpload(): JQuery.Promise<ApiResponse>;
+            finishStashUpload(): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Get the mw.Api instance used by this Upload object.
@@ -111,10 +109,10 @@ declare global {
              * Only available once the upload is finished! Don't try to get it
              * beforehand.
              *
-             * @returns {ApiResponse|undefined}
+             * @returns {Api.UnknownResponse|undefined}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getImageInfo
              */
-            getImageInfo(): ApiResponse | undefined;
+            getImageInfo(): Api.UnknownResponse | undefined;
 
             /**
              * Gets the state of the upload.
@@ -215,18 +213,18 @@ declare global {
             /**
              * Upload the file directly.
              *
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.UnknownResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#upload
              */
-            upload(): JQuery.Promise<ApiResponse>;
+            upload(): JQuery.Promise<Api.UnknownResponse>;
 
             /**
              * Upload the file to the stash to be completed later.
              *
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {JQuery.Promise<Api.UnknownResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#uploadToStash
              */
-            uploadToStash(): JQuery.Promise<ApiResponse>;
+            uploadToStash(): JQuery.Promise<Api.UnknownResponse>;
         }
 
         namespace Upload {
