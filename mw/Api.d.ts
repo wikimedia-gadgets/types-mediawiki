@@ -874,12 +874,17 @@ declare global {
                 | [string, ApiResponse, ApiResponse, JQuery.jqXHR<ApiResponse>];
 
             namespace Promise {
-                type Upload<TResolve extends ArgTuple = [ApiResponse]> = PromiseBase<
-                    TResolve,
-                    [RejectArgTuple[0], RejectArgTuple[1]],
-                    [number]
-                >;
+                /** @deprecated Use {@link Upload.Promise} instead. */
+                type Upload<TResolve extends ArgTuple = [ApiResponse]> = Upload.Promise<TResolve>;
             }
+        }
+
+        namespace Upload {
+            type Promise<TResolve extends Api.ArgTuple = [ApiResponse]> = Api.PromiseBase<
+                TResolve,
+                [Api.RejectArgTuple[0], Api.RejectArgTuple[1]],
+                [number]
+            >;
         }
     }
 }
