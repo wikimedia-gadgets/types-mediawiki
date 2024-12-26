@@ -48,6 +48,8 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html
          */
         class Upload {
+            static static: {};
+
             /**
              * Used to represent an upload in progress on the frontend.
              *
