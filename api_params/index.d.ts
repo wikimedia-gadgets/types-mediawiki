@@ -422,14 +422,22 @@ declare global {
                     aggregategroup?: string;
                     /**
                      * Message group ID. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                     *
+                     * @deprecated
                      */
                     group?: string;
+                    /**
+                     * List of message group IDs. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                     */
+                    groups?: string | string[];
                     /**
                      * Aggregate message group name.
                      */
                     groupname?: string;
                     /**
                      * Aggregate message group description.
+                     *
+                     * Defaults to an empty string.
                      */
                     groupdescription?: string;
                     /**
@@ -464,6 +472,10 @@ declare global {
                  */
                 interface Block extends Params {
                     action: "block";
+                    /**
+                     * The block ID to modify.
+                     */
+                    id?: number;
                     /**
                      * User to block.
                      */
@@ -511,9 +523,13 @@ declare global {
                      */
                     allowusertalk?: boolean;
                     /**
-                     * If the user is already blocked, overwrite the existing block.
+                     * If the user is already blocked by a single block, overwrite the existing block. If the user is blocked more than once, this will fail -- use the id parameter instead to specify which block to overwrite.
                      */
                     reblock?: boolean;
+                    /**
+                     * Add another block even if the user is already blocked.
+                     */
+                    newblock?: boolean;
                     /**
                      * Watch the user's or IP address's user and talk pages.
                      */
@@ -764,7 +780,12 @@ declare global {
                      * Defaults to `globals`, `namespacemap`, `profiles`, and `replicagroup`.
                      */
                     prop?: OneOrMore<
-                        "globals" | "namespacemap" | "profiles" | "replicagroup" | "usertesting"
+                        | "expectedindices"
+                        | "globals"
+                        | "namespacemap"
+                        | "profiles"
+                        | "replicagroup"
+                        | "usertesting"
                     >;
                 }
 
@@ -3674,6 +3695,12 @@ declare global {
                      * Sensitive parameter.
                      */
                     token: string;
+                    /**
+                     * Client hints data supplied alongside requests to ApiLogout. For internal use only.
+                     *
+                     * Sensitive parameter.
+                     */
+                    checkuserclienthints?: string;
                 }
 
                 /**
@@ -14303,6 +14330,7 @@ declare global {
                          * - **links**: Add links between articles
                          * - **references**: Find references
                          * - **update**: Update articles
+                         * - **link-recommendation**: Add links between articles
                          */
                         ggttasktypes?: OneOrMore<
                             | "copyedit"
@@ -20282,6 +20310,7 @@ declare global {
                              * - **links**: Add links between articles
                              * - **references**: Find references
                              * - **update**: Update articles
+                             * - **link-recommendation**: Add links between articles
                              */
                             gttasktypes?: OneOrMore<
                                 | "copyedit"
@@ -24819,6 +24848,7 @@ declare global {
                              * - **links**: Add links between articles
                              * - **references**: Find references
                              * - **update**: Update articles
+                             * - **link-recommendation**: Add links between articles
                              */
                             ggttasktypes?: OneOrMore<
                                 | "copyedit"
@@ -28380,6 +28410,7 @@ declare global {
                          * - **links**: Add links between articles
                          * - **references**: Find references
                          * - **update**: Update articles
+                         * - **link-recommendation**: Add links between articles
                          */
                         ggttasktypes?: OneOrMore<
                             | "copyedit"
@@ -31798,6 +31829,7 @@ declare global {
                          * - **links**: Add links between articles
                          * - **references**: Find references
                          * - **update**: Update articles
+                         * - **link-recommendation**: Add links between articles
                          */
                         ggttasktypes?: OneOrMore<
                             | "copyedit"
@@ -35216,6 +35248,7 @@ declare global {
                          * - **links**: Add links between articles
                          * - **references**: Find references
                          * - **update**: Update articles
+                         * - **link-recommendation**: Add links between articles
                          */
                         ggttasktypes?: OneOrMore<
                             | "copyedit"
