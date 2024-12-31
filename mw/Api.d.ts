@@ -1,5 +1,4 @@
 import {
-    ApiAssert,
     ApiEditPageParams,
     ApiLegacyTokenType,
     ApiParseParams,
@@ -148,7 +147,7 @@ declare global {
              * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
              * @param {number} [chunkSize] Size (in bytes) per chunk (default: 5MB)
              * @param {number} [chunkRetries] Amount of times to retry a failed chunk (default: 1)
-             * @returns {Api.Promise.Upload}
+             * @returns {Upload.Promise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#chunkedUpload
              */
             chunkedUpload(
@@ -156,7 +155,7 @@ declare global {
                 data: ApiUploadParams,
                 chunkSize?: number,
                 chunkRetries?: number
-            ): Api.Promise.Upload;
+            ): Upload.Promise;
 
             /**
              * Upload a file to the stash, in chunks.
@@ -168,7 +167,7 @@ declare global {
              * @param {ApiUploadParams} [data]
              * @param {number} [chunkSize] Size (in bytes) per chunk (default: 5MB)
              * @param {number} [chunkRetries] Amount of times to retry a failed chunk (default: 1)
-             * @returns {Api.Promise.Upload<[Api.FinishUpload]>} Promise that resolves with a
+             * @returns {Upload.Promise<[Api.FinishUpload]>} Promise that resolves with a
              *  function that should be called to finish the upload.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#chunkedUploadToStash
              */
@@ -177,7 +176,7 @@ declare global {
                 data?: ApiUploadParams,
                 chunkSize?: number,
                 chunkRetries?: number
-            ): Api.Promise.Upload<[Api.FinishUpload]>;
+            ): Upload.Promise<[Api.FinishUpload]>;
 
             /**
              * Create a new page.
@@ -543,7 +542,7 @@ declare global {
              * Asynchronously save the value of a single user option using the API.
              * See {@link saveOptions()}.
              *
-             * @since 1.28 - params parameter can be passed.
+             * @since 1.43 - params parameter can be passed.
              * @param {string} name
              * @param {string|null} value
              * @param {Api.UnknownParams} [params] additional parameters for API.
@@ -567,7 +566,7 @@ declare global {
              * completed, otherwise MediaWiki gets sad. No requests are sent for anonymous users, as they
              * would fail anyway. See T214963.
              *
-             * @since 1.28 - params parameter can be passed.
+             * @since 1.43 - params parameter can be passed.
              * @param {Object.<string, string|null>} options Options as a `{ name: value, … }` object
              * @param {Api.UnknownParams} [params] additional parameters for API.
              * @returns {Api.Promise<[] | [Api.UnknownResponse, JQuery.jqXHR<Api.UnknownResponse>]>}
@@ -603,10 +602,10 @@ declare global {
              *
              * @param {File|Blob|HTMLInputElement} file HTML `input type=file` element with a file already inside of it, or a File object.
              * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
-             * @returns {Api.Promise.Upload}
+             * @returns {Upload.Promise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#upload
              */
-            upload(file: File | Blob | HTMLInputElement, data: ApiUploadParams): Api.Promise.Upload;
+            upload(file: File | Blob | HTMLInputElement, data: ApiUploadParams): Upload.Promise;
 
             /**
              * Finish an upload in the stash.
@@ -644,14 +643,14 @@ declare global {
              * ```
              * @param {File|HTMLInputElement} file
              * @param {ApiUploadParams} [data]
-             * @returns {Api.Promise.Upload<[Api.FinishUpload]>} Promise that resolves with a
+             * @returns {Upload.Promise<[Api.FinishUpload]>} Promise that resolves with a
              *  function that should be called to finish the upload.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#uploadToStash
              */
             uploadToStash(
                 file: File | HTMLInputElement,
                 data?: ApiUploadParams
-            ): Api.Promise.Upload<[Api.FinishUpload]>;
+            ): Upload.Promise<[Api.FinishUpload]>;
 
             /**
              * Convenience method for `action=watch`.
@@ -934,12 +933,19 @@ declare global {
                 | [string, UnknownResponse, UnknownResponse, JQuery.jqXHR<UnknownResponse>];
 
             namespace Promise {
-                type Upload<TResolve extends ArgTuple = [UnknownResponse]> = PromiseBase<
-                    TResolve,
-                    [RejectArgTuple[0], RejectArgTuple[1]],
-                    [number]
-                >;
+                /** @deprecated Use {@link Upload.Promise} instead. */
+                type Upload<
+                    TResolve extends ArgTuple = [UnknownResponse]
+                > = Upload.Promise<TResolve>;
             }
+        }
+
+        namespace Upload {
+            type Promise<TResolve extends Api.ArgTuple = [ApiResponse]> = Api.PromiseBase<
+                TResolve,
+                [Api.RejectArgTuple[0], Api.RejectArgTuple[1]],
+                [number]
+            >;
         }
     }
 }
