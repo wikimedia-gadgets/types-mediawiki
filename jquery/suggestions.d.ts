@@ -1,8 +1,9 @@
 declare global {
     interface JQuery {
         /**
-         * This plugin provides a generic way to add suggestions to a text box.
-         * Provided by the `jquery.suggestions` ResourceLoader module.
+         * Add suggestions to a text box.
+         *
+         * To use this {@link jQuery} plugin, load the `jquery.suggestions` module with {@link mw.loader}.
          *
          * @example
          * ```js

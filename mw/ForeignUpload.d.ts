@@ -1,7 +1,7 @@
 declare global {
     namespace mw {
         /**
-         * Used to represent an upload in progress on the frontend.
+         * Upload to another MediaWiki site.
          *
          * Subclassed to upload to a foreign API, with no other goodies. Use
          * this for a generic foreign image repository on your wiki farm.
@@ -38,18 +38,11 @@ declare global {
             /**
              * Used to represent an upload in progress on the frontend.
              *
-             * Subclassed to upload to a foreign API, with no other goodies. Use
-             * this for a generic foreign image repository on your wiki farm.
-             *
-             * Note you can provide the {@link target} or not - if the first argument is
-             * an object, we assume you want the default, and treat it as apiconfig
-             * instead.
-             *
              * @param {string} [target] Used to set up the target
-             *     wiki. If not remote, this class behaves identically to mw.Upload (unless further subclassed)
+             *     wiki. If not remote, this class behaves identically to {@link mw.Upload} (unless further subclassed)
              *     Use the same names as set in $wgForeignFileRepos for this. Also,
              *     make sure there is an entry in the $wgForeignUploadTargets array for this name.
-             * @param {Api.Options} [apiconfig] Passed to the constructor of mw.ForeignApi or mw.Api, as needed.
+             * @param {ForeignApi.Options} [apiconfig] Passed to the constructor of mw.ForeignApi or mw.Api, as needed.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignUpload.html#ForeignUpload
              */
             constructor(target: string, apiconfig?: ForeignApi.Options);

@@ -6,7 +6,8 @@ declare global {
     interface JQuery {
         /**
          * Highlight certain text in current nodes (by wrapping it in `<span class="highlight">...</span>`).
-         * Provided by the `jquery.highlightText` ResourceLoader module.
+         *
+         * To use this {@link jQuery} plugin, load the `jquery.highlightText` module with {@link mw.loader}.
          *
          * @example
          * ```js
