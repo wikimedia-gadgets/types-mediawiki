@@ -39,11 +39,11 @@ declare global {
 
         /**
          * - {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Main_page Documentation}
-         * - {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Etiquette Etiquette &amp; usage guidelines}
+         * - {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Etiquette Etiquette & usage guidelines}
          * - {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:FAQ FAQ}
          * - {@link https://lists.wikimedia.org/postorius/lists/mediawiki-api.lists.wikimedia.org/ Mailing list}
          * - {@link https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/ API Announcements}
-         * - {@link https://phabricator.wikimedia.org/maniphest/query/GebfyV4uCaLd/#R Bugs &amp; requests}
+         * - {@link https://phabricator.wikimedia.org/maniphest/query/GebfyV4uCaLd/#R Bugs & requests}
          *
          * **Status:** The MediaWiki API is a mature and stable interface that is actively supported and improved. While we try to avoid it, we may occasionally need to make breaking changes; subscribe to {@link https://lists.wikimedia.org/hyperkitty/list/mediawiki-api-announce@lists.wikimedia.org/ the mediawiki-api-announce mailing list} for notice of updates.
          *
@@ -70,7 +70,7 @@ declare global {
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/centralnoticequerycampaign centralnoticequerycampaign}**: Get all configuration settings for a campaign.
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/changeauthenticationdata changeauthenticationdata}**: Change authentication data for the current user.
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/changecontentmodel changecontentmodel}**: Change the content model of a page
-             * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/checktoken checktoken}**: Check the validity of a token from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`}.
+             * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/checktoken checktoken}**: Check the validity of a token from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`}.
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/cirrus-config-dump cirrus-config-dump}**: Dump of CirrusSearch configuration.
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/cirrus-mapping-dump cirrus-mapping-dump}**: Dump of CirrusSearch mapping for this wiki.
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/cirrus-profiles-dump cirrus-profiles-dump}**: Dump of CirrusSearch profiles for this wiki.
@@ -187,7 +187,7 @@ declare global {
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/scribunto-console scribunto-console}**: Internal. Internal module for servicing XHR requests from the Scribunto console.
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/securepollauth securepollauth}**: Internal. Allows a remote wiki to authenticate users before granting access to vote in the election.
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/stashedit stashedit}**: Internal. Prepare an edit in shared cache.
-             * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/timedtext timedtext}**: Internal. Provides timed text content for usage by &lt;track&gt; elements
+             * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/timedtext timedtext}**: Internal. Provides timed text content for usage by <track> elements
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/translationcheck translationcheck}**: Internal. Validate translations.
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/translationentitysearch translationentitysearch}**: Internal. Search for message groups and messages
              * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/ulslocalization ulslocalization}**: Internal. Get the localization of ULS in the given language.
@@ -263,7 +263,7 @@ declare global {
              */
             origin?: string;
             /**
-             * Language to use for message translations. {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo `action=query&amp;meta=siteinfo&amp;siprop=languages`} returns a list of language codes. You can specify `user` to use the current user's language preference or `content` to use this wiki's content language.
+             * Language to use for message translations. {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo `action=query&meta=siteinfo&siprop=languages`} returns a list of language codes. You can specify `user` to use the current user's language preference or `content` to use this wiki's content language.
              *
              * Defaults to `user`.
              */
@@ -286,7 +286,7 @@ declare global {
              */
             errorformat?: "bc" | "html" | "none" | "plaintext" | "raw" | "wikitext";
             /**
-             * Language to use for warnings and errors. {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo `action=query&amp;meta=siteinfo&amp;siprop=languages`} returns a list of language codes. Specify `content` to use this wiki's content language or `uselang` to use the same value as the `uselang` parameter.
+             * Language to use for warnings and errors. {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo `action=query&meta=siteinfo&siprop=languages`} returns a list of language codes. Specify `content` to use this wiki's content language or `uselang` to use the same value as the `uselang` parameter.
              *
              * Defaults to `uselang`.
              */
@@ -366,7 +366,7 @@ declare global {
                      */
                     user: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -389,7 +389,7 @@ declare global {
                      */
                     reason?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -421,13 +421,13 @@ declare global {
                      */
                     aggregategroup?: string;
                     /**
-                     * Message group ID. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                     * Message group ID. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                      *
                      * @deprecated
                      */
                     group?: string;
                     /**
-                     * List of message group IDs. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                     * List of message group IDs. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                      */
                     groups?: string | string[];
                     /**
@@ -447,7 +447,7 @@ declare global {
                      */
                     groupsourcelanguagecode?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -559,7 +559,7 @@ declare global {
                      */
                     actionrestrictions?: OneOrMore<"create" | "move" | "thanks" | "upload">;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -620,7 +620,7 @@ declare global {
                      */
                     language: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -663,11 +663,11 @@ declare global {
                 interface ChangeAuthenticationData extends Params {
                     action: "changeauthenticationdata";
                     /**
-                     * Use this authentication request, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&amp;meta=authmanagerinfo`} with `amirequestsfor=change`.
+                     * Use this authentication request, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&meta=authmanagerinfo`} with `amirequestsfor=change`.
                      */
                     changeauthrequest: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -706,7 +706,7 @@ declare global {
                      */
                     bot?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -714,7 +714,7 @@ declare global {
                 }
 
                 /**
-                 * Check the validity of a token from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`}.
+                 * Check the validity of a token from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`}.
                  *
                  * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Checktoken
                  */
@@ -828,7 +828,7 @@ declare global {
                  *
                  * The general procedure to use this module is:
                  *
-                 * - Fetch the fields available from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&amp;meta=authmanagerinfo`} with `amirequestsfor=login`, and a `login` token from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`}.
+                 * - Fetch the fields available from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&meta=authmanagerinfo`} with `amirequestsfor=login`, and a `login` token from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`}.
                  * - Present the fields to the user, and obtain their submission.
                  * - Post to this module, supplying `loginreturnurl` and any relevant fields.
                  * - Check the `status` in the response.
@@ -842,7 +842,7 @@ declare global {
                 interface ClientLogin extends Params {
                     action: "clientlogin";
                     /**
-                     * Only use these authentication requests, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&amp;meta=authmanagerinfo`} with `amirequestsfor=login` or from a previous response from this module.
+                     * Only use these authentication requests, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&meta=authmanagerinfo`} with `amirequestsfor=login` or from a previous response from this module.
                      */
                     loginrequests?: string | string[];
                     /**
@@ -870,7 +870,7 @@ declare global {
                      */
                     logincontinue?: boolean;
                     /**
-                     * A "login" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "login" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -934,7 +934,7 @@ declare global {
                      */
                     summary?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -965,7 +965,7 @@ declare global {
                     /**
                      * Override content of the revision specified by `fromtitle`, `fromid` or `fromrev`.
                      *
-                     * This parameter specifies the slots that are to be modified. Use `fromtext-&#x7b;slot}`, `fromcontentmodel-&#x7b;slot}`, and `fromcontentformat-&#x7b;slot}` to specify content for each slot.
+                     * This parameter specifies the slots that are to be modified. Use `fromtext-{slot}`, `fromcontentmodel-{slot}`, and `fromcontentformat-{slot}` to specify content for each slot.
                      */
                     fromslots?: string | string[];
                     /**
@@ -973,11 +973,11 @@ declare global {
                      */
                     [k: `fromtext-${string}`]: string;
                     /**
-                     * When `fromtext-&#x7b;slot}` is the content of a single section, this is the section identifier. It will be merged into the revision specified by `fromtitle`, `fromid` or `fromrev` as if for a section edit.
+                     * When `fromtext-{slot}` is the content of a single section, this is the section identifier. It will be merged into the revision specified by `fromtitle`, `fromid` or `fromrev` as if for a section edit.
                      */
                     [k: `fromsection-${string}`]: string;
                     /**
-                     * Content serialization format of `fromtext-&#x7b;slot}`.
+                     * Content serialization format of `fromtext-{slot}`.
                      */
                     [k: `fromcontentformat-${string}`]:
                         | "application/json"
@@ -992,11 +992,11 @@ declare global {
                         | "text/x-wiki"
                         | "unknown/unknown";
                     /**
-                     * Content model of `fromtext-&#x7b;slot}`. If not supplied, it will be guessed based on the other parameters.
+                     * Content model of `fromtext-{slot}`. If not supplied, it will be guessed based on the other parameters.
                      */
                     [k: `fromcontentmodel-${string}`]: string;
                     /**
-                     * Do a pre-save transform on `fromtext-&#x7b;slot}`.
+                     * Do a pre-save transform on `fromtext-{slot}`.
                      */
                     frompst?: boolean;
                     /**
@@ -1053,7 +1053,7 @@ declare global {
                     /**
                      * Override content of the revision specified by `totitle`, `toid` or `torev`.
                      *
-                     * This parameter specifies the slots that are to be modified. Use `totext-&#x7b;slot}`, `tocontentmodel-&#x7b;slot}`, and `tocontentformat-&#x7b;slot}` to specify content for each slot.
+                     * This parameter specifies the slots that are to be modified. Use `totext-{slot}`, `tocontentmodel-{slot}`, and `tocontentformat-{slot}` to specify content for each slot.
                      */
                     toslots?: string | string[];
                     /**
@@ -1061,11 +1061,11 @@ declare global {
                      */
                     [k: `totext-${string}`]: string;
                     /**
-                     * When `totext-&#x7b;slot}` is the content of a single section, this is the section identifier. It will be merged into the revision specified by `totitle`, `toid` or `torev` as if for a section edit.
+                     * When `totext-{slot}` is the content of a single section, this is the section identifier. It will be merged into the revision specified by `totitle`, `toid` or `torev` as if for a section edit.
                      */
                     [k: `tosection-${string}`]: string;
                     /**
-                     * Content serialization format of `totext-&#x7b;slot}`.
+                     * Content serialization format of `totext-{slot}`.
                      */
                     [k: `tocontentformat-${string}`]:
                         | "application/json"
@@ -1080,7 +1080,7 @@ declare global {
                         | "text/x-wiki"
                         | "unknown/unknown";
                     /**
-                     * Content model of `totext-&#x7b;slot}`. If not supplied, it will be guessed based on the other parameters.
+                     * Content model of `totext-{slot}`. If not supplied, it will be guessed based on the other parameters.
                      */
                     [k: `tocontentmodel-${string}`]: string;
                     /**
@@ -1167,7 +1167,7 @@ declare global {
                  *
                  * The general procedure to use this module is:
                  *
-                 * - Fetch the fields available from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&amp;meta=authmanagerinfo`} with `amirequestsfor=create`, and a `createaccount` token from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`}.
+                 * - Fetch the fields available from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&meta=authmanagerinfo`} with `amirequestsfor=create`, and a `createaccount` token from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`}.
                  * - Present the fields to the user, and obtain their submission.
                  * - Post to this module, supplying `createreturnurl` and any relevant fields.
                  * - Check the `status` in the response.
@@ -1181,7 +1181,7 @@ declare global {
                 interface CreateAccount extends Params {
                     action: "createaccount";
                     /**
-                     * Only use these authentication requests, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&amp;meta=authmanagerinfo`} with `amirequestsfor=create` or from a previous response from this module.
+                     * Only use these authentication requests, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&meta=authmanagerinfo`} with `amirequestsfor=create` or from a previous response from this module.
                      */
                     createrequests?: string | string[];
                     /**
@@ -1197,7 +1197,7 @@ declare global {
                     /**
                      * Preserve state from a previous failed login attempt, if possible.
                      *
-                     * If {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&amp;meta=authmanagerinfo`} returned true for `hasprimarypreservedstate`, requests marked as `primary-required` should be omitted. If it returned a non-empty value for `preservedusername`, that username must be used for the `username` parameter.
+                     * If {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&meta=authmanagerinfo`} returned true for `hasprimarypreservedstate`, requests marked as `primary-required` should be omitted. If it returned a non-empty value for `preservedusername`, that username must be used for the `username` parameter.
                      */
                     createpreservestate?: boolean;
                     /**
@@ -1211,7 +1211,7 @@ declare global {
                      */
                     createcontinue?: boolean;
                     /**
-                     * A "createaccount" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "createaccount" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1232,7 +1232,7 @@ declare global {
                      */
                     reason?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1285,7 +1285,7 @@ declare global {
                      */
                     sourcetitle: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1340,7 +1340,7 @@ declare global {
                      */
                     cxversion: number;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1403,7 +1403,7 @@ declare global {
                      */
                     captchaword?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1458,7 +1458,7 @@ declare global {
                      */
                     targetcategories?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1477,7 +1477,7 @@ declare global {
                      */
                     translationid: number;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1510,7 +1510,7 @@ declare global {
                      */
                     to?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1523,7 +1523,7 @@ declare global {
                 interface CXToken extends Params {
                     action: "cxtoken";
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1580,11 +1580,11 @@ declare global {
                      */
                     unwatch?: boolean;
                     /**
-                     * The name of the old image to delete as provided by {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bimageinfo action=query&amp;prop=imageinfo&amp;iiprop=archivename}.
+                     * The name of the old image to delete as provided by {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bimageinfo action=query&prop=imageinfo&iiprop=archivename}.
                      */
                     oldimage?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1605,7 +1605,7 @@ declare global {
                      */
                     reason?: string;
                     /**
-                     * A "deleteglobalaccount" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "deleteglobalaccount" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1660,7 +1660,7 @@ declare global {
                      */
                     page: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1849,7 +1849,7 @@ declare global {
                      */
                     page: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1878,7 +1878,7 @@ declare global {
                      */
                     commentid: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1919,7 +1919,7 @@ declare global {
                      */
                     email?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1954,7 +1954,7 @@ declare global {
                      */
                     sections?: OneOrMore<"alert" | "message">;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -1998,7 +1998,7 @@ declare global {
                      */
                     unmute?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -2021,7 +2021,7 @@ declare global {
                      */
                     command: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -2080,11 +2080,11 @@ declare global {
                      */
                     bot?: boolean;
                     /**
-                     * ID of the base revision, used to detect edit conflicts. May be obtained through {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Brevisions action=query&amp;prop=revisions}. Self-conflicts cause the edit to fail unless basetimestamp is set.
+                     * ID of the base revision, used to detect edit conflicts. May be obtained through {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Brevisions action=query&prop=revisions}. Self-conflicts cause the edit to fail unless basetimestamp is set.
                      */
                     baserevid?: number;
                     /**
-                     * Timestamp of the base revision, used to detect edit conflicts. May be obtained through {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Brevisions action=query&amp;prop=revisions&amp;rvprop=timestamp}. Self-conflicts are ignored.
+                     * Timestamp of the base revision, used to detect edit conflicts. May be obtained through {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Brevisions action=query&prop=revisions&rvprop=timestamp}. Self-conflicts are ignored.
                      */
                     basetimestamp?: string;
                     /**
@@ -2171,7 +2171,7 @@ declare global {
                      */
                     contentmodel?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * The token should always be sent as the last parameter, or at least after the text parameter.
                      *
@@ -2251,7 +2251,7 @@ declare global {
                      */
                     watchlist?: "nochange" | "preferences" | "unwatch" | "watch";
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -2282,7 +2282,7 @@ declare global {
                      */
                     ccme?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -2672,7 +2672,7 @@ declare global {
                      */
                     archivename: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -2738,7 +2738,7 @@ declare global {
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/flow%2Bview-topic-history view-topic-history}**: View the revision history of a topic.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/flow%2Bview-topic-summary view-topic-summary}**: View a topic summary.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/flow%2Bview-topiclist view-topiclist}**: View a list of topics.
-                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/flow%2Bclose-open-topic close-open-topic}**: Deprecated. Deprecated in favor of {@link https://www.mediawiki.org/wiki/Special:ApiHelp/flow%2Block-topic action=flow&amp;submodule=lock-topic}.
+                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/flow%2Bclose-open-topic close-open-topic}**: Deprecated. Deprecated in favor of {@link https://www.mediawiki.org/wiki/Special:ApiHelp/flow%2Block-topic action=flow&submodule=lock-topic}.
                      */
                     submodule: string;
                     /**
@@ -2748,7 +2748,7 @@ declare global {
                      */
                     page?: string;
                     /**
-                     * A token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Defaults to an empty string.
                      */
@@ -2792,7 +2792,7 @@ declare global {
                      */
                     postid: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -2861,7 +2861,7 @@ declare global {
                      */
                     "local-allow-account-creation"?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -2908,7 +2908,7 @@ declare global {
                      */
                     optionvalue?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -2955,7 +2955,7 @@ declare global {
                      */
                     optionvalue?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3050,7 +3050,7 @@ declare global {
                      */
                     reason?: string;
                     /**
-                     * A "userrights" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "userrights" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * For compatibility, the token used in the web UI is also accepted.
                      *
@@ -3069,7 +3069,7 @@ declare global {
                 interface GroupReview extends Params {
                     action: "groupreview";
                     /**
-                     * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                     * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                      */
                     group: string;
                     /**
@@ -3083,7 +3083,7 @@ declare global {
                      */
                     state: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3096,7 +3096,7 @@ declare global {
                  * Calling this API will:
                  *
                  * - Reset the {@link https://www.mediawiki.org/wiki/wikitech:Add_Image "hasrecommendation:image" weighted tag} for the article, so the article is no longer returned in search results for image suggestions.
-                 * - Add the article to a short-lived cache, which the {@link https://www.mediawiki.org/wiki/Extension:GrowthExperiments GrowthExperiments} extension's ImageRecommendationFilter consults to decide if the article should be excluded from the user's suggested edits queue when accessed on {@link https://en.wikipedia.org/wiki/Special:Homepage Special:Homepage} or via the {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Bgrowthtasks action=query&amp;list=growthtasks} API.
+                 * - Add the article to a short-lived cache, which the {@link https://www.mediawiki.org/wiki/Extension:GrowthExperiments GrowthExperiments} extension's ImageRecommendationFilter consults to decide if the article should be excluded from the user's suggested edits queue when accessed on {@link https://en.wikipedia.org/wiki/Special:Homepage Special:Homepage} or via the {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Bgrowthtasks action=query&list=growthtasks} API.
                  * - Generate and send an event to EventGate to the {@link https://schema.wikimedia.org/#!/secondary/jsonschema/mediawiki/page/image-suggestions-feedback image-suggestion-feedback stream}. This allows improvements in the image suggestion pipeline, as the code in the pipeline can account for user feedback when generating recommendations.
                  * Further reading: {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Growth/Personalized_first_day/Structured_tasks/Add_an_image mediawiki.org}
                  *
@@ -3127,7 +3127,7 @@ declare global {
                      */
                     sectionnumber?: number;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3154,7 +3154,7 @@ declare global {
                      */
                     skipreason?: "already-praised" | "not-now" | "not-praiseworthy" | "other";
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3197,7 +3197,7 @@ declare global {
                      */
                     username?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3210,7 +3210,7 @@ declare global {
                 interface GrowthMentorDashboardUpdateData extends Params {
                     action: "growthmentordashboardupdatedata";
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3231,7 +3231,7 @@ declare global {
                      */
                     state: "disabled" | "enabled" | "optout";
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3258,7 +3258,7 @@ declare global {
                      */
                     reason?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3279,7 +3279,7 @@ declare global {
                      */
                     gesmentee: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3352,7 +3352,7 @@ declare global {
                      */
                     relevanttitle?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3414,7 +3414,7 @@ declare global {
                      * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Ballpages allpages}**: Enumerate all pages sequentially in a given namespace.
                      * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Ballredirects allredirects}**: List all redirects to a namespace.
                      * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Ballrevisions allrevisions}**: List all revisions.
-                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using {{x}}), including non-existing.
                      * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bbacklinks backlinks}**: Find all pages that link to the given page.
                      * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bcategories categories}**: List all categories the pages belong to.
                      * - **{@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Bcategorymembers categorymembers}**: List all pages in a given category.
@@ -3453,7 +3453,7 @@ declare global {
                      */
                     converttitles?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3514,7 +3514,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3606,7 +3606,7 @@ declare global {
                  *
                  * The general procedure to use this module is:
                  *
-                 * - Fetch the fields available from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&amp;meta=authmanagerinfo`} with `amirequestsfor=link`, and a `csrf` token from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`}.
+                 * - Fetch the fields available from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&meta=authmanagerinfo`} with `amirequestsfor=link`, and a `csrf` token from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`}.
                  * - Present the fields to the user, and obtain their submission.
                  * - Post to this module, supplying `linkreturnurl` and any relevant fields.
                  * - Check the `status` in the response.
@@ -3620,7 +3620,7 @@ declare global {
                 interface LinkAccount extends Params {
                     action: "linkaccount";
                     /**
-                     * Only use these authentication requests, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&amp;meta=authmanagerinfo`} with `amirequestsfor=link` or from a previous response from this module.
+                     * Only use these authentication requests, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&meta=authmanagerinfo`} with `amirequestsfor=link` or from a previous response from this module.
                      */
                     linkrequests?: string | string[];
                     /**
@@ -3644,7 +3644,7 @@ declare global {
                      */
                     linkcontinue?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3675,7 +3675,7 @@ declare global {
                      */
                     lgdomain?: string;
                     /**
-                     * A "login" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "login" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3690,7 +3690,7 @@ declare global {
                 interface Logout extends Params {
                     action: "logout";
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3719,11 +3719,11 @@ declare global {
                      */
                     title?: string;
                     /**
-                     * Group Id of the message being resolved. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                     * Group Id of the message being resolved. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                      */
                     group: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3738,7 +3738,7 @@ declare global {
                 interface ManageMessageGroups extends Params {
                     action: "managemessagegroups";
                     /**
-                     * Group Id. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                     * Group Id. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                      */
                     groupId: string;
                     /**
@@ -3764,7 +3764,7 @@ declare global {
                      */
                     changesetModified: number;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3804,7 +3804,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3861,7 +3861,7 @@ declare global {
                      */
                     transclusion?: "no" | "yes";
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3892,7 +3892,7 @@ declare global {
                      */
                     "page-message"?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3948,7 +3948,7 @@ declare global {
                      */
                     reason?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -3963,7 +3963,7 @@ declare global {
                 interface MessageGroupSubscription extends Params {
                     action: "messagegroupsubscription";
                     /**
-                     * Message group ID for the group being subscribed to. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                     * Message group ID for the group being subscribed to. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                      */
                     groupId: string;
                     /**
@@ -3971,7 +3971,7 @@ declare global {
                      */
                     operation: "subscribe" | "unsubscribe";
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -4034,7 +4034,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -4055,7 +4055,7 @@ declare global {
                      */
                     do: "subscribe" | "unsubscribe";
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -4078,7 +4078,7 @@ declare global {
                      */
                     data: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -4207,7 +4207,7 @@ declare global {
                      */
                     global?: "ignore" | "override" | "update";
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -4232,7 +4232,7 @@ declare global {
                      */
                     enqueue?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -4454,7 +4454,7 @@ declare global {
                      */
                     show_predicted_issues_copyvio?: boolean;
                     /**
-                     * Whether to include&#160;only pages created by bots.
+                     * Whether to include only pages created by bots.
                      */
                     showbots?: boolean;
                     /**
@@ -4490,31 +4490,31 @@ declare global {
                      */
                     afc_state?: number;
                     /**
-                     * Whether to include&#160;only pages with no category.
+                     * Whether to include only pages with no category.
                      */
                     no_category?: boolean;
                     /**
-                     * Whether to include&#160;only pages with no references.
+                     * Whether to include only pages with no references.
                      */
                     unreferenced?: boolean;
                     /**
-                     * Whether to include&#160;only pages with no inbound links.
+                     * Whether to include only pages with no inbound links.
                      */
                     no_inbound_links?: boolean;
                     /**
-                     * Whether to include&#160;only pages that were previously deleted.
+                     * Whether to include only pages that were previously deleted.
                      */
                     recreated?: boolean;
                     /**
-                     * Whether to include&#160;only pages created by non-autoconfirmed users.
+                     * Whether to include only pages created by non-autoconfirmed users.
                      */
                     non_autoconfirmed_users?: boolean;
                     /**
-                     * Whether to include&#160;only pages created by newly autoconfirmed users.
+                     * Whether to include only pages created by newly autoconfirmed users.
                      */
                     learners?: boolean;
                     /**
-                     * Whether to include&#160;only pages created by blocked users.
+                     * Whether to include only pages created by blocked users.
                      */
                     blocked_users?: boolean;
                     /**
@@ -4551,7 +4551,7 @@ declare global {
                      */
                     untag?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -4568,7 +4568,7 @@ declare global {
                      */
                     pageid: number;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -4699,7 +4699,7 @@ declare global {
                      * - **revid**: Adds the revision ID of the parsed page.
                      * - **displaytitle**: Adds the title of the parsed wikitext.
                      * - **subtitle**: Adds the page subtitle for the parsed page.
-                     * - **headhtml**: Gives parsed doctype, opening `&lt;html&gt;`, `&lt;head&gt;` element and opening `&lt;body&gt;` of the page.
+                     * - **headhtml**: Gives parsed doctype, opening `<html>`, `<head>` element and opening `<body>` of the page.
                      * - **modules**: Gives the ResourceLoader modules used on the page. To load, use `mw.loader.using()`. Either `jsconfigvars` or `encodedjsconfigvars` must be requested jointly with `modules`.
                      * - **jsconfigvars**: Gives the JavaScript configuration variables specific to the page. To apply, use `mw.config.set()`.
                      * - **encodedjsconfigvars**: Gives the JavaScript configuration variables specific to the page as a JSON string.
@@ -4712,7 +4712,7 @@ declare global {
                      * - **parsetree**: The XML parse tree of revision content (requires content model `wikitext`)
                      * - **parsewarnings**: Gives the warnings that occurred while parsing content (as wikitext).
                      * - **parsewarningshtml**: Gives the warnings that occurred while parsing content (as HTML).
-                     * - **headitems**: Deprecated. Gives items to put in the `&lt;head&gt;` of the page.
+                     * - **headitems**: Deprecated. Gives items to put in the `<head>` of the page.
                      *
                      * Defaults to `text`, `langlinks`, `categories`, `links`, `templates`, `images`, `externallinks`, `sections`, `revid`, `displaytitle`, `iwlinks`, `properties`, and `parsewarnings`.
                      */
@@ -4932,7 +4932,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "patrol" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "patrol" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -4997,7 +4997,7 @@ declare global {
                      */
                     watchlistexpiry?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -5048,7 +5048,7 @@ declare global {
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages allpages}**: Enumerate all pages sequentially in a given namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballredirects allredirects}**: List all redirects to a namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballrevisions allrevisions}**: List all revisions.
-                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using {{x}}), including non-existing.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bbacklinks backlinks}**: Find all pages that link to the given page.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bcategories categories}**: List all categories the pages belong to.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bcategorymembers categorymembers}**: List all pages in a given category.
@@ -5157,7 +5157,7 @@ declare global {
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages allpages}**: Enumerate all pages sequentially in a given namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballredirects allredirects}**: List all redirects to a namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballrevisions allrevisions}**: List all revisions.
-                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using {{x}}), including non-existing.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballusers allusers}**: Enumerate all registered users.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bbacklinks backlinks}**: Find all pages that link to the given page.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bbetafeatures betafeatures}**: List all BetaFeatures
@@ -5290,7 +5290,7 @@ declare global {
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages allpages}**: Enumerate all pages sequentially in a given namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballredirects allredirects}**: List all redirects to a namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballrevisions allrevisions}**: List all revisions.
-                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using {{x}}), including non-existing.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bbacklinks backlinks}**: Find all pages that link to the given page.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bcategories categories}**: List all categories the pages belong to.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bcategorymembers categorymembers}**: List all pages in a given category.
@@ -5357,7 +5357,7 @@ declare global {
                      */
                     command: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -5372,11 +5372,11 @@ declare global {
                 interface RemoveAuthenticationData extends Params {
                     action: "removeauthenticationdata";
                     /**
-                     * Use this authentication request, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&amp;meta=authmanagerinfo`} with `amirequestsfor=remove`.
+                     * Use this authentication request, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&meta=authmanagerinfo`} with `amirequestsfor=remove`.
                      */
                     request: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -5399,7 +5399,7 @@ declare global {
                      */
                     email?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -5436,7 +5436,7 @@ declare global {
                      */
                     flag_accuracy?: "0" | "1" | "2";
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -5485,7 +5485,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -5538,7 +5538,7 @@ declare global {
                      */
                     watchlistexpiry?: string;
                     /**
-                     * A "rollback" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "rollback" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * For compatibility, the token used in the web UI is also accepted.
                      *
@@ -5603,7 +5603,7 @@ declare global {
                      */
                     clear?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -5638,7 +5638,7 @@ declare global {
                      */
                     language?: string;
                     /**
-                     * The group ID to search string in. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                     * The group ID to search string in. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                      *
                      * Defaults to an empty string.
                      */
@@ -5718,7 +5718,7 @@ declare global {
                      */
                     statecheck?: string;
                     /**
-                     * A "setglobalaccountstatus" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "setglobalaccountstatus" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -5779,7 +5779,7 @@ declare global {
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages allpages}**: Enumerate all pages sequentially in a given namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballredirects allredirects}**: List all redirects to a namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballrevisions allrevisions}**: List all revisions.
-                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using {{x}}), including non-existing.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bbacklinks backlinks}**: Find all pages that link to the given page.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bcategories categories}**: List all categories the pages belong to.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bcategorymembers categorymembers}**: List all pages in a given category.
@@ -5822,7 +5822,7 @@ declare global {
                      */
                     converttitles?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -5857,7 +5857,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -5982,7 +5982,7 @@ declare global {
                      */
                     title: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6049,7 +6049,7 @@ declare global {
                      */
                     baserevid: number;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6100,7 +6100,7 @@ declare global {
                      */
                     voteid: number;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6125,7 +6125,7 @@ declare global {
                      */
                     sectionid: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6184,7 +6184,7 @@ declare global {
                      */
                     progress: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://en.wikipedia.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6229,7 +6229,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6282,7 +6282,7 @@ declare global {
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages allpages}**: Enumerate all pages sequentially in a given namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballredirects allredirects}**: List all redirects to a namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballrevisions allrevisions}**: List all revisions.
-                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using {{x}}), including non-existing.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bbacklinks backlinks}**: Find all pages that link to the given page.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bcategories categories}**: List all categories the pages belong to.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bcategorymembers categorymembers}**: List all pages in a given category.
@@ -6342,7 +6342,7 @@ declare global {
                      */
                     log?: number;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6385,7 +6385,7 @@ declare global {
                         | "setsubject"
                         | "split";
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6449,7 +6449,7 @@ declare global {
                 }
 
                 /**
-                 * Provides timed text content for usage by &lt;track&gt; elements
+                 * Provides timed text content for usage by <track> elements
                  *
                  * @private
                  * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TimedMediaHandler
@@ -6505,7 +6505,7 @@ declare global {
                 /**
                  * Get tokens for data-modifying actions.
                  *
-                 * This module is deprecated in favor of {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}.
+                 * This module is deprecated in favor of {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens action=query&meta=tokens}.
                  *
                  * @deprecated
                  */
@@ -6540,11 +6540,11 @@ declare global {
                      */
                     title: string;
                     /**
-                     * The transcode key you wish to reset. Fetch from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btranscodestatus action=query&amp;prop=transcodestatus}.
+                     * The transcode key you wish to reset. Fetch from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btranscodestatus action=query&prop=transcodestatus}.
                      */
                     transcodekey?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6647,7 +6647,7 @@ declare global {
                      */
                     revision: number;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6670,7 +6670,7 @@ declare global {
                      */
                     days: number;
                     /**
-                     * List of groups to fetch statistics for. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                     * List of groups to fetch statistics for. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                      */
                     group?: string | string[];
                     /**
@@ -6737,7 +6737,7 @@ declare global {
                      */
                     languagecode: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6784,7 +6784,7 @@ declare global {
                      */
                     watchlistexpiry?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6837,7 +6837,7 @@ declare global {
                      */
                     watchlistexpiry?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6852,11 +6852,11 @@ declare global {
                 interface UnlinkAccount extends Params {
                     action: "unlinkaccount";
                     /**
-                     * Use this authentication request, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&amp;meta=authmanagerinfo`} with `amirequestsfor=unlink`.
+                     * Use this authentication request, by the `id` returned from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bauthmanagerinfo `action=query&meta=authmanagerinfo`} with `amirequestsfor=unlink`.
                      */
                     request: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -6959,7 +6959,7 @@ declare global {
                      */
                     checkstatus?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -7004,7 +7004,7 @@ declare global {
                      */
                     reason?: string;
                     /**
-                     * A "userrights" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "userrights" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * For compatibility, the token used in the web UI is also accepted.
                      *
@@ -7129,7 +7129,7 @@ declare global {
                      */
                     page: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -7282,7 +7282,7 @@ declare global {
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages allpages}**: Enumerate all pages sequentially in a given namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballredirects allredirects}**: List all redirects to a namespace.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballrevisions allrevisions}**: List all revisions.
-                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Balltransclusions alltransclusions}**: List all transclusions (pages embedded using {{x}}), including non-existing.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bbacklinks backlinks}**: Find all pages that link to the given page.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bcategories categories}**: List all categories the pages belong to.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bcategorymembers categorymembers}**: List all pages in a given category.
@@ -7325,7 +7325,7 @@ declare global {
                      */
                     converttitles?: boolean;
                     /**
-                     * A "watch" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "watch" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -7440,7 +7440,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -7486,7 +7486,7 @@ declare global {
                      */
                     to: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -7554,7 +7554,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -7823,7 +7823,7 @@ declare global {
                      */
                     returntoanchor?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -7874,7 +7874,7 @@ declare global {
                      */
                     returntoanchor?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -7925,7 +7925,7 @@ declare global {
                      */
                     returntoanchor?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -7976,7 +7976,7 @@ declare global {
                      */
                     returntoanchor?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8025,7 +8025,7 @@ declare global {
                      */
                     fromtitle: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8079,7 +8079,7 @@ declare global {
                      */
                     returntoanchor?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8126,7 +8126,7 @@ declare global {
                      */
                     returntoanchor?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8173,7 +8173,7 @@ declare global {
                      */
                     returntoanchor?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8211,7 +8211,7 @@ declare global {
                      */
                     bot?: boolean;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8326,7 +8326,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8381,7 +8381,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8436,7 +8436,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8564,7 +8564,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8630,7 +8630,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8693,7 +8693,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8765,7 +8765,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8840,7 +8840,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8914,7 +8914,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -8981,7 +8981,7 @@ declare global {
                      */
                     "tags"?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -9053,7 +9053,7 @@ declare global {
                      */
                     tags?: string | string[];
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikidata.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -9205,7 +9205,7 @@ declare global {
                      */
                     zobject: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.wikifunctions.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.wikifunctions.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -9294,7 +9294,7 @@ declare global {
                      */
                     message?: string;
                     /**
-                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                     * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                      *
                      * Sensitive parameter.
                      */
@@ -9609,7 +9609,7 @@ declare global {
 
                 namespace Flow.Submodule {
                     /**
-                     * Deprecated in favor of {@link https://www.mediawiki.org/wiki/Special:ApiHelp/flow%2Block-topic action=flow&amp;submodule=lock-topic}.
+                     * Deprecated in favor of {@link https://www.mediawiki.org/wiki/Special:ApiHelp/flow%2Block-topic action=flow&submodule=lock-topic}.
                      *
                      * @deprecated
                      * @see https://www.mediawiki.org/wiki/Extension:Flow/API#lock-topic
@@ -9625,7 +9625,7 @@ declare global {
                          */
                         cotreason: string;
                         /**
-                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                          *
                          * Sensitive parameter.
                          */
@@ -9654,7 +9654,7 @@ declare global {
                          */
                         ehformat?: "html" | "wikitext";
                         /**
-                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                          *
                          * Sensitive parameter.
                          */
@@ -9687,7 +9687,7 @@ declare global {
                          */
                         epformat?: "html" | "wikitext";
                         /**
-                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                          *
                          * Sensitive parameter.
                          */
@@ -9710,7 +9710,7 @@ declare global {
                          */
                         etcontent: string;
                         /**
-                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                          *
                          * Sensitive parameter.
                          */
@@ -9739,7 +9739,7 @@ declare global {
                          */
                         etsformat?: "html" | "wikitext";
                         /**
-                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                          *
                          * Sensitive parameter.
                          */
@@ -9762,7 +9762,7 @@ declare global {
                          */
                         cotreason: string;
                         /**
-                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                          *
                          * Sensitive parameter.
                          */
@@ -9797,7 +9797,7 @@ declare global {
                          */
                         mppostId: string;
                         /**
-                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                          *
                          * Sensitive parameter.
                          */
@@ -9828,7 +9828,7 @@ declare global {
                          */
                         mtreason: string;
                         /**
-                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                          *
                          * Sensitive parameter.
                          */
@@ -9857,7 +9857,7 @@ declare global {
                          */
                         ntformat?: "html" | "wikitext";
                         /**
-                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                          *
                          * Sensitive parameter.
                          */
@@ -9886,7 +9886,7 @@ declare global {
                          */
                         repformat?: "html" | "wikitext";
                         /**
-                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                         * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                          *
                          * Sensitive parameter.
                          */
@@ -10152,7 +10152,7 @@ declare global {
                          * Which properties to get:
                          *
                          * - **size**: Adds number of pages in the category.
-                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                          *
                          * Defaults to an empty string.
                          */
@@ -10894,7 +10894,7 @@ declare global {
                     }
 
                     /**
-                     * List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * List all transclusions (pages embedded using {{x}}), including non-existing.
                      *
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions
                      */
@@ -11009,7 +11009,7 @@ declare global {
                          *
                          * - **sortkey**: Adds the sortkey (hexadecimal string) and sortkey prefix (human-readable part) for the category.
                          * - **timestamp**: Adds timestamp of when the category was added.
-                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                          */
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                         /**
@@ -11747,7 +11747,7 @@ declare global {
                     interface PagesWithProp extends ImageRotate {
                         generator?: "pageswithprop";
                         /**
-                         * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&amp;list=pagepropnames`} returns page property names in use).
+                         * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&list=pagepropnames`} returns page property names in use).
                          */
                         gpwppropname: string;
                         /**
@@ -11781,7 +11781,7 @@ declare global {
                     /**
                      * Perform a prefix search for page titles.
                      *
-                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&amp;list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
+                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
                      *
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch
                      */
@@ -12040,7 +12040,7 @@ declare global {
                             | "userid"
                         >;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`} instead.
                          *
                          * @deprecated
                          */
@@ -12741,7 +12741,7 @@ declare global {
                          * Which properties to get:
                          *
                          * - **size**: Adds number of pages in the category.
-                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                          *
                          * Defaults to an empty string.
                          */
@@ -13483,7 +13483,7 @@ declare global {
                     }
 
                     /**
-                     * List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * List all transclusions (pages embedded using {{x}}), including non-existing.
                      *
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions
                      */
@@ -13613,7 +13613,7 @@ declare global {
                          *
                          * - **sortkey**: Adds the sortkey (hexadecimal string) and sortkey prefix (human-readable part) for the category.
                          * - **timestamp**: Adds timestamp of when the category was added.
-                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                          */
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                         /**
@@ -14694,7 +14694,7 @@ declare global {
                     interface MessageCollection extends Purge {
                         generator?: "messagecollection";
                         /**
-                         * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                         * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                          */
                         gmcgroup: string;
                         /**
@@ -14724,8 +14724,8 @@ declare global {
                          * - **hastranslation**: Messages which have a translation regardless if it is fuzzy or not.
                          * - **translated**: Messages which have a translation which is not fuzzy.
                          * - **changed**: Messages which have been translated or changed since last export.
-                         * - **reviewer&#58;N**: Messages where the user number `N` is among reviewers.
-                         * - **last-translator&#58;N**: Messages where the user number `N` is the last translator.
+                         * - **reviewer:N**: Messages where the user number `N` is among reviewers.
+                         * - **last-translator:N**: Messages where the user number `N` is the last translator.
                          *
                          * Defaults to `!optional` and `!ignored`.
                          */
@@ -14734,7 +14734,7 @@ declare global {
                          * Which properties to get:
                          *
                          * - **definition**: Message definition.
-                         * - **translation**: Current translation (without&#160;!!FUZZY!! string if any, use the tags to check for outdated or broken translations).
+                         * - **translation**: Current translation (without !!FUZZY!! string if any, use the tags to check for outdated or broken translations).
                          * - **tags**: Message tags, like optional, ignored and fuzzy.
                          * - **properties**: Message properties, like status, revision, last-translator. Can vary between messages.
                          * - **revision**: Deprecated. Use mcprop=properties.
@@ -14754,7 +14754,7 @@ declare global {
                     interface MostViewed extends Purge {
                         generator?: "mostviewed";
                         /**
-                         * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&amp;meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
+                         * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
                          *
                          * - **pageviews**: Plain pageviews.
                          *
@@ -14836,7 +14836,7 @@ declare global {
                     interface PagesWithProp extends Purge {
                         generator?: "pageswithprop";
                         /**
-                         * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&amp;list=pagepropnames`} returns page property names in use).
+                         * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&list=pagepropnames`} returns page property names in use).
                          */
                         gpwppropname: string;
                         /**
@@ -14870,7 +14870,7 @@ declare global {
                     /**
                      * Perform a prefix search for page titles.
                      *
-                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&amp;list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
+                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
                      *
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch
                      */
@@ -15229,7 +15229,7 @@ declare global {
                             | "userid"
                         >;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`} instead.
                          *
                          * @deprecated
                          */
@@ -16125,7 +16125,7 @@ declare global {
                              *
                              * - **sortkey**: Adds the sortkey (hexadecimal string) and sortkey prefix (human-readable part) for the category.
                              * - **timestamp**: Adds timestamp of when the category was added.
-                             * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                             * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                              */
                             clprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                             /**
@@ -16638,7 +16638,7 @@ declare global {
                              *
                              * - **plain**: No formatting.
                              * - **wiki**: Wikitext-style formatting (== like this ==).
-                             * - **raw**: This module's internal representation (section titles prefixed with &lt;ASCII 1&gt;&lt;ASCII 2&gt;&lt;section level&gt;&lt;ASCII 2&gt;&lt;ASCII 1&gt;).
+                             * - **raw**: This module's internal representation (section titles prefixed with <ASCII 1><ASCII 2><section level><ASCII 2><ASCII 1>).
                              *
                              * Defaults to `wiki`.
                              */
@@ -17030,7 +17030,7 @@ declare global {
                              */
                             ineditintrocustom?: string;
                             /**
-                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens} instead.
+                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens action=query&meta=tokens} instead.
                              *
                              * @deprecated
                              */
@@ -17331,7 +17331,7 @@ declare global {
                              */
                             ppcontinue?: string;
                             /**
-                             * Only list these page properties ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&amp;list=pagepropnames`} returns page property names in use). Useful for checking whether pages use a certain page property.
+                             * Only list these page properties ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&list=pagepropnames`} returns page property names in use). Useful for checking whether pages use a certain page property.
                              */
                             ppprop?: string | string[];
                         }
@@ -17361,13 +17361,13 @@ declare global {
                         /**
                          * Shows per-page pageview data (the number of daily pageviews for each of the last `pvipdays` days).
                          *
-                         * The result format is page title (with underscores) =&gt; date (Ymd) =&gt; count.
+                         * The result format is page title (with underscores) => date (Ymd) => count.
                          *
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo
                          */
                         interface PageViews extends Query {
                             /**
-                             * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&amp;meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
+                             * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
                              *
                              * - **pageviews**: Plain pageviews.
                              *
@@ -18111,7 +18111,7 @@ declare global {
                              * Which properties to get:
                              *
                              * - **size**: Adds number of pages in the category.
-                             * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                             * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                              *
                              * Defaults to an empty string.
                              */
@@ -18846,7 +18846,7 @@ declare global {
                         }
 
                         /**
-                         * List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                         * List all transclusions (pages embedded using {{x}}), including non-existing.
                          *
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions
                          */
@@ -19327,7 +19327,7 @@ declare global {
                              */
                             cuxff?: string;
                             /**
-                             * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&amp;meta=tokens}
+                             * A "csrf" token retrieved from {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Btokens action=query&meta=tokens}
                              *
                              * Sensitive parameter.
                              */
@@ -20729,7 +20729,7 @@ declare global {
                          */
                         interface MessageCollection extends Query {
                             /**
-                             * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                             * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                              */
                             mcgroup: string;
                             /**
@@ -20759,8 +20759,8 @@ declare global {
                              * - **hastranslation**: Messages which have a translation regardless if it is fuzzy or not.
                              * - **translated**: Messages which have a translation which is not fuzzy.
                              * - **changed**: Messages which have been translated or changed since last export.
-                             * - **reviewer&#58;N**: Messages where the user number `N` is among reviewers.
-                             * - **last-translator&#58;N**: Messages where the user number `N` is the last translator.
+                             * - **reviewer:N**: Messages where the user number `N` is among reviewers.
+                             * - **last-translator:N**: Messages where the user number `N` is the last translator.
                              *
                              * Defaults to `!optional` and `!ignored`.
                              */
@@ -20769,7 +20769,7 @@ declare global {
                              * Which properties to get:
                              *
                              * - **definition**: Message definition.
-                             * - **translation**: Current translation (without&#160;!!FUZZY!! string if any, use the tags to check for outdated or broken translations).
+                             * - **translation**: Current translation (without !!FUZZY!! string if any, use the tags to check for outdated or broken translations).
                              * - **tags**: Message tags, like optional, ignored and fuzzy.
                              * - **properties**: Message properties, like status, revision, last-translator. Can vary between messages.
                              * - **revision**: Deprecated. Use mcprop=properties.
@@ -20796,7 +20796,7 @@ declare global {
                          */
                         interface MostViewed extends Query {
                             /**
-                             * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&amp;meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
+                             * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
                              *
                              * - **pageviews**: Plain pageviews.
                              *
@@ -20931,7 +20931,7 @@ declare global {
                          */
                         interface PagesWithProp extends Query {
                             /**
-                             * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&amp;list=pagepropnames`} returns page property names in use).
+                             * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&list=pagepropnames`} returns page property names in use).
                              */
                             pwppropname: string;
                             /**
@@ -20965,7 +20965,7 @@ declare global {
                         /**
                          * Perform a prefix search for page titles.
                          *
-                         * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&amp;list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
+                         * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
                          *
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch
                          */
@@ -21328,7 +21328,7 @@ declare global {
                                 | "userid"
                             >;
                             /**
-                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`} instead.
                              *
                              * @deprecated
                              */
@@ -21813,7 +21813,7 @@ declare global {
                              * - **emailable**: Tags if the user can and wants to receive email through {@link https://www.mediawiki.org/wiki/Special:EmailUser Special:Emailuser}.
                              * - **gender**: Tags the gender of the user. Returns "male", "female", or "unknown".
                              * - **centralids**: Adds the central IDs and attachment status for the user.
-                             * - **cancreate**: Indicates whether an account for valid but unregistered usernames can be created. To check whether the current user can perform the account creation, use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Buserinfo `action=query&amp;meta=userinfo&amp;uiprop=cancreateaccount`}.
+                             * - **cancreate**: Indicates whether an account for valid but unregistered usernames can be created. To check whether the current user can perform the account creation, use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Buserinfo `action=query&meta=userinfo&uiprop=cancreateaccount`}.
                              */
                             usprop?: OneOrMore<
                                 | "blockinfo"
@@ -21841,7 +21841,7 @@ declare global {
                              */
                             ususerids?: number | number[];
                             /**
-                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`} instead.
                              *
                              * @deprecated
                              */
@@ -22619,7 +22619,7 @@ declare global {
                              */
                             lslanguage: string;
                             /**
-                             * Message group ID. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                             * Message group ID. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                              */
                             lsgroup?: string;
                         }
@@ -22635,7 +22635,7 @@ declare global {
                          */
                         interface ManageMessageGroups extends Query {
                             /**
-                             * Group Id. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                             * Group Id. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                              */
                             mmggroupId: string;
                             /**
@@ -22739,7 +22739,7 @@ declare global {
                              */
                             mgsoffset?: string;
                             /**
-                             * Message group ID. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                             * Message group ID. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                              */
                             mgsgroup: string;
                             /**
@@ -23039,13 +23039,13 @@ declare global {
                         /**
                          * Shows sitewide pageview data (daily pageview totals for each of the last `pvisdays` days).
                          *
-                         * The result format is date (Ymd) =&gt; count.
+                         * The result format is date (Ymd) => count.
                          *
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:PageViewInfo
                          */
                         interface SiteViews extends Query {
                             /**
-                             * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&amp;meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
+                             * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
                              *
                              * - **pageviews**: Plain pageviews.
                              * - **uniques**: Unique visitors.
@@ -23136,7 +23136,7 @@ declare global {
                              * - **unreadcount**: Adds the count of unread pages on the user's watchlist (maximum 999; returns `1000+` if more).
                              * - **centralids**: Adds the central IDs and attachment status for the user.
                              * - **latestcontrib**: Adds the date of user's latest contribution.
-                             * - **cancreateaccount**: Indicates whether the user is allowed to create accounts. To check whether some specific account can be created, use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Busers `action=query&amp;list=users&amp;usprop=cancreate`}.
+                             * - **cancreateaccount**: Indicates whether the user is allowed to create accounts. To check whether some specific account can be created, use {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Busers `action=query&list=users&usprop=cancreate`}.
                              */
                             uiprop?: string | string[];
                             /**
@@ -23253,7 +23253,7 @@ declare global {
                              * Which properties to get:
                              *
                              * - **size**: Adds number of pages in the category.
-                             * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                             * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                              *
                              * Defaults to an empty string.
                              */
@@ -23995,7 +23995,7 @@ declare global {
                         }
 
                         /**
-                         * List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                         * List all transclusions (pages embedded using {{x}}), including non-existing.
                          *
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions
                          */
@@ -24125,7 +24125,7 @@ declare global {
                              *
                              * - **sortkey**: Adds the sortkey (hexadecimal string) and sortkey prefix (human-readable part) for the category.
                              * - **timestamp**: Adds timestamp of when the category was added.
-                             * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                             * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                              */
                             gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                             /**
@@ -25212,7 +25212,7 @@ declare global {
                         interface MessageCollection extends Query {
                             generator?: "messagecollection";
                             /**
-                             * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                             * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                              */
                             gmcgroup: string;
                             /**
@@ -25242,8 +25242,8 @@ declare global {
                              * - **hastranslation**: Messages which have a translation regardless if it is fuzzy or not.
                              * - **translated**: Messages which have a translation which is not fuzzy.
                              * - **changed**: Messages which have been translated or changed since last export.
-                             * - **reviewer&#58;N**: Messages where the user number `N` is among reviewers.
-                             * - **last-translator&#58;N**: Messages where the user number `N` is the last translator.
+                             * - **reviewer:N**: Messages where the user number `N` is among reviewers.
+                             * - **last-translator:N**: Messages where the user number `N` is the last translator.
                              *
                              * Defaults to `!optional` and `!ignored`.
                              */
@@ -25252,7 +25252,7 @@ declare global {
                              * Which properties to get:
                              *
                              * - **definition**: Message definition.
-                             * - **translation**: Current translation (without&#160;!!FUZZY!! string if any, use the tags to check for outdated or broken translations).
+                             * - **translation**: Current translation (without !!FUZZY!! string if any, use the tags to check for outdated or broken translations).
                              * - **tags**: Message tags, like optional, ignored and fuzzy.
                              * - **properties**: Message properties, like status, revision, last-translator. Can vary between messages.
                              * - **revision**: Deprecated. Use mcprop=properties.
@@ -25272,7 +25272,7 @@ declare global {
                         interface MostViewed extends Query {
                             generator?: "mostviewed";
                             /**
-                             * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&amp;meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
+                             * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
                              *
                              * - **pageviews**: Plain pageviews.
                              *
@@ -25354,7 +25354,7 @@ declare global {
                         interface PagesWithProp extends Query {
                             generator?: "pageswithprop";
                             /**
-                             * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&amp;list=pagepropnames`} returns page property names in use).
+                             * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&list=pagepropnames`} returns page property names in use).
                              */
                             gpwppropname: string;
                             /**
@@ -25388,7 +25388,7 @@ declare global {
                         /**
                          * Perform a prefix search for page titles.
                          *
-                         * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&amp;list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
+                         * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
                          *
                          * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch
                          */
@@ -25747,7 +25747,7 @@ declare global {
                                 | "userid"
                             >;
                             /**
-                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                             * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`} instead.
                              *
                              * @deprecated
                              */
@@ -26821,7 +26821,7 @@ declare global {
                          * Which properties to get:
                          *
                          * - **size**: Adds number of pages in the category.
-                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                          *
                          * Defaults to an empty string.
                          */
@@ -27563,7 +27563,7 @@ declare global {
                     }
 
                     /**
-                     * List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * List all transclusions (pages embedded using {{x}}), including non-existing.
                      *
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions
                      */
@@ -27693,7 +27693,7 @@ declare global {
                          *
                          * - **sortkey**: Adds the sortkey (hexadecimal string) and sortkey prefix (human-readable part) for the category.
                          * - **timestamp**: Adds timestamp of when the category was added.
-                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                          */
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                         /**
@@ -28774,7 +28774,7 @@ declare global {
                     interface MessageCollection extends SetNotificationTimestamp {
                         generator?: "messagecollection";
                         /**
-                         * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                         * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                          */
                         gmcgroup: string;
                         /**
@@ -28804,8 +28804,8 @@ declare global {
                          * - **hastranslation**: Messages which have a translation regardless if it is fuzzy or not.
                          * - **translated**: Messages which have a translation which is not fuzzy.
                          * - **changed**: Messages which have been translated or changed since last export.
-                         * - **reviewer&#58;N**: Messages where the user number `N` is among reviewers.
-                         * - **last-translator&#58;N**: Messages where the user number `N` is the last translator.
+                         * - **reviewer:N**: Messages where the user number `N` is among reviewers.
+                         * - **last-translator:N**: Messages where the user number `N` is the last translator.
                          *
                          * Defaults to `!optional` and `!ignored`.
                          */
@@ -28814,7 +28814,7 @@ declare global {
                          * Which properties to get:
                          *
                          * - **definition**: Message definition.
-                         * - **translation**: Current translation (without&#160;!!FUZZY!! string if any, use the tags to check for outdated or broken translations).
+                         * - **translation**: Current translation (without !!FUZZY!! string if any, use the tags to check for outdated or broken translations).
                          * - **tags**: Message tags, like optional, ignored and fuzzy.
                          * - **properties**: Message properties, like status, revision, last-translator. Can vary between messages.
                          * - **revision**: Deprecated. Use mcprop=properties.
@@ -28834,7 +28834,7 @@ declare global {
                     interface MostViewed extends SetNotificationTimestamp {
                         generator?: "mostviewed";
                         /**
-                         * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&amp;meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
+                         * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
                          *
                          * - **pageviews**: Plain pageviews.
                          *
@@ -28916,7 +28916,7 @@ declare global {
                     interface PagesWithProp extends SetNotificationTimestamp {
                         generator?: "pageswithprop";
                         /**
-                         * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&amp;list=pagepropnames`} returns page property names in use).
+                         * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&list=pagepropnames`} returns page property names in use).
                          */
                         gpwppropname: string;
                         /**
@@ -28950,7 +28950,7 @@ declare global {
                     /**
                      * Perform a prefix search for page titles.
                      *
-                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&amp;list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
+                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
                      *
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch
                      */
@@ -29309,7 +29309,7 @@ declare global {
                             | "userid"
                         >;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`} instead.
                          *
                          * @deprecated
                          */
@@ -30240,7 +30240,7 @@ declare global {
                          * Which properties to get:
                          *
                          * - **size**: Adds number of pages in the category.
-                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                          *
                          * Defaults to an empty string.
                          */
@@ -30982,7 +30982,7 @@ declare global {
                     }
 
                     /**
-                     * List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * List all transclusions (pages embedded using {{x}}), including non-existing.
                      *
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions
                      */
@@ -31112,7 +31112,7 @@ declare global {
                          *
                          * - **sortkey**: Adds the sortkey (hexadecimal string) and sortkey prefix (human-readable part) for the category.
                          * - **timestamp**: Adds timestamp of when the category was added.
-                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                          */
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                         /**
@@ -32193,7 +32193,7 @@ declare global {
                     interface MessageCollection extends TemplateData {
                         generator?: "messagecollection";
                         /**
-                         * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                         * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                          */
                         gmcgroup: string;
                         /**
@@ -32223,8 +32223,8 @@ declare global {
                          * - **hastranslation**: Messages which have a translation regardless if it is fuzzy or not.
                          * - **translated**: Messages which have a translation which is not fuzzy.
                          * - **changed**: Messages which have been translated or changed since last export.
-                         * - **reviewer&#58;N**: Messages where the user number `N` is among reviewers.
-                         * - **last-translator&#58;N**: Messages where the user number `N` is the last translator.
+                         * - **reviewer:N**: Messages where the user number `N` is among reviewers.
+                         * - **last-translator:N**: Messages where the user number `N` is the last translator.
                          *
                          * Defaults to `!optional` and `!ignored`.
                          */
@@ -32233,7 +32233,7 @@ declare global {
                          * Which properties to get:
                          *
                          * - **definition**: Message definition.
-                         * - **translation**: Current translation (without&#160;!!FUZZY!! string if any, use the tags to check for outdated or broken translations).
+                         * - **translation**: Current translation (without !!FUZZY!! string if any, use the tags to check for outdated or broken translations).
                          * - **tags**: Message tags, like optional, ignored and fuzzy.
                          * - **properties**: Message properties, like status, revision, last-translator. Can vary between messages.
                          * - **revision**: Deprecated. Use mcprop=properties.
@@ -32253,7 +32253,7 @@ declare global {
                     interface MostViewed extends TemplateData {
                         generator?: "mostviewed";
                         /**
-                         * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&amp;meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
+                         * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
                          *
                          * - **pageviews**: Plain pageviews.
                          *
@@ -32335,7 +32335,7 @@ declare global {
                     interface PagesWithProp extends TemplateData {
                         generator?: "pageswithprop";
                         /**
-                         * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&amp;list=pagepropnames`} returns page property names in use).
+                         * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&list=pagepropnames`} returns page property names in use).
                          */
                         gpwppropname: string;
                         /**
@@ -32369,7 +32369,7 @@ declare global {
                     /**
                      * Perform a prefix search for page titles.
                      *
-                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&amp;list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
+                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
                      *
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch
                      */
@@ -32728,7 +32728,7 @@ declare global {
                             | "userid"
                         >;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`} instead.
                          *
                          * @deprecated
                          */
@@ -33659,7 +33659,7 @@ declare global {
                          * Which properties to get:
                          *
                          * - **size**: Adds number of pages in the category.
-                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                          *
                          * Defaults to an empty string.
                          */
@@ -34401,7 +34401,7 @@ declare global {
                     }
 
                     /**
-                     * List all transclusions (pages embedded using &#123;&#123;x&#125;&#125;), including non-existing.
+                     * List all transclusions (pages embedded using {{x}}), including non-existing.
                      *
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Alltransclusions
                      */
@@ -34531,7 +34531,7 @@ declare global {
                          *
                          * - **sortkey**: Adds the sortkey (hexadecimal string) and sortkey prefix (human-readable part) for the category.
                          * - **timestamp**: Adds timestamp of when the category was added.
-                         * - **hidden**: Tags categories that are hidden with `_&#95;HIDDENCAT_&#95;`.
+                         * - **hidden**: Tags categories that are hidden with `__HIDDENCAT__`.
                          */
                         gclprop?: OneOrMore<"hidden" | "sortkey" | "timestamp">;
                         /**
@@ -35612,7 +35612,7 @@ declare global {
                     interface MessageCollection extends Watch {
                         generator?: "messagecollection";
                         /**
-                         * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&amp;meta=messagegroups`}.
+                         * Message group. See {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bmessagegroups `action=query&meta=messagegroups`}.
                          */
                         gmcgroup: string;
                         /**
@@ -35642,8 +35642,8 @@ declare global {
                          * - **hastranslation**: Messages which have a translation regardless if it is fuzzy or not.
                          * - **translated**: Messages which have a translation which is not fuzzy.
                          * - **changed**: Messages which have been translated or changed since last export.
-                         * - **reviewer&#58;N**: Messages where the user number `N` is among reviewers.
-                         * - **last-translator&#58;N**: Messages where the user number `N` is the last translator.
+                         * - **reviewer:N**: Messages where the user number `N` is among reviewers.
+                         * - **last-translator:N**: Messages where the user number `N` is the last translator.
                          *
                          * Defaults to `!optional` and `!ignored`.
                          */
@@ -35652,7 +35652,7 @@ declare global {
                          * Which properties to get:
                          *
                          * - **definition**: Message definition.
-                         * - **translation**: Current translation (without&#160;!!FUZZY!! string if any, use the tags to check for outdated or broken translations).
+                         * - **translation**: Current translation (without !!FUZZY!! string if any, use the tags to check for outdated or broken translations).
                          * - **tags**: Message tags, like optional, ignored and fuzzy.
                          * - **properties**: Message properties, like status, revision, last-translator. Can vary between messages.
                          * - **revision**: Deprecated. Use mcprop=properties.
@@ -35672,7 +35672,7 @@ declare global {
                     interface MostViewed extends Watch {
                         generator?: "mostviewed";
                         /**
-                         * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&amp;meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
+                         * The metric to use for counting views. Depending on what backend is used, not all metrics might be supported. You can use the siteinfo API ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bsiteinfo action=query&meta=siteinfo}) to check which ones are supported, under `pageviewservice-supported-metrics` / _module name_ (`siteviews`, `mostviewed`, etc.)
                          *
                          * - **pageviews**: Plain pageviews.
                          *
@@ -35754,7 +35754,7 @@ declare global {
                     interface PagesWithProp extends Watch {
                         generator?: "pageswithprop";
                         /**
-                         * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&amp;list=pagepropnames`} returns page property names in use).
+                         * Page property for which to enumerate pages ({@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bpagepropnames `action=query&list=pagepropnames`} returns page property names in use).
                          */
                         gpwppropname: string;
                         /**
@@ -35788,7 +35788,7 @@ declare global {
                     /**
                      * Perform a prefix search for page titles.
                      *
-                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&amp;list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
+                     * Despite the similarity in names, this module is not intended to be equivalent to {@link https://www.mediawiki.org/wiki/Special:PrefixIndex Special:PrefixIndex}; for that, see {@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Ballpages `action=query&list=allpages`} with the `apprefix` parameter. The purpose of this module is similar to {@link https://www.mediawiki.org/wiki/Special:ApiHelp/opensearch `action=opensearch`}: to take user input and provide the best-matching titles. Depending on the search engine backend, this might include typo correction, redirect avoidance, or other heuristics.
                      *
                      * @see https://www.mediawiki.org/wiki/Special:MyLanguage/API:Prefixsearch
                      */
@@ -36147,7 +36147,7 @@ declare global {
                             | "userid"
                         >;
                         /**
-                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&amp;meta=tokens`} instead.
+                         * Use {@link https://www.gracesguide.co.uk/Special:ApiHelp/query%2Btokens `action=query&meta=tokens`} instead.
                          *
                          * @deprecated
                          */

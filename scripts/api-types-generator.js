@@ -1231,15 +1231,21 @@ class ModuleParser {
         text = text.replace(/\n?<dt.*?>/g, "\n- **").replace(/<\/dt>\s*/g, "**: ");
         text = text.replace(/\n?<li.*?>/g, "\n- ").replace(/<\/li>/g, "");
 
+        text = text.replace(/\n{3,}/g, "\n\n");
+
+        // Move code blocks out of links.
         // `{@link X Y}` --> {@link X `Y`}
         text = text.replace(/`\{@link (.*?) (.*?)\}`/g, "{@link $1 `$2`}");
         text = text.replace(/`\{@link (.*?)\}`/g, "{@link $1 `$1`}");
 
-        text = text.replace(/\n{3,}/g, "\n\n");
-
         // Timestamps: use a generic string description to prevent spurious changes when
         // re-generating the type declarations. We assume all timestamps refer to this exact time.
         text = text.replace(/`\d{4}(?:-\d{2}){2}T\d{2}(?::\d{2}){2}Z`/g, "the current timestamp");
+
+        // Replace HTML entities.
+        const textArea = document.createElement("textarea");
+        textArea.innerHTML = text;
+        text = textArea.value;
 
         return text.trim().split("\n");
     };
