@@ -4,11 +4,6 @@ type OneOrMore<T> = T | T[];
 
 declare global {
     namespace mw.Api {
-        type UnknownParams = Record<
-            string,
-            string | number | boolean | File | string[] | number[] | undefined
-        >;
-
         type Toggle<T extends string> = { [V in T]: V | `!${V}` }[T];
 
         type Limit = number | "max";
@@ -36,6 +31,11 @@ declare global {
             | "options"
             | "protect"
             | "unblock";
+
+        type UnknownParams = Record<
+            string,
+            string | number | boolean | File | string[] | number[] | undefined
+        >;
 
         /**
          * - {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Main_page Documentation}
@@ -523,7 +523,7 @@ declare global {
                      */
                     allowusertalk?: boolean;
                     /**
-                     * If the user is already blocked by a single block, overwrite the existing block. If the user is blocked more than once, this will fail -- use the id parameter instead to specify which block to overwrite.
+                     * If the user is already blocked by a single block, overwrite the existing block. If the user is blocked more than once, this will fail—use the `id` parameter instead to specify which block to overwrite.
                      */
                     reblock?: boolean;
                     /**
@@ -5171,7 +5171,7 @@ declare global {
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bextdistrepos extdistrepos}**: Returns the list of repositories supported by ExtensionDistributor
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bexturlusage exturlusage}**: Enumerate pages that contain a given URL.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bfilearchive filearchive}**: Enumerate all deleted files sequentially.
-                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bgadgetcategories gadgetcategories}**: Returns a list of gadget categories.
+                     * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bgadgetcategories gadgetcategories}**: Returns a list of gadget sections.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bgadgets gadgets}**: Returns a list of gadgets used on this wiki.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bglobalallusers globalallusers}**: Enumerate all global users.
                      * - **{@link https://www.mediawiki.org/wiki/Special:ApiHelp/query%2Bglobalblocks globalblocks}**: List all globally blocked IP addresses.
@@ -12272,11 +12272,11 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         /**
-                         * Start enumeration from this revision's timestamp. The revision must exist, but need not belong to this page.
+                         * Start enumeration from the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                          */
                         grvstartid?: number;
                         /**
-                         * Stop enumeration at this revision's timestamp. The revision must exist, but need not belong to this page.
+                         * Stop enumeration at the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                          */
                         grvendid?: number;
                         /**
@@ -15461,11 +15461,11 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         /**
-                         * Start enumeration from this revision's timestamp. The revision must exist, but need not belong to this page.
+                         * Start enumeration from the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                          */
                         grvstartid?: number;
                         /**
-                         * Stop enumeration at this revision's timestamp. The revision must exist, but need not belong to this page.
+                         * Stop enumeration at the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                          */
                         grvendid?: number;
                         /**
@@ -17568,11 +17568,11 @@ declare global {
                                 | "text/x-wiki"
                                 | "unknown/unknown";
                             /**
-                             * Start enumeration from this revision's timestamp. The revision must exist, but need not belong to this page.
+                             * Start enumeration from the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                              */
                             rvstartid?: number;
                             /**
-                             * Stop enumeration at this revision's timestamp. The revision must exist, but need not belong to this page.
+                             * Stop enumeration at the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                              */
                             rvendid?: number;
                             /**
@@ -19950,21 +19950,21 @@ declare global {
                         }
 
                         /**
-                         * Returns a list of gadget categories.
+                         * Returns a list of gadget sections.
                          */
                         interface GadgetCategories extends Query {
                             /**
-                             * What gadget category information to get:
+                             * What gadget section information to get:
                              *
-                             * - **name**: Internal category name.
-                             * - **title**: Category title.
-                             * - **members**: Number of gadgets in category.
+                             * - **name**: Internal section name.
+                             * - **title**: Section title.
+                             * - **members**: Number of gadgets in section.
                              *
                              * Defaults to `name`.
                              */
                             gcprop?: OneOrMore<"members" | "name" | "title">;
                             /**
-                             * Names of categories to retrieve.
+                             * Names of sections to retrieve.
                              */
                             gcnames?: string | string[];
                         }
@@ -25979,11 +25979,11 @@ declare global {
                                 | "text/x-wiki"
                                 | "unknown/unknown";
                             /**
-                             * Start enumeration from this revision's timestamp. The revision must exist, but need not belong to this page.
+                             * Start enumeration from the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                              */
                             grvstartid?: number;
                             /**
-                             * Stop enumeration at this revision's timestamp. The revision must exist, but need not belong to this page.
+                             * Stop enumeration at the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                              */
                             grvendid?: number;
                             /**
@@ -29541,11 +29541,11 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         /**
-                         * Start enumeration from this revision's timestamp. The revision must exist, but need not belong to this page.
+                         * Start enumeration from the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                          */
                         grvstartid?: number;
                         /**
-                         * Stop enumeration at this revision's timestamp. The revision must exist, but need not belong to this page.
+                         * Stop enumeration at the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                          */
                         grvendid?: number;
                         /**
@@ -32960,11 +32960,11 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         /**
-                         * Start enumeration from this revision's timestamp. The revision must exist, but need not belong to this page.
+                         * Start enumeration from the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                          */
                         grvstartid?: number;
                         /**
-                         * Stop enumeration at this revision's timestamp. The revision must exist, but need not belong to this page.
+                         * Stop enumeration at the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                          */
                         grvendid?: number;
                         /**
@@ -36379,11 +36379,11 @@ declare global {
                             | "text/x-wiki"
                             | "unknown/unknown";
                         /**
-                         * Start enumeration from this revision's timestamp. The revision must exist, but need not belong to this page.
+                         * Start enumeration from the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                          */
                         grvstartid?: number;
                         /**
-                         * Stop enumeration at this revision's timestamp. The revision must exist, but need not belong to this page.
+                         * Stop enumeration at the timestamp of the revision with this ID. The revision must exist, but need not belong to this page.
                          */
                         grvendid?: number;
                         /**

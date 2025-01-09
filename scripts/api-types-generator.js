@@ -1,137 +1,92 @@
-// This script generates the content of `api_params/index.d.ts`, by extracting online MediaWiki API module information.
-// Go to a MediaWiki site, paste this into the browser console, and move the generated TS declaration files to api_params.
+// This script generates the `api_params/index.d.ts` file,
+// by extracting online MediaWiki API module information.
 //
-// This process is done in 5 steps:
-//
-//                             main
-//                             └─ action=
-//   /w1/api.php   ═══[ML]══>     ├─ query   ════╗          main                      Params
-//                                └─ block       ║          └─ action=                └─ Action
-//                                               ╠═[MM]══>     ├─ query   ═══[MP]══>     ├─ Query
-//                             main              ║             ├─ block                  ├─ Block
-//                             └─ action=        ║             └─ wbsearch               └─ WBSearch
-//   /w2/api.php   ═══[ML]══>     ├─ query     ══╝
-//                                └─ wbsearch
-//
-// [ML] ModuleLoader: load module data from all APIs.
-// [MM] ModuleMerger: merge module data into a single hierarchy.
-// [MP] ModuleParser: process module data to deduce TS-friendly parameter types and module names.
-//
-//                                namespace Params
-//                                └─ namespace Action
-//   Params                ╔═══>     ├─ interface Query   ════[MG]═══>   index.d.ts
-//   └─ Action             ║         └─ interface Block
-//      ├─ Query   ═══[MF]═╣
-//      ├─ Block           ║      namespace Params
-//      └─ WBSearch        ╚══>   └─ namespace Action       ═══[MG]══>   Wikibase.d.ts
-//                                   └─ interface WBSearch
-//
-// [MF] ModuleFormatter: format module data into TS type declarations.
-// [MG] ModuleGenerator: generate TS files from type declarations.
+// Go to a MediaWiki site, paste this into the browser console,
+// and move the generated TS declaration files to `api_params`.
 
-/** @type {import("./api-types-generator-types")} */
+// What it does in practice:
+const generateApiParamsTypes = async () => {
+    // (1) Load module data from all APIs.
+    //
+    //                           main
+    //                           └─ action=
+    //   /w1/api.php   ═══════>     ├─ query
+    //                              └─ block
+    //
+    //                           main
+    //                           └─ action=
+    //   /w2/api.php   ═══════>     ├─ query
+    //                              └─ wbsearch
+    //
 
-/**
- * Entry points of MediaWiki sites from which API types are loaded.
- * If there is an ambiguity, the first ones are given priority.
- *
- * @type {Record<string, string>}
- */
-const SOURCES = {
-    "mediawiki": "https://www.mediawiki.org/w/api.php",
-    "wikipedia-en": "https://en.wikipedia.org/w/api.php",
-    "wikidata": "https://www.wikidata.org/w/api.php",
-    "wikifunctions": "https://www.wikifunctions.org/w/api.php",
+    const apiModuleLoaders = [
+        // base sites
+        new APIModuleLoader("https://www.mediawiki.org/w/api.php", "mediawiki"),
+        new APIModuleLoader("https://en.wikipedia.org/w/api.php", "wikipedia-en"),
+        new APIModuleLoader("https://www.wikidata.org/w/api.php", "wikidata"),
+        new APIModuleLoader("https://www.wikifunctions.org/w/api.php", "wikifunctions"),
+        // additional sites
+        //   (to be sure we are not missing some disabled modules)
+        new APIModuleLoader("https://en.wikibooks.org/w/api.php", "wikibooks-en"),
+        new APIModuleLoader("https://api.wikimedia.org/w/api.php", "wikimedia-api"),
+        new APIModuleLoader("https://commons.wikimedia.org/w/api.php", "wikimedia-commons"),
+        new APIModuleLoader("https://incubator.wikimedia.org/w/api.php", "wikimedia-incubator"),
+        new APIModuleLoader("https://meta.wikimedia.org/w/api.php", "wikimedia-meta"),
+        new APIModuleLoader("https://en.wikinews.org/w/api.php", "wikinews-en"),
+        new APIModuleLoader("https://en.wikiquote.org/w/api.php", "wikiquote-en"),
+        new APIModuleLoader("https://en.wikisource.org/w/api.php", "wikisource-en"),
+        new APIModuleLoader("https://en.wikiversity.org/w/api.php", "wikiversity-en"),
+        new APIModuleLoader("https://en.wikivoyage.org/w/api.php", "wikivoyage-en"),
+        new APIModuleLoader("https://en.wiktionary.org/w/api.php", "wiktionary-en"),
+        // external sites
+        //   (to help detecting parameters that are wiki-dependant)
+        new APIModuleLoader("https://www.gracesguide.co.uk/api.php", "gracesguide"),
+        // test sites
+        //   (to include decrecated or upcoming stuff)
+        new APIModuleLoader("https://test.wikidata.org/w/api.php", "wikidata-test"),
+        new APIModuleLoader(
+            "https://test-commons.wikimedia.org/w/api.php",
+            "wikimedia-commons-test"
+        ),
+        new APIModuleLoader("https://test.wikipedia.org/w/api.php", "wikipedia-test"),
+        new APIModuleLoader("https://test2.wikipedia.org/w/api.php", "wikipedia-test2"),
+    ];
+    const apiModuleDicts = await APIModuleLoader.loadAll(apiModuleLoaders);
 
-    "wikibooks-en": "https://en.wikibooks.org/w/api.php",
-    "wikimedia-api": "https://api.wikimedia.org/w/api.php",
-    "wikimedia-commons": "https://commons.wikimedia.org/w/api.php",
-    "wikimedia-incubator": "https://incubator.wikimedia.org/w/api.php",
-    "wikimedia-meta": "https://meta.wikimedia.org/w/api.php",
-    "wikinews-en": "https://en.wikinews.org/w/api.php",
-    "wikiquote-en": "https://en.wikiquote.org/w/api.php",
-    "wikisource-en": "https://en.wikisource.org/w/api.php",
-    "wikiversity-en": "https://en.wikiversity.org/w/api.php",
-    "wikivoyage-en": "https://en.wikivoyage.org/w/api.php",
-    "wiktionary-en": "https://en.wiktionary.org/w/api.php",
+    // (2) Merge module data into a single hierarchy.
+    //
+    //   main
+    //   └─ action=
+    //      ├─ query   ═════╗      main
+    //      └─ block        ║      └─ action=
+    //                      ╠═══>     ├─ query
+    //   main               ║         ├─ block
+    //   └─ action=         ║         └─ wbsearch
+    //      ├─ query     ═══╝
+    //      └─ wbsearch
+    //
 
-    "gracesguide": "https://www.gracesguide.co.uk/api.php",
+    const apiModuleRegister = new APIModuleRegister();
+    for (const apiModuleDict of apiModuleDicts) {
+        // use the `apiModuleLoaders` order above!
+        apiModuleRegister.add(apiModuleDict);
+    }
+    const apiModuleDict = apiModuleRegister.modules;
 
-    "wikidata-test": "https://test.wikidata.org/w/api.php",
-    "wikimedia-commons-test": "https://test-commons.wikimedia.org/w/api.php",
-    "wikipedia-test": "https://test.wikipedia.org/w/api.php",
-    "wikipedia-test2": "https://test2.wikipedia.org/w/api.php",
-};
+    // (3) Deduce TS-friendly parameter types and module names.
+    //
+    //   main                     Params
+    //   └─ action=               └─ Action
+    //      ├─ query    ═══════>     ├─ Query
+    //      ├─ block                 ├─ Block
+    //      └─ wbsearch              └─ WBSearch
+    //
 
-/**
- * Patterns used to properly capitalize TS type names.
- * By default, PHP namespaces and class name are used to find proper capitalizations, this can be used to
- * override bad deductions or when there is not enough information for the script to capitalize anything.
- *
- * @type {Record<string, string>}
- */
-const NAME_PATH_MAP = {
-    account: "Account",
-    all: "All",
-    call: "Call",
-    check: "Check",
-    embedded: "Embedded",
-    file: "File",
-    help: "Help",
-    homepage: "HomePage",
-    image: "Image",
-    lang: "Lang",
-    links: "Links",
-    objects: "Objects",
-    panel: "Panel",
-    question: "Question",
-    section: "Section",
-    transcluded: "Transcluded",
-    translation: "Translation",
-    url: "Url",
-    usage: "Usage",
-    usages: "Usages",
-    value: "Value",
-
-    cx: "CX",
-    fm: "FM",
-    sx: "SX",
-    wb: "WB",
-    wbl: "WBL",
-    wbs: "WBS",
-};
-
-/**
- * Mapping of API parameter types to their associated TS type.
- *
- * @type {Record<string & RawModule.Parameter.Type, Parameter.Type>}
- */
-const PARAMETER_TYPE_UNDERLYING = {
-    boolean: { base: "boolean" },
-    expiry: { base: "string" },
-    integer: { base: "number" },
-    limit: { base: "Limit" },
-    namespace: { base: "number" },
-    password: { base: "string" },
-    raw: { base: "string" },
-    string: { base: "string" },
-    text: { base: "string" },
-    timestamp: { base: "string" },
-    title: { base: "string" },
-    upload: { base: "File" },
-    user: { base: "string" },
-};
-
-/**
- * Type aliases to declare (in namespace mw.Api) and used to simplify API parameter types.
- *
- * @type {Record<string, Parameter.Type>}
- */
-const TYPE_ALIASES = {
-    Limit: { base: "number", lits: new Set(["max"]) },
-    Assert: { lits: new Set(["anon", "bot", "user"]) },
-    TokenType: {
-        lits: new Set([
+    Object.assign(TypeExpression.type_aliases, {
+        // some type aliases to use to simplify the generated parameter types
+        Limit: new TypeExpression("number", ["max"]),
+        Assert: new TypeExpression(null, ["anon", "bot", "user"]),
+        TokenType: new TypeExpression(null, [
             "createaccount",
             "csrf",
             "deleteglobalaccount",
@@ -142,9 +97,7 @@ const TYPE_ALIASES = {
             "userrights",
             "watch",
         ]),
-    },
-    LegacyTokenType: {
-        lits: new Set([
+        LegacyTokenType: new TypeExpression(null, [
             "block",
             "delete",
             "edit",
@@ -155,12 +108,176 @@ const TYPE_ALIASES = {
             "protect",
             "unblock",
         ]),
-    },
+    });
+    Object.assign(Module.caps_patterns, {
+        // some additional patterns to use to properly capitalize type names
+        account: "Account",
+        all: "All",
+        call: "Call",
+        check: "Check",
+        embedded: "Embedded",
+        file: "File",
+        help: "Help",
+        homepage: "HomePage",
+        image: "Image",
+        lang: "Lang",
+        links: "Links",
+        objects: "Objects",
+        panel: "Panel",
+        question: "Question",
+        section: "Section",
+        transcluded: "Transcluded",
+        translation: "Translation",
+        url: "Url",
+        usage: "Usage",
+        usages: "Usages",
+        value: "Value",
+
+        cx: "CX",
+        fm: "FM",
+        sx: "SX",
+        wb: "WB",
+        wbl: "WBL",
+        wbs: "WBS",
+    });
+    const mainModule = Module.fromAPI(apiModuleDict, "main");
+
+    // (4) Format module data into TS type declarations.
+    //
+    //                             namespace Params
+    //                             └─ namespace Action
+    //   Params            ╔════>     ├─ interface Query
+    //   └─ Action         ║          └─ interface Block
+    //      ├─ Query   ════╣
+    //      ├─ Block       ║       namespace Params
+    //      └─ WBSearch    ╚═══>   └─ namespace Action
+    //                                └─ interface WBSearch
+    //
+    const declarationFile = new DeclarationFile();
+    const apiNamespace = new NamespaceDeclaration();
+    // add Limit, Assert, TokenType, ...
+    for (const [name, type] of Object.entries(TypeExpression.type_aliases)) {
+        apiNamespace.addDeclaration(new TypeDeclaration(name, type.toCode()));
+    }
+    // add UnknownParams
+    const unknownParamsType = new TypeDeclaration(
+        "UnknownParams",
+        "Record<string, string | number | boolean | File | string[] | number[] | undefined>"
+    );
+    apiNamespace.addDeclaration(unknownParamsType);
+    // add Params and its subnamespaces
+    apiNamespace.merge(
+        mainModule.toNamespace(unknownParamsType, declarationFile.deprecatedAliases)
+    );
+
+    // (5) Generate a TS file from type declarations.
+    //
+    //   namespace Params
+    //   └─ namespace Action
+    //      ├─ interface Query   ═════════>   index.d.ts
+    //      └─ interface Block
+    //
+    //   namespace Params
+    //   └─ namespace Action       ═══════>   Wikibase.d.ts
+    //      └─ interface WBSearch
+    //
+
+    declarationFile.addToApiNamespace(apiNamespace);
+    declarationFile.download("index.d.ts");
 };
+
+/**
+ * API module data.
+ *
+ * @typedef ApiModule
+ * @property {string} name
+ * @property {string[]} classname
+ * @property {string} path
+ * @property {string} [group]
+ * @property {string} prefix
+ * @property {string} [source]
+ * @property {string} sourcename
+ * @property {string} licensetag
+ * @property {string} licenselink
+ * @property {string} description
+ * @property {boolean} [internal]
+ * @property {boolean} [readrights]
+ * @property {boolean} [writerights]
+ * @property {boolean} [mustbeposted]
+ * @property {boolean} [deprecated]
+ * @property {boolean} [generator]
+ * @property {string[]} helpurls
+ * @property {ApiModule.Example[]} examples
+ * @property {ApiModule.Parameter[]} parameters
+ * @property {string} [dynamicparameters]
+ */
+
+/**
+ * @typedef ApiModule.Example
+ * @property {string} query
+ * @property {string} description
+ */
+
+/**
+ * API module parameter data.
+ *
+ * @typedef ApiModule.Parameter
+ * @property {number} index
+ * @property {string} name
+ * @property {string} description
+ * @property {ApiModule.Parameter.Type} type
+ * @property {boolean} [required]
+ * @property {unknown} [default]
+ * @property {boolean} [multi]
+ * @property {boolean} [allowsduplicates]
+ * @property {number} [limit]
+ * @property {number} [lowlimit]
+ * @property {number} [highlimit]
+ * @property {boolean} [sensitive]
+ * @property {boolean} [deprecated]
+ * @property {Record<string, string>} [templatevars]
+ * @property {ApiModule.Parameter.Info[]} [info]
+ * // integer, limit
+ * @property {number} [min]
+ * @property {number} [max]
+ * // limit
+ * @property {number} [highmax]
+ * // namespace, enum
+ * @property {string[]} [allspecifiers]
+ * // namespace
+ * @property {number[]} [extranamespaces]
+ * // string
+ * @property {number} [maxbytes]
+ * @property {number} [maxchars]
+ * @property {string} [tokentype]
+ * // title
+ * @property {boolean} [mustExist]
+ * // user
+ * @property {string[]} [subtypes]
+ * // enum
+ * @property {Record<string, string>} [submodules]
+ * @property {string} [submoduleparamprefix]
+ * @property {string[]} [internalvalues]
+ * @property {string[]} [deprecatedvalues]
+ */
+
+/**
+ * @typedef {string[]
+ *  | "boolean" | "expiry" | "integer" | "limit" | "namespace" | "password"
+ *  | "raw" | "string" | "text" | "timestamp" | "title" | "upload" | "user"
+ *  } ApiModule.Parameter.Type
+ */
+
+/**
+ * @typedef ApiModule.Parameter.Info
+ * @property {string} name
+ */
 
 /**
  * Interface names generated before PR #41.
  * Used to generate deprecated type aliases for compatibility.
+ *
+ * TODO: to remove in a future release.
  *
  * @type {Record<string, string[]>}
  */
@@ -479,39 +596,30 @@ const isSubset = (s1, s2) =>
  */
 const firstToUppercase = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
-class ModuleLoader {
-    /**
-     * Load all modules from a list of API module loaders.
-     * Does not return incomplete module data from APIs that failed some of their requests.
-     *
-     * @param {ModuleLoader[]} loaders API module loaders.
-     */
-    static loadAll = async (loaders) => {
-        const results = await Promise.allSettled(loaders.map((l) => l.load()));
+/**
+ * Return an of key/value pairs of an object properties, sorted by key.
+ *
+ * @template T
+ * @param {T} o Object.
+ * @returns {[keyof T, T[keyof T]][]}
+ */
+// @ts-ignore
+const entriesByKey = (o) => Object.entries(o).sort((e1, e2) => e1[0].localeCompare(e2[0]));
 
-        const modules = [];
-        for (const [i, result] of results.entries().toArray()) {
-            if (result.status === "fulfilled") {
-                modules.push(result.value);
-            } else {
-                logError(`[ML] ${loaders[i].name}: ${result.reason}`);
-            }
-        }
-
-        return modules;
-    };
-
+class APIModuleLoader {
     /**
      * All queried modules (or that are being queried).
      * For each we store a promise that resolves when the module has been queried properly.
      *
+     * @private
      * @type {Record<string, Promise<void>>}
      */
     modulePromises = {};
     /**
      * All queried modules.
      *
-     * @type {Record<string, RawModule>}
+     * @private
+     * @type {Record<string, ApiModule>}
      */
     modules = {};
 
@@ -549,7 +657,7 @@ class ModuleLoader {
      * @param {string[]} modules Module paths.
      */
     queryModules = async (modules) => {
-        log(`[ML] ${this.name}: Querying module data...`, modules);
+        log(`${this.name}: Querying module data...`, modules);
 
         /** @type {mw.Api.Params.Action.ParamInfo & mw.Api.Params.Format.Json} */
         const params = {
@@ -592,7 +700,6 @@ class ModuleLoader {
             delete module.templatedparameters;
 
             for (const parameter of module.parameters) {
-                parameter.module = module;
                 parameter.description = this.resolveLocalLinks(parameter.description);
                 if (parameter.allspecifier !== undefined) {
                     parameter.allspecifiers = [parameter.allspecifier];
@@ -648,378 +755,1035 @@ class ModuleLoader {
         await this.loadModules(new Set(["main"]));
         return this.modules;
     };
+
+    /**
+     * Load all modules from a list of API module loaders.
+     * Does not return incomplete module data from APIs that failed some of their requests.
+     *
+     * @param {APIModuleLoader[]} loaders API module loaders.
+     */
+    static loadAll = async (loaders) => {
+        const results = await Promise.allSettled(loaders.map((l) => l.load()));
+
+        const modules = [];
+        for (const [i, result] of results.entries().toArray()) {
+            if (result.status === "fulfilled") {
+                modules.push(result.value);
+            } else {
+                logError(`${loaders[i].name}: ${result.reason}`);
+            }
+        }
+
+        return modules;
+    };
 }
 
-class ModuleMerger {
+/**
+ * Merge two arrays in a new one without duplicates.
+ *
+ * @template {string | number} T
+ * @param {T | T[] | undefined} a1 1st array to merge.
+ * @param {T | T[] | undefined} a2 2nd array to merge.
+ */
+const mergeArray = (a1, a2) => {
+    /** @type {T[]} */
+    const a = [];
+
+    if (Array.isArray(a1)) {
+        a.push(...a1);
+    } else if (a1 !== undefined) {
+        a.push(a1);
+    }
+
+    if (Array.isArray(a2)) {
+        a.push(...a2);
+    } else if (a2 !== undefined) {
+        a.push(a2);
+    }
+
+    return new Set(a).values().toArray();
+};
+
+/**
+ * Registers and merges API module data.
+ */
+class APIModuleRegister {
     /**
-     * Merge two arrays in a new one without duplicates.
+     * Registered modules, per name.
      *
-     * @template {string | number} T
-     * @param {T | T[] | undefined} a1 1st array to merge.
-     * @param {T | T[] | undefined} a2 2nd array to merge.
+     * @readonly
+     * @type {Record<string, ApiModule>}
      */
-    mergeArray = (a1, a2) => {
-        /** @type {T[]} */
-        const a = [];
-
-        if (Array.isArray(a1)) {
-            a.push(...a1);
-        } else if (a1 !== undefined) {
-            a.push(a1);
-        }
-
-        if (Array.isArray(a2)) {
-            a.push(...a2);
-        } else if (a2 !== undefined) {
-            a.push(a2);
-        }
-
-        return new Set(a).values().toArray();
-    };
+    modules = {};
 
     /**
-     * Merge two different declarations of the same API module parameter.
+     * Merge a different declaration of an API module parameter.
      *
-     * @param {RawModule.Parameter} p1 1st parameter data.
-     * @param {RawModule.Parameter} p2 2nd parameter data.
-     * @param {string} path Parameter path, for logging purpose.
+     * @param {string} key Module key.
+     * @param {number} i Parameter index.
+     * @param {ApiModule.Parameter} p2 2nd parameter data.
+     * @param {string} path Module path, for logging purpose.
      */
-    mergeParameter = (p1, p2, path) => {
-        /** @type {RawModule.Parameter} */
-        const p = {};
+    addParameter(key, i, p2, path) {
+        const p = this.modules[key].parameters[i];
 
-        p.name = p1.name;
-        if (p1.name !== p2.name) {
+        if (p.name !== p2.name) {
             // That should never happen.
-            logError(`[MM] ${path}: Different parameter names ("${p1.name}" and "${p2.name}").`);
+            logError(`${path}: Different parameter names ("${p.name}" and "${p2.name}").`);
         }
-
-        p.description = p1.description;
 
         // If both types are enums, and one includes the other, we take the more generalized one.
         // If both types are enums, but incompatible:
         //     If they contain values, we assume values are wiki-dependent and generalize it back to a string.
         //     If they contain sub-module names, we take all possible values.
         // If one type is an enum and the other generalizes it, we take the generalized one.
-        if (typeof p1.type === "object" && typeof p2.type === "object") {
-            if (p2.type.every(p1.type.includes, p1.type)) {
-                p.type = p1.type;
-            } else if (p1.type.every(p2.type.includes, p2.type)) {
+        if (typeof p.type === "object" && typeof p2.type === "object") {
+            if (p2.type.every(p.type.includes, p.type)) {
+                // (ok)
+            } else if (p.type.every(p2.type.includes, p2.type)) {
                 p.type = p2.type;
-            } else if (p1.submodules) {
-                p.type = this.mergeArray(p1.type, p2.type);
+            } else if (p.submodules) {
+                p.type = mergeArray(p.type, p2.type);
             } else {
                 p.type = "string";
             }
         } else if (
-            (typeof p1.type === "object" && p2.type === "string") ||
-            (typeof p2.type === "object" && p1.type === "string")
+            (typeof p.type === "object" && p2.type === "string") ||
+            (typeof p2.type === "object" && p.type === "string")
         ) {
             p.type = "string";
-        } else if (p1.type === p2.type) {
-            p.type = p1.type;
-        } else {
-            p.type = p1.type;
-            logError(`[MM] ${path}: Incompatible parameter types ("${p1.type}" and "${p2.type}").`);
+        } else if (p.type !== p2.type) {
+            logError(`${path}: Incompatible parameter types ("${p.type}" and "${p2.type}").`);
         }
 
         // If one is optional, we make it optional.
-        if (p1.required && p2.required) {
-            p.required = true;
-        }
+        p.required &&= p2.required;
 
         // If default values are different, it may be wiki-dependant so we do not take it into account.
-        if (p1.default === p2.default) {
-            p.default = p1.default;
+        if (p.default !== p2.default) {
+            delete p.default;
         }
 
-        p.multi = p1.multi;
-        if (p1.multi !== p2.multi) {
-            logError(
-                `[MM] ${path}: Different parameter multiplicity ("${p1.multi}" and "${p2.multi}").`
-            );
+        if (p.multi !== p2.multi) {
+            logError(`${path}: Different parameter multiplicity ("${p.multi}" and "${p2.multi}").`);
         }
 
         // If one allows duplicates, we allow duplicates.
-        if (p1.allowsduplicates || p2.allowsduplicates) {
-            p.allowsduplicates = true;
-        }
+        p.allowsduplicates ||= p2.allowsduplicates;
 
         // If one is sensitive, we make it sensitive.
-        if (p1.sensitive || p2.sensitive) {
-            p.sensitive = true;
-        }
+        p.sensitive ||= p2.sensitive;
 
         // If one is deprecated, we make it deprecated.
-        if (p1.deprecated || p2.deprecated) {
-            p.deprecated = true;
-        }
+        p.deprecated ||= p2.deprecated;
 
         // If limits are different, we take the least restrictive ones.
-        if (p1.limit !== undefined && p2.limit !== undefined) {
-            p.limit = Math.max(p1.limit, p2.limit);
+        if (p.limit !== undefined && p2.limit !== undefined) {
+            p.limit = Math.max(p.limit, p2.limit);
+        } else {
+            delete p.limit;
         }
-        if (p1.lowlimit !== undefined && p2.lowlimit !== undefined) {
-            p.lowlimit = Math.min(p1.lowlimit, p2.lowlimit);
+        if (p.lowlimit !== undefined && p2.lowlimit !== undefined) {
+            p.lowlimit = Math.min(p.lowlimit, p2.lowlimit);
+        } else {
+            delete p.lowlimit;
         }
-        if (p1.highlimit !== undefined && p2.highlimit !== undefined) {
-            p.highlimit = Math.max(p1.highlimit, p2.highlimit);
+        if (p.highlimit !== undefined && p2.highlimit !== undefined) {
+            p.highlimit = Math.max(p.highlimit, p2.highlimit);
+        } else {
+            delete p.highlimit;
         }
-        if (p1.min !== undefined && p2.min !== undefined) {
-            p.min = Math.min(p1.min, p2.min);
+        if (p.min !== undefined && p2.min !== undefined) {
+            p.min = Math.min(p.min, p2.min);
+        } else {
+            delete p.min;
         }
-        if (p1.max !== undefined && p2.max !== undefined) {
-            p.max = Math.max(p1.max, p2.max);
+        if (p.max !== undefined && p2.max !== undefined) {
+            p.max = Math.max(p.max, p2.max);
+        } else {
+            delete p.max;
         }
-        if (p1.highmax !== undefined && p2.highmax !== undefined) {
-            p.highmax = Math.max(p1.highmax, p2.highmax);
+        if (p.highmax !== undefined && p2.highmax !== undefined) {
+            p.highmax = Math.max(p.highmax, p2.highmax);
+        } else {
+            delete p.highmax;
         }
-        if (p1.maxbytes !== undefined && p2.maxbytes !== undefined) {
-            p.maxbytes = Math.max(p1.maxbytes, p2.maxbytes);
+        if (p.maxbytes !== undefined && p2.maxbytes !== undefined) {
+            p.maxbytes = Math.max(p.maxbytes, p2.maxbytes);
+        } else {
+            delete p.maxbytes;
         }
-        if (p1.maxchars !== undefined && p2.maxchars !== undefined) {
-            p.maxchars = Math.max(p1.maxchars, p2.maxchars);
+        if (p.maxchars !== undefined && p2.maxchars !== undefined) {
+            p.maxchars = Math.max(p.maxchars, p2.maxchars);
+        } else {
+            delete p.maxchars;
         }
 
-        if (p1.allspecifiers !== undefined || p2.allspecifiers !== undefined) {
-            p.allspecifiers = this.mergeArray(p1.allspecifiers, p2.allspecifiers);
+        if (p.allspecifiers !== undefined || p2.allspecifiers !== undefined) {
+            p.allspecifiers = mergeArray(p.allspecifiers, p2.allspecifiers);
         }
 
-        if (p1.extranamespaces !== undefined || p2.extranamespaces !== undefined) {
-            p.extranamespaces = this.mergeArray(p1.extranamespaces, p2.extranamespaces);
+        if (p.extranamespaces !== undefined || p2.extranamespaces !== undefined) {
+            p.extranamespaces = mergeArray(p.extranamespaces, p2.extranamespaces);
         }
 
-        if (
-            p1.extranamespaces !== undefined &&
-            p2.extranamespaces !== undefined &&
-            p1.tokentype === p2.tokentype
-        ) {
-            p.tokentype = p1.tokentype;
-        } else if (p1.extranamespaces !== undefined || p2.extranamespaces !== undefined) {
+        if (p.tokentype !== p2.tokentype) {
             logError(
-                `[MM] ${path}: Different token parameter types ("${p1.tokentype}" and "${p2.tokentype}").`
+                `${path}: Different token parameter types ("${p.tokentype}" and "${p2.tokentype}").`
             );
         }
 
         // If one accepts non-existent titles, we accept non-existent titles.
-        if (p1.mustExist && p2.mustExist) {
-            p.mustExist = true;
-        }
+        p.mustExist &&= p2.mustExist;
 
         // TODO: handle different values for templatevars & info
-        if (p1.templatevars !== undefined || p2.templatevars !== undefined) {
-            p.templatevars = p1.templatevars || p2.templatevars;
-        }
-        if (p1.info !== undefined || p2.info !== undefined) {
-            p.info = p1.info || p2.info;
-        }
+        p.templatevars ??= p2.templatevars;
+        p.info ??= p2.info;
 
-        if (p1.subtypes !== undefined || p2.subtypes !== undefined) {
-            p.subtypes = this.mergeArray(p1.subtypes, p2.subtypes);
+        if (p.subtypes !== undefined || p2.subtypes !== undefined) {
+            p.subtypes = mergeArray(p.subtypes, p2.subtypes);
         }
 
         // Merge submodules.
-        if (p1.submodules !== undefined && p2.submodules !== undefined) {
-            p.submodules = {};
-            const values = this.mergeArray(Object.keys(p1.submodules), Object.keys(p2.submodules));
-            for (const value of values) {
-                if (
-                    value in p1.submodules &&
-                    value in p2.submodules &&
-                    p1.submodules[value] !== p2.submodules[value]
-                ) {
+        if (p.submodules !== undefined && p2.submodules !== undefined) {
+            for (const [subkey, submodule] of Object.entries(p2.submodules)) {
+                if (!(subkey in p.submodules)) {
+                    p.submodules[subkey] = submodule;
+                } else if (p.submodules[subkey] !== submodule) {
                     logError(
-                        `[MM] ${path}: Different sub-modules ("${p1.submodules[value]}" and "${p2.submodules[value]}") for the same parameter value ("${value}").`
+                        `${path}: Different sub-modules ("${p.submodules[subkey]}" and "${submodule}") for the same parameter value ("${subkey}").`
                     );
                 }
-                p.submodules[value] = p1.submodules[value] ?? p2.submodules[value];
             }
-        } else if (p1.submodules !== undefined || p2.submodules !== undefined) {
-            p.submodules = p1.submodules ?? p2.submodules;
+        } else {
+            p.submodules ??= p2.submodules;
         }
 
-        if (p1.submoduleparamprefix !== undefined || p2.submoduleparamprefix !== undefined) {
-            p.submoduleparamprefix = p1.submoduleparamprefix;
-            if (p1.submoduleparamprefix !== p2.submoduleparamprefix) {
-                logError(
-                    `[MM] ${path}: Different sub-module parameter prefix ("${p1.submoduleparamprefix}" and "${p2.submoduleparamprefix}").`
-                );
-            }
-        }
-
-        if (p1.internalvalues !== undefined || p2.internalvalues !== undefined) {
-            p.internalvalues = this.mergeArray(p1.internalvalues, p2.internalvalues);
-        }
-        if (p1.deprecatedvalues !== undefined || p2.deprecatedvalues !== undefined) {
-            p.deprecatedvalues = this.mergeArray(p1.deprecatedvalues, p2.deprecatedvalues);
-        }
-
-        return p;
-    };
-
-    /**
-     * Merge two different lists of API parameters from the same API module.
-     *
-     * @param {RawModule.Parameter[]} a1 1st parameter list.
-     * @param {RawModule.Parameter[]} a2 2nd parameter list.
-     * @param {string} path Module path, for logging purpose.
-     */
-    mergeParameterArray = (a1, a2, path) => {
-        const a = [];
-        let i1 = 0,
-            i2 = 0;
-
-        while (i1 < a1.length && i2 < a2.length) {
-            const p1 = a1[i1],
-                p2 = a2[i2];
-            if (p1.name === p2.name) {
-                a.push(this.mergeParameter(p1, p2, `${path}[${i1}]`));
-                ++i1, ++i2;
-                continue;
-            }
-
-            const i1Next = a1.findIndex((p) => p.name === p2.name),
-                i2Next = a2.findIndex((p) => p.name === p1.name);
-            if (i2Next > 0 && i1Next > 0) {
-                // Inconsistent parameter order, we use the first one.
-                a.push(this.mergeParameter(p1, a2[i2Next], `${path}[${i1}]`));
-                ++i1;
-                a2 = [...a2.slice(0, i2Next), ...a2.slice(i2Next + 1)];
-            } else if (i1Next > 0) {
-                a.push(...a1.slice(i1, i1Next));
-                i1 = i1Next;
-            } else if (i2Next > 0) {
-                a.push(...a2.slice(i2, i2Next));
-                i2 = i2Next;
-            } else {
-                a.push(p1);
-                ++i1;
-            }
-        }
-
-        a.push(...a1.slice(i1), ...a2.slice(i2));
-
-        a.forEach((p, i) => (p.index = i));
-        return a;
-    };
-
-    /**
-     * Merge two different declarations of the same API module.
-     *
-     * @param {RawModule} m1 1st module data.
-     * @param {RawModule} m2 2nd module data.
-     * @param {string} path Module path, for logging purpose.
-     */
-    mergeModule = (m1, m2, path) => {
-        /** @type {RawModule} */
-        const m = {};
-
-        m.name = m1.name;
-        if (m1.name !== m2.name) {
-            logError(`[MM] ${path}: Different module names ("${m1.name}" and "${m2.name}").`);
-        }
-
-        m.classname = this.mergeArray(m1.classname, m2.classname);
-
-        m.path = m1.path;
-        if (m1.path !== m2.path) {
-            logError(`[MM] ${path}: Different module paths ("${m1.path}" and "${m2.path}").`);
-        }
-
-        m.group = m1.group;
-        if (m1.group !== m2.group) {
-            logError(`[MM] ${path}: Different module groups ("${m1.group}" and "${m2.group}").`);
-        }
-
-        m.prefix = m1.prefix;
-        if (m1.prefix !== m2.prefix) {
+        if (p.submoduleparamprefix !== p2.submoduleparamprefix) {
             logError(
-                `[MM] ${path}: Different module prefixes ("${m1.prefix}" and "${m2.prefix}").`
+                `${path}: Different sub-module parameter prefix ("${p.submoduleparamprefix}" and "${p2.submoduleparamprefix}").`
             );
         }
 
-        // We use what the most up to date site says about module metadata.
-        m.source = m1.source ?? m2.source;
-        m.sourcename = m1.sourcename;
-        m.licensetag = m1.licensetag;
-        m.licenselink = m1.licenselink;
-        m.description = m1.description;
-        if (m1.internal) {
-            m.internal = true;
+        if (p.internalvalues !== undefined || p2.internalvalues !== undefined) {
+            p.internalvalues = mergeArray(p.internalvalues, p2.internalvalues);
         }
-
-        // If usage restrictions are different, we take the less restrictive ones.
-        if (m1.readrights && m2.readrights) {
-            m.readrights = true;
+        if (p.deprecatedvalues !== undefined || p2.deprecatedvalues !== undefined) {
+            p.deprecatedvalues = mergeArray(p.deprecatedvalues, p2.deprecatedvalues);
         }
-        if (m1.writerights && m2.writerights) {
-            m.writerights = true;
-        }
-        if (m1.mustbeposted && m2.mustbeposted) {
-            m.mustbeposted = true;
-        }
-
-        // If one is deprecated, we make it deprecated.
-        if (m1.deprecated || m2.deprecated) {
-            m.deprecated = true;
-        }
-
-        if (m1.generator || m2.generator) {
-            m.generator = true;
-        }
-
-        m.helpurls = this.mergeArray(m1.helpurls, m2.helpurls);
-        m.examples = m1.examples;
-
-        m.parameters = this.mergeParameterArray(m1.parameters, m2.parameters, path);
-        m.parameters.forEach((p) => (p.module = m));
-
-        if (m1.dynamicparameters || m2.dynamicparameters) {
-            m.dynamicparameters = m1.dynamicparameters ?? m2.dynamicparameters;
-        }
-
-        return m;
-    };
+    }
 
     /**
-     * Merge different declarations of a set of API modules.
+     * Merge a different API parameter list of an API module.
      *
-     * @param {Record<string, RawModule>[]} moduleDicts List of API module sets.
+     * @param {string} key Module key.
+     * @param {Record<string, ApiModule>} moduleDict API module set.
+     * @param {string} path Module path, for logging purpose.
      */
-    merge = (moduleDicts) => {
-        /** @type {Record<string, RawModule>} */
-        const mergedDict = {};
+    addParameterArray(key, moduleDict, path) {
+        const a = this.modules[key].parameters;
+        // copy it, as we may splice it.
+        const a2 = [...moduleDict[key].parameters];
+        let i = 0,
+            i2 = 0;
 
-        for (const moduleDict of moduleDicts) {
-            for (const key in moduleDict) {
-                mergedDict[key] =
-                    key in mergedDict
-                        ? this.mergeModule(mergedDict[key], moduleDict[key], moduleDict[key].path)
-                        : moduleDict[key];
+        while (i < a.length && i2 < a2.length) {
+            const p = a[i],
+                p2 = a2[i2];
+            if (p.name === p2.name) {
+                this.addParameter(key, i, p2, `${path}[${i}]`);
+                ++i, ++i2;
+                continue;
+            }
+
+            const i1Next = a.findIndex((p) => p.name === p2.name);
+            const i2Next = a2.findIndex((p2) => p.name === p2.name);
+            if (i2Next > 0 && i1Next > 0) {
+                // Inconsistent parameter order, do not take the one of a2 into account.
+                this.addParameter(key, i, a2[i2Next], `${path}[${i}]`);
+                ++i;
+                a2.splice(i2Next, 1);
+            } else if (i1Next > 0) {
+                i = i1Next;
+            } else if (i2Next > 0) {
+                a.splice(i, 0, ...a2.slice(i2, i2Next));
+                i += i2Next - i2;
+                i2 = i2Next;
+            } else {
+                ++i;
             }
         }
 
-        return mergedDict;
+        a.push(...a2.slice(i2));
+
+        a.forEach((p, i) => (p.index = i));
+    }
+
+    /**
+     * Merge a different declaration of an API module.
+     *
+     * @param {string} key Module key.
+     * @param {Record<string, ApiModule>} moduleDict API module set.
+     * @param {string} path Module path, for logging purpose.
+     */
+    addModule(key, moduleDict, path) {
+        const m = this.modules[key];
+        const m2 = moduleDict[key];
+
+        if (m === undefined) {
+            this.modules[key] = m2;
+            return;
+        }
+
+        if (m.name !== m2.name) {
+            logError(`${path}: Different module names ("${m.name}" and "${m2.name}").`);
+        }
+
+        m.classname = mergeArray(m.classname, m2.classname);
+
+        if (m.path !== m2.path) {
+            logError(`${path}: Different module paths ("${m.path}" and "${m2.path}").`);
+        }
+
+        if (m.group !== m2.group) {
+            logError(`${path}: Different module groups ("${m.group}" and "${m2.group}").`);
+        }
+
+        if (m.prefix !== m2.prefix) {
+            logError(`${path}: Different module prefixes ("${m.prefix}" and "${m2.prefix}").`);
+        }
+
+        // We use what the most up to date site says about module metadata.
+        m.source ??= m2.source;
+
+        // If usage restrictions are different, we take the less restrictive ones.
+        m.internal &&= m2.internal;
+        m.readrights &&= m2.readrights;
+        m.writerights &&= m2.writerights;
+        m.mustbeposted &&= m2.mustbeposted;
+
+        // If one is deprecated, we make it deprecated.
+        m.deprecated ||= m2.deprecated;
+        m.generator ||= m2.generator;
+
+        m.helpurls = mergeArray(m.helpurls, m2.helpurls);
+
+        this.addParameterArray(key, moduleDict, path);
+        m.dynamicparameters ??= m2.dynamicparameters;
+    }
+
+    /**
+     * @param {Record<string, ApiModule>} moduleDict API module set.
+     */
+    add(moduleDict) {
+        for (const key in moduleDict) {
+            this.addModule(key, moduleDict, moduleDict[key].path);
+        }
+    }
+}
+
+/**
+ * Format a TS literal for JSdoc usage.
+ *
+ * @param {unknown} lit Literal.
+ * @param {TypeExpression} [type] Literal type, may help to produce a more fitting formatting.
+ * @returns {string}
+ */
+const formatJSdocLit = (lit, type) => {
+    if (lit === undefined || lit === "") {
+        return "";
+    }
+
+    if (Number.isInteger(lit)) {
+        return `${lit}`;
+    }
+
+    if (type === undefined || !type.multi) {
+        return `\`${lit}\``;
+    }
+
+    const litParts = `${lit}`.split("|").map((l) => formatJSdocLit(l));
+    if (litParts.length === 1) {
+        return litParts[0];
+    } else if (litParts.length === 2) {
+        return `${litParts[0]} and ${litParts[1]}`;
+    } else {
+        const lastPart = litParts.pop();
+        return `${litParts.join(", ")}, and ${lastPart}`;
+    }
+};
+
+/**
+ * TS type of an API module parameter.
+ */
+class TypeExpression {
+    /**
+     * Type aliases to declare (in namespace `mw.Api`) and used to simplify API parameter types.
+     *
+     * @type {Record<string, TypeExpression>}
+     */
+    static type_aliases = {};
+
+    /**
+     * Native type or map of submodules.
+     *
+     * @private
+     * @type {string?}
+     */
+    base;
+    /**
+     * Possible literals, that may not be part of the base type above.
+     *
+     * @private
+     * @type {Set<string>}
+     */
+    lits;
+    /**
+     * Whether literals can be specified as a list.
+     *
+     * @type {boolean}
+     */
+    multi;
+    /**
+     * Possible literals, that may not be part of the base type above, and can not be
+     * used in a list.
+     *
+     * @private
+     * @type {Set<string>}
+     */
+    singleLits = new Set();
+
+    /**
+     * @param {string?} base
+     * @param {string[]} [lits]
+     * @param {boolean} [multi]
+     */
+    constructor(base, lits, multi) {
+        this.base = base;
+        this.lits = new Set();
+        this.multi = multi ?? false;
+        if (lits !== undefined) {
+            this.addLiterals(lits);
+        }
+    }
+
+    clone() {
+        const other = new TypeExpression(this.base);
+        other.lits = new Set(this.lits);
+        other.multi = this.multi;
+        other.singleLits = new Set(this.singleLits);
+        return other;
+    }
+
+    /**
+     * @param {string[]} lits
+     * @param {"multi" | "single"} [dup]
+     */
+    addLiterals(lits, dup) {
+        if (dup !== "single") {
+            for (const lit of lits) {
+                this.lits.add(lit);
+                this.singleLits.delete(lit);
+            }
+        } else {
+            for (const lit of lits) {
+                if (!this.lits.has(lit)) {
+                    this.singleLits.add(lit);
+                }
+            }
+        }
+    }
+
+    /**
+     * Simplify the type expression, using registered type aliases.
+     */
+    normalize() {
+        if (this.lits.size === 0 && this.singleLits.size === 0) {
+            return;
+        }
+
+        // Remove literals that are already covered by the base type.
+        /** @type {TypeExpression} */
+        let underlying = this;
+        while (underlying.base !== null) {
+            // `string` covers all literals.
+            if (underlying.base === "string") {
+                this.lits.clear();
+                if (this.multi) {
+                    this.singleLits.clear();
+                }
+                break;
+            }
+
+            // Assume any unknown base type does not cover anything.
+            if (!(underlying.base in TypeExpression.type_aliases)) {
+                break;
+            }
+
+            underlying = TypeExpression.type_aliases[underlying.base];
+            underlying.lits.forEach(Set.prototype.delete, this.lits);
+            underlying.singleLits.forEach(Set.prototype.delete, this.singleLits);
+        }
+
+        // Use type aliases to reduce type expressions.
+        // Only consider types with literals, as we do not want to replace type synonyms.
+        // Note that this approach is linear: we apply the first replacement found in order,
+        // without trying to find the best replacement.
+        let foundReplacement;
+        do {
+            foundReplacement = false;
+            for (const [name, typeMap] of Object.entries(TypeExpression.type_aliases)) {
+                if (
+                    (typeMap.base !== null && typeMap.base !== this.base) ||
+                    typeMap.lits.size === 0 ||
+                    !isSubset(typeMap.lits, this.lits) ||
+                    typeMap.multi !== this.multi ||
+                    (typeMap.multi && this.multi && !isSubset(typeMap.singleLits, this.singleLits))
+                ) {
+                    continue;
+                }
+
+                this.base = name;
+                typeMap.lits.forEach(Set.prototype.delete, this.lits);
+                typeMap.singleLits.forEach(Set.prototype.delete, this.singleLits);
+
+                foundReplacement = true;
+                break;
+            }
+        } while (foundReplacement);
+    }
+
+    /**
+     * Format the type expression to a TS string.
+     */
+    toCode() {
+        /** @type {string[]} */
+        let typeUnion = [];
+
+        if (this.base !== null) {
+            typeUnion.push(this.base);
+        }
+
+        const lits = new Set(this.lits);
+        const toggleLits = new Set();
+        if (lits.size > 0) {
+            for (const lit of lits.values().toArray()) {
+                const negLit = `!${lit}`;
+                if (lits.has(negLit)) {
+                    toggleLits.add(lit);
+                    lits.delete(lit);
+                    lits.delete(negLit);
+                }
+            }
+
+            if (toggleLits.size > 0) {
+                typeUnion.push(`Toggle<${TypeExpression.formatLitSet(toggleLits).join(" | ")}>`);
+            }
+
+            typeUnion.push(...TypeExpression.formatLitSet(lits));
+        }
+
+        if (typeUnion.length === 0) {
+            // We do not have any information about what this type is about.
+            // Assume it is a wiki-dependent enumeration with no specified value,
+            // so generalize it back to a string (instead of never).
+            return "string";
+        }
+
+        if (this.multi) {
+            if (typeUnion.length === 1 && this.base !== null) {
+                typeUnion.push(
+                    `${typeUnion[0]}[]`,
+                    ...TypeExpression.formatLitSet(this.singleLits)
+                );
+            } else {
+                typeUnion = [
+                    ...TypeExpression.formatLitSet(this.singleLits),
+                    `OneOrMore<${typeUnion.join(" | ")}>`,
+                ];
+            }
+        }
+
+        return typeUnion.join(" | ");
+    }
+
+    /**
+     * Format a set of TS literals as a list of quoted strings.
+     *
+     * @param {Set<string> | undefined} litSet Set of literals.
+     */
+    static formatLitSet(litSet) {
+        if (litSet === undefined) {
+            return [];
+        } else {
+            return litSet.values().map(quote).toArray().sort();
+        }
+    }
+}
+
+/**
+ * Processed API parameter data.
+ */
+class Parameter {
+    /**
+     * Mapping of API parameter types to their associated TS type.
+     *
+     * @type {Record<string & ApiModule.Parameter.Type, TypeExpression>}
+     */
+    static php_type_mapping = {
+        boolean: new TypeExpression("boolean"),
+        expiry: new TypeExpression("string"),
+        integer: new TypeExpression("number"),
+        limit: new TypeExpression("Limit"),
+        namespace: new TypeExpression("number"),
+        password: new TypeExpression("string"),
+        raw: new TypeExpression("string"),
+        string: new TypeExpression("string"),
+        text: new TypeExpression("string"),
+        timestamp: new TypeExpression("string"),
+        title: new TypeExpression("string"),
+        upload: new TypeExpression("File"),
+        user: new TypeExpression("string"),
+    };
+
+    /**
+     * Module data.
+     *
+     * @readonly
+     * @type {Module}
+     */
+    module;
+    /**
+     * Property name.
+     *
+     * @type {string}
+     */
+    key;
+    /**
+     * Formatted parameter name.
+     *
+     * @type {string}
+     */
+    name;
+    /**
+     * TS type.
+     *
+     * @type {TypeExpression}
+     */
+    type;
+    /**
+     * If the parameter has submodules, a mapping of literals to its associated module.
+     *
+     * @type {Record<string, Module>?}
+     */
+    submodules = null;
+    /**
+     * Whether the type name is a string template or literal.
+     *
+     * @type {boolean}
+     */
+    template = false;
+    /**
+     * Whether the parameter is required or optional.
+     *
+     * @type {boolean}
+     */
+    required = false;
+    /**
+     * Default parameter value.
+     *
+     * @type {unknown}
+     */
+    default = undefined;
+    /**
+     * Base JSdoc to use with generated properties.
+     *
+     * @type {JSdoc}
+     */
+    jsdoc = new JSdoc();
+
+    /**
+     * @param {Module} module
+     * @param {string} key
+     * @param {TypeExpression} type
+     */
+    constructor(module, key, type) {
+        this.module = module;
+        this.key = key;
+        this.name = key;
+        this.type = type;
+    }
+
+    /**
+     * @param {string} [prefix]
+     */
+    toProperty(prefix) {
+        prefix ??= "";
+
+        const property = new PropertyDeclaration(`${prefix}${this.key}`, this.required, this.type);
+        property.jsdoc = this.jsdoc.clone();
+        property.template = this.template;
+
+        return property;
+    }
+
+    /**
+     * Process data of an API module parameter.
+     *
+     * In practice:
+     *  - format and capitalize the parameter name.
+     *  - deduce the TS parameter type.
+     *  - add non-TS info to the JSdoc.
+     *  - format JSdoc description from HTML -> markdown.
+     *
+     * @param {Module} module Processed API module data.
+     * @param {Record<string, ApiModule>} apiModuleDict Set of modules the parameter comes from.
+     * @param {string} path Path of the module to process.
+     * @param {number} i Index of the parameter to process.
+     */
+    static fromAPI = (module, apiModuleDict, path, i) => {
+        const apiModule = apiModuleDict[path];
+        const apiParameter = apiModule.parameters[i];
+
+        let type;
+        if (typeof apiParameter.type !== "string") {
+            if (
+                // is its value used as a template variable in any other parameter?
+                apiModule.parameters.some((p) =>
+                    Object.values(p.templatevars ?? {}).includes(apiParameter.name)
+                ) ||
+                // does it declare submodules (i.e. new values can be added)?
+                apiParameter.submodules !== undefined ||
+                // is it a large enum?
+                apiParameter.type.length > 100
+            ) {
+                type = new TypeExpression("string");
+            } else {
+                type = new TypeExpression(null, apiParameter.type);
+            }
+        } else if (apiParameter.type in Parameter.php_type_mapping) {
+            type = Parameter.php_type_mapping[apiParameter.type].clone();
+        } else {
+            logError(
+                `Could not find an appropriate TS type for parameter type "${apiParameter.type}".`
+            );
+            type = new TypeExpression(null);
+        }
+
+        if (apiParameter.multi) {
+            type.multi = true;
+        }
+
+        if (apiParameter.allspecifiers !== undefined) {
+            type.addLiterals(apiParameter.allspecifiers, "single");
+        }
+
+        if (apiParameter.internalvalues !== undefined) {
+            type.addLiterals(apiParameter.internalvalues);
+        }
+        if (apiParameter.deprecatedvalues !== undefined) {
+            type.addLiterals(apiParameter.deprecatedvalues);
+        }
+
+        type.normalize();
+
+        const parameter = new Parameter(module, apiParameter.name, type);
+
+        if (apiParameter.required) {
+            parameter.required = true;
+        }
+
+        parameter.jsdoc.description = JSdoc.htmlToMarkdown(apiParameter.description);
+
+        if (apiParameter.default !== undefined) {
+            parameter.default = apiParameter.default;
+            const jsdocLit = formatJSdocLit(parameter.default, parameter.type) || "an empty string";
+            parameter.jsdoc.description.push("", `Defaults to ${jsdocLit}.`);
+        }
+
+        if (apiParameter.sensitive) {
+            parameter.jsdoc.description.push("", "Sensitive parameter.");
+        }
+
+        if (apiParameter.deprecated) {
+            parameter.jsdoc.deprecated = true;
+        }
+
+        const templatevars = apiParameter.templatevars;
+        if (templatevars) {
+            const varPattern = new RegExp(`\\{(${Object.keys(templatevars).join("|")})\\}`, "g");
+            parameter.template = true;
+            parameter.key = parameter.key.replaceAll(varPattern, (_, varName) => {
+                const varParam = templatevars[varName];
+                const varType = apiModule.parameters.find((p) => p.name === varParam)?.type;
+                if (Array.isArray(varType)) {
+                    return `\${string}`;
+                } else {
+                    return `\${${varType}}`;
+                }
+            });
+        }
+
+        parameter.name = firstToUppercase(apiParameter.name);
+
+        if (apiParameter.submodules !== undefined) {
+            parameter.submodules = Object.fromEntries(
+                Object.entries(apiParameter.submodules).map(([value, submodule]) => [
+                    value,
+                    Module.fromAPI(apiModuleDict, submodule, apiParameter.submoduleparamprefix, {
+                        parameter,
+                        value,
+                    }),
+                ])
+            );
+        }
+
+        return parameter;
     };
 }
 
-class ModuleParser {
+/**
+ * If it is not an API root module, indicates a parameter and associated value providing this
+ * module as a sub-module.
+ *
+ * @typedef ParentPath
+ * @property {Parameter} parameter
+ * @property {string} value
+ */
+
+/**
+ * Stack of parent module parameters of a sub-module.
+ *
+ * @typedef {ParentStack.Node | Declaration} ParentStack
+ *
+ * @typedef ParentStack.Node
+ * @property {ParentPath} path
+ * @property {ParentStack} next
+ */
+
+/**
+ * Processed API module data.
+ */
+class Module {
+    /**
+     * Patterns used to properly capitalize TS type names.
+     * By default, PHP namespaces and class name are used to find proper capitalizations, this can be used to
+     * override bad deductions or when there is not enough information for the script to capitalize anything.
+     *
+     * @type {Record<string, string>}
+     */
+    static caps_patterns = {};
+
+    /**
+     * API module path.
+     *
+     * @readonly
+     * @type {string}
+     */
+    path;
+    /**
+     * Formatted extension name.
+     *
+     * @type {string}
+     */
+    source;
+    /**
+     * Formatted module name.
+     *
+     * @type {string}
+     */
+    name;
+    /**
+     * Interfaces to inherit from.
+     *
+     * @type {ParentPath[]}
+     */
+    parents = [];
+    /**
+     * Sorted list of properties.
+     *
+     * @type {Parameter[]}
+     */
+    parameters = [];
+    /**
+     * Full parameter prefix.
+     *
+     * @type {string}
+     */
+    prefix = "";
+    /**
+     * Base JSdoc to use with generated types.
+     *
+     * @type {JSdoc}
+     */
+    jsdoc = new JSdoc();
+
+    /**
+     * @param {string} path
+     * @param {string} source
+     * @param {string} [name]
+     */
+    constructor(path, source, name) {
+        this.path = path;
+        this.source = source;
+        this.name = name ?? path;
+    }
+
+    /**
+     * Generate the full prefix of a parameter name from a stack of parent module parameters.
+     *
+     * @param {ParentStack} parentStack Stack of parent module parameters.
+     */
+    getParameterPrefix(parentStack) {
+        let prefix = this.prefix;
+        for (let parent = parentStack; "path" in parent; parent = parent.next) {
+            prefix = `${parent.path.parameter.module.prefix}${prefix}`;
+        }
+        return prefix;
+    }
+
+    /**
+     * Format an API module as a set of TS declarations.
+     *
+     * @param {ParentStack} parentStack Stack of parent module parameters.
+     * @param {Record<string, Record<string, string[]>>} [deprecatedAliases] Set of deprecated to aliases to fill in.
+     */
+    toNamespace(parentStack, deprecatedAliases) {
+        const parameterPrefix = this.getParameterPrefix(parentStack);
+
+        const properties = this.parameters.map((p) => p.toProperty(parameterPrefix));
+
+        const baseInterface = new InterfaceDeclaration(this.name, [], properties);
+        if (this.jsdoc) {
+            baseInterface.jsdoc = this.jsdoc.clone();
+        }
+
+        if ("path" in parentStack) {
+            const parameter = parentStack.path.parameter;
+            const parentParameterPrefix = parameter.module.getParameterPrefix(parentStack.next);
+
+            // Set parent interface
+            baseInterface.parents.push(parameter.module.name);
+
+            // Narrow parameter from parent interface
+            if (!parameter.type.multi) {
+                const narrowedProperty = new PropertyDeclaration(
+                    `${parentParameterPrefix}${parameter.key}`,
+                    parameter.required,
+                    new TypeExpression(null, [parentStack.path.value])
+                );
+                if (parameter.template) {
+                    narrowedProperty.template = true;
+                }
+
+                // Make parameter required if not being narrowed with the default value.
+                if (
+                    !parameter.required &&
+                    parameter.default !== undefined &&
+                    parameter.default !== parentStack.path.value
+                ) {
+                    narrowedProperty.required = true;
+                }
+
+                baseInterface.properties.unshift(narrowedProperty);
+            }
+        } else {
+            baseInterface.parents.push(parentStack.name);
+        }
+
+        const namespace = new NamespaceDeclaration();
+        namespace.addDeclaration(baseInterface);
+
+        for (const parameter of this.parameters) {
+            if (parameter.submodules !== null) {
+                const subnamespace = namespace.getNamespace([this.name, parameter.name]);
+                for (const [value, submodule] of entriesByKey(parameter.submodules)) {
+                    const path = { parameter, value };
+                    subnamespace.merge(
+                        submodule.toNamespace({ path, next: parentStack }, deprecatedAliases)
+                    );
+                }
+            }
+        }
+
+        let ifacePath = this.name;
+        for (let parent = parentStack; "path" in parent; parent = parent.next) {
+            const parameter = parent.path.parameter;
+            ifacePath = `${parameter.module.name}.${parameter.name}.${ifacePath}`;
+        }
+
+        if (deprecatedAliases) {
+            for (const [oldName, paths] of Object.entries(INTERFACE_COMPATIBILITY)) {
+                if (paths.includes(this.path)) {
+                    deprecatedAliases[oldName] ??= {};
+                    deprecatedAliases[oldName][this.path] ??= [];
+                    deprecatedAliases[oldName][this.path].push(ifacePath);
+                }
+            }
+        }
+
+        return namespace;
+    }
+
+    /**
+     * Process data of an API module.
+     *
+     * In practice:
+     *  - format and capitalize the module name.
+     *  - add prefixes to parameter names, duplicating modules if necessary.
+     *  - format JSdoc description from HTML -> markdown.
+     *
+     * @param {Record<string, ApiModule>} apiModuleDict Set of modules the module comes from.
+     * @param {string} path Path of the module to process.
+     * @param {string} [prefix] Full parameter name prefix.
+     * @param {ParentPath} [parent] Data of the module this one is an extension of.
+     */
+    static fromAPI = (apiModuleDict, path, prefix, parent) => {
+        const apiModule = apiModuleDict[path];
+
+        const { name, source } = Module.findName(apiModule);
+
+        const module = new Module(apiModule.path, source, name);
+        module.prefix = `${prefix ?? ""}${apiModule.prefix}`;
+
+        if (parent) {
+            module.parents.push(parent);
+        }
+
+        const apiParameters = apiModule.parameters.toSorted((p1, p2) => p1.index - p2.index);
+
+        module.parameters = apiParameters.map((_, i) =>
+            Parameter.fromAPI(module, apiModuleDict, path, i)
+        );
+
+        module.jsdoc.description = JSdoc.htmlToMarkdown(apiModule.description);
+        module.jsdoc.seelinks = apiModule.helpurls;
+        if (apiModule.internal) {
+            module.jsdoc.private = true;
+        }
+        if (apiModule.deprecated) {
+            module.jsdoc.deprecated = true;
+        }
+
+        return module;
+    };
+
     /**
      * Try to find a suitable type name (and source if not from MediaWiki) for a module.
      *
-     * @param {RawModule} rawModule API module data.
+     * @param {ApiModule} apiModule API module data.
      */
-    findModuleName = (rawModule) => {
+    static findName = (apiModule) => {
         const result = {
-            name: rawModule.name,
+            name: apiModule.name,
             source:
-                rawModule.source === undefined || rawModule.source === "MediaWiki"
+                apiModule.source === undefined || apiModule.source === "MediaWiki"
                     ? ""
-                    : rawModule.source.replace(/[\s-]/g, ""),
+                    : apiModule.source.replace(/[\s-]/g, ""),
         };
 
         // Main module.
-        if (!rawModule.group) {
+        if (!apiModule.group) {
             result.name = "Params";
             return result;
         }
@@ -1031,14 +1795,14 @@ class ModuleParser {
         // best combination to match the full name. Not that we test all possible combinations, but
         // only keep the ones with maximized pattern lengths.
 
-        const plainClassNames = rawModule.classname.map(
+        const plainClassNames = apiModule.classname.map(
                 (n) => n.replace(/Api|Extensions?|\\/g, "") + "s"
             ),
             possibleReplacements = Object.entries({
                 ...Object.fromEntries(
                     result.source.matchAll(/[A-Z][^A-Z]*/g).map((m) => [m[0].toLowerCase(), m[0]])
                 ),
-                ...NAME_PATH_MAP,
+                ...Module.caps_patterns,
             });
         possibleReplacements.sort(([p1], [p2]) => p2.length - p1.length);
 
@@ -1102,111 +1866,129 @@ class ModuleParser {
         result.name = bestRepl.name;
         if (!bestRepl.optimal) {
             log(
-                `[MP] Could not find a proper name capitalization for module "${rawModule.name}", using "${result.name}".`
+                `Could not find a proper name capitalization for module "${apiModule.name}", using "${result.name}".`
             );
         }
 
         return result;
     };
+}
+
+/**
+ * Add quotes around a TS string, unescaping any raw quotes it might contain.
+ *
+ * @param {string} s String to quote.
+ */
+const quote = (s) => `"${s.replaceAll('"', '\\"')}"`;
+
+/**
+ * Indent a line by 1 level.
+ *
+ * @param {string} s
+ */
+const indent = (s) => (s !== "" ? " ".repeat(4) : "") + s;
+
+/**
+ * Flatten multiple code blocks into a single code block, putting an empty line between blocks.
+ *
+ * @param {...string[]} blocks Code blocks.
+ */
+const flatWithLine = (...blocks) => {
+    if (blocks.length === 0) {
+        return [];
+    }
+
+    const newBlock = [...blocks[0]];
+    for (let i = 1; i < blocks.length; ++i) {
+        newBlock.push("", ...blocks[i]);
+    }
+
+    return newBlock;
+};
+
+/**
+ * JSdoc declaration, associated to something.
+ */
+class JSdoc {
+    /**
+     * JSdoc-compatible description.
+     *
+     * @type {string[]}
+     */
+    description = [];
+    /**
+     * True if the thing is private (and that can not be expressed with the TS type system),
+     * false or undefined otherwise.
+     *
+     * @type {boolean}
+     */
+    private = false;
+    /**
+     * True or a JSdoc-compatible message if the thing is deprecated, false or undefined
+     * otherwise.
+     *
+     * @type {string | boolean}
+     */
+    deprecated = false;
+    /**
+     * List of related links to include at the end of the JSdoc.
+     *
+     * @type {string[]}
+     */
+    seelinks = [];
+
+    clone() {
+        const other = new JSdoc();
+        other.description = [...this.description];
+        other.private = this.private;
+        other.deprecated = this.deprecated;
+        other.seelinks = [...this.seelinks];
+        return other;
+    }
 
     /**
-     * Try to find a suitable type name for a module parameter.
-     *
-     * @param {RawModule.Parameter} rawParameter API module parameter data.
+     * Generate a TS code block from a JSdoc declaration.
      */
-    findParameterName = (rawParameter) => firstToUppercase(rawParameter.name);
+    toCode() {
+        /** @type {string[][]} */
+        const lineBlocks = [];
 
-    /**
-     * Simplify a module parameter type expression.
-     *
-     * @param {Parameter.Type} type Parameter type expression.
-     */
-    normalizeType = (type) => {
-        if (!type.lits?.size && (!type.multi || !type.singleLits?.size)) {
-            return;
+        if (this.description.length > 0) {
+            lineBlocks.push(this.description);
         }
 
-        // Remove duplicated literals.
-        if (type.multi && type.singleLits !== undefined) {
-            type.lits?.forEach(Set.prototype.delete, type.singleLits);
+        /** @type {string[]} */
+        const tags = [];
+
+        if (typeof this.deprecated === "string") {
+            tags.push(`@deprecated ${this.deprecated}`);
+        } else if (this.deprecated) {
+            tags.push("@deprecated");
         }
 
-        // Remove literals that are already covered by the base type.
-        let underlying = type;
-        while (true) {
-            // `string` covers all literals.
-            if (underlying.base === "string") {
-                type.lits?.clear();
-                if (type.multi) {
-                    type.singleLits?.clear();
-                }
-                break;
-            }
-
-            // An enumeration covers, well, its members.
-            if (typeof underlying.base === "object") {
-                Object.keys(underlying.base).forEach((k) => {
-                    type.lits?.delete(k);
-                    if (type.multi) {
-                        type.singleLits?.delete(k);
-                    }
-                });
-                break;
-            }
-
-            // Assume any unknown base type does not cover anything.
-            if (underlying.base === undefined || !(underlying.base in TYPE_ALIASES)) {
-                break;
-            }
-
-            underlying = TYPE_ALIASES[underlying.base];
-            underlying.lits?.forEach(Set.prototype.delete, type.lits);
-            if (underlying.multi && type.multi) {
-                underlying.singleLits?.forEach(Set.prototype.delete, type.singleLits);
-            }
+        if (this.private) {
+            tags.push("@private");
         }
 
-        // Use type aliases to reduce type expressions.
-        // Only consider types with literals, as we do not want to replace type synonyms.
-        // Note that this approach is linear: we apply the first replacement found in order,
-        // without trying to find the best replacement.
-        let foundReplacement;
-        do {
-            foundReplacement = false;
-            for (const [name, typeMap] of Object.entries(TYPE_ALIASES)) {
-                if (
-                    (typeMap.base !== undefined && typeMap.base !== type.base) ||
-                    typeMap.lits === undefined ||
-                    !isSubset(typeMap.lits, type.lits) ||
-                    typeMap.multi !== type.multi ||
-                    (typeMap.multi && type.multi && !isSubset(typeMap.singleLits, type.singleLits))
-                ) {
-                    continue;
-                }
+        if (this.seelinks.length) {
+            tags.push(...this.seelinks.map((l) => `@see ${l}`));
+        }
 
-                type.base = name;
-                typeMap.lits.forEach(Set.prototype.delete, type.lits);
-                if (
-                    typeMap.multi &&
-                    typeMap.singleLits !== undefined &&
-                    type.multi &&
-                    type.singleLits !== undefined
-                ) {
-                    typeMap.singleLits.forEach(Set.prototype.delete, type.singleLits);
-                }
+        if (tags.length) {
+            lineBlocks.push(tags);
+        }
 
-                foundReplacement = true;
-                break;
-            }
-        } while (foundReplacement);
-    };
+        return lineBlocks.length
+            ? ["/**", ...flatWithLine(...lineBlocks).map((l) => ` * ${l}`), " */"]
+            : [];
+    }
 
     /**
      * Convert HTML syntax to JSdoc-friendly markdown.
      *
      * @param {string} text HTML text.
      */
-    parseWikitext = (text) => {
+    static htmlToMarkdown = (text) => {
         // div, span --> nothing
         text = text.replace(/<\/?(div|span).*?>/g, "");
 
@@ -1249,198 +2031,391 @@ class ModuleParser {
 
         return text.trim().split("\n");
     };
-
-    /**
-     * Process data of an API module parameter.
-     *
-     * In practice:
-     *  - format and capitalize the parameter name.
-     *  - deduce the TS parameter type.
-     *  - add non-TS info to the JSdoc.
-     *  - format JSdoc description from HTML -> markdown.
-     *
-     * @param {Record<string, RawModule>} rawModuleDict Set of modules the parameter comes from.
-     * @param {Module} module Processed API module data.
-     * @param {RawModule.Parameter} rawParameter API module parameter data.
-     */
-    parseParameter = (rawModuleDict, module, rawParameter) => {
-        const rawModule = rawParameter.module;
-
-        /** @type {Declaration.JSdoc} */
-        const jsdoc = {};
-        /** @type {Parameter} */
-        const parameter = {
-            key: rawParameter.name,
-            name: rawParameter.name,
-            module: module,
-            type: {},
-            required: !!rawParameter.required,
-            jsdoc,
-        };
-
-        parameter.type.lits = new Set();
-        jsdoc.description = this.parseWikitext(rawParameter.description);
-
-        if (typeof rawParameter.type !== "string") {
-            const isUsedAsTemplateVariable = rawModule.parameters.some((p) =>
-                Object.values(p.templatevars ?? {}).includes(rawParameter.name)
-            );
-
-            // We do not have a generic way to detect which parameters may get unspecified new values,
-            // so for now we generalize all parameter types referenced in templated parameters
-            // to be sure we are not being too specific.
-            if (
-                isUsedAsTemplateVariable ||
-                (!rawParameter.submodules && rawParameter.type.length > 100)
-            ) {
-                parameter.type.base = "string";
-            } else if (rawParameter.type.length > 0) {
-                rawParameter.type.forEach(Set.prototype.add, parameter.type.lits);
-            }
-        } else if (rawParameter.type in PARAMETER_TYPE_UNDERLYING) {
-            parameter.type = { ...PARAMETER_TYPE_UNDERLYING[rawParameter.type] };
-            parameter.type.lits = new Set(parameter.type.lits);
-            if (parameter.type.multi) {
-                parameter.type.singleLits = new Set(parameter.type.singleLits);
-            }
-        } else {
-            logError(
-                `[MP] Could not find an appropriate TS type for parameter type "${rawParameter.type}".`
-            );
-        }
-
-        if (rawParameter.default !== undefined) {
-            parameter.default = rawParameter.default;
-        }
-
-        if (rawParameter.multi) {
-            parameter.type.multi = true;
-        }
-
-        if (rawParameter.sensitive) {
-            jsdoc.description.push("", "Sensitive parameter.");
-        }
-
-        if (rawParameter.deprecated) {
-            jsdoc.deprecated = true;
-        }
-
-        if (rawParameter.allspecifiers !== undefined) {
-            if (parameter.type.multi) {
-                parameter.type.singleLits ??= new Set();
-                rawParameter.allspecifiers.forEach(Set.prototype.add, parameter.type.singleLits);
-            } else {
-                rawParameter.allspecifiers.forEach(Set.prototype.add, parameter.type.lits);
-            }
-        }
-
-        if (rawParameter.internalvalues) {
-            rawParameter.internalvalues.forEach(Set.prototype.add, parameter.type.lits);
-        }
-        if (rawParameter.deprecatedvalues) {
-            rawParameter.deprecatedvalues.forEach(Set.prototype.add, parameter.type.lits);
-        }
-
-        const templatevars = rawParameter.templatevars;
-        if (templatevars) {
-            const varPattern = new RegExp(`\\{(${Object.keys(templatevars).join("|")})\\}`, "g");
-            parameter.template = true;
-            parameter.key = parameter.key.replaceAll(varPattern, (_, varName) => {
-                const varParam = templatevars[varName];
-                const varType = rawModule.parameters.find((p) => p.name === varParam)?.type;
-                if (Array.isArray(varType)) {
-                    return `\${string}`;
-                } else {
-                    return `\${${varType}}`;
-                }
-            });
-        }
-
-        parameter.name = this.findParameterName(rawParameter);
-
-        if (rawParameter.submodules !== undefined) {
-            parameter.type.base = Object.fromEntries(
-                Object.entries(rawParameter.submodules).map(([value, submodule]) => [
-                    value,
-                    this.parseModule(rawModuleDict, submodule, rawParameter.submoduleparamprefix, {
-                        parameter,
-                        value,
-                    }),
-                ])
-            );
-        }
-
-        this.normalizeType(parameter.type);
-
-        return parameter;
-    };
-
-    /**
-     * Process data of an API module.
-     *
-     * In practice:
-     *  - format and capitalize the module name.
-     *  - add prefixes to parameter names, duplicating modules if necessary.
-     *  - format JSdoc description from HTML -> markdown.
-     *
-     * @param {Record<string, RawModule>} rawModuleDict Set of modules the module comes from.
-     * @param {string} path Path of the module to process.
-     * @param {string} [prefix] Full parameter name prefix.
-     * @param {ParentPath} [parent] Data of the module this one is an extension of.
-     */
-    parseModule = (rawModuleDict, path, prefix, parent) => {
-        const rawModule = rawModuleDict[path];
-
-        /** @type {Declaration.JSdoc} */
-        const jsdoc = {
-            description: this.parseWikitext(rawModule.description),
-            private: !!rawModule.internal,
-            deprecated: !!rawModule.deprecated,
-            seelinks: rawModule.helpurls,
-        };
-
-        const { name, source } = this.findModuleName(rawModule);
-
-        /** @type {Module} */
-        const module = {
-            path: rawModule.path,
-            source,
-            name,
-            parents: [],
-            parameters: [],
-            prefix: `${prefix ?? ""}${rawModule.prefix}`,
-            jsdoc,
-        };
-
-        if (parent) {
-            module.parents.push(parent);
-        }
-
-        const rawParameters = rawModule.parameters.toSorted((p1, p2) => p1.index - p2.index);
-
-        module.parameters = rawParameters.map((rawParameter) =>
-            this.parseParameter(rawModuleDict, module, rawParameter)
-        );
-
-        return module;
-    };
-
-    /**
-     * Process data of a set of API modules.
-     *
-     * @param {Record<string, RawModule>} rawModuleDict Set of modules.
-     */
-    parse = (rawModuleDict) => this.parseModule(rawModuleDict, "main");
 }
 
 /**
- * Add quotes around a TS string, unescaping any raw quotes it might contain.
+ * Declaration modifier.
  *
- * @param {string} s String to quote.
+ * @typedef {"export" | "declare" | "export declare" | null} DeclarationModifier
  */
-const quote = (s) => `"${s.replaceAll('"', '\\"')}"`;
 
-class ModuleFormatter {
+/**
+ * Something that is a type-like declaration.
+ *
+ * @abstract
+ */
+class AbstractDeclaration {
+    /**
+     * JSdoc declaration.
+     *
+     * @type {JSdoc}
+     */
+    jsdoc = new JSdoc();
+    /**
+     * Type name.
+     *
+     * @readonly
+     * @type {string}
+     */
+    name;
+    /**
+     * Declaration modifier.
+     *
+     * @type {DeclarationModifier}
+     */
+    modifier = null;
+    /**
+     * List of template type variables.
+     *
+     * @type {string[]}
+     */
+    template = [];
+
+    /**
+     * @param {string} name
+     */
+    constructor(name) {
+        this.name = name;
+    }
+
+    /**
+     * @param {string} declType
+     * @param {string[]} content
+     * @param {string[]} [preRules]
+     */
+    toCode(declType, content, preRules) {
+        let intro = `${declType} ${this.name}`;
+
+        if (this.modifier !== null) {
+            intro = `${this.modifier} ${intro}`;
+        }
+
+        if (this.template.length > 0) {
+            intro = `${intro}<${this.template.join(", ")}>`;
+        }
+
+        if (content.length > 0) {
+            content[0] = `${intro} ${content[0]}`;
+        } else {
+            content.push(intro);
+        }
+
+        preRules ??= [];
+        return [
+            ...this.jsdoc.toCode(),
+            ...preRules.map(AbstractDeclaration.getDisableRuleLine),
+            ...content,
+        ];
+    }
+
+    /**
+     * Generate a TS line to disable a linter rule for the next line.
+     *
+     * @private
+     * @param {string} name Rule name.
+     */
+    static getDisableRuleLine = (name) => `// tslint:disable-next-line:${name}`;
+}
+
+/**
+ * Type alias declaration.
+ */
+class TypeDeclaration extends AbstractDeclaration {
+    /**
+     * Type expression.
+     *
+     * @readonly
+     * @type {string}
+     */
+    type;
+
+    /**
+     * @param {string} name
+     * @param {string} type
+     */
+    constructor(name, type) {
+        super(name);
+        this.type = type;
+    }
+
+    /**
+     * Generate a TS code block from a type alias declaration.
+     */
+    toCode() {
+        return super.toCode("type", [`= ${this.type};`]);
+    }
+}
+
+/**
+ * Possible replacement of a deprecated type alias.
+ *
+ * @typedef DeprecationTarget
+ *
+ * @property {string} type
+ * Replacement type expression.
+ *
+ * @property {string} [link]
+ * Link to put on the replacement type expression, used in JSdoc.
+ */
+
+/**
+ * Deprecated type alias declaration.
+ */
+class DeprecatedTypeDeclaration extends TypeDeclaration {
+    /**
+     * @param {string} name
+     * @param {DeprecationTarget[]} targets
+     * @param {string} [type]
+     */
+    constructor(name, targets, type) {
+        super(name, type ?? targets[0].type);
+
+        /** @type {DeclarationModifier} */
+        this.modifier = "export";
+        this.jsdoc.deprecated = `Use ${targets
+            .map((t) => `{@link ${t.link ?? t.type} \`${t.type}\`}`)
+            .join(" / ")} instead.`;
+    }
+}
+
+/**
+ * Interface property declaration.
+ */
+class PropertyDeclaration {
+    /**
+     * JSdoc declaration.
+     *
+     * @type {JSdoc}
+     */
+    jsdoc = new JSdoc();
+    /**
+     * Property name, as an interpolated TS string if `template`,
+     * otherwise as a string literal.
+     *
+     * @type {string}
+     */
+    name;
+    /**
+     * True if the property is required, false if it is optional.
+     *
+     * @type {boolean}
+     */
+    required;
+    /**
+     * Property type.
+     *
+     * @type {string}
+     */
+    type;
+    /**
+     * True if the property name is an interpolated TS string,
+     * false if it is a single literal.
+     *
+     * @type {boolean}
+     */
+    template = false;
+
+    /**
+     * @param {string} name
+     * @param {boolean} required
+     * @param {string | TypeExpression} type
+     */
+    constructor(name, required, type) {
+        this.name = name;
+        this.required = required;
+        if (type instanceof TypeExpression) {
+            type = type?.toCode();
+        }
+        this.type = type;
+    }
+
+    /**
+     * Generate a TS string from an interface property declaration.
+     */
+    toCode() {
+        let name = this.name;
+        if (this.template) {
+            name = `[k: \`${name}\`]`;
+        } else {
+            if (!name.match(/^[0-9a-z]+$/i)) {
+                name = quote(name);
+            }
+
+            if (!this.required) {
+                name = `${name}?`;
+            }
+        }
+
+        return [...this.jsdoc.toCode(), `${name}: ${this.type};`];
+    }
+}
+
+/**
+ * Interface declaration.
+ */
+class InterfaceDeclaration extends AbstractDeclaration {
+    /**
+     * Set of parent types to inherit from.
+     *
+     * @type {string[]}
+     */
+    parents;
+    /**
+     * Ordered list of properties.
+     *
+     * @type {PropertyDeclaration[]}
+     */
+    properties;
+
+    /**
+     * @param {string} name
+     * @param {string[]} [parents]
+     * @param {PropertyDeclaration[]} [properties]
+     */
+    constructor(name, parents, properties) {
+        super(name);
+        this.parents = parents ?? [];
+        this.properties = properties ?? [];
+    }
+
+    /**
+     * Generate a TS code block from an interface declaration.
+     */
+    toCode() {
+        /** @type {string[]} */
+        const preRules = [];
+
+        if (this.name.match(/^I[^a-z]/)) {
+            preRules.push("interface-name");
+        }
+
+        let intro = "{";
+        if (this.parents.length > 0) {
+            intro = `extends ${this.parents.join(", ")} ${intro}`;
+        }
+
+        let content;
+        if (this.properties.length > 0) {
+            content = [intro, ...this.properties.flatMap((p) => p.toCode()).map(indent), "}"];
+        } else {
+            preRules.push("no-empty-interface");
+            content = [`${intro}}`];
+        }
+
+        return super.toCode("interface", content, preRules);
+    }
+}
+
+/**
+ * Type declaration (either a type alias or interface).
+ *
+ * @typedef {TypeDeclaration | InterfaceDeclaration} Declaration
+ */
+
+/**
+ * Namespace declaration.
+ */
+class NamespaceDeclaration {
+    /**
+     * JSdoc declaration.
+     *
+     * @type {JSdoc}
+     */
+    jsdoc = new JSdoc();
+    /**
+     * Type declarations.
+     *
+     * @type {Declaration[]}
+     */
+    declarations = [];
+    /**
+     * Sub-namespaces.
+     *
+     * @type {Record<string, NamespaceDeclaration>}
+     */
+    subnamespaces = {};
+
+    /**
+     * Add a type declaration to the namespace or one of its subnamespaces.
+     *
+     * @param {Declaration} declaration Type declaration.
+     * @param {string[]} [path] Subnamespace path of where to put the declaration.
+     */
+    addDeclaration(declaration, path) {
+        if (path === undefined || path.length === 0) {
+            this.declarations.push(declaration);
+            return;
+        }
+
+        const [subnamespace, ...subpath] = path;
+        this.subnamespaces[subnamespace] ??= new NamespaceDeclaration();
+        this.subnamespaces[subnamespace].addDeclaration(declaration, subpath);
+    }
+
+    /**
+     * @param {string[]} path
+     */
+    getNamespace(path) {
+        /** @type {NamespaceDeclaration} */
+        let subnamespace = this;
+        for (const name of path) {
+            subnamespace = subnamespace.subnamespaces[name] ??= new NamespaceDeclaration();
+        }
+        return subnamespace;
+    }
+
+    /**
+     * Merge two declarations of a same TS namespace, within the 1st one.
+     *
+     * @param {NamespaceDeclaration} other Other namespace declaration.
+     */
+    merge(other) {
+        this.declarations.push(...other.declarations);
+
+        for (const [subname, subnamespace] of Object.entries(other.subnamespaces)) {
+            if (subname in this.subnamespaces) {
+                this.subnamespaces[subname].merge(subnamespace);
+            } else {
+                this.subnamespaces[subname] = subnamespace;
+            }
+        }
+    }
+
+    /**
+     * Generate a TS code block from a namespace declaration.
+     *
+     * @param {string} [name] Namespace name, if it should be enclosed in braces.
+     * @returns {string[]}
+     */
+    toCode(name) {
+        const subnamespaces = Object.entries(this.subnamespaces);
+
+        const content = flatWithLine(
+            ...this.declarations.map((declaration) => declaration.toCode()),
+            ...subnamespaces.map(([subname, subnamespace]) => subnamespace.toCode(subname))
+        );
+
+        if (name === undefined) {
+            return content;
+        }
+
+        if (subnamespaces.length === 1 && this.declarations.length === 0) {
+            // namespace X { namespace Y { ... } }  -->  namespace X.Y { ... }
+            const [subname, subnamespace] = subnamespaces[0];
+            return subnamespace.toCode(`${name}.${subname}`);
+        }
+
+        return [`namespace ${name} {`, ...content.map(indent), "}"];
+    }
+}
+
+class DeclarationFile {
+    /**
+     * Global `mw.Api` namespace.
+     *
+     * @private
+     */
+    apiNamespace = new NamespaceDeclaration();
     /**
      * Set of deprecated type aliases, with the list of types that can be used as replacement.
      * Replacements are grouped by module source (to keep a consistent order).
@@ -1450,608 +2425,99 @@ class ModuleFormatter {
     deprecatedAliases = {};
 
     /**
-     * Generate the full prefix of a parameter name from a stack of parent module parameters.
-     *
-     * @param {Module} source Module to generate the parameter prefix of.
-     * @param {ParentStack} [parentStack] Stack of parent module parameters.
+     * @param {NamespaceDeclaration} [namespace] Declarations to add to the `mw.Api` namespace.
      */
-    formatParameterPrefix = (source, parentStack) => {
-        let prefix = source.prefix;
-        for (let parent = parentStack; parent !== undefined; parent = parent.next) {
-            prefix = `${parent.path.parameter.module.prefix}${prefix}`;
+    constructor(namespace) {
+        if (namespace !== undefined) {
+            this.apiNamespace.merge(namespace);
         }
-        return prefix;
-    };
+    }
 
     /**
-     * Format a TS literal for JSdoc usage.
+     * Add some TS declarations to the exposed `mw.Api` namespace.
      *
-     * @param {unknown} lit Literal.
-     * @param {Parameter.Type} [type] Literal type, may help to produce a more fitting formatting.
-     * @returns {string}
+     * @param {NamespaceDeclaration | TypeDeclaration} decl Declaration to add, or namespace with declarations.
      */
-    formatJSdocLit = (lit, type) => {
-        if (lit === undefined || lit === "") {
-            return "";
-        }
-
-        if (Number.isInteger(lit)) {
-            return `${lit}`;
-        }
-
-        if (!type?.multi) {
-            return `\`${lit}\``;
-        }
-
-        const litParts = `${lit}`.split("|").map((l) => this.formatJSdocLit(l));
-        if (litParts.length === 1) {
-            return litParts[0];
-        } else if (litParts.length === 2) {
-            return `${litParts[0]} and ${litParts[1]}`;
+    addToApiNamespace(decl) {
+        if (decl instanceof NamespaceDeclaration) {
+            this.apiNamespace.merge(decl);
         } else {
-            const lastPart = litParts.pop();
-            return `${litParts.join(", ")}, and ${lastPart}`;
+            this.apiNamespace.addDeclaration(decl);
         }
-    };
+    }
 
     /**
-     * Format a set of TS literals as a list of quoted strings.
-     *
-     * @param {Set<string> | undefined} litSet Set of literals.
+     * Generate a TS code block from a global namespace declaration.
+     * Also puts imports/exports and some stuff around, as it generates a full declaration file.
      */
-    formatLitSet = (litSet) => (litSet ?? new Set()).values().map(quote).toArray().sort();
+    toCode() {
+        // Local declarations.
+        const local = new NamespaceDeclaration();
 
-    /**
-     * Format a TS parameter type expression as a TS string.
-     *
-     * @param {Parameter.Type} type
-     */
-    formatTypeExpr = (type) => {
-        /** @type {string[]} */
-        let typeUnion = [];
+        const multiType = new TypeDeclaration("OneOrMore", "T | T[]");
+        multiType.template.push("T");
+        local.addDeclaration(multiType);
 
-        if (typeof type.base === "object") {
-            typeUnion.push("string");
-        } else if (typeof type.base === "string") {
-            typeUnion.push(type.base);
-        }
+        // Global declarations.
+        const global = new NamespaceDeclaration();
+        const globalMwApi = global.getNamespace(["mw", "Api"]);
 
-        const lits = new Set(type.lits);
-        const toggleLits = new Set();
-        if (lits.size > 0) {
-            for (const lit of lits.values().toArray()) {
-                const negLit = `!${lit}`;
-                if (lits.has(negLit)) {
-                    toggleLits.add(lit);
-                    lits.delete(lit);
-                    lits.delete(negLit);
-                }
-            }
+        const toggleType = new TypeDeclaration("Toggle", "{ [V in T]: V | `!${V}` }[T]");
+        toggleType.template.push("T extends string");
+        globalMwApi.addDeclaration(toggleType);
 
-            if (toggleLits.size > 0) {
-                typeUnion.push(`Toggle<${this.formatLitSet(toggleLits).join(" | ")}>`);
-            }
+        globalMwApi.merge(this.apiNamespace);
 
-            typeUnion.push(...this.formatLitSet(lits));
-        }
-
-        if (typeUnion.length === 0) {
-            return "string";
-        }
-
-        if (type.multi) {
-            if (typeUnion.length === 1 && type.base !== undefined) {
-                typeUnion.push(`${typeUnion[0]}[]`, ...this.formatLitSet(type.singleLits));
-            } else {
-                typeUnion = [
-                    ...this.formatLitSet(type.singleLits),
-                    `OneOrMore<${typeUnion.join(" | ")}>`,
-                ];
-            }
-        }
-
-        return typeUnion.join(" | ");
-    };
-
-    /**
-     * Merge two declarations of a same TS namespace, within the 1st one.
-     *
-     * @param {Declaration.Namespace} namespace 1st namespace declaration.
-     * @param {Declaration.Namespace} namespace2 2nd namespace declaration.
-     */
-    mergeNamespace = (namespace, namespace2) => {
-        if (
-            ["export", "declare"].every((m) =>
-                [namespace, namespace2].some((ns) => ns.modifier?.includes(m))
-            )
-        ) {
-            namespace.modifier = "export declare";
-        } else if ([namespace, namespace2].some((ns) => ns.modifier === "export")) {
-            namespace.modifier = "export";
-        } else if ([namespace, namespace2].some((ns) => ns.modifier === "declare")) {
-            namespace.modifier = "declare";
-        }
-
-        if (namespace2.declarations !== undefined) {
-            namespace.declarations ??= [];
-            namespace.declarations.push(...namespace2.declarations);
-        }
-
-        if (namespace2.subnamespaces !== undefined) {
-            namespace.subnamespaces ??= {};
-            for (const [subname, subnamespace] of Object.entries(namespace2.subnamespaces)) {
-                namespace.subnamespaces[subname] ??= {};
-                this.mergeNamespace(namespace.subnamespaces[subname], subnamespace);
-            }
-        }
-
-        if (namespace2.deprecated !== undefined) {
-            namespace.deprecated ??= {};
-            for (const [name, targets] of Object.entries(namespace2.deprecated)) {
-                namespace.deprecated[name] ??= [];
-                namespace.deprecated[name].push(...targets);
-            }
-        }
-    };
-
-    /**
-     * Format an API module as a set of TS declarations.
-     *
-     * @param {Module} module Processed API module data.
-     * @param {ParentStack} [parentStack] Stack of parent module parameters.y
-     */
-    formatModule = (module, parentStack) => {
-        const parameterPrefix = this.formatParameterPrefix(module, parentStack);
-
-        /** @type {Parameter[]} */
-        const prefixedParameters = module.parameters.map((parameter) => {
-            parameter = { ...parameter };
-
-            parameter.key = `${parameterPrefix}${parameter.key}`;
-
-            if (parameter.default !== undefined) {
-                const jsdocLit =
-                    this.formatJSdocLit(parameter.default, parameter.type) || "an empty string";
-                parameter.jsdoc ??= {};
-                parameter.jsdoc.description = [...(parameter.jsdoc.description ?? [])];
-                parameter.jsdoc.description.push("", `Defaults to ${jsdocLit}.`);
-            }
-
-            return parameter;
-        });
-
-        const submoduleSets = prefixedParameters.flatMap((parameter) => {
-            if (typeof parameter.type.base !== "object") {
-                return [];
-            } else {
-                const values = Object.entries(parameter.type.base).sort((e1, e2) =>
-                    e1[0].localeCompare(e2[0])
-                );
-                return { values, parameter };
-            }
-        });
-
-        /** @type {Declaration.Interface} */
-        const baseInterface = {
-            jsdoc: module.jsdoc,
-            name: module.name,
-            parents: [],
-            properties: module.parameters.map((parameter) => ({
-                jsdoc: parameter.jsdoc,
-                name: `${parameterPrefix}${parameter.key}`,
-                template: parameter.template,
-                type: this.formatTypeExpr(parameter.type),
-                required: parameter.required,
-            })),
-        };
-
-        if (parentStack !== undefined) {
-            const parameter = parentStack.path.parameter;
-            const parentParameterPrefix = this.formatParameterPrefix(
-                parameter.module,
-                parentStack.next
-            );
-
-            // Set parent interface
-            baseInterface.parents.push(parameter.module.name);
-
-            // Narrow parameter from parent interface
-            if (!parameter.type.multi) {
-                /** @type {Declaration.Property} */
-                const narrowedProperty = {
-                    name: `${parentParameterPrefix}${parameter.key}`,
-                    template: parameter.template,
-                    type: this.formatTypeExpr({ lits: new Set([parentStack.path.value]) }),
-                    required: parameter.required,
-                };
-
-                // Make parameter required if not being narrowed with the default value.
-                if (
-                    !parameter.required &&
-                    parameter.default !== undefined &&
-                    parameter.default !== parentStack.path.value
-                ) {
-                    narrowedProperty.required = true;
-                }
-
-                baseInterface.properties.unshift(narrowedProperty);
-            }
-        } else {
-            baseInterface.parents.push("UnknownParams");
-        }
-
-        /** @type {Declaration.Namespace} */
-        const namespace = {};
-        namespace.declarations = [baseInterface];
-
-        /** @type {Record<string, Declaration.Namespace>} */
-        const subnamespaces = {};
-        for (const submoduleSet of submoduleSets) {
-            const parameter = submoduleSet.parameter;
-            subnamespaces[parameter.name] ??= {};
-            for (const [value, submodule] of submoduleSet.values) {
-                const path = { parameter, value };
-                this.mergeNamespace(
-                    subnamespaces[parameter.name],
-                    this.formatModule(submodule, { path, next: parentStack })
-                );
-            }
-        }
-
-        if (Object.entries(subnamespaces).length) {
-            namespace.subnamespaces = { [module.name]: { subnamespaces } };
-        }
-
-        let ifacePath = module.name;
-        for (let parent = parentStack; parent !== undefined; parent = parent.next) {
-            const parameter = parent.path.parameter;
-            ifacePath = `${parameter.module.name}.${parameter.name}.${ifacePath}`;
-        }
-
-        for (const [oldName, paths] of Object.entries(INTERFACE_COMPATIBILITY)) {
-            if (paths.includes(module.path)) {
-                this.deprecatedAliases[oldName] ??= {};
-                this.deprecatedAliases[oldName][module.path] ??= [];
-                this.deprecatedAliases[oldName][module.path].push(ifacePath);
-            }
-        }
-
-        return namespace;
-    };
-
-    /**
-     * Format an API module tree as a set of TS declarations.
-     *
-     * @param {Module} rootModule Processed API module data.
-     */
-    format = (rootModule) => {
-        /** @type {Declaration.Namespace} */
-        const apiNamespace = {};
-        apiNamespace.declarations = [];
-
-        apiNamespace.declarations.push({
-            name: "UnknownParams",
-            type:
-                "Record<string, string | number | boolean | File | string[] | number[] | undefined>",
-        });
-        apiNamespace.declarations.push({
-            name: "Toggle",
-            template: ["T extends string"],
-            type: "{ [V in T]: V | `!${V}` }[T]",
-        });
-
-        for (const [name, type] of Object.entries(TYPE_ALIASES)) {
-            apiNamespace.declarations.push({
-                name,
-                type: this.formatTypeExpr(type),
-            });
-        }
-
-        this.mergeNamespace(apiNamespace, this.formatModule(rootModule));
-
-        /** @type {Declaration.Namespace} */
-        const mwNamespace = {};
-        mwNamespace.subnamespaces = {};
-
-        mwNamespace.subnamespaces["Api"] = apiNamespace;
-
-        /** @type {Declaration.Namespace} */
-        const namespace = {};
-        namespace.declarations = [];
-        namespace.subnamespaces = {};
-        namespace.deprecated = {};
-
-        namespace.declarations.push({
-            name: "OneOrMore",
-            template: ["T"],
-            type: "T | T[]",
-        });
-
-        namespace.subnamespaces["mw"] = mwNamespace;
-
-        namespace.deprecated["ApiAssert"] = [{ type: "mw.Api.Assert" }];
-        namespace.deprecated["ApiTokenType"] = [{ type: "mw.Api.TokenType" }];
-        namespace.deprecated["ApiLegacyTokenType"] = [{ type: "mw.Api.LegacyTokenType" }];
+        // Deprecated type aliases.
+        const deprecations = new NamespaceDeclaration();
+        deprecations.addDeclaration(
+            new DeprecatedTypeDeclaration("ApiAssert", [{ type: "mw.Api.Assert" }])
+        );
+        deprecations.addDeclaration(
+            new DeprecatedTypeDeclaration("ApiTokenType", [{ type: "mw.Api.TokenType" }])
+        );
+        deprecations.addDeclaration(
+            new DeprecatedTypeDeclaration("ApiLegacyTokenType", [
+                { type: "mw.Api.LegacyTokenType" },
+            ])
+        );
         for (const [name, targetMap] of Object.entries(this.deprecatedAliases)) {
-            const targets = INTERFACE_COMPATIBILITY[name].flatMap((path) =>
+            const targetIfaces = INTERFACE_COMPATIBILITY[name].flatMap((path) =>
                 targetMap[path].sort((t1, t2) => t1.length - t2.length)
             );
-            namespace.deprecated[name] = targets.map((target) => ({
+            const targets = targetIfaces.map((target) => ({
                 type: `Partial<mw.Api.${target}>`,
                 link: `mw.Api.${target}`,
             }));
+            deprecations.addDeclaration(new DeprecatedTypeDeclaration(name, targets));
         }
 
-        return namespace;
-    };
-}
-
-class ModuleGenerator {
-    /**
-     * Indent a line by 1 level.
-     *
-     * @param {string} s
-     */
-    indent = (s) => (s !== "" ? " ".repeat(4) : "") + s;
-
-    /**
-     * Flatten multiple code blocks into a single code block, putting an empty line between blocks.
-     *
-     * @param {...string[]} blocks Code blocks.
-     */
-    flatWithLine = (...blocks) => {
-        if (blocks.length === 0) {
-            return [];
-        }
-
-        const newBlock = [...blocks[0]];
-        for (let i = 1; i < blocks.length; ++i) {
-            newBlock.push("", ...blocks[i]);
-        }
-
-        return newBlock;
-    };
-
-    /**
-     * Generate a TS line to disable a linter rule for the next line.
-     *
-     * @param {string} name Rule name.
-     */
-    disableRule = (name) => `// tslint:disable-next-line:${name}`;
-
-    /**
-     * Generate a TS code block from a JSdoc declaration.
-     *
-     * @param {Declaration.JSdoc | undefined} jsdoc JSdoc declaration.
-     */
-    logJSdoc = (jsdoc) => {
-        jsdoc ??= {};
-
-        /** @type {string[][]} */
-        const lineBlocks = [];
-
-        if (jsdoc.description !== undefined && jsdoc.description.length > 0) {
-            lineBlocks.push(jsdoc.description);
-        }
-
-        /** @type {string[]} */
-        const tags = [];
-
-        if (typeof jsdoc.deprecated === "string") {
-            tags.push(`@deprecated ${jsdoc.deprecated}`);
-        } else if (jsdoc.deprecated) {
-            tags.push("@deprecated");
-        }
-
-        if (jsdoc.private) {
-            tags.push("@private");
-        }
-
-        if (jsdoc.seelinks?.length) {
-            tags.push(...jsdoc.seelinks.map((l) => `@see ${l}`));
-        }
-
-        if (tags.length) {
-            lineBlocks.push(tags);
-        }
-
-        return lineBlocks.length
-            ? ["/**", ...this.flatWithLine(...lineBlocks).map((l) => ` * ${l}`), " */"]
-            : [];
-    };
-
-    /**
-     * Generate a TS code block from a type alias declaration.
-     *
-     * @param {Declaration.Type} type Type alias declaration.
-     */
-    logType = (type) => {
-        let intro = `type ${type.name}`;
-        if (type.modifier !== undefined) {
-            intro = `${type.modifier} ${intro}`;
-        }
-
-        if (type.template !== undefined) {
-            intro = `${intro}<${type.template.join(", ")}>`;
-        }
-
-        return [...this.logJSdoc(type.jsdoc), `${intro} = ${type.type};`];
-    };
-
-    /**
-     * Generate a TS string from an interface property declaration.
-     *
-     * @param {Declaration.Property} property Interface property declaration.
-     */
-    logProperty = (property) => {
-        let name = property.name;
-        if (property.template) {
-            name = `[k: \`${name}\`]`;
-        } else {
-            if (!name.match(/^[0-9a-z]+$/i)) {
-                name = quote(name);
-            }
-
-            if (!property.required) {
-                name = `${name}?`;
-            }
-        }
-
-        return [...this.logJSdoc(property.jsdoc), `${name}: ${property.type};`];
-    };
-
-    /**
-     * Generate a TS code block from an interface declaration.
-     *
-     * @param {Declaration.Interface} iface Interface declaration.
-     */
-    logInterface = (iface) => {
-        /** @type {string[]} */
-        const lines = [];
-
-        if (iface.name.match(/^I[^a-z]/)) {
-            lines.push(this.disableRule("interface-name"));
-        }
-
-        let intro = `interface ${iface.name}`;
-        if (iface.modifier !== undefined) {
-            intro = `${iface.modifier} ${intro}`;
-        }
-
-        if (iface.template !== undefined) {
-            intro = `${intro}<${iface.template.join(", ")}>`;
-        }
-
-        if (iface.parents !== undefined && iface.parents.length > 0) {
-            intro = `${intro} extends ${iface.parents.join(", ")}`;
-        }
-
-        if (iface.properties.length > 0) {
-            lines.push(
-                `${intro} {`,
-                ...iface.properties.flatMap(this.logProperty).map(this.indent),
-                "}"
-            );
-        } else {
-            lines.push(this.disableRule("no-empty-interface"), `${intro} {}`);
-        }
-
-        lines.unshift(...this.logJSdoc(iface.jsdoc));
-
-        return lines;
-    };
-
-    /**
-     * Generate a TS code block from a type declaration (either a type alias or an interface).
-     *
-     * @param {Declaration} declaration Type declaration.
-     */
-    logDeclaration = (declaration) =>
-        "type" in declaration ? this.logType(declaration) : this.logInterface(declaration);
-
-    /**
-     * Generate a TS code block from a deprecated type alias declaration.
-     *
-     * @param {string} typeName Type name.
-     * @param {{type: string, link?: string }[]} targets Possible type replacements.
-     */
-    logDeprecated = (typeName, targets) => [
-        ...this.logJSdoc({
-            deprecated: `Use ${targets
-                .map((t) => `{@link ${t.link ?? t.type} \`${t.type}\`}`)
-                .join(" / ")} instead.`,
-        }),
-        ...this.logType({ modifier: "export", name: typeName, type: targets[0].type }),
-    ];
-
-    /**
-     * Generate a TS code block from a namespace declaration.
-     *
-     * @param {`namespace ${string}` | "global"} name Namespace name (or global).
-     * @param {Declaration.Namespace} namespace Namespace declaration.
-     * @returns {string[]}
-     */
-    logNamespace = (name, namespace) => {
-        const declarations = namespace.declarations ?? [];
-        const subnamespaces = Object.entries(namespace.subnamespaces ?? {});
-        const deprecated = Object.entries(namespace.deprecated ?? {});
-
-        // namespace X { namespace Y { ... } }  -->  namespace X.Y { ... }
-        if (
-            name !== "global" &&
-            subnamespaces.length === 1 &&
-            declarations.length === 0 &&
-            deprecated.length === 0
-        ) {
-            const [subname, subnamespace] = subnamespaces[0];
-            return this.logNamespace(`${name}.${subname}`, subnamespace);
-        }
-
-        return [
-            `${namespace.modifier ? `${namespace.modifier} ` : ""}${name} {`,
-            ...this.flatWithLine(
-                ...declarations.map((declaration) => this.logDeclaration(declaration)),
-                ...subnamespaces.map(([subname, subnamespace]) =>
-                    this.logNamespace(`namespace ${subname}`, subnamespace)
-                ),
-                ...deprecated.map(([name, targets]) => this.logDeprecated(name, targets))
-            ).map(this.indent),
-            "}",
-        ];
-    };
-
-    /**
-     * Generate a TS code block from a global namespace declaration. Also puts imports/exports and
-     * some stuff around, to use when generating a full declaration file.
-     *
-     * @param {Declaration.Namespace} content Global namespace declaration.
-     */
-    log = (content) =>
-        this.flatWithLine(
+        return flatWithLine(
             ["// AUTOMATICALLY GENERATED (see scripts/api-types-generator.js)"],
-            ...(content.declarations ?? []).map(this.logDeclaration),
-            this.logNamespace("global", {
-                subnamespaces: content.subnamespaces,
-                modifier: "declare",
-            }),
-            ...Object.entries(content.deprecated ?? {}).map(([name, targets]) =>
-                this.logDeprecated(name, targets)
-            ),
+            local.toCode(),
+            flatWithLine(["declare global {", ...global.toCode().map(indent), "}"]),
+            deprecations.toCode(),
             ["export {};"]
         );
+    }
 
     /**
-     * Generate a TS declaration file from a global namespace declaration.
+     * Generate and automatically download a TS declaration file.
      *
      * @param {string} fileName File name.
-     * @param {Declaration.Namespace} content Global namespace declaration.
      */
-    generate = (fileName, content) => {
-        const lines = this.log(content);
+    download(fileName) {
+        const content = encodeURIComponent(this.toCode().join("\n"));
 
         const element = document.createElement("a");
-        element.setAttribute(
-            "href",
-            `data:text/plain;charset=utf-8,${encodeURIComponent(lines.join("\n"))}`
-        );
+        element.setAttribute("href", `data:text/plain;charset=utf-8,${content}`);
         element.setAttribute("download", fileName);
-
         element.style.display = "none";
+
         document.body.append(element);
         element.click();
         element.remove();
-    };
+    }
 }
 
-const loaders = Object.entries(SOURCES).map(([n, s]) => new ModuleLoader(s, n));
-const merger = new ModuleMerger();
-const parser = new ModuleParser();
-const formatter = new ModuleFormatter();
-const logger = new ModuleGenerator();
-
-ModuleLoader.loadAll(loaders).then((rawModuleDicts) => {
-    const rawModuleDict = merger.merge(rawModuleDicts);
-    const rootModule = parser.parse(rawModuleDict);
-    const content = formatter.format(rootModule);
-    logger.generate("index.d.ts", content);
-});
+generateApiParamsTypes();
