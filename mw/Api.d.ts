@@ -80,7 +80,7 @@ interface RollbackInfo {
     title: string;
 }
 
-interface FinishUpload {
+export interface FinishUpload {
     /**
      * Call this function to finish the upload.
      *
@@ -231,7 +231,7 @@ declare global {
              * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
              * @param {number} [chunkSize] Size (in bytes) per chunk (default: 5MB)
              * @param {number} [chunkRetries] Amount of times to retry a failed chunk (default: 1)
-             * @returns {Api.Promise.Upload}
+             * @returns {Upload.Promise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#chunkedUpload
              */
             chunkedUpload(
@@ -239,7 +239,7 @@ declare global {
                 data: ApiUploadParams,
                 chunkSize?: number,
                 chunkRetries?: number
-            ): Api.Promise.Upload;
+            ): Upload.Promise;
 
             /**
              * Upload a file to the stash, in chunks.
@@ -251,7 +251,7 @@ declare global {
              * @param {ApiUploadParams} [data]
              * @param {number} [chunkSize] Size (in bytes) per chunk (default: 5MB)
              * @param {number} [chunkRetries] Amount of times to retry a failed chunk (default: 1)
-             * @returns {Api.Promise.Upload<[FinishUpload]>} Promise that resolves with a
+             * @returns {Upload.Promise<[FinishUpload]>} Promise that resolves with a
              *  function that should be called to finish the upload.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#chunkedUploadToStash
              */
@@ -260,7 +260,7 @@ declare global {
                 data?: ApiUploadParams,
                 chunkSize?: number,
                 chunkRetries?: number
-            ): Api.Promise.Upload<[FinishUpload]>;
+            ): Upload.Promise<[FinishUpload]>;
 
             /**
              * Create a new page.
@@ -719,10 +719,10 @@ declare global {
              *
              * @param {File|Blob|HTMLInputElement} file HTML `input type=file` element with a file already inside of it, or a File object.
              * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
-             * @returns {Api.Promise.Upload}
+             * @returns {Upload.Promise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#upload
              */
-            upload(file: File | Blob | HTMLInputElement, data: ApiUploadParams): Api.Promise.Upload;
+            upload(file: File | Blob | HTMLInputElement, data: ApiUploadParams): Upload.Promise;
 
             /**
              * Finish an upload in the stash.
@@ -757,14 +757,14 @@ declare global {
              * ```
              * @param {File|HTMLInputElement} file
              * @param {ApiUploadParams} [data]
-             * @returns {Api.Promise.Upload<[FinishUpload]>} Promise that resolves with a
+             * @returns {Upload.Promise<[FinishUpload]>} Promise that resolves with a
              *  function that should be called to finish the upload.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#uploadToStash
              */
             uploadToStash(
                 file: File | HTMLInputElement,
                 data?: ApiUploadParams
-            ): Api.Promise.Upload<[FinishUpload]>;
+            ): Upload.Promise<[FinishUpload]>;
 
             /**
              * Convenience method for `action=watch`.
@@ -910,12 +910,17 @@ declare global {
                 | [string, ApiResponse, ApiResponse, JQuery.jqXHR<ApiResponse>];
 
             namespace Promise {
-                type Upload<TResolve extends ArgTuple = [ApiResponse]> = PromiseBase<
-                    TResolve,
-                    [RejectArgTuple[0], RejectArgTuple[1]],
-                    [number]
-                >;
+                /** @deprecated Use {@link Upload.Promise} instead. */
+                type Upload<TResolve extends ArgTuple = [ApiResponse]> = Upload.Promise<TResolve>;
             }
+        }
+
+        namespace Upload {
+            type Promise<TResolve extends Api.ArgTuple = [ApiResponse]> = Api.PromiseBase<
+                TResolve,
+                [Api.RejectArgTuple[0], Api.RejectArgTuple[1]],
+                [number]
+            >;
         }
     }
 }

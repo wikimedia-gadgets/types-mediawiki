@@ -1,4 +1,4 @@
-import { ApiResponse } from "./Api";
+import { ApiResponse, FinishUpload } from "./Api";
 
 declare global {
     namespace mw {
@@ -48,6 +48,8 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html
          */
         class Upload {
+            static static: {};
+
             /**
              * Used to represent an upload in progress on the frontend.
              *
@@ -60,10 +62,13 @@ declare global {
             /**
              * Finish a stash upload.
              *
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {Api.Promise<[ApiResponse], Api.RejectArgTuple | [string, ApiResponse]>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#finishStashUpload
              */
-            finishStashUpload(): JQuery.Promise<ApiResponse>;
+            finishStashUpload(): Api.Promise<
+                [ApiResponse],
+                Api.RejectArgTuple | [string, ApiResponse]
+            >;
 
             /**
              * Get the mw.Api instance used by this Upload object.
@@ -215,18 +220,18 @@ declare global {
             /**
              * Upload the file directly.
              *
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {Upload.Promise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#upload
              */
-            upload(): JQuery.Promise<ApiResponse>;
+            upload(): Upload.Promise;
 
             /**
              * Upload the file to the stash to be completed later.
              *
-             * @returns {JQuery.Promise<ApiResponse>}
+             * @returns {Upload.Promise<[FinishUpload]>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#uploadToStash
              */
-            uploadToStash(): JQuery.Promise<ApiResponse>;
+            uploadToStash(): Upload.Promise<[FinishUpload]>;
         }
 
         namespace Upload {
