@@ -825,15 +825,16 @@ declare global {
                 watched: boolean;
             }
 
-            type Arg<
-                T extends ArgTuple,
-                N extends number,
-                TAcc extends never[] = []
-            > = false extends (T extends [] ? true : false)
-                ? TAcc["length"] extends N
-                    ? T[0]
-                    : Arg<Tail<T>, N, [...TAcc, never]>
-                : never;
+            /**
+             * Extract an argument type from a promise callback {@link ArgTuple}.
+             */
+            type Arg<T extends ArgTuple, N extends number, TAcc extends never[] = []> = [
+                T
+            ] extends [[]]
+                ? never
+                : TAcc["length"] extends N
+                ? T[0]
+                : Arg<Tail<T>, N, [...TAcc, never]>;
 
             interface PromiseBase<
                 TResolve extends ArgTuple,
