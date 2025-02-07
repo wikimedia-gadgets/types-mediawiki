@@ -846,26 +846,82 @@ declare global {
                 TReject extends ArgTuple,
                 TNotify extends ArgTuple
             > extends JQuery.PromiseBase<
-                        Arg<TResolve, 0>,
-                        Arg<TReject, 0>,
-                        Arg<TNotify, 0>,
-                        Arg<TResolve, 1>,
-                        Arg<TReject, 1>,
-                        Arg<TNotify, 1>,
-                        Arg<TResolve, 2>,
-                        Arg<TReject, 2>,
-                        Arg<TNotify, 2>,
-                        Tail<Tail<Tail<TResolve>>>[number],
-                        Tail<Tail<Tail<TReject>>>[number],
-                        Tail<Tail<Tail<TNotify>>>[number]
-                    >,
-                    Pick<JQuery.jqXHR, "abort"> {}
+                    Arg<TResolve, 0>,
+                    Arg<TReject, 0>,
+                    Arg<TNotify, 0>,
+                    Arg<TResolve, 1>,
+                    Arg<TReject, 1>,
+                    Arg<TNotify, 1>,
+                    Arg<TResolve, 2>,
+                    Arg<TReject, 2>,
+                    Arg<TNotify, 2>,
+                    Tail<Tail<Tail<TResolve>>>[number],
+                    Tail<Tail<Tail<TReject>>>[number],
+                    Tail<Tail<Tail<TNotify>>>[number]
+                > {}
+
+            /**
+             * Something providing an {@link abort()} method.
+             */
+            interface Abortable {
+                /**
+                 * Cancel the promise, rejecting it and stopping related async operations.
+                 */
+                abort(): void;
+            }
 
             type Promise<
-                TResolve extends Api.ArgTuple = [ApiResponse, JQuery.jqXHR<ApiResponse>],
-                TReject extends Api.ArgTuple = RejectArgTuple,
-                TNotify extends Api.ArgTuple = []
+                TResolve extends ArgTuple = [ApiResponse, JQuery.jqXHR<ApiResponse>],
+                TReject extends ArgTuple = RejectArgTuple,
+                TNotify extends ArgTuple = []
             > = PromiseBase<TResolve, TReject, TNotify>;
+
+            /**
+             * A spec-compliant promise with an extra method that allows it to be cancelled, stopping any async
+             * operations that will no longer be needed since we won't use their results, like HTTP requests.
+             * Used by {@link mw.Api.ajax}, {@link mw.Api.get}, {@link mw.Api.post} and related methods.
+             *
+             * This style is inspired by `jQuery.ajax()`, and it's very easy to use in simple cases,
+             * but it becomes rather inconvenient when chaining promises using `.then()` or when
+             * converting them to native promises (using `async`/`await`), since that causes the extra
+             * method to be no longer accessible. It's often easier to use an AbortController instead,
+             * see {@link mw.Api.AbortController} for an example.
+             *
+             * @since 1.22
+             * @example Cancelling an API request (using the `.abort()` method)
+             * ```js
+             * const api = new mw.Api();
+             * const promise = api.get( { meta: 'userinfo' } );
+             * promise.then( console.log );
+             * promise.catch( console.log );
+             * // => "http", { xhr: {…}, textStatus: "abort", exception: "abort" }
+             * setTimeout( function() { promise.abort(); }, 500 );
+             * ```
+             * @example INCORRECT – The .abort() method is not accessible after calling .then()
+             * ```js
+             * const api = new mw.Api();
+             * const promise = api.get( { meta: 'userinfo' } ).then( console.log );
+             * setTimeout( function() { promise.abort(); }, 500 );
+             * // => TypeError: promise.abort is not a function
+             * ```
+             * @example INCORRECT – The .abort() method is not accessible after converting to a native promise
+             * ```js
+             * async function getPromise() {
+             *     const api = new mw.Api();
+             *     return api.get( { meta: 'userinfo' } );
+             * }
+             * const promise = getPromise();
+             * promise.then( console.log );
+             * setTimeout( function() { promise.abort(); }, 500 );
+             * // => TypeError: promise.abort is not a function
+             * ```
+             */
+            interface AbortablePromise<
+                TResolve extends ArgTuple = [ApiResponse, JQuery.jqXHR<ApiResponse>],
+                TReject extends ArgTuple = RejectArgTuple,
+                TNotify extends ArgTuple = []
+            > extends PromiseBase<TResolve, TReject, TNotify>,
+                    Abortable {}
 
             type RejectArgTuple =
                 | Rest.RejectArgTuple
@@ -884,11 +940,17 @@ declare global {
         }
 
         namespace Upload {
-            type Promise<TResolve extends Api.ArgTuple = [ApiResponse]> = Api.PromiseBase<
+            type Promise<TResolve extends Api.ArgTuple = [ApiResponse]> = Api.Promise<
                 TResolve,
-                [Api.RejectArgTuple[0], Api.RejectArgTuple[1]],
+                RejectArgTuple,
                 [number]
             >;
+
+            type AbortablePromise<
+                TResolve extends Api.ArgTuple = [ApiResponse]
+            > = Api.AbortablePromise<TResolve, RejectArgTuple, [number]>;
+
+            type RejectArgTuple = [Api.RejectArgTuple[0], Api.RejectArgTuple[1]];
         }
     }
 }
