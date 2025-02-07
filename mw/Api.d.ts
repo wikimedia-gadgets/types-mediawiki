@@ -836,6 +836,11 @@ declare global {
                 ? T[0]
                 : Arg<Tail<T>, N, [...TAcc, never]>;
 
+            /**
+             * Argument tuple for promise callbacks.
+             */
+            type ArgTuple = any[];
+
             interface PromiseBase<
                 TResolve extends ArgTuple,
                 TReject extends ArgTuple,
@@ -850,13 +855,11 @@ declare global {
                         Arg<TResolve, 2>,
                         Arg<TReject, 2>,
                         Arg<TNotify, 2>,
-                        Arg<TResolve, 3>,
-                        Arg<TReject, 3>,
-                        Arg<TNotify, 3>
+                        Tail<Tail<Tail<TResolve>>>[number],
+                        Tail<Tail<Tail<TReject>>>[number],
+                        Tail<Tail<Tail<TNotify>>>[number]
                     >,
                     Pick<JQuery.jqXHR, "abort"> {}
-
-            type ArgTuple = [any?, any?, any?, any?];
 
             type Promise<
                 TResolve extends Api.ArgTuple = [ApiResponse, JQuery.jqXHR<ApiResponse>],
