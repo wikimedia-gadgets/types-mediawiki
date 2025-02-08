@@ -881,6 +881,8 @@ declare global {
             interface Abortable {
                 /**
                  * Cancel the promise, rejecting it and stopping related async operations.
+                 *
+                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api-AbortablePromise.html#abort
                  */
                 abort(): void;
             }
@@ -930,6 +932,7 @@ declare global {
              * setTimeout( function() { promise.abort(); }, 500 );
              * // => TypeError: promise.abort is not a function
              * ```
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api-AbortablePromise.html
              */
             interface AbortablePromise<
                 TResolve extends ArgTuple = [ApiResponse, JQuery.jqXHR<ApiResponse>],
