@@ -67,7 +67,7 @@ declare global {
              *
              * @param {Api.UnknownParams} parameters Parameters to the API. See also {@link mw.Api.Options.parameters}.
              * @param {JQuery.AjaxSettings} [ajaxOptions] Parameters to pass to jQuery.ajax. See also {@link mw.Api.Options.ajax}.
-             * @returns {Api.Promise} A promise that settles when the API response is processed.
+             * @returns {Api.AbortablePromise} A promise that settles when the API response is processed.
              *   Has an 'abort' method which can be used to abort the request.
              *
              *   - On success, resolves to `( result, jqXHR )` where `result` is the parsed API response.
@@ -91,7 +91,10 @@ declare global {
              *       {@link JSON.parse}.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#ajax
              */
-            ajax(parameters: Api.UnknownParams, ajaxOptions?: JQuery.AjaxSettings): Api.Promise;
+            ajax(
+                parameters: Api.UnknownParams,
+                ajaxOptions?: JQuery.AjaxSettings
+            ): Api.AbortablePromise;
 
             /**
              * Extend an API parameter object with an assertion that the user won't change.
@@ -147,7 +150,7 @@ declare global {
              * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
              * @param {number} [chunkSize] Size (in bytes) per chunk (default: 5MB)
              * @param {number} [chunkRetries] Amount of times to retry a failed chunk (default: 1)
-             * @returns {Upload.Promise}
+             * @returns {Upload.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#chunkedUpload
              */
             chunkedUpload(
@@ -155,7 +158,7 @@ declare global {
                 data: ApiUploadParams,
                 chunkSize?: number,
                 chunkRetries?: number
-            ): Upload.Promise;
+            ): Upload.AbortablePromise;
 
             /**
              * Upload a file to the stash, in chunks.
@@ -269,19 +272,22 @@ declare global {
              *
              * @param {Api.UnknownParams} parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {Api.Promise}
+             * @returns {Api.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#get
              */
-            get(parameters: Api.UnknownParams, ajaxOptions?: JQuery.AjaxSettings): Api.Promise;
+            get(
+                parameters: Api.UnknownParams,
+                ajaxOptions?: JQuery.AjaxSettings
+            ): Api.AbortablePromise;
 
             /**
              * Get the categories that a particular page on the wiki belongs to.
              *
              * @param {Title.Like} title
-             * @returns {Api.Promise<[false|Title[]]>} Promise that resolves with an array of category titles, or with false if the title was not found.
+             * @returns {Api.AbortablePromise<[false|Title[]]>} Promise that resolves with an array of category titles, or with false if the title was not found.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getCategories
              */
-            getCategories(title: Title.Like): Api.Promise<[false | Title[]]>;
+            getCategories(title: Title.Like): Api.AbortablePromise<[false | Title[]]>;
 
             /**
              * Get a list of categories that match a certain prefix.
@@ -289,18 +295,18 @@ declare global {
              * E.g. given "Foo", return "Food", "Foolish people", "Foosball tables"...
              *
              * @param {string} prefix Prefix to match.
-             * @returns {Api.Promise<[string[]]>} Promise that resolves with an array of matched categories
+             * @returns {Api.AbortablePromise<[string[]]>} Promise that resolves with an array of matched categories
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getCategoriesByPrefix
              */
-            getCategoriesByPrefix(prefix: string): Api.Promise<[string[]]>;
+            getCategoriesByPrefix(prefix: string): Api.AbortablePromise<[string[]]>;
 
             /**
              * API helper to grab a csrf token.
              *
-             * @returns {Api.Promise<[string]>} Received token.
+             * @returns {Api.AbortablePromise<[string]>} Received token.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getEditToken
              */
-            getEditToken(): Api.Promise<[string]>;
+            getEditToken(): Api.AbortablePromise<[string]>;
 
             /**
              * Given an API response indicating an error, get a jQuery object containing a human-readable
@@ -361,22 +367,22 @@ declare global {
              * @since 1.35 - additional parameters can be passed as an object instead of `assert`.
              * @param {string} type Token type
              * @param {ApiQueryTokensParams|Api.Assert} [additionalParams] Additional parameters for the API. When given a string, it's treated as the `assert` parameter.
-             * @returns {Api.Promise<[string]>} Received token.
+             * @returns {Api.AbortablePromise<[string]>} Received token.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getToken
              */
             getToken(
                 type: ApiTokenType,
                 additionalParams?: ApiQueryTokensParams | Api.Assert
-            ): Api.Promise<[string]>;
+            ): Api.AbortablePromise<[string]>;
             /** @deprecated Use `getToken('csrf')` instead */
             getToken(
                 type: ApiLegacyTokenType,
                 additionalParams?: ApiQueryTokensParams | Api.Assert
-            ): Api.Promise<[string]>;
+            ): Api.AbortablePromise<[string]>;
             getToken(
                 type: string,
                 additionalParams?: ApiQueryTokensParams | Api.Assert
-            ): Api.Promise<[string]>;
+            ): Api.AbortablePromise<[string]>;
 
             /**
              * Get the current user's groups and rights.
@@ -391,10 +397,10 @@ declare global {
              * Determine if a category exists.
              *
              * @param {Title.Like} title
-             * @returns {Api.Promise<[boolean]>} Promise that resolves with a boolean indicating whether the category exists.
+             * @returns {Api.AbortablePromise<[boolean]>} Promise that resolves with a boolean indicating whether the category exists.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#isCategory
              */
-            isCategory(title: Title.Like): Api.Promise<[boolean]>;
+            isCategory(title: Title.Like): Api.AbortablePromise<[boolean]>;
 
             /**
              * Load a set of messages and add them to {@link mw.messages}.
@@ -429,10 +435,10 @@ declare global {
             /**
              * @param {string} username
              * @param {string} password
-             * @returns {Api.Promise<[Api.UnknownResponse]>} See {@link post()}
+             * @returns {Api.AbortablePromise<[Api.UnknownResponse]>} See {@link post()}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#login
              */
-            login(username: string, password: string): Api.Promise<[Api.UnknownResponse]>;
+            login(username: string, password: string): Api.AbortablePromise<[Api.UnknownResponse]>;
 
             /**
              * Post a new section to the page.
@@ -441,7 +447,7 @@ declare global {
              * @param {string} header
              * @param {string} message Wikitext message
              * @param {ApiEditPageParams} additionalParams Additional API parameters
-             * @returns {Api.Promise} See {@link postWithEditToken}
+             * @returns {Api.AbortablePromise} See {@link postWithEditToken}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#newSection
              */
             newSection(
@@ -449,7 +455,7 @@ declare global {
                 header: string,
                 message: string,
                 additionalParams?: ApiEditPageParams
-            ): Api.Promise;
+            ): Api.AbortablePromise;
 
             /**
              * Convenience method for `action=parse`.
@@ -457,33 +463,39 @@ declare global {
              * @param {Title.Like} content Content to parse, either as a wikitext string or a {@link mw.Title}
              * @param {ApiParseParams} [additionalParams] Parameters object to set custom settings, e.g.
              *  `redirects`, `sectionpreview`. `prop` should not be overridden.
-             * @returns {Api.Promise<[string]>} Promise that resolves with the parsed HTML of `wikitext`
+             * @returns {Api.AbortablePromise<[string]>} Promise that resolves with the parsed HTML of `wikitext`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#parse
              */
-            parse(content: Title.Like, additionalParams?: ApiParseParams): Api.Promise<[string]>;
+            parse(
+                content: Title.Like,
+                additionalParams?: ApiParseParams
+            ): Api.AbortablePromise<[string]>;
 
             /**
              * Perform API post request. See {@link ajax()} for details.
              *
              * @param {Api.UnknownParams} parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {Api.Promise}
+             * @returns {Api.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#post
              */
-            post(parameters: Api.UnknownParams, ajaxOptions?: JQuery.AjaxSettings): Api.Promise;
+            post(
+                parameters: Api.UnknownParams,
+                ajaxOptions?: JQuery.AjaxSettings
+            ): Api.AbortablePromise;
 
             /**
              * Post to API with csrf token. If we have no token, get one and try to post. If we have a cached token try using that, and if it fails, blank out the cached token and start over.
              *
              * @param {Api.UnknownParams} params API parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {Api.Promise} See {@link post}
+             * @returns {Api.AbortablePromise} See {@link post}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#postWithEditToken
              */
             postWithEditToken(
                 params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): Api.Promise;
+            ): Api.AbortablePromise;
 
             /**
              * Post to API with the specified type of token. If we have no token, get one and try to post.
@@ -502,25 +514,25 @@ declare global {
              * @param {string} tokenType The name of the token, like `options` or `edit`.
              * @param {Api.UnknownParams} params API parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {Api.Promise} See {@link post()}
+             * @returns {Api.AbortablePromise} See {@link post()}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#postWithToken
              */
             postWithToken(
                 tokenType: Api.TokenType,
                 params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): Api.Promise;
+            ): Api.AbortablePromise;
             /** @deprecated Use `postWithToken('csrf', params)` instead */
             postWithToken(
                 tokenType: Api.LegacyTokenType,
                 params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): Api.Promise;
+            ): Api.AbortablePromise;
             postWithToken(
                 tokenType: string,
                 params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
-            ): Api.Promise;
+            ): Api.AbortablePromise;
 
             /**
              * Convenience method for `action=rollback`.
@@ -586,14 +598,14 @@ declare global {
              * @param {TypeOrArray<Title.Like>} pages Full page name or instance of {@link mw.Title}, or an
              *  array thereof. If an array is passed, the return value passed to the promise will also be an
              *  array of appropriate objects.
-             * @returns {Api.Promise<[TypeOrArray<Api.WatchedPage>]>} A promise that resolves
+             * @returns {Api.AbortablePromise<[TypeOrArray<Api.WatchedPage>]>} A promise that resolves
              *  with an object (or array of objects) describing each page that was passed in and its
              *  current watched/unwatched status.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#unwatch
              */
             unwatch<P extends TypeOrArray<Title.Like>>(
                 pages: P
-            ): Api.Promise<[ReplaceValue<P, Title.Like, Api.WatchedPage>]>;
+            ): Api.AbortablePromise<[ReplaceValue<P, Title.Like, Api.WatchedPage>]>;
 
             /**
              * Upload a file to MediaWiki.
@@ -602,10 +614,13 @@ declare global {
              *
              * @param {File|Blob|HTMLInputElement} file HTML `input type=file` element with a file already inside of it, or a File object.
              * @param {ApiUploadParams} data Other upload options, see `action=upload` API docs for more
-             * @returns {Upload.Promise}
+             * @returns {Upload.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#upload
              */
-            upload(file: File | Blob | HTMLInputElement, data: ApiUploadParams): Upload.Promise;
+            upload(
+                file: File | Blob | HTMLInputElement,
+                data: ApiUploadParams
+            ): Upload.AbortablePromise;
 
             /**
              * Finish an upload in the stash.
@@ -661,7 +676,7 @@ declare global {
              *  array of appropriate objects.
              * @param {string} [expiry] When the page should expire from the watchlist. If omitted, the
              *  page will not expire.
-             * @returns {Api.Promise<[TypeOrArray<Api.WatchedPage>]>} A promise that resolves
+             * @returns {Api.AbortablePromise<[TypeOrArray<Api.WatchedPage>]>} A promise that resolves
              *  with an object (or array of objects) describing each page that was passed in and its
              *  current watched/unwatched status.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#watch
@@ -669,7 +684,7 @@ declare global {
             watch<P extends TypeOrArray<Title.Like>>(
                 pages: P,
                 expiry?: string
-            ): Api.Promise<[ReplaceValue<P, Title.Like, Api.WatchedPage>]>;
+            ): Api.AbortablePromise<[ReplaceValue<P, Title.Like, Api.WatchedPage>]>;
 
             /**
              * Massage parameters from the nice format we accept into a format suitable for the API.
@@ -884,43 +899,106 @@ declare global {
                 watched: boolean;
             }
 
-            type Arg<
-                T extends ArgTuple,
-                N extends number,
-                TAcc extends never[] = []
-            > = false extends (T extends [] ? true : false)
-                ? TAcc["length"] extends N
-                    ? T[0]
-                    : Arg<Tail<T>, N, [...TAcc, never]>
-                : never;
+            /**
+             * Extract an argument type from a promise callback {@link ArgTuple}.
+             */
+            type Arg<T extends ArgTuple, N extends number, TAcc extends never[] = []> = [
+                T
+            ] extends [[]]
+                ? never
+                : TAcc["length"] extends N
+                ? T[0]
+                : Arg<Tail<T>, N, [...TAcc, never]>;
+
+            /**
+             * Argument tuple for promise callbacks.
+             */
+            type ArgTuple = any[];
 
             interface PromiseBase<
                 TResolve extends ArgTuple,
                 TReject extends ArgTuple,
                 TNotify extends ArgTuple
             > extends JQuery.PromiseBase<
-                        Arg<TResolve, 0>,
-                        Arg<TReject, 0>,
-                        Arg<TNotify, 0>,
-                        Arg<TResolve, 1>,
-                        Arg<TReject, 1>,
-                        Arg<TNotify, 1>,
-                        Arg<TResolve, 2>,
-                        Arg<TReject, 2>,
-                        Arg<TNotify, 2>,
-                        Arg<TResolve, 3>,
-                        Arg<TReject, 3>,
-                        Arg<TNotify, 3>
-                    >,
-                    Pick<JQuery.jqXHR, "abort"> {}
+                    Arg<TResolve, 0>,
+                    Arg<TReject, 0>,
+                    Arg<TNotify, 0>,
+                    Arg<TResolve, 1>,
+                    Arg<TReject, 1>,
+                    Arg<TNotify, 1>,
+                    Arg<TResolve, 2>,
+                    Arg<TReject, 2>,
+                    Arg<TNotify, 2>,
+                    Tail<Tail<Tail<TResolve>>>[number],
+                    Tail<Tail<Tail<TReject>>>[number],
+                    Tail<Tail<Tail<TNotify>>>[number]
+                > {}
 
-            type ArgTuple = [any?, any?, any?, any?];
+            /**
+             * Something providing an {@link abort()} method.
+             */
+            interface Abortable {
+                /**
+                 * Cancel the promise, rejecting it and stopping related async operations.
+                 *
+                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api-AbortablePromise.html#abort
+                 */
+                abort(): void;
+            }
 
             type Promise<
-                TResolve extends Api.ArgTuple = [UnknownResponse, JQuery.jqXHR<UnknownResponse>],
-                TReject extends Api.ArgTuple = RejectArgTuple,
-                TNotify extends Api.ArgTuple = []
+                TResolve extends ArgTuple = [UnknownResponse, JQuery.jqXHR<UnknownResponse>],
+                TReject extends ArgTuple = RejectArgTuple,
+                TNotify extends ArgTuple = []
             > = PromiseBase<TResolve, TReject, TNotify>;
+
+            /**
+             * A spec-compliant promise with an extra method that allows it to be cancelled, stopping any async
+             * operations that will no longer be needed since we won't use their results, like HTTP requests.
+             * Used by {@link mw.Api.ajax}, {@link mw.Api.get}, {@link mw.Api.post} and related methods.
+             *
+             * This style is inspired by `jQuery.ajax()`, and it's very easy to use in simple cases,
+             * but it becomes rather inconvenient when chaining promises using `.then()` or when
+             * converting them to native promises (using `async`/`await`), since that causes the extra
+             * method to be no longer accessible. It's often easier to use an AbortController instead,
+             * see {@link mw.Api.AbortController} for an example.
+             *
+             * @since 1.22
+             * @example Cancelling an API request (using the `.abort()` method)
+             * ```js
+             * const api = new mw.Api();
+             * const promise = api.get( { meta: 'userinfo' } );
+             * promise.then( console.log );
+             * promise.catch( console.log );
+             * // => "http", { xhr: {…}, textStatus: "abort", exception: "abort" }
+             * setTimeout( function() { promise.abort(); }, 500 );
+             * ```
+             * @example INCORRECT – The .abort() method is not accessible after calling .then()
+             * ```js
+             * const api = new mw.Api();
+             * const promise = api.get( { meta: 'userinfo' } ).then( console.log );
+             * setTimeout( function() { promise.abort(); }, 500 );
+             * // => TypeError: promise.abort is not a function
+             * ```
+             * @example INCORRECT – The .abort() method is not accessible after converting to a native promise
+             * ```js
+             * async function getPromise() {
+             *     const api = new mw.Api();
+             *     return api.get( { meta: 'userinfo' } );
+             * }
+             * const promise = getPromise();
+             * promise.then( console.log );
+             * setTimeout( function() { promise.abort(); }, 500 );
+             * // => TypeError: promise.abort is not a function
+             * ```
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api-AbortablePromise.html
+             */
+            interface AbortablePromise<
+                TResolve extends ArgTuple = [ApiResponse, JQuery.jqXHR<ApiResponse>],
+                TReject extends ArgTuple = RejectArgTuple,
+                TNotify extends ArgTuple = []
+            > extends PromiseBase<TResolve, TReject, TNotify>,
+                    Abortable {}
 
             type RejectArgTuple =
                 | Rest.RejectArgTuple
@@ -941,11 +1019,17 @@ declare global {
         }
 
         namespace Upload {
-            type Promise<TResolve extends Api.ArgTuple = [ApiResponse]> = Api.PromiseBase<
+            type Promise<TResolve extends Api.ArgTuple = [ApiResponse]> = Api.Promise<
                 TResolve,
-                [Api.RejectArgTuple[0], Api.RejectArgTuple[1]],
+                RejectArgTuple,
                 [number]
             >;
+
+            type AbortablePromise<
+                TResolve extends Api.ArgTuple = [ApiResponse]
+            > = Api.AbortablePromise<TResolve, RejectArgTuple, [number]>;
+
+            type RejectArgTuple = [Api.RejectArgTuple[0], Api.RejectArgTuple[1]];
         }
     }
 }

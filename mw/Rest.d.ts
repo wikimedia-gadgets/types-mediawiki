@@ -50,10 +50,10 @@ declare global {
              *
              * @param {string} path
              * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {Rest.Promise} Done: API response data and the jqXHR object.
+             * @returns {Rest.AbortablePromise} Done: API response data and the jqXHR object.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#ajax
              */
-            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): Rest.Promise;
+            ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): Rest.AbortablePromise;
 
             /**
              * Perform REST API DELETE request.
@@ -64,14 +64,14 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
-             * @returns {Rest.Promise}
+             * @returns {Rest.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#delete
              */
             delete(
                 path: string,
                 body: Record<string, any>,
                 headers?: Record<string, any>
-            ): Rest.Promise;
+            ): Rest.AbortablePromise;
 
             /**
              * Perform REST API get request.
@@ -79,14 +79,14 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} query
              * @param {Object.<string, any>} [headers]
-             * @returns {Rest.Promise}
+             * @returns {Rest.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#get
              */
             get(
                 path: string,
                 query: Record<string, any>,
                 headers?: Record<string, any>
-            ): Rest.Promise;
+            ): Rest.AbortablePromise;
 
             /**
              * Perform REST API post request.
@@ -97,14 +97,14 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} [body]
              * @param {Object.<string, any>} [headers]
-             * @returns {Rest.Promise}
+             * @returns {Rest.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#post
              */
             post(
                 path: string,
                 body?: Record<string, any>,
                 headers?: Record<string, any>
-            ): Rest.Promise;
+            ): Rest.AbortablePromise;
 
             /**
              * Perform REST API PUT request.
@@ -115,14 +115,14 @@ declare global {
              * @param {string} path
              * @param {Object.<string, any>} body
              * @param {Object.<string, any>} [headers]
-             * @returns {Rest.Promise}
+             * @returns {Rest.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#put
              */
             put(
                 path: string,
                 body: Record<string, any>,
                 headers?: Record<string, any>
-            ): Rest.Promise;
+            ): Rest.AbortablePromise;
         }
 
         namespace Rest {
@@ -144,7 +144,13 @@ declare global {
                 TResolve extends Api.ArgTuple = [Response, JQuery.jqXHR<Response>],
                 TReject extends Api.ArgTuple = RejectArgTuple,
                 TNotify extends Api.ArgTuple = []
-            > = Api.PromiseBase<TResolve, TReject, TNotify>;
+            > = Api.Promise<TResolve, TReject, TNotify>;
+
+            type AbortablePromise<
+                TResolve extends Api.ArgTuple = [RestResponse, JQuery.jqXHR<RestResponse>],
+                TReject extends Api.ArgTuple = RejectArgTuple,
+                TNotify extends Api.ArgTuple = []
+            > = Api.AbortablePromise<TResolve, TReject, TNotify>;
 
             type RejectArgTuple = ["http", HttpErrorData];
 
