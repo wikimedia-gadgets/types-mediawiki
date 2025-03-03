@@ -721,7 +721,7 @@ declare global {
 
             type UnknownParams = Record<
                 string,
-                string | number | boolean | string[] | number[] | undefined
+                string | number | boolean | File | string[] | number[] | undefined
             >;
 
             interface Params {
@@ -1038,5 +1038,7 @@ declare global {
 export type ApiOptions = Required<mw.Api.Options>;
 /** @deprecated Use {@link mw.Api.UnknownResponse} instead */
 export type ApiResponse = mw.Api.UnknownResponse;
+/** @deprecated Use {@link mw.Api.UnknownParams} instead */
+export type UnknownApiParams = mw.Api.UnknownParams;
 
 export {};
