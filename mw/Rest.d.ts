@@ -147,7 +147,7 @@ declare global {
             > = Api.Promise<TResolve, TReject, TNotify>;
 
             type AbortablePromise<
-                TResolve extends Api.ArgTuple = [RestResponse, JQuery.jqXHR<RestResponse>],
+                TResolve extends Api.ArgTuple = [Response, JQuery.jqXHR<Response>],
                 TReject extends Api.ArgTuple = RejectArgTuple,
                 TNotify extends Api.ArgTuple = []
             > = Api.AbortablePromise<TResolve, TReject, TNotify>;

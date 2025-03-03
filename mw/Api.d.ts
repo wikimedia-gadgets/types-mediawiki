@@ -994,7 +994,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api-AbortablePromise.html
              */
             interface AbortablePromise<
-                TResolve extends ArgTuple = [ApiResponse, JQuery.jqXHR<ApiResponse>],
+                TResolve extends ArgTuple = [UnknownResponse, JQuery.jqXHR<UnknownResponse>],
                 TReject extends ArgTuple = RejectArgTuple,
                 TNotify extends ArgTuple = []
             > extends PromiseBase<TResolve, TReject, TNotify>,
@@ -1019,14 +1019,14 @@ declare global {
         }
 
         namespace Upload {
-            type Promise<TResolve extends Api.ArgTuple = [ApiResponse]> = Api.Promise<
+            type Promise<TResolve extends Api.ArgTuple = [Api.UnknownResponse]> = Api.Promise<
                 TResolve,
                 RejectArgTuple,
                 [number]
             >;
 
             type AbortablePromise<
-                TResolve extends Api.ArgTuple = [ApiResponse]
+                TResolve extends Api.ArgTuple = [Api.UnknownResponse]
             > = Api.AbortablePromise<TResolve, RejectArgTuple, [number]>;
 
             type RejectArgTuple = [Api.RejectArgTuple[0], Api.RejectArgTuple[1]];
