@@ -30,6 +30,11 @@
     "peerDependencies": {
         "vue": "3.2.23 || 3.2.37 || 3.3.9 || 3.4.27"
     },
+    "peerDependenciesMeta": {
+        "vue": {
+            "optional": true
+        }
+    },
     "devDependencies": {
         "husky": "^4.3.7",
         "lint-staged": "^10.5.3",
