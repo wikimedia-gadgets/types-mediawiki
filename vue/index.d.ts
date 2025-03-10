@@ -1,3 +1,4 @@
+// @ts-ignore
 import { createApp } from "vue";
 
 export * from "vue";
