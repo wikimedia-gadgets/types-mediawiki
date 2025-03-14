@@ -91,6 +91,8 @@ declare global {
             /**
              * Map of predefined auto-hide timeout keys to second values. `short` is
              * used by default, and other values can be added for use in {@link notify}.
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.autoHideSeconds
              */
             const autoHideSeconds: {
                 /**
