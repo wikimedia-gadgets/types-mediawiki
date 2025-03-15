@@ -8,6 +8,7 @@ import {
     ApiRollbackParams,
     ApiTokenType,
     ApiUploadParams,
+    UnknownApiParams,
 } from "../api_params";
 import { TitleLike } from "./Title";
 
@@ -15,11 +16,6 @@ type Tail<T extends any[]> = T extends [] ? T : T extends [any?, ...infer R] ? R
 
 type TypeOrArray<T> = T extends any ? T | T[] : never; // T[] would be a mixed array
 type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
-
-export type UnknownApiParams = Record<
-    string,
-    string | number | boolean | File | string[] | number[] | undefined
->;
 
 export type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
 

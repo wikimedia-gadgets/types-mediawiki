@@ -1,7 +1,5 @@
 // tslint:disable:no-empty-interface
 
-import { UnknownApiParams } from "../mw/Api";
-
 type timestamp = string;
 type expiry = string;
 type namespace = number;
@@ -33,6 +31,11 @@ export type ApiLegacyTokenType =
     | "options"
     | "protect"
     | "unblock";
+
+export type UnknownApiParams = Record<
+    string,
+    string | number | boolean | File | string[] | number[] | undefined
+>;
 
 export interface ApiParams extends UnknownApiParams {
     action?: string;
