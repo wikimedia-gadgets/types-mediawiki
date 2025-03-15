@@ -10,6 +10,7 @@ declare global {
          *
          * @variation 2
          * @param {...any} msg Messages to output to console.
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.log2
          */
         function log(...msg: any[]): void;
 

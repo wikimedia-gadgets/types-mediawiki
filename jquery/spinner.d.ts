@@ -36,6 +36,7 @@ declare global {
          * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
          *  of the {@link Options.id id} option.
          * @returns {JQuery}
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.spinner.html#.createSpinner
          */
         createSpinner(opts?: string | Options): JQuery;
 
@@ -45,6 +46,7 @@ declare global {
          * @ignore
          * @param {string} id Id of the spinner, as passed to {@link createSpinner}
          * @returns {JQuery} The (now detached) spinner element
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.spinner.html#.removeSpinner
          */
         removeSpinner(id: string): JQuery;
     }
@@ -60,7 +62,7 @@ declare global {
          * @param {string|Options} [opts] Options. If a string is given, it will be treated as the value
          *  of the {@link Options.id id} option.
          * @returns {JQuery}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.injectSpinner
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.spinner.html#.$.fn.injectSpinner
          */
         injectSpinner(opts?: string | Options): this;
     }
@@ -72,7 +74,7 @@ type Type = "block" | "inline";
 /**
  * Options for {@link JQuery.injectSpinner}.
  *
- * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#~SpinnerOpts
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.spinner.html#~SpinnerOpts
  */
 interface Options {
     /**
