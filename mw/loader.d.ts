@@ -528,8 +528,6 @@ declare global {
                 /**
                  * The localStorage key for the entire module store. The key references
                  * $wgDBname to prevent clashes between wikis which share a common host.
-                 *
-                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader.store-property-key
                  */
                 const key: string;
 

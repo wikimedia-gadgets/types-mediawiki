@@ -10,7 +10,7 @@ declare global {
          *     mw.cookie.set('hello', 'world' );
          * })
          * ```
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.cookie.html
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.cookie.html
          */
         namespace cookie {
             type SameSite = "none" | "lax" | "strict";
@@ -22,7 +22,7 @@ declare global {
              * @param {string} [prefix] The prefix of the key. If undefined or null, `$wgCookiePrefix` is used
              * @param {string|null} [defaultValue] A value to return if the cookie does not exist
              * @returns {string|null} If the cookie exists, the value of the cookie, otherwise `defaultValue`
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.cookie.html#.get
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.cookie.html#.get
              */
             function get<D extends string | null>(
                 key: string,
@@ -39,7 +39,7 @@ declare global {
              * @param {string} [prefix] The prefix of the key. If undefined or null, `$wgCookiePrefix` is used
              * @param {string|null} [defaultValue] A value to return if the cookie does not exist
              * @returns {string|null|undefined} If the cookie exists, the value of the cookie, otherwise `defaultValue`
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.cookie.html#.getCrossSite
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.cookie.html#.getCrossSite
              */
             function getCrossSite<D extends string | null>(
                 key: string,
@@ -60,7 +60,7 @@ declare global {
              * @param {string} key
              * @param {string|null} value Value of cookie. If `value` is `null` then this method will instead remove a cookie by name of `key`
              * @param {Options|Date|number} [options] Options object, or expiry date
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.cookie.html#.set
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.cookie.html#.set
              */
             // see https://stackoverflow.com/a/64932909 for <SS>
             function set<SS extends string = SameSite>(
@@ -72,7 +72,7 @@ declare global {
             /**
              * Custom scope for cookie key, must match the way it was set.
              *
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.cookie.html#.CookieOptions
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.cookie.html#~CookieOptions
              */
             interface Options<SS extends string = SameSite> {
                 /**

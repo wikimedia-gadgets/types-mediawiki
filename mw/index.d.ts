@@ -6,6 +6,7 @@ import "./cookie";
 import "./debug";
 import "./deflate";
 import "./errorLogger";
+import "./experiments";
 import "./ForeignApi";
 import "./ForeignRest";
 import "./ForeignUpload";

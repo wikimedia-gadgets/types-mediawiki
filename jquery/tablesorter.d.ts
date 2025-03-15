@@ -19,7 +19,7 @@ declare global {
          *
          * @param {TableSorterOptions} settings
          * @returns {JQuery}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.tablesorter
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.tablesorter.html#.$.fn.tablesorter
          */
         tablesorter(this: JQuery<HTMLTableElement>, settings?: JQuery.TableSorter.Options): this;
     }
@@ -92,7 +92,7 @@ declare global {
             }
 
             /**
-             * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#~TableSorterOptions
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.tablesorter.html#~TableSorterOptions
              */
             interface Options {
                 /**

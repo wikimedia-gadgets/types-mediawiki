@@ -21,7 +21,7 @@ declare global {
          * @param {string} property Name of property
          * @param {any} value Value to set property with
          * @returns {JQuery}
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/jQueryPlugins.html#.suggestions
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.suggestions.html#.$.fn.suggestions
          */
         suggestions<K extends keyof JQuery.Suggestions.Options<T>, T = any>(
             property: K,
