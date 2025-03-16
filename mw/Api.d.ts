@@ -1,14 +1,10 @@
+import "../api_params";
 import { TitleLike } from "./Title";
 
 type Tail<T extends any[]> = T extends [] ? T : T extends [any?, ...infer R] ? R : T;
 
 type TypeOrArray<T> = T extends any ? T | T[] : never; // T[] would be a mixed array
 type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
-
-export type UnknownApiParams = Record<
-    string,
-    string | number | boolean | File | string[] | number[] | undefined
->;
 
 export type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
 
@@ -141,7 +137,7 @@ declare global {
             /**
              * Perform the API call.
              *
-             * @param {UnknownApiParams} parameters Parameters to the API. See also {@link mw.Api.Options.parameters}.
+             * @param {Api.UnknownParams} parameters Parameters to the API. See also {@link mw.Api.Options.parameters}.
              * @param {JQuery.AjaxSettings} [ajaxOptions] Parameters to pass to jQuery.ajax. See also {@link mw.Api.Options.ajax}.
              * @returns {Api.AbortablePromise} A promise that settles when the API response is processed.
              *   Has an 'abort' method which can be used to abort the request.
@@ -168,7 +164,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#ajax
              */
             ajax(
-                parameters: UnknownApiParams,
+                parameters: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
             ): Api.AbortablePromise;
 
@@ -195,11 +191,11 @@ declare global {
              * api.postWithToken( 'csrf', api.assertCurrentUser( { action: 'edit', ... } ) )
              * ```
              * @since 1.27
-             * @param {UnknownApiParams} query Query parameters. The object will not be changed
+             * @param {Api.UnknownParams} query Query parameters. The object will not be changed
              * @returns {AssertUser}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#assertCurrentUser
              */
-            assertCurrentUser<T extends UnknownApiParams>(
+            assertCurrentUser<T extends Api.UnknownParams>(
                 query: T
             ): Omit<T, keyof AssertUser> & AssertUser;
 
@@ -346,13 +342,13 @@ declare global {
             /**
              * Perform API get request. See {@link ajax()} for details.
              *
-             * @param {UnknownApiParams} parameters
+             * @param {Api.UnknownParams} parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
              * @returns {Api.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#get
              */
             get(
-                parameters: UnknownApiParams,
+                parameters: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
             ): Api.AbortablePromise;
 
@@ -550,26 +546,26 @@ declare global {
             /**
              * Perform API post request. See {@link ajax()} for details.
              *
-             * @param {UnknownApiParams} parameters
+             * @param {Api.UnknownParams} parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
              * @returns {Api.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#post
              */
             post(
-                parameters: UnknownApiParams,
+                parameters: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
             ): Api.AbortablePromise;
 
             /**
              * Post to API with csrf token. If we have no token, get one and try to post. If we have a cached token try using that, and if it fails, blank out the cached token and start over.
              *
-             * @param {UnknownApiParams} params API parameters
+             * @param {Api.UnknownParams} params API parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
              * @returns {Api.AbortablePromise} See {@link post}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#postWithEditToken
              */
             postWithEditToken(
-                params: UnknownApiParams,
+                params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
             ): Api.AbortablePromise;
 
@@ -588,25 +584,25 @@ declare global {
              * ```
              * @since 1.22
              * @param {string} tokenType The name of the token, like `options` or `edit`.
-             * @param {UnknownApiParams} params API parameters
+             * @param {Api.UnknownParams} params API parameters
              * @param {JQuery.AjaxSettings} [ajaxOptions]
              * @returns {Api.AbortablePromise} See {@link post()}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#postWithToken
              */
             postWithToken(
                 tokenType: Api.TokenType,
-                params: UnknownApiParams,
+                params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
             ): Api.AbortablePromise;
             /** @deprecated Use `postWithToken('csrf', params)` instead */
             postWithToken(
                 tokenType: Api.LegacyTokenType,
-                params: UnknownApiParams,
+                params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
             ): Api.AbortablePromise;
             postWithToken(
                 tokenType: string,
-                params: UnknownApiParams,
+                params: Api.UnknownParams,
                 ajaxOptions?: JQuery.AjaxSettings
             ): Api.AbortablePromise;
 
@@ -633,11 +629,11 @@ declare global {
              * @since 1.43 - params parameter can be passed.
              * @param {string} name
              * @param {string|null} value
-             * @param {UnknownApiParams} [params] additional parameters for API.
+             * @param {Api.UnknownParams} [params] additional parameters for API.
              * @returns {Api.Promise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#saveOption
              */
-            saveOption(name: string, value: string | null, params?: UnknownApiParams): Api.Promise;
+            saveOption(name: string, value: string | null, params?: Api.UnknownParams): Api.Promise;
 
             /**
              * Asynchronously save the values of user options using the {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Options Options API}.
@@ -656,13 +652,13 @@ declare global {
              *
              * @since 1.43 - params parameter can be passed.
              * @param {Object.<string, string|null>} options Options as a `{ name: value, … }` object
-             * @param {UnknownApiParams} [params] additional parameters for API.
+             * @param {Api.UnknownParams} [params] additional parameters for API.
              * @returns {Api.Promise<[] | [ApiResponse, JQuery.jqXHR<ApiResponse>]>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#saveOptions
              */
             saveOptions<T extends Record<string, string | null>>(
                 options: T,
-                params?: UnknownApiParams
+                params?: Api.UnknownParams
             ): Api.Promise<({} extends T ? [] : never) | [ApiResponse, JQuery.jqXHR<ApiResponse>]>;
 
             /**
@@ -759,10 +755,10 @@ declare global {
             /**
              * Massage parameters from the nice format we accept into a format suitable for the API.
              *
-             * @param {UnknownApiParams} parameters (modified in-place)
+             * @param {Api.UnknownParams} parameters (modified in-place)
              * @param {boolean} useUS Whether to use U+001F when joining multi-valued parameters.
              */
-            private preprocessParameters(parameters: UnknownApiParams, useUS: boolean): void;
+            private preprocessParameters(parameters: Api.UnknownParams, useUS: boolean): void;
         }
 
         namespace Api {
@@ -795,7 +791,7 @@ declare global {
                 /**
                  * Default query parameters for API requests
                  */
-                parameters?: UnknownApiParams;
+                parameters?: Api.UnknownParams;
                 /**
                  * Whether to use U+001F when joining multi-valued parameters (since 1.28).
                  * Default is true if ajax.url is not set, false otherwise for compatibility.
