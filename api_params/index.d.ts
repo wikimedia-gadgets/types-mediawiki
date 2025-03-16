@@ -32,7 +32,12 @@ export type ApiLegacyTokenType =
     | "protect"
     | "unblock";
 
-export interface ApiParams {
+export type UnknownApiParams = Record<
+    string,
+    string | number | boolean | File | string[] | number[] | undefined
+>;
+
+export interface ApiParams extends UnknownApiParams {
     action?: string;
     format?: "json" | "jsonfm" | "xml" | "xmlfm" | "php" | "none";
     maxlag?: number;

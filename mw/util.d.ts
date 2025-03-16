@@ -497,6 +497,7 @@ declare global {
              * @param {string} [type] defaults to notice.
              * @param {boolean} [inline] whether the notice should be inline.
              * @returns {Element}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.messageBox
              */
             function messageBox(
                 textOrElement: string | Node,

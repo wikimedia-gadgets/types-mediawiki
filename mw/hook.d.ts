@@ -131,19 +131,19 @@ declare global {
         function hook(name: "editRecovery.loadEnd"): Hook<[editRecovery: EditRecovery]>;
 
         /**
-         * Create an instance of {@link Hook}.
+         * Create an instance of {@link Hook}, fired on page load to enhance any HTML forms on the page.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'htmlform.enhance'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
-        function hook(name: "htmlform.enhance"): Hook<[$root: JQuery]>;
+        function hook(name: "htmlform.enhance"): Hook<[document: JQuery]>;
 
         /**
          * Create an instance of {@link Hook}, fired after an edit was successfully saved.
          *
          * Does not fire for null edits.
          *
-         * Code that fires the postEdit hook should first set `wgRevisionId` and `wgCurRevisionId` to the revision associated with the edit that triggered the postEdit hook, then fire the postEdit hook, e.g.:
+         * Code that fires the postEdit hook should first set `wgRevisionId` and `wgCurRevisionId` to the revision associated with the edit that triggered the postEdit hook, then fire the postEdit hook.
          *
          * @example
          * ```js
@@ -178,7 +178,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired when a trusted UI element to perform a logout has been activated.
          *
-         * This will end the user session, and either redirect to the given URL on success, or queue an error message via mw.notification.
+         * This will end the user session, and either redirect to the given URL on success, or queue an error message via {@link mw.notification}.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'skin.logout'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
@@ -222,7 +222,9 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'util.addPortletLink'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
-        function hook(name: "util.addPortletLink"): Hook<[item: HTMLLIElement, data: object]>;
+        function hook(
+            name: "util.addPortletLink"
+        ): Hook<[item: HTMLLIElement, information: object]>;
 
         /**
          * Create an instance of {@link Hook}, fired when categories are being added to the DOM.
@@ -266,10 +268,10 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.diff'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
-        function hook(name: "wikipage.diff"): Hook<[$table: JQuery<HTMLTableElement>]>;
+        function hook(name: "wikipage.diff"): Hook<[$diff: JQuery<HTMLTableElement>]>;
 
         /**
-         * Create an instance of {@link Hook}.
+         * Create an instance of {@link Hook}, fired when the diff type switch is present so others can decide how to manipulate the DOM.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.diff.diffTypeSwitch'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
@@ -289,7 +291,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired when the editform is added to the edit page.
          *
-         * Similar to the wikipage.content hoo $editForm can still be detached when this hook is fired.
+         * Similar to the wikipage.content hook, $editForm can still be detached when this hook is fired.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.editform'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
@@ -304,7 +306,7 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.indicators'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
-        function hook(name: "wikipage.indicators"): Hook<[$indicators: JQuery]>;
+        function hook(name: "wikipage.indicators"): Hook<[$content: JQuery]>;
 
         /**
          * Create an instance of {@link Hook}, fired when dynamic changes have been made to the table of contents.

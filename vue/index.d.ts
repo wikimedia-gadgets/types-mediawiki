@@ -1,5 +1,7 @@
+// @ts-ignore
 import { createApp } from "vue";
 
+// @ts-ignore
 export * from "vue";
 
 declare module "vue" {
