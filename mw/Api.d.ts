@@ -1,12 +1,14 @@
 import {
     ApiEditPageParams,
     ApiLegacyTokenType,
+    ApiParams,
     ApiParseParams,
     ApiQueryAllMessagesParams,
     ApiQueryTokensParams,
     ApiRollbackParams,
     ApiTokenType,
     ApiUploadParams,
+    UnknownApiParams,
 } from "../api_params";
 
 declare global {
@@ -719,36 +721,8 @@ declare global {
                 | "protect"
                 | "unblock";
 
-            type UnknownParams = Record<
-                string,
-                string | number | boolean | File | string[] | number[] | undefined
-            >;
-
-            interface Params {
-                action?: string;
-                format?: "json" | "jsonfm" | "none" | "php" | "phpfm" | "rawfm" | "xml" | "xmlfm";
-                maxlag?: number;
-                smaxage?: number;
-                maxage?: number;
-                assert?: "user" | "bot" | "anon";
-                assertuser?: string;
-                requestid?: string;
-                servedby?: boolean;
-                curtimestamp?: boolean;
-                responselanginfo?: boolean;
-                origin?: string;
-                uselang?: string;
-                errorformat?: "bc" | "html" | "none" | "plaintext" | "raw" | "wikitext";
-                errorlang?: string;
-                errorsuselocal?: boolean;
-                centralauthtoken?: string;
-
-                // format=json
-                callback?: string;
-                utf8?: boolean;
-                ascii?: boolean;
-                formatversion?: "1" | "2" | "latest";
-            }
+            type UnknownParams = UnknownApiParams;
+            type Params = ApiParams;
 
             namespace Params {
                 // see api_params/index.d.ts
@@ -1038,7 +1012,5 @@ declare global {
 export type ApiOptions = Required<mw.Api.Options>;
 /** @deprecated Use {@link mw.Api.UnknownResponse} instead */
 export type ApiResponse = mw.Api.UnknownResponse;
-/** @deprecated Use {@link mw.Api.UnknownParams} instead */
-export type UnknownApiParams = mw.Api.UnknownParams;
 
 export {};
