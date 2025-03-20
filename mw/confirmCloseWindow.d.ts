@@ -14,7 +14,7 @@ interface Options {
 
 interface ConfirmCloseWindow {
     /**
-     * Remove the event listener and don't show an alert anymore, if the user wants to leave
+     * Remove the event listener and don't show an alert anymore if the user wants to leave
      * the page.
      */
     release(): void;
@@ -22,8 +22,8 @@ interface ConfirmCloseWindow {
     /**
      * Trigger the module's function manually.
      *
-     * Check, if options.test() returns true and show an alert to the user if he/she want
-     * to leave this page. Returns false, if options.test() returns false or the user
+     * Check if options.test() returns true and show an alert to the user if they want
+     * to leave this page. Returns false if options.test() returns false or the user
      * cancelled the alert window (~don't leave the page), true otherwise.
      *
      * @returns {boolean}
