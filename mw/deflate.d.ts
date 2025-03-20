@@ -23,8 +23,9 @@ declare global {
          * ```js
          * return mw.loader.using( 'mediawiki.deflate' ).then( () => mw.deflateAsync( html ) );
          * ```
+         * @since 1.44
          * @param {string|ArrayBuffer} data Undeflated data
-         * @return {Promise<string>} Compressed data
+         * @returns {Promise<string>} Compressed data
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.deflateAsync
          */
         function deflateAsync(data: string | ArrayBuffer): Promise<`rawdeflate,${string}`>;

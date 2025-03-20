@@ -71,6 +71,7 @@ interface Hook<T extends any[] = any[]> {
      * ```
      * @param {string} msg Optional extra text to add to the deprecation warning
      * @returns {Hook}
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.deprecate
      */
     deprecate(msg: string): this;
 

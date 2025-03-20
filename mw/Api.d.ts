@@ -531,10 +531,6 @@ declare global {
              * `abort` method on the returned object can cancel the HTTP requests.
              * It's only needed when supporting the old-style `promise.abort()` method.
              *
-             * @since 1.44
-             * @param {Api.AjaxSettings} ajaxOptions Options object to modify (will set `ajaxOptions.signal`)
-             * @return {Api.Abortable} Base object for {@link mw.Api.AbortablePromise}
-             *
              * @example API method only supporting AbortController
              * ```js
              * mw.Api.prototype.getWhatever = function ( params, ajaxOptions ) {
@@ -552,6 +548,10 @@ declare global {
              *         .promise( abortable );
              * }
              * ```
+             * @since 1.44
+             * @param {Api.AjaxSettings} ajaxOptions Options object to modify (will set `ajaxOptions.signal`)
+             * @returns {Api.Abortable} Base object for {@link mw.Api.AbortablePromise}
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#makeAbortablePromise
              */
             makeAbortablePromise(ajaxOptions: Api.AjaxSettings): Api.Abortable;
 
@@ -673,9 +673,9 @@ declare global {
              *
              * @since 1.44
              * @param {string} hookName Name of the hook to use with mw.hook().fire()
-             * @return {JQuery.Promise<Object>} Updated parameter data from implementations
+             * @returns {JQuery.Promise<Object>} Updated parameter data from implementations
              *   of `hookName` to include with the API request.
-             *@see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#prepareExtensibleApiRequest
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#prepareExtensibleApiRequest
              */
             prepareExtensibleApiRequest<T extends {} = {}>(hookName: string): JQuery.Promise<T>;
 
@@ -850,7 +850,6 @@ declare global {
              * `.abort()` calls (see T346984), and it's the only style that is fully compatible with native
              * promises (using `async`/`await`).
              *
-             * @since 1.44
              * @example Cancelling an API request (using AbortController)
              * ```js
              * const api = new mw.Api();
@@ -884,14 +883,16 @@ declare global {
              * const usercontribs = await api.get( { list: 'usercontribs', ucuser: name }, options );
              * console.log( usercontribs.query.usercontribs );
              * ```
+             * @since 1.44
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api-AbortController.html
              */
             class AbortController extends globalThis.AbortController {
                 /**
                  * Cancel the promises using this controller's {@link signal},
                  * rejecting them with the given `reason` and stopping related async operations.
                  *
-                 * @param {Error} [reason]
-                 * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortController/abort)
+                 * @param {Error} [reason] {@link https://developer.mozilla.org/docs/Web/API/AbortController/abort MDN Reference}
+                 * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api-AbortController.html#abort
                  */
                 abort(reason?: Error): void;
             }
