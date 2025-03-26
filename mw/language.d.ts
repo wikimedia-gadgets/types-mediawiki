@@ -12,6 +12,13 @@ declare global {
          */
         namespace language {
             /**
+             * Map of language-specific {@link convertGrammar()} implementations keyed by language code.
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.convertGrammarMapping
+             */
+            const convertGrammarMapping: Record<string, typeof convertGrammar>;
+
+            /**
              * Language-related data (keyed by language, contains instances of mw.Map).
              *
              * Exported dynamically by the ResourceLoader\LanguageDataModule class in PHP.
