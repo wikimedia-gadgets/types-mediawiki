@@ -938,6 +938,13 @@ declare global {
                  */
                 parameters?: UnknownApiParams;
                 /**
+                 * User agent string to use for API requests.
+                 * This should identify what component (extension, gadget, user script) is making the request.
+                 *
+                 * @since 1.44
+                 */
+                userAgent?: string;
+                /**
                  * Whether to use U+001F when joining multi-valued parameters (since 1.28).
                  * Default is true if ajax.url is not set, false otherwise for compatibility.
                  */
