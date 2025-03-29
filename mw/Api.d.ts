@@ -972,7 +972,4 @@ declare global {
     }
 }
 
-/** @deprecated Use `mw.Api.Options` instead. Note that `ApiOptions` is strictly equivalent to `Required<mw.Api.Options>` as properties are now optional for consistency. */
-export type ApiOptions = Required<mw.Api.Options>;
-
 export {};

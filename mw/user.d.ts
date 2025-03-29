@@ -246,7 +246,4 @@ declare global {
     }
 }
 
-/** @deprecated Use `mw.Api.UserInfo` instead. */
-export type UserInfo = mw.Api.UserInfo;
-
 export {};
