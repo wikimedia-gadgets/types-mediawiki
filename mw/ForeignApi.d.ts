@@ -68,7 +68,4 @@ declare global {
     }
 }
 
-/** @deprecated Use `mw.ForeignApi.Options` instead. Note that `ForeignApiOptions` is strictly equivalent to `Required<mw.ForeignApi.Options>` as properties are now optional for consistency. */
-export type ForeignApiOptions = Required<mw.ForeignApi.Options>;
-
 export {};
