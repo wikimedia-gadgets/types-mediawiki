@@ -9,7 +9,7 @@ import {
     ApiTokenType,
     ApiUploadParams,
     UnknownApiParams,
-} from "../api_params";
+} from "types-mediawiki-api";
 import { TitleLike } from "./Title";
 
 type Tail<T extends any[]> = T extends [] ? T : T extends [any?, ...infer R] ? R : T;
