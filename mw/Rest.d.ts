@@ -162,7 +162,4 @@ declare global {
     }
 }
 
-/** @deprecated Use `mw.Rest.Options` instead. Note that `RestOptions` is strictly equivalent to `Required<mw.Rest.Options>` as properties are now optional for consistency. */
-export type RestOptions = Required<mw.Rest.Options>;
-
 export {};
