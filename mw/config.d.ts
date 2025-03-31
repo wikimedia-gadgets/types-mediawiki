@@ -13,7 +13,9 @@ declare global {
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.config
          */
-        const config: ExtensibleMap<{
+        const config: ExtensibleMap<ConfigMap>;
+
+        interface ConfigMap {
             /**
              * Since MediaWiki 1.36+, 0 means debug mode is off, and a positive non-zero number means debug mode is on (e.g. 1 or 2).
              *
@@ -360,7 +362,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgDiffNewId
              */
             wgDiffNewId?: number;
-        }>;
+        }
     }
 }
 
