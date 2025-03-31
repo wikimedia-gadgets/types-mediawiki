@@ -90,8 +90,8 @@ declare global {
              *
              * See also {@link https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet MDN: CSSStyleSheet}.
              *
-             * @param {string} text CSS to be appended
-             * @returns {CSSStyleSheet} The sheet object
+             * @param text CSS to be appended
+             * @returns The sheet object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addCSS
              */
             function addCSS(text: string): CSSStyleSheet;
@@ -107,9 +107,9 @@ declare global {
              * mw.util.addPortletLink( 'p-myportlet', '#', 'Link 2' );
              * ```
              * @since 1.41
-             * @param {string} id of the new portlet.
-             * @param {string} [label] of the new portlet.
-             * @param {string} [selectorHint] selector of the element the new portlet would like to
+             * @param id of the new portlet.
+             * @param label of the new portlet.
+             * @param selectorHint selector of the element the new portlet would like to
              *  be inserted near. Typically the portlet will be inserted after this selector, but in some
              *  skins, the skin may relocate the element when provided to the closest available space.
              *  If this argument is not passed then the caller is responsible for appending the element
@@ -119,7 +119,7 @@ declare global {
              *  When provided, skins can use the parameter to infer information about how the user intended
              *  the menu to be rendered. For example, in vector and vector-2022 targeting '#p-cactions' will
              *  result in the creation of a dropdown.
-             * @returns {HTMLElement|null} will be null if it was not possible to create an portlet with
+             * @returns will be null if it was not possible to create an portlet with
              *  the required information e.g. the selector given in `selectorHint` parameter could not be resolved
              *  to an existing element in the page.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addPortlet
@@ -183,19 +183,19 @@ declare global {
              * } );
              * ```
              *
-             * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
-             * @param {string} href Link URL
-             * @param {string} text Link text
-             * @param {string} [id] ID of the list item, should be unique and preferably have
+             * @param portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
+             * @param href Link URL
+             * @param text Link text
+             * @param id ID of the list item, should be unique and preferably have
              *  the appropriate prefix ('ca-', 'pt-', 'n-' or 't-')
-             * @param {string} [tooltip] Text to show when hovering over the link, without accesskey suffix
-             * @param {string} [accesskey] Access key to activate this link. One character only,
+             * @param tooltip Text to show when hovering over the link, without accesskey suffix
+             * @param accesskey Access key to activate this link. One character only,
              *  avoid conflicts with other links. Use `$( '[accesskey=x]' )` in the console to
              *  see if 'x' is already used.
-             * @param {HTMLElement|JQuery|string} [nextnode] Element that the new item should be added before.
+             * @param nextnode Element that the new item should be added before.
              *  Must be another item in the same list, it will be ignored otherwise.
              *  Can be specified as DOM reference, as jQuery object, or as CSS selector string.
-             * @returns {HTMLLIElement|null} The added list item, or null if no element was added.
+             * @returns The added list item, or null if no element was added.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addPortletLink
              */
             function addPortletLink(
@@ -212,7 +212,6 @@ declare global {
              * Add content to the subtitle of the skin.
              *
              * @since 1.40
-             * @param {HTMLElement|string} nodeOrHTMLString
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addSubtitle
              */
             function addSubtitle(nodeOrHTMLString: HTMLElement | string): void;
@@ -238,10 +237,10 @@ declare global {
              *
              * @since 1.34
              * @since 1.38 - swapped parameter order; immediate parameter can be passed.
-             * @param {Function} func Function to debounce
-             * @param {number} [wait=0] Wait period in milliseconds
-             * @param {boolean} [immediate] Trigger on leading edge
-             * @returns {Function} Debounced function
+             * @param func Function to debounce
+             * @param wait Wait period in milliseconds, defaults to 0
+             * @param immediate Trigger on leading edge
+             * @returns Debounced function
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.debounce
              */
             function debounce<T extends (...args: any[]) => any>(
@@ -261,9 +260,9 @@ declare global {
              *
              * @since 1.34
              * @deprecated since 1.38 - use `mw.util.debounce(func, wait)` instead of `mw.util.debounce(wait, func)`.
-             * @param {number} delay Wait period in milliseconds
-             * @param {Function} callback Function to debounce
-             * @returns {Function} Debounced function
+             * @param delay Wait period in milliseconds
+             * @param callback Function to debounce
+             * @returns Debounced function
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.debounce
              */
             function debounce<T extends (...args: any[]) => any>(
@@ -277,8 +276,8 @@ declare global {
              * Analog to `Sanitizer::escapeIdForAttribute()` in PHP.
              *
              * @since 1.30
-             * @param {string} str String to encode
-             * @returns {string} Encoded string
+             * @param str String to encode
+             * @returns Encoded string
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.escapeIdForAttribute
              */
             function escapeIdForAttribute(str: string): string;
@@ -289,8 +288,8 @@ declare global {
              * Analog to `Sanitizer::escapeIdForLink()` in PHP.
              *
              * @since 1.30
-             * @param {string} str String to encode
-             * @returns {string} Encoded string
+             * @param str String to encode
+             * @returns Encoded string
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.escapeIdForLink
              */
             function escapeIdForLink(str: string): string;
@@ -306,8 +305,8 @@ declare global {
              *
              * @since 1.26
              * @since 1.34 - moved to {@link mw.util}.
-             * @param {string} str String to escape
-             * @returns {string} Escaped string
+             * @param str String to escape
+             * @returns Escaped string
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.escapeRegExp
              */
             function escapeRegExp(str: string): string;
@@ -324,9 +323,9 @@ declare global {
              * mw.util.getArrayParam( 'foo', new URLSearchParams( '?foo=a' ) ); // null
              * ```
              * @since 1.41
-             * @param {string} param The parameter name.
-             * @param {URLSearchParams} [params] Parsed URL parameters to search through, defaulting to the current browsing location.
-             * @returns {string[]|null} Parameter value, or null if parameter was not found.
+             * @param param The parameter name.
+             * @param params Parsed URL parameters to search through, defaulting to the current browsing location.
+             * @returns Parameter value, or null if parameter was not found.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.getArrayParam
              */
             function getArrayParam(param: string, params?: URLSearchParams): string[] | null;
@@ -340,9 +339,9 @@ declare global {
              * mw.util.getParamValue( 'foo', '/?foo=' ); // ""
              * mw.util.getParamValue( 'foo', '/' ); // null
              * ```
-             * @param {string} param The parameter name.
-             * @param {string} [url=location.href] URL to search through, defaulting to the current browsing location.
-             * @returns {string|null} Parameter value, or null if parameter was not found.
+             * @param param The parameter name.
+             * @param url URL to search through, defaulting to the current browsing location.
+             * @returns Parameter value, or null if parameter was not found.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.getParamValue
              */
             function getParamValue(param: string, url?: string): string | null;
@@ -363,9 +362,9 @@ declare global {
              * so we use the percent-decode.
              *
              * @since 1.39
-             * @param {string} [hash] Hash fragment, without the leading '#'.
+             * @param hash Hash fragment, without the leading '#'.
              *  Taken from location.hash if omitted.
-             * @returns {HTMLElement|null} Element, if found
+             * @returns Element, if found
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.getTargetFromFragment
              */
             function getTargetFromFragment(hash?: string): HTMLElement | null;
@@ -373,10 +372,10 @@ declare global {
             /**
              * Get the URL to a given local wiki page name.
              *
-             * @param {string|null} [pageName="wgPageName"] Page name
-             * @param {QueryParams} [params] A mapping of query parameter names to values,
+             * @param pageName Page name
+             * @param params A mapping of query parameter names to values,
              *  e.g. `{ action: 'edit' }`
-             * @returns {string} URL, relative to `wgServer`.
+             * @returns URL, relative to `wgServer`.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.getUrl
              */
             // params are handled by $.param, which converts any value to a string. However, instead of using toString(),
@@ -387,7 +386,7 @@ declare global {
              * Hide a portlet.
              *
              * @since 1.36
-             * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
+             * @param portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.hidePortlet
              */
             function hidePortlet(portletId: string): void;
@@ -398,8 +397,6 @@ declare global {
              * such as watchlisting, page protection, and block expiries.
              *
              * @since 1.42
-             * @param {string|null} str
-             * @returns {boolean}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isInfinity
              */
             function isInfinity(str: string | null): boolean;
@@ -408,9 +405,8 @@ declare global {
              * Check whether a string is a valid IP address.
              *
              * @since 1.25
-             * @param {string} address String to check
-             * @param {boolean} [allowBlock=false] If a block of IPs should be allowed
-             * @returns {boolean}
+             * @param address String to check
+             * @param allowBlock If a block of IPs should be allowed
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isIPAddress
              */
             function isIPAddress(address: string, allowBlock?: boolean): boolean;
@@ -430,9 +426,8 @@ declare global {
              * mw.util.isIPv4Address( '192.0.2.0/24' );
              * mw.util.isIPv4Address( 'hello' );
              * ```
-             * @param {string} address
-             * @param {boolean} [allowBlock=false]
-             * @returns {boolean}
+             * @param address
+             * @param allowBlock Defaults to `false`.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isIPv4Address
              */
             function isIPv4Address(
@@ -459,9 +454,8 @@ declare global {
              * mw.util.isIPv6Address( '2001:db8:a::/32' );
              * mw.util.isIPv6Address( 'hello' );
              * ```
-             * @param {string} address
-             * @param {boolean} [allowBlock=false]
-             * @returns {boolean}
+             * @param address
+             * @param allowBlock Defaults to `false`.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isIPv6Address
              */
             function isIPv6Address(address: string, allowBlock?: boolean): boolean;
@@ -470,8 +464,7 @@ declare global {
              * Whether a portlet is visible.
              *
              * @since 1.36
-             * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
-             * @returns {boolean}
+             * @param portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isPortletVisible
              */
             function isPortletVisible(portletId: string): boolean;
@@ -482,8 +475,6 @@ declare global {
              * This functionality has been adapted from `MediaWiki\User\TempUser\Pattern::isMatch()`
              *
              * @since 1.40
-             * @param {string} username
-             * @returns {boolean}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.isTemporaryUser
              */
             function isTemporaryUser(username: string): boolean;
@@ -493,10 +484,9 @@ declare global {
              * have been added to the page e.g. mediawiki.codex.messagebox.styles.
              *
              * @since 1.43
-             * @param {string|Node} textOrElement text or node.
-             * @param {string} [type] defaults to notice.
-             * @param {boolean} [inline] whether the notice should be inline.
-             * @returns {Element}
+             * @param textOrElement text or node.
+             * @param type defaults to notice.
+             * @param inline whether the notice should be inline.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.messageBox
              */
             function messageBox(
@@ -515,8 +505,8 @@ declare global {
              * and return the image name, thumbnail size and a template that can be used to resize
              * the image.
              *
-             * @param {string} url URL to parse (URL-encoded)
-             * @returns {ResizeableThumbnailUrl|null} URL data, or null if the URL is not a valid MediaWiki
+             * @param url URL to parse (URL-encoded)
+             * @returns URL data, or null if the URL is not a valid MediaWiki
              *  image/thumbnail URL.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.parseImageUrl
              */
@@ -535,8 +525,8 @@ declare global {
              * to effectively expose the percent-decode implementation.
              *
              * @since 1.39
-             * @param {string} text Text to decode
-             * @returns {string|null} Decoded text, null if decoding failed
+             * @param text Text to decode
+             * @returns Decoded text, null if decoding failed
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.percentDecodeFragment
              */
             function percentDecodeFragment(text: string): string | null;
@@ -549,8 +539,7 @@ declare global {
              * This functionality has been adapted from `\Wikimedia\IPUtils::prettifyIP()`
              *
              * @since 1.38
-             * @param {string} ip IP address in quad or octet form (CIDR or not).
-             * @returns {string|null}
+             * @param ip IP address in quad or octet form (CIDR or not).
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.prettifyIP
              */
             function prettifyIP(ip: string): string | null;
@@ -558,8 +547,8 @@ declare global {
             /**
              * Encode the string like PHP's rawurlencode.
              *
-             * @param {string} str String to be encoded.
-             * @returns {string} Encoded string
+             * @param str String to be encoded.
+             * @returns Encoded string
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.rawurlencode
              */
             function rawurlencode(str: string): string;
@@ -574,8 +563,7 @@ declare global {
              * This functionality has been adapted from `\Wikimedia\IPUtils::sanitizeIP()`
              *
              * @since 1.38
-             * @param {string} ip IP address in quad or octet form (CIDR or not).
-             * @returns {string|null}
+             * @param ip IP address in quad or octet form (CIDR or not).
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.sanitizeIP
              */
             function sanitizeIP(ip: string): string | null;
@@ -584,7 +572,7 @@ declare global {
              * Reveal a portlet if it is hidden.
              *
              * @since 1.36
-             * @param {string} portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
+             * @param portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.showPortlet
              */
             function showPortlet(portletId: string): void;
@@ -601,9 +589,9 @@ declare global {
              * Ported from OOUI.
              *
              * @since 1.38
-             * @param {Function} func Function to throttle
-             * @param {number} wait Throttle window length, in milliseconds
-             * @returns {Function} Throttled function
+             * @param func Function to throttle
+             * @param wait Throttle window length, in milliseconds
+             * @returns Throttled function
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.throttle
              */
             function throttle<T extends (...args: any[]) => any>(
@@ -620,8 +608,8 @@ declare global {
              * ```js
              * mw.util.validateEmail( "me@example.org" ) === true;
              * ```
-             * @param {string} email E-mail address
-             * @returns {boolean|null} True if valid, false if invalid, null if `email` was empty.
+             * @param email E-mail address
+             * @returns True if valid, false if invalid, null if `email` was empty.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.validateEmail
              */
             function validateEmail(email: string): boolean | null;
@@ -632,8 +620,8 @@ declare global {
              * Similar to `wfScript()` in PHP.
              *
              * @since 1.18
-             * @param {string} [str="index"] Name of entry point (e.g. 'index' or 'api')
-             * @returns {string} URL to the script file (e.g. `/w/api.php`)
+             * @param str Name of entry point (e.g. `index` or `api`), defaults to `index`.
+             * @returns URL to the script file (e.g. `/w/api.php`)
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.wikiScript
              */
             function wikiScript(str?: string): string;
@@ -647,8 +635,8 @@ declare global {
              * purging after edits, thus leading to stale content being served from a
              * non-canonical URL.
              *
-             * @param {string} str String to be encoded.
-             * @returns {string} Encoded string
+             * @param str String to be encoded.
+             * @returns Encoded string
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.wikiUrlencode
              */
             function wikiUrlencode(str: string): string;

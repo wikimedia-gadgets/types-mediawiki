@@ -59,7 +59,7 @@ declare global {
             /**
              * Build the console panel.
              *
-             * @returns {JQuery} Console panel
+             * @returns Console panel
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.buildConsoleTable
              */
             function buildConsoleTable(): JQuery;
@@ -67,7 +67,6 @@ declare global {
             /**
              * Build legacy debug log pane.
              *
-             * @returns {JQuery}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.buildDebugLogTable
              */
             function buildDebugLogTable(): JQuery;
@@ -82,7 +81,6 @@ declare global {
             /**
              * Build included files pane.
              *
-             * @returns {JQuery}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.buildIncludesPane
              */
             function buildIncludesPane(): JQuery;
@@ -90,7 +88,6 @@ declare global {
             /**
              * Build query list pane.
              *
-             * @returns {JQuery}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.buildQueryTable
              */
             function buildQueryTable(): JQuery;
@@ -98,7 +95,6 @@ declare global {
             /**
              * Build request information pane.
              *
-             * @returns {JQuery}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.buildRequestPane
              */
             function buildRequestPane(): JQuery;
@@ -109,7 +105,7 @@ declare global {
              * Shouldn't be called before the document is ready
              * (since it binds to elements on the page).
              *
-             * @param {Data} [data] Defaults to 'debugInfo' from {@link mw.config}
+             * @param data Defaults to 'debugInfo' from {@link mw.config}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.init
              */
             function init(data?: Data): void;
@@ -120,7 +116,6 @@ declare global {
              * Should be called with an HTMLElement as its thisArg,
              * because it's meant to be an event handler.
              *
-             * @param {JQuery.Event} e
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Debug.html#.switchPane
              */
             function switchPane(e: JQuery.Event): void;

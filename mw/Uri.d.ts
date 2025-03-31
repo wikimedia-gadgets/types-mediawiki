@@ -12,9 +12,9 @@ declare global {
          * against (including protocol-relative URLs).
          *
          * @deprecated since 1.43, use browser native URL instead.
-         * @param {string|function():string} documentLocation A full url, or function returning one.
+         * @param documentLocation A full url, or function returning one.
          *  If passed a function, the return value may change over time and this will be honoured. (T74334)
-         * @returns {Function} An mw.Uri class constructor
+         * @returns An mw.Uri class constructor
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.UriRelative
          */
         function UriRelative(documentLocation: string | (() => string)): typeof Uri;
@@ -152,12 +152,12 @@ declare global {
              * Construct a new URI object. Throws error if arguments are illegal/impossible, or
              * otherwise don't parse.
              *
-             * @param {string|Uri|Object.<string,string>} [uri] URI string, or an Object with appropriate properties (especially
+             * @param uri URI string, or an Object with appropriate properties (especially
              *  another URI object to clone). Object must have non-blank `protocol`, `host`, and `path`
              *  properties. If omitted (or set to `undefined`, `null` or empty string), then an object
              *  will be created for the default `uri` of this constructor (`location.href` for mw.Uri,
              *  other values for other instances -- see {@link mw.UriRelative} for details).
-             * @param {Uri.UriOptions|boolean} [options] Object with options, or (backwards compatibility) a boolean
+             * @param options Object with options, or (backwards compatibility) a boolean
              *  for strictMode
              * @throws {Error} when the query string or fragment contains an unknown % sequence
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#Uri
@@ -170,7 +170,7 @@ declare global {
             /**
              * Clone this URI.
              *
-             * @returns {Uri} New URI object with same properties
+             * @returns New URI object with same properties
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#clone
              */
             clone(): Uri;
@@ -178,9 +178,9 @@ declare global {
             /**
              * Extend the query section of the URI with new parameters.
              *
-             * @param {QueryParams} parameters Query parameters to add to ours (or to override ours with) as an
+             * @param parameters Query parameters to add to ours (or to override ours with) as an
              *  object
-             * @returns {Uri} This URI object
+             * @returns This URI object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#extend
              */
             extend(parameters: QueryParams): Uri;
@@ -190,7 +190,6 @@ declare global {
              *
              * In most real-world URLs this is simply the hostname, but the definition of 'authority' section is more general.
              *
-             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#getAuthority
              */
             getAuthority(): string;
@@ -198,7 +197,6 @@ declare global {
             /**
              * Get host and port section of a URI.
              *
-             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#getHostPort
              */
             getHostPort(): string;
@@ -208,7 +206,6 @@ declare global {
              *
              * Does not preserve the original order of arguments passed in the URI. Does handle escaping.
              *
-             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#getQueryString
              */
             getQueryString(): string;
@@ -216,7 +213,6 @@ declare global {
             /**
              * Get everything after the authority section of the URI.
              *
-             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#getRelativePath
              */
             getRelativePath(): string;
@@ -224,7 +220,6 @@ declare global {
             /**
              * Get user and password section of a URI.
              *
-             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#getUserInfo
              */
             getUserInfo(): string;
@@ -240,7 +235,7 @@ declare global {
              * web2017-polyfills, which loads a polyfill if needed) in contexts where the fragment
              * is important.
              *
-             * @returns {string} The URI string
+             * @returns The URI string
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#toString
              */
             toString(): `${string}://${string}`;
@@ -248,8 +243,8 @@ declare global {
             /**
              * Parse a string and set our properties accordingly.
              *
-             * @param {string} str URI, see constructor.
-             * @param {Uri.UriOptions} options See constructor.
+             * @param str URI, see constructor.
+             * @param options See constructor.
              * @throws {Error} when the query string or fragment contains an unknown % sequence
              */
             private parse(str: string, options: Uri.UriOptions): void;
@@ -260,8 +255,8 @@ declare global {
              * Reversed {@link encode}. Standard decodeURIComponent, with addition of replacing
              * `+` with a space.
              *
-             * @param {string} s String to decode
-             * @returns {string} Decoded string
+             * @param s String to decode
+             * @returns Decoded string
              * @throws {Error} when the string contains an unknown % sequence
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#.decode
              */
@@ -274,8 +269,8 @@ declare global {
              * compliant with RFC 3986. Similar to rawurlencode from PHP and our JS library
              * {@link mw.util.rawurlencode}, except this also replaces spaces with `+`.
              *
-             * @param {string} s String to encode
-             * @returns {string} Encoded string for URI
+             * @param s String to encode
+             * @returns Encoded string for URI
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#.encode
              */
             static encode(s: string): string;
