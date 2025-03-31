@@ -10,7 +10,6 @@ declare global {
          * hovzer.update();
          * ```
          * @private
-         * @returns {FootHovzer}
          */
         getFootHovzer(): FootHovzer;
     }

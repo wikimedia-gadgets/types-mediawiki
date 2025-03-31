@@ -38,9 +38,9 @@ interface Client {
      *     // This will only run in Gecko browsers on Linux.
      * }
      * ```
-     * @param {ClientNavigator} [nav] An object with a 'userAgent' and 'platform' property.
+     * @param nav An object with a 'userAgent' and 'platform' property.
      *  Defaults to the global `navigator` object.
-     * @returns {ClientProfile} The client object
+     * @returns The client object
      * @see https://doc.wikimedia.org/jquery-client/master/jQuery.client.html#.profile
      */
     profile(nav?: ClientNavigator): ClientProfile;
@@ -81,11 +81,11 @@ interface Client {
      * }
      * ```
      *
-     * @param {ClientSupportMap} map Browser support map
-     * @param {ClientProfile} [profile] A client-profile object
-     * @param {boolean} [exactMatchOnly=false] Only return true if the browser is matched,
+     * @param map Browser support map
+     * @param profile A client-profile object
+     * @param exactMatchOnly Only return true if the browser is matched,
      *  otherwise returns true if the browser is not found.
-     * @returns {boolean} The current browser is in the support map
+     * @returns The current browser is in the support map
      * @see https://doc.wikimedia.org/jquery-client/master/jQuery.client.html#.test
      */
     test(map: ClientSupportMap, profile?: ClientProfile, exactMatchOnly?: boolean): boolean;

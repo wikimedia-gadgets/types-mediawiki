@@ -35,9 +35,6 @@ type RequiredOrUndefined<T> = {
 };
 
 interface Confirmable {
-    /**
-     * @param {Options} [options]
-     */
     (options?: Options): this;
 
     /**
