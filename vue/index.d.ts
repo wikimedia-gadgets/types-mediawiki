@@ -1,9 +1,6 @@
 // @ts-ignore
 import { createApp } from "vue";
 
-// @ts-ignore
-export * from "vue";
-
 declare module "vue" {
     /**
      * Wrapper around {@link https://vuejs.org/api/application.html#createapp Vue.createApp} that
