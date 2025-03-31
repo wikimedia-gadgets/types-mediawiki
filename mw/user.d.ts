@@ -32,8 +32,8 @@ export interface User {
         /**
          * Retrieve the current value of the feature from the HTML document element.
          *
-         * @param {string} feature
-         * @returns {false|string} returns false if the feature is not recognized.
+         * @param feature
+         * @returns returns false if the feature is not recognized.
          *  returns string if a feature was found.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.clientPrefs.html#.get
          */
@@ -42,9 +42,9 @@ export interface User {
         /**
          * Change the class on the HTML document element, and save the value in a cookie.
          *
-         * @param {string} feature
-         * @param {string} value
-         * @returns {boolean} True if feature was stored successfully, false if the value
+         * @param feature
+         * @param value
+         * @returns True if feature was stored successfully, false if the value
          *  uses a forbidden character or the feature is not recognised
          *  e.g. a matching class was not defined on the HTML document element.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.clientPrefs.html#.set
@@ -77,7 +77,7 @@ export interface User {
      * created yet, and the name is not visible to other users.
      *
      * @since 1.41
-     * @returns {JQuery.Promise<string>} Promise resolved with the username if we succeeded,
+     * @returns Promise resolved with the username if we succeeded,
      *  or resolved with `null` if we failed
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.acquireTempUserName
      */
@@ -104,7 +104,7 @@ export interface User {
      *
      * `n(p;H) = n(0.01,2^80)= sqrt (2 * 2^80 * ln(1/(1-0.01)))`
      *
-     * @returns {string} 80 bit integer (20 characters) in hex format, padded
+     * @returns 80 bit integer (20 characters) in hex format, padded
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.generateRandomSessionId
      */
     generateRandomSessionId(): string;
@@ -113,7 +113,7 @@ export interface User {
      * Get date user first registered, if available.
      *
      * @since 1.42
-     * @returns {false|null|Date} False for anonymous users, null if data is
+     * @returns False for anonymous users, null if data is
      *  unavailable, or Date for when the user registered. For temporary users
      *  that is when their temporary account was created.
      */
@@ -122,8 +122,6 @@ export interface User {
     /**
      * Get the current user's groups.
      *
-     * @param {function(string[]):any} [callback]
-     * @returns {JQuery.Promise<string[]>}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getGroups
      */
     getGroups<T>(callback: (groups: string[]) => T): JQuery.Promise<T>;
@@ -134,7 +132,7 @@ export interface User {
      *
      * Not to be confused with {@link id}.
      *
-     * @returns {number} Current user's id, or 0 if user is anonymous
+     * @returns Current user's id, or 0 if user is anonymous
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getId
      */
     getId(): number;
@@ -142,7 +140,7 @@ export interface User {
     /**
      * Get the current user's name.
      *
-     * @returns {string|null} User name string or null if user is anonymous
+     * @returns User name string or null if user is anonymous
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getName
      */
     getName(): string | null;
@@ -152,7 +150,7 @@ export interface User {
      * cached within this class (also known as a page view token).
      *
      * @since 1.32
-     * @returns {string} 80 bit integer in hex format, padded
+     * @returns 80 bit integer in hex format, padded
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getPageviewToken
      */
     getPageviewToken(): string;
@@ -160,7 +158,7 @@ export interface User {
     /**
      * Get date user registered, if available.
      *
-     * @returns {false|null|Date} False for anonymous users, null if data is
+     * @returns False for anonymous users, null if data is
      *  unavailable, or Date for when the user registered.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getRegistration
      */
@@ -169,8 +167,6 @@ export interface User {
     /**
      * Get the current user's rights.
      *
-     * @param {function(string[]):any} [callback]
-     * @returns {JQuery.Promise<string[]>}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.getRights
      */
     getRights<T>(callback: (rights: string[]) => T): JQuery.Promise<T>;
@@ -181,7 +177,7 @@ export interface User {
      *
      * Not to be confused with {@link getId}.
      *
-     * @returns {string} User name or random session ID
+     * @returns User name or random session ID
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.id
      */
     id(): string;
@@ -189,7 +185,6 @@ export interface User {
     /**
      * Check whether the current user is anonymous.
      *
-     * @returns {boolean}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.isAnon
      */
     isAnon(): boolean;
@@ -198,7 +193,6 @@ export interface User {
      * Check whether the user is a normal non-temporary registered user.
      *
      * @since 1.40
-     * @returns {boolean}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.isNamed
      */
     isNamed(): boolean;
@@ -207,7 +201,6 @@ export interface User {
      * Check whether the user is an autocreated temporary user.
      *
      * @since 1.40
-     * @returns {boolean}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.isTemp
      */
     isTemp(): boolean;
@@ -221,7 +214,7 @@ export interface User {
      *
      * **Note:** Server-side code must never interpret or modify this value.
      *
-     * @returns {string} Random session ID (20 hex characters)
+     * @returns Random session ID (20 hex characters)
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.user.html#.sessionId
      */
     sessionId(): string;
@@ -230,7 +223,6 @@ export interface User {
      * Get the current user's groups or rights.
      *
      * @private
-     * @returns {JQuery.Promise<mw.Api.UserInfo>}
      */
     getUserInfo(): JQuery.Promise<mw.Api.UserInfo>;
 }

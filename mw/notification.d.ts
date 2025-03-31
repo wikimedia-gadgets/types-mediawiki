@@ -58,10 +58,10 @@ declare global {
         /**
          * Convenience method for loading and accessing the {@link mw.notification.notify mw.notification module}.
          *
-         * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
-         * @param {notification.NotificationOptions} [options] The options to use for the notification.
+         * @param message
+         * @param options The options to use for the notification.
          *  See {@link notification.defaults the defaults}.
-         * @returns {JQuery.Promise<Notification>} Notification object
+         * @returns Notification object
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.notify
          */
         function notify(
@@ -115,10 +115,10 @@ declare global {
             /**
              * Display a notification message to the user.
              *
-             * @param {HTMLElement|HTMLElement[]|JQuery|Message|string} message
-             * @param {NotificationOptions} [options] The options to use for the notification.
+             * @param message
+             * @param options The options to use for the notification.
              *  Options not specified default to the values in {@link defaults}.
-             * @returns {Notification} Notification object
+             * @returns Notification object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.notify
              */
             function notify(

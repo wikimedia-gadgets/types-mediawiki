@@ -43,10 +43,10 @@ declare global {
              *     }
              * }
              * ```
-             * @param {Experiment} experiment
-             * @param {string} token A token that uniquely identifies the user for the
+             * @param experiment
+             * @param token A token that uniquely identifies the user for the
              *  duration of the experiment
-             * @returns {string|undefined} The bucket
+             * @returns The bucket
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.experiments.html#.getBucket
              */
             function getBucket(experiment: Experiment, token: string): string | undefined;

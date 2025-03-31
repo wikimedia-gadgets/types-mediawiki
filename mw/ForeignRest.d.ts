@@ -39,9 +39,9 @@ declare global {
             /**
              * Create an instance of {@link mw.ForeignRest}.
              *
-             * @param {string} url URL pointing to another wiki's `rest.php` endpoint.
-             * @param {ForeignApi} foreignActionApi
-             * @param {ForeignRest.Options} [options] See {@link mw.Rest}.
+             * @param url URL pointing to another wiki's `rest.php` endpoint.
+             * @param foreignActionApi
+             * @param options See {@link mw.Rest}.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignRest.html#ForeignRest
              */
             constructor(url: string, foreignActionApi: ForeignApi, options?: ForeignRest.Options);
