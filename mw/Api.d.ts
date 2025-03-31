@@ -949,11 +949,6 @@ declare global {
                       JQuery.jqXHR<"" | null | undefined>
                   ]
                 | [string, ApiResponse, ApiResponse, JQuery.jqXHR<ApiResponse>];
-
-            namespace Promise {
-                /** @deprecated Use {@link Upload.Promise} instead. */
-                type Upload<TResolve extends ArgTuple = [ApiResponse]> = Upload.Promise<TResolve>;
-            }
         }
 
         namespace Upload {
