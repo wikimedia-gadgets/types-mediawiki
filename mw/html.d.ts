@@ -19,14 +19,14 @@ declare global {
             /**
              * Create an HTML element string, with safe escaping.
              *
-             * @param {string} name The tag name.
-             * @param {Object.<string, string|number|boolean>} [attrs] An object with members mapping element names to values
-             * @param {string|Raw|null} [contents=null] The contents of the element.
+             * @param name The tag name.
+             * @param attrs An object with members mapping element names to values
+             * @param contents The contents of the element.
              *
              *  - string: Text to be escaped.
              *  - null: The element is treated as void with short closing form, e.g. `<br/>`.
              *  - this.Raw: The raw value is directly included.
-             * @returns {string} HTML
+             * @returns HTML
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html.html#.element
              */
             function element(
@@ -45,8 +45,8 @@ declare global {
              * mw.html.escape( '< > \' & "' );
              * // Returns &lt; &gt; &#039; &amp; &quot;
              * ```
-             * @param {string} s The string to escape
-             * @returns {string} HTML
+             * @param s The string to escape
+             * @returns HTML
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html.html#.escape
              */
             function escape(s: string): string;
@@ -65,7 +65,6 @@ declare global {
                 value: V;
 
                 /**
-                 * @param {string} value
                  * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html.Raw.html#Raw
                  */
                 constructor(value: V);

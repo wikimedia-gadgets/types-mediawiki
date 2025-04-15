@@ -53,7 +53,7 @@ declare global {
             /**
              * Used to represent an upload in progress on the frontend.
              *
-             * @param {Api|Api.Options} [apiconfig] A mw.Api object (or subclass), or configuration
+             * @param apiconfig A mw.Api object (or subclass), or configuration
              *     to pass to the constructor of mw.Api.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#Upload
              */
@@ -62,7 +62,6 @@ declare global {
             /**
              * Finish a stash upload.
              *
-             * @returns {Api.Promise<[ApiResponse], Api.RejectArgTuple | [string, ApiResponse]>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#finishStashUpload
              */
             finishStashUpload(): Api.Promise<
@@ -73,7 +72,6 @@ declare global {
             /**
              * Get the mw.Api instance used by this Upload object.
              *
-             * @returns {JQuery.Promise<Api>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getApi
              */
             getApi(): JQuery.Promise<Api>;
@@ -81,8 +79,6 @@ declare global {
             /**
              * Gets the base filename from a path name.
              *
-             * @param {string} path
-             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getBasename
              */
             getBasename(path: string): string;
@@ -90,7 +86,6 @@ declare global {
             /**
              * Get the current value of the edit comment for the upload.
              *
-             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getComment
              */
             getComment(): string;
@@ -98,7 +93,6 @@ declare global {
             /**
              * Get the file being uploaded.
              *
-             * @returns {HTMLInputElement|File|Blob}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getFile
              */
             getFile(): HTMLInputElement | File | Blob;
@@ -106,7 +100,6 @@ declare global {
             /**
              * Get the filename, to be finalized on upload.
              *
-             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getFilename
              */
             getFilename(): string;
@@ -116,7 +109,6 @@ declare global {
              * Only available once the upload is finished! Don't try to get it
              * beforehand.
              *
-             * @returns {ApiResponse|undefined}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getImageInfo
              */
             getImageInfo(): ApiResponse | undefined;
@@ -124,7 +116,6 @@ declare global {
             /**
              * Gets the state of the upload.
              *
-             * @returns {Upload.State}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getState
              */
             getState(): Upload.State;
@@ -132,7 +123,6 @@ declare global {
             /**
              * Gets details of the current state.
              *
-             * @returns {any}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getStateDetails
              */
             getStateDetails(): any;
@@ -140,7 +130,6 @@ declare global {
             /**
              * Get the text of the file page, to be created on file upload.
              *
-             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getText
              */
             getText(): string;
@@ -148,7 +137,6 @@ declare global {
             /**
              * Get the boolean for whether the file will be watchlisted after upload.
              *
-             * @returns {boolean}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getWatchlist
              */
             getWatchlist(): boolean;
@@ -156,7 +144,6 @@ declare global {
             /**
              * Set the edit comment for the upload.
              *
-             * @param {string} comment
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setComment
              */
             setComment(comment: string): void;
@@ -164,7 +151,6 @@ declare global {
             /**
              * Set the file to be uploaded.
              *
-             * @param {HTMLInputElement|File|Blob} file
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setFile
              */
             setFile(file: HTMLInputElement | File | Blob): void;
@@ -172,7 +158,6 @@ declare global {
             /**
              * Set the stashed file to finish uploading.
              *
-             * @param {string} filekey
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setFilekey
              */
             setFilekey(filekey: string): void;
@@ -180,7 +165,6 @@ declare global {
             /**
              * Set the filename, to be finalized on upload.
              *
-             * @param {string} filename
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setFilename
              */
             setFilename(filename: string): void;
@@ -195,8 +179,6 @@ declare global {
             /**
              * Sets the state and state details (if any) of the upload.
              *
-             * @param {Upload.State} state
-             * @param {any} stateDetails
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setState
              */
             setState(state: Upload.State, stateDetails: any): void;
@@ -204,7 +186,6 @@ declare global {
             /**
              * Set the text of the file page, to be created on file upload.
              *
-             * @param {string} text
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setText
              */
             setText(text: string): void;
@@ -212,7 +193,6 @@ declare global {
             /**
              * Set whether the file should be watchlisted after upload.
              *
-             * @param {boolean} watchlist
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setWatchlist
              */
             setWatchlist(watchlist: boolean): void;
@@ -220,7 +200,6 @@ declare global {
             /**
              * Upload the file directly.
              *
-             * @returns {Upload.Promise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#upload
              */
             upload(): Upload.Promise;
@@ -228,7 +207,6 @@ declare global {
             /**
              * Upload the file to the stash to be completed later.
              *
-             * @returns {Upload.Promise<[FinishUpload]>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#uploadToStash
              */
             uploadToStash(): Upload.Promise<[FinishUpload]>;

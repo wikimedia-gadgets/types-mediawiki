@@ -13,9 +13,9 @@ declare global {
              * In case none of the rules passed, we return `pluralRules.length` -
              * that means it is the "other" form.
              *
-             * @param {number} number
-             * @param {string[]} pluralRules
-             * @returns {number} plural form index
+             * @param number
+             * @param pluralRules
+             * @returns plural form index
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.cldr.html#.getPluralForm
              */
             function getPluralForm(number: number, pluralRules: string[]): number;

@@ -8,8 +8,8 @@ declare global {
          * return mw.loader.using( 'mediawiki.deflate' ).then( () => mw.deflate( html ) );
          * ```
          * @deprecated Use {@link mw.deflateAsync}
-         * @param {string|ArrayBuffer} data Undeflated data
-         * @returns {string} Compressed data
+         * @param data Undeflated data
+         * @returns Compressed data
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.deflate
          */
         function deflate(data: string | ArrayBuffer): `rawdeflate,${string}`;
@@ -24,8 +24,8 @@ declare global {
          * return mw.loader.using( 'mediawiki.deflate' ).then( () => mw.deflateAsync( html ) );
          * ```
          * @since 1.44
-         * @param {string|ArrayBuffer} data Undeflated data
-         * @returns {Promise<string>} Compressed data
+         * @param data Undeflated data
+         * @returns Compressed data
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.deflateAsync
          */
         function deflateAsync(data: string | ArrayBuffer): Promise<`rawdeflate,${string}`>;

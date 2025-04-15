@@ -11,9 +11,8 @@ interface SafeStorage {
     /**
      * Retrieve value from device storage.
      *
-     * @param {string} key Key of item to retrieve
-     * @returns {string|null|false} String value, null if no value exists, or false
-     *  if storage is not available.
+     * @param key Key of item to retrieve
+     * @returns String value, null if no value exists, or false if storage is not available.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#get
      */
     get(key: string): string | null | false;
@@ -21,9 +20,8 @@ interface SafeStorage {
     /**
      * Retrieve JSON object from device storage.
      *
-     * @param {string} key Key of item to retrieve
-     * @returns {Object|null|boolean} Object, null if no value exists or value
-     *  is not JSON-parseable, or false if storage is not available.
+     * @param key Key of item to retrieve
+     * @returns Object, null if no value exists or value is not JSON-parseable, or false if storage is not available.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#getObject
      */
     getObject(key: string): any;
@@ -31,8 +29,8 @@ interface SafeStorage {
     /**
      * Remove a value from device storage.
      *
-     * @param {string} key Key of item to remove
-     * @returns {boolean} Whether the key was removed
+     * @param key Key of item to remove
+     * @returns Whether the key was removed
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#remove
      */
     remove(key: string): boolean;
@@ -41,10 +39,10 @@ interface SafeStorage {
      * Set a value in device storage.
      *
      * @since 1.39 - expiry parameter can be passed.
-     * @param {string} key Key name to store under
-     * @param {string} value Value to be stored
-     * @param {number} [expiry] Number of seconds after which this item can be deleted
-     * @returns {boolean} The value was set
+     * @param key Key name to store under
+     * @param value Value to be stored
+     * @param expiry Number of seconds after which this item can be deleted
+     * @returns The value was set
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#set
      */
     set(key: string, value: string, expiry?: number): boolean;
@@ -54,11 +52,11 @@ interface SafeStorage {
      *
      * @since 1.39
      * @since 1.41 - returns a boolean indicating whether the expiry was set.
-     * @param {string} key Key name
-     * @param {number} [expiry] Number of seconds after which this item can be deleted,
+     * @param key Key name
+     * @param expiry Number of seconds after which this item can be deleted,
      *  omit to clear the expiry (either making the item never expire, or to clean up
      *  when deleting a key).
-     * @returns {boolean} The expiry was set (or cleared)
+     * @returns The expiry was set (or cleared)
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#setExpires
      */
     setExpires(key: string, expiry?: number): boolean;
@@ -68,10 +66,10 @@ interface SafeStorage {
      *
      * @since 1.39 - expiry parameter can be passed.
      * @since 1.41 - returns a boolean indicating whether the value was set.
-     * @param {string} key Key name to store under
-     * @param {Object} value Object value to be stored
-     * @param {number} [expiry] Number of seconds after which this item can be deleted
-     * @returns {boolean} The value was set
+     * @param key Key name to store under
+     * @param value Object value to be stored
+     * @param expiry Number of seconds after which this item can be deleted
+     * @returns The value was set
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.storage-SafeStorage.html#setObject
      */
     setObject(key: string, value: any, expiry?: number): boolean;
@@ -81,7 +79,7 @@ interface SafeStorage {
      *
      * @private
      * @since 1.39
-     * @returns {JQuery.Promise} Resolves when items have been expired
+     * @returns Resolves when items have been expired
      */
     clearExpired(): JQuery.Promise<undefined>;
 
@@ -90,7 +88,7 @@ interface SafeStorage {
      *
      * @private
      * @since 1.39
-     * @returns {JQuery.Promise<string[]>} Promise resolving with all the keys which have
+     * @returns Promise resolving with all the keys which have
      *  expiry values (unprefixed), or as many could be retrieved in the allocated time.
      */
     getExpiryKeys(): JQuery.Promise<string[]>;
@@ -100,8 +98,8 @@ interface SafeStorage {
      *
      * @private
      * @since 1.39
-     * @param {string} key Key name
-     * @returns {boolean} Whether key is expired
+     * @param key Key name
+     * @returns Whether key is expired
      */
     isExpired(key: string): boolean;
 }

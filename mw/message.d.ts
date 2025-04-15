@@ -5,9 +5,8 @@ declare global {
          *
          * Shortcut for `new mw.Message( mw.messages, key, parameters )`.
          *
-         * @param {string} key Key of message to get
-         * @param {...any} parameters Values for $N replacements
-         * @returns {Message}
+         * @param key Key of message to get
+         * @param parameters Values for $N replacements
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.message
          */
         function message(key: string, ...parameters: any[]): Message;
@@ -101,9 +100,9 @@ declare global {
              * mw.log( obj.escaped() );
              * // You will find: Time &quot;after&quot; &lt;time&gt;
              * ```
-             * @param {Map} map Message store
-             * @param {string} key
-             * @param {Array} [parameters]
+             * @param map Message store
+             * @param key
+             * @param parameters
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#Message
              */
             constructor(map: Map<Record<string, string>>, key: string, parameters?: any[]);
@@ -113,7 +112,7 @@ declare global {
              *
              * This is equivalent to the {@link text} format, which is then HTML-escaped.
              *
-             * @returns {string} String form of html escaped message
+             * @returns String form of html escaped message
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#escaped
              */
             escaped(): string;
@@ -121,7 +120,6 @@ declare global {
             /**
              * Check if a message exists. Equivalent to {@link mw.Map.exists}.
              *
-             * @returns {boolean}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#exists
              */
             exists(): boolean;
@@ -132,7 +130,6 @@ declare global {
              * This method is only available when jqueryMsg is loaded.
              *
              * @since 1.41
-             * @returns {boolean}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#isParseable
              */
             isParseable(): boolean;
@@ -140,8 +137,7 @@ declare global {
             /**
              * Add (does not replace) parameters for `$N` placeholder values.
              *
-             * @param {Array} parameters
-             * @returns {Message}
+             * @param parameters
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#params
              */
             params(parameters: any[]): this;
@@ -152,7 +148,7 @@ declare global {
              * If jqueryMsg is loaded, this transforms text and parses a subset of supported wikitext
              * into HTML. Without jqueryMsg, it is equivalent to {@link escaped}.
              *
-             * @returns {string} String form of parsed message
+             * @returns String form of parsed message
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#parse
              */
             parse(): string;
@@ -163,7 +159,6 @@ declare global {
              * This method is only available when jqueryMsg is loaded.
              *
              * @since 1.27
-             * @returns {JQuery}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#parseDom
              */
             parseDom(): JQuery;
@@ -174,7 +169,7 @@ declare global {
              * This substitutes parameters, but otherwise does not transform the
              * message content.
              *
-             * @returns {string} String form of plain message
+             * @returns String form of plain message
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#plain
              */
             plain(): string;
@@ -186,7 +181,7 @@ declare global {
              * magic words such as `{{plural:}}`, `{{gender:}}`, and `{{int:}}`.
              * Without jqueryMsg, it is equivalent to {@link plain}.
              *
-             * @returns {string} String form of text message
+             * @returns String form of text message
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#text
              */
             text(): string;
@@ -202,8 +197,8 @@ declare global {
              *
              * @private For internal use by mediawiki.jqueryMsg only
              * @since 1.38 - format parameter can be passed.
-             * @param {string} format
-             * @returns {string} Parsed message
+             * @param format
+             * @returns Parsed message
              */
             private parser(format: string): string;
 
@@ -215,10 +210,9 @@ declare global {
              * other format methods.
              *
              * @since 1.38 - format parameter can be passed.
-             * @param {string} [format="text"] Internal parameter. Uses "text" if called
+             * @param format Internal parameter. Uses "text" if called
              *  implicitly through string casting.
-             * @returns {string} Message in the given format, or `⧼key⧽` if the key
-             *  does not exist.
+             * @returns Message in the given format, or `⧼key⧽` if the key does not exist.
              */
             private toString(format?: "escaped" | "parse" | "plain" | "text"): string;
         }
@@ -228,9 +222,8 @@ declare global {
          *
          * Shortcut for `mw.message( key, parameters... ).text()`.
          *
-         * @param {string} key Key of message to get
-         * @param {...any} parameters Values for $N replacements
-         * @returns {string}
+         * @param key Key of message to get
+         * @param parameters Values for $N replacements
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.msg
          */
         function msg(key: string, ...parameters: any[]): string;

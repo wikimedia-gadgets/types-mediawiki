@@ -17,8 +17,6 @@ declare global {
          * $( 'table' ).tablesorter( { sortList: [ { 0: 'desc' }, { 1: 'asc' } ] } );
          * ```
          *
-         * @param {TableSorterOptions} settings
-         * @returns {JQuery}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.tablesorter.html#.$.fn.tablesorter
          */
         tablesorter(this: JQuery<HTMLTableElement>, settings?: TableSorterOptions): this;
