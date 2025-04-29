@@ -4,8 +4,9 @@ declare global {
          * Interact with the API of another MediaWiki site. mw.Foreign API creates
          * an object like {@link mw.Api}, but automatically handle everything required to communicate
          *
-         * The foreign wiki must be configured to accept requests from the current wiki. See
-         * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains} for details.
+         * The foreign wiki must be configured to accept requests from the current wiki.
+         * For details, see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains $wgCrossSiteAJAXdomains}
+         * and {@link https://www.mediawiki.org/wiki/Manual:$wgRestAllowCrossOriginCookieAuth $wgRestAllowCrossOriginCookieAuth}.
          *
          * ```js
          * const api = new mw.ForeignApi( 'https://commons.wikimedia.org/w/api.php' );
