@@ -28,7 +28,7 @@
         "types-mediawiki-api": "^2.0.0"
     },
     "peerDependencies": {
-        "vue": "3.2.23 || 3.2.37 || 3.3.9 || 3.4.27"
+        "vue": "3.2.23 || 3.2.37 || 3.3.9 || 3.4.27 || 3.5.13"
     },
     "peerDependenciesMeta": {
         "vue": {
