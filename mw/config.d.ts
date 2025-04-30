@@ -1,5 +1,15 @@
 import { ExtensibleMap } from "./Map";
 
+// Configuration values definitions: (for maintenance purpose)
+// ---------------------------------
+//  - MediaWiki\Output\OutputPage::getJSVars(), always defined (loaded in page head)
+//  - MediaWiki\Output\OutputPage::getBottomScripts(), always defined (loaded in page body)
+//  - MediaWiki\ResourceLoader\ResourceLoader::getSiteConfigSettings(), always defined (loaded with the mediawiki.base RL module)
+//  - using MediaWiki\Parser\ParserOutput::addJsConfigVars(), maybe defined
+//  - using MediaWiki\Parser\ParserOutput::setJsConfigVar(), maybe defined
+//  - using MediaWiki\ResourceLoader\ResourceLoader::makeConfigSetScript(), maybe defined
+//  - using mw.config.set() in JS, maybe defined
+
 declare global {
     namespace mw {
         /**
@@ -16,6 +26,14 @@ declare global {
         const config: ExtensibleMap<ConfigMap>;
 
         interface ConfigMap {
+            apihighlimits?: boolean;
+            blockCanDeleteLogEntry?: boolean;
+            blockEnableMultiblocks?: boolean;
+            blockId?: number | null;
+            blockShowSuppressLog?: boolean;
+            blockTargetUser?: string | null;
+            blockTargetUserInput?: string;
+            dataCacheTime?: string;
             /**
              * Since MediaWiki 1.36+, 0 means debug mode is off, and a positive non-zero number means debug mode is on (e.g. 1 or 2).
              *
@@ -24,12 +42,16 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#debug
              */
             debug: boolean | number;
+            debugInfo?: DebugInfo;
+            searchTerm?: string;
             /**
              * The internal name of the currently used skin.
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#skin
              */
             skin: string;
+            specUrl?: string | null;
+            StructuredChangeFiltersDisplayConfig?: StructuredChangeFiltersDisplayConfig;
             /**
              * Full URL to the root directory for skins, containing stylesheets and skin-specific scripts. The path does not contain the skin subdirectory, and is not terminated by a "/".
              *
@@ -43,6 +65,7 @@ declare global {
              */
             wgAction: string;
             wgActionPaths: Record<string, string>;
+            wgAjaxLicensePreview?: boolean;
             /**
              * The internal ID (page ID) of the page. For non-existent pages and special pages, it is zero.
              *
@@ -55,6 +78,8 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgArticlePath
              */
             wgArticlePath: string;
+            wgBackendResponseTime: number;
+            wgBreakFrames: boolean;
             /**
              * The canonical (i.e., not localized or aliased) namespace name of the page.
              *
@@ -81,6 +106,8 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCategories
              */
             wgCategories: string[];
+            wgCheckFileExtensions?: boolean;
+            wgCodexTablePagerLimit?: number;
             wgCommentCodePointLimit: number;
             /**
              * The language code for the default content language of the wiki.
@@ -94,6 +121,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgContentNamespaces
              */
             wgContentNamespaces: number[];
+            wgCreateAccountDirty?: true;
             /**
              * The top revision ID of the currently viewed page at the time the page was served. Also set on diff and history pages; zero for special pages.
              *
@@ -106,6 +134,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgDBname
              */
             wgDBname: string;
+            wgDefaultDateFormat: string;
             /**
              * Revision ID of the "new" revision when viewing a diff. Only available when viewing a revision comparison.
              *
@@ -118,6 +147,15 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgDiffOldId
              */
             wgDiffOldId?: number;
+            wgDigitTransformTable: string[];
+            wgEditMessage?:
+                | "creating"
+                | "editconflict"
+                | "editing"
+                | "editingcomment"
+                | "editingsection";
+            wgEditRecoveryWasPosted?: boolean;
+            wgEditSubmitButtonLabelPublish?: boolean;
             /**
              * Root path used for extension static assets (e.g. images). Append '/' then the name of the extension to get the root path for a given extension.
              *
@@ -125,13 +163,18 @@ declare global {
              */
             wgExtensionAssetsPath: string;
             wgExtraSignatureNamespaces: number[];
+            wgFileCanRotate?: boolean;
+            wgFileExtensions?: string[];
+            wgFileWarning?: FileWarning;
             /**
              * Gives a mapping from namespace IDs to localized namespace names. For each namespace, the object has one entry that has the stringified namespace number as the key and the namespace name as its value. Aliases or canonical names are not included.
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgFormattedNamespaces
              */
             wgFormattedNamespaces: Record<number, string>;
+            wgHostname?: string;
             wgIllegalFileChars: string;
+            wgInternalRedirectTargetUrl?: string;
             /**
              * true if the page displays the content of a wiki page, e.g. when viewing a page (regardless of namespace), or when viewing an old revision or diff with rendered content below it. It is false for anything else (edit form, history page, special pages, most generated pages, etc.).
              *
@@ -159,6 +202,21 @@ declare global {
              */
             wgIsRedirect: boolean;
             wgLegalTitleChars: string;
+            wgMaxUploadSize?: MaxUploadSize;
+            wgMonthNames: [
+                string,
+                string,
+                string,
+                string,
+                string,
+                string,
+                string,
+                string,
+                string,
+                string,
+                string,
+                string
+            ];
             /**
              * Gives a mapping from namespace names to namespace IDs. For each namespace name, including localized and canonical names as well as aliases, the object has one entry that has namespace name as the key and the namespace ID as its integer value. The keys are all lowercase, with spaces replaced by underscores.
              *
@@ -171,6 +229,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgNamespaceNumber
              */
             wgNamespaceNumber: number;
+            wgPageViewLanguage: string;
             /**
              * Language code of the page content language (according to `$context->getTitle()->getPageLanguage()`)
              *
@@ -207,12 +266,15 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgPostEdit
              */
             wgPostEdit?: `${"created" | "restored" | "saved"}${"" | "+tempuser"}`;
+            wgPostEditConfirmationDisabled?: true;
+            wgPreferencesTabs?: PreferenceTab[];
             /**
              * When redirected contains the title of the page we were redirected from. If the page was not redirected, the value is omitted entirely (absent in mw.config). Uses the same format as wgPageName
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgRedirectedFrom
              */
             wgRedirectedFrom?: string;
+            wgRelevantArticleId: number;
             /**
              * Like wgIsProbablyEditable, but applied to the contextually relevant page name from wgRelevantPageName instead of strictly the current page being viewed. For example, when viewing a page "Special:MovePage/Example" this will indicate whether the subject page is editable.
              *
@@ -231,6 +293,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgRelevantUserName
              */
             wgRelevantUserName?: string;
+            wgRequestId: string;
             /**
              * If the page is editable at all (and is not a special page) and editing of the page is restricted to some user groups, the array contains the minimum user group a user must be in in order to edit the page. For semi-protected pages, it'd contain ["autoconfirmed"]; for fully protected pages ["sysop"]. If there are no explicit restrictions, the value is [] (an array with no elements).
              *
@@ -255,6 +318,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgRevisionId
              */
             wgRevisionId: number;
+            wgRollbackSuccess?: true;
             /**
              * Full path to the main access point script, starting at the root, including the full script name with extension. On WMF wikis, normally "/w/index.php". See also $wgScript.
              *
@@ -273,6 +337,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgSearchType
              */
             wgSearchType: string | null;
+            wgSeparatorTransformTable: string[];
             /**
              * The server URL, not terminated by "/". The combination wgServer + wgScriptPath + "/api.php", for instance, results in a valid URL to the API access point script.
              *
@@ -291,6 +356,16 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgSiteName
              */
             wgSiteName: string;
+            wgStrictFileExtensions?: boolean;
+            wgStructuredChangeFilters?: StructuredChangeFilterGroup[];
+            wgStructuredChangeFiltersCollapsedPreferenceName?: string;
+            wgStructuredChangeFiltersCollapsedState?: boolean;
+            wgStructuredChangeFiltersDaysPreferenceName?: string;
+            wgStructuredChangeFiltersDefaultSavedQueryExists?: true;
+            wgStructuredChangeFiltersLimitPreferenceName?: string;
+            wgStructuredChangeFiltersMessages?: Record<string, string>;
+            wgStructuredChangeFiltersSavedQueriesPreferenceName?: string;
+            wgTempUserName?: string | null;
             /**
              * The page title, without the namespace. May contain spaces – does not contain underscores. To get the title including the namespace, use wgPageName.
              *
@@ -298,13 +373,17 @@ declare global {
              */
             wgTitle: string;
             wgTranslateNumerals: boolean;
+            wgUploadAutoFill?: boolean;
+            wgUploadSourceIds?: string[];
             wgUrlProtocols: string;
+            wgUseCodexSpecialBlock?: true;
             /**
              * The number of edits the current user made (null if not logged in).
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgUserEditCount
              */
             wgUserEditCount?: number;
+            wgUserFirstRegistration?: number | null;
             /**
              * An array containing all the (local) user groups the current user is a member of, or null for non-logged-in users. User groups are identified by the internal user group names, e.g. "sysop", "autoconfirmed", "bureaucrat", and so on. The default user group is named "*".
              *
@@ -317,6 +396,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgUserId
              */
             wgUserId?: number;
+            wgUserIsTemp?: boolean;
             /**
              * The language code for the user's interface language, as set in Special→Preferences (which may be overridden by a uselang= parameter in the URL).
              *
@@ -329,6 +409,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgUserName
              */
             wgUserName: string | null;
+            wgUserNewMsgRevisionId?: number;
             /**
              * The time and date on which the current user registered, represented as milliseconds since epoch. Null if not logged in.
              *
@@ -368,6 +449,66 @@ declare global {
     }
 }
 
+interface DebugInfo {
+    mwVersion: string;
+    phpEngine: string;
+    phpVersion: string;
+    gitRevision: string;
+    gitBranch: string | false;
+    gitViewUrl: string;
+    time: number;
+    log: DebugLog[];
+    debugLog: string[];
+    queries: DebugQuery[];
+    request: DebugRequest;
+    memory: string;
+    memoryPeak: string;
+    includes: DebugInclude[];
+}
+
+interface DebugLog {
+    msg: string;
+    type: "log" | "warn";
+    caller: string;
+}
+
+interface DebugQuery {
+    function: string;
+    sql: `${string}: ${string}`;
+    time: number;
+}
+
+interface DebugRequest {
+    method: string;
+    url: string;
+    headers: Record<string, any>;
+    params: Record<string, any>;
+}
+
+interface DebugInclude {
+    name: string;
+    size: string;
+}
+
+interface FileWarning {
+    module: string;
+    messages: FileWarningMessages;
+    link?: string;
+}
+
+interface FileWarningMessages {
+    footer?: string;
+    header?: string;
+    info?: string;
+    main: string;
+}
+
+interface MaxUploadSize {
+    "*": number;
+    "file"?: number;
+    "url"?: number;
+}
+
 interface PageParseReport {
     cachereport: CacheReport;
     limitreport: LimitReport;
@@ -394,6 +535,56 @@ interface LimitReport {
 interface LimitReportValue {
     limit: number;
     value: number;
+}
+
+interface PreferenceTab {
+    label: string;
+    name: string;
+}
+
+interface StructuredChangeFilterGroup {
+    conflicts: StructuredChangeFilterConflictingGroup[];
+    filters: [StructuredChangeFilter, ...StructuredChangeFilter[]];
+    fullCoverage: boolean;
+    name: string;
+    priority: number;
+    title: string;
+    type: string;
+    whatsThisBody?: string;
+    whatsThisHeader?: string;
+    whatsThisLinkText?: string;
+    whatsThisUrl?: string;
+}
+
+interface StructuredChangeFilterConflictingGroup {
+    contextDescription: string;
+    filter?: string;
+    globalDescription: string;
+    group: string;
+}
+
+interface StructuredChangeFilter {
+    conflicts: StructuredChangeFilterConflictingGroup[];
+    cssClass: string;
+    defaultHighlightColor: string;
+    description: string;
+    label: string;
+    name: string;
+    priority: number;
+    subset: StructuredChangeFilterSubset[];
+}
+
+interface StructuredChangeFilterSubset {
+    filter: string;
+    group: string;
+}
+
+interface StructuredChangeFiltersDisplayConfig {
+    daysArray: number[];
+    daysDefault: number;
+    limitArray: number[];
+    limitDefault: number;
+    maxDays: number;
 }
 
 export {};
