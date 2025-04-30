@@ -62,7 +62,7 @@ declare global {
              */
             wgCanonicalNamespace: string;
             /**
-             * On special pages, the canonical (i.e., not localized or aliased) name of the special page; otherwise it is not defined at all (up to and including MW 1.15) or is set to false (since MW 1.16).
+             * On special pages, the canonical (i.e., not localized or aliased) name of the special page; otherwise it is set to false (since MW 1.16; previously not defined at all in that case).
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCanonicalSpecialPageName
              */
@@ -75,6 +75,8 @@ declare global {
             wgCaseSensitiveNamespaces: number[];
             /**
              * The list of all the categories a page belongs to. This is essentially a JavaScript version of the category box shown on the page (grey box at bottom of page, in Monobook/Vector). If the category box is not shown on the current page (as is the case when editing/viewing history), wgCategories will be an empty array.
+             *
+             * This is not available in MobileFrontend, regardless of the advanced mode being on or off.
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCategories
              */
@@ -248,7 +250,7 @@ declare global {
              */
             wgRestrictionMove: string[];
             /**
-             * The revision ID of the currently viewed revision, or the right revision for diff views (But 0 when diffonly=yes, task T231744). Also set on diff pages; zero for special pages, history pages, or anywhere else inapplicable.
+             * The revision ID of the currently viewed revision, or the right revision for diff views (But 0 when diffonly=yes, T231744). Also set on diff pages; zero for special pages, history pages, or anywhere else inapplicable.
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgRevisionId
              */
@@ -357,7 +359,7 @@ declare global {
              */
             wgVersion: string;
             /**
-             * The wiki identifier. Should be preferred over wgDBname.
+             * The wiki identifier. Should be preferred over {@link wgDBname}.
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgWikiID
              */
