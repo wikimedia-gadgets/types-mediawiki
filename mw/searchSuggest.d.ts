@@ -1,31 +1,3 @@
-import { ApiResponse } from "./Api";
-
-/**
- * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.searchSuggest.html#~ResponseFunction
- */
-interface ResponseFunction {
-    /**
-     * @param titles titles of pages that match search
-     * @param meta meta data relating to search
-     */
-    (titles: string[], meta: ResponseMetaData): void;
-}
-
-/**
- * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.searchSuggest.html#~ResponseMetaData
- */
-interface ResponseMetaData {
-    query: string;
-    /**
-     * The contents of the X-Search-ID response header.
-     */
-    searchId: string;
-    /**
-     * The contents of the X-OpenSearch-Type response header.
-     */
-    type: string;
-}
-
 declare global {
     namespace mw {
         /**
@@ -55,7 +27,33 @@ declare global {
                 response: ResponseFunction,
                 limit?: number | "max",
                 namespace?: number | number[]
-            ): JQuery.Promise<ApiResponse>;
+            ): JQuery.Promise<Api.UnknownResponse>;
+
+            /**
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.searchSuggest.html#~ResponseFunction
+             */
+            interface ResponseFunction {
+                /**
+                 * @param titles titles of pages that match search
+                 * @param meta meta data relating to search
+                 */
+                (titles: string[], meta: ResponseMetaData): void;
+            }
+
+            /**
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.searchSuggest.html#~ResponseMetaData
+             */
+            interface ResponseMetaData {
+                query: string;
+                /**
+                 * The contents of the X-Search-ID response header.
+                 */
+                searchId: string;
+                /**
+                 * The contents of the X-OpenSearch-Type response header.
+                 */
+                type: string;
+            }
         }
     }
 }

@@ -1,5 +1,3 @@
-import { ApiResponse, FinishUpload } from "./Api";
-
 declare global {
     namespace mw {
         /**
@@ -65,8 +63,8 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#finishStashUpload
              */
             finishStashUpload(): Api.Promise<
-                [ApiResponse],
-                Api.RejectArgTuple | [string, ApiResponse]
+                [Api.UnknownResponse],
+                Api.RejectArgTuple | [string, Api.UnknownResponse]
             >;
 
             /**
@@ -111,7 +109,7 @@ declare global {
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getImageInfo
              */
-            getImageInfo(): ApiResponse | undefined;
+            getImageInfo(): Api.UnknownResponse | undefined;
 
             /**
              * Gets the state of the upload.
@@ -209,7 +207,7 @@ declare global {
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#uploadToStash
              */
-            uploadToStash(): Upload.Promise<[FinishUpload]>;
+            uploadToStash(): Upload.Promise<[Api.FinishUpload]>;
         }
 
         namespace Upload {

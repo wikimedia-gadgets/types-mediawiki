@@ -1,10 +1,3 @@
-export type QueryParams = Record<string, string | number | boolean | null | undefined>;
-
-interface UriParser {
-    loose: RegExp;
-    strict: RegExp;
-}
-
 declare global {
     namespace mw {
         /**
@@ -132,7 +125,7 @@ declare global {
              * file where they make use of named capture groups. That syntax isn't valid in JavaScript ES5,
              * so the server-side strips these before delivering to the client.
              */
-            private static parser: UriParser;
+            private static parser: Uri.Parser;
 
             /**
              * The order here matches the order of captured matches in the `parser` property regexes.
@@ -164,7 +157,7 @@ declare global {
              */
             constructor(
                 uri?: string | Uri | Partial<Record<typeof Uri.properties[number], string>>,
-                options?: Uri.UriOptions | boolean
+                options?: Uri.Options | boolean
             );
 
             /**
@@ -247,7 +240,7 @@ declare global {
              * @param options See constructor.
              * @throws {Error} when the query string or fragment contains an unknown % sequence
              */
-            private parse(str: string, options: Uri.UriOptions): void;
+            private parse(str: string, options: Uri.Options): void;
 
             /**
              * Decode a url encoded value.
@@ -280,7 +273,7 @@ declare global {
             /**
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Uri.html#.UriOptions
              */
-            interface UriOptions {
+            interface Options {
                 /**
                  * Whether to parse array query parameters (e.g. `&foo[0]=a&foo[1]=b` or `&foo[]=a&foo[]=b`) or leave them alone.
                  * Currently this does not handle associative or multi-dimensional arrays, but that may be improved in the future.
@@ -299,8 +292,16 @@ declare global {
                  */
                 strictMode?: boolean;
             }
+
+            interface Parser {
+                loose: RegExp;
+                strict: RegExp;
+            }
         }
     }
 }
+
+/** @deprecated Use {@link mw.QueryParams} instead */
+export type QueryParams = mw.QueryParams;
 
 export {};

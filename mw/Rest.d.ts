@@ -1,5 +1,3 @@
-export type RestResponse = Record<string, any>; // Unknown JSON object
-
 declare global {
     namespace mw {
         /**
@@ -123,14 +121,17 @@ declare global {
                 ajax?: JQuery.AjaxSettings;
             }
 
+            // Unknown JSON object
+            type Response = Record<string, any>;
+
             type Promise<
-                TResolve extends Api.ArgTuple = [RestResponse, JQuery.jqXHR<RestResponse>],
+                TResolve extends Api.ArgTuple = [Response, JQuery.jqXHR<Response>],
                 TReject extends Api.ArgTuple = RejectArgTuple,
                 TNotify extends Api.ArgTuple = []
             > = Api.Promise<TResolve, TReject, TNotify>;
 
             type AbortablePromise<
-                TResolve extends Api.ArgTuple = [RestResponse, JQuery.jqXHR<RestResponse>],
+                TResolve extends Api.ArgTuple = [Response, JQuery.jqXHR<Response>],
                 TReject extends Api.ArgTuple = RejectArgTuple,
                 TNotify extends Api.ArgTuple = []
             > = Api.AbortablePromise<TResolve, TReject, TNotify>;
@@ -145,5 +146,8 @@ declare global {
         }
     }
 }
+
+/** @deprecated Use {@link mw.Rest.Response} instead */
+export type RestResponse = mw.Rest.Response;
 
 export {};
