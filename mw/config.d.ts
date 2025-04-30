@@ -36,7 +36,19 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#stylepath
              */
             stylepath: string;
+            /**
+             * The action performed, e.g. "edit" for edit pages, or "view" for page views. See {@link https://www.mediawiki.org/wiki/Manual:Parameters_to_index.php#Actions Manual:Parameters to index.php}.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgAction
+             */
+            wgAction: string;
             wgActionPaths: Record<string, string>;
+            /**
+             * The internal ID (page ID) of the page. For non-existent pages and special pages, it is zero.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgArticleId
+             */
+            wgArticleId: number;
             /**
              * Local path, starting at the root, to reference articles, containing a "$1" placeholder that may be replaced by a page title to get a valid URL to that page. Given a valid page title title, a valid URL may be constructed using wgArticlePath.replace('$1', title). See also $wgArticlePath.
              *
@@ -44,11 +56,29 @@ declare global {
              */
             wgArticlePath: string;
             /**
+             * The canonical (i.e., not localized or aliased) namespace name of the page.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCanonicalNamespace
+             */
+            wgCanonicalNamespace: string;
+            /**
+             * On special pages, the canonical (i.e., not localized or aliased) name of the special page; otherwise it is not defined at all (up to and including MW 1.15) or is set to false (since MW 1.16).
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCanonicalSpecialPageName
+             */
+            wgCanonicalSpecialPageName: string | false;
+            /**
              * The IDs of the namespaces treated as case-sensitive by MediaWiki. Determined by the values of them $wgCapitalLinks and $wgCapitalLinksOverrides configuration variables.
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCaseSensitiveNamespaces
              */
             wgCaseSensitiveNamespaces: number[];
+            /**
+             * The list of all the categories a page belongs to. This is essentially a JavaScript version of the category box shown on the page (grey box at bottom of page, in Monobook/Vector). If the category box is not shown on the current page (as is the case when editing/viewing history), wgCategories will be an empty array.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCategories
+             */
+            wgCategories: string[];
             wgCommentCodePointLimit: number;
             /**
              * The language code for the default content language of the wiki.
@@ -63,11 +93,29 @@ declare global {
              */
             wgContentNamespaces: number[];
             /**
+             * The top revision ID of the currently viewed page at the time the page was served. Also set on diff and history pages; zero for special pages.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCurRevisionId
+             */
+            wgCurRevisionId: number;
+            /**
              * The name of the wiki's database.
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgDBname
              */
             wgDBname: string;
+            /**
+             * Revision ID of the "new" revision when viewing a diff. Only available when viewing a revision comparison.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgDiffNewId
+             */
+            wgDiffNewId?: number;
+            /**
+             * Revision ID of the "old" revision when viewing a diff. Only available when viewing a revision comparison.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgDiffOldId
+             */
+            wgDiffOldId?: number;
             /**
              * Root path used for extension static assets (e.g. images). Append '/' then the name of the extension to get the root path for a given extension.
              *
@@ -82,99 +130,6 @@ declare global {
              */
             wgFormattedNamespaces: Record<number, string>;
             wgIllegalFileChars: string;
-            wgLegalTitleChars: string;
-            /**
-             * Gives a mapping from namespace names to namespace IDs. For each namespace name, including localized and canonical names as well as aliases, the object has one entry that has namespace name as the key and the namespace ID as its integer value. The keys are all lowercase, with spaces replaced by underscores.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgNamespaceIds
-             */
-            wgNamespaceIds: Record<string, number>;
-            /**
-             * Full path to the main access point script, starting at the root, including the full script name with extension. On WMF wikis, normally "/w/index.php". See also $wgScript.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgScript
-             */
-            wgScript: string;
-            /**
-             * The path part of wgScript, without trailing "/". This is the path to use for direct calls to the php access points such as index.php or api.php. See also $wgScriptPath.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgScriptPath
-             */
-            wgScriptPath: string;
-            /**
-             * The server URL, not terminated by "/". The combination wgServer + wgScriptPath + "/api.php", for instance, results in a valid URL to the API access point script.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgServer
-             */
-            wgServer: string;
-            /**
-             * The name of the server, without the protocol or trailing slash (e.g. "en.wikipedia.org").
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgServerName
-             */
-            wgServerName: string;
-            /**
-             * The name of the site, as defined by $wgSitename.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgSiteName
-             */
-            wgSiteName: string;
-            wgTranslateNumerals: boolean;
-            wgUrlProtocols: string;
-            /**
-             * If a wiki has language variants (such as the Chinese and the Serbian Wikipedias), set to a path beginning at the root for language variants other than wgContentLanguage. The path contains two placeholders: "$1" is to be replaced by the page title, and "$2" is to be replaced by the language code of the language variant (e.g. "zh-tw"). If the wiki does not have language variants, set to false. See also $wgVariantArticlePath.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgVariantArticlePath
-             */
-            wgVariantArticlePath: string | false;
-            /**
-             * Identifies the version of MediaWiki that served the page.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgVersion
-             */
-            wgVersion: string;
-            /**
-             * The wiki identifier. Should be preferred over wgDBname.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgWikiID
-             */
-            wgWikiID: string;
-            /**
-             * The action performed, e.g. "edit" for edit pages, or "view" for page views. See {@link https://www.mediawiki.org/wiki/Manual:Parameters_to_index.php#Actions Manual:Parameters to index.php}.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgAction
-             */
-            wgAction: string;
-            /**
-             * The internal ID (page ID) of the page. For non-existent pages and special pages, it is zero.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgArticleId
-             */
-            wgArticleId: number;
-            /**
-             * The canonical (i.e., not localized or aliased) namespace name of the page.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCanonicalNamespace
-             */
-            wgCanonicalNamespace: string;
-            /**
-             * On special pages, the canonical (i.e., not localized or aliased) name of the special page; otherwise it is not defined at all (up to and including MW 1.15) or is set to false (since MW 1.16).
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCanonicalSpecialPageName
-             */
-            wgCanonicalSpecialPageName: string | false;
-            /**
-             * The list of all the categories a page belongs to. This is essentially a JavaScript version of the category box shown on the page (grey box at bottom of page, in Monobook/Vector). If the category box is not shown on the current page (as is the case when editing/viewing history), wgCategories will be an empty array.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCategories
-             */
-            wgCategories: string[];
-            /**
-             * The top revision ID of the currently viewed page at the time the page was served. Also set on diff and history pages; zero for special pages.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCurRevisionId
-             */
-            wgCurRevisionId: number;
             /**
              * true if the page displays the content of a wiki page, e.g. when viewing a page (regardless of namespace), or when viewing an old revision or diff with rendered content below it. It is false for anything else (edit form, history page, special pages, most generated pages, etc.).
              *
@@ -183,6 +138,12 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgIsArticle
              */
             wgIsArticle: boolean;
+            /**
+             * true if the current page is the main page of the wiki. Omitted entirely otherwise (defaulting to null in mw.config).
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgIsMainPage
+             */
+            wgIsMainPage?: true;
             /**
              * True if the page is probably editable (based on Title::quickUserCan) by the current user. The 'probably' is necessary for performance reasons. An exact editability check is too costly here, due to cascading protection and hook-based extensions like TitleBlacklist that may be enabled. If this is true, it is likely to be editable. If it is false, it is definitely not editable.
              *
@@ -195,6 +156,13 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgIsRedirect
              */
             wgIsRedirect: boolean;
+            wgLegalTitleChars: string;
+            /**
+             * Gives a mapping from namespace names to namespace IDs. For each namespace name, including localized and canonical names as well as aliases, the object has one entry that has namespace name as the key and the namespace ID as its integer value. The keys are all lowercase, with spaces replaced by underscores.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgNamespaceIds
+             */
+            wgNamespaceIds: Record<string, number>;
             /**
              * The number of the namespace the page is in.
              *
@@ -226,11 +194,29 @@ declare global {
              */
             wgPageParseReport: PageParseReport;
             /**
+             * "saved" if the user just saved this page. "created" if the user just created this page. "restored" if the user just restored this page by going to the history page, clicked on a timestamp link for an old revision, clicked on edit and then saved. null otherwise. Note that:
+             *
+             * On null edits, this is null, not "saved"
+             *
+             * When using "undo", this is "saved"
+             *
+             * On rollback, this is null
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgPostEdit
+             */
+            wgPostEdit?: "created" | "restored" | "saved";
+            /**
              * When redirected contains the title of the page we were redirected from. If the page was not redirected, the value is omitted entirely (absent in mw.config). Uses the same format as wgPageName
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgRedirectedFrom
              */
             wgRedirectedFrom?: string;
+            /**
+             * Like wgIsProbablyEditable, but applied to the contextually relevant page name from wgRelevantPageName instead of strictly the current page being viewed. For example, when viewing a page "Special:MovePage/Example" this will indicate whether the subject page is editable.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgRelevantPageIsProbablyEditable
+             */
+            wgRelevantPageIsProbablyEditable: boolean;
             /**
              * The full name of the page to which content actions and navigation links (e.g. a skin's tabs) apply. The AJAX watch function uses this to work correctly on special pages such as Special:MovePage and Special:WhatLinksHere.
              *
@@ -243,12 +229,6 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgRelevantUserName
              */
             wgRelevantUserName?: string;
-            /**
-             * Like wgIsProbablyEditable, but applied to the contextually relevant page name from wgRelevantPageName instead of strictly the current page being viewed. For example, when viewing a page "Special:MovePage/Example" this will indicate whether the subject page is editable.
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgRelevantPageIsProbablyEditable
-             */
-            wgRelevantPageIsProbablyEditable: boolean;
             /**
              * If the page is editable at all (and is not a special page) and editing of the page is restricted to some user groups, the array contains the minimum user group a user must be in in order to edit the page. For semi-protected pages, it'd contain ["autoconfirmed"]; for fully protected pages ["sysop"]. If there are no explicit restrictions, the value is [] (an array with no elements).
              *
@@ -274,17 +254,49 @@ declare global {
              */
             wgRevisionId: number;
             /**
+             * Full path to the main access point script, starting at the root, including the full script name with extension. On WMF wikis, normally "/w/index.php". See also $wgScript.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgScript
+             */
+            wgScript: string;
+            /**
+             * The path part of wgScript, without trailing "/". This is the path to use for direct calls to the php access points such as index.php or api.php. See also $wgScriptPath.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgScriptPath
+             */
+            wgScriptPath: string;
+            /**
              * The name of the search backend used to execute search requests.
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgSearchType
              */
             wgSearchType: string | null;
             /**
+             * The server URL, not terminated by "/". The combination wgServer + wgScriptPath + "/api.php", for instance, results in a valid URL to the API access point script.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgServer
+             */
+            wgServer: string;
+            /**
+             * The name of the server, without the protocol or trailing slash (e.g. "en.wikipedia.org").
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgServerName
+             */
+            wgServerName: string;
+            /**
+             * The name of the site, as defined by $wgSitename.
+             *
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgSiteName
+             */
+            wgSiteName: string;
+            /**
              * The page title, without the namespace. May contain spaces – does not contain underscores. To get the title including the namespace, use wgPageName.
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgTitle
              */
             wgTitle: string;
+            wgTranslateNumerals: boolean;
+            wgUrlProtocols: string;
             /**
              * The number of edits the current user made (null if not logged in).
              *
@@ -322,12 +334,6 @@ declare global {
              */
             wgUserRegistration?: number;
             /**
-             * true if the current page is the main page of the wiki. Omitted entirely otherwise (defaulting to null in mw.config).
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgIsMainPage
-             */
-            wgIsMainPage?: true;
-            /**
              * If the wiki has language variants, the language code of the user's preferred variant. If the wiki does not have variants, the variable is not configured (does not exist), i.e.:
              *
              * ```js
@@ -339,29 +345,23 @@ declare global {
              */
             wgUserVariant?: string;
             /**
-             * "saved" if the user just saved this page. "created" if the user just created this page. "restored" if the user just restored this page by going to the history page, clicked on a timestamp link for an old revision, clicked on edit and then saved. null otherwise. Note that:
+             * If a wiki has language variants (such as the Chinese and the Serbian Wikipedias), set to a path beginning at the root for language variants other than wgContentLanguage. The path contains two placeholders: "$1" is to be replaced by the page title, and "$2" is to be replaced by the language code of the language variant (e.g. "zh-tw"). If the wiki does not have language variants, set to false. See also $wgVariantArticlePath.
              *
-             * On null edits, this is null, not "saved"
-             *
-             * When using "undo", this is "saved"
-             *
-             * On rollback, this is null
-             *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgPostEdit
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgVariantArticlePath
              */
-            wgPostEdit?: "created" | "restored" | "saved";
+            wgVariantArticlePath: string | false;
             /**
-             * Revision ID of the "old" revision when viewing a diff. Only available when viewing a revision comparison.
+             * Identifies the version of MediaWiki that served the page.
              *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgDiffOldId
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgVersion
              */
-            wgDiffOldId?: number;
+            wgVersion: string;
             /**
-             * Revision ID of the "new" revision when viewing a diff. Only available when viewing a revision comparison.
+             * The wiki identifier. Should be preferred over wgDBname.
              *
-             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgDiffNewId
+             * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgWikiID
              */
-            wgDiffNewId?: number;
+            wgWikiID: string;
         }
     }
 }
