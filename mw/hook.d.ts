@@ -236,8 +236,7 @@ declare global {
          * hook.add( () => alert( 'Hook was fired' ) );
          * hook.fire();
          * ```
-         * @param {string} name Name of hook.
-         * @returns {Hook}
+         * @param name Name of hook.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook<T extends any[] = any[]>(name: string): Hook<T>;
@@ -289,8 +288,7 @@ declare global {
             /**
              * Register a hook handler.
              *
-             * @param {...Function} handler Function to bind.
-             * @returns {Hook}
+             * @param handler Function to bind.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.add
              */
             add(...handler: Array<(...data: T) => any>): this;
@@ -298,8 +296,6 @@ declare global {
             /**
              * Call hook handlers with data.
              *
-             * @param {...any} data
-             * @returns {Hook}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.fire
              */
             fire(...data: T): this;
@@ -307,8 +303,7 @@ declare global {
             /**
              * Unregister a hook handler.
              *
-             * @param {...Function} handler Function to unbind.
-             * @returns {Hook}
+             * @param handler Function to unbind.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.remove
              */
             remove(...handler: Array<(...data: T) => any>): this;

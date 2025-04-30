@@ -33,9 +33,8 @@ declare global {
          * ```
          *
          * @ignore
-         * @param {string|JQuery.Spinner.Options} [opts] Options. If a string is given, it will be treated as the value
+         * @param opts Options. If a string is given, it will be treated as the value
          *  of the {@link JQuery.Spinner.Options.id id} option.
-         * @returns {JQuery}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.spinner.html#.createSpinner
          */
         createSpinner(opts?: string | JQuery.Spinner.Options): JQuery;
@@ -44,8 +43,8 @@ declare global {
          * Remove a spinner element.
          *
          * @ignore
-         * @param {string} id Id of the spinner, as passed to {@link createSpinner}
-         * @returns {JQuery} The (now detached) spinner element
+         * @param id Id of the spinner, as passed to {@link createSpinner}
+         * @returns The (now detached) spinner element
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.spinner.html#.removeSpinner
          */
         removeSpinner(id: string): JQuery;
@@ -59,9 +58,8 @@ declare global {
          * Inserts spinner as siblings (not children) of the target elements.
          * Collection contents remain unchanged.
          *
-         * @param {string|JQuery.Spinner.Options} [opts] Options. If a string is given, it will be treated as the value
+         * @param opts Options. If a string is given, it will be treated as the value
          *  of the {@link JQuery.Spinner.Options.id id} option.
-         * @returns {JQuery}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.spinner.html#.$.fn.injectSpinner
          */
         injectSpinner(opts?: string | JQuery.Spinner.Options): this;

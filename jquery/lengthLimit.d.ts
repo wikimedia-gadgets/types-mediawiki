@@ -9,12 +9,11 @@ declare global {
          * native maxlength by reconstructing where the insertion occurred.
          *
          * @deprecated Use `require( 'mediawiki.String' ).trimByteLength` instead.
-         * @param {string} safeVal Known value that was previously returned by this
+         * @param safeVal Known value that was previously returned by this
          * function, if none, pass empty string.
-         * @param {string} newVal New value that may have to be trimmed down.
-         * @param {number} byteLimit Number of bytes the value may be in size.
-         * @param {JQuery.LengthLimit.FilterFunction} [filterFunction] Function to call on the string before assessing the length.
-         * @returns {JQuery.LengthLimit.TrimResult}
+         * @param newVal New value that may have to be trimmed down.
+         * @param byteLimit Number of bytes the value may be in size.
+         * @param filterFunction Function to call on the string before assessing the length.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.lengthLimit.html#.'$.fn.trimByteLength'
          */
         trimByteLength(
@@ -36,10 +35,9 @@ declare global {
          * value), a filter function (in case the limit should apply to something other than the
          * exact input value), or both. Order of parameters is important!
          *
-         * @param {number} [limit] Limit to enforce, fallsback to maxLength-attribute,
+         * @param limit Limit to enforce, fallsback to maxLength-attribute,
          *  called with fetched value as argument.
-         * @param {JQuery.LengthLimit.FilterFunction} [filterFunction] Function to call on the string before assessing the length.
-         * @returns {JQuery}
+         * @param filterFunction Function to call on the string before assessing the length.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.lengthLimit.html#.$.fn.byteLimit
          */
         byteLimit(limit: number, filterFunction?: JQuery.LengthLimit.FilterFunction): this;
@@ -58,10 +56,9 @@ declare global {
          * value), a filter function (in case the limit should apply to something other than the
          * exact input value), or both. Order of parameters is important!
          *
-         * @param {number} [limit] Limit to enforce, fallsback to maxLength-attribute,
+         * @param limit Limit to enforce, fallsback to maxLength-attribute,
          *  called with fetched value as argument.
-         * @param {JQuery.LengthLimit.FilterFunction} [filterFunction] Function to call on the string before assessing the length.
-         * @returns {JQuery}
+         * @param filterFunction Function to call on the string before assessing the length.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.lengthLimit.html#.$.fn.codePointLimit
          */
         codePointLimit(limit: number, filterFunction?: JQuery.LengthLimit.FilterFunction): this;

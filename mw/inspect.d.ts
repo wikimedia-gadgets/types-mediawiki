@@ -5,7 +5,6 @@ declare global {
          *
          * When invoked without arguments, prints all available reports.
          *
-         * @param {...string} [reports]
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.inspect
          */
         function inspect(...reports: inspect.ResourceLoaderReport[]): void;
@@ -26,8 +25,8 @@ declare global {
              * contains and the number which match some element in the current
              * document.
              *
-             * @param {string} css CSS source
-             * @returns {SelectorCounts} Selector counts
+             * @param css CSS source
+             * @returns Selector counts
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.auditSelectors
              */
             function auditSelectors(css: string): SelectorCounts;
@@ -35,7 +34,7 @@ declare global {
             /**
              * Print tabular data to the console using console.table.
              *
-             * @param {any[]} data Tabular data represented as an array of objects
+             * @param data Tabular data represented as an array of objects
              *  with common properties.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.dumpTable
              */
@@ -44,8 +43,7 @@ declare global {
             /**
              * Return a map of all dependency relationships between loaded modules.
              *
-             * @returns {Object.<string, Dependency>} Maps module names to objects. Each sub-object has
-             *  two properties, 'requires' and 'requiredBy'.
+             * @returns Maps module names to objects. Each sub-object has two properties, 'requires' and 'requiredBy'.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.getDependencyGraph
              */
             function getDependencyGraph(): Record<string, Dependency>;
@@ -53,7 +51,7 @@ declare global {
             /**
              * Get a list of all loaded ResourceLoader modules.
              *
-             * @returns {string[]} List of module names
+             * @returns List of module names
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.getLoadedModules
              */
             function getLoadedModules(): string[];
@@ -61,8 +59,8 @@ declare global {
             /**
              * Calculate the byte size of a ResourceLoader module.
              *
-             * @param {string} moduleName The name of the module
-             * @returns {number|null} Module size in bytes or null
+             * @param moduleName The name of the module
+             * @returns Module size in bytes or null
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.getModuleSize
              */
             function getModuleSize(moduleName: string): number | null;
@@ -72,8 +70,8 @@ declare global {
              * of all loaded modules and return an array of the names of the
              * modules that matched.
              *
-             * @param {string|RegExp} pattern String or regexp to match.
-             * @returns {string[]} Array of the names of modules that matched.
+             * @param pattern String or regexp to match.
+             * @returns Array of the names of modules that matched.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.grep
              */
             function grep(pattern: string | RegExp): string[];
@@ -83,7 +81,7 @@ declare global {
              *
              * When invoked without arguments, prints all available reports.
              *
-             * @param {...ResourceLoaderReport} [reports] One or more of "size", "css", "store", or "time".
+             * @param reports One or more of "size", "css", "store", or "time".
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mediawiki.inspect.html#.runReports
              */
             function runReports(...reports: ResourceLoaderReport[]): void;

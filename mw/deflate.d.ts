@@ -10,8 +10,8 @@ declare global {
          *     return mw.deflate( html );
          * } );
          * ```
-         * @param {string|ArrayBuffer} data Undeflated data
-         * @returns {string} Deflated data
+         * @param data Undeflated data
+         * @returns Deflated data
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.deflate
          */
         function deflate(data: string | ArrayBuffer): `rawdeflate,${string}`;

@@ -11,12 +11,12 @@ declare global {
          *     $.cookie( 'name', 'value', {} );
          * } );
          * ```
-         * @param {string} [key] Cookie name or (when getting) omit to return an object with all
+         * @param key Cookie name or (when getting) omit to return an object with all
          *  current cookie keys and values.
-         * @param {string|null} [value] Cookie value to set. If `null`, this method will remove the cookie.
+         * @param value Cookie value to set. If `null`, this method will remove the cookie.
          *  If omited, this method will get and return the current value.
-         * @param {mw.cookie.Options} [options]
-         * @returns {string|Object} The current value (if getting a cookie), or an internal `document.cookie`
+         * @param options
+         * @returns The current value (if getting a cookie), or an internal `document.cookie`
          *  expression (if setting or removing).
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.cookie.html#.$.cookie
          */
@@ -35,9 +35,9 @@ declare global {
          *     $.removeCookie( 'name', {} );
          * } );
          * ```
-         * @param {string} key
-         * @param {mw.cookie.Options} options
-         * @returns {boolean} True if the cookie previously existed
+         * @param key
+         * @param options
+         * @returns True if the cookie previously existed
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.cookie.html#.$.removeCookie
          */
         removeCookie(key: string, options: mw.cookie.Options): boolean;

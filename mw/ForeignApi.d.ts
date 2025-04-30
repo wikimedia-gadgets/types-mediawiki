@@ -43,16 +43,14 @@ declare global {
             /**
              * Create an instance of {@link mw.ForeignApi}.
              *
-             * @param {string|Uri} url URL pointing to another wiki's `api.php` endpoint.
-             * @param {ForeignApi.Options} [options] Also accepts all the options from {@link mw.Api.Options}.
+             * @param url URL pointing to another wiki's `api.php` endpoint.
+             * @param options Also accepts all the options from {@link mw.Api.Options}.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignApi.html#ForeignApi
              */
             constructor(url: string | Uri, options?: ForeignApi.Options);
 
             /**
              * Return the origin to use for API requests, in the required format (protocol, host and port, if any).
-             *
-             * @returns {string|undefined}
              */
             protected getOrigin(): "*" | `${string}//${string}` | undefined;
         }
@@ -67,8 +65,5 @@ declare global {
         }
     }
 }
-
-/** @deprecated Use {@link mw.ForeignApi.Options} instead. Note that `ForeignApiOptions` is strictly equivalent to `Required<mw.ForeignApi.Options>` as properties are now optional for consistency. */
-export type ForeignApiOptions = Required<mw.ForeignApi.Options>;
 
 export {};

@@ -1,9 +1,6 @@
 // @ts-ignore
 import { createApp } from "vue";
 
-// @ts-ignore
-export * from "vue";
-
 declare module "vue" {
     /**
      * Wrapper around {@link https://vuejs.org/api/application.html#createapp Vue.createApp} that
@@ -14,10 +11,7 @@ declare module "vue" {
      * `vue.createMwApp()` is recommended anywhere one would normally use `Vue.createApp()`.
      *
      * @since 1.38
-     * @method createMwApp
-     * @param {...any} args
-     * @returns {Object} Vue app instance
-     * @memberof module:vue
+     * @returns Vue app instance
      * @see {@link https://doc.wikimedia.org/mediawiki-core/master/js/module-vue.html#.createMwApp}
      */
     export const createMwApp: typeof createApp;
@@ -39,10 +33,8 @@ declare module "vue" {
          * Note that this method only works for messages that return text. For messages that
          * need to be parsed to HTML, use the `v-i18n-html` directive.
          *
-         * @param {string} key Key of message to get
-         * @param {...any} parameters Values for $N replacements
-         * @returns {mw.Message}
-         * @memberof module:vue.prototype
+         * @param key Key of message to get
+         * @param parameters Values for $N replacements
          * @see {@link https://doc.wikimedia.org/mediawiki-core/master/js/module-vue.html#$i18n}
          */
         $i18n: (key: string, ...parameters: any[]) => mw.Message;

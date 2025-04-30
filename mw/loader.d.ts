@@ -16,10 +16,9 @@ declare global {
             /**
              * Create a new style element and add it to the DOM.
              *
-             * @param {string} text CSS text
-             * @param {Node|null} [nextNode] The element where the style tag
-             *  should be inserted before
-             * @returns {HTMLStyleElement} Reference to the created style element
+             * @param text CSS text
+             * @param nextNode The element where the style tag should be inserted before
+             * @returns Reference to the created style element
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.addStyleTag
              */
             function addStyleTag(text: string, nextNode?: Node | null): HTMLStyleElement;
@@ -27,7 +26,6 @@ declare global {
             /**
              * Get the names of all registered ResourceLoader modules.
              *
-             * @returns {string[]}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.getModuleNames
              */
             function getModuleNames(): string[];
@@ -48,8 +46,8 @@ declare global {
              *     } );
              * } );
              * ```
-             * @param {string} url Script URL
-             * @returns {JQuery.Promise} Resolved when the script is loaded
+             * @param url Script URL
+             * @returns Resolved when the script is loaded
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.getScript
              */
             function getScript(url: string): JQuery.Promise<any>;
@@ -91,9 +89,8 @@ declare global {
              *    The module was registered client-side and requested, but the server denied knowledge
              *    of the module's existence.
              *
-             * @param {string} module Name of module
-             * @returns {Module.State|null} The state, or null if the module (or its state) is not
-             *  in the registry.
+             * @param module Name of module
+             * @returns The state, or null if the module (or its state) is not in the registry.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.getState
              */
             function getState(module: string): Module.State | null;
@@ -110,11 +107,11 @@ declare global {
              * - This method is used for preloading, which must not throw. Later code that
              *   calls {@link using()} will handle the error.
              *
-             * @param {string|string[]} modules Either the name of a module, array of modules,
+             * @param modules Either the name of a module, array of modules,
              *  or a URL of an external script or style
-             * @param {string} [type="text/javascript"] MIME type to use if calling with a URL of an
+             * @param type MIME type to use if calling with a URL of an
              *  external script or style; acceptable values are "text/css" and
-             *  "text/javascript"; if no type is provided, text/javascript is assumed.
+             *  "text/javascript"; if no type is provided, `text/javascript` is assumed.
              * @throws {Error} If type is invalid
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.load
              */
@@ -129,14 +126,14 @@ declare global {
              * are specified as references to modules within the array will be resolved before
              * the modules are registered.
              *
-             * @param {string|Array} modules Module name or array of arrays, each containing
+             * @param modules Module name or array of arrays, each containing
              *  a list of arguments compatible with this method
-             * @param {string|number} [version] Module version hash (falls backs to empty string)
+             * @param version Module version hash (falls backs to empty string)
              *  Can also be a number (timestamp) for compatibility with MediaWiki 1.25 and earlier.
-             * @param {string[]} [dependencies] Array of module names on which this module depends.
-             * @param {string} [group=null] Group which the module is in
-             * @param {string} [source='local'] Name of the source
-             * @param {string} [skip=null] Script body of the skip function
+             * @param dependencies Array of module names on which this module depends.
+             * @param group Group which the module is in
+             * @param source Name of the source
+             * @param skip Script body of the skip function
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-register
              */
             function register(
@@ -163,7 +160,7 @@ declare global {
             /**
              * Change the state of one or more modules.
              *
-             * @param {Object.<string, Module.State>} states Object of module name/state pairs
+             * @param states Object of module name/state pairs
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-state
              */
             function state(states: Record<string, Module.State>): void;
@@ -198,11 +195,11 @@ declare global {
              * ```
              * @since 1.23 - this returns a promise.
              * @since 1.28 - the promise is resolved with a `require` function.
-             * @param {string|string[]} dependencies Module name or array of modules names the
+             * @param dependencies Module name or array of modules names the
              *  callback depends on to be ready before executing
-             * @param {function(Module.Require):void} [ready] Callback to execute when all dependencies are ready
-             * @param {function(Error, ...any):void} [error] Callback to execute if one or more dependencies failed
-             * @returns {JQuery.Promise<Module.Require>} With a `require` function
+             * @param ready Callback to execute when all dependencies are ready
+             * @param error Callback to execute if one or more dependencies failed
+             * @returns With a `require` function
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.using
              */
             function using(
@@ -231,10 +228,9 @@ declare global {
              *
              * @private
              * @since 1.39
-             * @param {string} url URL
-             * @param {string} [media] Media attribute
-             * @param {Node|null} [nextNode]
-             * @returns {HTMLLinkElement}
+             * @param url URL
+             * @param media Media attribute
+             * @param nextNode
              */
             function addLinkTag(
                 url: string,
@@ -247,11 +243,10 @@ declare global {
              *
              * @private
              * @since 1.39
-             * @param {string} src URL to script, will be used as the src attribute in the script tag
-             * @param {function():void} [callback] Callback to run after request resolution
-             * @param {string[]} [modules] List of modules being requested, for state to be marked as error
+             * @param src URL to script, will be used as the src attribute in the script tag
+             * @param callback Callback to run after request resolution
+             * @param modules List of modules being requested, for state to be marked as error
              * in case the script fails to load
-             * @returns {HTMLScriptElement}
              */
             function addScriptTag(
                 src: string,
@@ -269,7 +264,7 @@ declare global {
              * mw.loader.addSource( { mediawikiwiki: 'https://www.mediawiki.org/w/load.php' } );
              * ```
              * @private
-             * @param {Object.<string, string>} ids An object mapping ids to load.php end point urls
+             * @param ids An object mapping ids to load.php end point urls
              * @throws {Error} If source id is already registered
              */
             function addSource(ids: Record<string, string>): void;
@@ -280,9 +275,9 @@ declare global {
              * See also {@link work()}.
              *
              * @private
-             * @param {string[]} dependencies Array of module names in the registry
-             * @param {function():void} [ready] Callback to execute when all dependencies are ready
-             * @param {function(Error, ...any):void} [error] Callback to execute when any dependency fails
+             * @param dependencies Array of module names in the registry
+             * @param ready Callback to execute when all dependencies are ready
+             * @param error Callback to execute when any dependency fails
              */
             function enqueue(
                 dependencies: string[],
@@ -295,7 +290,7 @@ declare global {
              *
              * @private
              * @since 1.41
-             * @param {Module.Declarator} declarator The declarator should return an array with the following keys:
+             * @param declarator The declarator should return an array with the following keys:
              *
              * - 0. {string} module Name of module and current module version. Formatted
              *   as `[name]@[version]`. This version should match the requested version
@@ -343,15 +338,15 @@ declare global {
              * @private
              * @since 1.41 - deprecationWarning parameter can be passed.
              * @deprecated since 1.41
-             * @param {string} module
-             * @param {Module.Script} [script] Module code. This can be a function,
+             * @param module
+             * @param script Module code. This can be a function,
              *  a list of URLs to load via `<script src>`, a string for `domEval()`, or an
              *  object like {"files": {"foo.js":function, "bar.js": function, ...}, "main": "foo.js"}.
              *  If an object is provided, the main file will be executed immediately, and the other
              *  files will only be executed if loaded via require(). If a function or string is
              *  provided, it will be executed/evaluated immediately. If an array is provided, all
              *  URLs in the array will be loaded immediately, and executed as soon as they arrive.
-             * @param {Module.Style} [style] Should follow one of the following patterns:
+             * @param style Should follow one of the following patterns:
              *
              * ```js
              * { "css": [css, ..] }
@@ -360,9 +355,9 @@ declare global {
              *
              * The reason css strings are not concatenated anymore is T33676. We now check
              * whether it's safe to extend the stylesheet.
-             * @param {Module.Messages} [messages] List of key/value pairs to be added to {@link mw.messages}.
-             * @param {Module.Templates} [templates] List of key/value pairs to be added to {@link mw.templates}.
-             * @param {string|null} [deprecationWarning] Deprecation warning if any
+             * @param messages List of key/value pairs to be added to {@link mw.messages}.
+             * @param templates List of key/value pairs to be added to {@link mw.templates}.
+             * @param deprecationWarning Deprecation warning if any
              */
             function implement(
                 module: string,
@@ -384,13 +379,13 @@ declare global {
              *
              * @private
              * @since 1.41 - version can no longer be a number (timestamp).
-             * @param {string|Array} modules Module name or array of arrays, each containing
+             * @param modules Module name or array of arrays, each containing
              *  a list of arguments compatible with this method
-             * @param {string|number} [version] Module version hash (falls backs to empty string)
-             * @param {Array<string|number>} [dependencies] Array of module names on which this module depends.
-             * @param {string|null} [group=null] Group which the module is in
-             * @param {string} [source="local"] Name of the source
-             * @param {string|null} [skip=null] Script body of the skip function
+             * @param version Module version hash (falls backs to empty string)
+             * @param dependencies Array of module names on which this module depends.
+             * @param group Group which the module is in
+             * @param source Name of the source, defaults to "local"
+             * @param skip Script body of the skip function
              */
             function register(
                 modules: string,
@@ -432,8 +427,8 @@ declare global {
              * Get names of module that a module depends on, in their proper dependency order.
              *
              * @private
-             * @param {string[]} modules Array of string module names
-             * @returns {string[]} List of dependencies, including 'module'.
+             * @param modules Array of string module names
+             * @returns List of dependencies, including 'module'.
              * @throws {Error} If an unregistered module or a dependency loop is encountered
              */
             // note: U is required so T is not inferred from the "modules" argument
@@ -443,7 +438,7 @@ declare global {
              * Change the state of one or more modules.
              *
              * @private
-             * @param {Object.<string, Module.State>} states Object of module name/state pairs
+             * @param states Object of module name/state pairs
              */
             function state(states: Record<string, Module.State>): void;
 
@@ -487,8 +482,8 @@ declare global {
                     /**
                      * Get the exported value of a module.
                      *
-                     * @param {string} moduleName Module name
-                     * @returns {any} Exported value
+                     * @param moduleName Module name
+                     * @returns Exported value
                      */
                     (moduleName: string): any;
                 }
@@ -542,7 +537,7 @@ declare global {
                  * Queue the name of a module that the next update should consider storing.
                  *
                  * @since 1.32
-                 * @param {string} module Module name
+                 * @param module Module name
                  */
                 function add(module: string): void;
 
@@ -554,8 +549,8 @@ declare global {
                 /**
                  * Retrieve a module from the store and update cache hit stats.
                  *
-                 * @param {string} module Module name
-                 * @returns {string|boolean} Module implementation or false if unavailable
+                 * @param module Module name
+                 * @returns Module implementation or false if unavailable
                  */
                 function get(module: string): string | false;
 
@@ -582,7 +577,7 @@ declare global {
                  * Construct a JSON-serializable object representing the content of the store.
                  *
                  * @deprecated Removed since 1.41.
-                 * @returns {Json} Module store contents.
+                 * @returns Module store contents.
                  */
                 function toJSON(): Json;
 
@@ -617,7 +612,7 @@ declare global {
                  * be called if the store is enabled.
                  *
                  * @private
-                 * @param {string} module Module name
+                 * @param module Module name
                  */
                 function set(module: string): void;
 

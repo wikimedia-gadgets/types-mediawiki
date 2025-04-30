@@ -18,10 +18,10 @@ declare global {
              * Yields a closure of the supplied parameters, producing a function that takes
              * no arguments and is suitable for use as an autogravity function like so:
              *
-             * @param {number} margin (int) - distance from the viewable region edge that an
+             * @param margin (int) - distance from the viewable region edge that an
              *  element should be before setting its tooltip's gravity to be away
              *  from that edge.
-             * @param {Direction} prefer (string, e.g. `n`, `sw`, `w`) - the direction to prefer
+             * @param prefer (string, e.g. `n`, `sw`, `w`) - the direction to prefer
              *  if there are no viewable region edges effecting the tooltip's
              *  gravity. It will try to vary from this minimally, for example,
              *  if `sw` is preferred and an element is near the right viewable

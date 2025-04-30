@@ -28,8 +28,8 @@ declare global {
          *     }
          * })
          * ```
-         * @param {ConfirmCloseWindow.Options} [options]
-         * @returns {ConfirmCloseWindow} An object of functions to work with this module
+         * @param options
+         * @returns An object of functions to work with this module
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.confirmCloseWindow
          */
         function confirmCloseWindow(options?: ConfirmCloseWindow.Options): ConfirmCloseWindow;
@@ -47,8 +47,6 @@ declare global {
              * Check, if options.test() returns true and show an alert to the user if he/she want
              * to leave this page. Returns false, if options.test() returns false or the user
              * cancelled the alert window (~don't leave the page), true otherwise.
-             *
-             * @returns {boolean}
              */
             trigger(): boolean;
         }
@@ -63,7 +61,7 @@ declare global {
                 namespace?: string;
 
                 /**
-                 * @returns {boolean} Whether to show the dialog to the user.
+                 * @returns Whether to show the dialog to the user.
                  */
                 test?(): boolean;
             }

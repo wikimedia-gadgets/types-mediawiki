@@ -31,9 +31,9 @@ declare global {
              * // > "rgb(118,29,29)"
              * ```
              *
-             * @param {ColorUtil.Color|string} currentColor Current value in css
-             * @param {number} mod Wanted brightness modification between -1 and 1
-             * @returns {string} Like `'rgb(r,g,b)'`
+             * @param currentColor Current value in css
+             * @param mod Wanted brightness modification between -1 and 1
+             * @returns Like `'rgb(r,g,b)'`
              * @see https://doc.wikimedia.org/mediawiki-core/REL1_40/js/#!/api/jQuery.colorUtil-method-getColorBrightness
              */
             getColorBrightness(
@@ -47,8 +47,6 @@ declare global {
              * Based on highlightFade by Blair Mitchelmore
              * {@link http://jquery.offput.ca/highlightFade/}
              *
-             * @param {ColorUtil.Color|string} color
-             * @returns {ColorUtil.Color}
              * @see https://doc.wikimedia.org/mediawiki-core/REL1_40/js/#!/api/jQuery.colorUtil-method-getRGB
              */
             getRGB<T extends ColorUtil.Color>(color: string | T): T;
@@ -64,10 +62,10 @@ declare global {
              * Assumes `h`, `s`, and `l` are contained in the set `[0, 1]` and
              * returns `r`, `g`, and `b` in the set `[0, 255]`.
              *
-             * @param {number} h The hue
-             * @param {number} s The saturation
-             * @param {number} l The lightness
-             * @returns {ColorUtil.Color} The RGB representation
+             * @param h The hue
+             * @param s The saturation
+             * @param l The lightness
+             * @returns The RGB representation
              * @see https://doc.wikimedia.org/mediawiki-core/REL1_40/js/#!/api/jQuery.colorUtil-method-hslToRgb
              */
             hslToRgb(h: number, s: number, l: number): ColorUtil.Color;
@@ -83,10 +81,10 @@ declare global {
              * Assumes `r`, `g`, and `b` are contained in the set `[0, 255]` and
              * returns `h`, `s`, and `l` in the set `[0, 1]`.
              *
-             * @param {number} r The red color value
-             * @param {number} g The green color value
-             * @param {number} b The blue color value
-             * @returns {ColorUtil.Color} The HSL representation
+             * @param r The red color value
+             * @param g The green color value
+             * @param b The blue color value
+             * @returns The HSL representation
              * @see https://doc.wikimedia.org/mediawiki-core/REL1_40/js/#!/api/jQuery.colorUtil-method-rgbToHsl
              */
             rgbToHsl(r: number, g: number, b: number): ColorUtil.Color;

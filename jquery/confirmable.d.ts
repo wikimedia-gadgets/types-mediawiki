@@ -29,9 +29,6 @@ declare global {
 
     namespace JQuery {
         interface Confirmable {
-            /**
-             * @param {Confirmable.Options} [options]
-             */
             (options?: Confirmable.Options): this;
 
             /**

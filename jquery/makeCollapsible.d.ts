@@ -17,8 +17,6 @@ declare global {
          *     $( 'table' ).makeCollapsible();
          * } );
          * ```
-         * @param {JQuery.MakeCollapsible.Options} [options]
-         * @returns {JQuery}
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.makeCollapsible.html#.$.fn.makeCollapsible
          */
         makeCollapsible(options?: JQuery.MakeCollapsible.Options): this;

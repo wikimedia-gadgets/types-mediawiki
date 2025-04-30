@@ -10,7 +10,6 @@ declare global {
          * hovzer.update();
          * ```
          * @private
-         * @returns {JQuery.FootHovzer}
          */
         getFootHovzer(): JQuery.FootHovzer;
     }
