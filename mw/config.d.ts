@@ -194,7 +194,7 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgPageParseReport
              */
-            wgPageParseReport: PageParseReport;
+            wgPageParseReport?: PageParseReport;
             /**
              * "saved" if the user just saved this page. "created" if the user just created this page. "restored" if the user just restored this page by going to the history page, clicked on a timestamp link for an old revision, clicked on edit and then saved. null otherwise. Note that:
              *
@@ -206,7 +206,7 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgPostEdit
              */
-            wgPostEdit?: "created" | "restored" | "saved";
+            wgPostEdit?: `${"created" | "restored" | "saved"}${"" | "+tempuser"}`;
             /**
              * When redirected contains the title of the page we were redirected from. If the page was not redirected, the value is omitted entirely (absent in mw.config). Uses the same format as wgPageName
              *
@@ -248,7 +248,7 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgRestrictionMove
              */
-            wgRestrictionMove: string[];
+            wgRestrictionMove?: string[];
             /**
              * The revision ID of the currently viewed revision, or the right revision for diff views (But 0 when diffonly=yes, T231744). Also set on diff pages; zero for special pages, history pages, or anywhere else inapplicable.
              *
@@ -334,7 +334,7 @@ declare global {
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgUserRegistration
              */
-            wgUserRegistration?: number;
+            wgUserRegistration?: number | null;
             /**
              * If the wiki has language variants, the language code of the user's preferred variant. If the wiki does not have variants, the variable is not configured (does not exist), i.e.:
              *
