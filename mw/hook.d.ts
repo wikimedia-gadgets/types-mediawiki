@@ -111,9 +111,9 @@ declare global {
         ): Hook<
             [
                 items: OO.ui.MenuOptionWidget[],
-                displayParams: object,
-                rawParams: object,
-                method: string,
+                displayParams: Record<string, unknown>,
+                rawParams: Record<string, unknown>,
+                method: "get" | "post",
                 ajaxOptions: JQuery.AjaxSettings
             ]
         >;
