@@ -5,8 +5,9 @@ declare global {
          * an object like {@link mw.Rest}, but automatically handles everything required to communicate
          * with another MediaWiki wiki via cross-origin requests (CORS).
          *
-         * The foreign wiki must be configured to accept requests from the current wiki. See
-         * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains} for details.
+         * The foreign wiki must be configured to accept requests from the current wiki.
+         * For details, see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains $wgCrossSiteAJAXdomains}
+         * and {@link https://www.mediawiki.org/wiki/Manual:$wgRestAllowCrossOriginCookieAuth $wgRestAllowCrossOriginCookieAuth}.
          *
          * ```js
          * const api = new mw.ForeignRest( 'https://commons.wikimedia.org/w/rest.php' );
