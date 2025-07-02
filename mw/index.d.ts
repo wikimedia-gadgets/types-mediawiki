@@ -58,7 +58,14 @@ interface ErrorAnalyticEventData extends ObjectAnalyticEventData {
 }
 
 interface AnalyticEvent {
-    data: AnalyticEventData;
+    /**
+     * @since 1.44
+     */
+    args: AnalyticEventData[];
+    /**
+     * @deprecated Removed since 1.44, using {@link args} instead.
+     */
+    data?: AnalyticEventData;
     topic: string;
 }
 

@@ -7,7 +7,7 @@ declare global {
          * ```js
          * return mw.loader.using( 'mediawiki.deflate' ).then( () => mw.deflate( html ) );
          * ```
-         * @deprecated Use {@link mw.deflateAsync}
+         * @deprecated since 1.44 - Use {@link mw.deflateAsync}
          * @param data Undeflated data
          * @returns Compressed data
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.deflate
