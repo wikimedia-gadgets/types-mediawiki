@@ -1,7 +1,7 @@
 import {
-    ApiAssert,
     ApiEditPageParams,
     ApiLegacyTokenType,
+    ApiParams,
     ApiParseParams,
     ApiQueryAllMessagesParams,
     ApiQueryTokensParams,
@@ -10,87 +10,6 @@ import {
     ApiUploadParams,
     UnknownApiParams,
 } from "types-mediawiki-api";
-import { TitleLike } from "./Title";
-
-type Tail<T extends any[]> = T extends [] ? T : T extends [any?, ...infer R] ? R : T;
-
-type TypeOrArray<T> = T extends any ? T | T[] : never; // T[] would be a mixed array
-type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
-
-export type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
-
-interface Revision {
-    /**
-     * Revision content.
-     */
-    content: string;
-    timestamp: string;
-}
-
-type EditResult = EditFailureResult | EditNoChangeResult | EditChangedResult;
-
-interface EditFailureResult {
-    result: "Failure";
-}
-
-interface EditSuccessResult {
-    contentmodel: string | false;
-    pageid: number;
-    result: "Success";
-    tempusercreated?: true;
-    tempusercreatedredirect?: string;
-    title: string;
-    watched?: true;
-    watchlistexpiry?: string;
-}
-
-interface EditNoChangeResult extends EditSuccessResult {
-    nochange: true;
-}
-
-interface EditChangedResult extends EditSuccessResult {
-    newrevid: number;
-    newtimestamp: string;
-    oldrevid: number;
-}
-
-// type alias to fix #45
-type AssertUser =
-    | {
-          assert: "anon";
-      }
-    | {
-          assert: "user";
-          assertUser: string;
-      };
-
-interface RollbackInfo {
-    /**
-     * The revision being restored (the last revision before revision(s) by the reverted user).
-     */
-    last_revid: number;
-    /**
-     * The revision being reverted (previously the current revision of the page).
-     */
-    old_revid: number;
-    pageid: number;
-    revid: number;
-    summary: string;
-    title: string;
-}
-
-export interface FinishUpload {
-    /**
-     * Call this function to finish the upload.
-     *
-     * @param data Additional data for the upload.
-     * @returns API promise for the final upload.
-     */
-    (data?: ApiUploadParams): mw.Api.Promise<
-        [ApiResponse],
-        mw.Api.RejectArgTuple | [string, ApiResponse]
-    >;
-}
 
 declare global {
     namespace mw {
@@ -176,7 +95,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#ajax
              */
             ajax(
-                parameters: UnknownApiParams,
+                parameters: Api.UnknownParams,
                 ajaxOptions?: Api.AjaxSettings
             ): Api.AbortablePromise;
 
@@ -206,9 +125,9 @@ declare global {
              * @param query Query parameters. The object will not be changed
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#assertCurrentUser
              */
-            assertCurrentUser<T extends UnknownApiParams>(
+            assertCurrentUser<T extends Api.UnknownParams>(
                 query: T
-            ): Omit<T, keyof AssertUser> & AssertUser;
+            ): Omit<T, keyof Api.AssertUser> & Api.AssertUser;
 
             /**
              * Indicate that the cached token for a certain action of the API is bad.
@@ -221,7 +140,7 @@ declare global {
              * @param type Token type
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#badToken
              */
-            badToken(type: ApiTokenType | ApiLegacyTokenType): void;
+            badToken(type: Api.TokenType | Api.LegacyTokenType): void;
             badToken(type: string): void;
 
             /**
@@ -258,7 +177,7 @@ declare global {
                 data?: ApiUploadParams,
                 chunkSize?: number,
                 chunkRetries?: number
-            ): Upload.Promise<[FinishUpload]>;
+            ): Upload.Promise<[Api.FinishUpload]>;
 
             /**
              * Create a new page.
@@ -278,10 +197,10 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#create
              */
             create(
-                title: TitleLike,
+                title: Title.Like,
                 params: ApiEditPageParams,
                 content: string
-            ): Api.Promise<[EditResult]>;
+            ): Api.Promise<[Api.Response.Edit]>;
 
             /**
              * Edit an existing page.
@@ -344,14 +263,17 @@ declare global {
              * @returns Edit API response
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#edit
              */
-            edit(title: TitleLike, transform: Api.EditTransform): Api.Promise<[EditResult]>;
+            edit(title: Title.Like, transform: Api.EditTransform): Api.Promise<[Api.Response.Edit]>;
 
             /**
              * Perform API get request. See {@link ajax()} for details.
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#get
              */
-            get(parameters: UnknownApiParams, ajaxOptions?: Api.AjaxSettings): Api.AbortablePromise;
+            get(
+                parameters: Api.UnknownParams,
+                ajaxOptions?: Api.AjaxSettings
+            ): Api.AbortablePromise;
 
             /**
              * Get the categories that a particular page on the wiki belongs to.
@@ -360,7 +282,7 @@ declare global {
              * @returns Promise that resolves with an array of category titles, or with false if the title was not found.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getCategories
              */
-            getCategories(title: TitleLike): Api.AbortablePromise<[false | Title[]]>;
+            getCategories(title: Title.Like): Api.AbortablePromise<[false | Title[]]>;
 
             /**
              * Get a list of categories that match a certain prefix.
@@ -415,7 +337,7 @@ declare global {
              * @returns Error messages, each wrapped in a `<div>`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#getErrorMessage
              */
-            getErrorMessage(data: ApiResponse): JQuery;
+            getErrorMessage(data: Api.UnknownResponse): JQuery;
 
             /**
              * Get a set of messages.
@@ -446,12 +368,12 @@ declare global {
              */
             getToken(
                 type: ApiTokenType | ApiLegacyTokenType,
-                additionalParams?: ApiQueryTokensParams | ApiAssert,
+                additionalParams?: ApiQueryTokensParams | Api.Assert,
                 ajaxOptions?: Api.AjaxSettings
             ): Api.AbortablePromise<[string]>;
             getToken(
                 type: string,
-                additionalParams?: ApiQueryTokensParams | ApiAssert,
+                additionalParams?: ApiQueryTokensParams | Api.Assert,
                 ajaxOptions?: Api.AjaxSettings
             ): Api.AbortablePromise<[string]>;
 
@@ -470,7 +392,7 @@ declare global {
              * @returns Promise that resolves with a boolean indicating whether the category exists.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#isCategory
              */
-            isCategory(title: TitleLike): Api.AbortablePromise<[boolean]>;
+            isCategory(title: Title.Like): Api.AbortablePromise<[boolean]>;
 
             /**
              * Load a set of messages and add them to {@link mw.messages}.
@@ -506,7 +428,7 @@ declare global {
              * @returns See {@link post()}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#login
              */
-            login(username: string, password: string): Api.AbortablePromise<[ApiResponse]>;
+            login(username: string, password: string): Api.AbortablePromise<[Api.UnknownResponse]>;
 
             /**
              * Helper for adding support for abortable promises in mw.Api methods.
@@ -556,7 +478,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#newSection
              */
             newSection(
-                title: TitleLike,
+                title: Title.Like,
                 header: string,
                 message: string,
                 additionalParams?: ApiEditPageParams
@@ -572,7 +494,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#parse
              */
             parse(
-                content: TitleLike,
+                content: Title.Like,
                 additionalParams?: ApiParseParams
             ): Api.AbortablePromise<[string]>;
 
@@ -582,7 +504,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#post
              */
             post(
-                parameters: UnknownApiParams,
+                parameters: Api.UnknownParams,
                 ajaxOptions?: Api.AjaxSettings
             ): Api.AbortablePromise;
 
@@ -595,7 +517,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#postWithEditToken
              */
             postWithEditToken(
-                params: UnknownApiParams,
+                params: Api.UnknownParams,
                 ajaxOptions?: Api.AjaxSettings
             ): Api.AbortablePromise;
 
@@ -621,12 +543,12 @@ declare global {
              */
             postWithToken(
                 tokenType: ApiTokenType | ApiLegacyTokenType,
-                params: UnknownApiParams,
+                params: Api.UnknownParams,
                 ajaxOptions?: Api.AjaxSettings
             ): Api.AbortablePromise;
             postWithToken(
                 tokenType: string,
-                params: UnknownApiParams,
+                params: Api.UnknownParams,
                 ajaxOptions?: Api.AjaxSettings
             ): Api.AbortablePromise;
 
@@ -676,10 +598,10 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#rollback
              */
             rollback(
-                page: TitleLike,
+                page: Title.Like,
                 user: string,
                 params?: ApiRollbackParams
-            ): Api.Promise<[RollbackInfo]>;
+            ): Api.Promise<[Api.Response.Rollback]>;
 
             /**
              * Asynchronously save the value of a single user option using the API.
@@ -691,7 +613,7 @@ declare global {
              * @param params additional parameters for API.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#saveOption
              */
-            saveOption(name: string, value: string | null, params?: UnknownApiParams): Api.Promise;
+            saveOption(name: string, value: string | null, params?: Api.UnknownParams): Api.Promise;
 
             /**
              * Asynchronously save the values of user options using the {@link https://www.mediawiki.org/wiki/Special:MyLanguage/API:Options Options API}.
@@ -715,8 +637,11 @@ declare global {
              */
             saveOptions<T extends Record<string, string | null>>(
                 options: T,
-                params?: UnknownApiParams
-            ): Api.Promise<({} extends T ? [] : never) | [ApiResponse, JQuery.jqXHR<ApiResponse>]>;
+                params?: Api.UnknownParams
+            ): Api.Promise<
+                | ({} extends T ? [] : never)
+                | [Api.UnknownResponse, JQuery.jqXHR<Api.UnknownResponse>]
+            >;
 
             /**
              * Convenience method for `action=watch&unwatch=1`.
@@ -729,9 +654,9 @@ declare global {
              *  current watched/unwatched status.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#unwatch
              */
-            unwatch<P extends TypeOrArray<TitleLike>>(
+            unwatch<P extends TypeOrArray<Title.Like>>(
                 pages: P
-            ): Api.AbortablePromise<[ReplaceValue<P, TitleLike, Api.WatchedPage>]>;
+            ): Api.AbortablePromise<[ReplaceValue<P, Title.Like, Api.WatchedPage>]>;
 
             /**
              * Upload a file to MediaWiki.
@@ -755,7 +680,10 @@ declare global {
             uploadFromStash(
                 filekey: string,
                 data: ApiUploadParams
-            ): Api.Promise<[ApiResponse], Api.RejectArgTuple | [string, ApiResponse]>;
+            ): Api.Promise<
+                [Api.UnknownResponse],
+                Api.RejectArgTuple | [string, Api.UnknownResponse]
+            >;
 
             /**
              * Upload a file to the stash.
@@ -783,7 +711,7 @@ declare global {
             uploadToStash(
                 file: File | HTMLInputElement,
                 data?: ApiUploadParams
-            ): Upload.Promise<[FinishUpload]>;
+            ): Upload.Promise<[Api.FinishUpload]>;
 
             /**
              * Convenience method for `action=watch`.
@@ -798,10 +726,10 @@ declare global {
              *  current watched/unwatched status.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#watch
              */
-            watch<P extends TypeOrArray<TitleLike>>(
+            watch<P extends TypeOrArray<Title.Like>>(
                 pages: P,
                 expiry?: string
-            ): Api.AbortablePromise<[ReplaceValue<P, TitleLike, Api.WatchedPage>]>;
+            ): Api.AbortablePromise<[ReplaceValue<P, Title.Like, Api.WatchedPage>]>;
 
             /**
              * Massage parameters from the nice format we accept into a format suitable for the API.
@@ -809,7 +737,7 @@ declare global {
              * @param parameters (modified in-place)
              * @param useUS Whether to use U+001F when joining multi-valued parameters.
              */
-            private preprocessParameters(parameters: UnknownApiParams, useUS: boolean): void;
+            private preprocessParameters(parameters: Api.UnknownParams, useUS: boolean): void;
         }
 
         namespace Api {
@@ -885,6 +813,36 @@ declare global {
                 signal?: AbortSignal;
             }
 
+            type Limit = number | "max";
+            type Assert = "anon" | "bot" | "user";
+            type TokenType =
+                | "createaccount"
+                | "csrf"
+                | "deleteglobalaccount"
+                | "login"
+                | "patrol"
+                | "rollback"
+                | "setglobalaccountstatus"
+                | "userrights"
+                | "watch";
+            type LegacyTokenType =
+                | "block"
+                | "delete"
+                | "edit"
+                | "email"
+                | "import"
+                | "move"
+                | "options"
+                | "protect"
+                | "unblock";
+
+            type UnknownParams = UnknownApiParams;
+            type Params = ApiParams;
+
+            namespace Params {
+                // see api_params/index.d.ts
+            }
+
             /**
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#.EditTransform
              */
@@ -900,6 +858,85 @@ declare global {
                     | JQuery.Promise<ApiEditPageParams>;
             }
 
+            interface Revision {
+                /**
+                 * Revision content.
+                 */
+                content: string;
+                timestamp: string;
+            }
+
+            type UnknownResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
+
+            namespace Response {
+                type Edit = Edit.Failure | Edit.NoChange | Edit.Changed;
+
+                namespace Edit {
+                    interface Failure {
+                        result: "Failure";
+                    }
+
+                    interface Success {
+                        contentmodel: string | false;
+                        pageid: number;
+                        result: "Success";
+                        tempusercreated?: true;
+                        tempusercreatedredirect?: string;
+                        title: string;
+                        watched?: true;
+                        watchlistexpiry?: string;
+                    }
+
+                    interface NoChange extends Success {
+                        nochange: true;
+                    }
+
+                    interface Changed extends Success {
+                        newrevid: number;
+                        newtimestamp: string;
+                        oldrevid: number;
+                    }
+                }
+
+                interface Rollback {
+                    /**
+                     * The revision being restored (the last revision before revision(s) by the reverted user).
+                     */
+                    last_revid: number;
+                    /**
+                     * The revision being reverted (previously the current revision of the page).
+                     */
+                    old_revid: number;
+                    pageid: number;
+                    revid: number;
+                    summary: string;
+                    title: string;
+                }
+            }
+
+            // type alias to fix #45
+            type AssertUser =
+                | {
+                      assert: "anon";
+                  }
+                | {
+                      assert: "user";
+                      assertUser: string;
+                  };
+
+            interface FinishUpload {
+                /**
+                 * Call this function to finish the upload.
+                 *
+                 * @param data Additional data for the upload.
+                 * @returns API promise for the final upload.
+                 */
+                (data?: ApiUploadParams): mw.Api.Promise<
+                    [UnknownResponse],
+                    mw.Api.RejectArgTuple | [string, UnknownResponse]
+                >;
+            }
+
             /**
              * Default options for {@link jQuery.ajax} calls. Can be overridden by passing
              * `options` to {@link mw.Api} constructor.
@@ -910,11 +947,11 @@ declare global {
                 /**
                  * Default options for {@link jQuery.ajax}
                  */
-                ajax?: Api.AjaxSettings;
+                ajax?: AjaxSettings;
                 /**
                  * Default query parameters for API requests
                  */
-                parameters?: UnknownApiParams;
+                parameters?: UnknownParams;
                 /**
                  * User agent string to use for API requests.
                  * This should identify what component (extension, gadget, user script) is making the request.
@@ -1006,7 +1043,7 @@ declare global {
             }
 
             type Promise<
-                TResolve extends ArgTuple = [ApiResponse, JQuery.jqXHR<ApiResponse>],
+                TResolve extends ArgTuple = [UnknownResponse, JQuery.jqXHR<UnknownResponse>],
                 TReject extends ArgTuple = RejectArgTuple,
                 TNotify extends ArgTuple = []
             > = PromiseBase<TResolve, TReject, TNotify>;
@@ -1053,7 +1090,7 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api-AbortablePromise.html
              */
             interface AbortablePromise<
-                TResolve extends ArgTuple = [ApiResponse, JQuery.jqXHR<ApiResponse>],
+                TResolve extends ArgTuple = [UnknownResponse, JQuery.jqXHR<UnknownResponse>],
                 TReject extends ArgTuple = RejectArgTuple,
                 TNotify extends ArgTuple = []
             > extends PromiseBase<TResolve, TReject, TNotify>,
@@ -1069,23 +1106,26 @@ declare global {
                       "" | null | undefined,
                       JQuery.jqXHR<"" | null | undefined>
                   ]
-                | [string, ApiResponse, ApiResponse, JQuery.jqXHR<ApiResponse>];
+                | [string, UnknownResponse, UnknownResponse, JQuery.jqXHR<UnknownResponse>];
         }
 
         namespace Upload {
-            type Promise<TResolve extends Api.ArgTuple = [ApiResponse]> = Api.Promise<
+            type Promise<TResolve extends Api.ArgTuple = [Api.UnknownResponse]> = Api.Promise<
                 TResolve,
                 RejectArgTuple,
                 [number]
             >;
 
             type AbortablePromise<
-                TResolve extends Api.ArgTuple = [ApiResponse]
+                TResolve extends Api.ArgTuple = [Api.UnknownResponse]
             > = Api.AbortablePromise<TResolve, RejectArgTuple, [number]>;
 
             type RejectArgTuple = [Api.RejectArgTuple[0], Api.RejectArgTuple[1]];
         }
     }
 }
+
+/** @deprecated Use {@link mw.Api.UnknownResponse} instead */
+export type ApiResponse = mw.Api.UnknownResponse;
 
 export {};

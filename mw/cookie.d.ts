@@ -1,5 +1,3 @@
-type SameSite = "none" | "lax" | "strict";
-
 declare global {
     namespace mw {
         /**
@@ -15,6 +13,8 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.cookie.html
          */
         namespace cookie {
+            type SameSite = "none" | "lax" | "strict";
+
             /**
              * Get the value of a cookie.
              *
@@ -66,7 +66,7 @@ declare global {
             function set<SS extends string = SameSite>(
                 key: string,
                 value: string | null,
-                options?: CookieOptions<SS> | Date | number
+                options?: Options<SS> | Date | number
             ): void;
 
             /**
@@ -74,7 +74,7 @@ declare global {
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.cookie.html#~CookieOptions
              */
-            interface CookieOptions<SS extends string = SameSite> {
+            interface Options<SS extends string = SameSite> {
                 /**
                  * Custom scope for cookie key. The domain attribute of the cookie.
                  * Defaults to wgCookieDomain.

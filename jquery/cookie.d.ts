@@ -20,7 +20,7 @@ declare global {
          *  expression (if setting or removing).
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.cookie.html#.$.cookie
          */
-        cookie(key: string, value: string | null, options?: mw.cookie.CookieOptions): string;
+        cookie(key: string, value: string | null, options?: mw.cookie.Options): string;
         cookie(key: string): unknown;
         cookie(): Record<string, unknown>;
 
@@ -40,7 +40,7 @@ declare global {
          * @returns True if the cookie previously existed
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.cookie.html#.$.removeCookie
          */
-        removeCookie(key: string, options: mw.cookie.CookieOptions): boolean;
+        removeCookie(key: string, options: mw.cookie.Options): boolean;
     }
 }
 

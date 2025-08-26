@@ -34,10 +34,10 @@ declare global {
          *
          * @ignore
          * @param opts Options. If a string is given, it will be treated as the value
-         *  of the {@link Options.id id} option.
+         *  of the {@link JQuery.Spinner.Options.id id} option.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.spinner.html#.createSpinner
          */
-        createSpinner(opts?: string | Options): JQuery;
+        createSpinner(opts?: string | JQuery.Spinner.Options): JQuery;
 
         /**
          * Remove a spinner element.
@@ -59,36 +59,38 @@ declare global {
          * Collection contents remain unchanged.
          *
          * @param opts Options. If a string is given, it will be treated as the value
-         *  of the {@link Options.id id} option.
+         *  of the {@link JQuery.Spinner.Options.id id} option.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.spinner.html#.$.fn.injectSpinner
          */
-        injectSpinner(opts?: string | Options): this;
+        injectSpinner(opts?: string | JQuery.Spinner.Options): this;
     }
-}
 
-type Size = "large" | "small";
-type Type = "block" | "inline";
+    namespace JQuery.Spinner {
+        type Size = "large" | "small";
+        type Type = "block" | "inline";
 
-/**
- * Options for {@link JQuery.injectSpinner}.
- *
- * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.spinner.html#~SpinnerOpts
- */
-interface Options {
-    /**
-     * If given, spinner will be given an id of "mw-spinner-{id}".
-     */
-    id?: string | undefined;
+        /**
+         * Options for {@link JQuery.injectSpinner}.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.spinner.html#~SpinnerOpts
+         */
+        interface Options {
+            /**
+             * If given, spinner will be given an id of "mw-spinner-{id}".
+             */
+            id?: string | undefined;
 
-    /**
-     * 'small' or 'large' for a 20-pixel or 32-pixel spinner.
-     */
-    size?: Size;
+            /**
+             * 'small' or 'large' for a 20-pixel or 32-pixel spinner.
+             */
+            size?: Size;
 
-    /**
-     * 'inline' or 'block'. Inline creates an inline-block with width and height equal to spinner size. Block is a block-level element with width 100%, height equal to spinner size.
-     */
-    type?: Type;
+            /**
+             * 'inline' or 'block'. Inline creates an inline-block with width and height equal to spinner size. Block is a block-level element with width 100%, height equal to spinner size.
+             */
+            type?: Type;
+        }
+    }
 }
 
 export {};

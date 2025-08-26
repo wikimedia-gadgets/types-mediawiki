@@ -1,84 +1,3 @@
-interface Module {
-    exports: any;
-}
-
-type ModuleKey = `${string}@${string}`;
-type ModuleState =
-    | "error"
-    | "executing"
-    | "loaded"
-    | "loading"
-    | "missing"
-    | "ready"
-    | "registered";
-type ModuleMessages = Record<string, string>;
-type ModuleStyle = Record<string, any>;
-type ModuleTemplates = Record<string, any>;
-
-interface ModuleDeclarator {
-    (): [
-        module: string,
-        script?: ModuleScript | null,
-        style?: ModuleStyle | null,
-        messages?: ModuleMessages | null,
-        templates?: ModuleTemplates | null,
-        deprecationWarning?: string | null
-    ];
-}
-
-interface ModuleRequire {
-    /**
-     * Get the exported value of a module.
-     *
-     * @param moduleName Module name
-     * @returns Exported value
-     */
-    (moduleName: string): any;
-}
-
-type ModuleScript =
-    | string[]
-    | (($: JQuery, jQuery: JQuery, require: ModuleRequire, module: Module) => void)
-    | {
-          files: { [key: string]: any };
-          main: string;
-      }
-    | string;
-
-interface ModuleRegistryEntry {
-    /**
-     * @since 1.41
-     */
-    declarator?: ModuleDeclarator | null;
-    dependencies: string[];
-    /**
-     * @since 1.41
-     */
-    deprecationWarning?: string | null;
-    group: number | null;
-    messages?: ModuleMessages | null;
-    module: Module;
-    packageExports: any;
-    script?: ModuleScript | null;
-    skip: string | null;
-    source: string;
-    state: "error" | "loaded" | "missing" | "registered" | "ready";
-    version: string;
-}
-
-interface JsonModuleStore {
-    asOf: number;
-    items: string;
-    vary: string;
-}
-
-export interface ResourceLoaderStoreStats {
-    expired: number;
-    failed: number;
-    hits: number;
-    misses: number;
-}
-
 declare global {
     namespace mw {
         /**
@@ -174,7 +93,7 @@ declare global {
              * @returns The state, or null if the module (or its state) is not in the registry.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.getState
              */
-            function getState(module: string): ModuleState | null;
+            function getState(module: string): Module.State | null;
 
             /**
              * Load an external script or one or more modules.
@@ -197,6 +116,54 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.loader.html#.load
              */
             function load(modules: string | string[], type?: "text/css" | "text/javascript"): void;
+
+            /**
+             * Register a module, letting the system know about it and its properties.
+             *
+             * The startup module calls this method.
+             *
+             * When using multiple module registration by passing an array, dependencies that
+             * are specified as references to modules within the array will be resolved before
+             * the modules are registered.
+             *
+             * @param modules Module name or array of arrays, each containing
+             *  a list of arguments compatible with this method
+             * @param version Module version hash (falls backs to empty string)
+             *  Can also be a number (timestamp) for compatibility with MediaWiki 1.25 and earlier.
+             * @param dependencies Array of module names on which this module depends.
+             * @param group Group which the module is in
+             * @param source Name of the source
+             * @param skip Script body of the skip function
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-register
+             */
+            function register(
+                modules: string,
+                version?: string | number,
+                dependencies?: string[],
+                group?: string | null,
+                source?: string,
+                skip?: string | null
+            ): void;
+            function register(
+                modules: Array<
+                    [
+                        module: string,
+                        version?: string | number,
+                        dependencies?: Array<string | number>,
+                        group?: string | null,
+                        source?: string,
+                        skip?: string | null
+                    ]
+                >
+            ): void;
+
+            /**
+             * Change the state of one or more modules.
+             *
+             * @param states Object of module name/state pairs
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.loader-method-state
+             */
+            function state(states: Record<string, Module.State>): void;
 
             /**
              * Execute a function after one or more modules are ready.
@@ -237,9 +204,9 @@ declare global {
              */
             function using(
                 dependencies: string | string[],
-                ready?: (require: ModuleRequire) => void,
+                ready?: (require: Module.Require) => void,
                 error?: (error: Error, ...args: any[]) => void
-            ): JQuery.Promise<ModuleRequire>;
+            ): JQuery.Promise<Module.Require>;
 
             /**
              * Exposed for testing and debugging only.
@@ -254,7 +221,7 @@ declare global {
              *
              * @private
              */
-            const moduleRegistry: Record<string, ModuleRegistryEntry>;
+            const moduleRegistry: Record<string, Module.RegistryEntry>;
 
             /**
              * Utility function for execute()
@@ -356,7 +323,7 @@ declare global {
              *
              * The elements are all optional except the name.
              */
-            function impl(declarator: ModuleDeclarator): void;
+            function impl(declarator: Module.Declarator): void;
 
             /**
              * Implement a module given the components of the module.
@@ -394,10 +361,10 @@ declare global {
              */
             function implement(
                 module: string,
-                script?: ModuleScript,
-                style?: ModuleStyle,
-                messages?: ModuleMessages,
-                templates?: ModuleTemplates,
+                script?: Module.Script,
+                style?: Module.Style,
+                messages?: Module.Messages,
+                templates?: Module.Templates,
                 deprecationWarning?: string | null
             ): void;
 
@@ -454,7 +421,7 @@ declare global {
              * @since 1.27
              * @private
              */
-            const require: ModuleRequire;
+            const require: Module.Require;
 
             /**
              * Get names of module that a module depends on, in their proper dependency order.
@@ -473,7 +440,7 @@ declare global {
              * @private
              * @param states Object of module name/state pairs
              */
-            function state(states: Record<string, ModuleState>): void;
+            function state(states: Record<string, Module.State>): void;
 
             /**
              * Start loading of all queued module dependencies.
@@ -481,6 +448,76 @@ declare global {
              * @private
              */
             function work(): void;
+
+            interface Module {
+                exports: any;
+            }
+
+            namespace Module {
+                type Key = `${string}@${string}`;
+                type State =
+                    | "error"
+                    | "executing"
+                    | "loaded"
+                    | "loading"
+                    | "missing"
+                    | "ready"
+                    | "registered";
+                type Messages = Record<string, string>;
+                type Style = Record<string, any>;
+                type Templates = Record<string, any>;
+
+                interface Declarator {
+                    (): [
+                        module: string,
+                        script?: Script | null,
+                        style?: Style | null,
+                        messages?: Messages | null,
+                        templates?: Templates | null,
+                        deprecationWarning?: string | null
+                    ];
+                }
+
+                interface Require {
+                    /**
+                     * Get the exported value of a module.
+                     *
+                     * @param moduleName Module name
+                     * @returns Exported value
+                     */
+                    (moduleName: string): any;
+                }
+
+                type Script =
+                    | string[]
+                    | (($: JQuery, jQuery: JQuery, require: Require, module: Module) => void)
+                    | {
+                          files: { [key: string]: any };
+                          main: string;
+                      }
+                    | string;
+
+                interface RegistryEntry {
+                    /**
+                     * @since 1.41
+                     */
+                    declarator?: Declarator | null;
+                    dependencies: string[];
+                    /**
+                     * @since 1.41
+                     */
+                    deprecationWarning?: string | null;
+                    group: number | null;
+                    messages?: Messages | null;
+                    module: Module;
+                    packageExports: any;
+                    script?: Script | null;
+                    skip: string | null;
+                    source: string;
+                    state: "error" | "loaded" | "missing" | "registered" | "ready";
+                    version: string;
+                }
+            }
 
             namespace store {
                 /**
@@ -542,7 +579,7 @@ declare global {
                  * @deprecated Removed since 1.41.
                  * @returns Module store contents.
                  */
-                function toJSON(): JsonModuleStore;
+                function toJSON(): Json;
 
                 /**
                  * Whether the store is in use on this page.
@@ -553,7 +590,7 @@ declare global {
                  * The contents of the store, mapping '[name]@[version]' keys
                  * to module implementations.
                  */
-                const items: Record<ModuleKey, any>;
+                const items: Record<Module.Key, any>;
 
                 /**
                  * Names of modules to be stored during the next update.
@@ -563,7 +600,7 @@ declare global {
                 /**
                  * Cache hit stats.
                  */
-                const stats: ResourceLoaderStoreStats;
+                const stats: Stats;
 
                 /**
                  * Add the contents of the named module to the in-memory store.
@@ -610,9 +647,25 @@ declare global {
                  * @private
                  */
                 function requestUpdate(): void;
+
+                interface Json {
+                    asOf: number;
+                    items: string;
+                    vary: string;
+                }
+
+                interface Stats {
+                    expired: number;
+                    failed: number;
+                    hits: number;
+                    misses: number;
+                }
             }
         }
     }
 }
+
+/** @deprecated Use {@link mw.loader.store.Stats} instead */
+export type ResourceLoaderStoreStats = mw.loader.store.Stats;
 
 export {};

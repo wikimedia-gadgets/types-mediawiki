@@ -1,129 +1,7 @@
-import { User } from "./user";
-
-/**
- * An instance of a hook, created via {@link mw.hook mw.hook method}.
- *
- * MediaWiki has various interface components that are extended, enhanced
- * or manipulated in some other way by extensions, gadgets and even
- * in core itself.
- *
- * This framework helps streamlining the timing of when these other
- * code paths fire their plugins (instead of using document-ready,
- * which can and should be limited to firing only once).
- *
- * Features like navigating to other wiki pages, previewing an edit
- * and editing itself – without a refresh – can then retrigger these
- * hooks accordingly to ensure everything still works as expected.
- * See {@link Hook}.
- *
- * Example usage:
- *
- * ```js
- * mw.hook( 'wikipage.content' ).add( fn ).remove( fn );
- * mw.hook( 'wikipage.content' ).fire( $content );
- * ```
- *
- * Handlers can be added and fired for arbitrary event names at any time. The same
- * event can be fired multiple times. The last run of an event is memorized
- * (similar to `$(document).ready` and `$.Deferred().done`).
- * This means if an event is fired, and a handler added afterwards, the added
- * function will be fired right away with the last given event data.
- *
- * Like Deferreds and Promises, the {@link mw.hook} object is both detachable and chainable.
- * Thus allowing flexible use and optimal maintainability and authority control.
- * You can pass around the `add` and/or `fire` method to another piece of code
- * without it having to know the event name (or {@link mw.hook} for that matter).
- *
- * ```js
- * var h = mw.hook( 'bar.ready' );
- * new mw.Foo( .. ).fetch( { callback: h.fire } );
- * ```
- *
- * The function signature for hooks can be considered {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Stable_interface_policy/Frontend stable}.
- *
- * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html
- */
-interface Hook<T extends any[] = any[]> {
-    /**
-     * Register a hook handler.
-     *
-     * @param handler Function to bind.
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.add
-     */
-    add(...handler: Array<(...data: T) => any>): this;
-
-    /**
-     * Enable a deprecation warning, logged after registering a hook handler.
-     *
-     * NOTE: This must be called before calling {@link fire()}, as otherwise some
-     * hook handlers may be registered and fired without being reported.
-     *
-     * @example
-     * ```js
-     * mw.hook( 'myhook' ).deprecate().fire( data );
-     * ```
-     * @example
-     * ```js
-     * mw.hook( 'myhook' )
-     *     .deprecate( 'Use the "someother" hook instead.' )
-     *     .fire( data );
-     * ```
-     * @param msg Optional extra text to add to the deprecation warning
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.deprecate
-     */
-    deprecate(msg: string): this;
-
-    /**
-     * Call hook handlers with data.
-     *
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.fire
-     */
-    fire(...data: T): this;
-
-    /**
-     * Unregister a hook handler.
-     *
-     * @param handler Function to unbind.
-     * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.remove
-     */
-    remove(...handler: Array<(...data: T) => any>): this;
-}
-
-interface PostEditData {
-    /**
-     * Message that listeners should use when displaying notifications.
-     * String for plain text, use array or jQuery object to pass actual nodes.
-     */
-    message?: string | JQuery | HTMLElement[];
-    /**
-     * Whether a temporary user account was created.
-     */
-    tempUserCreated?: boolean;
-    /**
-     * User that made the edit.
-     */
-    user?: string | User;
-}
-
-interface SearchIndex {
-    [k: string]: SearchIndexEntry[];
-}
-
-interface SearchIndexEntry {
-    $field: JQuery;
-    $highlight: JQuery;
-    $tabPanel: JQuery;
-    $wrapper: JQuery;
-}
-
-interface EditRecovery {
-    fieldChangeHandler(): void;
-}
-
 declare global {
     namespace mw {
         /**
-         * Create an instance of {@link Hook}.
+         * Create an instance of {@link mw.Hook}.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -140,7 +18,7 @@ declare global {
         >;
 
         /**
-         * Create an instance of {@link Hook}, fired after EditRecovery has loaded any recovery data, added event handlers, etc.
+         * Create an instance of {@link mw.Hook}, fired after EditRecovery has loaded any recovery data, added event handlers, etc.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'editRecovery.loadEnd'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
@@ -148,7 +26,7 @@ declare global {
         function hook(name: "editRecovery.loadEnd"): Hook<[editRecovery: EditRecovery]>;
 
         /**
-         * Create an instance of {@link Hook}, fired on page load to enhance any HTML forms on the page.
+         * Create an instance of {@link mw.Hook}, fired on page load to enhance any HTML forms on the page.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'htmlform.enhance'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
@@ -156,7 +34,7 @@ declare global {
         function hook(name: "htmlform.enhance"): Hook<[document: JQuery]>;
 
         /**
-         * Create an instance of {@link Hook}, fired after an edit was successfully saved.
+         * Create an instance of {@link mw.Hook}, fired after an edit was successfully saved.
          *
          * Does not fire for null edits.
          *
@@ -177,7 +55,7 @@ declare global {
         function hook(name: "postEdit"): Hook<[data?: PostEditData]>;
 
         /**
-         * Create an instance of {@link Hook}, fired after the listener for #postEdit removes the notification.
+         * Create an instance of {@link mw.Hook}, fired after the listener for #postEdit removes the notification.
          *
          * @deprecated
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'postEdit.afterRemoval'
@@ -186,14 +64,14 @@ declare global {
         function hook(name: "postEdit.afterRemoval"): Hook<[]>;
 
         /**
-         * Create an instance of {@link Hook}.
+         * Create an instance of {@link mw.Hook}.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook(name: "prefs.search.buildIndex"): Hook<[index: SearchIndex]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when a trusted UI element to perform a logout has been activated.
+         * Create an instance of {@link mw.Hook}, fired when a trusted UI element to perform a logout has been activated.
          *
          * This will end the user session, and either redirect to the given URL on success, or queue an error message via {@link mw.notification}.
          *
@@ -203,7 +81,7 @@ declare global {
         function hook(name: "skin.logout"): Hook<[href: string]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when initialization of the filtering interface for changes list is complete.
+         * Create an instance of {@link mw.Hook}, fired when initialization of the filtering interface for changes list is complete.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'structuredChangeFilters.ui.initialized'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
@@ -211,7 +89,7 @@ declare global {
         function hook(name: "structuredChangeFilters.ui.initialized"): Hook<[]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when a portlet is successfully created.
+         * Create an instance of {@link mw.Hook}, fired when a portlet is successfully created.
          *
          * @example
          * ```js
@@ -227,7 +105,7 @@ declare global {
         ): Hook<[portlet: HTMLElement, selectorHint: string | undefined]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when a portlet link is successfully created.
+         * Create an instance of {@link mw.Hook}, fired when a portlet link is successfully created.
          *
          * @example
          * ```js
@@ -244,7 +122,7 @@ declare global {
         ): Hook<[item: HTMLLIElement, information: object]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when categories are being added to the DOM.
+         * Create an instance of {@link mw.Hook}, fired when categories are being added to the DOM.
          *
          * It is encouraged to fire it before the main DOM is changed (when $content is still detached).  However, this order is not defined either way, so you should only rely on $content itself.
          *
@@ -256,7 +134,7 @@ declare global {
         function hook(name: "wikipage.categories"): Hook<[$content: JQuery]>;
 
         /**
-         * Create an instance of {@link Hook}, fired after collapsible content has been initialized.
+         * Create an instance of {@link mw.Hook}, fired after collapsible content has been initialized.
          *
          * This gives an option to modify the collapsible behavior.
          *
@@ -266,7 +144,7 @@ declare global {
         function hook(name: "wikipage.collapsibleContent"): Hook<[$collapsible: JQuery]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when wiki content has been added to the DOM.
+         * Create an instance of {@link mw.Hook}, fired when wiki content has been added to the DOM.
          *
          * This should only be fired after $content has been attached.
          *
@@ -278,7 +156,7 @@ declare global {
         function hook(name: "wikipage.content"): Hook<[$content: JQuery]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when a diff is added to a page or dynamically displayed to the user.
+         * Create an instance of {@link mw.Hook}, fired when a diff is added to a page or dynamically displayed to the user.
          *
          * Similar to the wikipage.content hook, `$diff` may still be detached when the hook is fired.
          *
@@ -288,7 +166,7 @@ declare global {
         function hook(name: "wikipage.diff"): Hook<[$diff: JQuery<HTMLTableElement>]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when the diff type switch is present so others can decide how to manipulate the DOM.
+         * Create an instance of {@link mw.Hook}, fired when the diff type switch is present so others can decide how to manipulate the DOM.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.diff.diffTypeSwitch'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
@@ -298,7 +176,7 @@ declare global {
         ): Hook<[inlineToggleSwitch: OO.ui.ToggleSwitchWidget]>;
 
         /**
-         * Create an instance of {@link Hook}.
+         * Create an instance of {@link mw.Hook}.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.diff.wikitextDiffBody'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
@@ -306,7 +184,7 @@ declare global {
         function hook(name: "wikipage.diff.wikitextBodyUpdate"): Hook<[$wikitextDiffBody: JQuery]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when the editform is added to the edit page.
+         * Create an instance of {@link mw.Hook}, fired when the editform is added to the edit page.
          *
          * Similar to the wikipage.content hook, $editForm can still be detached when this hook is fired.
          *
@@ -316,7 +194,7 @@ declare global {
         function hook(name: "wikipage.editform"): Hook<[$editForm: JQuery]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when a page's
+         * Create an instance of {@link mw.Hook}, fired when a page's
          * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Page_status_indicators status indicators}
          * are being added to the DOM or updated.
          *
@@ -326,7 +204,7 @@ declare global {
         function hook(name: "wikipage.indicators"): Hook<[$content: JQuery]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when dynamic changes have been made to the table of contents.
+         * Create an instance of {@link mw.Hook}, fired when dynamic changes have been made to the table of contents.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.tableOfContents'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
@@ -334,7 +212,7 @@ declare global {
         function hook(name: "wikipage.tableOfContents"): Hook<[sections: any[]]>;
 
         /**
-         * Create an instance of {@link Hook}, fired when the page watch status has changed.
+         * Create an instance of {@link mw.Hook}, fired when the page watch status has changed.
          *
          * @example
          * ```js
@@ -350,7 +228,7 @@ declare global {
         ): Hook<[isWatched: boolean, expiry: string, expirySelected: string]>;
 
         /**
-         * Create an instance of {@link Hook}.
+         * Create an instance of {@link mw.Hook}.
          *
          * @example
          * ```js
@@ -362,6 +240,128 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook<T extends any[] = any[]>(name: string): Hook<T>;
+
+        /**
+         * An instance of a hook, created via {@link mw.hook mw.hook method}.
+         *
+         * MediaWiki has various interface components that are extended, enhanced
+         * or manipulated in some other way by extensions, gadgets and even
+         * in core itself.
+         *
+         * This framework helps streamlining the timing of when these other
+         * code paths fire their plugins (instead of using document-ready,
+         * which can and should be limited to firing only once).
+         *
+         * Features like navigating to other wiki pages, previewing an edit
+         * and editing itself – without a refresh – can then retrigger these
+         * hooks accordingly to ensure everything still works as expected.
+         * See {@link Hook}.
+         *
+         * Example usage:
+         *
+         * ```js
+         * mw.hook( 'wikipage.content' ).add( fn ).remove( fn );
+         * mw.hook( 'wikipage.content' ).fire( $content );
+         * ```
+         *
+         * Handlers can be added and fired for arbitrary event names at any time. The same
+         * event can be fired multiple times. The last run of an event is memorized
+         * (similar to `$(document).ready` and `$.Deferred().done`).
+         * This means if an event is fired, and a handler added afterwards, the added
+         * function will be fired right away with the last given event data.
+         *
+         * Like Deferreds and Promises, the {@link mw.Hook} object is both detachable and chainable.
+         * Thus allowing flexible use and optimal maintainability and authority control.
+         * You can pass around the `add` and/or `fire` method to another piece of code
+         * without it having to know the event name (or {@link mw.Hook} for that matter).
+         *
+         * ```js
+         * var h = mw.hook( 'bar.ready' );
+         * new mw.Foo( .. ).fetch( { callback: h.fire } );
+         * ```
+         *
+         * The function signature for hooks can be considered {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Stable_interface_policy/Frontend stable}.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html
+         */
+        interface Hook<T extends any[] = any[]> {
+            /**
+             * Register a hook handler.
+             *
+             * @param handler Function to bind.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.add
+             */
+            add(...handler: Array<(...data: T) => any>): this;
+
+            /**
+             * Enable a deprecation warning, logged after registering a hook handler.
+             *
+             * NOTE: This must be called before calling {@link fire()}, as otherwise some
+             * hook handlers may be registered and fired without being reported.
+             *
+             * @example
+             * ```js
+             * mw.hook( 'myhook' ).deprecate().fire( data );
+             * ```
+             * @example
+             * ```js
+             * mw.hook( 'myhook' )
+             *     .deprecate( 'Use the "someother" hook instead.' )
+             *     .fire( data );
+             * ```
+             * @param msg Optional extra text to add to the deprecation warning
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.deprecate
+             */
+            deprecate(msg: string): this;
+
+            /**
+             * Call hook handlers with data.
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.fire
+             */
+            fire(...data: T): this;
+
+            /**
+             * Unregister a hook handler.
+             *
+             * @param handler Function to unbind.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.remove
+             */
+            remove(...handler: Array<(...data: T) => any>): this;
+        }
+
+        interface PostEditData {
+            /**
+             * Message that listeners should use when displaying notifications.
+             * String for plain text, use array or jQuery object to pass actual nodes.
+             */
+            message?: string | JQuery | HTMLElement[];
+            /**
+             * Whether a temporary user account was created.
+             */
+            tempUserCreated?: boolean;
+            /**
+             * User that made the edit.
+             */
+            user?: string | User;
+        }
+
+        interface SearchIndex {
+            [k: string]: SearchIndex.Entry[];
+        }
+
+        namespace SearchIndex {
+            interface Entry {
+                $field: JQuery;
+                $highlight: JQuery;
+                $tabPanel: JQuery;
+                $wrapper: JQuery;
+            }
+        }
+
+        interface EditRecovery {
+            fieldChangeHandler(): void;
+        }
     }
 }
 
