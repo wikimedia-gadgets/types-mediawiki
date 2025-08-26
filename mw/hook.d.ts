@@ -47,10 +47,10 @@ interface Hook<T extends any[] = any[]> {
     /**
      * Register a hook handler.
      *
-     * @param handler Function to bind.
+     * @param handlers Function(s) to bind.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.add
      */
-    add(...handler: Array<(...data: T) => any>): this;
+    add(...handlers: Array<(...data: T) => any>): this;
 
     /**
      * Enable a deprecation warning, logged after registering a hook handler.
@@ -83,10 +83,10 @@ interface Hook<T extends any[] = any[]> {
     /**
      * Unregister a hook handler.
      *
-     * @param handler Function to unbind.
+     * @param handlers Function(s) to unbind.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.remove
      */
-    remove(...handler: Array<(...data: T) => any>): this;
+    remove(...handlers: Array<(...data: T) => any>): this;
 }
 
 interface PostEditData {
