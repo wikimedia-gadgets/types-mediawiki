@@ -153,11 +153,12 @@ declare global {
          * events that match their subscription, including buffered events that fired before the handler
          * was subscribed.
          *
+         * @since 1.44 - multiple data arguments can be passed.
          * @param topic Topic name
          * @param data Data describing the event.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.track
          */
-        function track(topic: string, data?: AnalyticEvent.Data): void;
+        function track(topic: string, ...data: AnalyticEvent.Data[]): void;
 
         /**
          * Track `'resourceloader.exception'` event and send it to the window console.
@@ -176,8 +177,7 @@ declare global {
          *
          * Handlers will be called once for each tracked event, including for any buffered events that
          * fired before the handler was subscribed. The callback is passed a `topic` string, and optional
-         * `data` event object. The `this` value for the callback is a plain object with `topic` and
-         * `data` properties set to those same values.
+         * `data` argument(s).
          *
          * @example
          * ```js
@@ -189,6 +189,7 @@ declare global {
          * // To subscribe to any of `foo.*`, e.g. both `foo.bar` and `foo.quux`
          * mw.trackSubscribe( 'foo.', console.log );
          * ```
+         * @since 1.44 - multiple data arguments can be passed.
          * @param topic Handle events whose name starts with this string prefix
          * @param callback Handler to call for each matching tracked event
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.trackSubscribe
@@ -221,7 +222,14 @@ declare global {
         }
 
         interface AnalyticEvent {
-            data: AnalyticEvent.Data;
+            /**
+             * @since 1.44
+             */
+            args: AnalyticEvent.Data[];
+            /**
+             * @deprecated Removed since 1.44, using {@link args} instead.
+             */
+            data?: AnalyticEvent.Data;
             topic: string;
         }
 

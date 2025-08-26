@@ -104,6 +104,7 @@ declare global {
              * - p-navigation (Navigation)
              * - p-tb (Toolbox)
              * - p-associated-pages (For namespaces and special page tabs on supported skins)
+             * - p-dock-bottom (A sticky menu fixed to bottom of viewport on supported skins)
              * - p-namespaces (For namespaces on legacy skins)
              *
              * Additional menus can be discovered through the following code:

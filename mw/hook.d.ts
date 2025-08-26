@@ -10,9 +10,9 @@ declare global {
         ): Hook<
             [
                 items: OO.ui.MenuOptionWidget[],
-                displayParams: object,
-                rawParams: object,
-                method: string,
+                displayParams: Record<string, unknown>,
+                rawParams: Record<string, unknown>,
+                method: "get" | "post",
                 ajaxOptions: JQuery.AjaxSettings
             ]
         >;
@@ -292,6 +292,27 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.add
              */
             add(...handler: Array<(...data: T) => any>): this;
+
+            /**
+             * Enable a deprecation warning, logged after registering a hook handler.
+             *
+             * NOTE: This must be called before calling {@link fire()}, as otherwise some
+             * hook handlers may be registered and fired without being reported.
+             *
+             * @example
+             * ```js
+             * mw.hook( 'myhook' ).deprecate().fire( data );
+             * ```
+             * @example
+             * ```js
+             * mw.hook( 'myhook' )
+             *     .deprecate( 'Use the "someother" hook instead.' )
+             *     .fire( data );
+             * ```
+             * @param msg Optional extra text to add to the deprecation warning
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.deprecate
+             */
+            deprecate(msg: string): this;
 
             /**
              * Call hook handlers with data.
