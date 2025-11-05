@@ -27,12 +27,32 @@ declare global {
 
         interface ConfigMap {
             apihighlimits?: boolean;
+            blockAdditionalDetailsPreset?: BlockAdditionalDetail[];
+            blockAlreadyBlocked?: boolean;
+            blockAutoblockExpiry?: string;
             blockCanDeleteLogEntry?: boolean;
+            blockCanEditInterface?: boolean;
+            blockDetailsPreset?: BlockDetail[];
+            blockDisableEmailVisible?: true;
+            blockDisableUTEditVisible?: true;
             blockEnableMultiblocks?: boolean;
+            blockExpiryDefault?: string;
+            blockExpiryOptions?: Record<string, string>;
+            blockExpiryPreset?: string;
+            blockHideUser?: true;
             blockId?: number | null;
+            blockNamespaceRestrictions?: string;
+            blockPageRestrictions?: string;
+            blockPreErrors?: string[];
+            blockReasonMaxLength?: number;
+            blockReasonOptions?: BlockReasonOption[];
+            blockReasonPreset?: string;
+            blockRemovalReasonPreset?: string;
             blockShowSuppressLog?: boolean;
+            blockTargetExists?: boolean;
             blockTargetUser?: string | null;
             blockTargetUserInput?: string;
+            blockTypePreset?: "partial" | "sitewide";
             dataCacheTime?: string;
             /**
              * Since MediaWiki 1.36+, 0 means debug mode is off, and a positive non-zero number means debug mode is on (e.g. 1 or 2).
@@ -43,6 +63,7 @@ declare global {
              */
             debug: boolean | number;
             debugInfo?: DebugInfo;
+            partialBlockActionOptions?: Record<`ipb-action-${string}`, string>;
             searchTerm?: string;
             /**
              * The internal name of the currently used skin.
@@ -447,6 +468,22 @@ declare global {
             wgWikiID: string;
         }
     }
+}
+
+type BlockDetail = "wpCreateAccount" | "wpDisableEmail" | "wpDisableUTEdit";
+
+type BlockAdditionalDetail = "wpAutoBlock" | "wpHardBlock" | "wpHideUser" | "wpWatch";
+
+type BlockReasonOption = BlockReasonOptionMulti | BlockReasonOptionSingle;
+
+interface BlockReasonOptionMulti {
+    label: string;
+    items: BlockReasonOptionSingle[];
+}
+
+interface BlockReasonOptionSingle {
+    label: string;
+    value: string;
 }
 
 interface DebugInfo {
