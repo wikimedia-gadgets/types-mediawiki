@@ -32,6 +32,10 @@ declare global {
             blockAutoblockExpiry?: string;
             blockCanDeleteLogEntry?: boolean;
             blockCanEditInterface?: boolean;
+            /**
+             * @since 1.45
+             */
+            blockCIDRLimit?: BlockCIDRLimit;
             blockDetailsPreset?: BlockDetail[];
             blockDisableEmailVisible?: true;
             blockDisableUTEditVisible?: true;
@@ -276,6 +280,10 @@ declare global {
              */
             wgPageParseReport?: PageParseReport;
             /**
+             * @since 1.45
+             */
+            wgParsoidHtmlVersion?: `${number}.${number}.${number}`;
+            /**
              * "saved" if the user just saved this page. "created" if the user just created this page. "restored" if the user just restored this page by going to the history page, clicked on a timestamp link for an old revision, clicked on edit and then saved. null otherwise. Note that:
              *
              * On null edits, this is null, not "saved"
@@ -470,6 +478,11 @@ declare global {
     }
 }
 
+interface BlockCIDRLimit {
+    IPv4: number;
+    IPv6: number;
+}
+
 type BlockDetail = "wpCreateAccount" | "wpDisableEmail" | "wpDisableUTEdit";
 
 type BlockAdditionalDetail = "wpAutoBlock" | "wpHardBlock" | "wpHideUser" | "wpWatch";
@@ -563,10 +576,15 @@ interface LimitReport {
     "expensivefunctioncount": LimitReportValue;
     "postexpandincludesize": LimitReportValue;
     "ppvisitednodes": LimitReportValue;
+    /**
+     * @since 1.45
+     */
+    "revisionsize": LimitReportValue;
     "templateargumentsize": LimitReportValue;
     "timingprofile": string[];
     "unstrip-depth": LimitReportValue;
     "unstrip-size": LimitReportValue;
+    "walltime": `${number}`;
 }
 
 interface LimitReportValue {
