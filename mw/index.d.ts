@@ -58,12 +58,19 @@ interface ErrorAnalyticEventData extends ObjectAnalyticEventData {
 }
 
 interface AnalyticEvent {
-    data: AnalyticEventData;
+    /**
+     * @since 1.44
+     */
+    args: AnalyticEventData[];
+    /**
+     * @deprecated Removed since 1.44, using {@link args} instead.
+     */
+    data?: AnalyticEventData;
     topic: string;
 }
 
 interface AnalyticEventCallback {
-    (topic: string, data: AnalyticEventData): void;
+    (topic: string, ...data: AnalyticEventData[]): void;
 }
 
 declare global {
@@ -124,9 +131,9 @@ declare global {
          * Used by {@link mw.Message.parse}.
          *
          * @since 1.25
-         * @param {string} formatString Format string
-         * @param {...string} parameters Values for $N replacements
-         * @returns {string} Formatted string
+         * @param formatString Format string
+         * @param parameters Values for $N replacements
+         * @returns Formatted string
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.format
          */
         function format(formatString: string, ...parameters: string[]): string;
@@ -138,7 +145,7 @@ declare global {
          * floating-point values with microsecond precision that are guaranteed to be monotonic.
          * On all other browsers, it will fall back to using `Date`.
          *
-         * @returns {number} Current time
+         * @returns Current time
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.now
          */
         function now(): number;
@@ -165,8 +172,6 @@ declare global {
          * - {@link https://w3c.github.io/requestidlecallback/}
          * - {@link https://developers.google.com/web/updates/2015/08/using-requestidlecallback}
          *
-         * @param {Function} callback
-         * @param {IdleCallbackOptions} [options]
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.requestIdleCallback
          */
         function requestIdleCallback(
@@ -187,11 +192,12 @@ declare global {
          * events that match their subscription, including buffered events that fired before the handler
          * was subscribed.
          *
-         * @param {string} topic Topic name
-         * @param {AnalyticEventData} [data] Data describing the event.
+         * @since 1.44 - multiple data arguments can be passed.
+         * @param topic Topic name
+         * @param data Data describing the event.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.track
          */
-        function track(topic: string, data?: AnalyticEventData): void;
+        function track(topic: string, ...data: AnalyticEventData[]): void;
 
         /**
          * Track `'resourceloader.exception'` event and send it to the window console.
@@ -201,7 +207,7 @@ declare global {
          * even while `mediawiki.base` and `mw.track` are still in-flight.
          *
          * @private
-         * @param {ErrorAnalyticEventData} data Data describing the event, encoded as an object; see {@link errorLogger.logError}
+         * @param data Data describing the event, encoded as an object; see {@link errorLogger.logError}
          */
         function trackError(topic: string, data: ErrorAnalyticEventData): void;
 
@@ -210,8 +216,7 @@ declare global {
          *
          * Handlers will be called once for each tracked event, including for any buffered events that
          * fired before the handler was subscribed. The callback is passed a `topic` string, and optional
-         * `data` event object. The `this` value for the callback is a plain object with `topic` and
-         * `data` properties set to those same values.
+         * `data` argument(s).
          *
          * @example
          * ```js
@@ -223,8 +228,9 @@ declare global {
          * // To subscribe to any of `foo.*`, e.g. both `foo.bar` and `foo.quux`
          * mw.trackSubscribe( 'foo.', console.log );
          * ```
-         * @param {string} topic Handle events whose name starts with this string prefix
-         * @param {function(string, AnalyticEventData): void} callback Handler to call for each matching tracked event
+         * @since 1.44 - multiple data arguments can be passed.
+         * @param topic Handle events whose name starts with this string prefix
+         * @param callback Handler to call for each matching tracked event
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.trackSubscribe
          */
         function trackSubscribe(topic: string, callback: AnalyticEventCallback): void;
@@ -232,7 +238,6 @@ declare global {
         /**
          * Stop handling events for a particular handler.
          *
-         * @param {function(string, AnalyticEventData): void} callback
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.trackUnsubscribe
          */
         function trackUnsubscribe(callback: AnalyticEventCallback): void;

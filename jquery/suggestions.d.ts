@@ -18,9 +18,8 @@ declare global {
          * $( '#textbox' ).suggestions( { option1: value1, option2: value2 } );
          * $( '#textbox' ).suggestions( option, value );
          * ```
-         * @param {string} property Name of property
-         * @param {any} value Value to set property with
-         * @returns {JQuery}
+         * @param property Name of property
+         * @param value Value to set property with
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.suggestions.html#.$.fn.suggestions
          */
         suggestions<K extends keyof Options<T>, T = any>(property: K, value: Options<T>[K]): this;
@@ -68,9 +67,9 @@ interface Options<T = any> {
     /**
      * Callback that should fetch suggestions and set the suggestions property. Called in context of the text box.
      *
-     * @param {string} query
-     * @param {function(string[],any):void} response Callback to receive the suggestions with
-     * @param {number} maxRows
+     * @param query
+     * @param response Callback to receive the suggestions with
+     * @param maxRows
      */
     fetch(
         this: JQuery,

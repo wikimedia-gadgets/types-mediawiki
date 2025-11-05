@@ -4,8 +4,7 @@ declare global {
          * Get the contents of the textarea.
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
-         * @param {string} command Command to execute
-         * @returns {string}
+         * @param command Command to execute
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.getContents
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.$.fn.textSelection
          */
@@ -15,9 +14,8 @@ declare global {
          * Set the contents of the textarea, replacing anything that was there before.
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
-         * @param {string} command Command to execute
-         * @param {string} content
-         * @returns {JQuery}
+         * @param command Command to execute
+         * @param content
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.setContents
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.$.fn.textSelection
          */
@@ -27,8 +25,7 @@ declare global {
          * Get the currently selected text in this textarea.
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
-         * @param {string} command Command to execute
-         * @returns {string}
+         * @param command Command to execute
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.getSelection
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.$.fn.textSelection
          */
@@ -38,9 +35,8 @@ declare global {
          * Replace the selected text in the textarea with the given text, or insert it at the cursor.
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
-         * @param {string} command Command to execute
-         * @param {string} value
-         * @returns {JQuery}
+         * @param command Command to execute
+         * @param value
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.replaceSelection
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.$.fn.textSelection
          */
@@ -53,9 +49,8 @@ declare global {
          *
          * Also focusses the textarea.
          *
-         * @param {string} command Command to execute
-         * @param {TextSelectionEncapsulateOptions} [options]
-         * @returns {JQuery}
+         * @param command Command to execute
+         * @param options
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.encapsulateSelection
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.$.fn.textSelection
          */
@@ -68,9 +63,9 @@ declare global {
          * Get the current cursor position (in UTF-16 code units) in a textarea.
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
-         * @param {string} command Command to execute
-         * @param {GetCaretPositionOptions} [options]
-         * @returns {number|number[]} Array with two numbers, for start and end of selection
+         * @param command Command to execute
+         * @param options
+         * @returns Array with two numbers, for start and end of selection
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.getCaretPosition
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.$.fn.textSelection
          */
@@ -91,9 +86,8 @@ declare global {
          * Set the current cursor position (in UTF-16 code units) in a textarea.
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
-         * @param {string} command Command to execute
-         * @param {SetSelectionOptions} options
-         * @returns {JQuery}
+         * @param command Command to execute
+         * @param options
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.setSelection
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.$.fn.textSelection
          */
@@ -104,9 +98,8 @@ declare global {
          * position with 'setSelection'.
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
-         * @param {string} command Command to execute
-         * @param {ScrollToCaretPositionOptions} [options]
-         * @returns {JQuery}
+         * @param command Command to execute
+         * @param options
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.scrollToCaretPosition
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.$.fn.textSelection
          */
@@ -119,8 +112,8 @@ declare global {
          * Register an alternative textSelection API for this element.
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
-         * @param {string} command Command to execute
-         * @param {Object.<string, function(unknown):void>} functions Functions to replace. Keys are command names (as in {@link textSelection},
+         * @param command Command to execute
+         * @param functions Functions to replace. Keys are command names (as in {@link textSelection},
          *  except 'register' and 'unregister'). Values are functions to execute when a given command is
          *  called.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.register
@@ -135,7 +128,7 @@ declare global {
          * Unregister the alternative textSelection API for this element (see 'register').
          * Provided by the `jquery.textSelection` ResourceLoader module.
          *
-         * @param {string} command Command to execute
+         * @param command Command to execute
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.unregister
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.$.fn.textSelection
          */
@@ -151,9 +144,9 @@ declare global {
          *     const contents = $( 'textarea' ).textSelection( 'getContents' );
          * } );
          * ```
-         * @param {string} command Command to execute
-         * @param {any} [commandOptions] Options to pass to the command
-         * @returns {any} Depending on the command
+         * @param command Command to execute
+         * @param commandOptions Options to pass to the command
+         * @returns Depending on the command
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.textSelection.html#.$.fn.textSelection
          */
         textSelection(command: string, commandOptions?: unknown): any;

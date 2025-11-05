@@ -5,8 +5,8 @@ import { ApiResponse } from "./Api";
  */
 interface ResponseFunction {
     /**
-     * @param {string[]} titles titles of pages that match search
-     * @param {ResponseMetaData} meta meta data relating to search
+     * @param titles titles of pages that match search
+     * @param meta meta data relating to search
      */
     (titles: string[], meta: ResponseMetaData): void;
 }
@@ -47,12 +47,6 @@ declare global {
             /**
              * Queries the wiki and calls response with the result.
              *
-             * @param {Api} api
-             * @param {string} query
-             * @param {ResponseFunction} response
-             * @param {string|number} [limit]
-             * @param {string|number|string[]|number[]} [namespace]
-             * @returns {JQuery.Promise<ApiResponse>}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.searchSuggest.html#.request
              */
             function request(

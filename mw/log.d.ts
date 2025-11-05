@@ -9,7 +9,7 @@ declare global {
          * See {@link mw.log} for other logging methods.
          *
          * @variation 2
-         * @param {...any} msg Messages to output to console.
+         * @param msg Messages to output to console.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.log2
          */
         function log(...msg: any[]): void;
@@ -34,11 +34,11 @@ declare global {
              * ```js
              * mw.log.deprecate( Thing, 'old', old, 'Use Other.thing instead', 'Thing.old'  );
              * ```
-             * @param {Object} obj Host object of deprecated property
-             * @param {string} key Name of property to create in `obj`
-             * @param {any} val The value this property should return when accessed
-             * @param {string} [msg] Optional extra text to add to the deprecation warning
-             * @param {string} [logName] Name of the feature for deprecation tracker.
+             * @param obj Host object of deprecated property
+             * @param key Name of property to create in `obj`
+             * @param val The value this property should return when accessed
+             * @param msg Optional extra text to add to the deprecation warning
+             * @param logName Name of the feature for deprecation tracker.
              *  Tracking is disabled by default, except for global variables on `window`.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.log.html#.deprecate
              */
@@ -57,7 +57,7 @@ declare global {
              * argument is an Error object.
              *
              * @since 1.26
-             * @param {...any} msg Messages to output to console
+             * @param msg Messages to output to console
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.log.html#.error
              */
             function error(...msg: any[]): void;
@@ -80,10 +80,9 @@ declare global {
              * hello( 1 );
              * ```
              * @since 1.38
-             * @param {string|null} key Name of the feature for deprecation tracker,
+             * @param key Name of the feature for deprecation tracker,
              *  or null for a console-only deprecation.
-             * @param {string} msg Deprecation warning.
-             * @returns {function():void}
+             * @param msg Deprecation warning.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.log.html#.makeDeprecated
              */
             function makeDeprecated(key: string | null, msg: string): () => void;
@@ -91,7 +90,7 @@ declare global {
             /**
              * Write a message to the browser console's warning channel.
              *
-             * @param {...any} msg Messages to output to console
+             * @param msg Messages to output to console
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.log.html#.warn
              */
             function warn(...msg: any[]): void;

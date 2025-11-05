@@ -33,7 +33,7 @@ declare global {
             /**
              * Create an instance of {@link mw.Rest}.
              *
-             * @param {Rest.Options} [options] See {@link mw.Rest.Options}
+             * @param options See {@link mw.Rest.Options}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#Rest
              */
             constructor(options?: Rest.Options);
@@ -50,9 +50,9 @@ declare global {
             /**
              * Perform the API call.
              *
-             * @param {string} path
-             * @param {JQuery.AjaxSettings} [ajaxOptions]
-             * @returns {Rest.AbortablePromise} Done: API response data and the jqXHR object.
+             * @param path
+             * @param ajaxOptions
+             * @returns Done: API response data and the jqXHR object.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#ajax
              */
             ajax(path: string, ajaxOptions?: JQuery.AjaxSettings): Rest.AbortablePromise;
@@ -63,10 +63,6 @@ declare global {
              * Note: only sending `application/json` is currently supported.
              *
              * @since 1.39
-             * @param {string} path
-             * @param {Object.<string, any>} body
-             * @param {Object.<string, any>} [headers]
-             * @returns {Rest.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#delete
              */
             delete(
@@ -78,10 +74,6 @@ declare global {
             /**
              * Perform REST API get request.
              *
-             * @param {string} path
-             * @param {Object.<string, any>} query
-             * @param {Object.<string, any>} [headers]
-             * @returns {Rest.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#get
              */
             get(
@@ -96,10 +88,6 @@ declare global {
              * Note: only sending `application/json` is currently supported.
              *
              * @since 1.42 - body parameter is optional.
-             * @param {string} path
-             * @param {Object.<string, any>} [body]
-             * @param {Object.<string, any>} [headers]
-             * @returns {Rest.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#post
              */
             post(
@@ -114,10 +102,6 @@ declare global {
              * Note: only sending `application/json` is currently supported.
              *
              * @since 1.39
-             * @param {string} path
-             * @param {Object.<string, any>} body
-             * @param {Object.<string, any>} [headers]
-             * @returns {Rest.AbortablePromise}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Rest.html#put
              */
             put(
@@ -161,8 +145,5 @@ declare global {
         }
     }
 }
-
-/** @deprecated Use `mw.Rest.Options` instead. Note that `RestOptions` is strictly equivalent to `Required<mw.Rest.Options>` as properties are now optional for consistency. */
-export type RestOptions = Required<mw.Rest.Options>;
 
 export {};

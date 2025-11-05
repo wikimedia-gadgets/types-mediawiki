@@ -17,9 +17,8 @@ declare global {
          *     $( '#bodyContent' ).highlightText( 'bear' );
          * } );
          * ```
-         * @param {string} matchString String to match
-         * @param {Options} [options]
-         * @returns {JQuery}
+         * @param matchString String to match
+         * @param options
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-jquery.highlightText.html#.$.fn.highlightText
          */
         highlightText(matchString: string, options?: Options): this;

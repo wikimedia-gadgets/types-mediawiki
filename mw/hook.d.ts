@@ -47,17 +47,35 @@ interface Hook<T extends any[] = any[]> {
     /**
      * Register a hook handler.
      *
-     * @param {...Function} handler Function to bind.
-     * @returns {Hook}
+     * @param handler Function to bind.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.add
      */
     add(...handler: Array<(...data: T) => any>): this;
 
     /**
+     * Enable a deprecation warning, logged after registering a hook handler.
+     *
+     * NOTE: This must be called before calling {@link fire()}, as otherwise some
+     * hook handlers may be registered and fired without being reported.
+     *
+     * @example
+     * ```js
+     * mw.hook( 'myhook' ).deprecate().fire( data );
+     * ```
+     * @example
+     * ```js
+     * mw.hook( 'myhook' )
+     *     .deprecate( 'Use the "someother" hook instead.' )
+     *     .fire( data );
+     * ```
+     * @param msg Optional extra text to add to the deprecation warning
+     * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.deprecate
+     */
+    deprecate(msg: string): this;
+
+    /**
      * Call hook handlers with data.
      *
-     * @param {...any} data
-     * @returns {Hook}
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.fire
      */
     fire(...data: T): this;
@@ -65,8 +83,7 @@ interface Hook<T extends any[] = any[]> {
     /**
      * Unregister a hook handler.
      *
-     * @param {...Function} handler Function to unbind.
-     * @returns {Hook}
+     * @param handler Function to unbind.
      * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hook.html#.remove
      */
     remove(...handler: Array<(...data: T) => any>): this;
@@ -115,9 +132,9 @@ declare global {
         ): Hook<
             [
                 items: OO.ui.MenuOptionWidget[],
-                displayParams: object,
-                rawParams: object,
-                method: string,
+                displayParams: Record<string, unknown>,
+                rawParams: Record<string, unknown>,
+                method: "get" | "post",
                 ajaxOptions: JQuery.AjaxSettings
             ]
         >;
@@ -341,8 +358,7 @@ declare global {
          * hook.add( () => alert( 'Hook was fired' ) );
          * hook.fire();
          * ```
-         * @param {string} name Name of hook.
-         * @returns {Hook}
+         * @param name Name of hook.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook<T extends any[] = any[]>(name: string): Hook<T>;

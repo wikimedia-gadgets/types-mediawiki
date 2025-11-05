@@ -12,6 +12,13 @@ declare global {
          */
         namespace language {
             /**
+             * Map of language-specific {@link convertGrammar()} implementations keyed by language code.
+             *
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.convertGrammarMapping
+             */
+            const convertGrammarMapping: Record<string, typeof convertGrammar>;
+
+            /**
              * Language-related data (keyed by language, contains instances of mw.Map).
              *
              * Exported dynamically by the ResourceLoader\LanguageDataModule class in PHP.
@@ -52,8 +59,7 @@ declare global {
              * Formats language tags according the BCP 47 standard.
              * See LanguageCode::bcp47 for the PHP implementation.
              *
-             * @param {string} languageTag Well-formed language tag
-             * @returns {string}
+             * @param languageTag Well-formed language tag
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.bcp47
              */
             function bcp47(languageTag: string): string;
@@ -68,11 +74,10 @@ declare global {
              *  it is poorly named, corresponds to a deprecated function in core, and
              *  its functionality should be rolled into convertNumber().
              * @deprecated Removed since 1.40.
-             * @param {number} value
-             * @param {string} pattern Pattern string as described by Unicode TR35
-             * @param {number|null} [minimumGroupingDigits=null]
+             * @param value
+             * @param pattern Pattern string as described by Unicode TR35
+             * @param minimumGroupingDigits
              * @throws {Error} If unable to find a number expression in `pattern`.
-             * @returns {string}
              */
             function commafy(
                 value: number,
@@ -87,9 +92,6 @@ declare global {
              * The rules can be defined in $wgGrammarForms global or computed
              * dynamically by overriding this method per language.
              *
-             * @param {string} word
-             * @param {string} form
-             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.convertGrammar
              */
             function convertGrammar(word: string, form: string): string;
@@ -97,9 +99,9 @@ declare global {
             /**
              * Converts a number using {@link getDigitTransformTable()}.
              *
-             * @param {number} num Value to be converted
-             * @param {boolean} [integer=false] Whether to convert the return value to an integer
-             * @returns {number|string} Formatted number
+             * @param num Value to be converted
+             * @param integer Whether to convert the return value to an integer. Defaults to `false`.
+             * @returns Formatted number
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.convertNumber
              */
             function convertNumber(num: number, integer: true): number;
@@ -109,10 +111,10 @@ declare global {
             /**
              * Plural form transformations, needed for some languages.
              *
-             * @param {number} count Non-localized quantifier
-             * @param {string[]} forms List of plural forms
-             * @param {Object.<number, string>} [explicitPluralForms] List of explicit plural forms
-             * @returns {string} Correct form for quantifier in this language
+             * @param count Non-localized quantifier
+             * @param forms List of plural forms
+             * @param explicitPluralForms List of explicit plural forms
+             * @returns Correct form for quantifier in this language
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.convertPlural
              */
             function convertPlural(
@@ -129,9 +131,8 @@ declare global {
              *
              * These details may be overridden per language.
              *
-             * @param {string} gender 'male', 'female', or anything else for neutral.
-             * @param {string[]} forms List of gender forms
-             * @returns {string}
+             * @param gender 'male', 'female', or anything else for neutral.
+             * @param forms List of gender forms
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.gender
              */
             function gender<T extends string>(gender: string, forms: [T, T?, T?]): T;
@@ -143,25 +144,22 @@ declare global {
              * Structured by language code and data key, covering for the potential inexistence of a
              * data object for this language.
              *
-             * @param {string} langCode
-             * @param {string} dataKey
-             * @returns {any} Value stored in the mw.Map (or `undefined` if there is no map for the
-             *  specified langCode)
+             * @param langCode
+             * @param dataKey
+             * @returns Value stored in the mw.Map (or `undefined` if there is no map for the specified langCode)
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.getData
              */
             function getData(langCode: string, dataKey: string): any;
 
             /**
              * Get the digit transform table for current UI language.
-             *
-             * @returns {Object.<number|string, string>|string[]}
              */
             function getDigitTransformTable(): string[] | Record<number | string, string>;
 
             /**
              * Get the language fallback chain for current UI language, including the language itself.
              *
-             * @returns {string[]} List of language keys, e.g. `['pfl', de', 'en']`
+             * @returns List of language keys, e.g. `['pfl', de', 'en']`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.getFallbackLanguageChain
              */
             function getFallbackLanguageChain(): string[];
@@ -169,15 +167,13 @@ declare global {
             /**
              * Get the language fallback chain for current UI language (not including the language itself).
              *
-             * @returns {string[]} List of language keys, e.g. `['de', 'en']`
+             * @returns List of language keys, e.g. `['de', 'en']`
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.getFallbackLanguages
              */
             function getFallbackLanguages(): string[];
 
             /**
              * Get the separator transform table for current UI language.
-             *
-             * @returns {Object.<number|string, string>|string[]}
              */
             function getSeparatorTransformTable(): string[] | Record<number | string, string>;
 
@@ -186,8 +182,6 @@ declare global {
              *
              * See Language::listToText in languages/Language.php
              *
-             * @param {string[]} list
-             * @returns {string}
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.listToText
              */
             function listToText(list: string[]): string;
@@ -197,9 +191,9 @@ declare global {
              *
              * Creates the data {@link mw.Map} if there isn't one for the specified language already.
              *
-             * @param {string} langCode
-             * @param {string|Object.<string, any>} dataKey Key or object of key/values
-             * @param {any} [value] Value for dataKey, omit if dataKey is an object
+             * @param langCode
+             * @param dataKey Key or object of key/values
+             * @param value Value for dataKey, omit if dataKey is an object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.language.html#.setData
              */
             function setData(langCode: string, dataKey: string, value: any): void;
@@ -209,9 +203,9 @@ declare global {
              * Pads an array to a specific length by copying the last one element.
              *
              * @private
-             * @param {string[]} forms Number of forms given to convertPlural
-             * @param {number} count Number of forms required
-             * @returns {string[]} Padded array of forms
+             * @param forms Number of forms given to convertPlural
+             * @param count Number of forms required
+             * @returns Padded array of forms
              */
             function preConvertPlural<T extends string[]>(
                 forms: T,

@@ -7,14 +7,14 @@ interface Options {
     namespace?: string;
 
     /**
-     * @returns {boolean} Whether to show the dialog to the user.
+     * @returns Whether to show the dialog to the user.
      */
     test?(): boolean;
 }
 
 interface ConfirmCloseWindow {
     /**
-     * Remove the event listener and don't show an alert anymore, if the user wants to leave
+     * Remove the event listener and don't show an alert anymore if the user wants to leave
      * the page.
      */
     release(): void;
@@ -22,11 +22,9 @@ interface ConfirmCloseWindow {
     /**
      * Trigger the module's function manually.
      *
-     * Check, if options.test() returns true and show an alert to the user if he/she want
-     * to leave this page. Returns false, if options.test() returns false or the user
+     * Check if options.test() returns true and show an alert to the user if they want
+     * to leave this page. Returns false if options.test() returns false or the user
      * cancelled the alert window (~don't leave the page), true otherwise.
-     *
-     * @returns {boolean}
      */
     trigger(): boolean;
 }
@@ -61,8 +59,8 @@ declare global {
          *     }
          * })
          * ```
-         * @param {Options} [options]
-         * @returns {ConfirmCloseWindow} An object of functions to work with this module
+         * @param options
+         * @returns An object of functions to work with this module
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.confirmCloseWindow
          */
         function confirmCloseWindow(options?: Options): ConfirmCloseWindow;

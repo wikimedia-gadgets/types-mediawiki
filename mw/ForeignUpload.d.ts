@@ -38,11 +38,11 @@ declare global {
             /**
              * Used to represent an upload in progress on the frontend.
              *
-             * @param {string} [target] Used to set up the target
+             * @param target Used to set up the target
              *     wiki. If not remote, this class behaves identically to {@link mw.Upload} (unless further subclassed)
              *     Use the same names as set in $wgForeignFileRepos for this. Also,
              *     make sure there is an entry in the $wgForeignUploadTargets array for this name.
-             * @param {ForeignApi.Options} [apiconfig] Passed to the constructor of mw.ForeignApi or mw.Api, as needed.
+             * @param apiconfig Passed to the constructor of mw.ForeignApi or mw.Api, as needed.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignUpload.html#ForeignUpload
              */
             constructor(target: string, apiconfig?: ForeignApi.Options);

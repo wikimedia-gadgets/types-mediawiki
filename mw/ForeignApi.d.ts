@@ -4,8 +4,9 @@ declare global {
          * Interact with the API of another MediaWiki site. mw.Foreign API creates
          * an object like {@link mw.Api}, but automatically handle everything required to communicate
          *
-         * The foreign wiki must be configured to accept requests from the current wiki. See
-         * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains} for details.
+         * The foreign wiki must be configured to accept requests from the current wiki.
+         * For details, see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains $wgCrossSiteAJAXdomains}
+         * and {@link https://www.mediawiki.org/wiki/Manual:$wgRestAllowCrossOriginCookieAuth $wgRestAllowCrossOriginCookieAuth}.
          *
          * ```js
          * const api = new mw.ForeignApi( 'https://commons.wikimedia.org/w/api.php' );
@@ -43,16 +44,14 @@ declare global {
             /**
              * Create an instance of {@link mw.ForeignApi}.
              *
-             * @param {string|Uri} url URL pointing to another wiki's `api.php` endpoint.
-             * @param {ForeignApi.Options} [options] Also accepts all the options from {@link mw.Api.Options}.
+             * @param url URL pointing to another wiki's `api.php` endpoint.
+             * @param options Also accepts all the options from {@link mw.Api.Options}.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignApi.html#ForeignApi
              */
             constructor(url: string | Uri, options?: ForeignApi.Options);
 
             /**
              * Return the origin to use for API requests, in the required format (protocol, host and port, if any).
-             *
-             * @returns {string|undefined}
              */
             protected getOrigin(): "*" | `${string}//${string}` | undefined;
         }
@@ -67,8 +66,5 @@ declare global {
         }
     }
 }
-
-/** @deprecated Use `mw.ForeignApi.Options` instead. Note that `ForeignApiOptions` is strictly equivalent to `Required<mw.ForeignApi.Options>` as properties are now optional for consistency. */
-export type ForeignApiOptions = Required<mw.ForeignApi.Options>;
 
 export {};
