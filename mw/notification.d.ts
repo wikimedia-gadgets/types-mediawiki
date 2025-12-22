@@ -187,9 +187,9 @@ declare global {
 
                 /**
                  * An optional string for the type of the message used for styling.
-                 * Examples: `info`, `warn`, `error`, `success`.
+                 * Examples: `info`, `warn`, `error`, `success`, `notice`.
                  */
-                type?: "error" | "info" | "success" | "warn" | null;
+                type?: "error" | "info" | "notice" | "success" | "warn" | null;
 
                 /**
                  * A boolean indicating if the autoHide timeout should be based on

@@ -102,23 +102,26 @@ declare global {
              * @example
              * ```js
              * // Create a portlet with 2 menu items that is styled as a dropdown in certain skins.
-             * const p = mw.util.addPortlet( 'p-myportlet', 'My label', '#p-cactions' );
+             * mw.util.addPortlet( 'p-myportlet', 'My label', '#p-cactions' );
              * mw.util.addPortletLink( 'p-myportlet', '#', 'Link 1' );
              * mw.util.addPortletLink( 'p-myportlet', '#', 'Link 2' );
              * ```
              * @since 1.41
-             * @param id of the new portlet.
-             * @param label of the new portlet.
-             * @param selectorHint selector of the element the new portlet would like to
+             * @param id ID of the new portlet.
+             * @param label Label of the new portlet.
+             * @param selectorHint Selector of the element the new portlet would like to
              *  be inserted near. Typically the portlet will be inserted after this selector, but in some
-             *  skins, the skin may relocate the element when provided to the closest available space.
-             *  If this argument is not passed then the caller is responsible for appending the element
-             *  to the DOM before using addPortletLink.
-             *  To add a portlet in an exact position do not rely on this parameter, instead using the return
-             *  element (make sure to also assign the result to a variable), use `p.parentNode.appendChild( p );`.
+             *  skins, the skin may relocate the element to another available space.
+             *
              *  When provided, skins can use the parameter to infer information about how the user intended
-             *  the menu to be rendered. For example, in vector and vector-2022 targeting '#p-cactions' will
-             *  result in the creation of a dropdown.
+             *  the menu to be rendered. For example, in vector and vector-2022 targeting `#p-cactions` will
+             *  result in the creation of a dropdown menu.
+             *
+             *  If this argument is not passed, then the caller is responsible for appending the element
+             *  to the DOM before using addPortletLink.
+             *
+             *  To add a portlet in an exact position do not rely on this parameter, instead assign the returned
+             *  element to a variable, and use `yourTarget.appendChild( portlet );`
              * @returns will be null if it was not possible to create an portlet with
              *  the required information e.g. the selector given in `selectorHint` parameter could not be resolved
              *  to an existing element in the page.
