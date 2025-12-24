@@ -221,6 +221,19 @@ declare global {
             function addSubtitle(nodeOrHTMLString: HTMLElement | string): void;
 
             /**
+             * Adjust the thumbnail size to fit the width steps defined in config via
+             * config.ThumbnailSteps, according to whether config.ThumbnailStepsRatio
+             * is set.
+             *
+             * This logic is duplicated server-side in File::adjustThumbWidthForSteps.
+             *
+             * @since 1.46
+             * @param thumbWidth Target width in pixels.
+             * @param originalWidth Original file width.
+             */
+            function adjustThumbWidthForSteps(thumbWidth: number, originalWidth: number): number;
+
+            /**
              * Clears the entire subtitle if present in the page. Used for refreshing subtitle
              * after edit with response from parse API.
              *
