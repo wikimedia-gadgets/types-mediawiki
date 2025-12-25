@@ -18,7 +18,7 @@ interface Options {
 }
 
 /**
- * Factory for MessagePoster objects. This provides a pluggable to way to script the
+ * Factory for MessagePoster objects. This provides a pluggable way to script the
  * action of adding a message to someone's talk page.
  *
  * The constructor is not publicly accessible; use {@link mw.messagePoster.factory} instead.
@@ -36,6 +36,7 @@ interface MessagePosterFactory {
      * This does not require the message and should be called as soon as possible, so that the
      * API and ResourceLoader requests run in the background.
      *
+     * @since 1.27 - apiUrl parameter can be passed.
      * @param title Title that will be posted to.
      * @param apiUrl api.php URL if the title is on another wiki.
      * @returns Promise resolving to a {@link mw.messagePoster.MessagePoster}.
@@ -54,6 +55,22 @@ interface MessagePosterFactory {
         | ["content-model-unknown", error: string]
         | ["unexpected-response", error: string]
     >;
+
+    /**
+     * Creates a {@link mw.messagePoster.MessagePoster} instance, given a title and content model.
+     *
+     * @private
+     * @since 1.27 - api parameter should be passed.
+     * @deprecated Removed since 1.35.
+     * @param contentModel Content model of title.
+     * @param title Title being posted to.
+     * @param api {@link mw.Api} instance that the instance should use.
+     */
+    createForContentModel(
+        contentModel: string,
+        title: mw.Title,
+        api: mw.Api
+    ): mw.messagePoster.MessagePoster;
 
     /**
      * Register a MessagePoster subclass for a given content model.
@@ -100,6 +117,7 @@ declare global {
         /**
          * Library for posting messages to talk pages.
          *
+         * @since 1.25
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.messagePoster.html
          */
         namespace messagePoster {
@@ -126,6 +144,7 @@ declare global {
                 /**
                  * Post a message (with subject and body) to a talk page.
                  *
+                 * @since 1.34 - options parameter can be passed.
                  * @param subject Subject/topic title.  The amount of wikitext supported is
                  *  implementation-specific. It is recommended to only use basic wikilink syntax for
                  *  maximum compatibility.
@@ -167,6 +186,7 @@ declare global {
                 /**
                  * Create an instance of {@link mw.messagePoster.WikitextMessagePoster}.
                  *
+                 * @since 1.27 - api parameter should be passed.
                  * @param title Wikitext page in a talk namespace, to post to.
                  * @param api {@link mw.Api} object to use.
                  * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.messagePoster.WikitextMessagePoster.html#WikitextMessagePoster
@@ -176,8 +196,10 @@ declare global {
                 /**
                  * Post a message (with subject and body) to a wikitext talk page.
                  *
+                 * @since 1.34 - options parameter can be passed.
                  * @param subject Section title.
-                 * @param body Message body, as wikitext. Signature code will automatically be added unless the message already contains the string ~~~.
+                 * @param body Message body, as wikitext. Signature code will automatically be added
+                 *  unless the message already contains the string '~~~'.
                  * @param options Message options.
                  * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.messagePoster.WikitextMessagePoster.html#post
                  */
