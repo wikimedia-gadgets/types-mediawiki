@@ -70,7 +70,7 @@ declare global {
              * addRoute( /modal/, () => { showModal() }, () => { cleanupModal() } );
              * ```
              * @since 1.45 - teardownCallback parameter can be passed.
-             * @param path Path to match, string or regular expression
+             * @param path Path to match, string or regular expression.
              * @param callback Callback to be run when hash changes to one that matches.
              * @param teardownCallback Callback to be run when hash changes
              *  from one that matches to one that doesn't.
@@ -85,7 +85,7 @@ declare global {
             /**
              * Navigate to the previous route. This is a wrapper for window.history.back.
              *
-             * @return {jQuery.Promise} Promise which resolves when the back navigation is complete.
+             * @returns Promise which resolves when the back navigation is complete.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.router.html#back
              */
             back(): JQuery.Promise<void>;
@@ -100,7 +100,7 @@ declare global {
             /**
              * Get current path (hash).
              *
-             * @return Current path.
+             * @returns Current path.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.router.html#getPath
              */
             getPath(): string;
@@ -108,8 +108,8 @@ declare global {
             /**
              * Whether the current browser supports 'hashchange' events.
              *
-             * @deprecated No longer needed
-             * @return Always true
+             * @deprecated No longer needed.
+             * @returns Always true.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.router.html#isSupported
              */
             isSupported(): boolean;
@@ -120,7 +120,7 @@ declare global {
              * @since 1.43 - fromHashchange parameter can be passed.
              * @deprecated Use {@link navigateTo} instead.
              * @param path String with a route (hash without #).
-             * @param fromHashchange (Internal) The navigate call originated
+             * @param fromHashchange (Internal) The navigate call originated.
              *  form a hashchange event, so don't emit another one.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.router.html#navigate
              */
@@ -212,7 +212,7 @@ declare global {
                  * Determine if current browser supports this router.
                  *
                  * @deprecated Removed since 1.43.
-                 * @return The browser is supported
+                 * @returns The browser is supported.
                  */
                 isSupported(): boolean;
             }
