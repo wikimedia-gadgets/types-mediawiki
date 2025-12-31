@@ -23,9 +23,7 @@ declare global {
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.config
          */
-        const config: ExtensibleMap<ConfigMap>;
-
-        interface ConfigMap {
+        const config: ExtensibleMap<{
             apihighlimits?: boolean;
             blockAdditionalDetailsPreset?: BlockAdditionalDetail[];
             blockAlreadyBlocked?: boolean;
@@ -474,7 +472,7 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgWikiID
              */
             wgWikiID: string;
-        }
+        }>;
     }
 }
 
