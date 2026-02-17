@@ -107,6 +107,8 @@ interface PostEditData {
     message?: string | JQuery | HTMLElement[];
     /**
      * Whether a temporary user account was created.
+     *
+     * @since 1.39
      */
     tempUserCreated?: boolean;
     /**
@@ -187,6 +189,8 @@ declare global {
         /**
          * Create an instance of {@link Hook}.
          *
+         * @since 1.29
+         * @since 1.42 - HTTP method and AJAX options are passed.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook(
@@ -204,7 +208,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}, for custom components to be added to the UserLookup component.
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'SpecialBlock.block'
+         * @since 1.44
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook(
@@ -214,6 +218,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired after EditRecovery has loaded any recovery data, added event handlers, etc.
          *
+         * @since 1.41
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'editRecovery.loadEnd'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -222,6 +227,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired on page load to enhance any HTML forms on the page.
          *
+         * @since 1.25
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'htmlform.enhance'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -243,6 +249,7 @@ declare global {
          * // Now fire the hook.
          * mw.hook( 'postEdit' ).fire();
          * ```
+         * @since 1.25 - data can be passed.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'postEdit'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -251,7 +258,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired after the listener for #postEdit removes the notification.
          *
-         * @deprecated
+         * @deprecated since 1.38, use the `postEdit` hook instead, and an additional pause if required.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'postEdit.afterRemoval'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -260,6 +267,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired when highlight feature is enabled.
          *
+         * @since 1.29
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'RcFilters.highlight.enable'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -268,6 +276,8 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired when the RCFilters tag multi selector menu is toggled.
          *
+         * @since 1.29
+         * @since 1.30 - selected item is no longer passed.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'RcFilters.popup.open'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -276,6 +286,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}.
          *
+         * @since 1.41
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook(name: "prefs.search.buildIndex"): Hook<[index: SearchIndex]>;
@@ -285,6 +296,7 @@ declare global {
          *
          * This will end the user session, and either redirect to the given URL on success, or queue an error message via {@link mw.notification}.
          *
+         * @since 1.40
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'skin.logout'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -293,6 +305,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired after a successful (re-)block on Special:Block.
          *
+         * @since 1.44
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'SpecialBlock.block'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -301,7 +314,8 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired after a successful (re-)block on Special:Block.
          *
-         * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'SpecialBlock.block'
+         * @since 1.44
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'SpecialBlock.form'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook(
@@ -311,6 +325,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired when initialization of the filtering interface for changes list is complete.
          *
+         * @since 1.30
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'structuredChangeFilters.ui.initialized'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -319,6 +334,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}.
          *
+         * @since 1.45
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook(
@@ -334,6 +350,7 @@ declare global {
          *     p.style.border = 'solid 1px black';
          * } );
          * ```
+         * @since 1.41
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'util.addPortlet'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -351,6 +368,7 @@ declare global {
          *     link.appendChild( span );
          * } );
          * ```
+         * @since 1.35
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'util.addPortletLink'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -365,6 +383,7 @@ declare global {
          *
          * This includes the ready event on a page load (including post-edit loads) and when content has been previewed with LivePreview.
          *
+         * @since 1.27
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.categories'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -375,6 +394,7 @@ declare global {
          *
          * This gives an option to modify the collapsible behavior.
          *
+         * @since 1.27
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.collapsibleContent'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -397,6 +417,7 @@ declare global {
          *
          * Similar to the wikipage.content hook, `$diff` may still be detached when the hook is fired.
          *
+         * @since 1.27
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.diff'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -405,6 +426,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired when the diff type switch is present so others can decide how to manipulate the DOM.
          *
+         * @since 1.41
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.diff.diffTypeSwitch'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -415,6 +437,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}.
          *
+         * @since 1.41
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.diff.wikitextDiffBody'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -425,6 +448,7 @@ declare global {
          *
          * Similar to the wikipage.content hook, $editForm can still be detached when this hook is fired.
          *
+         * @since 1.26
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.editform'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -435,6 +459,7 @@ declare global {
          * {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Page_status_indicators status indicators}
          * are being added to the DOM or updated.
          *
+         * @since 1.36
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.indicators'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -443,6 +468,7 @@ declare global {
         /**
          * Create an instance of {@link Hook}, fired when dynamic changes have been made to the table of contents.
          *
+         * @since 1.39
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.tableOfContents'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
@@ -457,6 +483,7 @@ declare global {
          *     // Do things
          * } );
          * ```
+         * @since 1.38
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.watchlistChange'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
