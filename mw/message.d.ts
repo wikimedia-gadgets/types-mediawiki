@@ -154,14 +154,28 @@ declare global {
             parse(): string;
 
             /**
-             * Parse the message to DOM nodes, rather than HTML string like {@link parse}.
+             * Parse message as wikitext and return a jQuery object.
              *
-             * This method is only available when jqueryMsg is loaded.
+             * If jqueryMsg is loaded, this transforms text and parses a subset of supported wikitext
+             * into a jQuery object. Without jqueryMsg, it is equivalent to {@link text},
+             * wrapped in a text node inside a jQuery object.
              *
-             * @since 1.27
+             * @example
+             * ```js
+             * const msg = mw.message( 'key' );
+             * mw.loader.using(`mediawiki.jqueryMsg`).then(() => {
+             *     if ( msg.isParseable() ) {
+             *         const $node = msg.parseDom();
+             *         $node.appendTo('body');
+             *     }
+             * })
+             * ```
+             * @since 1.27 if `mediawiki.jqueryMsg` is loaded
+             * @since 1.46 in `mediawiki.base`,
+             * @returns jQuery object of parsed message.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#parseDom
              */
-            parseDom(): JQuery;
+            parseDom(): JQuery<Text>;
 
             /**
              * Return message plainly.
