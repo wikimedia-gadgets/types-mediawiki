@@ -5,8 +5,7 @@ declare global {
          * an object like {@link mw.Api}, but automatically handle everything required to communicate
          *
          * The foreign wiki must be configured to accept requests from the current wiki.
-         * For details, see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains $wgCrossSiteAJAXdomains}
-         * and {@link https://www.mediawiki.org/wiki/Manual:$wgRestAllowCrossOriginCookieAuth $wgRestAllowCrossOriginCookieAuth}.
+         * For details, see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains $wgCrossSiteAJAXdomains}.
          *
          * ```js
          * const api = new mw.ForeignApi( 'https://commons.wikimedia.org/w/api.php' );
