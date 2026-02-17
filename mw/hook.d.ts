@@ -1,4 +1,7 @@
+import { ApiResponse } from "./Api";
 import { User } from "./user";
+// @ts-ignore
+import { DefineSetupFnComponent, Ref } from "vue";
 
 /**
  * An instance of a hook, created via {@link mw.hook mw.hook method}.
@@ -199,6 +202,16 @@ declare global {
         >;
 
         /**
+         * Create an instance of {@link Hook}, for custom components to be added to the UserLookup component.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'SpecialBlock.block'
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
+         */
+        function hook(
+            name: "codex.userlookup"
+        ): Hook<[customComponents: Ref<DefineSetupFnComponent<Record<string, any>>[]>]>;
+
+        /**
          * Create an instance of {@link Hook}, fired after EditRecovery has loaded any recovery data, added event handlers, etc.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'editRecovery.loadEnd'
@@ -245,6 +258,22 @@ declare global {
         function hook(name: "postEdit.afterRemoval"): Hook<[]>;
 
         /**
+         * Create an instance of {@link Hook}, fired when highlight feature is enabled.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'RcFilters.highlight.enable'
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
+         */
+        function hook(name: "RcFilters.highlight.enable"): Hook<[]>;
+
+        /**
+         * Create an instance of {@link Hook}, fired when the RCFilters tag multi selector menu is toggled.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'RcFilters.popup.open'
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
+         */
+        function hook(name: "RcFilters.popup.open"): Hook<[]>;
+
+        /**
          * Create an instance of {@link Hook}.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
@@ -262,12 +291,39 @@ declare global {
         function hook(name: "skin.logout"): Hook<[href: string]>;
 
         /**
+         * Create an instance of {@link Hook}, fired after a successful (re-)block on Special:Block.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'SpecialBlock.block'
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
+         */
+        function hook(name: "SpecialBlock.block"): Hook<[data: ApiResponse]>;
+
+        /**
+         * Create an instance of {@link Hook}, fired after a successful (re-)block on Special:Block.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'SpecialBlock.block'
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
+         */
+        function hook(
+            name: "SpecialBlock.form"
+        ): Hook<[newValue: boolean, targetUser: string, blockId: number | null]>;
+
+        /**
          * Create an instance of {@link Hook}, fired when initialization of the filtering interface for changes list is complete.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'structuredChangeFilters.ui.initialized'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook(name: "structuredChangeFilters.ui.initialized"): Hook<[]>;
+
+        /**
+         * Create an instance of {@link Hook}.
+         *
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
+         */
+        function hook(
+            name: "typeaheadSearch.appendUrlParams"
+        ): Hook<[appendUrlParams: (key: string, value: string) => void]>;
 
         /**
          * Create an instance of {@link Hook}, fired when a portlet is successfully created.
