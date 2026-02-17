@@ -123,6 +123,13 @@ interface SearchIndexEntry {
     $wrapper: JQuery;
 }
 
+interface PortletLinkInformation {
+    /**
+     * ID of the list item.
+     */
+    id: string | undefined;
+}
+
 declare global {
     namespace mw {
         /**
@@ -244,7 +251,7 @@ declare global {
          */
         function hook(
             name: "util.addPortletLink"
-        ): Hook<[item: HTMLLIElement, information: object]>;
+        ): Hook<[item: HTMLLIElement, information: PortletLinkInformation]>;
 
         /**
          * Create an instance of {@link Hook}, fired when categories are being added to the DOM.
