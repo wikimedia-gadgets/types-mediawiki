@@ -89,6 +89,13 @@ interface Hook<T extends any[] = any[]> {
     remove(...handlers: Array<(...data: T) => any>): this;
 }
 
+interface EditRecovery {
+    /**
+     * Handle an edit form field changing.
+     */
+    fieldChangeHandler(): void;
+}
+
 interface PostEditData {
     /**
      * Message that listeners should use when displaying notifications.
@@ -114,10 +121,6 @@ interface SearchIndexEntry {
     $highlight: JQuery;
     $tabPanel: JQuery;
     $wrapper: JQuery;
-}
-
-interface EditRecovery {
-    fieldChangeHandler(): void;
 }
 
 declare global {
@@ -153,7 +156,7 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'htmlform.enhance'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
-        function hook(name: "htmlform.enhance"): Hook<[document: JQuery]>;
+        function hook(name: "htmlform.enhance"): Hook<[$root: JQuery]>;
 
         /**
          * Create an instance of {@link Hook}, fired after an edit was successfully saved.
