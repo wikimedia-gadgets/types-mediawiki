@@ -130,6 +130,55 @@ interface PortletLinkInformation {
     id: string | undefined;
 }
 
+interface TOCSectionMetadata {
+    /**
+     * "True" value of the ID attribute.
+     */
+    anchor: string;
+    /**
+     * Codepoint offset where the section shows up in wikitext; this is null
+     * if this section comes from a template, if it comes from a literal
+     * HTML <h_> tag, or otherwise doesn't correspond to a "preprocessor
+     * section".
+     */
+    byteoffset: number | null;
+    /**
+     * Arbitrary data attached to this section by extensions.
+     */
+    extensionData?: {};
+    /**
+     * The title of the page that generated this heading.
+     * For template-generated sections, this will be the template title.
+     * This string is in "prefixed DB key" format.
+     */
+    fromtitle: string | false;
+    /**
+     * Section id (integer, assigned in depth first traversal order).
+     * Template generated sections get a `T-` prefix.
+     */
+    index: string;
+    /**
+     * The heading tag level.
+     */
+    level: string;
+    /**
+     * HTML heading of the section.
+     */
+    line: string;
+    /**
+     * URL-escaped value of the anchor, for use in constructing a URL fragment link.
+     */
+    linkAnchor: string;
+    /**
+     * TOC number string (3.1.3, 4.5.2, etc.).
+     */
+    number: string;
+    /**
+     * One-indexed TOC level and the nesting level.
+     */
+    toclevel: number;
+}
+
 declare global {
     namespace mw {
         /**
@@ -341,7 +390,7 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.tableOfContents'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
-        function hook(name: "wikipage.tableOfContents"): Hook<[sections: any[]]>;
+        function hook(name: "wikipage.tableOfContents"): Hook<[sections: TOCSectionMetadata[]]>;
 
         /**
          * Create an instance of {@link Hook}, fired when the page watch status has changed.
