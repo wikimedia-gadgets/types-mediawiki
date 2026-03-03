@@ -6,8 +6,7 @@ declare global {
          * with another MediaWiki wiki via cross-origin requests (CORS).
          *
          * The foreign wiki must be configured to accept requests from the current wiki.
-         * For details, see {@link https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgCrossSiteAJAXdomains $wgCrossSiteAJAXdomains}
-         * and {@link https://www.mediawiki.org/wiki/Manual:$wgRestAllowCrossOriginCookieAuth $wgRestAllowCrossOriginCookieAuth}.
+         * For details, see {@link https://www.mediawiki.org/wiki/Manual:$wgRestAllowCrossOriginCookieAuth $wgRestAllowCrossOriginCookieAuth}.
          *
          * ```js
          * const api = new mw.ForeignRest( 'https://commons.wikimedia.org/w/rest.php' );
@@ -43,6 +42,17 @@ declare global {
              * @param url URL pointing to another wiki's `rest.php` endpoint.
              * @param foreignActionApi
              * @param options See {@link mw.Rest}.
+             * @param optionsCompat No longer used, kept for compatibility.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignRest.html#ForeignRest
+             */
+            constructor(url: string, options?: ForeignRest.Options);
+            /**
+             * Create an instance of {@link mw.ForeignRest}.
+             *
+             * @param url URL pointing to another wiki's `rest.php` endpoint.
+             * @param foreignActionApi
+             * @param options See {@link mw.Rest}.
+             * @deprecated since 1.46, do not pass `foreignActionApi`.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.ForeignRest.html#ForeignRest
              */
             constructor(url: string, foreignActionApi: ForeignApi, options?: ForeignRest.Options);
