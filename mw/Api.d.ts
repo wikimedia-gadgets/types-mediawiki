@@ -385,6 +385,13 @@ declare global {
              * Given an API response indicating an error, get a jQuery object containing a human-readable
              * error message that you can display somewhere on the page.
              *
+             * This method handles the different error formats returned by the action API itself, and some
+             * error conditions that may occur at other layers, e.g. user losing their network connection,
+             * server being down, rate limits enforced by a proxy in front of MediaWiki, etc.
+             *
+             * Error messages, particularly for editing pages, may consist of multiple paragraphs of text.
+             * Your user interface should have enough space for that.
+             *
              * For better quality of error messages, it's recommended to use the following options in your
              * API queries:
              *
@@ -393,9 +400,6 @@ declare global {
              * errorlang: mw.config.get( 'wgUserLanguage' ),
              * errorsuselocal: true,
              * ```
-             *
-             * Error messages, particularly for editing pages, may consist of multiple paragraphs of text.
-             * Your user interface should have enough space for that.
              *
              * @example
              * ```js
