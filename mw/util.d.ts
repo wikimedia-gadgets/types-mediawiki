@@ -224,10 +224,7 @@ declare global {
 
             /**
              * Adjust the thumbnail size to fit the width steps defined in config via
-             * config.ThumbnailSteps, according to whether config.ThumbnailStepsRatio
-             * is set.
-             *
-             * This logic is duplicated server-side in File::adjustThumbWidthForSteps.
+             * config.ThumbnailSteps, according to whether config.ThumbnailStepsRatio is set.
              *
              * @since 1.46
              * @param thumbWidth Target width in pixels.
