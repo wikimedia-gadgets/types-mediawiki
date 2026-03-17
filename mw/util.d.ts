@@ -216,9 +216,25 @@ declare global {
              * Add content to the subtitle of the skin.
              *
              * @since 1.40
+             * @since 1.46 - returns a boolean indicating whether the subtitle was updated.
+             * @returns Whether the subtitle was updated.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addSubtitle
              */
-            function addSubtitle(nodeOrHTMLString: HTMLElement | string): void;
+            function addSubtitle(nodeOrHTMLString: HTMLElement | string): boolean;
+
+            /**
+             * Adjust the thumbnail size to fit the width steps defined in config via
+             * config.ThumbnailSteps, according to whether config.ThumbnailStepsRatio
+             * is set.
+             *
+             * This logic is duplicated server-side in `File::adjustThumbWidthForSteps`.
+             *
+             * @since 1.46
+             * @param thumbWidth Target width in pixels.
+             * @param originalWidth Original file width.
+             * @returns Adjusted thumbnail width in pixels.
+             */
+            function adjustThumbWidthForSteps(thumbWidth: number, originalWidth: number): number;
 
             /**
              * Clears the entire subtitle if present in the page. Used for refreshing subtitle
