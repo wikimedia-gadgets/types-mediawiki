@@ -69,6 +69,10 @@ declare global {
              * @since 1.46
              */
             enableWatchlistLabels?: true;
+            /**
+             * @since 1.46
+             */
+            indefBlockReasonOptions?: BlockReasonOption[];
             partialBlockActionOptions?: Record<`ipb-action-${string}`, string>;
             searchTerm?: string;
             /**
