@@ -1,3 +1,4 @@
+import { ApiBlockParams } from "types-mediawiki-api";
 import { User } from "./user";
 
 /**
@@ -154,6 +155,22 @@ declare global {
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook(name: "htmlform.enhance"): Hook<[document: JQuery]>;
+
+        /**
+         * Create an instance of {@link Hook}.
+         *
+         * @since 1.46
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
+         */
+        function hook(name: "mw.special.block.doBlockParamsReady"): Hook<[params: ApiBlockParams]>;
+
+        /**
+         * Create an instance of {@link Hook}, fired when the `Special:Block` form has been reset to default values.
+         *
+         * @since 1.46
+         * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
+         */
+        function hook(name: "mw.special.block.formReset"): Hook<[]>;
 
         /**
          * Create an instance of {@link Hook}, fired after an edit was successfully saved.
