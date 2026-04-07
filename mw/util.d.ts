@@ -232,9 +232,14 @@ declare global {
              * @since 1.46
              * @param thumbWidth Target width in pixels.
              * @param originalWidth Original file width.
+             * @param isVectorized Whether the image is svg or similar.
              * @returns Adjusted thumbnail width in pixels.
              */
-            function adjustThumbWidthForSteps(thumbWidth: number, originalWidth: number): number;
+            function adjustThumbWidthForSteps(
+                thumbWidth: number,
+                originalWidth: number,
+                isVectorized?: boolean
+            ): number;
 
             /**
              * Clears the entire subtitle if present in the page. Used for refreshing subtitle
