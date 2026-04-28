@@ -174,6 +174,10 @@ declare global {
             wgContentNamespaces: number[];
             wgCreateAccountDirty?: true;
             /**
+             * @since 1.46
+             */
+            wgCreateAccountUsernamePolicyPopoverMsgs?: PopoverMessages;
+            /**
              * The top revision ID of the currently viewed page at the time the page was served. Also set on diff and history pages; zero for special pages.
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCurRevisionId
