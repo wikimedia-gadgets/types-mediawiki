@@ -61,7 +61,6 @@ declare global {
          * @param message
          * @param options The options to use for the notification.
          *  See {@link notification.defaults the defaults}.
-         * @returns Notification object
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.notify
          */
         function notify(
@@ -118,7 +117,6 @@ declare global {
              * @param message
              * @param options The options to use for the notification.
              *  Options not specified default to the values in {@link defaults}.
-             * @returns Notification object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.notify
              */
             function notify(

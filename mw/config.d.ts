@@ -575,6 +575,11 @@ interface WatchlistLabel {
     name: string;
 }
 
+interface PopoverMessages {
+    title: string;
+    bulletsHtml: string;
+}
+
 interface FileWarning {
     module: string;
     messages: FileWarningMessages;

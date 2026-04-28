@@ -793,18 +793,22 @@ declare global {
              * Convenience method for `action=watch`.
              *
              * @since 1.35 - expiry parameter can be passed when Watchlist Expiry is enabled.
+             * @since 1.46 - labels parameter can be passed.
              * @param pages Full page name or instance of {@link mw.Title}, or an
              *  array thereof. If an array is passed, the return value passed to the promise will also be an
              *  array of appropriate objects.
              * @param expiry When the page should expire from the watchlist. If omitted, the
              *  page will not expire.
+             * @param labels Array of integer watchlist label IDs for labels to apply to the watched
+             *  pages. If the page is already watched, this will replace any existing labels.
              * @returns A promise that resolves with an object (or array of objects) describing each page that was passed in and its
              *  current watched/unwatched status.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#watch
              */
             watch<P extends TypeOrArray<TitleLike>>(
                 pages: P,
-                expiry?: string
+                expiry?: string,
+                labels?: number[] | string[]
             ): Api.AbortablePromise<[ReplaceValue<P, TitleLike, Api.WatchedPage>]>;
 
             /**
