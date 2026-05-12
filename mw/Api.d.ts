@@ -808,7 +808,7 @@ declare global {
             watch<P extends TypeOrArray<TitleLike>>(
                 pages: P,
                 expiry?: string,
-                labels?: number[] | string[]
+                labels?: Array<number | string>
             ): Api.AbortablePromise<[ReplaceValue<P, TitleLike, Api.WatchedPage>]>;
 
             /**

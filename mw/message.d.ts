@@ -171,7 +171,7 @@ declare global {
              * })
              * ```
              * @since 1.27 if `mediawiki.jqueryMsg` is loaded
-             * @since 1.46 in `mediawiki.base`,
+             * @since 1.46 in `mediawiki.base`
              * @returns jQuery object of parsed message.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Message.html#parseDom
              */
