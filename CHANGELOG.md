@@ -1,3 +1,14 @@
+## Unreleased
+
+- Updated to MediaWiki 1.45:
+  * Added `notice` as valid type for `mw.notify()` options.
+  * Added `blockCIDRLimit`, `wgParsoidHtmlVersion` configuration values.
+  * Added `revisionsize` property to the `wgPageParseReport.limitreport` configuration value.
+- Added missing configuration values defined in MediaWiki core.
+- Fixed configuration value types:
+  * `wgPageParseReport` and `wgRestrictionMove` can be undefined.
+  * `wgPostEdit` can have a `+tempuser` suffix.
+  * `wgUserRegistration` can be null.
 
 ## 2.0.0
 
