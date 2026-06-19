@@ -1,14 +1,23 @@
 ## Unreleased
 
-- Updated to MediaWiki 1.45:
-  * Added `notice` as valid type for `mw.notify()` options.
-  * Added `blockCIDRLimit`, `wgParsoidHtmlVersion` configuration values.
-  * Added `revisionsize` property to the `wgPageParseReport.limitreport` configuration value.
-- Added missing configuration values defined in MediaWiki core.
-- Fixed configuration value types:
-  * `wgPageParseReport` and `wgRestrictionMove` can be undefined.
-  * `wgPostEdit` can have a `+tempuser` suffix.
-  * `wgUserRegistration` can be null.
+-   Updated to MediaWiki 1.45:
+    -   Added `notice` as valid type for `mw.notify()` options.
+    -   Added `blockCIDRLimit`, `wgParsoidHtmlVersion` configuration values.
+    -   Added `revisionsize` property to the `wgPageParseReport.limitreport` configuration value.
+-   Updated to MediaWiki 1.46:
+    -   Added `labels` (3rd) optional parameter to `new mw.Api().watch()`.
+    -   Added `enableWatchlistLabels`, `indefBlockReasonOptions`, `SpecialEditWatchlistUrl`, `SpecialWatchlistLabelsTitle`, `SpecialWatchlistLabelsUrl`, `watchlistLabels`, `wgAutoCreateTempUserEnabled`, `wgCreateAccountUsernamePolicyPopoverMsgs`, and `wgErrorPageMessageKey` configuration values (see `mw.config`).
+    -   Added `mw.special.block.doBlockParamsReady` and `mw.special.block.formReset` hooks (see `mw.hook`).
+    -   Added `ariaText` to `mw.notification()` options.
+    -   Added `mw.util.adjustThumbWidthForSteps()` function.
+    -   Deprecated `foreignActionApi` argument from `mw.ForeignRest` constructor.
+    -   Moved `parseDom` method of `mw.Message` from `mediawiki.jqueryMsg` ResourceLoader module to `mediawiki.base`.
+    -   `mw.util.addSubtitle()` returns a boolean indicating whether the subtitle was updated.
+-   Added missing configuration values defined in MediaWiki core.
+-   Fixed configuration value types:
+    -   `wgPageParseReport` and `wgRestrictionMove` can be undefined.
+    -   `wgPostEdit` can have a `+tempuser` suffix.
+    -   `wgUserRegistration` can be null.
 
 ## 2.0.0
 
