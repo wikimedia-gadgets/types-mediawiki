@@ -9,6 +9,7 @@
   * `wgPageParseReport` and `wgRestrictionMove` can be undefined.
   * `wgPostEdit` can have a `+tempuser` suffix.
   * `wgUserRegistration` can be null.
+- Added types for the `mediawiki.router` ResourceLoader module.
 
 ## 2.0.0
 
