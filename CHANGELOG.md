@@ -9,6 +9,10 @@
   * `wgPageParseReport` and `wgRestrictionMove` can be undefined.
   * `wgPostEdit` can have a `+tempuser` suffix.
   * `wgUserRegistration` can be null.
+- Added missing hooks defined in MediaWiki core: `codex.userlookup`, `RcFilters.highlight.enable`, `RcFilters.popup.open`, `SpecialBlock.block`, `SpecialBlock.form`, and `typeaheadSearch.appendUrlParams`.
+- Narrowed hook argument types from `any`:
+  * information (2nd) argument of `util.addPortletLink`.
+  * sections (1st) argument of `wikipage.tableOfContents`.
 
 ## 2.0.0
 
