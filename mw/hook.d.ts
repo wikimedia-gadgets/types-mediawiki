@@ -95,8 +95,10 @@ interface PostEditData {
     /**
      * Message that listeners should use when displaying notifications.
      * String for plain text, use array or jQuery object to pass actual nodes.
+     *
+     * @since 1.47 - accepts `mw.Message` objects.
      */
-    message?: string | JQuery | HTMLElement[];
+    message?: string | mw.Message | JQuery | HTMLElement[];
     /**
      * Whether a temporary user account was created.
      */
