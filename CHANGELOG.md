@@ -1,5 +1,11 @@
 ## Unreleased
 
+-   Updated to MediaWiki 1.47:
+    -   Added `blockIndefiniteExpiry` and `blockIndefiniteExpiryLabel` configuration values (see `mw.config`).
+    -   Added `mw.tempUserCreated.showCondensedPopup()` function.
+    -   `mw.util.addPortletLink()` accepts a portlet options object as single argument. The legacy signature is deprecated.
+    -   Removed `labels` (3rd) optional parameter from `new mw.Api().watch()`.
+
 ## 2.1.0
 
 -   Updated to MediaWiki 1.45:

@@ -14,7 +14,7 @@ declare global {
          * @param key Cookie name or (when getting) omit to return an object with all
          *  current cookie keys and values.
          * @param value Cookie value to set. If `null`, this method will remove the cookie.
-         *  If omited, this method will get and return the current value.
+         *  If ommited, this method will get and return the current value.
          * @param options
          * @returns The current value (if getting a cookie), or an internal `document.cookie`
          *  expression (if setting or removing).

@@ -77,6 +77,14 @@ declare global {
             getApi(): JQuery.Promise<Api>;
 
             /**
+             * Get whether the file page wikitext should be generated server-side.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getAutoText
+             */
+            getAutoText(): boolean;
+
+            /**
              * Gets the base filename from a path name.
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getBasename
@@ -84,11 +92,27 @@ declare global {
             getBasename(path: string): string;
 
             /**
+             * Get the chunk size used for chunked uploads, in bytes.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getChunkSize
+             */
+            getChunkSize(): boolean;
+
+            /**
              * Get the current value of the edit comment for the upload.
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getComment
              */
             getComment(): string;
+
+            /**
+             * Get the copyright status for the upload.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getCopyStatus
+             */
+            getCopyStatus(): string;
 
             /**
              * Get the file being uploaded.
@@ -105,6 +129,14 @@ declare global {
             getFilename(): string;
 
             /**
+             * Check if upload warnings will be ignored when publishing.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getIgnoreWarnings
+             */
+            getIgnoreWarnings(): boolean;
+
+            /**
              * Get the imageinfo object for the finished upload.
              * Only available once the upload is finished! Don't try to get it
              * beforehand.
@@ -112,6 +144,22 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getImageInfo
              */
             getImageInfo(): ApiResponse | undefined;
+
+            /**
+             * Get the license for the upload.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getLicense
+             */
+            getLicense(): string;
+
+            /**
+             * Get the source for the upload.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#getSource
+             */
+            getSource(): string;
 
             /**
              * Gets the state of the upload.
@@ -142,11 +190,36 @@ declare global {
             getWatchlist(): boolean;
 
             /**
+             * Set whether the file page wikitext should be generated server-side from
+             * the comment, license, copyright status and source, overriding the text.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setAutoText
+             */
+            setAutoText(autotext: boolean): void;
+
+            /**
+             * Set the chunk size used for chunked uploads, in bytes.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setChunkSize
+             */
+            setChunkSize(chunkSize: number): void;
+
+            /**
              * Set the edit comment for the upload.
              *
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setComment
              */
             setComment(comment: string): void;
+
+            /**
+             * Set the copyright status for the upload.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setCopyStatus
+             */
+            setCopyStatus(copyStatus: string): void;
 
             /**
              * Set the file to be uploaded.
@@ -175,6 +248,30 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setFilenameFromFile
              */
             setFilenameFromFile(): void;
+
+            /**
+             * Set whether to ignore upload warnings when publishing.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setIgnoreWarnings
+             */
+            setIgnoreWarnings(ignoreWarnings: boolean): void;
+
+            /**
+             * Set the license template for the upload.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setLicense
+             */
+            setLicense(license: string): void;
+
+            /**
+             * Set the source for the upload.
+             *
+             * @since 1.47
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Upload.html#setSource
+             */
+            setSource(source: string): void;
 
             /**
              * Sets the state and state details (if any) of the upload.

@@ -81,8 +81,8 @@ declare global {
                  */
                 domain?: string;
                 /**
-                 * Number of days to store the value (when setting).
-                 * The expiry date of the cookie, or lifetime in seconds.
+                 * The expiration date of the cookie, or lifetime in seconds when used with
+                 * `mw.cookie.set()`, or days when used with the legacy `$.cookie()`.
                  * If null or 0, then a session cookie is set. Defaults to wgCookieExpiration.
                  */
                 expires?: Date | number | null;

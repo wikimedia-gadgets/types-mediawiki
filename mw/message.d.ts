@@ -19,7 +19,7 @@ declare global {
         const messages: Map<{ [key: string]: string }>;
 
         /**
-         * Describes a translateable text or HTML string. Similar to the Message class in MediaWiki PHP.
+         * Describes a translatable text or HTML string. Similar to the Message class in MediaWiki PHP.
          *
          * @example
          * ```js

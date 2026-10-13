@@ -2,7 +2,7 @@ declare global {
     namespace mw {
         /**
          * Namespace for CLDR-related utility methods.
-         * Provided by the `mediawiki.cdlr` ResourceLoader module.
+         * Provided by the `mediawiki.cldr` ResourceLoader module.
          *
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.cldr.html
          */
