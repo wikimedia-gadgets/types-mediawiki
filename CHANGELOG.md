@@ -1,10 +1,15 @@
 ## Unreleased
 
 -   Updated to MediaWiki 1.47:
-    -   Added `blockIndefiniteExpiry` and `blockIndefiniteExpiryLabel` configuration values (see `mw.config`).
+    -   Added `blockIndefiniteExpiry`, `blockIndefiniteExpiryLabel`, `wgCreateAccountUsernamePolicyBulletsHtml`, `wgCreateAccountUsernamePolicyUrl`, `wgEnableChunkedUploads`, `wgMaxPhpUploadSize`, `wgMinUploadChunkSize`, `wgReauthCurrentlyRequired`, `wgReauthOperation`, and `wgStructuredChangeFiltersRestrictedTags` configuration values (see `mw.config`).
     -   Added `mw.tempUserCreated.showCondensedPopup()` function.
-    -   `mw.util.addPortletLink()` accepts a portlet options object as single argument. The legacy signature is deprecated.
+    -   Added `get`/`setAutoText()`, `get`/`setChunkSize()`, `get`/`setCopyStatus()`, `get`/`setIgnoreWarnings()`, `get`/`setLicense()`, and `get`/`setSource()` to `mw.Upload`.
+    -   `mw.util.addPortlet()` and `mw.util.addPortletLink()` alternatively accept a portlet ID and options object as arguments. The legacy signatures are deprecated.
+    -   Added `useDivLabel` optional property to `mw.util.addPortlet()` options.
+    -   Added `icon` optional property to `mw.util.addPortletLink()` options.
+    -   `postEdit` hook alternatively accept (and can be fired with) a `mw.Message` object as argument.
     -   Removed `labels` (3rd) optional parameter from `new mw.Api().watch()`.
+    -   Removed `specUrl` and `wgCreateAccountUsernamePolicyPopoverMsgs` configuration values (see `mw.config`).
 
 ## 2.1.0
 
