@@ -19,6 +19,7 @@ import "./loader";
 import "./log";
 import "./Map";
 import "./message";
+import "./messagePoster";
 import "./notification";
 import "./pluralRuleParser";
 import "./RegExp";
