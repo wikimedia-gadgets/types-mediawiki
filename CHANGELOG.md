@@ -10,6 +10,12 @@
     -   `postEdit` hook alternatively accept (and can be fired with) a `mw.Message` object as argument.
     -   Removed `labels` (3rd) optional parameter from `new mw.Api().watch()`.
     -   Removed `specUrl` and `wgCreateAccountUsernamePolicyPopoverMsgs` configuration values (see `mw.config`).
+-   Added types for the `mediawiki.messagePoster` and `mediawiki.router` ResourceLoader modules.
+-   Added types for the `mw.loader.profiler` namespace.
+-   Added missing hooks defined in MediaWiki core: `codex.userlookup`, `RcFilters.highlight.enable`, `RcFilters.popup.open`, `SpecialBlock.block`, `SpecialBlock.form`, and `typeaheadSearch.appendUrlParams`.
+-   Narrowed hook argument types from `any`:
+    -   information (2nd) argument of `util.addPortletLink`.
+    -   sections (1st) argument of `wikipage.tableOfContents`.
 
 ## 2.1.0
 
