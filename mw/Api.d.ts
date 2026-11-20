@@ -385,6 +385,13 @@ declare global {
              * Given an API response indicating an error, get a jQuery object containing a human-readable
              * error message that you can display somewhere on the page.
              *
+             * This method handles the different error formats returned by the action API itself, and some
+             * error conditions that may occur at other layers, e.g. user losing their network connection,
+             * server being down, rate limits enforced by a proxy in front of MediaWiki, etc.
+             *
+             * Error messages, particularly for editing pages, may consist of multiple paragraphs of text.
+             * Your user interface should have enough space for that.
+             *
              * For better quality of error messages, it's recommended to use the following options in your
              * API queries:
              *
@@ -393,9 +400,6 @@ declare global {
              * errorlang: mw.config.get( 'wgUserLanguage' ),
              * errorsuselocal: true,
              * ```
-             *
-             * Error messages, particularly for editing pages, may consist of multiple paragraphs of text.
-             * Your user interface should have enough space for that.
              *
              * @example
              * ```js
@@ -789,18 +793,22 @@ declare global {
              * Convenience method for `action=watch`.
              *
              * @since 1.35 - expiry parameter can be passed when Watchlist Expiry is enabled.
+             * @since 1.46 - labels parameter can be passed.
              * @param pages Full page name or instance of {@link mw.Title}, or an
              *  array thereof. If an array is passed, the return value passed to the promise will also be an
              *  array of appropriate objects.
              * @param expiry When the page should expire from the watchlist. If omitted, the
              *  page will not expire.
+             * @param labels Array of integer watchlist label IDs for labels to apply to the watched
+             *  pages. If the page is already watched, this will replace any existing labels.
              * @returns A promise that resolves with an object (or array of objects) describing each page that was passed in and its
              *  current watched/unwatched status.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.Api.html#watch
              */
             watch<P extends TypeOrArray<TitleLike>>(
                 pages: P,
-                expiry?: string
+                expiry?: string,
+                labels?: Array<number | string>
             ): Api.AbortablePromise<[ReplaceValue<P, TitleLike, Api.WatchedPage>]>;
 
             /**

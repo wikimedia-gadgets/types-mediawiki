@@ -66,6 +66,13 @@ interface ModuleRegistryEntry {
     version: string;
 }
 
+interface ResourceLoaderProfile {
+    execute: number;
+    name: string;
+    script: number;
+    total: number;
+}
+
 interface JsonModuleStore {
     asOf: number;
     items: string;
@@ -481,6 +488,29 @@ declare global {
              * @private
              */
             function work(): void;
+
+            /**
+             * Private hooks inserted into mw.loader code if MediaWiki configuration
+             * `$wgResourceLoaderEnableJSProfiler` is `true`.
+             *
+             * To use this data, run `mw.inspect( 'time' )` from the browser console.
+             * See {@link mw.inspect()}.
+             *
+             * @private
+             * @since 1.32
+             */
+            namespace profiler {
+                /**
+                 * For internal use by {@link inspect.reports.time}.
+                 *
+                 * @throws {Error} If the perf record is incomplete.
+                 */
+                function getProfile(moduleName: string): ResourceLoaderProfile | null;
+                function onExecuteStart(moduleName: string): void;
+                function onExecuteEnd(moduleName: string): void;
+                function onScriptStart(moduleName: string): void;
+                function onScriptEnd(moduleName: string): void;
+            }
 
             namespace store {
                 /**
