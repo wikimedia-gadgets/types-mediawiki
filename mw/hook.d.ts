@@ -1,6 +1,7 @@
 import { ApiBlockParams } from "types-mediawiki-api";
 import { ApiResponse } from "./Api";
 import { User } from "./user";
+import { PortletLinkOptions } from "./util";
 // @ts-ignore
 import { DefineSetupFnComponent, Ref } from "vue";
 
@@ -104,8 +105,10 @@ interface PostEditData {
     /**
      * Message that listeners should use when displaying notifications.
      * String for plain text, use array or jQuery object to pass actual nodes.
+     *
+     * @since 1.47 - accepts `mw.Message` objects.
      */
-    message?: string | JQuery | HTMLElement[];
+    message?: string | mw.Message | JQuery | HTMLElement[];
     /**
      * Whether a temporary user account was created.
      *
@@ -127,13 +130,6 @@ interface SearchIndexEntry {
     $highlight: JQuery;
     $tabPanel: JQuery;
     $wrapper: JQuery;
-}
-
-interface PortletLinkInformation {
-    /**
-     * ID of the list item.
-     */
-    id: string | undefined;
 }
 
 interface TOCSectionMetadata {
@@ -380,18 +376,20 @@ declare global {
          *
          * @example
          * ```js
-         * mw.hook( 'util.addPortletLink' ).add( ( link ) => {
-         *     const span = $( '<span class="icon">' );
-         *     link.appendChild( span );
+         * mw.hook( 'util.addPortletLink' ).add( ( link, options ) => {
+         *     if ( options.id === 't-special-link' ) {
+         *         link.classList.add( 'my-special-class' );
+         *     }
          * } );
          * ```
          * @since 1.35
+         * @since 1.47 - all portlet options are passed.
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'util.addPortletLink'
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.hook
          */
         function hook(
             name: "util.addPortletLink"
-        ): Hook<[item: HTMLLIElement, information: PortletLinkInformation]>;
+        ): Hook<[item: HTMLLIElement, options: PortletLinkOptions]>;
 
         /**
          * Create an instance of {@link Hook}, fired when categories are being added to the DOM.

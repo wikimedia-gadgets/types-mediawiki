@@ -43,6 +43,14 @@ declare global {
             blockExpiryPreset?: string;
             blockHideUser?: true;
             blockId?: number | null;
+            /**
+             * @since 1.47
+             */
+            blockIndefiniteExpiry?: string;
+            /**
+             * @since 1.47
+             */
+            blockIndefiniteExpiryLabel?: string;
             blockNamespaceRestrictions?: string;
             blockPageRestrictions?: string;
             blockPreErrors?: string[];
@@ -93,6 +101,9 @@ declare global {
              * @since 1.46
              */
             SpecialWatchlistLabelsUrl?: string;
+            /**
+             * @deprecated Removed since 1.47.
+             */
             specUrl?: string | null;
             StructuredChangeFiltersDisplayConfig?: StructuredChangeFiltersDisplayConfig;
             /**
@@ -174,9 +185,18 @@ declare global {
             wgContentNamespaces: number[];
             wgCreateAccountDirty?: true;
             /**
+             * @since 1.47
+             */
+            wgCreateAccountUsernamePolicyBulletsHtml?: string[];
+            /**
              * @since 1.46
+             * @deprecated Removed since 1.47.
              */
             wgCreateAccountUsernamePolicyPopoverMsgs?: PopoverMessages;
+            /**
+             * @since 1.47
+             */
+            wgCreateAccountUsernamePolicyUrl?: string;
             /**
              * The top revision ID of the currently viewed page at the time the page was served. Also set on diff and history pages; zero for special pages.
              *
@@ -211,6 +231,10 @@ declare global {
                 | "editingsection";
             wgEditRecoveryWasPosted?: boolean;
             wgEditSubmitButtonLabelPublish?: boolean;
+            /**
+             * @since 1.47
+             */
+            wgEnableChunkedUploads?: boolean;
             /**
              * @since 1.46
              */
@@ -261,7 +285,15 @@ declare global {
              */
             wgIsRedirect: boolean;
             wgLegalTitleChars: string;
+            /**
+             * @since 1.47
+             */
+            wgMaxPhpUploadSize?: number;
             wgMaxUploadSize?: MaxUploadSize;
+            /**
+             * @since 1.47
+             */
+            wgMinUploadChunkSize?: number;
             wgMonthNames: [
                 string,
                 string,
@@ -331,6 +363,14 @@ declare global {
             wgPostEdit?: `${"created" | "restored" | "saved"}${"" | "+tempuser"}`;
             wgPostEditConfirmationDisabled?: true;
             wgPreferencesTabs?: PreferenceTab[];
+            /**
+             * @since 1.47
+             */
+            wgReauthCurrentlyRequired?: boolean;
+            /**
+             * @since 1.47
+             */
+            wgReauthOperation?: string;
             /**
              * When redirected contains the title of the page we were redirected from. If the page was not redirected, the value is omitted entirely (absent in mw.config). Uses the same format as wgPageName
              *
@@ -427,6 +467,10 @@ declare global {
             wgStructuredChangeFiltersDefaultSavedQueryExists?: true;
             wgStructuredChangeFiltersLimitPreferenceName?: string;
             wgStructuredChangeFiltersMessages?: Record<string, string>;
+            /**
+             * @since 1.47
+             */
+            wgStructuredChangeFiltersRestrictedTags?: StructuredChangeFiltersRestrictedTag[];
             wgStructuredChangeFiltersSavedQueriesPreferenceName?: string;
             wgTempUserName?: string | null;
             /**
@@ -676,6 +720,14 @@ interface StructuredChangeFilter {
 interface StructuredChangeFilterSubset {
     filter: string;
     group: string;
+}
+
+interface StructuredChangeFiltersRestrictedTag {
+    cssClass: string;
+    description: string;
+    helpLink: string | null;
+    label: string;
+    name: string;
 }
 
 interface StructuredChangeFiltersDisplayConfig {

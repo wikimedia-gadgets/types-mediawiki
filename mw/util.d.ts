@@ -10,6 +10,79 @@ type NoReturn<T extends (...args: any[]) => any> = T extends (
     : never;
 
 /**
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#~PortletOptions
+ */
+interface PortletOptions {
+    /**
+     * Label of the new portlet.
+     */
+    label?: string;
+    /**
+     * Selector of the element the new portlet would like to be
+     * inserted near. Typically the portlet will be inserted after this selector, but in some
+     * skins, the skin may relocate the element to another available space.
+     *
+     * When provided, skins can use the parameter to infer information about how the user intended
+     * the menu to be rendered. For example, in vector and vector-2022 targeting `#p-cactions` will
+     * result in the creation of a dropdown menu.
+     *
+     * If this argument is not passed, then the caller is responsible for appending the element to
+     * the DOM before using addPortletLink.
+     *
+     * To add a portlet in an exact position do not rely on this parameter, instead assign the
+     * returned element to a variable, and use `yourTarget.appendChild( portlet );`
+     */
+    selectorHint?: string;
+    /**
+     * Set to `true` to use a `<div>` for the portlet label instead of a `<label>` element.
+     * (Using a `<label>` is only valid within a `<form>`.)
+     *
+     * @since 1.47
+     */
+    useDivLabel?: boolean;
+}
+
+/**
+ * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#~PortletLinkOptions
+ */
+export interface PortletLinkOptions {
+    /**
+     * Access key to activate this link. One character only, avoid conflicts with other links. Use
+     * `$( '[accesskey=x]' )` in the console to see if 'x' is already used.
+     */
+    accesskey?: string;
+    /**
+     * Link URL.
+     */
+    href: string;
+    /**
+     * Name of the Codex icon name this menu should use if skin supports this.
+     *
+     * @since 1.47
+     */
+    icon?: string;
+    /**
+     * ID of the list item, should be unique and preferably have the appropriate prefix
+     * ('ca-', 'pt-', 'n-' or 't-').
+     */
+    id?: string;
+    /**
+     * Element that the new item should be added before. Must be another item in the same list, it
+     * will be ignored otherwise. Can be specified as DOM reference, as jQuery object, or as CSS
+     * selector string.
+     */
+    nextnode?: HTMLElement | JQuery | string;
+    /**
+     * Link text.
+     */
+    text: string;
+    /**
+     * Text to show when hovering over the link, without accesskey suffix.
+     */
+    tooltip?: string;
+}
+
+/**
  * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#~ResizeableThumbnailUrl
  */
 interface ResizeableThumbnailUrl {
@@ -101,30 +174,47 @@ declare global {
              *
              * @example
              * ```js
-             * // Create a portlet with 2 menu items that is styled as a dropdown in certain skins.
-             * mw.util.addPortlet( 'p-myportlet', 'My label', '#p-cactions' );
-             * mw.util.addPortletLink( 'p-myportlet', '#', 'Link 1' );
-             * mw.util.addPortletLink( 'p-myportlet', '#', 'Link 2' );
+             * // Create a portlet with 2 menu items that uses a <div> label
+             * // and is styled as a dropdown in certain skins.
+             * mw.util.addPortlet( 'p-myportlet', {
+             *     label: 'My label',
+             *     selectorHint: '#p-cactions'
+             * } );
+             * mw.util.addPortletLink( 'p-myportlet', { href: '#', text: 'Link 1' } );
+             * mw.util.addPortletLink( 'p-myportlet', { href: '#', text: 'Link 2' } );
              * ```
              * @since 1.41
+             * @since 1.47 - a {@link PortletOptions} object can passed as argument.
              * @param id ID of the new portlet.
-             * @param label Label of the new portlet.
-             * @param selectorHint Selector of the element the new portlet would like to
-             *  be inserted near. Typically the portlet will be inserted after this selector, but in some
-             *  skins, the skin may relocate the element to another available space.
+             * @param options Options for the portlet.
+             * @returns will be null if it was not possible to create an portlet with the required
+             *  information e.g. the selector given in `selectorHint` parameter could not be
+             *  resolved to an existing element in the page.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addPortlet
+             */
+            function addPortlet(id: string, options?: PortletOptions): HTMLElement | null;
+            /**
+             * Creates a detached portlet Element in the skin with no elements.
              *
-             *  When provided, skins can use the parameter to infer information about how the user intended
-             *  the menu to be rendered. For example, in vector and vector-2022 targeting `#p-cactions` will
-             *  result in the creation of a dropdown menu.
-             *
-             *  If this argument is not passed, then the caller is responsible for appending the element
-             *  to the DOM before using addPortletLink.
-             *
-             *  To add a portlet in an exact position do not rely on this parameter, instead assign the returned
-             *  element to a variable, and use `yourTarget.appendChild( portlet );`
-             * @returns will be null if it was not possible to create an portlet with
-             *  the required information e.g. the selector given in `selectorHint` parameter could not be resolved
-             *  to an existing element in the page.
+             * @example
+             * ```js
+             * // Create a portlet with 2 menu items that uses a <div> label
+             * // and is styled as a dropdown in certain skins.
+             * mw.util.addPortlet( 'p-myportlet', {
+             *     label: 'My label',
+             *     selectorHint: '#p-cactions'
+             * } );
+             * mw.util.addPortletLink( 'p-myportlet', { href: '#', text: 'Link 1' } );
+             * mw.util.addPortletLink( 'p-myportlet', { href: '#', text: 'Link 2' } );
+             * ```
+             * @since 1.41
+             * @deprecated since 1.47 - pass a {@link PortletOptions} object as argument.
+             * @param id ID of the new portlet.
+             * @param label See {@link PortletOptions.label}.
+             * @param selectorHint See {@link PortletOptions.selectorHint}.
+             * @returns will be null if it was not possible to create an portlet with the required
+             *  information e.g. the selector given in `selectorHint` parameter could not be
+             *  resolved to an existing element in the page.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addPortlet
              */
             function addPortlet(
@@ -162,16 +252,19 @@ declare global {
              * for that item, e.g. `'#foobar'` or `document.getElementById( 'foobar' )`.
              *
              * ```js
-             * mw.util.addPortletLink(
-             *     'p-tb', 'https://www.mediawiki.org/',
-             *     'mediawiki.org', 't-mworg', 'Go to mediawiki.org', 'm', '#t-print'
-             * );
+             * mw.util.addPortletLink( 'p-tb', {
+             *     href: 'https://www.mediawiki.org/',
+             *     text: 'mediawiki.org',
+             *     id: 't-mworg',
+             *     tooltip: 'Go to mediawiki.org',
+             *     accesskey: 'm',
+             *     nextnode: '#t-print'
+             * } );
              *
-             * var node = mw.util.addPortletLink(
-             *     'p-tb',
-             *     mw.util.getUrl( 'Special:Example' ),
-             *     'Example'
-             * );
+             * var node = mw.util.addPortletLink( 'p-tb', {
+             *     href: mw.util.getUrl( 'Special:Example' ),
+             *     text: 'Example'
+             * } );
              * $( node ).on( 'click', function ( e ) {
              *     console.log( 'Example' );
              *     e.preventDefault();
@@ -183,22 +276,91 @@ declare global {
              *
              * ```js
              * $.when( mw.loader.using( [ 'mediawiki.util' ] ), $.ready ).then( function () {
-             *     mw.util.addPortletLink( 'p-tb', 'https://www.mediawiki.org/', 'mediawiki.org' );
+             *     mw.util.addPortletLink( 'p-tb', {
+             *         href: 'https://www.mediawiki.org/',
+             *         text: 'mediawiki.org'
+             *     } );
              * } );
              * ```
              *
-             * @param portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal')
-             * @param href Link URL
-             * @param text Link text
-             * @param id ID of the list item, should be unique and preferably have
-             *  the appropriate prefix ('ca-', 'pt-', 'n-' or 't-')
-             * @param tooltip Text to show when hovering over the link, without accesskey suffix
-             * @param accesskey Access key to activate this link. One character only,
-             *  avoid conflicts with other links. Use `$( '[accesskey=x]' )` in the console to
-             *  see if 'x' is already used.
-             * @param nextnode Element that the new item should be added before.
-             *  Must be another item in the same list, it will be ignored otherwise.
-             *  Can be specified as DOM reference, as jQuery object, or as CSS selector string.
+             * @since 1.47 - a {@link PortletLinkOptions} object can passed as argument.
+             * @param portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal').
+             * @param options Portlet options.
+             * @returns The added list item, or null if no element was added.
+             * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addPortletLink
+             */
+            function addPortletLink(
+                portletId: string,
+                options: PortletLinkOptions
+            ): HTMLLIElement | null;
+            /**
+             * Add a link to a portlet menu on the page.
+             *
+             * The portlets that are supported include:
+             *
+             * - `p-cactions` (Content actions)
+             * - `p-personal` (Personal tools)
+             * - `p-navigation` (Navigation)
+             * - `p-tb` (Toolbox)
+             * - `p-associated-pages` (For namespaces and special page tabs on supported skins)
+             * - `p-dock-bottom` (A sticky menu fixed to bottom of viewport on supported skins)
+             * - `p-namespaces` (For namespaces on legacy skins)
+             *
+             * Additional menus can be discovered through the following code:
+             *
+             * ```js
+             * $('.mw-portlet').toArray().map((el) => el.id);
+             * ```
+             *
+             * Menu availability varies by skin, wiki, and current page.
+             *
+             * The first three parameters are required, the others are optional and may be null.
+             * Though providing an id and tooltip is recommended.
+             *
+             * By default, the new link will be added to the end of the menu. To add the link before
+             * an existing item, pass the DOM node or a CSS selector for that item, e.g. `'#foobar'`
+             * or `document.getElementById( 'foobar' )`.
+             *
+             * ```js
+             * mw.util.addPortletLink( 'p-tb', {
+             *     href: 'https://www.mediawiki.org/',
+             *     text: 'mediawiki.org',
+             *     id: 't-mworg',
+             *     tooltip: 'Go to mediawiki.org',
+             *     accesskey: 'm',
+             *     nextnode: '#t-print'
+             * } );
+             *
+             * var node = mw.util.addPortletLink( 'p-tb', {
+             *     href: mw.util.getUrl( 'Special:Example' ),
+             *     text: 'Example'
+             * } );
+             * $( node ).on( 'click', function ( e ) {
+             *     console.log( 'Example' );
+             *     e.preventDefault();
+             * } );
+             * ```
+             *
+             * Remember that to call this inside a user script, you may have to ensure the
+             * `mediawiki.util` is loaded first:
+             *
+             * ```js
+             * $.when( mw.loader.using( [ 'mediawiki.util' ] ), $.ready ).then( function () {
+             *     mw.util.addPortletLink( 'p-tb', {
+             *         href: 'https://www.mediawiki.org/',
+             *         text: 'mediawiki.org'
+             *     } );
+             * } );
+             * ```
+             *
+             * @deprecated since 1.47 - pass a {@link PortletLinkOptions} object as argument.
+             * @param portletId ID of the target portlet (e.g. 'p-cactions' or 'p-personal').
+             * @param href See {@link PortletLinkOptions.href}.
+             * @param text See {@link PortletLinkOptions.text}.
+             * @param id See {@link PortletLinkOptions.id}.
+             * @param tooltip See {@link PortletLinkOptions.tooltip}.
+             * @param accesskey See {@link PortletLinkOptions.accesskey}.
+             * @param nextnode See {@link PortletLinkOptions.nextnode}.
              * @returns The added list item, or null if no element was added.
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/module-mediawiki.util.html#.addPortletLink
              */
@@ -224,8 +386,7 @@ declare global {
 
             /**
              * Adjust the thumbnail size to fit the width steps defined in config via
-             * config.ThumbnailSteps, according to whether config.ThumbnailStepsRatio
-             * is set.
+             * config.ThumbnailSteps.
              *
              * This logic is duplicated server-side in `File::adjustThumbWidthForSteps`.
              *
