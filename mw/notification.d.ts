@@ -61,7 +61,6 @@ declare global {
          * @param message
          * @param options The options to use for the notification.
          *  See {@link notification.defaults the defaults}.
-         * @returns Notification object
          * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.html#.notify
          */
         function notify(
@@ -118,7 +117,6 @@ declare global {
              * @param message
              * @param options The options to use for the notification.
              *  Options not specified default to the values in {@link defaults}.
-             * @returns Notification object
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.notify
              */
             function notify(
@@ -146,6 +144,16 @@ declare global {
              * @see https://doc.wikimedia.org/mediawiki-core/master/js/mw.notification.html#.NotificationOptions
              */
             interface NotificationOptions {
+                /**
+                 * Optional text to announce to screen readers
+                 * via the aria-live region. Use this for notifications containing form controls
+                 * or widgets to provide a clean text alternative. If not provided, notifications
+                 * with form controls will not be announced automatically.
+                 *
+                 * @since 1.46
+                 */
+                ariaText?: string | null;
+
                 /**
                  * Whether the notification should automatically
                  * be hidden after shown. Or if it should persist.

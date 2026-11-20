@@ -65,6 +65,14 @@ declare global {
              */
             debug: boolean | number;
             debugInfo?: DebugInfo;
+            /**
+             * @since 1.46
+             */
+            enableWatchlistLabels?: true;
+            /**
+             * @since 1.46
+             */
+            indefBlockReasonOptions?: BlockReasonOption[];
             partialBlockActionOptions?: Record<`ipb-action-${string}`, string>;
             searchTerm?: string;
             /**
@@ -73,6 +81,18 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#skin
              */
             skin: string;
+            /**
+             * @since 1.46
+             */
+            SpecialEditWatchlistUrl?: string;
+            /**
+             * @since 1.46
+             */
+            SpecialWatchlistLabelsTitle?: string;
+            /**
+             * @since 1.46
+             */
+            SpecialWatchlistLabelsUrl?: string;
             specUrl?: string | null;
             StructuredChangeFiltersDisplayConfig?: StructuredChangeFiltersDisplayConfig;
             /**
@@ -81,6 +101,10 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#stylepath
              */
             stylepath: string;
+            /**
+             * @since 1.46
+             */
+            watchlistLabels?: WatchlistLabel[];
             /**
              * The action performed, e.g. "edit" for edit pages, or "view" for page views. See {@link https://www.mediawiki.org/wiki/Manual:Parameters_to_index.php#Actions Manual:Parameters to index.php}.
              *
@@ -101,6 +125,10 @@ declare global {
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgArticlePath
              */
             wgArticlePath: string;
+            /**
+             * @since 1.46
+             */
+            wgAutoCreateTempUserEnabled?: boolean;
             wgBackendResponseTime: number;
             wgBreakFrames: boolean;
             /**
@@ -146,6 +174,10 @@ declare global {
             wgContentNamespaces: number[];
             wgCreateAccountDirty?: true;
             /**
+             * @since 1.46
+             */
+            wgCreateAccountUsernamePolicyPopoverMsgs?: PopoverMessages;
+            /**
              * The top revision ID of the currently viewed page at the time the page was served. Also set on diff and history pages; zero for special pages.
              *
              * @see https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#wgCurRevisionId
@@ -179,6 +211,10 @@ declare global {
                 | "editingsection";
             wgEditRecoveryWasPosted?: boolean;
             wgEditSubmitButtonLabelPublish?: boolean;
+            /**
+             * @since 1.46
+             */
+            wgErrorPageMessageKey?: string;
             /**
              * Root path used for extension static assets (e.g. images). Append '/' then the name of the extension to get the root path for a given extension.
              *
@@ -536,6 +572,16 @@ interface DebugRequest {
 interface DebugInclude {
     name: string;
     size: string;
+}
+
+interface WatchlistLabel {
+    id: number;
+    name: string;
+}
+
+interface PopoverMessages {
+    title: string;
+    bulletsHtml: string;
 }
 
 interface FileWarning {
