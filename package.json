@@ -51,13 +51,5 @@
     },
     "lint-staged": {
         "*.ts(x)?": "prettier --write"
-    },
-    "tsd": {
-        "compilerOptions": {
-            "typeRoots": [
-                "./node_modules/@types",
-                "."
-            ]
-        }
     }
 }
